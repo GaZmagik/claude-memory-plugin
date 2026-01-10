@@ -50,3 +50,13 @@ htmlcov/
 *.log
 tmp/
 temp/
+lib/
+dist/
+
+# Embedding cache
+.embedding-cache/
+
+# Lock files (optional - uncomment if preferred)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

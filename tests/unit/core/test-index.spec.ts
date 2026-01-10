@@ -6,15 +6,13 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
-  createIndex,
+  createEmptyIndex,
   loadIndex,
   saveIndex,
-  addEntry,
-  removeEntry,
-  updateEntry,
-  findByType,
-  findByTag,
-  findById
+  addToIndex,
+  removeFromIndex,
+  findInIndex,
+  getIndexPath,
 } from '../../../skills/memory/src/core/index.js';
 import { MemoryType, Scope } from '../../../skills/memory/src/types/enums.js';
 import type { MemoryIndex, IndexEntry } from '../../../skills/memory/src/types/memory.js';
@@ -33,12 +31,19 @@ describe('Index operations', () => {
     fs.rmSync(testDir, { recursive: true, force: true });
   });
 
-  describe('createIndex', () => {
+  describe('createEmptyIndex', () => {
     it('should create a new empty index', () => {
-      const index = createIndex();
+      const index = createEmptyIndex();
       expect(index.version).toBe('1.0.0');
       expect(index.entries).toEqual([]);
       expect(index.lastUpdated).toBeDefined();
+    });
+  });
+
+  describe('getIndexPath', () => {
+    it('should return path to index.json', () => {
+      const indexPath = getIndexPath(testDir);
+      expect(indexPath).toBe(path.join(testDir, 'index.json'));
     });
   });
 
@@ -57,60 +62,59 @@ describe('Index operations', () => {
             created: '2026-01-10T12:00:00Z',
             updated: '2026-01-10T12:00:00Z',
             scope: Scope.Global,
-            relativePath: 'permanent/decision-test-memory.md',
+            relativePath: 'decision-test-memory.md',
           },
         ],
       };
       fs.writeFileSync(indexPath, JSON.stringify(mockIndex, null, 2));
 
-      const loaded = await loadIndex(indexPath);
+      const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.entries).toHaveLength(1);
       expect(loaded.entries[0].id).toBe('test-memory');
     });
 
-    it('should return new index if file does not exist', async () => {
-      const indexPath = path.join(testDir, 'nonexistent.json');
-      const loaded = await loadIndex(indexPath);
+    it('should return empty index if file does not exist', async () => {
+      const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.entries).toEqual([]);
     });
 
-    it('should throw on invalid JSON', async () => {
-      const indexPath = path.join(testDir, 'invalid.json');
+    it('should return empty index on invalid JSON', async () => {
+      const indexPath = path.join(testDir, 'index.json');
       fs.writeFileSync(indexPath, 'not valid json');
 
-      await expect(loadIndex(indexPath)).rejects.toThrow();
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.entries).toEqual([]);
     });
   });
 
   describe('saveIndex', () => {
-    it('should save index to file', async () => {
+    it('should save index to file', () => {
+      const index = createEmptyIndex();
+
+      saveIndex(testDir, index);
+
       const indexPath = path.join(testDir, 'index.json');
-      const index = createIndex();
-
-      await saveIndex(indexPath, index);
-
       expect(fs.existsSync(indexPath)).toBe(true);
       const content = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
       expect(content.version).toBe('1.0.0');
     });
 
     it('should update lastUpdated timestamp', async () => {
-      const indexPath = path.join(testDir, 'index.json');
-      const index = createIndex();
+      const index = createEmptyIndex();
       const originalTime = index.lastUpdated;
 
       // Small delay to ensure timestamp changes
       await new Promise(resolve => setTimeout(resolve, 10));
-      await saveIndex(indexPath, index);
+      saveIndex(testDir, index);
 
+      const indexPath = path.join(testDir, 'index.json');
       const content = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
       expect(content.lastUpdated).not.toBe(originalTime);
     });
   });
 
-  describe('addEntry', () => {
-    it('should add new entry to index', () => {
-      const index = createIndex();
+  describe('addToIndex', () => {
+    it('should add new entry to index', async () => {
       const entry: IndexEntry = {
         id: 'new-memory',
         type: MemoryType.Learning,
@@ -119,36 +123,44 @@ describe('Index operations', () => {
         created: '2026-01-10T12:00:00Z',
         updated: '2026-01-10T12:00:00Z',
         scope: Scope.Project,
-        relativePath: 'permanent/learning-new-memory.md',
+        relativePath: 'learning-new-memory.md',
       };
 
-      const updated = addEntry(index, entry);
-      expect(updated.entries).toHaveLength(1);
-      expect(updated.entries[0].id).toBe('new-memory');
+      await addToIndex(testDir, entry);
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.entries[0].id).toBe('new-memory');
     });
 
-    it('should not duplicate existing entries', () => {
-      const index = createIndex();
-      const entry: IndexEntry = {
+    it('should replace existing entry with same id', async () => {
+      const entry1: IndexEntry = {
         id: 'duplicate',
         type: MemoryType.Artifact,
-        title: 'Duplicate',
+        title: 'Original',
         tags: [],
         created: '2026-01-10T12:00:00Z',
         updated: '2026-01-10T12:00:00Z',
         scope: Scope.Global,
-        relativePath: 'permanent/artifact-duplicate.md',
+        relativePath: 'artifact-duplicate.md',
       };
 
-      let updated = addEntry(index, entry);
-      updated = addEntry(updated, entry);
-      expect(updated.entries).toHaveLength(1);
+      const entry2: IndexEntry = {
+        ...entry1,
+        title: 'Updated',
+      };
+
+      await addToIndex(testDir, entry1);
+      await addToIndex(testDir, entry2);
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.entries[0].title).toBe('Updated');
     });
   });
 
-  describe('removeEntry', () => {
-    it('should remove entry by id', () => {
-      const index = createIndex();
+  describe('removeFromIndex', () => {
+    it('should remove entry by id', async () => {
       const entry: IndexEntry = {
         id: 'to-remove',
         type: MemoryType.Gotcha,
@@ -157,107 +169,26 @@ describe('Index operations', () => {
         created: '2026-01-10T12:00:00Z',
         updated: '2026-01-10T12:00:00Z',
         scope: Scope.Global,
-        relativePath: 'permanent/gotcha-to-remove.md',
+        relativePath: 'gotcha-to-remove.md',
       };
 
-      let updated = addEntry(index, entry);
-      updated = removeEntry(updated, 'to-remove');
-      expect(updated.entries).toHaveLength(0);
+      await addToIndex(testDir, entry);
+      const removed = await removeFromIndex(testDir, 'to-remove');
+
+      expect(removed).toBe(true);
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.entries).toHaveLength(0);
     });
 
-    it('should do nothing if entry does not exist', () => {
-      const index = createIndex();
-      const updated = removeEntry(index, 'nonexistent');
-      expect(updated.entries).toHaveLength(0);
+    it('should return false if entry does not exist', async () => {
+      const removed = await removeFromIndex(testDir, 'nonexistent');
+      expect(removed).toBe(false);
     });
   });
 
-  describe('updateEntry', () => {
-    it('should update existing entry', () => {
-      const index = createIndex();
+  describe('findInIndex', () => {
+    it('should return entry by id', async () => {
       const entry: IndexEntry = {
-        id: 'to-update',
-        type: MemoryType.Decision,
-        title: 'Original Title',
-        tags: ['original'],
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        scope: Scope.Global,
-        relativePath: 'permanent/decision-to-update.md',
-      };
-
-      let updated = addEntry(index, entry);
-      updated = updateEntry(updated, 'to-update', { title: 'New Title', tags: ['updated'] });
-
-      expect(updated.entries[0].title).toBe('New Title');
-      expect(updated.entries[0].tags).toEqual(['updated']);
-    });
-  });
-
-  describe('findByType', () => {
-    it('should return entries matching type', () => {
-      let index = createIndex();
-      index = addEntry(index, {
-        id: 'decision-1',
-        type: MemoryType.Decision,
-        title: 'Decision 1',
-        tags: [],
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        scope: Scope.Global,
-        relativePath: 'permanent/decision-1.md',
-      });
-      index = addEntry(index, {
-        id: 'learning-1',
-        type: MemoryType.Learning,
-        title: 'Learning 1',
-        tags: [],
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        scope: Scope.Global,
-        relativePath: 'permanent/learning-1.md',
-      });
-
-      const decisions = findByType(index, MemoryType.Decision);
-      expect(decisions).toHaveLength(1);
-      expect(decisions[0].id).toBe('decision-1');
-    });
-  });
-
-  describe('findByTag', () => {
-    it('should return entries containing tag', () => {
-      let index = createIndex();
-      index = addEntry(index, {
-        id: 'tagged-1',
-        type: MemoryType.Artifact,
-        title: 'Tagged 1',
-        tags: ['typescript', 'pattern'],
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        scope: Scope.Global,
-        relativePath: 'permanent/artifact-tagged-1.md',
-      });
-      index = addEntry(index, {
-        id: 'tagged-2',
-        type: MemoryType.Artifact,
-        title: 'Tagged 2',
-        tags: ['javascript'],
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        scope: Scope.Global,
-        relativePath: 'permanent/artifact-tagged-2.md',
-      });
-
-      const results = findByTag(index, 'typescript');
-      expect(results).toHaveLength(1);
-      expect(results[0].id).toBe('tagged-1');
-    });
-  });
-
-  describe('findById', () => {
-    it('should return entry by id', () => {
-      let index = createIndex();
-      index = addEntry(index, {
         id: 'find-me',
         type: MemoryType.Hub,
         title: 'Find Me',
@@ -265,18 +196,75 @@ describe('Index operations', () => {
         created: '2026-01-10T12:00:00Z',
         updated: '2026-01-10T12:00:00Z',
         scope: Scope.Global,
-        relativePath: 'permanent/hub-find-me.md',
-      });
+        relativePath: 'hub-find-me.md',
+      };
 
-      const result = findById(index, 'find-me');
+      await addToIndex(testDir, entry);
+      const result = await findInIndex(testDir, 'find-me');
+
       expect(result).toBeDefined();
       expect(result?.title).toBe('Find Me');
     });
 
-    it('should return undefined if not found', () => {
-      const index = createIndex();
-      const result = findById(index, 'nonexistent');
-      expect(result).toBeUndefined();
+    it('should return null if not found', async () => {
+      const result = await findInIndex(testDir, 'nonexistent');
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('filter operations', () => {
+    beforeEach(async () => {
+      const entries: IndexEntry[] = [
+        {
+          id: 'decision-1',
+          type: MemoryType.Decision,
+          title: 'Decision 1',
+          tags: ['typescript'],
+          created: '2026-01-10T12:00:00Z',
+          updated: '2026-01-10T12:00:00Z',
+          scope: Scope.Global,
+          relativePath: 'decision-1.md',
+        },
+        {
+          id: 'learning-1',
+          type: MemoryType.Learning,
+          title: 'Learning 1',
+          tags: ['typescript', 'pattern'],
+          created: '2026-01-10T12:00:00Z',
+          updated: '2026-01-10T12:00:00Z',
+          scope: Scope.Global,
+          relativePath: 'learning-1.md',
+        },
+        {
+          id: 'artifact-1',
+          type: MemoryType.Artifact,
+          title: 'Artifact 1',
+          tags: ['javascript'],
+          created: '2026-01-10T12:00:00Z',
+          updated: '2026-01-10T12:00:00Z',
+          scope: Scope.Global,
+          relativePath: 'artifact-1.md',
+        },
+      ];
+
+      for (const entry of entries) {
+        await addToIndex(testDir, entry);
+      }
+    });
+
+    it('should filter by type using loadIndex and manual filter', async () => {
+      const index = await loadIndex({ basePath: testDir });
+      const decisions = index.entries.filter(e => e.type === MemoryType.Decision);
+
+      expect(decisions).toHaveLength(1);
+      expect(decisions[0].id).toBe('decision-1');
+    });
+
+    it('should filter by tag using loadIndex and manual filter', async () => {
+      const index = await loadIndex({ basePath: testDir });
+      const typescriptEntries = index.entries.filter(e => e.tags.includes('typescript'));
+
+      expect(typescriptEntries).toHaveLength(2);
     });
   });
 });

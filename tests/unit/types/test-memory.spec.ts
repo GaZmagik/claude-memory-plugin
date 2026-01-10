@@ -5,9 +5,17 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { validateMemory, validateFrontmatter, isValidMemoryType, isValidScope } from '../../../skills/memory/src/core/validation.js';
+import {
+  validateMemory,
+  validateFrontmatter,
+  isValidMemoryType,
+  isValidScope,
+  isValidSeverity,
+  isValidTitle,
+  isValidTags,
+} from '../../../skills/memory/src/core/validation.js';
 import { MemoryType, Scope, Severity } from '../../../skills/memory/src/types/enums.js';
-import type { Memory, MemoryFrontmatter } from '../../../skills/memory/src/types/memory.js';
+import type { MemoryFrontmatter } from '../../../skills/memory/src/types/memory.js';
 
 describe('isValidMemoryType', () => {
   it('should return true for valid memory types', () => {
@@ -41,6 +49,47 @@ describe('isValidScope', () => {
   });
 });
 
+describe('isValidSeverity', () => {
+  it('should return true for valid severity levels', () => {
+    expect(isValidSeverity('low')).toBe(true);
+    expect(isValidSeverity('medium')).toBe(true);
+    expect(isValidSeverity('high')).toBe(true);
+  });
+
+  it('should return false for invalid severity levels', () => {
+    expect(isValidSeverity('invalid')).toBe(false);
+    expect(isValidSeverity('')).toBe(false);
+    expect(isValidSeverity('HIGH')).toBe(false);
+  });
+});
+
+describe('isValidTitle', () => {
+  it('should return true for non-empty strings', () => {
+    expect(isValidTitle('Valid Title')).toBe(true);
+    expect(isValidTitle('A')).toBe(true);
+  });
+
+  it('should return false for empty or non-string values', () => {
+    expect(isValidTitle('')).toBe(false);
+    expect(isValidTitle('   ')).toBe(false);
+    expect(isValidTitle(null)).toBe(false);
+    expect(isValidTitle(123)).toBe(false);
+  });
+});
+
+describe('isValidTags', () => {
+  it('should return true for valid tag arrays', () => {
+    expect(isValidTags(['tag1', 'tag2'])).toBe(true);
+    expect(isValidTags([])).toBe(true);
+  });
+
+  it('should return false for invalid tag arrays', () => {
+    expect(isValidTags('not-array')).toBe(false);
+    expect(isValidTags([123, 'valid'])).toBe(false);
+    expect(isValidTags(['', 'valid'])).toBe(false);
+  });
+});
+
 describe('validateFrontmatter', () => {
   it('should pass for valid frontmatter', () => {
     const frontmatter: MemoryFrontmatter = {
@@ -66,7 +115,7 @@ describe('validateFrontmatter', () => {
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
-    expect(result.errors).toContain('type is required');
+    expect(result.errors.some(e => e.field === 'type')).toBe(true);
   });
 
   it('should fail for missing title', () => {
@@ -79,7 +128,7 @@ describe('validateFrontmatter', () => {
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
-    expect(result.errors).toContain('title is required');
+    expect(result.errors.some(e => e.field === 'title')).toBe(true);
   });
 
   it('should fail for invalid timestamp format', () => {
@@ -93,7 +142,7 @@ describe('validateFrontmatter', () => {
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
-    expect(result.errors.some(e => e.includes('created'))).toBe(true);
+    expect(result.errors.some(e => e.field === 'created')).toBe(true);
   });
 
   it('should fail for invalid severity value', () => {
@@ -108,7 +157,7 @@ describe('validateFrontmatter', () => {
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
-    expect(result.errors.some(e => e.includes('severity'))).toBe(true);
+    expect(result.errors.some(e => e.field === 'severity')).toBe(true);
   });
 
   it('should validate tags are strings', () => {
@@ -122,106 +171,80 @@ describe('validateFrontmatter', () => {
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
-    expect(result.errors.some(e => e.includes('tag'))).toBe(true);
+    expect(result.errors.some(e => e.field === 'tags')).toBe(true);
   });
 });
 
 describe('validateMemory', () => {
   it('should pass for valid memory', () => {
-    const memory: Memory = {
-      id: 'valid-memory',
-      frontmatter: {
-        type: MemoryType.Decision,
-        title: 'Valid Memory',
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        tags: ['valid'],
-      },
-      content: '# Valid Memory\n\nThis is valid content.',
-      scope: Scope.Global,
-      filePath: '/home/user/.claude/memory/permanent/decision-valid-memory.md',
+    const id = 'decision-valid-memory';
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Valid Memory',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['valid'],
     };
+    const content = '# Valid Memory\n\nThis is valid content.';
 
-    const result = validateMemory(memory);
+    const result = validateMemory(id, frontmatter, content);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
 
   it('should fail for missing id', () => {
-    const memory = {
-      frontmatter: {
-        type: MemoryType.Learning,
-        title: 'No ID',
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        tags: [],
-      },
-      content: 'Content',
-      scope: Scope.Global,
-      filePath: '/path/to/file.md',
-    } as Memory;
-
-    const result = validateMemory(memory);
-    expect(result.valid).toBe(false);
-    expect(result.errors).toContain('id is required');
-  });
-
-  it('should fail for invalid scope', () => {
-    const memory: Memory = {
-      id: 'bad-scope',
-      frontmatter: {
-        type: MemoryType.Artifact,
-        title: 'Bad Scope',
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        tags: [],
-      },
-      content: 'Content',
-      scope: 'invalid' as Scope,
-      filePath: '/path/to/file.md',
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'No ID',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: [],
     };
 
-    const result = validateMemory(memory);
+    const result = validateMemory('', frontmatter, 'Content');
     expect(result.valid).toBe(false);
-    expect(result.errors.some(e => e.includes('scope'))).toBe(true);
+    expect(result.errors.some(e => e.field === 'id')).toBe(true);
   });
 
-  it('should fail for empty content when type requires it', () => {
-    const memory: Memory = {
-      id: 'empty-content',
-      frontmatter: {
-        type: MemoryType.Decision,
-        title: 'Empty Content',
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        tags: [],
-      },
-      content: '',
-      scope: Scope.Global,
-      filePath: '/path/to/file.md',
+  it('should fail for invalid id format', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Artifact,
+      title: 'Bad ID',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: [],
     };
 
-    const result = validateMemory(memory);
+    const result = validateMemory('invalid-id-no-type-prefix', frontmatter, 'Content');
     expect(result.valid).toBe(false);
-    expect(result.errors.some(e => e.includes('content'))).toBe(true);
+    expect(result.errors.some(e => e.field === 'id')).toBe(true);
   });
 
-  it('should allow empty content for breadcrumbs', () => {
-    const memory: Memory = {
-      id: 'empty-breadcrumb',
-      frontmatter: {
-        type: MemoryType.Breadcrumb,
-        title: 'Empty Breadcrumb',
-        created: '2026-01-10T12:00:00Z',
-        updated: '2026-01-10T12:00:00Z',
-        tags: [],
-      },
-      content: '',
-      scope: Scope.Global,
-      filePath: '/path/to/file.md',
+  it('should include frontmatter validation errors', () => {
+    const frontmatter = {
+      type: 'invalid-type',
+      title: '',
+      created: 'not-a-date',
+      updated: '2026-01-10T12:00:00Z',
+      tags: [],
+    } as unknown as MemoryFrontmatter;
+
+    const result = validateMemory('decision-test', frontmatter, 'Content');
+    expect(result.valid).toBe(false);
+    expect(result.errors.length).toBeGreaterThan(1);
+  });
+
+  it('should fail for non-string content', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Valid Title',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: [],
     };
 
-    const result = validateMemory(memory);
-    expect(result.valid).toBe(true);
+    const result = validateMemory('decision-test', frontmatter, 123 as unknown as string);
+    expect(result.valid).toBe(false);
+    expect(result.errors.some(e => e.field === 'content')).toBe(true);
   });
 });

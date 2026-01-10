@@ -6,7 +6,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { writeMemory } from '../../skills/memory/src/core/write.js';
-import { MemoryType, Scope } from '../../skills/memory/src/types/enums.js';
+import { MemoryType, Scope, Severity } from '../../skills/memory/src/types/enums.js';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../../skills/memory/src/types/api.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -117,7 +117,7 @@ describe('writeMemory contract', () => {
       tags: ['warning'],
       scope: Scope.Global,
       basePath: testDir,
-      severity: 'high',
+      severity: Severity.High,
     };
 
     const response = await writeMemory(request);

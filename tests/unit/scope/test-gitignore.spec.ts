@@ -89,7 +89,7 @@ describe('Gitignore Automation', () => {
       const result = ensureLocalScopeGitignored(testDir);
 
       expect(result.skipped).toBe(true);
-      expect(result.reason).toContain('not a git repository');
+      expect(result.reason?.toLowerCase()).toContain('not a git repository');
     });
   });
 

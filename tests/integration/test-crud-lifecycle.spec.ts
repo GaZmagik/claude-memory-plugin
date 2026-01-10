@@ -10,7 +10,7 @@ import { readMemory } from '../../skills/memory/src/core/read.js';
 import { listMemories } from '../../skills/memory/src/core/list.js';
 import { searchMemories } from '../../skills/memory/src/core/search.js';
 import { deleteMemory } from '../../skills/memory/src/core/delete.js';
-import { MemoryType, Scope } from '../../skills/memory/src/types/enums.js';
+import { MemoryType, Scope, Severity } from '../../skills/memory/src/types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -191,7 +191,7 @@ describe('Full CRUD lifecycle integration', () => {
       tags: ['warning', 'critical', 'typescript'],
       scope: Scope.Global,
       basePath: testDir,
-      severity: 'high' as const,
+      severity: Severity.High as const,
       links: ['related-decision-1', 'related-learning-2'],
     };
 

@@ -8,7 +8,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { writeMemory } from '../../skills/memory/src/core/write.js';
 import { listMemories } from '../../skills/memory/src/core/list.js';
 import { rebuildIndex, loadIndex } from '../../skills/memory/src/core/index.js';
-import { MemoryType, Scope } from '../../skills/memory/src/types/enums.js';
+import { MemoryType, Scope, Severity } from '../../skills/memory/src/types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -179,7 +179,7 @@ This was added manually without updating the index.
       tags: ['important', 'warning'],
       scope: Scope.Global,
       basePath: testDir,
-      severity: 'high',
+      severity: Severity.High,
       links: ['related-decision'],
     });
 

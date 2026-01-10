@@ -59,6 +59,10 @@
     {
       "id": "decision-4tier-scope-hierarchy",
       "title": "4-Tier Scope Hierarchy for Memory Storage"
+    },
+    {
+      "id": "learning-retro-tdd-test-expectations-guide-implementation",
+      "title": "retro-tdd-test-expectations-guide-implementation"
     }
   ],
   "edges": []

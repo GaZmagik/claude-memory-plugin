@@ -242,6 +242,19 @@
         "scope-resolution",
         "phase-2"
       ]
+    },
+    {
+      "id": "learning-retro-tdd-test-expectations-guide-implementation",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tdd-test-expectations-guide-implementation.md",
+      "title": "retro-tdd-test-expectations-guide-implementation",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T21:05:07Z",
+      "tags": [
+        "learning",
+        "retro",
+        "medium"
+      ]
     }
   ]
 }

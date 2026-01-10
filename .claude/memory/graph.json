@@ -11,6 +11,22 @@
     {
       "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
       "title": "Hook protection can block legitimate git operations - requires careful pattern matching"
+    },
+    {
+      "id": "learning-tdd-scope-resolution-module-structure",
+      "title": "tdd-scope-resolution-module-structure"
+    },
+    {
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "title": "scope-field-frontmatter-serialisation-gotcha"
+    },
+    {
+      "id": "learning-gitignore-comment-formatting-two-phase-fix",
+      "title": "gitignore-comment-formatting-two-phase-fix"
+    },
+    {
+      "id": "learning-scope-isolation-architecture-design",
+      "title": "scope-isolation-architecture-design"
     }
   ],
   "edges": []

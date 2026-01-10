@@ -49,6 +49,73 @@
         "hooks",
         "protection-patterns"
       ]
+    },
+    {
+      "id": "learning-tdd-scope-resolution-module-structure",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-scope-resolution-module-structure.md",
+      "title": "tdd-scope-resolution-module-structure",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T18:12:10Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "phase-2",
+        "tdd",
+        "scope-resolution",
+        "test-driven-development"
+      ]
+    },
+    {
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-field-frontmatter-serialisation-gotcha.md",
+      "title": "scope-field-frontmatter-serialisation-gotcha",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T18:12:16Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "medium",
+        "phase-2",
+        "scope-resolution",
+        "frontmatter",
+        "serialisation"
+      ]
+    },
+    {
+      "id": "learning-gitignore-comment-formatting-two-phase-fix",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-gitignore-comment-formatting-two-phase-fix.md",
+      "title": "gitignore-comment-formatting-two-phase-fix",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T18:12:23Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "low",
+        "phase-2",
+        "gitignore",
+        "formatting"
+      ]
+    },
+    {
+      "id": "learning-scope-isolation-architecture-design",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-isolation-architecture-design.md",
+      "title": "scope-isolation-architecture-design",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T18:12:29Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "phase-2",
+        "scope-resolution",
+        "architecture",
+        "isolation"
+      ]
     }
   ]
 }

@@ -116,6 +116,132 @@
         "architecture",
         "isolation"
       ]
+    },
+    {
+      "id": "learning-tdd-phase-completion-pattern",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-phase-completion-pattern.md",
+      "title": "tdd-phase-completion-pattern",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:29Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "tdd",
+        "test-driven-development",
+        "workflow",
+        "typescript"
+      ]
+    },
+    {
+      "id": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-discipline-across-multi-phase-session-maintains-coverage.md",
+      "title": "TDD discipline across multi-phase session maintains test coverage",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:34Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "multi-phase",
+        "best-practice"
+      ]
+    },
+    {
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-field-frontmatter-serialisation-gotcha-two.md",
+      "title": "scope-field-frontmatter-serialisation-gotcha-two",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:35Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "high",
+        "scope-resolution",
+        "serialisation",
+        "frontmatter",
+        "type-safety"
+      ]
+    },
+    {
+      "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-post-compaction-memory-restoration-prevented-duplicate-work.md",
+      "title": "Post-compaction memory restoration prevented duplicate work",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:41Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "context-continuity"
+      ]
+    },
+    {
+      "id": "learning-immutable-graph-operations-pattern",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-immutable-graph-operations-pattern.md",
+      "title": "immutable-graph-operations-pattern",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:41Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "graph-operations",
+        "immutability",
+        "typescript-patterns",
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "learning-semantic-search-embedding-caching-success",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-semantic-search-embedding-caching-success.md",
+      "title": "semantic-search-embedding-caching-success",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:47Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "semantic-search",
+        "embedding",
+        "caching",
+        "optimization",
+        "ollama"
+      ]
+    },
+    {
+      "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-typescript-import-path-consistency-prevents-batch-compilation-failures.md",
+      "title": "TypeScript import path consistency prevents batch compilation failures",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:58:47Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "build-system",
+        "lessons-learned"
+      ]
+    },
+    {
+      "id": "decision-4tier-scope-hierarchy",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/decision-4tier-scope-hierarchy.md",
+      "title": "4-Tier Scope Hierarchy for Memory Storage",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T19:59:00Z",
+      "tags": [
+        "architecture",
+        "scope-resolution",
+        "phase-2"
+      ]
     }
   ]
 }

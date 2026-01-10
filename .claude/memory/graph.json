@@ -27,6 +27,38 @@
     {
       "id": "learning-scope-isolation-architecture-design",
       "title": "scope-isolation-architecture-design"
+    },
+    {
+      "id": "learning-tdd-phase-completion-pattern",
+      "title": "tdd-phase-completion-pattern"
+    },
+    {
+      "id": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "title": "TDD discipline across multi-phase session maintains test coverage"
+    },
+    {
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "title": "scope-field-frontmatter-serialisation-gotcha-two"
+    },
+    {
+      "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "title": "Post-compaction memory restoration prevented duplicate work"
+    },
+    {
+      "id": "learning-immutable-graph-operations-pattern",
+      "title": "immutable-graph-operations-pattern"
+    },
+    {
+      "id": "learning-semantic-search-embedding-caching-success",
+      "title": "semantic-search-embedding-caching-success"
+    },
+    {
+      "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
+      "title": "TypeScript import path consistency prevents batch compilation failures"
+    },
+    {
+      "id": "decision-4tier-scope-hierarchy",
+      "title": "4-Tier Scope Hierarchy for Memory Storage"
     }
   ],
   "edges": []

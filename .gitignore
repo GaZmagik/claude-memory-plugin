@@ -33,6 +33,9 @@ yarn-error.log*
 # Claude Code
 .claude/settings.local.json
 
+# SDD Framework (local symlink)
+.specify
+
 # Testing
 .coverage
 htmlcov/

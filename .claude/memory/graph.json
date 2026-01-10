@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {
+      "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
+      "title": "Constitution-first approach prevents scope creep in SDD"
+    },
+    {
+      "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "title": "Specification audit caught architectural gaps before planning"
+    },
+    {
+      "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "title": "Hook protection can block legitimate git operations - requires careful pattern matching"
+    }
+  ],
+  "edges": []
+}

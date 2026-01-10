@@ -1,0 +1,54 @@
+{
+  "memories": [
+    {
+      "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-constitution-first-approach-prevents-scope-creep-in-sdd.md",
+      "title": "Constitution-first approach prevents scope creep in SDD",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T06:08:30Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "process",
+        "governance",
+        "sdd-workflow",
+        "best-practice"
+      ]
+    },
+    {
+      "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-specification-audit-caught-architectural-gaps-before-planning.md",
+      "title": "Specification audit caught architectural gaps before planning",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T06:08:38Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "process",
+        "specification",
+        "quality-gates",
+        "best-practice"
+      ]
+    },
+    {
+      "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching.md",
+      "title": "Hook protection can block legitimate git operations - requires careful pattern matching",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-10T06:08:44Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "medium",
+        "process",
+        "hooks",
+        "protection-patterns"
+      ]
+    }
+  ]
+}

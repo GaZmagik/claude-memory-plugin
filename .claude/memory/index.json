@@ -483,6 +483,46 @@
         "process",
         "memory-graph"
       ]
+    },
+    {
+      "id": "retro-hook-pattern-non-python-projects",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-hook-pattern-non-python-projects.md",
+      "title": "Hook detection pattern for non-Python projects",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T19:16:04Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "hooks"
+      ]
+    },
+    {
+      "id": "retro-mock-syntax-friction-bun",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-mock-syntax-friction-bun.md",
+      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T19:16:09Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun"
+      ]
+    },
+    {
+      "id": "retro-duplicate-test-discovery",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-duplicate-test-discovery.md",
+      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T19:16:14Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "quality"
+      ]
     }
   ]
 }

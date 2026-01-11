@@ -123,6 +123,18 @@
     {
       "id": "learning-retro-memory-linking-post-compaction",
       "title": "retro-memory-linking-post-compaction"
+    },
+    {
+      "id": "retro-hook-pattern-non-python-projects",
+      "title": "Hook detection pattern for non-Python projects"
+    },
+    {
+      "id": "retro-mock-syntax-friction-bun",
+      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests"
+    },
+    {
+      "id": "retro-duplicate-test-discovery",
+      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts"
     }
   ],
   "edges": [

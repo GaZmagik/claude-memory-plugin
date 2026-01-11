@@ -395,4 +395,121 @@ describe('Cosine Similarity', () => {
       expect(duplicates[0]).toHaveProperty('similarity');
     });
   });
+
+  describe('Edge Cases: NaN and Infinity', () => {
+    it('should handle NaN in vectors gracefully', () => {
+      const vec1 = [1, NaN, 3];
+      const vec2 = [1, 2, 3];
+
+      // Should not throw, may return NaN or handle gracefully
+      const result = cosineSimilarity(vec1, vec2);
+      expect(typeof result).toBe('number');
+    });
+
+    it('should handle Infinity in vectors', () => {
+      const vec1 = [1, 2, Infinity];
+      const vec2 = [1, 2, 3];
+
+      const result = cosineSimilarity(vec1, vec2);
+      expect(typeof result).toBe('number');
+    });
+
+    it('should handle negative Infinity', () => {
+      const vec1 = [1, -Infinity, 0];
+      const vec2 = [1, 0, 0];
+
+      const result = cosineSimilarity(vec1, vec2);
+      expect(typeof result).toBe('number');
+    });
+  });
+
+  describe('Edge Cases: Extreme Values', () => {
+    it('should handle very small values', () => {
+      const vec1 = [1e-100, 1e-100, 1e-100];
+      const vec2 = [1e-100, 1e-100, 1e-100];
+
+      const similarity = cosineSimilarity(vec1, vec2);
+      expect(similarity).toBeCloseTo(1.0, 5);
+    });
+
+    it('should handle very large values', () => {
+      const vec1 = [1e100, 1e100, 1e100];
+      const vec2 = [1e100, 1e100, 1e100];
+
+      const similarity = cosineSimilarity(vec1, vec2);
+      expect(similarity).toBeCloseTo(1.0, 5);
+    });
+
+    it('should handle denormalized vectors', () => {
+      const vec1 = [1000, 0, 0];
+      const vec2 = [0.001, 0, 0];
+
+      const similarity = cosineSimilarity(vec1, vec2);
+      expect(similarity).toBeCloseTo(1.0, 10);
+    });
+  });
+
+  describe('Edge Cases: Threshold Boundaries', () => {
+    it('should respect exact threshold match', () => {
+      const queryEmbedding = [1, 0, 0];
+      const embeddings = {
+        'exact': [0.8, 0.6, 0], // cos similarity will be exactly threshold
+        'above': [0.9, 0.1, 0],
+        'below': [0.7, 0.7, 0],
+      };
+
+      const threshold = 0.8;
+      const results = findSimilarMemories(queryEmbedding, embeddings, threshold);
+
+      // All results should be >= threshold
+      expect(results.every(r => r.similarity >= threshold)).toBe(true);
+    });
+
+    it('should handle threshold of 1.0 (only perfect matches)', () => {
+      const queryEmbedding = [1, 0, 0];
+      const embeddings = {
+        'perfect': [1, 0, 0],
+        'almost': [0.9999, 0.0001, 0],
+        'different': [0, 1, 0],
+      };
+
+      const results = findSimilarMemories(queryEmbedding, embeddings, 1.0);
+
+      // Should only find perfect match
+      expect(results.length).toBe(1);
+      expect(results[0].id).toBe('perfect');
+    });
+
+    it('should handle threshold of -1.0 (return all)', () => {
+      const queryEmbedding = [1, 0, 0];
+      const embeddings = {
+        'mem-1': [1, 0, 0],
+        'mem-2': [0, 1, 0],
+        'mem-3': [-1, 0, 0],
+      };
+
+      const results = findSimilarMemories(queryEmbedding, embeddings, -1.0);
+
+      // Should return all memories
+      expect(results.length).toBe(3);
+    });
+  });
+
+  describe('Edge Cases: Scale Invariance', () => {
+    it('should be scale invariant for positive scaling', () => {
+      const vec1 = [1, 2, 3];
+      const vec2 = [2, 4, 6]; // vec1 * 2
+
+      const similarity = cosineSimilarity(vec1, vec2);
+      expect(similarity).toBeCloseTo(1.0, 10);
+    });
+
+    it('should recognize opposite directions with negative scaling', () => {
+      const vec1 = [1, 2, 3];
+      const vec2 = [-1, -2, -3]; // vec1 * -1
+
+      const similarity = cosineSimilarity(vec1, vec2);
+      expect(similarity).toBeCloseTo(-1.0, 10);
+    });
+  });
 });

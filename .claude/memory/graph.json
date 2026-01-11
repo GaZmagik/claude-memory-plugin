@@ -67,6 +67,22 @@
     {
       "id": "retro-test-first-verification-accelerated-security-review",
       "title": "Test-First Verification: Security Review Acceleration Pattern"
+    },
+    {
+      "id": "learning-memory-context-hook-graceful-search-degradation",
+      "title": "Memory context hook graceful search degradation pattern"
+    },
+    {
+      "id": "learning-test-naming-convention-spec-ts",
+      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)"
+    },
+    {
+      "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement"
+    },
+    {
+      "id": "gotcha-agents-should-be-copies-not-rewrites",
+      "title": "Plugin agents must copy user-level versions, not simplified rewrites"
     }
   ],
   "edges": [

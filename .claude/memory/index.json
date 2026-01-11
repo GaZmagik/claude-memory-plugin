@@ -269,6 +269,64 @@
         "testing",
         "security"
       ]
+    },
+    {
+      "id": "learning-memory-context-hook-graceful-search-degradation",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-memory-context-hook-graceful-search-degradation.md",
+      "title": "Memory context hook graceful search degradation pattern",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T13:58:08Z",
+      "tags": [
+        "plugin",
+        "search",
+        "hook",
+        "degradation",
+        "pattern"
+      ]
+    },
+    {
+      "id": "learning-test-naming-convention-spec-ts",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-naming-convention-spec-ts.md",
+      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T13:58:15Z",
+      "tags": [
+        "plugin",
+        "tests",
+        "naming",
+        "convention"
+      ]
+    },
+    {
+      "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-typescript-hook-bidirectional-enforcement.md",
+      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T13:58:25Z",
+      "tags": [
+        "plugin",
+        "tdd",
+        "typescript",
+        "hook",
+        "user-level"
+      ]
+    },
+    {
+      "id": "gotcha-agents-should-be-copies-not-rewrites",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/gotcha-agents-should-be-copies-not-rewrites.md",
+      "title": "Plugin agents must copy user-level versions, not simplified rewrites",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T13:58:32Z",
+      "tags": [
+        "plugin",
+        "agents",
+        "gotcha",
+        "maintenance"
+      ]
     }
   ]
 }

@@ -2,8 +2,6 @@
 /**
  * memory-context.ts - Context-aware memory suggestion hook
  *
- * Mirrors functionality of memory-suggestion-context-aware.sh
- *
  * Two modes:
  * - READ: Suggests checking memory for relevant gotchas/decisions about the file
  * - WRITE: Suggests recording a memory if the action was significant

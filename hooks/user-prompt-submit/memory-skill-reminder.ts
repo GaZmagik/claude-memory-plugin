@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 /**
  * UserPromptSubmit/PostToolUse: Constant reminder to use memory skill
- * Replaces memory-skill-reminder.sh
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';

@@ -78,10 +78,7 @@ Or use the other memory commands:
   ~/.claude/skills/memory/memory.sh delete <id>
 
 For graph.json and index.json updates, these are managed
-automatically by the memory.sh script.
-
-To bypass this protection (NOT RECOMMENDED), you would need to
-temporarily disable this hook in ~/.claude/settings.json.`);
+automatically by the memory.sh script.`);
   }
 
   // Not a memory path, allow the operation

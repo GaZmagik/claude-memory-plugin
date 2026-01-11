@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 /**
  * PreCompact: Memory Capture Hook
- * Replaces pre-compact-memory.sh
  *
  * Resumes the current session in a background process to capture memories
  * before compaction destroys the conversation context.

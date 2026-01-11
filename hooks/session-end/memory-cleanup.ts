@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 /**
  * SessionEnd: Memory Capture Hook
- * Replaces session-end-memory.sh
  *
  * Resumes the current session in a background process to capture memories
  * before /clear destroys the conversation context.

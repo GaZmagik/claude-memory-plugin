@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 /**
  * SessionStart: Inject memory index summary as context
- * Replaces session-start-memory-index.sh
  *
  * Provides agent with a "table of contents" of available memories
  * plus semantic search results based on git branch context.

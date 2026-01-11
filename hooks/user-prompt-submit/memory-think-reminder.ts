@@ -8,7 +8,7 @@
 
 import { runHook, allowWithOutput } from '../src/core/error-handler.ts';
 
-const REMINDER = `💭 THINKING MODE DISABLED: For complex decisions, trade-offs, or deliberations, use \`memory think\` to document your chain-of-thought:
+const REMINDER = `💭 For complex decisions, trade-offs, or deliberations, use \`memory think\` to document your chain-of-thought:
   • \`memory think create "Topic"\` → Start deliberation
   • \`memory think add/counter/branch "Thought"\` → Build reasoning
   • \`memory think conclude "Text" --promote <type>\` → Finalise (types: decision, learning, gotcha, artifact)`;

@@ -15,95 +15,8 @@ import { runHook, allow } from '../src/core/error-handler.ts';
 import { existsSync, unlinkSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import { isForkedSession, getLogDir, getTimestamp } from '../src/session/forked-session.ts';
+import { isForkedSession, getLogDir, spawnSessionWithContext } from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
-
-/**
- * Spawn a Claude process with extracted session context
- */
-async function spawnWithContext(options: {
-  sessionId: string;
-  cwd: string;
-  prompt: string;
-  contextPrompt: string;
-  logPrefix: string;
-  timeoutSecs?: number;
-  trigger?: string;
-}): Promise<{ started: boolean; logFile?: string; error?: string }> {
-  const logDir = getLogDir(options.cwd);
-  const timestamp = getTimestamp();
-  const logFile = join(logDir, `${options.logPrefix}-${timestamp}-${options.sessionId}.log`);
-
-  // Initialize log file
-  const trigger = options.trigger || 'auto';
-  const header = `=== ${options.logPrefix} Started: ${new Date().toISOString()} ===
-Session ID: ${options.sessionId}
-Trigger: ${trigger}
-Working Directory: ${options.cwd}
-Context size: ${options.contextPrompt.length} bytes
----
-`;
-  writeFileSync(logFile, header);
-
-  const timeoutSecs = options.timeoutSecs ?? 300;
-  const model = 'claude-haiku-4-5-20251001';
-  const tools = 'Bash,Read,Grep,Glob,TodoWrite';
-
-  // Escape strings for shell
-  const escapeShell = (s: string) => `'${s.replace(/'/g, "'\\''")}'`;
-
-  // Write context to temp file to avoid shell escaping issues with large text
-  const contextFile = join(logDir, `context-${options.sessionId}.txt`);
-  writeFileSync(contextFile, options.contextPrompt);
-
-  const backgroundScript = `
-    LOG_FILE=${escapeShell(logFile)}
-    CONTEXT_FILE=${escapeShell(contextFile)}
-    TIMEOUT=${timeoutSecs}
-    MODEL=${escapeShell(model)}
-    TOOLS=${escapeShell(tools)}
-    PROMPT=${escapeShell(options.prompt)}
-    CWD=${escapeShell(options.cwd)}
-
-    echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
-
-    cd "$CWD"
-
-    timeout ${timeoutSecs}s claude \\
-      --model "$MODEL" \\
-      --permission-mode bypassPermissions \\
-      --dangerously-skip-permissions \\
-      --output-format "stream-json" \\
-      --verbose \\
-      --additional-system-prompt "$(cat "$CONTEXT_FILE")" \\
-      --tools "$TOOLS" \\
-      --print "$PROMPT" 2>&1 | tee -a "$LOG_FILE"
-
-    EXIT_CODE=\${PIPESTATUS[0]}
-    echo "---" >> "$LOG_FILE"
-    echo "Completed with exit code: $EXIT_CODE" >> "$LOG_FILE"
-    echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
-
-    # Clean up context file
-    rm -f "$CONTEXT_FILE"
-  `;
-
-  // Launch detached background process using cross-platform spawn
-  const { spawn: nodeSpawn } = await import('node:child_process');
-  const proc = nodeSpawn('bash', ['-c', backgroundScript], {
-    cwd: options.cwd,
-    detached: true,
-    stdio: 'ignore',
-  });
-
-  // Unref to allow process to continue independently
-  proc.unref();
-
-  return {
-    started: true,
-    logFile,
-  };
-}
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
@@ -162,7 +75,7 @@ runHook(async (input) => {
   }
 
   // Spawn Claude with extracted context
-  const result = await spawnWithContext({
+  const result = await spawnSessionWithContext({
     sessionId,
     cwd,
     prompt: `/memory-commit precompact-trigger=${trigger}`,

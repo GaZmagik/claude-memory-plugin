@@ -12,9 +12,10 @@ import { join } from 'path';
 import { homedir } from 'os';
 import {
   isForkedSession,
-  spawnForkedSession,
+  spawnSessionWithContext,
   getLogDir,
-} from '../src/session/forked-session.ts';
+} from '../src/session/spawn-session.ts';
+import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
@@ -53,12 +54,19 @@ runHook(async (input) => {
   }
   writeFileSync(flagFile, `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\nreason=${reason}\n`);
 
-  // Spawn forked session for memory capture
-  const result = await spawnForkedSession({
+  // Extract session context
+  const contextPrompt = extractContextAsSystemPrompt(sessionId, cwd);
+
+  if (!contextPrompt) {
+    return allow('No session context found - skipping memory capture');
+  }
+
+  // Spawn Claude with extracted context
+  const result = await spawnSessionWithContext({
     sessionId,
     cwd,
     prompt: `/memory-commit session-end-trigger=${reason}`,
-    lockName: '.session-end-memory.lock',
+    contextPrompt,
     logPrefix: 'session-end-memory',
     timeoutSecs: 300,
     trigger: reason,

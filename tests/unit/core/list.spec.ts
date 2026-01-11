@@ -110,6 +110,10 @@ describe('listMemories', () => {
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
       expect(result.memories![0].type).toBe('learning');
+      expect(result.memories![0].title).toBe('Global Learning');
+      expect(result.memories![0].scope).toBe(Scope.Global);
+      expect(result.memories![0].tags).toContain('typescript');
+      expect(result.memories![0].tags).toContain('testing');
     });
 
     it('should filter by scope', async () => {
@@ -118,6 +122,8 @@ describe('listMemories', () => {
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
       expect(result.memories![0].scope).toBe(Scope.Project);
+      expect(result.memories![0].type).toBe('gotcha');
+      expect(result.memories![0].title).toBe('Project Gotcha');
     });
 
     it('should filter by single tag', async () => {

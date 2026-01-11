@@ -151,7 +151,10 @@ describe('readMemory', () => {
 
       expect(result.status).toBe('success');
       if (result.status === 'success' && result.memory) {
-        expect(result.memory.frontmatter).toEqual(mockFrontmatter);
+        expect(result.memory.frontmatter.type).toBe(MemoryType.Learning);
+        expect(result.memory.frontmatter.title).toBe('Test Memory');
+        expect(result.memory.frontmatter.tags).toEqual(['test']);
+        expect(result.memory.frontmatter.scope).toBe(Scope.Local);
         expect(result.memory.content).toBe(mockContent);
       }
     });

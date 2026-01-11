@@ -37,6 +37,14 @@ describe('Health Check', () => {
 
       expect(report.status).toBe('healthy');
       expect(report.score).toBeGreaterThanOrEqual(90);
+      expect(report.score).toBe(100);
+      expect(report.issues).toHaveLength(0);
+      expect(report.stats.totalMemories).toBe(0);
+      expect(report.stats.totalNodes).toBe(0);
+      expect(report.stats.totalEdges).toBe(0);
+      expect(report.stats.orphanedNodes).toBe(0);
+      expect(report.stats.connectivityRatio).toBe(1);
+      expect(report.timestamp).toBeDefined();
     });
 
     it('should detect missing index file', async () => {
@@ -46,8 +54,10 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(report.issues).toContainEqual(
-        expect.objectContaining({ type: 'missing_index' })
+        expect.objectContaining({ type: 'missing_index', count: 1, severity: 'error' })
       );
+      expect(report.status).toBe('warning');
+      expect(report.score).toBeLessThan(100);
     });
 
     it('should detect missing graph file', async () => {
@@ -57,8 +67,10 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(report.issues).toContainEqual(
-        expect.objectContaining({ type: 'missing_graph' })
+        expect.objectContaining({ type: 'missing_graph', count: 1, severity: 'error' })
       );
+      expect(report.status).toBe('warning');
+      expect(report.score).toBeLessThan(100);
     });
 
     it('should detect orphaned nodes', async () => {
@@ -77,8 +89,11 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(report.issues).toContainEqual(
-        expect.objectContaining({ type: 'orphaned_nodes' })
+        expect.objectContaining({ type: 'orphaned_nodes', count: 2, severity: 'warning' })
       );
+      expect(report.stats.orphanedNodes).toBe(2);
+      expect(report.stats.totalNodes).toBe(2);
+      expect(report.stats.connectivityRatio).toBe(0);
     });
 
     it('should detect index/graph sync issues', async () => {
@@ -93,8 +108,10 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(report.issues).toContainEqual(
-        expect.objectContaining({ type: 'sync_mismatch' })
+        expect.objectContaining({ type: 'sync_mismatch', count: 1, severity: 'warning' })
       );
+      const syncIssue = report.issues.find(i => i.type === 'sync_mismatch');
+      expect(syncIssue?.details).toContain('mem-1');
     });
 
     it('should include memory counts in report', async () => {
@@ -119,7 +136,80 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(report.stats.totalMemories).toBe(2);
+      expect(report.stats.totalNodes).toBe(2);
       expect(report.stats.totalEdges).toBe(1);
+      expect(report.stats.orphanedNodes).toBe(0);
+      expect(report.stats.connectivityRatio).toBe(1);
+    });
+
+    it('should detect ghost nodes in graph without index entries', async () => {
+      const index = { version: 1, entries: [] };
+      const graph = {
+        version: 1,
+        nodes: [
+          { id: 'ghost-1', type: 'decision' },
+          { id: 'ghost-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+      fs.writeFileSync(path.join(testDir, 'index.json'), JSON.stringify(index));
+      fs.writeFileSync(path.join(testDir, 'graph.json'), JSON.stringify(graph));
+
+      const report = await checkHealth(testDir);
+
+      expect(report.issues).toContainEqual(
+        expect.objectContaining({ type: 'ghost_nodes', count: 2, severity: 'warning' })
+      );
+      const ghostIssue = report.issues.find(i => i.type === 'ghost_nodes');
+      expect(ghostIssue?.details).toEqual(expect.arrayContaining(['ghost-1', 'ghost-2']));
+    });
+
+    it('should detect low connectivity when ratio < 0.5 with > 5 nodes', async () => {
+      const index = { version: 1, entries: [] };
+      const graph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'decision' },
+          { id: 'node-3', type: 'decision' },
+          { id: 'node-4', type: 'decision' },
+          { id: 'node-5', type: 'decision' },
+          { id: 'node-6', type: 'decision' },
+          { id: 'node-7', type: 'decision' },
+        ],
+        edges: [
+          { source: 'node-1', target: 'node-2', label: 'relates-to' },
+        ], // Only 2 connected out of 7 = 0.28 ratio
+      };
+      fs.writeFileSync(path.join(testDir, 'index.json'), JSON.stringify(index));
+      fs.writeFileSync(path.join(testDir, 'graph.json'), JSON.stringify(graph));
+
+      const report = await checkHealth(testDir);
+
+      expect(report.issues).toContainEqual(
+        expect.objectContaining({ type: 'low_connectivity', count: 1, severity: 'warning' })
+      );
+      expect(report.stats.connectivityRatio).toBeLessThan(0.5);
+    });
+
+    it('should not flag low connectivity for small graphs', async () => {
+      const index = { version: 1, entries: [] };
+      const graph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'decision' },
+          { id: 'node-3', type: 'decision' },
+        ],
+        edges: [], // All orphaned but only 3 nodes
+      };
+      fs.writeFileSync(path.join(testDir, 'index.json'), JSON.stringify(index));
+      fs.writeFileSync(path.join(testDir, 'graph.json'), JSON.stringify(graph));
+
+      const report = await checkHealth(testDir);
+
+      const lowConnIssue = report.issues.find(i => i.type === 'low_connectivity');
+      expect(lowConnIssue).toBeUndefined();
     });
   });
 

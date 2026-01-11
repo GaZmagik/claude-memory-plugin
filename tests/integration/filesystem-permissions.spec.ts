@@ -25,16 +25,25 @@ describe('Filesystem Permission Errors', () => {
   });
 
   afterEach(() => {
-    // Restore permissions before cleanup
-    try {
-      fs.chmodSync(testDir, 0o755);
-      const files = fs.readdirSync(testDir);
-      files.forEach(file => {
-        try {
-          fs.chmodSync(path.join(testDir, file), 0o644);
-        } catch {}
-      });
-    } catch {}
+    // Restore permissions recursively before cleanup
+    const restorePermissions = (dir: string): void => {
+      try {
+        fs.chmodSync(dir, 0o755);
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        entries.forEach(entry => {
+          const fullPath = path.join(dir, entry.name);
+          try {
+            if (entry.isDirectory()) {
+              restorePermissions(fullPath);
+            } else {
+              fs.chmodSync(fullPath, 0o644);
+            }
+          } catch {}
+        });
+      } catch {}
+    };
+
+    restorePermissions(testDir);
     fs.rmSync(testDir, { recursive: true, force: true });
   });
 
@@ -113,16 +122,15 @@ describe('Filesystem Permission Errors', () => {
         // Make file read-only
         fs.chmodSync(filePath, 0o444);
 
-        // Attempt to delete should fail gracefully
+        // Note: On Unix, unlinkSync checks directory permissions, not file permissions
+        // So deleting a read-only file in a writable directory succeeds
         const deleteResult = await deleteMemory({
           id: writeResult.memory?.id ?? '',
           basePath: testDir,
         });
 
-        expect(deleteResult.status).toBe('error');
-
-        // Restore permissions
-        fs.chmodSync(filePath, 0o644);
+        // Delete succeeds because directory is still writable
+        expect(deleteResult.status).toBe('success');
       }
     });
 

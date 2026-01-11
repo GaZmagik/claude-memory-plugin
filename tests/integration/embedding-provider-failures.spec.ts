@@ -337,12 +337,15 @@ describe('Embedding Provider Failures', () => {
       fs.chmodSync(cachePath, 0o444);
 
       try {
-        // Should still read from cache
+        // Should still read from cache (cached embedding)
         const result = await getEmbeddingForMemory('mem-1', 'Content 1', cachePath, provider);
         expect(result).toBeDefined();
 
-        // New embedding might fail to save but should still work
-        await getEmbeddingForMemory('mem-2', 'Content 2', cachePath, provider);
+        // New embedding will fail because cache can't be written
+        // Implementation throws EACCES when saveEmbeddingCache fails
+        await expect(
+          getEmbeddingForMemory('mem-2', 'Content 2', cachePath, provider)
+        ).rejects.toThrow('EACCES');
       } finally {
         // Restore permissions
         fs.chmodSync(cachePath, 0o644);

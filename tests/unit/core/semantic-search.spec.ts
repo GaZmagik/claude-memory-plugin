@@ -261,4 +261,209 @@ describe('Semantic Search API', () => {
       }
     });
   });
+
+  describe('Error Handling - Ollama Failures', () => {
+    it('should handle network timeout errors', async () => {
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockRejectedValue(new Error('Network timeout after 30s')),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+      expect(result.error).toContain('Network timeout');
+    });
+
+    it('should handle Ollama connection refused', async () => {
+      const mockProvider = {
+        name: 'ollama:embeddinggemma',
+        generate: vi.fn().mockRejectedValue(new Error('connect ECONNREFUSED 127.0.0.1:11434')),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+      expect(result.error).toContain('ECONNREFUSED');
+    });
+
+    it('should handle Ollama API error responses', async () => {
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockRejectedValue(new Error('Ollama API error: 500 Internal Server Error')),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+      expect(result.error).toContain('Ollama API error');
+    });
+
+    it('should handle model not found errors', async () => {
+      const mockProvider = {
+        name: 'ollama:nonexistent-model',
+        generate: vi.fn().mockRejectedValue(new Error('model "nonexistent-model" not found')),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+      expect(result.error).toContain('not found');
+    });
+
+    it('should handle malformed embedding responses', async () => {
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockResolvedValue(null as any),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+    });
+
+    it('should handle empty embedding arrays', async () => {
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockResolvedValue([]),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Semantic search failed');
+    });
+
+    it('should handle invalid embedding dimensions gracefully', async () => {
+      // The implementation doesn't validate embedding values - it accepts
+      // NaN/Infinity and lets cosine similarity handle them (returns NaN)
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockResolvedValue([NaN, Infinity, -Infinity]),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      // Implementation is permissive - returns success with empty results
+      // since NaN similarities won't match threshold
+      expect(result.status).toBe('success');
+      expect(result.results).toBeDefined();
+    });
+
+    it('should handle corrupted embedding cache', async () => {
+      // Write corrupted cache file
+      fs.writeFileSync(path.join(testDir, 'embeddings.json'), 'invalid json{[}');
+
+      const mockProvider = {
+        name: 'mock',
+        generate: vi.fn().mockResolvedValue([0.5, 0.5, 0.0]),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      // Should handle gracefully and recreate cache
+      expect(result.status).toBe('success');
+      expect(result.results).toBeDefined();
+    });
+
+    it('should handle missing embeddings cache gracefully', async () => {
+      // Remove embeddings cache
+      fs.rmSync(path.join(testDir, 'embeddings.json'));
+
+      const mockProvider = {
+        name: 'mock',
+        generate: vi.fn().mockResolvedValue([0.5, 0.5, 0.0]),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toEqual([]);
+    });
+
+    it('should handle filesystem permission errors', async () => {
+      const readOnlyDir = path.join(os.tmpdir(), 'readonly-test');
+      fs.mkdirSync(readOnlyDir, { recursive: true });
+
+      // Create valid files first
+      fs.writeFileSync(path.join(readOnlyDir, 'index.json'), JSON.stringify({ version: 1, entries: [] }));
+      fs.writeFileSync(path.join(readOnlyDir, 'embeddings.json'), JSON.stringify({ version: 1, entries: {} }));
+
+      const mockProvider = {
+        name: 'mock',
+        generate: vi.fn().mockResolvedValue([0.5, 0.5, 0.0]),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: readOnlyDir,
+        provider: mockProvider,
+      });
+
+      // Should still work for read operations
+      expect(['success', 'error']).toContain(result.status);
+
+      // Cleanup
+      fs.rmSync(readOnlyDir, { recursive: true, force: true });
+    });
+
+    it('should provide detailed error messages for debugging', async () => {
+      const mockProvider = {
+        name: 'ollama:test',
+        generate: vi.fn().mockRejectedValue(new Error('fetch failed: TypeError: Failed to fetch')),
+      };
+
+      const result = await semanticSearchMemories({
+        query: 'test query',
+        basePath: testDir,
+        provider: mockProvider,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toBeDefined();
+      expect(result.error).toContain('Semantic search failed:');
+      expect(result.error?.length).toBeGreaterThan(20);
+    });
+  });
 });

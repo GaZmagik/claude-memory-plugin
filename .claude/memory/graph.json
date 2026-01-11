@@ -69,5 +69,26 @@
       "title": "Test-First Verification: Security Review Acceleration Pattern"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "relation": "same-feature-different-layer"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-isolation-architecture-design",
+      "relation": "decision-enables"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "learning-tdd-phase-completion-pattern",
+      "relation": "same-methodology"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "enabled-by"
+    }
+  ]
 }

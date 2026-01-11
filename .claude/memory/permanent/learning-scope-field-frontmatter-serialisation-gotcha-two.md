@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-10T19:58:35Z
-updated: 2026-01-10T19:58:38Z
+updated: 2026-01-11T13:28:52Z
 tags: ["learning","gotcha","high","scope-resolution","serialisation","frontmatter","type-safety"]
 embedding: "ccc079edd565539e05b6281bb44778ce"
 links: []

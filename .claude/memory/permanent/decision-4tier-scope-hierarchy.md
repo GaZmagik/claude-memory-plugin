@@ -5,10 +5,13 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-10T19:59:00Z
-updated: 2026-01-10T19:59:02Z
+updated: 2026-01-11T13:29:02Z
 tags: ["architecture","scope-resolution","phase-2"]
 embedding: "f68017c868b73315fc56950fa44dc675"
-links: []
+links: [
+  "learning-scope-isolation-architecture-design",
+  "learning-tdd-scope-resolution-module-structure"
+]
 ---
 
 # Decision: 4-Tier Scope Hierarchy

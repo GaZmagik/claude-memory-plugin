@@ -105,6 +105,66 @@
       "source": "decision-4tier-scope-hierarchy",
       "target": "learning-tdd-scope-resolution-module-structure",
       "relation": "enabled-by"
+    },
+    {
+      "source": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "target": "learning-gitignore-comment-formatting-two-phase-fix",
+      "relation": "same-phase-hook-protection"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-gitignore-comment-formatting-two-phase-fix",
+      "relation": "decision-implementation-detail"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "learning-scope-isolation-architecture-design",
+      "relation": "related-implementation"
+    },
+    {
+      "source": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "target": "decision-4tier-scope-hierarchy",
+      "relation": "informed-by"
+    },
+    {
+      "source": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
+      "target": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "relation": "process-dependency"
+    },
+    {
+      "source": "retro-test-first-verification-accelerated-security-review",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "relation": "applied-same-pattern"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "relation": "enables"
+    },
+    {
+      "source": "learning-test-naming-convention-spec-ts",
+      "target": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
+      "relation": "related-build-quality"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "demonstrates-correct-pattern"
+    },
+    {
+      "source": "learning-immutable-graph-operations-pattern",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "implementation-pattern"
+    },
+    {
+      "source": "learning-retro-tdd-test-expectations-guide-implementation",
+      "target": "learning-tdd-phase-completion-pattern",
+      "relation": "tdd-workflow"
     }
   ]
 }

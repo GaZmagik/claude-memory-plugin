@@ -653,7 +653,7 @@ runHook(async (input) => {
 
   // Load config and check if tool is enabled
   const config = loadConfig();
-  if (!isToolEnabled(toolName, config)) {
+  if (!isToolEnabled(toolName, config, input.tool_input as Record<string, unknown>)) {
     return allow();
   }
 

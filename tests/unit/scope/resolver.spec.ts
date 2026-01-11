@@ -15,6 +15,8 @@ import {
   getDefaultScope,
   isEnterpriseEnabled,
   getAllAccessibleScopes,
+  mergeMemoriesFromScopes,
+  buildScopeContext,
   type ScopeContext,
 } from '../../../skills/memory/src/scope/resolver.js';
 import { Scope } from '../../../skills/memory/src/types/enums.js';
@@ -244,6 +246,183 @@ describe('Scope Resolver', () => {
       expect(projectIdx).toBeLessThan(globalIdx);
 
       fs.rmSync(enterprisePath, { recursive: true, force: true });
+    });
+  });
+
+  describe('resolveScope without requestedScope', () => {
+    it('should use default scope when no scope requested', () => {
+      // In non-git directory, default is Global
+      const result = resolveScope({
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+      });
+
+      expect(result.scope).toBe(Scope.Global);
+      expect(result.path).toBe(globalMemoryDir);
+    });
+
+    it('should use project scope as default in git repo', () => {
+      fs.mkdirSync(path.join(testDir, '.git'));
+
+      const result = resolveScope({
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+      });
+
+      expect(result.scope).toBe(Scope.Project);
+    });
+
+    it('should handle unknown scope value', () => {
+      const result = resolveScope({
+        requestedScope: 'invalid-scope' as Scope,
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+      });
+
+      expect(result.scope).toBeNull();
+      expect(result.error).toContain('Unknown scope');
+    });
+  });
+
+  describe('getDefaultScope with config', () => {
+    it('should use configured default scope', () => {
+      const configDir = path.join(testDir, '.claude');
+      fs.mkdirSync(configDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(configDir, 'config.json'),
+        JSON.stringify({ scopes: { default: 'global' } })
+      );
+
+      const result = getDefaultScope(testDir);
+      expect(result).toBe(Scope.Global);
+    });
+
+    it('should ignore invalid configured default scope', () => {
+      const configDir = path.join(testDir, '.claude');
+      fs.mkdirSync(configDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(configDir, 'config.json'),
+        JSON.stringify({ scopes: { default: 'invalid-scope' } })
+      );
+
+      // Should fall back to default behavior (global when no git)
+      const result = getDefaultScope(testDir);
+      expect(result).toBe(Scope.Global);
+    });
+  });
+
+  describe('mergeMemoriesFromScopes', () => {
+    it('should merge memories from accessible scopes', async () => {
+      // Create project memory with index
+      const projectMemoryDir = path.join(testDir, '.claude', 'memory');
+      fs.mkdirSync(projectMemoryDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(projectMemoryDir, 'index.json'),
+        JSON.stringify({
+          entries: [
+            { id: 'memory-1', type: 'decision', title: 'Test', tags: [], created: '2026-01-01', updated: '2026-01-01' },
+          ],
+        })
+      );
+
+      const context: ScopeContext = {
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+        enterpriseEnabled: false,
+      };
+
+      const result = await mergeMemoriesFromScopes(context);
+
+      expect(result.memories.length).toBeGreaterThan(0);
+      expect(result.scopesSearched).toContain(Scope.Project);
+    });
+
+    it('should skip scopes with no index.json', async () => {
+      // Create empty memory directory (no index.json)
+      const projectMemoryDir = path.join(testDir, '.claude', 'memory');
+      fs.mkdirSync(projectMemoryDir, { recursive: true });
+
+      const context: ScopeContext = {
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+        enterpriseEnabled: false,
+      };
+
+      const result = await mergeMemoriesFromScopes(context);
+
+      expect(result.memories).toEqual([]);
+      expect(result.errors).toEqual([]);
+    });
+
+    it('should handle invalid JSON in index.json', async () => {
+      const projectMemoryDir = path.join(testDir, '.claude', 'memory');
+      fs.mkdirSync(projectMemoryDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(projectMemoryDir, 'index.json'),
+        '{ invalid json }'
+      );
+
+      const context: ScopeContext = {
+        cwd: testDir,
+        globalMemoryPath: globalMemoryDir,
+        enterpriseEnabled: false,
+      };
+
+      const result = await mergeMemoriesFromScopes(context);
+
+      expect(result.errors.length).toBeGreaterThan(0);
+    });
+
+    it('should skip scopes with non-existent paths', async () => {
+      const context: ScopeContext = {
+        cwd: testDir,
+        globalMemoryPath: '/non-existent-path-12345',
+        enterpriseEnabled: false,
+      };
+
+      const result = await mergeMemoriesFromScopes(context);
+
+      // Should not error, just return empty results for that scope
+      expect(result.scopesSearched).toContain(Scope.Global);
+    });
+  });
+
+  describe('buildScopeContext', () => {
+    it('should build context with enterprise disabled by default', () => {
+      const context = buildScopeContext(testDir, globalMemoryDir);
+
+      expect(context.cwd).toBe(testDir);
+      expect(context.globalMemoryPath).toBe(globalMemoryDir);
+      expect(context.enterpriseEnabled).toBe(false);
+      expect(context.enterprisePath).toBeUndefined();
+    });
+
+    it('should build context with enterprise enabled when configured', () => {
+      const configDir = path.join(testDir, '.claude');
+      fs.mkdirSync(configDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(configDir, 'config.json'),
+        JSON.stringify({ scopes: { enterprise: { enabled: true } } })
+      );
+
+      const context = buildScopeContext(testDir, globalMemoryDir);
+
+      expect(context.enterpriseEnabled).toBe(true);
+    });
+  });
+
+  describe('getScopePath with enterprise', () => {
+    it('should return enterprise path for enterprise scope', () => {
+      const enterprisePath = '/enterprise/memory';
+      const result = getScopePath(Scope.Enterprise, testDir, globalMemoryDir, enterprisePath);
+
+      expect(result).toBe(enterprisePath);
+    });
+
+    it('should return empty string for enterprise scope without path', () => {
+      const result = getScopePath(Scope.Enterprise, testDir, globalMemoryDir);
+
+      expect(result).toBe('');
     });
   });
 });

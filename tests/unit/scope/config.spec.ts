@@ -14,6 +14,8 @@ import {
   getEnterpriseConfig,
   getDefaultScopeConfig,
   getEmbeddingConfig,
+  configExists,
+  saveConfig,
   type MemoryConfig,
 } from '../../../skills/memory/src/scope/config.js';
 
@@ -218,6 +220,72 @@ describe('Config Parser', () => {
       expect(result.scopes?.default).toBe('global');
 
       fs.rmSync(globalDir, { recursive: true, force: true });
+    });
+  });
+
+  describe('configExists', () => {
+    it('should return true when config.json exists', () => {
+      fs.writeFileSync(
+        path.join(configDir, 'config.json'),
+        JSON.stringify({ scopes: { default: 'local' } })
+      );
+
+      expect(configExists(testDir)).toBe(true);
+    });
+
+    it('should return false when config.json does not exist', () => {
+      expect(configExists(testDir)).toBe(false);
+    });
+
+    it('should return false for non-existent directory', () => {
+      expect(configExists('/non-existent-path-12345')).toBe(false);
+    });
+  });
+
+  describe('saveConfig', () => {
+    it('should save config to file', () => {
+      const config: MemoryConfig = {
+        scopes: { default: 'local' },
+        embedding: { model: 'test-model' },
+      };
+
+      saveConfig(testDir, config);
+
+      const savedContent = fs.readFileSync(
+        path.join(configDir, 'config.json'),
+        'utf-8'
+      );
+      const savedConfig = JSON.parse(savedContent);
+      expect(savedConfig.scopes?.default).toBe('local');
+      expect(savedConfig.embedding?.model).toBe('test-model');
+    });
+
+    it('should create .claude directory if it does not exist', () => {
+      const newTestDir = fs.mkdtempSync(path.join(tmpdir(), 'config-save-'));
+      const config: MemoryConfig = { scopes: { default: 'global' } };
+
+      saveConfig(newTestDir, config);
+
+      expect(fs.existsSync(path.join(newTestDir, '.claude', 'config.json'))).toBe(true);
+
+      fs.rmSync(newTestDir, { recursive: true, force: true });
+    });
+
+    it('should overwrite existing config', () => {
+      // Write initial config
+      fs.writeFileSync(
+        path.join(configDir, 'config.json'),
+        JSON.stringify({ scopes: { default: 'old-value' } })
+      );
+
+      // Save new config
+      const newConfig: MemoryConfig = { scopes: { default: 'new-value' } };
+      saveConfig(testDir, newConfig);
+
+      const savedConfig = JSON.parse(
+        fs.readFileSync(path.join(configDir, 'config.json'), 'utf-8')
+      );
+      expect(savedConfig.scopes?.default).toBe('new-value');
     });
   });
 });

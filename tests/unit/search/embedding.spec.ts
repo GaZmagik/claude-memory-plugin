@@ -12,6 +12,9 @@ import {
   saveEmbeddingCache,
   getEmbeddingForMemory,
   batchGenerateEmbeddings,
+  createMockProvider,
+  createOllamaProvider,
+  generateContentHash,
   type EmbeddingCache,
   type EmbeddingProvider,
 } from '../../../skills/memory/src/search/embedding.js';
@@ -319,6 +322,143 @@ describe('Embedding Generation', () => {
 
       expect(progressCalls).toContain(1);
       expect(progressCalls).toContain(2);
+    });
+  });
+
+  describe('loadEmbeddingCache error handling', () => {
+    it('should return empty cache on corrupted JSON file', async () => {
+      const cachePath = path.join(testDir, 'embeddings.json');
+      fs.writeFileSync(cachePath, '{ invalid json content }');
+
+      const cache = await loadEmbeddingCache(cachePath);
+
+      expect(cache).toEqual({ version: 1, entries: {} });
+    });
+  });
+
+  describe('saveEmbeddingCache directory creation', () => {
+    it('should create parent directory if it does not exist', async () => {
+      const nestedPath = path.join(testDir, 'nested', 'dir', 'embeddings.json');
+      const cache: EmbeddingCache = { version: 1, entries: {} };
+
+      await saveEmbeddingCache(nestedPath, cache);
+
+      expect(fs.existsSync(nestedPath)).toBe(true);
+    });
+  });
+
+  describe('generateContentHash', () => {
+    it('should generate consistent hash for same content', () => {
+      const hash1 = generateContentHash('test content');
+      const hash2 = generateContentHash('test content');
+
+      expect(hash1).toBe(hash2);
+    });
+
+    it('should generate different hash for different content', () => {
+      const hash1 = generateContentHash('content A');
+      const hash2 = generateContentHash('content B');
+
+      expect(hash1).not.toBe(hash2);
+    });
+
+    it('should return 16-character hash', () => {
+      const hash = generateContentHash('any content');
+
+      expect(hash).toHaveLength(16);
+    });
+  });
+
+  describe('createMockProvider', () => {
+    it('should create a mock provider with default dimension', () => {
+      const provider = createMockProvider();
+
+      expect(provider.name).toBe('mock');
+      expect(typeof provider.generate).toBe('function');
+    });
+
+    it('should generate embeddings of specified dimension', async () => {
+      const provider = createMockProvider(128);
+      const embedding = await provider.generate('test text');
+
+      expect(embedding).toHaveLength(128);
+    });
+
+    it('should generate deterministic embeddings for same text', async () => {
+      const provider = createMockProvider(64);
+      const embedding1 = await provider.generate('same text');
+      const embedding2 = await provider.generate('same text');
+
+      expect(embedding1).toEqual(embedding2);
+    });
+
+    it('should generate different embeddings for different text', async () => {
+      const provider = createMockProvider(64);
+      const embedding1 = await provider.generate('text one');
+      const embedding2 = await provider.generate('text two');
+
+      expect(embedding1).not.toEqual(embedding2);
+    });
+  });
+
+  describe('createOllamaProvider', () => {
+    it('should create provider with default model and URL', () => {
+      const provider = createOllamaProvider();
+
+      expect(provider.name).toBe('ollama:embeddinggemma');
+    });
+
+    it('should create provider with custom model', () => {
+      const provider = createOllamaProvider('nomic-embed-text');
+
+      expect(provider.name).toBe('ollama:nomic-embed-text');
+    });
+
+    it('should create provider with custom base URL', () => {
+      const provider = createOllamaProvider('custom-model', 'http://custom:1234');
+
+      expect(provider.name).toBe('ollama:custom-model');
+    });
+
+    it('should call Ollama API on generate', async () => {
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ embedding: [0.1, 0.2, 0.3] }),
+      });
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mockFetch as unknown as typeof fetch;
+
+      try {
+        const provider = createOllamaProvider('test-model', 'http://localhost:11434');
+        const embedding = await provider.generate('test text');
+
+        expect(mockFetch).toHaveBeenCalledWith(
+          'http://localhost:11434/api/embeddings',
+          expect.objectContaining({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          })
+        );
+        expect(embedding).toEqual([0.1, 0.2, 0.3]);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('should throw on Ollama API error', async () => {
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: false,
+        statusText: 'Internal Server Error',
+      });
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mockFetch as unknown as typeof fetch;
+
+      try {
+        const provider = createOllamaProvider();
+        await expect(provider.generate('test')).rejects.toThrow('Ollama API error');
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
   });
 });

@@ -73,4 +73,63 @@ describe('subprocess', () => {
       );
     });
   });
+
+  describe('spawnSync error handling', () => {
+    it('should handle non-existent command gracefully', async () => {
+      const result = await spawnSync(['nonexistent-command-xyz-12345']);
+
+      expect(result.success).toBe(false);
+      expect(result.timedOut).toBe(false);
+      expect(result.durationMs).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should handle stdin input', async () => {
+      const result = await spawnSync(['cat'], { stdin: 'hello from stdin' });
+
+      expect(result.success).toBe(true);
+      expect(result.stdout.trim()).toBe('hello from stdin');
+    });
+  });
+
+  describe('spawn error handling', () => {
+    it('should handle non-existent command in async spawn', async () => {
+      const result = await spawn(['nonexistent-command-abc-67890']);
+
+      expect(result.success).toBe(false);
+      expect(result.exitCode).toBeNull();
+      // Error message varies by runtime (ENOENT or "not found")
+      expect(result.stderr.toLowerCase()).toMatch(/enoent|not found|executable/i);
+    });
+
+    it('should capture stderr in async spawn', async () => {
+      const result = await spawn(['ls', '/path-that-does-not-exist-xyz']);
+
+      expect(result.success).toBe(false);
+      expect(result.stderr).toContain('No such file');
+    });
+
+    it('should pass environment variables in async spawn', async () => {
+      const result = await spawn(['printenv', 'ASYNC_TEST_VAR'], {
+        env: { ASYNC_TEST_VAR: 'async_value' },
+      });
+
+      expect(result.stdout.trim()).toBe('async_value');
+    });
+
+    it('should respect cwd option', async () => {
+      const result = await spawn(['pwd'], { cwd: '/tmp' });
+
+      expect(result.success).toBe(true);
+      expect(result.stdout.trim()).toBe('/tmp');
+    });
+  });
+
+  describe('spawnSync with cwd', () => {
+    it('should respect cwd option', async () => {
+      const result = await spawnSync(['pwd'], { cwd: '/tmp' });
+
+      expect(result.success).toBe(true);
+      expect(result.stdout.trim()).toBe('/tmp');
+    });
+  });
 });

@@ -148,4 +148,56 @@ describe('listMemories contract', () => {
     expect(response.status).toBe('success');
     expect(response.count).toBe(3);
   });
+
+  it('should sort by title ascending', async () => {
+    const request: ListMemoriesRequest = {
+      basePath: testDir,
+      sortBy: 'title',
+      sortOrder: 'asc',
+    };
+
+    const response = await listMemories(request);
+
+    expect(response.status).toBe('success');
+    const titles = response.memories?.map(m => m.title) ?? [];
+    expect(titles).toEqual([...titles].sort());
+  });
+
+  it('should sort by updated date', async () => {
+    const request: ListMemoriesRequest = {
+      basePath: testDir,
+      sortBy: 'updated',
+      sortOrder: 'desc',
+    };
+
+    const response = await listMemories(request);
+
+    expect(response.status).toBe('success');
+    const dates = response.memories?.map(m => new Date(m.updated).getTime()) ?? [];
+    expect(dates).toEqual([...dates].sort((a, b) => b - a));
+  });
+
+  it('should return empty list for non-existent basePath', async () => {
+    const request: ListMemoriesRequest = {
+      basePath: '/non-existent-path-for-testing-12345',
+    };
+
+    const response = await listMemories(request);
+
+    // Returns success with empty list for non-existent paths
+    expect(response.status).toBe('success');
+    expect(response.memories).toHaveLength(0);
+  });
+
+  it('should filter by scope', async () => {
+    const request: ListMemoriesRequest = {
+      basePath: testDir,
+      scope: Scope.Global,
+    };
+
+    const response = await listMemories(request);
+
+    expect(response.status).toBe('success');
+    expect(response.memories?.every(m => m.scope === Scope.Global)).toBe(true);
+  });
 });

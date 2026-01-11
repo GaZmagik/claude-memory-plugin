@@ -4,7 +4,7 @@
  * Tests the gotcha injection utilities for contextual warning display.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import {
   getRelevantGotchas,
   filterUnshownGotchas,
@@ -327,21 +327,21 @@ describe('Gotcha Injector', () => {
     });
 
     beforeEach(() => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [],
       } as any);
-      vi.mocked(readMemory).mockResolvedValue({
+      (readMemory as Mock).mockResolvedValue({
         status: 'success',
         memory: { content: 'Test content', frontmatter: {}, filePath: '' },
       } as any);
-      vi.mocked(extractFilePatterns).mockReturnValue([]);
-      vi.mocked(matchFileToPatterns).mockReturnValue(false);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (extractFilePatterns as Mock).mockReturnValue([]);
+      (matchFileToPatterns as Mock).mockReturnValue(false);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
     });
 
     it('should return empty array when no gotchas exist', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [],
       } as any);
@@ -355,7 +355,7 @@ describe('Gotcha Injector', () => {
     });
 
     it('should return empty array on list failure', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'error',
         error: 'Failed',
       } as any);
@@ -369,14 +369,14 @@ describe('Gotcha Injector', () => {
     });
 
     it('should filter gotchas by minimum score', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [
           mockMemory({ id: 'gotcha-1', title: 'Test 1', tags: ['test'] }),
           mockMemory({ id: 'gotcha-2', title: 'Test 2', tags: ['test'] }),
         ],
       } as any);
-      vi.mocked(calculateRelevanceScore)
+      (calculateRelevanceScore as Mock)
         .mockReturnValueOnce(0.1)  // Below threshold
         .mockReturnValueOnce(0.5); // Above threshold
 
@@ -390,7 +390,7 @@ describe('Gotcha Injector', () => {
     });
 
     it('should respect limit parameter', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [
           mockMemory({ id: 'gotcha-1', title: 'Test 1' }),
@@ -398,7 +398,7 @@ describe('Gotcha Injector', () => {
           mockMemory({ id: 'gotcha-3', title: 'Test 3' }),
         ],
       } as any);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
@@ -412,7 +412,7 @@ describe('Gotcha Injector', () => {
     it('should sort by severity first, then by score', async () => {
       // Note: This test verifies the sorting happens in the result
       // The actual sorting order depends on the implementation details
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [
           mockMemory({ id: 'gotcha-low', title: 'Low', severity: 'low' }),
@@ -420,7 +420,7 @@ describe('Gotcha Injector', () => {
           mockMemory({ id: 'gotcha-high', title: 'High', severity: 'high' }),
         ],
       } as any);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
@@ -437,15 +437,15 @@ describe('Gotcha Injector', () => {
     });
 
     it('should include memory content in results', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [mockMemory({ id: 'gotcha-1', title: 'Test' })],
       } as any);
-      vi.mocked(readMemory).mockResolvedValue({
+      (readMemory as Mock).mockResolvedValue({
         status: 'success',
         memory: { content: 'Detailed gotcha content here', frontmatter: {}, filePath: '' },
       } as any);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
@@ -456,13 +456,13 @@ describe('Gotcha Injector', () => {
     });
 
     it('should match by file patterns', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [mockMemory({ id: 'gotcha-1', title: 'Test', tags: ['file:**/*.ts'] })],
       } as any);
-      vi.mocked(extractFilePatterns).mockReturnValue(['**/*.ts']);
-      vi.mocked(matchFileToPatterns).mockReturnValue(true);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (extractFilePatterns as Mock).mockReturnValue(['**/*.ts']);
+      (matchFileToPatterns as Mock).mockReturnValue(true);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
@@ -473,11 +473,11 @@ describe('Gotcha Injector', () => {
     });
 
     it('should match by context tags', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [mockMemory({ id: 'gotcha-1', title: 'Test', tags: ['typescript'] })],
       } as any);
-      vi.mocked(calculateRelevanceScore).mockReturnValue(0.5);
+      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
@@ -489,7 +489,7 @@ describe('Gotcha Injector', () => {
     });
 
     it('should use default values for optional parameters', async () => {
-      vi.mocked(listMemories).mockResolvedValue({
+      (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [],
       } as any);

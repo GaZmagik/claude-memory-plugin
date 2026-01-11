@@ -8,10 +8,34 @@
  * execFileSync-based implementation. No actual commands are executed.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import * as fs from 'node:fs';
-import * as childProcess from 'node:child_process';
-import {
+import { describe, it, expect, mock, beforeEach, afterEach, afterAll } from 'bun:test';
+import * as originalFs from 'node:fs';
+import * as originalChildProcess from 'node:child_process';
+
+// Create mock functions
+const mockExecFileSync = mock(() => '');
+const mockExistsSync = mock(() => false);
+const mockMkdirSync = mock(() => undefined);
+const mockWriteFileSync = mock(() => undefined);
+const mockAppendFileSync = mock(() => undefined);
+
+// Mock child_process - spread original and override only what we need
+mock.module('node:child_process', () => ({
+  ...originalChildProcess,
+  execFileSync: mockExecFileSync,
+}));
+
+// Mock fs - spread original and override only what we need
+mock.module('node:fs', () => ({
+  ...originalFs,
+  existsSync: mockExistsSync,
+  mkdirSync: mockMkdirSync,
+  writeFileSync: mockWriteFileSync,
+  appendFileSync: mockAppendFileSync,
+}));
+
+// Import after mocking
+const {
   hasClaudeBinary,
   getClaudeBinaryPath,
   canSpawnForkSession,
@@ -20,26 +44,20 @@ import {
   writeForkLog,
   isForkedSession,
   getSessionId,
-} from '../../../hooks/src/session/fork-detection.js';
-
-// Mock child_process - we mock execFileSync (secure) not exec (insecure)
-vi.mock('node:child_process', () => ({
-  execFileSync: vi.fn(),
-}));
-
-// Mock fs
-vi.mock('node:fs', () => ({
-  existsSync: vi.fn(),
-  mkdirSync: vi.fn(),
-  writeFileSync: vi.fn(),
-  appendFileSync: vi.fn(),
-}));
+} = await import('../../../hooks/src/session/fork-detection.js');
+const childProcess = await import('node:child_process');
+const fs = await import('node:fs');
 
 describe('Fork Detection', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    // Clear mock call history
+    mockExecFileSync.mockClear();
+    mockExistsSync.mockClear();
+    mockMkdirSync.mockClear();
+    mockWriteFileSync.mockClear();
+    mockAppendFileSync.mockClear();
     process.env = { ...originalEnv };
   });
 
@@ -47,9 +65,15 @@ describe('Fork Detection', () => {
     process.env = originalEnv;
   });
 
+  afterAll(() => {
+    // Restore original modules to prevent leaking to other test files
+    mock.module('node:fs', () => originalFs);
+    mock.module('node:child_process', () => originalChildProcess);
+  });
+
   describe('hasClaudeBinary', () => {
     it('should return true when claude binary is found', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
 
       expect(hasClaudeBinary()).toBe(true);
       expect(childProcess.execFileSync).toHaveBeenCalledWith(
@@ -60,7 +84,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return false when claude binary is not found', () => {
-      vi.mocked(childProcess.execFileSync).mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw new Error('not found');
       });
 
@@ -68,7 +92,7 @@ describe('Fork Detection', () => {
     });
 
     it('should use execFileSync for security (not shell interpolation)', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
 
       hasClaudeBinary();
 
@@ -83,13 +107,13 @@ describe('Fork Detection', () => {
 
   describe('getClaudeBinaryPath', () => {
     it('should return trimmed path when binary is found', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
 
       expect(getClaudeBinaryPath()).toBe('/usr/bin/claude');
     });
 
     it('should return null when binary is not found', () => {
-      vi.mocked(childProcess.execFileSync).mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw new Error('not found');
       });
 
@@ -97,7 +121,7 @@ describe('Fork Detection', () => {
     });
 
     it('should handle paths with spaces', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue(
+      mockExecFileSync.mockReturnValue(
         '/Users/test user/bin/claude\n'
       );
 
@@ -107,7 +131,7 @@ describe('Fork Detection', () => {
 
   describe('canSpawnForkSession', () => {
     it('should return false when claude binary is not available', () => {
-      vi.mocked(childProcess.execFileSync).mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw new Error('not found');
       });
 
@@ -115,7 +139,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return false when no API key is set', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
       delete process.env.ANTHROPIC_API_KEY;
       delete process.env.CLAUDE_API_KEY;
 
@@ -123,14 +147,14 @@ describe('Fork Detection', () => {
     });
 
     it('should return true when binary exists and ANTHROPIC_API_KEY is set', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
       process.env.ANTHROPIC_API_KEY = 'sk-ant-test';
 
       expect(canSpawnForkSession()).toBe(true);
     });
 
     it('should return true when binary exists and CLAUDE_API_KEY is set', () => {
-      vi.mocked(childProcess.execFileSync).mockReturnValue('/usr/bin/claude\n');
+      mockExecFileSync.mockReturnValue('/usr/bin/claude\n');
       process.env.CLAUDE_API_KEY = 'sk-claude-test';
 
       expect(canSpawnForkSession()).toBe(true);
@@ -145,7 +169,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return error when cannot spawn', async () => {
-      vi.mocked(childProcess.execFileSync).mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw new Error('not found');
       });
 
@@ -157,7 +181,7 @@ describe('Fork Detection', () => {
 
     it('should pass prompt as final argument', async () => {
       // First call is for hasClaudeBinary check
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -171,7 +195,7 @@ describe('Fork Detection', () => {
     });
 
     it('should include --print flag by default', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -185,7 +209,7 @@ describe('Fork Detection', () => {
     });
 
     it('should include model parameter', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -199,7 +223,7 @@ describe('Fork Detection', () => {
     });
 
     it('should include system prompt when provided', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -213,7 +237,7 @@ describe('Fork Detection', () => {
     });
 
     it('should include max tokens when provided', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -227,7 +251,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return success with output on successful execution', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('Claude response here');
 
@@ -239,7 +263,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return error on execution failure', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockImplementationOnce(() => {
           const error = new Error('command failed') as Error & {
@@ -259,7 +283,7 @@ describe('Fork Detection', () => {
     });
 
     it('should whitelist only necessary environment variables', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
@@ -267,7 +291,7 @@ describe('Fork Detection', () => {
 
       await spawnForkSession('test');
 
-      const lastCall = vi.mocked(childProcess.execFileSync).mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1];
       const options = lastCall[2] as { env: Record<string, string | undefined> };
 
       expect(options.env).toHaveProperty('PATH');
@@ -277,26 +301,26 @@ describe('Fork Detection', () => {
     });
 
     it('should respect timeout option', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
       await spawnForkSession('test', { timeout: 30000 });
 
-      const lastCall = vi.mocked(childProcess.execFileSync).mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1];
       const options = lastCall[2] as { timeout: number };
 
       expect(options.timeout).toBe(30000);
     });
 
     it('should use default timeout of 60000ms', async () => {
-      vi.mocked(childProcess.execFileSync)
+      mockExecFileSync
         .mockReturnValueOnce('/usr/bin/claude\n')
         .mockReturnValueOnce('response');
 
       await spawnForkSession('test');
 
-      const lastCall = vi.mocked(childProcess.execFileSync).mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1];
       const options = lastCall[2] as { timeout: number };
 
       expect(options.timeout).toBe(60000);
@@ -305,7 +329,7 @@ describe('Fork Detection', () => {
 
   describe('createForkLogFile', () => {
     it('should create logs directory if it does not exist', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(false);
+      mockExistsSync.mockReturnValue(false);
 
       createForkLogFile('test-prefix');
 
@@ -316,7 +340,7 @@ describe('Fork Detection', () => {
     });
 
     it('should not create directory if it exists', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       createForkLogFile('test-prefix');
 
@@ -324,7 +348,7 @@ describe('Fork Detection', () => {
     });
 
     it('should return path with prefix and timestamp', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       const logPath = createForkLogFile('memory-capture');
 
@@ -333,7 +357,7 @@ describe('Fork Detection', () => {
     });
 
     it('should include session ID when provided', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       const logPath = createForkLogFile('test', 'abc123');
 
@@ -341,7 +365,7 @@ describe('Fork Detection', () => {
     });
 
     it('should generate unique log paths', async () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       const path1 = createForkLogFile('test');
       // Wait a tiny bit to ensure different timestamp
@@ -355,7 +379,7 @@ describe('Fork Detection', () => {
 
   describe('writeForkLog', () => {
     it('should write content with timestamp', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(false);
+      mockExistsSync.mockReturnValue(false);
 
       writeForkLog('/path/to/log.log', 'Test content');
 
@@ -366,11 +390,11 @@ describe('Fork Detection', () => {
     });
 
     it('should include ISO timestamp in entry', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(false);
+      mockExistsSync.mockReturnValue(false);
 
       writeForkLog('/path/to/log.log', 'Test content');
 
-      const call = vi.mocked(fs.writeFileSync).mock.calls[0];
+      const call = mockWriteFileSync.mock.calls[0];
       const content = call[1] as string;
 
       // Should have ISO timestamp format [2026-01-10T...]
@@ -378,7 +402,7 @@ describe('Fork Detection', () => {
     });
 
     it('should append when file exists and append is true', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       writeForkLog('/path/to/log.log', 'New content', true);
 
@@ -387,7 +411,7 @@ describe('Fork Detection', () => {
     });
 
     it('should overwrite when append is false', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       writeForkLog('/path/to/log.log', 'New content', false);
 
@@ -396,7 +420,7 @@ describe('Fork Detection', () => {
     });
 
     it('should write new file when file does not exist', () => {
-      vi.mocked(fs.existsSync).mockReturnValue(false);
+      mockExistsSync.mockReturnValue(false);
 
       writeForkLog('/path/to/log.log', 'First content', true);
 

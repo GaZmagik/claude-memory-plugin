@@ -25,10 +25,6 @@
       "enabled": false,
       "description": "Check for gotchas on code navigation (very high frequency, not recommended)"
     },
-    "Task": {
-      "enabled": false,
-      "description": "Inject gotchas relevant to spawned agents"
-    },
     "TodoWrite": {
       "enabled": false,
       "description": "Check for gotchas when updating task lists"

@@ -2,7 +2,7 @@
 name: memory-curator
 version: 1.0.0
 model: haiku
-description: Automated memory health monitoring, graph integrity analysis, quality assurance, and handover validation. Identifies orphaned nodes, suggests links, detects promotion candidates, validates tags, and ensures complete handover references. Examples: <example>Context: Before creating a handover. user: 'Check memory health before I create the handover' assistant: 'I'll use the memory-curator agent to analyse memory system health and identify any quality issues.'</example> <example>Context: Regular maintenance. user: 'Are my memories well-linked?' assistant: 'Let me engage the memory-curator agent to analyse graph connectivity and suggest improvements.'</example>
+description: Automated memory health monitoring, graph integrity analysis, quality assurance, and handover validation. Identifies orphaned nodes, suggests links, detects promotion candidates, validates tags, and ensures complete handover references.
 tools: Glob, Grep, Read, TodoWrite, Bash
 color: white
 ---

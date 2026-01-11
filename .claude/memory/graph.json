@@ -135,6 +135,18 @@
     {
       "id": "retro-duplicate-test-discovery",
       "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts"
+    },
+    {
+      "id": "learning-retro-agent-generated-tests-need-api-validation",
+      "title": "retro-agent-generated-tests-need-api-validation"
+    },
+    {
+      "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "title": "retro-tmpdir-cleanup-permissions-fragile"
+    },
+    {
+      "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "title": "retro-memory-graph-linking-batch-approach-efficient"
     }
   ],
   "edges": [

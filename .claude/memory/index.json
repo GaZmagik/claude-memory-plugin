@@ -527,6 +527,57 @@
         "tdd-parity",
         "typescript"
       ]
+    },
+    {
+      "id": "learning-retro-agent-generated-tests-need-api-validation",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-agent-generated-tests-need-api-validation.md",
+      "title": "retro-agent-generated-tests-need-api-validation",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T22:41:51Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "['retrospective'",
+        "'process'",
+        "'testing'",
+        "'agent-coordination']"
+      ]
+    },
+    {
+      "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tmpdir-cleanup-permissions-fragile.md",
+      "title": "retro-tmpdir-cleanup-permissions-fragile",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T22:41:57Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "['retrospective'",
+        "'process'",
+        "'testing'",
+        "'edge-cases']"
+      ]
+    },
+    {
+      "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-memory-graph-linking-batch-approach-efficient.md",
+      "title": "retro-memory-graph-linking-batch-approach-efficient",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T22:42:03Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "['retrospective'",
+        "'process'",
+        "'memory-graph'",
+        "'improvement']"
+      ]
     }
   ]
 }

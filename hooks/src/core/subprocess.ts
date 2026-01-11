@@ -3,7 +3,15 @@
  * Provides consistent subprocess spawning with timeout, error handling, and structured results
  *
  * T033-T037: Implementation for US1 (Subprocess Spawning Utilities)
+ *
+ * Cross-platform: Works with both Bun and Node.js
  */
+
+import {
+  spawnSync as nodeSpawnSync,
+  spawn as nodeSpawn,
+  type ChildProcess,
+} from 'node:child_process';
 
 export interface SubprocessOptions {
   /** Timeout in milliseconds (default: 30000) */
@@ -50,21 +58,24 @@ export async function spawnSync(
   const start = Date.now();
 
   try {
-    const proc = Bun.spawnSync(args, {
+    const [command, ...cmdArgs] = args;
+    const proc = nodeSpawnSync(command, cmdArgs, {
       cwd,
       env: env ? { ...process.env, ...env } : process.env,
-      stdin: stdin ? Buffer.from(stdin) : undefined,
+      input: stdin,
       timeout,
+      encoding: 'utf-8',
+      maxBuffer: 10 * 1024 * 1024, // 10MB
     });
 
     const durationMs = Date.now() - start;
-    const timedOut = proc.exitCode === null && durationMs >= timeout - 50;
+    const timedOut = proc.signal === 'SIGTERM' && durationMs >= timeout - 50;
 
     return {
-      exitCode: proc.exitCode,
-      stdout: proc.stdout?.toString() ?? '',
-      stderr: proc.stderr?.toString() ?? '',
-      success: proc.exitCode === 0,
+      exitCode: proc.status,
+      stdout: proc.stdout ?? '',
+      stderr: proc.stderr ?? '',
+      success: proc.status === 0,
       timedOut,
       durationMs,
     };
@@ -98,55 +109,84 @@ export async function spawn(
   const { timeout = 30000, cwd, env, stdin } = options;
   const start = Date.now();
 
-  try {
-    const proc = Bun.spawn(args, {
-      cwd,
-      env: env ? { ...process.env, ...env } : process.env,
-      stdin: stdin ? 'pipe' : undefined,
-      stdout: 'pipe',
-      stderr: 'pipe',
-    });
+  return new Promise((resolve) => {
+    try {
+      const [command, ...cmdArgs] = args;
+      const proc: ChildProcess = nodeSpawn(command, cmdArgs, {
+        cwd,
+        env: env ? { ...process.env, ...env } : process.env,
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
 
-    // Write stdin if provided
-    if (stdin && proc.stdin) {
-      proc.stdin.write(typeof stdin === 'string' ? stdin : stdin);
-      proc.stdin.end();
+      let stdout = '';
+      let stderr = '';
+      let timedOut = false;
+
+      // Collect stdout
+      proc.stdout?.on('data', (data: Buffer) => {
+        stdout += data.toString();
+      });
+
+      // Collect stderr
+      proc.stderr?.on('data', (data: Buffer) => {
+        stderr += data.toString();
+      });
+
+      // Write stdin if provided
+      if (stdin && proc.stdin) {
+        proc.stdin.write(stdin);
+        proc.stdin.end();
+      } else if (proc.stdin) {
+        proc.stdin.end();
+      }
+
+      // Set up timeout
+      const timeoutId = setTimeout(() => {
+        timedOut = true;
+        proc.kill('SIGTERM');
+      }, timeout);
+
+      // Handle process exit
+      proc.on('close', (exitCode: number | null) => {
+        clearTimeout(timeoutId);
+        const durationMs = Date.now() - start;
+
+        resolve({
+          exitCode: timedOut ? null : exitCode,
+          stdout,
+          stderr,
+          success: !timedOut && exitCode === 0,
+          timedOut,
+          durationMs,
+        });
+      });
+
+      // Handle errors
+      proc.on('error', (error: Error) => {
+        clearTimeout(timeoutId);
+        const durationMs = Date.now() - start;
+
+        resolve({
+          exitCode: null,
+          stdout,
+          stderr: error.message,
+          success: false,
+          timedOut: false,
+          durationMs,
+        });
+      });
+    } catch (error) {
+      const durationMs = Date.now() - start;
+      resolve({
+        exitCode: null,
+        stdout: '',
+        stderr: error instanceof Error ? error.message : String(error),
+        success: false,
+        timedOut: false,
+        durationMs,
+      });
     }
-
-    // Set up timeout
-    let timedOut = false;
-    const timeoutId = setTimeout(() => {
-      timedOut = true;
-      proc.kill();
-    }, timeout);
-
-    // Wait for process to complete
-    const exitCode = await proc.exited;
-    clearTimeout(timeoutId);
-
-    const stdout = await new Response(proc.stdout).text();
-    const stderr = await new Response(proc.stderr).text();
-    const durationMs = Date.now() - start;
-
-    return {
-      exitCode: timedOut ? null : exitCode,
-      stdout,
-      stderr,
-      success: !timedOut && exitCode === 0,
-      timedOut,
-      durationMs,
-    };
-  } catch (error) {
-    const durationMs = Date.now() - start;
-    return {
-      exitCode: null,
-      stdout: '',
-      stderr: error instanceof Error ? error.message : String(error),
-      success: false,
-      timedOut: false,
-      durationMs,
-    };
-  }
+  });
 }
 
 /**

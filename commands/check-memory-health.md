@@ -1,6 +1,6 @@
 ---
 description: Check memory system health including graph connectivity, hub integrity, frontmatter sync, and link suggestions.
-argument-hint: "[--user | --project | local | global] [--quick]"
+argument-hint: "local | global] [quick]"
 version: "2.0.0"
 ---
 
@@ -19,9 +19,10 @@ Perform a health check of the memory system using the built-in `memory validate`
 ### 1. Determine Scope
 
 **Check arguments first**:
-- `--user` or `--global` or `global` → Use `global` scope
-- `--project` or `local` → Use `local` scope
-- No argument → Ask user
+- `global` → Use `global` scope
+- `local` → Use `local` scope
+- `quick` → Use quick check mode (see Quick Check Option below)
+- Combinations (e.g. `local quick`) → Parse accordingly
 
 **If no scope provided**, use AskUserQuestion:
 ```json
@@ -168,7 +169,7 @@ Reports memories with quality issues (stale references, missing edges, etc.)
 
 ## Quick Check Option
 
-If `$ARGUMENTS` contains `quick` or `--quick`:
+If `$ARGUMENTS` contains `quick`:
 - Run `memory health <scope>` instead of `memory validate`
 - This is faster but only checks graph connectivity (not index/file sync)
 

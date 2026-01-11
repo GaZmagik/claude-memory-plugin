@@ -12,19 +12,45 @@ The Claude Memory Plugin extends Claude Code with a sophisticated memory system 
 - **Manages relationships** between memories using directed graphs
 - **Supports multiple scopes** (global, project, local, enterprise) for knowledge isolation
 
+## Requirements
+
+- **Node.js** >= 18.0.0
+- **Package manager**: Bun >= 1.0.0 or npm/yarn
+- **Claude Code** >= 2.0.0
+- **Ollama** (optional, for semantic search with local embeddings)
+
 ## Quick Start
 
 ### Installation
 
+Using the Claude Code plugin interface:
+
 ```bash
-cd /path/to/claude-memory-plugin
-./scripts/install.sh
+# From Claude Code session
+/plugin install /path/to/claude-memory-plugin
+```
+
+Or clone and install manually:
+
+```bash
+git clone https://github.com/GaZmagik/claude-memory-plugin
+cd claude-memory-plugin
+
+# Using Bun
+bun install
+
+# Or using npm
+npm install
+
+# Then from Claude Code session
+/plugin install .
 ```
 
 This installs:
-- The memory skill to `~/.claude/skills/memory/`
+- The memory skill for knowledge storage
 - Contextual hooks for automatic gotcha injection
 - Agent definitions for memory analysis
+- Slash commands for memory operations
 
 ### Basic Usage
 
@@ -45,20 +71,19 @@ This installs:
 claude-memory-plugin/
 ├── skills/memory/          # Memory skill system (core implementation)
 ├── hooks/                  # Claude Code integration hooks
-│   ├── lib/               # Shared hook utilities
+│   ├── src/               # Shared hook utilities
 │   ├── pre-tool-use/      # Block dangerous memory operations
 │   ├── post-tool-use/     # Inject gotchas when reading files
+│   ├── user-prompt-submit/# Context injection on prompts
 │   ├── session-start/     # Initialise memory at session start
 │   ├── session-end/       # Cleanup on /clear command
 │   └── pre-compact/       # Capture memories before compaction
 ├── agents/                # Advanced memory agents
 │   ├── memory-recall.md   # Query and restore memory context
 │   └── memory-curator.md  # Audit memory graph health
-├── commands/              # Slash commands
-│   ├── check-gotchas.md   # Search for relevant warnings
-│   └── check-memory-health.md  # Inspect memory system
-└── scripts/               # Installation/uninstallation
-
+└── commands/              # Slash commands
+    ├── check-gotchas.md   # Search for relevant warnings
+    └── check-memory-health.md  # Inspect memory system
 ```
 
 ## Key Features
@@ -293,9 +318,10 @@ See `hooks/hooks.json` for the full configuration.
 ### Running Tests
 
 ```bash
-npm test                 # Run all tests
-npm run test:coverage    # Generate coverage report
-npm run build            # TypeScript compilation
+bun test                 # Run all tests
+bun test --coverage      # Generate coverage report
+bun run build            # TypeScript compilation
+bun run typecheck        # Type checking
 ```
 
 ### Adding a Memory Type
@@ -364,15 +390,11 @@ rm -rf ~/.claude/memory/.embedding-cache
 ## Uninstallation
 
 ```bash
-./scripts/uninstall.sh
+# From Claude Code session
+/plugin uninstall claude-memory-plugin
 ```
 
-This removes:
-- Hook symlinks from `~/.claude/hooks/`
-- Agent definitions from `~/.claude/agents/`
-- Memory skill symlink from `~/.claude/skills/`
-
-Memory data in `.claude/memory/` is preserved (delete manually if needed).
+This removes all plugin components. Memory data in `.claude/memory/` is preserved (delete manually if needed).
 
 ## License
 

@@ -5,28 +5,22 @@
   "type": "module",
   "main": "skills/memory/src/index.ts",
   "types": "skills/memory/src/index.d.ts",
-  "bin": {
-    "claude-memory-install": "./scripts/install.sh"
-  },
   "scripts": {
     "dev": "tsx watch skills/memory/src/index.ts",
     "build": "tsc",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
+    "test": "bun test",
+    "test:run": "bun test",
+    "test:coverage": "bun test --coverage",
     "lint": "eslint . --ext .ts",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
     "typecheck:src": "tsc --noEmit",
-    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json",
-    "install:plugin": "./scripts/install.sh",
-    "uninstall:plugin": "./scripts/uninstall.sh"
+    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json"
   },
   "files": [
     "skills/",
     "hooks/",
     "agents/",
     "commands/",
-    "scripts/",
     "README.md",
     "LICENSE"
   ],

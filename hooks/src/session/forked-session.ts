@@ -159,12 +159,12 @@ Working Directory: ${options.cwd}
     echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
   `;
 
-  // Launch detached background process
-  const proc = Bun.spawn(['nohup', 'bash', '-c', backgroundScript], {
-    stdin: null,
-    stdout: null,
-    stderr: null,
+  // Launch detached background process using cross-platform spawn
+  const { spawn: nodeSpawn } = await import('node:child_process');
+  const proc = nodeSpawn('bash', ['-c', backgroundScript], {
     cwd: options.cwd,
+    detached: true,
+    stdio: 'ignore',
   });
 
   // Unref to allow process to continue independently

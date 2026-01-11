@@ -14,6 +14,9 @@ import {
   removeNode,
   getNode,
   getAllNodes,
+  hasNode,
+  getNodeCount,
+  getEdgeCount,
   type MemoryGraph,
   type GraphNode,
 } from '../../../skills/memory/src/graph/structure.js';
@@ -275,6 +278,70 @@ describe('Graph Data Structure', () => {
 
       expect(decisions).toHaveLength(2);
       expect(decisions.every(n => n.type === 'decision')).toBe(true);
+    });
+  });
+
+  describe('hasNode', () => {
+    it('should return true for existing node', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'existing', type: 'decision' }],
+        edges: [],
+      };
+
+      expect(hasNode(graph, 'existing')).toBe(true);
+    });
+
+    it('should return false for non-existent node', () => {
+      const graph = createGraph();
+
+      expect(hasNode(graph, 'missing')).toBe(false);
+    });
+  });
+
+  describe('getNodeCount', () => {
+    it('should return correct count for empty graph', () => {
+      const graph = createGraph();
+
+      expect(getNodeCount(graph)).toBe(0);
+    });
+
+    it('should return correct count for populated graph', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+          { id: 'node-3', type: 'artifact' },
+        ],
+        edges: [],
+      };
+
+      expect(getNodeCount(graph)).toBe(3);
+    });
+  });
+
+  describe('getEdgeCount', () => {
+    it('should return correct count for graph with no edges', () => {
+      const graph = createGraph();
+
+      expect(getEdgeCount(graph)).toBe(0);
+    });
+
+    it('should return correct count for graph with edges', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [
+          { source: 'node-1', target: 'node-2', label: 'relates-to' },
+          { source: 'node-2', target: 'node-1', label: 'informed-by' },
+        ],
+      };
+
+      expect(getEdgeCount(graph)).toBe(2);
     });
   });
 });

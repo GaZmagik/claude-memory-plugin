@@ -327,6 +327,73 @@
         "gotcha",
         "maintenance"
       ]
+    },
+    {
+      "id": "learning-spawn-session-refactor",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-spawn-session-refactor.md",
+      "title": "spawn-session-refactor",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T17:55:11Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "architecture",
+        "refactoring",
+        "session-management"
+      ]
+    },
+    {
+      "id": "learning-test-isolation-bun-mock-module",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-isolation-bun-mock-module.md",
+      "title": "test-isolation-bun-mock-module",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T17:55:16Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "testing",
+        "bun",
+        "mock",
+        "isolation"
+      ]
+    },
+    {
+      "id": "learning-tdd-test-coverage-expansion-pattern",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-test-coverage-expansion-pattern.md",
+      "title": "tdd-test-coverage-expansion-pattern",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T17:55:22Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "tdd",
+        "testing",
+        "coverage",
+        "process"
+      ]
+    },
+    {
+      "id": "learning-typescript-tdd-hook-naming-enforcement",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-typescript-tdd-hook-naming-enforcement.md",
+      "title": "typescript-tdd-hook-naming-enforcement",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T17:55:27Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "tdd",
+        "naming",
+        "typescript",
+        "build"
+      ]
     }
   ]
 }

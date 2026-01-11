@@ -83,6 +83,22 @@
     {
       "id": "gotcha-agents-should-be-copies-not-rewrites",
       "title": "Plugin agents must copy user-level versions, not simplified rewrites"
+    },
+    {
+      "id": "learning-spawn-session-refactor",
+      "title": "spawn-session-refactor"
+    },
+    {
+      "id": "learning-test-isolation-bun-mock-module",
+      "title": "test-isolation-bun-mock-module"
+    },
+    {
+      "id": "learning-tdd-test-coverage-expansion-pattern",
+      "title": "tdd-test-coverage-expansion-pattern"
+    },
+    {
+      "id": "learning-typescript-tdd-hook-naming-enforcement",
+      "title": "typescript-tdd-hook-naming-enforcement"
     }
   ],
   "edges": [

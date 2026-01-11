@@ -24,9 +24,47 @@ import {
   cleanGotchaSummary,
 } from '../src/memory/topic-classifier.ts';
 import { existsSync, readFileSync, mkdirSync, appendFileSync, readdirSync } from 'fs';
-import { join, basename } from 'path';
+import { join, basename, dirname } from 'path';
 import { homedir } from 'os';
 import type { HookInput } from '../src/core/types.ts';
+
+// Load tool configuration
+interface ToolConfig {
+  enabled: boolean;
+  description: string;
+}
+
+interface HookConfig {
+  enabledTools: Record<string, ToolConfig>;
+}
+
+function loadConfig(): HookConfig {
+  const configPath = join(dirname(import.meta.path), 'memory-context-config.json');
+  const defaultConfig: HookConfig = {
+    enabledTools: {
+      Read: { enabled: true, description: 'Inject gotchas when reading files' },
+      Write: { enabled: true, description: 'Suggest memory capture after writes' },
+      Edit: { enabled: true, description: 'Suggest memory capture after edits' },
+      MultiEdit: { enabled: true, description: 'Suggest memory capture after multi-edits' },
+    },
+  };
+
+  if (!existsSync(configPath)) {
+    return defaultConfig;
+  }
+
+  try {
+    const content = readFileSync(configPath, 'utf-8');
+    return JSON.parse(content) as HookConfig;
+  } catch {
+    return defaultConfig;
+  }
+}
+
+function isToolEnabled(toolName: string, config: HookConfig): boolean {
+  const toolConfig = config.enabledTools[toolName];
+  return toolConfig?.enabled ?? false;
+}
 
 // Meta-topics to reject (not useful for memory search)
 const META_TOPICS = [
@@ -547,6 +585,12 @@ runHook(async (input) => {
   const projectDir = input.cwd || process.cwd();
   const sessionId = input.session_id || 'unknown';
 
+  // Load config and check if tool is enabled
+  const config = loadConfig();
+  if (!isToolEnabled(toolName, config)) {
+    return allow();
+  }
+
   const ctx = setupLogging(projectDir, sessionId, toolName);
 
   // READ mode
@@ -566,9 +610,8 @@ runHook(async (input) => {
     return allow();
   }
 
-  // WRITE mode
-  const writeTools = ['Edit', 'Write', 'MultiEdit', 'TodoWrite'];
-  if (writeTools.includes(toolName)) {
+  // WRITE mode (any enabled tool that's not Read)
+  if (toolName !== 'Read') {
     const result = await handleWriteMode(input, ctx);
     if (result) {
       return {

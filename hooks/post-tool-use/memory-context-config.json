@@ -1,0 +1,37 @@
+{
+  "description": "Configuration for PostToolUse memory-context hook",
+  "enabledTools": {
+    "Read": {
+      "enabled": true,
+      "description": "Inject gotchas when reading files"
+    },
+    "Write": {
+      "enabled": true,
+      "description": "Suggest memory capture after writes"
+    },
+    "Edit": {
+      "enabled": true,
+      "description": "Suggest memory capture after edits"
+    },
+    "MultiEdit": {
+      "enabled": true,
+      "description": "Suggest memory capture after multi-edits"
+    },
+    "Bash": {
+      "enabled": false,
+      "description": "Check for gotchas after command execution (high frequency, use with caution)"
+    },
+    "LSP": {
+      "enabled": false,
+      "description": "Check for gotchas on code navigation (very high frequency, not recommended)"
+    },
+    "Task": {
+      "enabled": false,
+      "description": "Inject gotchas relevant to spawned agents"
+    },
+    "TodoWrite": {
+      "enabled": false,
+      "description": "Check for gotchas when updating task lists"
+    }
+  }
+}

@@ -16,7 +16,7 @@ import {
   getSessionDuration,
   isSessionExpired,
   pruneExpiredEntries,
-} from '../../../hooks/lib/session-state.js';
+} from '../../../hooks/src/session/session-state.js';
 
 describe('Session State', () => {
   describe('createSessionState', () => {

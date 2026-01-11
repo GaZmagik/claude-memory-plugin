@@ -15,7 +15,7 @@ import {
   combineScores,
   RelevanceContext,
   RelevanceWeights,
-} from '../../../hooks/lib/relevance-scorer.js';
+} from '../../../hooks/src/memory/relevance-scorer.js';
 import { Severity } from '../../../skills/memory/src/types/enums.js';
 
 describe('Relevance Scorer', () => {

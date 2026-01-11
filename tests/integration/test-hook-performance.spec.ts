@@ -11,10 +11,10 @@ import * as path from 'node:path';
 import { tmpdir } from 'node:os';
 import { writeMemory } from '../../skills/memory/src/core/write.js';
 import { MemoryType, Scope, Severity } from '../../skills/memory/src/types/enums.js';
-import { getRelevantGotchas } from '../../hooks/lib/gotcha-injector.js';
-import { matchFileToPatterns } from '../../hooks/lib/pattern-matcher.js';
-import { calculateRelevanceScore } from '../../hooks/lib/relevance-scorer.js';
-import { createSessionState, markAsShown, hasBeenShown } from '../../hooks/lib/session-state.js';
+import { getRelevantGotchas } from '../../hooks/src/memory/gotcha-injector.js';
+import { matchFileToPatterns } from '../../hooks/src/memory/pattern-matcher.js';
+import { calculateRelevanceScore } from '../../hooks/src/memory/relevance-scorer.js';
+import { createSessionState, markAsShown, hasBeenShown } from '../../hooks/src/session/session-state.js';
 
 describe('Hook Performance', () => {
   let testDir: string;

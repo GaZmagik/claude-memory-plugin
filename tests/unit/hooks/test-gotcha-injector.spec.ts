@@ -11,8 +11,8 @@ import {
   formatGotchaWarning,
   shouldInjectGotcha,
   type GotchaResult,
-} from '../../../hooks/lib/gotcha-injector.js';
-import type { SessionState } from '../../../hooks/lib/session-state.js';
+} from '../../../hooks/src/memory/gotcha-injector.js';
+import type { SessionState } from '../../../hooks/src/session/session-state.js';
 
 // Mock the memory module
 vi.mock('../../../skills/memory/src/core/list.js', () => ({
@@ -23,19 +23,19 @@ vi.mock('../../../skills/memory/src/core/read.js', () => ({
   readMemory: vi.fn(),
 }));
 
-vi.mock('../../../hooks/lib/pattern-matcher.js', () => ({
+vi.mock('../../../hooks/src/memory/pattern-matcher.js', () => ({
   extractFilePatterns: vi.fn(() => []),
   matchFileToPatterns: vi.fn(() => false),
 }));
 
-vi.mock('../../../hooks/lib/relevance-scorer.js', () => ({
+vi.mock('../../../hooks/src/memory/relevance-scorer.js', () => ({
   calculateRelevanceScore: vi.fn(() => 0.5),
 }));
 
 import { listMemories } from '../../../skills/memory/src/core/list.js';
 import { readMemory } from '../../../skills/memory/src/core/read.js';
-import { extractFilePatterns, matchFileToPatterns } from '../../../hooks/lib/pattern-matcher.js';
-import { calculateRelevanceScore } from '../../../hooks/lib/relevance-scorer.js';
+import { extractFilePatterns, matchFileToPatterns } from '../../../hooks/src/memory/pattern-matcher.js';
+import { calculateRelevanceScore } from '../../../hooks/src/memory/relevance-scorer.js';
 
 describe('Gotcha Injector', () => {
   beforeEach(() => {

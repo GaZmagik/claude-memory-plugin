@@ -12,7 +12,7 @@ import {
   normalisePattern,
   isGlobPattern,
   matchesGlob,
-} from '../../../hooks/lib/pattern-matcher.js';
+} from '../../../hooks/src/memory/pattern-matcher.js';
 
 describe('Pattern Matcher', () => {
   describe('normalisePattern', () => {

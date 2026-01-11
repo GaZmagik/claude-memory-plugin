@@ -15,7 +15,7 @@ import {
   isAllowedOperation,
   getProtectionReason,
   ToolOperation,
-} from '../../hooks/lib/directory-protection.js';
+} from '../../hooks/src/memory/directory-protection.js';
 
 describe('Directory Protection Integration', () => {
   let testDir: string;

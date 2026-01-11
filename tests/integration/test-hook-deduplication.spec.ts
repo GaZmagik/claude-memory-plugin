@@ -15,11 +15,11 @@ import {
   createSessionState,
   markAsShown,
   hasBeenShown,
-} from '../../hooks/lib/session-state.js';
+} from '../../hooks/src/session/session-state.js';
 import {
   getRelevantGotchas,
   filterUnshownGotchas,
-} from '../../hooks/lib/gotcha-injector.js';
+} from '../../hooks/src/memory/gotcha-injector.js';
 
 describe('Hook Deduplication Integration', () => {
   let testDir: string;

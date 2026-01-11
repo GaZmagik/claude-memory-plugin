@@ -20,7 +20,7 @@ import {
   writeForkLog,
   isForkedSession,
   getSessionId,
-} from '../../../hooks/lib/fork-detection.js';
+} from '../../../hooks/src/session/fork-detection.js';
 
 // Mock child_process - we mock execFileSync (secure) not exec (insecure)
 vi.mock('node:child_process', () => ({

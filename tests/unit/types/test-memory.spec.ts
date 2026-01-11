@@ -111,7 +111,7 @@ describe('validateFrontmatter', () => {
       created: '2026-01-10T12:00:00Z',
       updated: '2026-01-10T12:00:00Z',
       tags: [],
-    } as MemoryFrontmatter;
+    } as unknown as MemoryFrontmatter;
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);
@@ -124,7 +124,7 @@ describe('validateFrontmatter', () => {
       created: '2026-01-10T12:00:00Z',
       updated: '2026-01-10T12:00:00Z',
       tags: [],
-    } as MemoryFrontmatter;
+    } as unknown as MemoryFrontmatter;
 
     const result = validateFrontmatter(frontmatter);
     expect(result.valid).toBe(false);

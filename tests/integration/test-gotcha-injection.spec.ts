@@ -5,7 +5,7 @@
  * when reading files that match their patterns.
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -15,7 +15,7 @@ import {
   getRelevantGotchas,
   formatGotchaWarning,
   shouldInjectGotcha,
-} from '../../hooks/lib/gotcha-injector.js';
+} from '../../hooks/src/memory/gotcha-injector.js';
 
 describe('Gotcha Injection Integration', () => {
   let testDir: string;
@@ -158,6 +158,8 @@ describe('Gotcha Injection Integration', () => {
         title: 'Test Gotcha',
         severity: 'high',
         content: 'This is important',
+        tags: [],
+        score: 0.5,
       };
 
       const formatted = formatGotchaWarning([gotcha]);
@@ -169,8 +171,8 @@ describe('Gotcha Injection Integration', () => {
 
     it('should format multiple gotchas', () => {
       const gotchas = [
-        { id: 'gotcha-1', title: 'First', severity: 'high', content: 'First content' },
-        { id: 'gotcha-2', title: 'Second', severity: 'medium', content: 'Second content' },
+        { id: 'gotcha-1', title: 'First', severity: 'high', content: 'First content', tags: [], score: 0.5 },
+        { id: 'gotcha-2', title: 'Second', severity: 'medium', content: 'Second content', tags: [], score: 0.5 },
       ];
 
       const formatted = formatGotchaWarning(gotchas);
@@ -186,8 +188,8 @@ describe('Gotcha Injection Integration', () => {
     });
 
     it('should use severity-appropriate icons', () => {
-      const critical = [{ id: 'g', title: 'T', severity: 'critical', content: '' }];
-      const low = [{ id: 'g', title: 'T', severity: 'low', content: '' }];
+      const critical = [{ id: 'g', title: 'T', severity: 'critical', content: '', tags: [], score: 0.5 }];
+      const low = [{ id: 'g', title: 'T', severity: 'low', content: '', tags: [], score: 0.5 }];
 
       expect(formatGotchaWarning(critical)).toContain('🚨');
       expect(formatGotchaWarning(low)).toContain('ℹ️');

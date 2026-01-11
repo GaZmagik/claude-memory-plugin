@@ -233,13 +233,14 @@ export function calculateImpact(graph: MemoryGraph, nodeId: string): {
   brokenEdges: number;
 } {
   // Find nodes that would be orphaned (only reachable through this node)
-  const dependents = findPredecessors(graph, nodeId);
+  // Use BFS to find all nodes reachable FROM this node (dependents)
+  const dependents = findReachable(graph, nodeId);
   const orphanedNodes: string[] = [];
 
   for (const depId of dependents) {
     if (depId === nodeId) continue;
 
-    // Check if this node has any other path to a "root" node
+    // Check if this node has any other inbound edge NOT from the removed node
     const inbound = getInboundEdges(graph, depId);
     const hasOtherPath = inbound.some(e => e.source !== nodeId);
 

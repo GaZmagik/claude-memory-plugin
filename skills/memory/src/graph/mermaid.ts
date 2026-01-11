@@ -157,14 +157,14 @@ export function generateMermaid(
 
   // Filter by type if specified
   if (filterType) {
+    const filteredNodes = workingGraph.nodes.filter(n => n.type === filterType);
+    const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
     workingGraph = {
       ...workingGraph,
-      nodes: workingGraph.nodes.filter(n => n.type === filterType),
-      edges: workingGraph.edges.filter(e => {
-        const sourceNode = workingGraph.nodes.find(n => n.id === e.source);
-        const targetNode = workingGraph.nodes.find(n => n.id === e.target);
-        return sourceNode && targetNode;
-      }),
+      nodes: filteredNodes,
+      edges: workingGraph.edges.filter(e =>
+        filteredNodeIds.has(e.source) && filteredNodeIds.has(e.target)
+      ),
     };
   }
 

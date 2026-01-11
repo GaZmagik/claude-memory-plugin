@@ -99,6 +99,30 @@
     {
       "id": "learning-typescript-tdd-hook-naming-enforcement",
       "title": "typescript-tdd-hook-naming-enforcement"
+    },
+    {
+      "id": "learning-tdd-parity-typescript-support",
+      "title": "tdd-parity-typescript-support"
+    },
+    {
+      "id": "learning-retro-typescript-tooling-parity",
+      "title": "retro-typescript-tooling-parity"
+    },
+    {
+      "id": "learning-regex-based-language-parsing-tradeoff",
+      "title": "regex-based-language-parsing-tradeoff"
+    },
+    {
+      "id": "learning-retro-test-coverage-asymptotic-returns",
+      "title": "retro-test-coverage-asymptotic-returns"
+    },
+    {
+      "id": "learning-test-coverage-achieved-99-percent-functions",
+      "title": "test-coverage-achieved-99-percent-functions"
+    },
+    {
+      "id": "learning-retro-memory-linking-post-compaction",
+      "title": "retro-memory-linking-post-compaction"
     }
   ],
   "edges": [

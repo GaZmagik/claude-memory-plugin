@@ -394,6 +394,95 @@
         "typescript",
         "build"
       ]
+    },
+    {
+      "id": "learning-tdd-parity-typescript-support",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-typescript-support.md",
+      "title": "tdd-parity-typescript-support",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:48:56Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-retro-typescript-tooling-parity",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-typescript-tooling-parity.md",
+      "title": "retro-typescript-tooling-parity",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:48:56Z",
+      "tags": [
+        "learning",
+        "tip",
+        "high",
+        "retrospective",
+        "process",
+        "tooling",
+        "typescript"
+      ]
+    },
+    {
+      "id": "learning-regex-based-language-parsing-tradeoff",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-regex-based-language-parsing-tradeoff.md",
+      "title": "regex-based-language-parsing-tradeoff",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:49:01Z",
+      "tags": [
+        "learning",
+        "insight",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-retro-test-coverage-asymptotic-returns",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-test-coverage-asymptotic-returns.md",
+      "title": "retro-test-coverage-asymptotic-returns",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:49:02Z",
+      "tags": [
+        "learning",
+        "insight",
+        "medium",
+        "retrospective",
+        "process",
+        "testing",
+        "coverage"
+      ]
+    },
+    {
+      "id": "learning-test-coverage-achieved-99-percent-functions",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-coverage-achieved-99-percent-functions.md",
+      "title": "test-coverage-achieved-99-percent-functions",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:49:07Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-retro-memory-linking-post-compaction",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-memory-linking-post-compaction.md",
+      "title": "retro-memory-linking-post-compaction",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T18:49:07Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium",
+        "retrospective",
+        "process",
+        "memory-graph"
+      ]
     }
   ]
 }

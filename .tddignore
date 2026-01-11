@@ -1,0 +1,13 @@
+# TDD Parity Exclusions
+# These files don't contain testable runtime code
+
+# Re-export index files (no logic to test)
+src/index.ts
+src/types/index.ts
+
+# Type definition files (no runtime code)
+src/types/api.ts
+
+# Empty stub files (test helpers, not implementation)
+src/core/logger-stub.ts
+src/core/validation-stub.ts

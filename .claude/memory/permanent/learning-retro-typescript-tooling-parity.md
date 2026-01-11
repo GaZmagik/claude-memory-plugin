@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T18:48:56Z
-updated: 2026-01-11T18:48:58Z
+updated: 2026-01-11T21:06:11Z
 tags: ["learning","tip","high","retrospective","process","tooling","typescript"]
 embedding: "d2afc81c46b538c40d282b9b96da8c29"
 links: []

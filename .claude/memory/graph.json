@@ -242,6 +242,86 @@
       "source": "learning-typescript-tdd-hook-naming-enforcement",
       "target": "learning-tdd-scope-resolution-module-structure",
       "relation": "related-hook-enforcement"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "relation": "enables"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "learning-retro-typescript-tooling-parity",
+      "relation": "same-implementation"
+    },
+    {
+      "source": "learning-regex-based-language-parsing-tradeoff",
+      "target": "learning-retro-typescript-tooling-parity",
+      "relation": "motivates"
+    },
+    {
+      "source": "retro-duplicate-test-discovery",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "prevents"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "learning-test-isolation-bun-mock-module",
+      "relation": "documents-friction-for"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "retro-duplicate-test-discovery",
+      "relation": "related-quality-improvements"
+    },
+    {
+      "source": "learning-test-coverage-achieved-99-percent-functions",
+      "target": "learning-retro-test-coverage-asymptotic-returns",
+      "relation": "demonstrates"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "retro-hook-pattern-non-python-projects",
+      "target": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "relation": "generalises"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "relation": "decision-creates"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "relation": "decision-creates"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "same-implementation"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "relation": "part-of-same-work"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "relation": "enables"
+    },
+    {
+      "source": "learning-test-isolation-bun-mock-module",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "enables"
     }
   ]
 }

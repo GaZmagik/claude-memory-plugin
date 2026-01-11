@@ -5,10 +5,13 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T18:48:56Z
-updated: 2026-01-11T18:48:58Z
-tags: ["learning","tip","medium"]
-embedding: "42797bf262a595276d5139ca0b56159c"
-links: []
+updated: 2026-01-11T21:06:45Z
+tags: ["learning","medium","tdd-parity","tip","typescript"]
+embedding: "66d458ac7a11b60ecedcf3be2a7949e6"
+links: [
+  "learning-regex-based-language-parsing-tradeoff",
+  "learning-retro-typescript-tooling-parity"
+]
 ---
 
 # tdd-parity-typescript-support

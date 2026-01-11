@@ -396,19 +396,6 @@
       ]
     },
     {
-      "id": "learning-tdd-parity-typescript-support",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-typescript-support.md",
-      "title": "tdd-parity-typescript-support",
-      "type": "permanent",
-      "scope": "local",
-      "updated": "2026-01-11T18:48:56Z",
-      "tags": [
-        "learning",
-        "tip",
-        "medium"
-      ]
-    },
-    {
       "id": "learning-retro-typescript-tooling-parity",
       "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-typescript-tooling-parity.md",
       "title": "retro-typescript-tooling-parity",
@@ -423,19 +410,6 @@
         "process",
         "tooling",
         "typescript"
-      ]
-    },
-    {
-      "id": "learning-regex-based-language-parsing-tradeoff",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-regex-based-language-parsing-tradeoff.md",
-      "title": "regex-based-language-parsing-tradeoff",
-      "type": "permanent",
-      "scope": "local",
-      "updated": "2026-01-11T18:49:01Z",
-      "tags": [
-        "learning",
-        "insight",
-        "medium"
       ]
     },
     {
@@ -522,6 +496,36 @@
         "retrospective",
         "process",
         "quality"
+      ]
+    },
+    {
+      "id": "learning-tdd-parity-typescript-support",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-typescript-support.md",
+      "title": "tdd-parity-typescript-support",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T21:06:44Z",
+      "tags": [
+        "learning",
+        "medium",
+        "tdd-parity",
+        "tip",
+        "typescript"
+      ]
+    },
+    {
+      "id": "learning-regex-based-language-parsing-tradeoff",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-regex-based-language-parsing-tradeoff.md",
+      "title": "regex-based-language-parsing-tradeoff",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T21:06:47Z",
+      "tags": [
+        "insight",
+        "learning",
+        "medium",
+        "tdd-parity",
+        "typescript"
       ]
     }
   ]

@@ -180,6 +180,25 @@ describe('Relevance Scorer', () => {
 
       expect(combined).toBe(1.0);
     });
+
+    it('should normalise weights', () => {
+      const scores = {
+        tagMatch: 1.0,
+        fileMatch: 1.0,
+        recency: 1.0,
+        severity: 1.0,
+      };
+
+      const weights = {
+        tagMatch: 1,
+        fileMatch: 1,
+        recency: 1,
+        severity: 1,
+      };
+
+      // All 1s with equal weights should give 1.0
+      expect(combineScores(scores, weights)).toBeCloseTo(1.0, 2);
+    });
   });
 
   describe('calculateRelevanceScore', () => {
@@ -216,6 +235,48 @@ describe('Relevance Scorer', () => {
       const score = calculateRelevanceScore(memory, context);
 
       expect(score).toBeDefined();
+    });
+
+    it('should return low score for irrelevant memories', () => {
+      const context = {
+        filePath: 'src/utils/helper.ts',
+        contextTags: ['utils'],
+      };
+
+      const memory = {
+        tags: ['database', 'sql'],
+        patterns: ['src/db/'],
+        updated: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString(),
+        severity: Severity.Low,
+      };
+
+      const score = calculateRelevanceScore(memory, context);
+      expect(score).toBeLessThan(0.3);
+    });
+
+    it('should prioritise high severity gotchas', () => {
+      const context = {
+        filePath: 'src/index.ts',
+        contextTags: ['typescript'],
+      };
+
+      const lowSeverity = {
+        tags: ['typescript'],
+        patterns: [],
+        updated: new Date().toISOString(),
+        severity: Severity.Low,
+      };
+
+      const highSeverity = {
+        tags: ['typescript'],
+        patterns: [],
+        updated: new Date().toISOString(),
+        severity: Severity.Critical,
+      };
+
+      expect(calculateRelevanceScore(highSeverity, context)).toBeGreaterThan(
+        calculateRelevanceScore(lowSeverity, context)
+      );
     });
   });
 

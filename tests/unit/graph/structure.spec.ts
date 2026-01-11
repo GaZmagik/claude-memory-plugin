@@ -2,7 +2,8 @@
  * Tests for T069: Graph Data Structure
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { existsSync, readFileSync, rmSync, mkdirSync, writeFileSync } from 'fs';
 import {
   createGraph,
   loadGraph,
@@ -17,8 +18,6 @@ import {
 } from '../../../skills/memory/src/graph/structure.js';
 import type { MemoryGraph, GraphNode } from '../../../skills/memory/src/graph/structure.js';
 
-// Mock dependencies
-
 describe('createGraph', () => {
   it('should create empty graph with version 1', () => {
     const graph = createGraph();
@@ -29,44 +28,89 @@ describe('createGraph', () => {
 });
 
 describe('loadGraph', () => {
+  const testPath = '/tmp/graph-test-load';
+
   beforeEach(() => {
-    vi.clearAllMocks();
+    if (existsSync(testPath)) {
+      rmSync(testPath, { recursive: true });
+    }
+    mkdirSync(testPath, { recursive: true });
   });
 
   it('should load graph from disk when file exists', async () => {
-    // TODO: Mock fs.existsSync and fs.readFileSync
-    expect(true).toBe(true);
+    const testGraph: MemoryGraph = {
+      version: 1,
+      nodes: [{ id: 'test-node', type: 'learning' }],
+      edges: [{ source: 'a', target: 'b', label: 'links' }],
+    };
+    writeFileSync(`${testPath}/graph.json`, JSON.stringify(testGraph));
+
+    const result = await loadGraph(testPath);
+
+    expect(result.version).toBe(1);
+    expect(result.nodes).toHaveLength(1);
+    expect(result.edges).toHaveLength(1);
   });
 
   it('should return empty graph when file does not exist', async () => {
-    // TODO: Mock fs.existsSync to return false
-    expect(true).toBe(true);
+    const result = await loadGraph(testPath);
+
+    expect(result.version).toBe(1);
+    expect(result.nodes).toEqual([]);
+    expect(result.edges).toEqual([]);
   });
 
   it('should return empty graph when JSON parsing fails', async () => {
-    // TODO: Mock fs.readFileSync to return invalid JSON
-    expect(true).toBe(true);
+    writeFileSync(`${testPath}/graph.json`, '{ invalid json }');
+
+    const result = await loadGraph(testPath);
+
+    expect(result.version).toBe(1);
+    expect(result.nodes).toEqual([]);
+    expect(result.edges).toEqual([]);
   });
 });
 
 describe('saveGraph', () => {
+  const testPath = '/tmp/graph-test-save';
+
   beforeEach(() => {
-    vi.clearAllMocks();
+    if (existsSync(testPath)) {
+      rmSync(testPath, { recursive: true });
+    }
   });
 
   it('should save graph to disk', async () => {
-    // TODO: Mock fs.writeFileSync
-    expect(true).toBe(true);
+    const testGraph: MemoryGraph = {
+      version: 1,
+      nodes: [{ id: 'test-node', type: 'learning' }],
+      edges: [],
+    };
+
+    await saveGraph(testPath, testGraph);
+
+    expect(existsSync(`${testPath}/graph.json`)).toBe(true);
+    const saved = JSON.parse(readFileSync(`${testPath}/graph.json`, 'utf-8'));
+    expect(saved.nodes).toHaveLength(1);
   });
 
   it('should create directory if it does not exist', async () => {
-    // TODO: Mock fs.existsSync and fs.mkdirSync
-    expect(true).toBe(true);
+    const testGraph = createGraph();
+
+    await saveGraph(testPath, testGraph);
+
+    expect(existsSync(testPath)).toBe(true);
+    expect(existsSync(`${testPath}/graph.json`)).toBe(true);
   });
 
   it('should format JSON with 2-space indentation', async () => {
-    // TODO: Verify JSON.stringify formatting
-    expect(true).toBe(true);
+    const testGraph = createGraph();
+
+    await saveGraph(testPath, testGraph);
+
+    const content = readFileSync(`${testPath}/graph.json`, 'utf-8');
+    expect(content).toContain('  '); // 2-space indent
+    expect(content).toMatch(/\{\n  "version"/); // Formatted structure
   });
 });
 

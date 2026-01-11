@@ -55,30 +55,76 @@ describe('generateMermaid', () => {
 
   describe('node shapes', () => {
     it('should use hexagon for decision nodes', () => {
-      // TODO: Test node shape for decisions
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'decision-node', type: 'decision' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Hexagon uses {{}} brackets
+      expect(result).toContain('{{');
+      expect(result).toContain('}}');
     });
 
     it('should use rectangle for artifact nodes', () => {
-      // TODO: Test node shape for artifacts
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'artifact-node', type: 'artifact' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Rectangle uses [] brackets - ID keeps original hyphens
+      expect(result).toMatch(/artifact-node\[/);
     });
 
     it('should use stadium for learning nodes', () => {
-      // TODO: Test node shape for learnings
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'learning-node', type: 'learning' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Stadium uses ([]) brackets
+      expect(result).toContain('([');
+      expect(result).toContain('])');
     });
 
     it('should use circle for hub nodes', () => {
-      // TODO: Test node shape for hubs
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'hub-node', type: 'hub' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Circle uses (()) brackets
+      expect(result).toContain('((');
+      expect(result).toContain('))');
     });
   });
 
   describe('node labels', () => {
     it('should escape special characters in labels', () => {
-      // TODO: Test label escaping
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'node[with]special{chars}', type: 'hub' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Should escape brackets and braces
+      expect(result).toContain('(');
+      expect(result).toContain(')');
+      expect(result).not.toContain('[with]');
+      expect(result).not.toContain('{chars}');
     });
 
     it('should show type when showType option enabled', () => {
@@ -88,8 +134,16 @@ describe('generateMermaid', () => {
     });
 
     it('should sanitise node IDs', () => {
-      // TODO: Test ID sanitisation for special characters
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'node@with#special!chars', type: 'hub' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Special characters should be replaced with underscores
+      expect(result).toContain('node_with_special_chars');
     });
   });
 
@@ -100,32 +154,103 @@ describe('generateMermaid', () => {
     });
 
     it('should handle edges without labels', () => {
-      // TODO: Test edge generation without label
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'hub' },
+          { id: 'b', type: 'hub' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: '' },
+        ],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Should have arrow without label
+      expect(result).toContain('a --> b');
     });
   });
 
   describe('styles', () => {
     it('should generate style definitions for node types', () => {
-      // TODO: Test style class definitions
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node1', type: 'decision' },
+          { id: 'node2', type: 'artifact' },
+        ],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Should contain classDef declarations
+      expect(result).toContain('classDef decision');
+      expect(result).toContain('classDef artifact');
     });
 
     it('should apply classes to nodes', () => {
-      // TODO: Test class application
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node1', type: 'decision' },
+          { id: 'node2', type: 'decision' },
+        ],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Should apply class to nodes
+      expect(result).toContain('class node1,node2 decision');
     });
   });
 
   describe('filtering', () => {
     it('should filter by type', () => {
-      // TODO: Test filterType option
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'decision1', type: 'decision' },
+          { id: 'learning1', type: 'learning' },
+          { id: 'artifact1', type: 'artifact' },
+        ],
+        edges: [
+          { source: 'decision1', target: 'learning1', label: '' },
+          { source: 'learning1', target: 'artifact1', label: '' },
+        ],
+      };
+
+      const result = generateMermaid(graph, { filterType: 'decision' });
+
+      expect(result).toContain('decision1');
+      expect(result).not.toContain('learning1');
+      expect(result).not.toContain('artifact1');
     });
 
     it('should extract subgraph from starting node', () => {
-      // TODO: Test fromNode and depth options
-      expect(true).toBe(true);
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'root', type: 'hub' },
+          { id: 'child1', type: 'hub' },
+          { id: 'child2', type: 'hub' },
+          { id: 'grandchild', type: 'hub' },
+        ],
+        edges: [
+          { source: 'root', target: 'child1', label: '' },
+          { source: 'root', target: 'child2', label: '' },
+          { source: 'child1', target: 'grandchild', label: '' },
+        ],
+      };
+
+      const result = generateMermaid(graph, { fromNode: 'root', depth: 1 });
+
+      expect(result).toContain('root');
+      expect(result).toContain('child1');
+      expect(result).toContain('child2');
+      expect(result).not.toContain('grandchild');
     });
   });
 });
@@ -184,12 +309,34 @@ describe('generateDot', () => {
   });
 
   it('should escape labels in DOT format', () => {
-    // TODO: Test label escaping in DOT
-    expect(true).toBe(true);
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [{ id: 'node[with]brackets', type: 'hub' }],
+      edges: [],
+    };
+
+    const result = generateDot(graph);
+
+    // Should escape special characters in labels
+    expect(result).toContain('"node[with]brackets"');
+    expect(result).toContain('[label=');
   });
 
   it('should include edge labels when present', () => {
-    // TODO: Test edge labels in DOT
-    expect(true).toBe(true);
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'a', type: 'hub' },
+        { id: 'b', type: 'hub' },
+      ],
+      edges: [
+        { source: 'a', target: 'b', label: 'connects to' },
+      ],
+    };
+
+    const result = generateDot(graph);
+
+    expect(result).toContain('->');
+    expect(result).toContain('[label="connects to"]');
   });
 });

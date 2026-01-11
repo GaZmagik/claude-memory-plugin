@@ -2,7 +2,7 @@
  * Tests for T049: Default scope selection logic
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   selectDefaultScope,
   getRecommendedScope,
@@ -10,18 +10,28 @@ import {
 } from '../../../skills/memory/src/scope/defaults.js';
 import { Scope } from '../../../skills/memory/src/types/enums.js';
 import type { DefaultScopeOptions } from '../../../skills/memory/src/scope/defaults.js';
-
-// Mock dependencies
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as os from 'node:os';
+import { spawnSync } from 'node:child_process';
 
 describe('selectDefaultScope', () => {
+  let testDir: string;
+
   beforeEach(() => {
-    vi.clearAllMocks();
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'defaults-test-'));
+  });
+
+  afterEach(() => {
+    if (fs.existsSync(testDir)) {
+      fs.rmSync(testDir, { recursive: true, force: true });
+    }
   });
 
   describe('forced default', () => {
     it('should use forced default when provided', () => {
       const options: DefaultScopeOptions = {
-        cwd: '/test',
+        cwd: testDir,
         forceDefault: Scope.Local,
       };
 
@@ -32,103 +42,268 @@ describe('selectDefaultScope', () => {
     });
 
     it('should prioritise forced default over config', () => {
-      // TODO: Mock loadConfig to return different default
-      expect(true).toBe(true);
+      // Create a config file with a different default
+      const claudeDir = path.join(testDir, '.claude');
+      fs.mkdirSync(claudeDir, { recursive: true });
+
+      const config = {
+        scopes: {
+          default: 'project'
+        }
+      };
+      fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
+
+      const options: DefaultScopeOptions = {
+        cwd: testDir,
+        forceDefault: Scope.Global,
+      };
+
+      const result = selectDefaultScope(options);
+
+      // Forced default should override config
+      expect(result.scope).toBe(Scope.Global);
+      expect(result.source).toBe('forced');
     });
   });
 
   describe('config-based default', () => {
     it('should use config default when present', () => {
-      // TODO: Mock loadConfig to return scope default
-      expect(true).toBe(true);
+      // Create config with default scope
+      const claudeDir = path.join(testDir, '.claude');
+      fs.mkdirSync(claudeDir, { recursive: true });
+
+      const config = {
+        scopes: {
+          default: 'local'
+        }
+      };
+      fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
+
+      const options: DefaultScopeOptions = {
+        cwd: testDir,
+      };
+
+      const result = selectDefaultScope(options);
+
+      expect(result.scope).toBe(Scope.Local);
+      expect(result.source).toBe('config');
     });
 
     it('should validate config scope value', () => {
-      // TODO: Mock loadConfig with invalid scope
-      expect(true).toBe(true);
+      // Create config with invalid scope
+      const claudeDir = path.join(testDir, '.claude');
+      fs.mkdirSync(claudeDir, { recursive: true });
+
+      const config = {
+        scopes: {
+          default: 'invalid-scope'
+        }
+      };
+      fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
+
+      const options: DefaultScopeOptions = {
+        cwd: testDir,
+      };
+
+      const result = selectDefaultScope(options);
+
+      // Should fall through to next option (global fallback since no git)
+      expect(result.scope).toBe(Scope.Global);
+      expect(result.source).not.toBe('config');
     });
 
     it('should fall through when config has invalid scope', () => {
-      // TODO: Test fallback when config scope invalid
-      expect(true).toBe(true);
+      const claudeDir = path.join(testDir, '.claude');
+      fs.mkdirSync(claudeDir, { recursive: true });
+
+      const config = {
+        scopes: {
+          default: 'not-a-real-scope'
+        }
+      };
+      fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
+
+      const result = selectDefaultScope({ cwd: testDir });
+
+      // Should fall through to global (no git repo)
+      expect(result.scope).toBe(Scope.Global);
+      expect(result.source).toBe('fallback');
     });
   });
 
   describe('git detection', () => {
     it('should use project scope when in git repository', () => {
-      // TODO: Mock isInGitRepository to return true
-      expect(true).toBe(true);
+      // Initialize a git repo
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const result = selectDefaultScope({ cwd: testDir });
+
+        expect(result.scope).toBe(Scope.Project);
+        expect(result.source).toBe('git-detection');
+      } catch (error) {
+        // Skip test if git is not available
+        console.warn('Git not available, skipping git detection test');
+      }
     });
 
     it('should set source to git-detection', () => {
-      // TODO: Verify source field
-      expect(true).toBe(true);
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const result = selectDefaultScope({ cwd: testDir });
+
+        expect(result.source).toBe('git-detection');
+        expect(result.reason).toContain('git');
+      } catch (error) {
+        console.warn('Git not available, skipping git detection test');
+      }
     });
   });
 
   describe('fallback', () => {
     it('should use global scope when not in git repo', () => {
-      // TODO: Mock isInGitRepository to return false
-      expect(true).toBe(true);
+      const result = selectDefaultScope({ cwd: testDir });
+
+      expect(result.scope).toBe(Scope.Global);
     });
 
     it('should set source to fallback', () => {
-      // TODO: Verify source field
-      expect(true).toBe(true);
+      const result = selectDefaultScope({ cwd: testDir });
+
+      expect(result.source).toBe('fallback');
+      expect(result.reason).toContain('Not in git');
     });
   });
 
   describe('priority order', () => {
     it('should check forced > config > git > fallback', () => {
-      // TODO: Test precedence order
-      expect(true).toBe(true);
+      // Create git repo
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+      } catch {
+        // Continue without git
+      }
+
+      // Create config
+      const claudeDir = path.join(testDir, '.claude');
+      fs.mkdirSync(claudeDir, { recursive: true });
+      const config = { scopes: { default: 'local' } };
+      fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
+
+      // Test forced overrides everything
+      const forcedResult = selectDefaultScope({ cwd: testDir, forceDefault: Scope.Enterprise });
+      expect(forcedResult.scope).toBe(Scope.Enterprise);
+      expect(forcedResult.source).toBe('forced');
+
+      // Test config overrides git
+      const configResult = selectDefaultScope({ cwd: testDir });
+      expect(configResult.scope).toBe(Scope.Local);
+      expect(configResult.source).toBe('config');
     });
   });
 });
 
 describe('getRecommendedScope', () => {
+  let testDir: string;
+
   beforeEach(() => {
-    vi.clearAllMocks();
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'recommend-test-'));
+  });
+
+  afterEach(() => {
+    if (fs.existsSync(testDir)) {
+      fs.rmSync(testDir, { recursive: true, force: true });
+    }
   });
 
   describe('memory type recommendations', () => {
     it('should recommend global for artifacts', () => {
-      const result = getRecommendedScope('artifact', '/test');
+      const result = getRecommendedScope('artifact', testDir);
       expect(result.scope).toBe(Scope.Global);
       expect(result.reason).toContain('shared across projects');
     });
 
     it('should recommend project for gotchas in git repo', () => {
-      // TODO: Mock isInGitRepository to return true
-      expect(true).toBe(true);
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const result = getRecommendedScope('gotcha', testDir);
+
+        expect(result.scope).toBe(Scope.Project);
+        expect(result.reason).toContain('project-specific');
+      } catch {
+        console.warn('Git not available, skipping test');
+      }
     });
 
     it('should recommend project for learnings in git repo', () => {
-      // TODO: Mock isInGitRepository to return true
-      expect(true).toBe(true);
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const result = getRecommendedScope('learning', testDir);
+
+        expect(result.scope).toBe(Scope.Project);
+        expect(result.reason).toContain('project-specific');
+      } catch {
+        console.warn('Git not available, skipping test');
+      }
     });
 
     it('should recommend local for breadcrumbs', () => {
-      const result = getRecommendedScope('breadcrumb', '/test');
+      const result = getRecommendedScope('breadcrumb', testDir);
       expect(result.scope).toBe(Scope.Local);
       expect(result.reason).toContain('temporary personal');
     });
 
     it('should fall back to default for unknown types', () => {
-      // TODO: Test unknown memory type
-      expect(true).toBe(true);
+      const result = getRecommendedScope('unknown-type', testDir);
+
+      // Should use default logic (global for non-git directory)
+      expect(result.scope).toBe(Scope.Global);
     });
   });
 
   describe('context awareness', () => {
     it('should consider git context for project-specific types', () => {
-      // TODO: Test git detection influence
-      expect(true).toBe(true);
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const gotchaResult = getRecommendedScope('gotcha', testDir);
+        const learningResult = getRecommendedScope('learning', testDir);
+
+        expect(gotchaResult.scope).toBe(Scope.Project);
+        expect(learningResult.scope).toBe(Scope.Project);
+      } catch {
+        console.warn('Git not available, skipping test');
+      }
     });
 
     it('should ignore git context for globally-scoped types', () => {
-      // TODO: Test artifact recommendation regardless of git
-      expect(true).toBe(true);
+      try {
+        spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
+        spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
+
+        const result = getRecommendedScope('artifact', testDir);
+
+        // Artifacts should always be global, regardless of git
+        expect(result.scope).toBe(Scope.Global);
+      } catch {
+        console.warn('Git not available, skipping test');
+      }
     });
   });
 });

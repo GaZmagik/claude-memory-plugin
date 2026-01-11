@@ -67,8 +67,8 @@ describe('Fork Detection', () => {
 
   afterAll(() => {
     // Restore original modules to prevent leaking to other test files
-    mock.module('node:fs', () => originalFs);
-    mock.module('node:child_process', () => originalChildProcess);
+    // Note: mock.module() replacements persist in bun - this is best effort cleanup
+    mock.restore();
   });
 
   describe('hasClaudeBinary', () => {

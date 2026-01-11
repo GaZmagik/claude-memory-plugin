@@ -2,21 +2,34 @@
  * Tests for T031: Memory Keyword Search
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { searchMemories } from '../../../skills/memory/src/core/search.js';
+import { writeMemory } from '../../../skills/memory/src/core/write.js';
 import type { SearchMemoriesRequest } from '../../../skills/memory/src/types/api.js';
-
-// Mock dependencies
+import { MemoryType, Scope } from '../../../skills/memory/src/types/enums.js';
+import { existsSync, rmSync, mkdirSync } from 'fs';
 
 describe('searchMemories', () => {
+  const testBasePath = '/tmp/search-test';
+
   beforeEach(() => {
-    vi.clearAllMocks();
+    if (existsSync(testBasePath)) {
+      rmSync(testBasePath, { recursive: true });
+    }
+    mkdirSync(testBasePath, { recursive: true });
+  });
+
+  afterEach(() => {
+    if (existsSync(testBasePath)) {
+      rmSync(testBasePath, { recursive: true });
+    }
   });
 
   describe('validation', () => {
     it('should return error when query is empty', async () => {
       const request: SearchMemoriesRequest = {
         query: '',
+        basePath: testBasePath,
       };
 
       const result = await searchMemories(request);
@@ -28,6 +41,7 @@ describe('searchMemories', () => {
     it('should return error when query is whitespace only', async () => {
       const request: SearchMemoriesRequest = {
         query: '   ',
+        basePath: testBasePath,
       };
 
       const result = await searchMemories(request);
@@ -37,130 +51,514 @@ describe('searchMemories', () => {
     });
 
     it('should trim query before searching', async () => {
-      // TODO: Verify trimming behaviour
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'test memory',
+        content: 'test content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: '  test  ',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toBeDefined();
+      expect(result.results!.length).toBeGreaterThan(0);
     });
   });
 
   describe('matching', () => {
     it('should match query in title', async () => {
-      // TODO: Mock loadIndex with entry having query in title
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'TypeScript Guide',
+        content: 'content here',
+        tags: ['guide'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'TypeScript',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
+      expect(result.results![0].title).toBe('TypeScript Guide');
     });
 
     it('should match query in tags', async () => {
-      // TODO: Mock loadIndex with entry having query in tags
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: 'content',
+        tags: ['typescript', 'programming'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'typescript',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
     });
 
     it('should match query in content', async () => {
-      // TODO: Mock loadIndex and readFile with query in content
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: 'This is about TypeScript and its features',
+        tags: ['guide'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'TypeScript',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
     });
 
     it('should be case insensitive', async () => {
-      // TODO: Test case-insensitive matching
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'TypeScript',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'typescript',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
     });
   });
 
   describe('scoring', () => {
     it('should score title matches higher than content matches', async () => {
-      // TODO: Create two entries, one with title match, one with content match
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser guide',
+        content: 'content about other things',
+        tags: ['guide'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'other guide',
+        content: 'content about parser implementation',
+        tags: ['guide'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(2);
+      expect(result.results![0].title).toBe('parser guide');
     });
 
     it('should score exact title matches highest', async () => {
-      // TODO: Test exact vs partial title match scoring
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser guide',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].title).toBe('parser');
     });
 
     it('should score tag matches higher than content', async () => {
-      // TODO: Compare tag vs content match scoring
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'guide a',
+        content: 'some content',
+        tags: ['parser'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'guide b',
+        content: 'parser implementation details',
+        tags: ['other'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].title).toBe('guide a');
     });
 
     it('should increase score for multiple content occurrences', async () => {
-      // TODO: Test content with multiple query occurrences
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'guide a',
+        content: 'parser parser parser',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'guide b',
+        content: 'parser',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].score).toBeGreaterThan(result.results![1].score);
     });
 
     it('should cap score at 1.0', async () => {
-      // TODO: Verify score never exceeds 1.0
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser',
+        content: 'parser parser parser',
+        tags: ['parser'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].score).toBeLessThanOrEqual(1.0);
     });
   });
 
   describe('snippets', () => {
     it('should extract snippet around first match', async () => {
-      // TODO: Test snippet extraction
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: 'This is some content before the parser keyword and some after',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].snippet).toBeDefined();
+      expect(result.results![0].snippet).toContain('parser');
     });
 
     it('should add leading ellipsis when match not at start', async () => {
-      // TODO: Test snippet with leading ellipsis
-      expect(true).toBe(true);
+      const longContent = 'a'.repeat(100) + ' parser keyword';
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: longContent,
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].snippet).toMatch(/^\.\.\./);
     });
 
     it('should add trailing ellipsis when match not at end', async () => {
-      // TODO: Test snippet with trailing ellipsis
-      expect(true).toBe(true);
+      const longContent = 'parser keyword ' + 'a'.repeat(200);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: longContent,
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].snippet).toMatch(/\.\.\.$/);
     });
 
     it('should truncate snippet to max length', async () => {
-      // TODO: Test snippet length limiting
-      expect(true).toBe(true);
+      const longContent = 'parser ' + 'a'.repeat(500);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'Guide',
+        content: longContent,
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].snippet!.length).toBeLessThanOrEqual(153); // 150 + "..."
     });
 
     it('should return undefined snippet when no content match', async () => {
-      // TODO: Test snippet when only title/tag match
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser guide',
+        content: 'other content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].snippet).toBeUndefined();
     });
   });
 
   describe('filtering', () => {
     it('should filter by type', async () => {
-      // TODO: Test type filter
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'learning test',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Gotcha,
+        title: 'gotcha test',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'test',
+        type: MemoryType.Learning,
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
+      expect(result.results![0].type).toBe(MemoryType.Learning);
     });
 
     it('should filter by scope', async () => {
-      // TODO: Test scope filter
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'test memory',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'test',
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results!.length).toBeGreaterThan(0);
     });
 
     it('should combine filters with search', async () => {
-      // TODO: Test type + scope filters with query
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'learning test',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'test',
+        type: MemoryType.Learning,
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(1);
     });
   });
 
   describe('sorting and limiting', () => {
     it('should sort results by score descending', async () => {
-      // TODO: Test score-based sorting
-      expect(true).toBe(true);
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'parser',
+        content: 'content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'other',
+        content: 'parser content',
+        tags: ['test'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'parser',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results![0].score).toBeGreaterThanOrEqual(result.results![1].score);
     });
 
     it('should apply default limit of 20', async () => {
-      // TODO: Test default limit
-      expect(true).toBe(true);
+      for (let i = 0; i < 25; i++) {
+        await writeMemory({
+          type: MemoryType.Learning,
+          title: `test ${i}`,
+          content: 'test content',
+          tags: ['test'],
+          scope: Scope.Local,
+          basePath: testBasePath,
+        });
+      }
+
+      const result = await searchMemories({
+        query: 'test',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(20);
     });
 
     it('should apply custom limit when specified', async () => {
-      // TODO: Test custom limit
-      expect(true).toBe(true);
+      for (let i = 0; i < 10; i++) {
+        await writeMemory({
+          type: MemoryType.Learning,
+          title: `test ${i}`,
+          content: 'test content',
+          tags: ['test'],
+          scope: Scope.Local,
+          basePath: testBasePath,
+        });
+      }
+
+      const result = await searchMemories({
+        query: 'test',
+        limit: 5,
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toHaveLength(5);
     });
   });
 
   describe('error handling', () => {
-    it('should skip files that cannot be parsed', async () => {
-      // TODO: Mock parseMemoryFile to throw for some files
-      expect(true).toBe(true);
+    it('should return empty results when no matches', async () => {
+      await writeMemory({
+        type: MemoryType.Learning,
+        title: 'something else',
+        content: 'other content',
+        tags: ['other'],
+        scope: Scope.Local,
+        basePath: testBasePath,
+      });
+
+      const result = await searchMemories({
+        query: 'nonexistent',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toEqual([]);
     });
 
-    it('should handle index loading errors', async () => {
-      // TODO: Mock loadIndex to throw error
-      expect(true).toBe(true);
+    it('should handle empty index gracefully', async () => {
+      const result = await searchMemories({
+        query: 'test',
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.results).toEqual([]);
     });
   });
 });

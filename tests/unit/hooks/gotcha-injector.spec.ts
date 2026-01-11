@@ -4,7 +4,7 @@
  * Tests the gotcha injection utilities for contextual warning display.
  */
 
-import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import {
   getRelevantGotchas,
   filterUnshownGotchas,
@@ -40,6 +40,10 @@ import { calculateRelevanceScore } from '../../../hooks/src/memory/relevance-sco
 describe('Gotcha Injector', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe('shouldInjectGotcha', () => {

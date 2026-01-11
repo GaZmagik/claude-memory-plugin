@@ -2,15 +2,24 @@
  * Tests for T029: Memory Read Operation
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { readMemory } from '../../../skills/memory/src/core/read.js';
 import type { ReadMemoryRequest } from '../../../skills/memory/src/types/api.js';
-
-// Mock dependencies
+import type { IndexEntry, MemoryFrontmatter } from '../../../skills/memory/src/types/memory.js';
+import { MemoryType, Scope } from '../../../skills/memory/src/types/enums.js';
+import * as indexModule from '../../../skills/memory/src/core/index.js';
+import * as fsUtils from '../../../skills/memory/src/core/fs-utils.js';
+import * as frontmatter from '../../../skills/memory/src/core/frontmatter.js';
 
 describe('readMemory', () => {
+  const mockBasePath = '/test/base';
+
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe('validation', () => {
@@ -38,46 +47,193 @@ describe('readMemory', () => {
   });
 
   describe('successful read', () => {
+    const mockId = 'learning-test-memory';
+    const mockIndexEntry: IndexEntry = {
+      id: mockId,
+      type: MemoryType.Learning,
+      title: 'Test Memory',
+      tags: ['test'],
+      created: '2026-01-11T00:00:00.000Z',
+      updated: '2026-01-11T00:00:00.000Z',
+      scope: Scope.Local,
+      relativePath: `${mockId}.md`,
+    };
+    const mockFrontmatter: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'Test Memory',
+      created: '2026-01-11T00:00:00.000Z',
+      updated: '2026-01-11T00:00:00.000Z',
+      tags: ['test'],
+      scope: Scope.Local,
+    };
+    const mockContent = 'This is test content';
+
     it('should read memory found in index', async () => {
-      // TODO: Mock findInIndex, fileExists, readFile, parseMemoryFile
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
+        frontmatter: mockFrontmatter,
+        content: mockContent,
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('success');
+      expect(indexModule.findInIndex).toHaveBeenCalledWith(mockBasePath, mockId);
+      expect(fsUtils.fileExists).toHaveBeenCalledWith(`${mockBasePath}/${mockId}.md`);
+      expect(fsUtils.readFile).toHaveBeenCalledWith(`${mockBasePath}/${mockId}.md`);
     });
 
     it('should read memory with direct file lookup when not in index', async () => {
-      // TODO: Mock findInIndex (return null), fileExists, readFile, parseMemoryFile
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
+        frontmatter: mockFrontmatter,
+        content: mockContent,
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('success');
+      expect(indexModule.findInIndex).toHaveBeenCalledWith(mockBasePath, mockId);
+      // Should fall back to direct file path
+      expect(fsUtils.fileExists).toHaveBeenCalledWith(`${mockBasePath}/${mockId}.md`);
     });
 
     it('should use custom basePath when provided', async () => {
-      // TODO: Test basePath handling
-      expect(true).toBe(true);
+      const customBasePath = '/custom/path';
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: customBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
+        frontmatter: mockFrontmatter,
+        content: mockContent,
+      });
+
+      await readMemory(request);
+
+      expect(indexModule.findInIndex).toHaveBeenCalledWith(customBasePath, mockId);
+      expect(fsUtils.fileExists).toHaveBeenCalledWith(`${customBasePath}/${mockId}.md`);
     });
 
     it('should return frontmatter and content', async () => {
-      // TODO: Verify response structure includes frontmatter and content
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
+        frontmatter: mockFrontmatter,
+        content: mockContent,
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('success');
+      if (result.status === 'success' && result.memory) {
+        expect(result.memory.frontmatter).toEqual(mockFrontmatter);
+        expect(result.memory.content).toBe(mockContent);
+      }
     });
 
     it('should return file path in response', async () => {
-      // TODO: Verify filePath is included
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
+        frontmatter: mockFrontmatter,
+        content: mockContent,
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('success');
+      if (result.status === 'success' && result.memory) {
+        expect(result.memory.filePath).toBe(`${mockBasePath}/${mockId}.md`);
+      }
     });
   });
 
   describe('error handling', () => {
+    const mockId = 'learning-test-memory';
+
     it('should return error when memory file not found', async () => {
-      // TODO: Mock fileExists to return false
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toBe(`Memory not found: ${mockId}`);
     });
 
     it('should handle file read errors gracefully', async () => {
-      // TODO: Mock readFile to throw error
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockImplementation(() => {
+        throw new Error('EACCES: Permission denied');
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Failed to read memory');
+      expect(result.error).toContain('Permission denied');
     });
 
     it('should handle parsing errors gracefully', async () => {
-      // TODO: Mock parseMemoryFile to throw error
-      expect(true).toBe(true);
+      const request: ReadMemoryRequest = {
+        id: mockId,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('invalid file content');
+      vi.spyOn(frontmatter, 'parseMemoryFile').mockImplementation(() => {
+        throw new Error('Invalid frontmatter format');
+      });
+
+      const result = await readMemory(request);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Failed to read memory');
+      expect(result.error).toContain('Invalid frontmatter format');
     });
   });
 });

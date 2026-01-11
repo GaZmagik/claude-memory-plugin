@@ -181,6 +181,31 @@
       "source": "learning-retro-tdd-test-expectations-guide-implementation",
       "target": "learning-tdd-phase-completion-pattern",
       "relation": "tdd-workflow"
+    },
+    {
+      "source": "learning-test-isolation-bun-mock-module",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "related-testing-patterns"
+    },
+    {
+      "source": "learning-typescript-tdd-hook-naming-enforcement",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "related-naming-patterns"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "enforces-convention"
+    },
+    {
+      "source": "learning-spawn-session-refactor",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "relation": "related-session-continuity"
+    },
+    {
+      "source": "learning-typescript-tdd-hook-naming-enforcement",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "related-hook-enforcement"
     }
   ]
 }

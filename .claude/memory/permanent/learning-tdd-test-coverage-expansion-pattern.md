@@ -5,10 +5,12 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T17:55:22Z
-updated: 2026-01-11T17:55:23Z
+updated: 2026-01-11T18:28:58Z
 tags: ["learning","tip","medium","tdd","testing","coverage","process"]
 embedding: "5734920e0132ea00ac06311f9a6b37e5"
-links: []
+links: [
+  "learning-test-naming-convention-spec-ts"
+]
 ---
 
 # tdd-test-coverage-expansion-pattern

@@ -5,10 +5,12 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T13:58:15Z
-updated: 2026-01-11T13:58:18Z
+updated: 2026-01-11T18:28:58Z
 tags: ["plugin","tests","naming","convention"]
 embedding: "e8d82950a83123b4e474149a8be99cb6"
-links: []
+links: [
+  "learning-typescript-import-path-consistency-prevents-batch-compilation-failures"
+]
 ---
 
 ## Change

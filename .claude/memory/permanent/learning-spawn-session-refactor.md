@@ -5,10 +5,12 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T17:55:11Z
-updated: 2026-01-11T17:55:13Z
+updated: 2026-01-11T18:29:00Z
 tags: ["learning","tip","medium","architecture","refactoring","session-management"]
 embedding: "68bc488a9f9fa264da24f4eb93de8413"
-links: []
+links: [
+  "learning-post-compaction-memory-restoration-prevented-duplicate-work"
+]
 ---
 
 # spawn-session-refactor

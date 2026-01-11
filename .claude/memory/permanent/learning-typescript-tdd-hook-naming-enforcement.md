@@ -5,10 +5,13 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T17:55:27Z
-updated: 2026-01-11T17:55:29Z
+updated: 2026-01-11T18:29:11Z
 tags: ["learning","tip","medium","tdd","naming","typescript","build"]
 embedding: "df4f55670a161eef6be2390018c3d11e"
-links: []
+links: [
+  "learning-tdd-scope-resolution-module-structure",
+  "learning-test-naming-convention-spec-ts"
+]
 ---
 
 # typescript-tdd-hook-naming-enforcement

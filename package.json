@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "tsx watch skills/memory/src/index.ts",
     "build": "tsc",
-    "test": "bun test",
-    "test:run": "bun test",
-    "test:coverage": "bun test --coverage",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint . --ext .ts",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
     "typecheck:src": "tsc --noEmit",

@@ -7,6 +7,8 @@ import {
   cosineSimilarity,
   findSimilarMemories,
   rankBySimilarity,
+  averageKNearestSimilarity,
+  findPotentialDuplicates,
   type SimilarityResult,
 } from '../../../skills/memory/src/search/similarity.js';
 
@@ -227,6 +229,170 @@ describe('Cosine Similarity', () => {
 
       expect(ranked[0].id).toBe('mem-1');
       // Original properties should be preserved
+    });
+  });
+
+  describe('averageKNearestSimilarity', () => {
+    const mockEmbeddings = {
+      'memory-1': [1, 0, 0],
+      'memory-2': [0.9, 0.1, 0], // Very similar to memory-1
+      'memory-3': [0.8, 0.2, 0], // Fairly similar to memory-1
+      'memory-4': [0, 1, 0], // Orthogonal to memory-1
+      'memory-5': [0, 0, 1], // Orthogonal to memory-1
+    };
+
+    it('should calculate average similarity to k nearest neighbours', () => {
+      const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings, 2);
+
+      // Should be average of top 2 neighbours (memory-2 and memory-3)
+      expect(avgSim).toBeGreaterThan(0.8);
+      expect(avgSim).toBeLessThanOrEqual(1.0);
+    });
+
+    it('should exclude the target memory from neighbours', () => {
+      // With k=5, should get all 4 other memories
+      const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings, 5);
+
+      // Average should be less than 1 since it includes dissimilar memories
+      expect(avgSim).toBeLessThan(1.0);
+      expect(avgSim).toBeGreaterThan(0);
+    });
+
+    it('should return 0 when target memory not found', () => {
+      const avgSim = averageKNearestSimilarity(
+        'non-existent',
+        mockEmbeddings,
+        3
+      );
+
+      expect(avgSim).toBe(0);
+    });
+
+    it('should return 0 when no neighbours exist', () => {
+      const singleMemory = {
+        'only-memory': [1, 0, 0],
+      };
+
+      const avgSim = averageKNearestSimilarity('only-memory', singleMemory, 3);
+
+      expect(avgSim).toBe(0);
+    });
+
+    it('should use default k=5 when not provided', () => {
+      const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings);
+
+      // Should work with default k value
+      expect(typeof avgSim).toBe('number');
+      expect(avgSim).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should handle k larger than available neighbours', () => {
+      // Only 4 neighbours available, request 10
+      const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings, 10);
+
+      expect(avgSim).toBeGreaterThan(0);
+    });
+  });
+
+  describe('findPotentialDuplicates', () => {
+    it('should find highly similar memory pairs', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0.99, 0.01, 0], // Almost identical to memory-1
+        'memory-3': [0, 1, 0], // Very different
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates.length).toBe(1);
+      expect(duplicates[0].id1).toBe('memory-1');
+      expect(duplicates[0].id2).toBe('memory-2');
+      expect(duplicates[0].similarity).toBeGreaterThan(0.9);
+    });
+
+    it('should return empty array when no duplicates found', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0, 1, 0],
+        'memory-3': [0, 0, 1],
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates).toEqual([]);
+    });
+
+    it('should sort duplicates by similarity descending', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0.95, 0.05, 0], // 95% similar to memory-1
+        'memory-3': [0.99, 0.01, 0], // 99% similar to memory-1
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates.length).toBeGreaterThan(0);
+      // Should be sorted by similarity, highest first
+      for (let i = 1; i < duplicates.length; i++) {
+        expect(duplicates[i - 1].similarity).toBeGreaterThanOrEqual(
+          duplicates[i].similarity
+        );
+      }
+    });
+
+    it('should use default threshold of 0.92 when not provided', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0.93, 0.07, 0], // Above 0.92 threshold
+        'memory-3': [0.9, 0.1, 0], // Below 0.92 threshold
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings);
+
+      // Only memory-1/memory-2 pair should be found with default 0.92 threshold
+      expect(duplicates.every(d => d.similarity >= 0.92)).toBe(true);
+    });
+
+    it('should find multiple duplicate pairs', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0.99, 0.01, 0], // Similar to memory-1
+        'memory-3': [0, 1, 0],
+        'memory-4': [0.01, 0.99, 0], // Similar to memory-3
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates.length).toBe(2);
+    });
+
+    it('should handle empty embeddings', () => {
+      const duplicates = findPotentialDuplicates({}, 0.9);
+
+      expect(duplicates).toEqual([]);
+    });
+
+    it('should handle single memory', () => {
+      const embeddings = {
+        'only-memory': [1, 0, 0],
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates).toEqual([]);
+    });
+
+    it('should include both IDs and similarity in results', () => {
+      const embeddings = {
+        'memory-1': [1, 0, 0],
+        'memory-2': [0.99, 0.01, 0],
+      };
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9);
+
+      expect(duplicates[0]).toHaveProperty('id1');
+      expect(duplicates[0]).toHaveProperty('id2');
+      expect(duplicates[0]).toHaveProperty('similarity');
     });
   });
 });

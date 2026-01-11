@@ -5,7 +5,16 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { parseFrontmatter, serialiseFrontmatter, parseMemoryFile, serialiseMemoryFile } from '../../../skills/memory/src/core/frontmatter.js';
+import {
+  parseFrontmatter,
+  serialiseFrontmatter,
+  parseMemoryFile,
+  serialiseMemoryFile,
+  updateFrontmatter,
+  createFrontmatter,
+  extractId,
+  hasRequiredFields,
+} from '../../../skills/memory/src/core/frontmatter.js';
 import { MemoryType, Scope, Severity } from '../../../skills/memory/src/types/enums.js';
 import type { MemoryFrontmatter } from '../../../skills/memory/src/types/memory.js';
 
@@ -201,5 +210,340 @@ Body text.
     expect(reparsed.frontmatter.type).toBe(parsed.frontmatter.type);
     expect(reparsed.frontmatter.title).toBe(parsed.frontmatter.title);
     expect(reparsed.content.trim()).toBe(parsed.content.trim());
+  });
+});
+
+describe('parseFrontmatter edge cases', () => {
+  it('should throw on null YAML', () => {
+    expect(() => parseFrontmatter('')).toThrow(/must be a YAML object/i);
+  });
+
+  it('should throw on non-object YAML (string)', () => {
+    expect(() => parseFrontmatter('"just a string"')).toThrow(/must be a YAML object/i);
+  });
+
+  it('should throw on missing title', () => {
+    const missingTitle = `type: decision
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags: []`;
+
+    expect(() => parseFrontmatter(missingTitle)).toThrow(/title is required/i);
+  });
+});
+
+describe('serialiseFrontmatter with all optional fields', () => {
+  it('should include source when present', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Gotcha,
+      title: 'Test with Source',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['test'],
+      source: 'src/example.ts',
+    };
+
+    const yaml = serialiseFrontmatter(frontmatter);
+    expect(yaml).toContain('source: src/example.ts');
+  });
+
+  it('should include meta when present', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Test with Meta',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['test'],
+      meta: { id: 'custom-id', custom: 'value' },
+    };
+
+    const yaml = serialiseFrontmatter(frontmatter);
+    expect(yaml).toContain('meta:');
+    expect(yaml).toContain('id: custom-id');
+  });
+
+  it('should include scope when present', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'Test with Scope',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['test'],
+      scope: Scope.Global,
+    };
+
+    const yaml = serialiseFrontmatter(frontmatter);
+    expect(yaml).toContain('scope: global');
+  });
+});
+
+describe('updateFrontmatter', () => {
+  it('should update specified fields', () => {
+    const existing: MemoryFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Original Title',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: ['original'],
+    };
+
+    const result = updateFrontmatter(existing, { title: 'New Title' });
+
+    expect(result.title).toBe('New Title');
+    expect(result.type).toBe(MemoryType.Decision);
+    expect(result.tags).toEqual(['original']);
+  });
+
+  it('should update the updated timestamp', () => {
+    const existing: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    const before = new Date().toISOString();
+    const result = updateFrontmatter(existing, {});
+    const after = new Date().toISOString();
+
+    expect(result.updated >= before).toBe(true);
+    expect(result.updated <= after).toBe(true);
+  });
+
+  it('should preserve created timestamp', () => {
+    const existing: MemoryFrontmatter = {
+      type: MemoryType.Artifact,
+      title: 'Test',
+      created: '2020-01-01T00:00:00Z',
+      updated: '2020-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    const result = updateFrontmatter(existing, { tags: ['new'] });
+
+    expect(result.created).toBe('2020-01-01T00:00:00Z');
+  });
+});
+
+describe('createFrontmatter', () => {
+  it('should create frontmatter with required fields', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Decision,
+      title: 'Test Decision',
+      tags: ['test'],
+    });
+
+    expect(result.type).toBe(MemoryType.Decision);
+    expect(result.title).toBe('Test Decision');
+    expect(result.tags).toEqual(['test']);
+    expect(result.created).toBeDefined();
+    expect(result.updated).toBeDefined();
+  });
+
+  it('should include scope when provided', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Learning,
+      title: 'Test',
+      tags: [],
+      scope: Scope.Global,
+    });
+
+    expect(result.scope).toBe(Scope.Global);
+  });
+
+  it('should include severity when provided', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Gotcha,
+      title: 'Test Gotcha',
+      tags: [],
+      severity: Severity.High,
+    });
+
+    expect(result.severity).toBe(Severity.High);
+  });
+
+  it('should include links when provided and non-empty', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Decision,
+      title: 'Test',
+      tags: [],
+      links: ['related-memory'],
+    });
+
+    expect(result.links).toEqual(['related-memory']);
+  });
+
+  it('should not include links when empty array', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Decision,
+      title: 'Test',
+      tags: [],
+      links: [],
+    });
+
+    expect(result.links).toBeUndefined();
+  });
+
+  it('should include source when provided', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Gotcha,
+      title: 'Test',
+      tags: [],
+      source: 'src/file.ts',
+    });
+
+    expect(result.source).toBe('src/file.ts');
+  });
+
+  it('should include meta when provided and non-empty', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Artifact,
+      title: 'Test',
+      tags: [],
+      meta: { custom: 'value' },
+    });
+
+    expect(result.meta).toEqual({ custom: 'value' });
+  });
+
+  it('should not include meta when empty object', () => {
+    const result = createFrontmatter({
+      type: MemoryType.Artifact,
+      title: 'Test',
+      tags: [],
+      meta: {},
+    });
+
+    expect(result.meta).toBeUndefined();
+  });
+});
+
+describe('extractId', () => {
+  it('should extract ID from meta.id', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+      meta: { id: 'custom-memory-id' },
+    };
+
+    expect(extractId(frontmatter)).toBe('custom-memory-id');
+  });
+
+  it('should return null when no meta', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    expect(extractId(frontmatter)).toBeNull();
+  });
+
+  it('should return null when meta.id is not a string', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Artifact,
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+      meta: { id: 123 as any },
+    };
+
+    expect(extractId(frontmatter)).toBeNull();
+  });
+});
+
+describe('hasRequiredFields', () => {
+  it('should return true for valid frontmatter', () => {
+    const valid = {
+      type: 'decision',
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: ['test'],
+    };
+
+    expect(hasRequiredFields(valid)).toBe(true);
+  });
+
+  it('should return false for null', () => {
+    expect(hasRequiredFields(null)).toBe(false);
+  });
+
+  it('should return false for non-object', () => {
+    expect(hasRequiredFields('string')).toBe(false);
+  });
+
+  it('should return false for missing type', () => {
+    const invalid = {
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
+  });
+
+  it('should return false for missing title', () => {
+    const invalid = {
+      type: 'decision',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
+  });
+
+  it('should return false for missing created', () => {
+    const invalid = {
+      type: 'decision',
+      title: 'Test',
+      updated: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
+  });
+
+  it('should return false for missing updated', () => {
+    const invalid = {
+      type: 'decision',
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      tags: [],
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
+  });
+
+  it('should return false for missing tags', () => {
+    const invalid = {
+      type: 'decision',
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
+  });
+
+  it('should return false for non-array tags', () => {
+    const invalid = {
+      type: 'decision',
+      title: 'Test',
+      created: '2026-01-01T00:00:00Z',
+      updated: '2026-01-01T00:00:00Z',
+      tags: 'not-an-array',
+    };
+
+    expect(hasRequiredFields(invalid)).toBe(false);
   });
 });

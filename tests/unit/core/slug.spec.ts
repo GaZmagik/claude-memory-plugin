@@ -4,8 +4,21 @@
  * Tests the slug generation algorithm that converts titles to URL-safe identifiers.
  */
 
-import { describe, it, expect } from 'vitest';
-import { generateSlug, detectCollision, resolveCollision } from '../../../skills/memory/src/core/slug.js';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as os from 'node:os';
+import {
+  generateSlug,
+  detectCollision,
+  resolveCollision,
+  generateId,
+  idExists,
+  generateUniqueId,
+  isValidSlug,
+  parseId,
+} from '../../../skills/memory/src/core/slug.js';
+import { MemoryType } from '../../../skills/memory/src/types/enums.js';
 
 describe('generateSlug', () => {
   it('should convert title to lowercase kebab-case', () => {
@@ -86,5 +99,164 @@ describe('resolveCollision', () => {
 
   it('should return original if no collision', () => {
     expect(resolveCollision('my-slug', ['other-slug'])).toBe('my-slug');
+  });
+});
+
+describe('generateId', () => {
+  it('should generate ID from type and title', () => {
+    expect(generateId(MemoryType.Decision, 'OAuth Implementation')).toBe(
+      'decision-oauth-implementation'
+    );
+  });
+
+  it('should handle different memory types', () => {
+    expect(generateId(MemoryType.Learning, 'Test Title')).toBe('learning-test-title');
+    expect(generateId(MemoryType.Artifact, 'Code Pattern')).toBe('artifact-code-pattern');
+    expect(generateId(MemoryType.Gotcha, 'Watch Out')).toBe('gotcha-watch-out');
+  });
+});
+
+describe('idExists', () => {
+  let testDir: string;
+
+  beforeEach(() => {
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'slug-test-'));
+  });
+
+  afterEach(() => {
+    fs.rmSync(testDir, { recursive: true, force: true });
+  });
+
+  it('should return true when file exists', () => {
+    fs.writeFileSync(path.join(testDir, 'decision-test.md'), 'content');
+
+    expect(idExists('decision-test', testDir)).toBe(true);
+  });
+
+  it('should return false when file does not exist', () => {
+    expect(idExists('non-existent', testDir)).toBe(false);
+  });
+});
+
+describe('generateUniqueId', () => {
+  let testDir: string;
+
+  beforeEach(() => {
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'slug-unique-test-'));
+  });
+
+  afterEach(() => {
+    fs.rmSync(testDir, { recursive: true, force: true });
+  });
+
+  it('should return base ID when no collision', () => {
+    const id = generateUniqueId(MemoryType.Decision, 'Test', testDir);
+
+    expect(id).toBe('decision-test');
+  });
+
+  it('should append suffix when collision exists', () => {
+    fs.writeFileSync(path.join(testDir, 'decision-test.md'), 'content');
+
+    const id = generateUniqueId(MemoryType.Decision, 'Test', testDir);
+
+    expect(id).toBe('decision-test-1');
+  });
+
+  it('should increment suffix for multiple collisions', () => {
+    fs.writeFileSync(path.join(testDir, 'decision-test.md'), 'content');
+    fs.writeFileSync(path.join(testDir, 'decision-test-1.md'), 'content');
+    fs.writeFileSync(path.join(testDir, 'decision-test-2.md'), 'content');
+
+    const id = generateUniqueId(MemoryType.Decision, 'Test', testDir);
+
+    expect(id).toBe('decision-test-3');
+  });
+});
+
+describe('isValidSlug', () => {
+  it('should return true for valid slug', () => {
+    expect(isValidSlug('my-valid-slug')).toBe(true);
+    expect(isValidSlug('test123')).toBe(true);
+    expect(isValidSlug('a')).toBe(true);
+  });
+
+  it('should return false for empty string', () => {
+    expect(isValidSlug('')).toBe(false);
+  });
+
+  it('should return false for uppercase characters', () => {
+    expect(isValidSlug('MySlug')).toBe(false);
+  });
+
+  it('should return false for special characters', () => {
+    expect(isValidSlug('my_slug')).toBe(false);
+    expect(isValidSlug('my.slug')).toBe(false);
+    expect(isValidSlug('my slug')).toBe(false);
+  });
+
+  it('should return false for leading hyphen', () => {
+    expect(isValidSlug('-my-slug')).toBe(false);
+  });
+
+  it('should return false for trailing hyphen', () => {
+    expect(isValidSlug('my-slug-')).toBe(false);
+  });
+
+  it('should return false for consecutive hyphens', () => {
+    expect(isValidSlug('my--slug')).toBe(false);
+  });
+});
+
+describe('parseId', () => {
+  it('should parse decision ID', () => {
+    const result = parseId('decision-oauth-implementation');
+
+    expect(result).toEqual({
+      type: MemoryType.Decision,
+      slug: 'oauth-implementation',
+    });
+  });
+
+  it('should parse learning ID', () => {
+    const result = parseId('learning-test-patterns');
+
+    expect(result).toEqual({
+      type: MemoryType.Learning,
+      slug: 'test-patterns',
+    });
+  });
+
+  it('should parse artifact ID', () => {
+    const result = parseId('artifact-code-template');
+
+    expect(result).toEqual({
+      type: MemoryType.Artifact,
+      slug: 'code-template',
+    });
+  });
+
+  it('should parse gotcha ID', () => {
+    const result = parseId('gotcha-watch-out');
+
+    expect(result).toEqual({
+      type: MemoryType.Gotcha,
+      slug: 'watch-out',
+    });
+  });
+
+  it('should return null for invalid ID format', () => {
+    expect(parseId('invalid-format')).toBeNull();
+    expect(parseId('random-string')).toBeNull();
+    expect(parseId('')).toBeNull();
+  });
+
+  it('should handle ID with numeric suffix', () => {
+    const result = parseId('decision-test-1');
+
+    expect(result).toEqual({
+      type: MemoryType.Decision,
+      slug: 'test-1',
+    });
   });
 });

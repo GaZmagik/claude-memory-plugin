@@ -1,0 +1,71 @@
+{
+  "name": "claude-memory-plugin",
+  "version": "1.0.0",
+  "description": "Claude Code plugin for memory skill system - persistent knowledge storage with semantic search, contextual gotcha injection, and graph-based knowledge management",
+  "type": "module",
+  "main": "skills/memory/src/index.ts",
+  "types": "skills/memory/src/index.d.ts",
+  "bin": {
+    "claude-memory-install": "./scripts/install.sh"
+  },
+  "scripts": {
+    "dev": "tsx watch skills/memory/src/index.ts",
+    "build": "tsc",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "typecheck:src": "tsc --noEmit",
+    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json",
+    "install:plugin": "./scripts/install.sh",
+    "uninstall:plugin": "./scripts/uninstall.sh"
+  },
+  "files": [
+    "skills/",
+    "hooks/",
+    "agents/",
+    "commands/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "memory",
+    "knowledge-management",
+    "semantic-search",
+    "gotcha-injection",
+    "hooks",
+    "context-awareness"
+  ],
+  "author": "GaZmagik",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaZmagik/claude-memory-plugin"
+  },
+  "homepage": "https://github.com/GaZmagik/claude-memory-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/GaZmagik/claude-memory-plugin/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "@types/minimatch": "^5.1.2",
+    "js-yaml": "^4.1.0",
+    "minimatch": "^10.1.1",
+    "ollama": "^0.6.3"
+  }
+}

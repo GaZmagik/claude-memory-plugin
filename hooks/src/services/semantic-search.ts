@@ -1,0 +1,526 @@
+/**
+ * Semantic Memory Search for Claude Code Hooks
+ *
+ * TypeScript port of semantic-memory-search.py
+ * Uses ollama-js for embeddings and pure TypeScript for cosine similarity.
+ */
+
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  statSync,
+  readdirSync,
+} from 'fs';
+import { createHash } from 'crypto';
+import { join } from 'path';
+import { homedir } from 'os';
+import { embed } from './ollama.ts';
+
+// Configuration
+const EMBEDDING_MODEL = 'embeddinggemma:latest-cpu';
+
+// Tiered thresholds (calibrated for embeddinggemma scores ~0.3-0.6 range)
+// Exact topic match typically scores ~0.55-0.60, related ~0.45-0.50
+const THRESHOLDS: Record<string, number> = {
+  session_start: 0.4,
+  user_prompt_first: 0.45,
+  user_prompt: 0.55,
+  post_tool_use: 0.5,
+};
+
+// Cache directories
+const SEMANTIC_INDEX_DIR = join(homedir(), '.claude', 'cache', 'semantic-index');
+const QUERY_CACHE_DIR = join(homedir(), '.claude', 'cache', 'embeddings');
+
+/**
+ * Result from a memory search
+ */
+export interface MemoryResult {
+  id: string;
+  title: string;
+  score: number;
+  type: string;
+  file: string;
+  scope?: string;
+}
+
+/**
+ * Search result with metadata
+ */
+export interface SearchResult {
+  memories: MemoryResult[];
+  index_status: 'indexed' | 'fallback' | 'no_embedding';
+  search_time_ms: number;
+  threshold_used: number;
+  query_length?: number;
+}
+
+/**
+ * Index data structure
+ */
+interface IndexData {
+  embeddings: number[][];
+  memory_ids: string[];
+}
+
+/**
+ * Manifest data structure
+ */
+interface ManifestData {
+  memories: Record<
+    string,
+    {
+      title?: string;
+      file?: string;
+      tags?: string[];
+    }
+  >;
+}
+
+/**
+ * Graph data structure
+ */
+interface GraphData {
+  nodes: Record<
+    string,
+    {
+      type?: string;
+      links?: string[];
+    }
+  >;
+}
+
+/**
+ * Pure TypeScript cosine similarity.
+ * For 768-dim vectors, this is fast enough without NumPy.
+ */
+export function cosineSimilarity(a: number[], b: number[]): number {
+  if (a.length !== b.length || a.length === 0) return 0;
+
+  let dotProduct = 0;
+  let magA = 0;
+  let magB = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    dotProduct += a[i] * b[i];
+    magA += a[i] * a[i];
+    magB += b[i] * b[i];
+  }
+
+  magA = Math.sqrt(magA);
+  magB = Math.sqrt(magB);
+
+  if (magA === 0 || magB === 0) return 0;
+  return dotProduct / (magA * magB);
+}
+
+/**
+ * Load embedding from cache.
+ */
+export function loadEmbeddingCache(
+  cacheDir: string,
+  cacheKey: string
+): number[] | null {
+  const cacheFile = join(cacheDir, `${cacheKey}.json`);
+
+  if (!existsSync(cacheFile)) {
+    return null;
+  }
+
+  try {
+    const cached = JSON.parse(readFileSync(cacheFile, 'utf-8'));
+    if (Array.isArray(cached) && cached.length > 0) {
+      return cached;
+    }
+  } catch {
+    // Cache corrupted
+  }
+
+  return null;
+}
+
+/**
+ * Save embedding to cache.
+ */
+export function saveEmbeddingCache(
+  cacheDir: string,
+  cacheKey: string,
+  embedding: number[]
+): void {
+  try {
+    mkdirSync(cacheDir, { recursive: true });
+    const cacheFile = join(cacheDir, `${cacheKey}.json`);
+    writeFileSync(cacheFile, JSON.stringify(embedding));
+  } catch {
+    // Cache write failed
+  }
+}
+
+/**
+ * Get cached query embedding or generate a new one.
+ */
+export async function getQueryEmbedding(query: string): Promise<number[] | null> {
+  const cacheKey = createHash('sha256').update(query).digest('hex');
+
+  // Check cache first
+  const cached = loadEmbeddingCache(QUERY_CACHE_DIR, cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  // Generate new embedding using ollama-js
+  const embedding = await embed(query, EMBEDDING_MODEL);
+
+  if (embedding.length > 0) {
+    saveEmbeddingCache(QUERY_CACHE_DIR, cacheKey, embedding);
+    return embedding;
+  }
+
+  return null;
+}
+
+/**
+ * Load links for a memory from graph.json.
+ */
+export function loadGraphLinks(projectDir: string, memoryId: string): string[] {
+  const graphFile = join(projectDir, '.claude', 'memory', 'graph.json');
+
+  if (!existsSync(graphFile)) {
+    return [];
+  }
+
+  try {
+    const graph: GraphData = JSON.parse(readFileSync(graphFile, 'utf-8'));
+    const node = graph.nodes?.[memoryId];
+    return node?.links || [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Check if the semantic index is stale (memories newer than index).
+ */
+export function isIndexStale(projectDir: string, scope: string): boolean {
+  const indexDir =
+    scope === 'local'
+      ? join(projectDir, '.claude', 'cache', 'semantic-index')
+      : SEMANTIC_INDEX_DIR;
+
+  const indexFile = join(indexDir, `${scope}-index.json`);
+  const memoryDir =
+    scope === 'local'
+      ? join(projectDir, '.claude', 'memory')
+      : join(homedir(), '.claude', 'memory');
+
+  // If no index exists, consider it stale
+  if (!existsSync(indexFile)) {
+    return true;
+  }
+
+  // If no memory directory, index is fine
+  if (!existsSync(memoryDir)) {
+    return false;
+  }
+
+  try {
+    const indexStat = statSync(indexFile);
+    const indexMtime = indexStat.mtimeMs;
+
+    // Check if any memory file is newer than the index
+    const files = readdirSync(memoryDir, { recursive: true });
+    for (const file of files) {
+      if (typeof file !== 'string' || !file.endsWith('.md')) continue;
+
+      const filePath = join(memoryDir, file);
+      try {
+        const fileStat = statSync(filePath);
+        if (fileStat.mtimeMs > indexMtime) {
+          return true; // Found a newer memory
+        }
+      } catch {
+        // Ignore stat errors
+      }
+    }
+
+    return false; // All memories are older than index
+  } catch {
+    return true; // Error checking, assume stale
+  }
+}
+
+/**
+ * Load pre-computed index for a scope.
+ */
+function loadIndex(
+  scope: string,
+  projectDir?: string
+): { embeddings: number[][]; ids: string[]; manifest: ManifestData } | null {
+  const indexDir =
+    scope === 'local' && projectDir
+      ? join(projectDir, '.claude', 'cache', 'semantic-index')
+      : SEMANTIC_INDEX_DIR;
+
+  const indexFile = join(indexDir, `${scope}-index.json`);
+  const manifestFile = join(indexDir, `${scope}-manifest.json`);
+
+  if (!existsSync(indexFile) || !existsSync(manifestFile)) {
+    return null;
+  }
+
+  try {
+    const indexData: IndexData = JSON.parse(readFileSync(indexFile, 'utf-8'));
+    const manifest: ManifestData = JSON.parse(readFileSync(manifestFile, 'utf-8'));
+
+    return {
+      embeddings: indexData.embeddings || [],
+      ids: indexData.memory_ids || [],
+      manifest,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Search memories using pre-computed index.
+ */
+function searchWithIndex(
+  queryEmbedding: number[],
+  embeddings: number[][],
+  memoryIds: string[],
+  manifest: ManifestData,
+  threshold: number,
+  limit: number
+): MemoryResult[] {
+  const results: MemoryResult[] = [];
+
+  for (let i = 0; i < embeddings.length; i++) {
+    const score = cosineSimilarity(queryEmbedding, embeddings[i]);
+
+    if (score >= threshold) {
+      const memId = memoryIds[i];
+      const memInfo = manifest.memories?.[memId] || {};
+
+      results.push({
+        id: memId,
+        title: memInfo.title || memId,
+        score: Math.round(score * 10000) / 10000,
+        type: memId.includes('-') ? memId.split('-')[0] : 'unknown',
+        file: memInfo.file || '',
+      });
+    }
+  }
+
+  // Sort by score descending
+  results.sort((a, b) => b.score - a.score);
+
+  return results.slice(0, limit);
+}
+
+/**
+ * Fallback search: iterate through memory files when index is stale.
+ */
+async function searchFallback(
+  _query: string,
+  queryEmbedding: number[],
+  memoryDir: string,
+  threshold: number,
+  limit: number
+): Promise<MemoryResult[]> {
+  if (!existsSync(memoryDir)) {
+    return [];
+  }
+
+  const results: MemoryResult[] = [];
+
+  try {
+    const files = readdirSync(memoryDir, { recursive: true });
+
+    for (const file of files) {
+      if (typeof file !== 'string' || !file.endsWith('.md')) continue;
+
+      const filePath = join(memoryDir, file);
+      try {
+        const content = readFileSync(filePath, 'utf-8');
+
+        // Extract title from first heading
+        const titleMatch = content.match(/^#\s+(.+)$/m);
+        const title = titleMatch?.[1] || file;
+
+        // Get embedding for this memory
+        const memoryEmbedding = await embed(
+          content.slice(0, 1000),
+          EMBEDDING_MODEL
+        );
+
+        if (memoryEmbedding.length === 0) continue;
+
+        const score = cosineSimilarity(queryEmbedding, memoryEmbedding);
+
+        if (score >= threshold) {
+          const memId = file.replace(/\.md$/, '').replace(/\//g, '-');
+
+          results.push({
+            id: memId,
+            title,
+            score: Math.round(score * 10000) / 10000,
+            type: memId.includes('-') ? memId.split('-')[0] : 'unknown',
+            file: filePath,
+          });
+        }
+      } catch {
+        // Skip unreadable files
+      }
+    }
+  } catch {
+    // Ignore directory errors
+  }
+
+  // Sort by score descending
+  results.sort((a, b) => b.score - a.score);
+
+  return results.slice(0, limit);
+}
+
+/**
+ * Select appropriate threshold based on hook type.
+ */
+function selectThreshold(hookType: string, explicitThreshold?: number): number {
+  if (explicitThreshold !== undefined) {
+    return explicitThreshold;
+  }
+
+  return THRESHOLDS[hookType] || THRESHOLDS.post_tool_use;
+}
+
+/**
+ * Main search function - searches memory by semantic similarity.
+ *
+ * @param query - Search query text
+ * @param scope - 'local', 'global', or 'both'
+ * @param projectDir - Project directory for local scope
+ * @param hookType - Hook type for threshold selection
+ * @param sessionId - Session ID (unused for now, kept for API compat)
+ * @param limit - Maximum results to return
+ * @param explicitThreshold - Override automatic threshold selection
+ */
+export async function searchMemories(
+  query: string,
+  scope: 'local' | 'global' | 'both',
+  projectDir: string | undefined,
+  hookType: string,
+  _sessionId: string,
+  limit: number = 5,
+  explicitThreshold?: number
+): Promise<SearchResult> {
+  const startTime = Date.now();
+
+  // Select threshold based on hook type
+  const threshold = selectThreshold(hookType, explicitThreshold);
+
+  // Get query embedding
+  const queryEmbedding = await getQueryEmbedding(query);
+
+  if (!queryEmbedding) {
+    return {
+      memories: [],
+      index_status: 'no_embedding',
+      search_time_ms: 0,
+      threshold_used: threshold,
+    };
+  }
+
+  const allResults: MemoryResult[] = [];
+  let indexStatus: 'indexed' | 'fallback' = 'fallback';
+
+  // Determine which scopes to search
+  const scopesToSearch = scope === 'both' ? ['local', 'global'] : [scope];
+
+  for (const s of scopesToSearch) {
+    const memoryDir =
+      s === 'local' && projectDir
+        ? join(projectDir, '.claude', 'memory')
+        : join(homedir(), '.claude', 'memory');
+
+    // Check for index staleness
+    const stale = isIndexStale(projectDir || homedir(), s);
+
+    if (!stale) {
+      // Try indexed search
+      const index = loadIndex(s, s === 'local' ? projectDir : undefined);
+
+      if (index && index.embeddings.length > 0) {
+        indexStatus = 'indexed';
+
+        const results = searchWithIndex(
+          queryEmbedding,
+          index.embeddings,
+          index.ids,
+          index.manifest,
+          threshold,
+          limit
+        );
+
+        // Tag results with scope
+        for (const r of results) {
+          r.scope = s;
+        }
+
+        allResults.push(...results);
+        continue;
+      }
+    }
+
+    // Fallback: iterate through files
+    // Note: This is slow and should only be used when index is stale
+    // For hooks, we skip fallback to maintain performance
+    // Fallback is only used for explicit searches
+    if (hookType === 'explicit_search') {
+      const fallbackResults = await searchFallback(
+        query,
+        queryEmbedding,
+        memoryDir,
+        threshold,
+        limit
+      );
+
+      for (const r of fallbackResults) {
+        r.scope = s;
+      }
+
+      allResults.push(...fallbackResults);
+    }
+  }
+
+  // Sort combined results: local first, then by score
+  allResults.sort((a, b) => {
+    // Prioritise local scope
+    if (a.scope === 'local' && b.scope !== 'local') return -1;
+    if (b.scope === 'local' && a.scope !== 'local') return 1;
+    // Then by score
+    return b.score - a.score;
+  });
+
+  return {
+    memories: allResults.slice(0, limit),
+    index_status: indexStatus,
+    search_time_ms: Date.now() - startTime,
+    threshold_used: threshold,
+    query_length: query.length,
+  };
+}
+
+/**
+ * Performance logging helper.
+ */
+export function logSearchPerformance(result: SearchResult, query: string): void {
+  const status = result.index_status === 'indexed' ? '✓' : '⚠';
+  console.error(
+    `[SemanticSearch] ${status} ${result.search_time_ms}ms | ` +
+      `${result.memories.length} results | threshold=${result.threshold_used} | ` +
+      `query="${query.slice(0, 30)}..."`
+  );
+}

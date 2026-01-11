@@ -34,8 +34,19 @@ interface ToolConfig {
   description: string;
 }
 
+interface BashCommandConfig {
+  enabled: boolean;
+  description: string;
+}
+
+interface BashCommandsConfig {
+  mode: 'allowlist' | 'blocklist';
+  commands: Record<string, BashCommandConfig>;
+}
+
 interface HookConfig {
   enabledTools: Record<string, ToolConfig>;
+  bashCommands?: BashCommandsConfig;
 }
 
 function loadConfig(): HookConfig {
@@ -61,9 +72,64 @@ function loadConfig(): HookConfig {
   }
 }
 
-function isToolEnabled(toolName: string, config: HookConfig): boolean {
+/**
+ * Extract the base command from a Bash command string
+ * e.g., "git status" -> "git", "npm run build" -> "npm"
+ */
+function extractBashCommand(commandStr: string): string | null {
+  if (!commandStr) return null;
+
+  // Handle common shell prefixes
+  const cleaned = commandStr
+    .replace(/^(env\s+\w+=\S+\s+)+/, '') // Remove env vars
+    .replace(/^(sudo\s+)/, '') // Remove sudo
+    .replace(/^(nohup\s+)/, '') // Remove nohup
+    .replace(/^(timeout\s+\S+\s+)/, '') // Remove timeout
+    .trim();
+
+  // Get the first word (the command)
+  const match = cleaned.match(/^([\w.-]+)/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Check if a Bash command is enabled in the config
+ */
+function isBashCommandEnabled(commandStr: string, config: HookConfig): boolean {
+  const bashConfig = config.bashCommands;
+  if (!bashConfig) {
+    // No bash config means allow all bash commands if Bash tool is enabled
+    return true;
+  }
+
+  const baseCommand = extractBashCommand(commandStr);
+  if (!baseCommand) {
+    return false;
+  }
+
+  const commandConfig = bashConfig.commands[baseCommand];
+
+  if (bashConfig.mode === 'allowlist') {
+    // Only enabled commands are allowed
+    return commandConfig?.enabled ?? false;
+  } else {
+    // Blocklist mode: all commands allowed unless explicitly disabled
+    return commandConfig?.enabled ?? true;
+  }
+}
+
+function isToolEnabled(toolName: string, config: HookConfig, toolInput?: Record<string, unknown>): boolean {
   const toolConfig = config.enabledTools[toolName];
-  return toolConfig?.enabled ?? false;
+  if (!toolConfig?.enabled) {
+    return false;
+  }
+
+  // Special handling for Bash - check command allowlist
+  if (toolName === 'Bash' && toolInput?.command) {
+    return isBashCommandEnabled(toolInput.command as string, config);
+  }
+
+  return true;
 }
 
 // Meta-topics to reject (not useful for memory search)

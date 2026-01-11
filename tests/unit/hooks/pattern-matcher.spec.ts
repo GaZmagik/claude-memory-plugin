@@ -12,6 +12,8 @@ import {
   normalisePattern,
   isGlobPattern,
   matchesGlob,
+  getMatchType,
+  getMatchingPatterns,
 } from '../../../hooks/src/memory/pattern-matcher.js';
 
 describe('Pattern Matcher', () => {
@@ -134,6 +136,97 @@ describe('Pattern Matcher', () => {
     it('should handle normalisation', () => {
       const patterns = ['./src/index.ts'];
       expect(matchFileToPatterns('src/index.ts', patterns)).toBe(true);
+    });
+
+    it('should match directory without trailing slash', () => {
+      const patterns = ['src/utils'];
+      expect(matchFileToPatterns('src/utils/helper.ts', patterns)).toBe(true);
+    });
+
+    it('should match directory with trailing slash but file path without', () => {
+      const patterns = ['src/utils/'];
+      expect(matchFileToPatterns('src/utils/helper.ts', patterns)).toBe(true);
+    });
+  });
+
+  describe('getMatchType', () => {
+    it('should return "exact" for exact file match', () => {
+      const patterns = ['src/index.ts', 'src/utils/helper.ts'];
+      expect(getMatchType('src/index.ts', patterns)).toBe('exact');
+    });
+
+    it('should return "directory" for directory match', () => {
+      const patterns = ['src/utils/', 'hooks/'];
+      expect(getMatchType('src/utils/helper.ts', patterns)).toBe('directory');
+    });
+
+    it('should return "directory" for directory pattern without trailing slash', () => {
+      const patterns = ['src/utils'];
+      expect(getMatchType('src/utils/nested/file.ts', patterns)).toBe('directory');
+    });
+
+    it('should return "glob" for glob pattern match', () => {
+      const patterns = ['**/*.spec.ts'];
+      expect(getMatchType('src/utils/helper.spec.ts', patterns)).toBe('glob');
+    });
+
+    it('should return "none" for no match', () => {
+      const patterns = ['src/other.ts'];
+      expect(getMatchType('src/index.ts', patterns)).toBe('none');
+    });
+
+    it('should return "none" for empty patterns', () => {
+      expect(getMatchType('src/index.ts', [])).toBe('none');
+    });
+
+    it('should prioritise exact over directory match', () => {
+      const patterns = ['src/index.ts', 'src/'];
+      expect(getMatchType('src/index.ts', patterns)).toBe('exact');
+    });
+
+    it('should prioritise directory over glob match', () => {
+      const patterns = ['src/', '*.ts'];
+      expect(getMatchType('src/index.ts', patterns)).toBe('directory');
+    });
+  });
+
+  describe('getMatchingPatterns', () => {
+    it('should return all matching patterns', () => {
+      const patterns = ['src/index.ts', 'src/', '*.ts', 'other.js'];
+      const matches = getMatchingPatterns('src/index.ts', patterns);
+
+      expect(matches).toContain('src/index.ts');
+      expect(matches).toContain('src/');
+      expect(matches).toContain('*.ts');
+      expect(matches).not.toContain('other.js');
+    });
+
+    it('should return empty array for no matches', () => {
+      const patterns = ['other.ts', 'hooks/'];
+      const matches = getMatchingPatterns('src/index.ts', patterns);
+
+      expect(matches).toEqual([]);
+    });
+
+    it('should handle glob patterns', () => {
+      const patterns = ['**/*.spec.ts', 'src/**/*.ts'];
+      const matches = getMatchingPatterns('src/utils/helper.spec.ts', patterns);
+
+      expect(matches).toContain('**/*.spec.ts');
+      expect(matches).toContain('src/**/*.ts');
+    });
+
+    it('should handle directory patterns with trailing slash', () => {
+      const patterns = ['src/utils/'];
+      const matches = getMatchingPatterns('src/utils/helper.ts', patterns);
+
+      expect(matches).toContain('src/utils/');
+    });
+
+    it('should return empty array for empty patterns', () => {
+      const matches = getMatchingPatterns('src/index.ts', []);
+
+      expect(matches).toEqual([]);
     });
   });
 });

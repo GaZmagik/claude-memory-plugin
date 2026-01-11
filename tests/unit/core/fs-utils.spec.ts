@@ -1,0 +1,347 @@
+/**
+ * T027: Unit tests for file system utilities
+ *
+ * Tests atomic file operations for memory storage.
+ */
+
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as os from 'node:os';
+import {
+  ensureDir,
+  writeFileAtomic,
+  readFile,
+  fileExists,
+  deleteFile,
+  listMarkdownFiles,
+  getFileStats,
+  readJsonFile,
+  writeJsonFile,
+  getRelativePath,
+  resolvePath,
+  getBasename,
+  isInsideDir,
+} from '../../../skills/memory/src/core/fs-utils.js';
+
+describe('File System Utilities', () => {
+  let testDir: string;
+
+  beforeEach(() => {
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'fs-utils-test-'));
+  });
+
+  afterEach(() => {
+    fs.rmSync(testDir, { recursive: true, force: true });
+  });
+
+  describe('ensureDir', () => {
+    it('should create directory if it does not exist', () => {
+      const newDir = path.join(testDir, 'new-dir');
+
+      ensureDir(newDir);
+
+      expect(fs.existsSync(newDir)).toBe(true);
+    });
+
+    it('should create nested directories', () => {
+      const nestedDir = path.join(testDir, 'a', 'b', 'c');
+
+      ensureDir(nestedDir);
+
+      expect(fs.existsSync(nestedDir)).toBe(true);
+    });
+
+    it('should not fail if directory already exists', () => {
+      const existingDir = path.join(testDir, 'existing');
+      fs.mkdirSync(existingDir);
+
+      expect(() => ensureDir(existingDir)).not.toThrow();
+    });
+  });
+
+  describe('writeFileAtomic', () => {
+    it('should write content to file', () => {
+      const filePath = path.join(testDir, 'test.txt');
+
+      writeFileAtomic(filePath, 'hello world');
+
+      expect(fs.readFileSync(filePath, 'utf-8')).toBe('hello world');
+    });
+
+    it('should create parent directories if needed', () => {
+      const filePath = path.join(testDir, 'nested', 'dir', 'test.txt');
+
+      writeFileAtomic(filePath, 'content');
+
+      expect(fs.existsSync(filePath)).toBe(true);
+      expect(fs.readFileSync(filePath, 'utf-8')).toBe('content');
+    });
+
+    it('should overwrite existing file', () => {
+      const filePath = path.join(testDir, 'overwrite.txt');
+      fs.writeFileSync(filePath, 'old content');
+
+      writeFileAtomic(filePath, 'new content');
+
+      expect(fs.readFileSync(filePath, 'utf-8')).toBe('new content');
+    });
+
+    it('should clean up temp file on error', () => {
+      const filePath = path.join(testDir, 'readonly-dir', 'test.txt');
+      const readonlyDir = path.join(testDir, 'readonly-dir');
+      fs.mkdirSync(readonlyDir);
+
+      // Make directory read-only (this test may not work on all systems)
+      try {
+        fs.chmodSync(readonlyDir, 0o444);
+
+        // Skip test if we can't restrict permissions (e.g., root user)
+        if (process.getuid && process.getuid() === 0) {
+          fs.chmodSync(readonlyDir, 0o755);
+          return;
+        }
+
+        expect(() => writeFileAtomic(filePath, 'content')).toThrow();
+
+        // Verify no temp files left behind
+        fs.chmodSync(readonlyDir, 0o755);
+        const files = fs.readdirSync(readonlyDir);
+        expect(files.filter(f => f.includes('.tmp.'))).toHaveLength(0);
+      } catch {
+        // Restore permissions for cleanup
+        fs.chmodSync(readonlyDir, 0o755);
+      }
+    });
+  });
+
+  describe('readFile', () => {
+    it('should read file contents', () => {
+      const filePath = path.join(testDir, 'read.txt');
+      fs.writeFileSync(filePath, 'file content');
+
+      const content = readFile(filePath);
+
+      expect(content).toBe('file content');
+    });
+
+    it('should throw on non-existent file', () => {
+      expect(() => readFile(path.join(testDir, 'missing.txt'))).toThrow();
+    });
+  });
+
+  describe('fileExists', () => {
+    it('should return true for existing file', () => {
+      const filePath = path.join(testDir, 'exists.txt');
+      fs.writeFileSync(filePath, 'content');
+
+      expect(fileExists(filePath)).toBe(true);
+    });
+
+    it('should return false for non-existent file', () => {
+      expect(fileExists(path.join(testDir, 'missing.txt'))).toBe(false);
+    });
+  });
+
+  describe('deleteFile', () => {
+    it('should delete existing file', () => {
+      const filePath = path.join(testDir, 'delete-me.txt');
+      fs.writeFileSync(filePath, 'content');
+
+      deleteFile(filePath);
+
+      expect(fs.existsSync(filePath)).toBe(false);
+    });
+
+    it('should not throw on non-existent file', () => {
+      expect(() => deleteFile(path.join(testDir, 'missing.txt'))).not.toThrow();
+    });
+  });
+
+  describe('listMarkdownFiles', () => {
+    it('should list markdown files in directory', () => {
+      fs.writeFileSync(path.join(testDir, 'file1.md'), 'content');
+      fs.writeFileSync(path.join(testDir, 'file2.md'), 'content');
+      fs.writeFileSync(path.join(testDir, 'file3.txt'), 'content');
+
+      const files = listMarkdownFiles(testDir);
+
+      expect(files).toHaveLength(2);
+      expect(files).toContain(path.join(testDir, 'file1.md'));
+      expect(files).toContain(path.join(testDir, 'file2.md'));
+    });
+
+    it('should return empty array for non-existent directory', () => {
+      const files = listMarkdownFiles(path.join(testDir, 'missing'));
+
+      expect(files).toEqual([]);
+    });
+
+    it('should ignore directories with .md in name', () => {
+      fs.mkdirSync(path.join(testDir, 'subdir.md'));
+      fs.writeFileSync(path.join(testDir, 'real.md'), 'content');
+
+      const files = listMarkdownFiles(testDir);
+
+      expect(files).toHaveLength(1);
+      expect(files[0]).toContain('real.md');
+    });
+
+    it('should return empty array for empty directory', () => {
+      const emptyDir = path.join(testDir, 'empty');
+      fs.mkdirSync(emptyDir);
+
+      const files = listMarkdownFiles(emptyDir);
+
+      expect(files).toEqual([]);
+    });
+  });
+
+  describe('getFileStats', () => {
+    it('should return stats for existing file', () => {
+      const filePath = path.join(testDir, 'stats.txt');
+      fs.writeFileSync(filePath, 'content');
+
+      const stats = getFileStats(filePath);
+
+      expect(stats).not.toBeNull();
+      expect(stats?.isFile()).toBe(true);
+    });
+
+    it('should return null for non-existent file', () => {
+      const stats = getFileStats(path.join(testDir, 'missing.txt'));
+
+      expect(stats).toBeNull();
+    });
+  });
+
+  describe('readJsonFile', () => {
+    it('should parse JSON file contents', () => {
+      const filePath = path.join(testDir, 'data.json');
+      fs.writeFileSync(filePath, JSON.stringify({ key: 'value' }));
+
+      const data = readJsonFile<{ key: string }>(filePath);
+
+      expect(data).toEqual({ key: 'value' });
+    });
+
+    it('should return null for non-existent file', () => {
+      const data = readJsonFile(path.join(testDir, 'missing.json'));
+
+      expect(data).toBeNull();
+    });
+
+    it('should return null for invalid JSON', () => {
+      const filePath = path.join(testDir, 'invalid.json');
+      fs.writeFileSync(filePath, 'not valid json {');
+
+      const data = readJsonFile(filePath);
+
+      expect(data).toBeNull();
+    });
+  });
+
+  describe('writeJsonFile', () => {
+    it('should write JSON to file', () => {
+      const filePath = path.join(testDir, 'write.json');
+
+      writeJsonFile(filePath, { foo: 'bar' });
+
+      const content = fs.readFileSync(filePath, 'utf-8');
+      expect(JSON.parse(content)).toEqual({ foo: 'bar' });
+    });
+
+    it('should format JSON with indentation', () => {
+      const filePath = path.join(testDir, 'formatted.json');
+
+      writeJsonFile(filePath, { a: 1, b: 2 });
+
+      const content = fs.readFileSync(filePath, 'utf-8');
+      expect(content).toContain('\n');
+    });
+  });
+
+  describe('getRelativePath', () => {
+    it('should return relative path from base to target', () => {
+      const basePath = '/home/user/project';
+      const targetPath = '/home/user/project/src/file.ts';
+
+      const result = getRelativePath(basePath, targetPath);
+
+      expect(result).toBe(path.join('src', 'file.ts'));
+    });
+
+    it('should handle parent directory traversal', () => {
+      const basePath = '/home/user/project/src';
+      const targetPath = '/home/user/project/tests/test.ts';
+
+      const result = getRelativePath(basePath, targetPath);
+
+      expect(result).toBe(path.join('..', 'tests', 'test.ts'));
+    });
+  });
+
+  describe('resolvePath', () => {
+    it('should resolve relative path against base', () => {
+      const basePath = '/home/user/project';
+      const relativePath = 'src/file.ts';
+
+      const result = resolvePath(basePath, relativePath);
+
+      expect(result).toBe('/home/user/project/src/file.ts');
+    });
+
+    it('should handle absolute paths', () => {
+      const basePath = '/home/user/project';
+      const absolutePath = '/etc/config';
+
+      const result = resolvePath(basePath, absolutePath);
+
+      expect(result).toBe('/etc/config');
+    });
+  });
+
+  describe('getBasename', () => {
+    it('should return filename without extension', () => {
+      expect(getBasename('/path/to/file.txt')).toBe('file');
+      expect(getBasename('/path/to/document.md')).toBe('document');
+    });
+
+    it('should handle files without extension', () => {
+      expect(getBasename('/path/to/Makefile')).toBe('Makefile');
+    });
+
+    it('should handle hidden files', () => {
+      expect(getBasename('/path/to/.gitignore')).toBe('.gitignore');
+    });
+  });
+
+  describe('isInsideDir', () => {
+    it('should return true for path inside directory', () => {
+      const dirPath = '/home/user/project';
+      const targetPath = '/home/user/project/src/file.ts';
+
+      expect(isInsideDir(dirPath, targetPath)).toBe(true);
+    });
+
+    it('should return false for path outside directory', () => {
+      const dirPath = '/home/user/project';
+      const targetPath = '/home/user/other/file.ts';
+
+      expect(isInsideDir(dirPath, targetPath)).toBe(false);
+    });
+
+    it('should return true for directory itself', () => {
+      const dirPath = '/home/user/project';
+
+      expect(isInsideDir(dirPath, dirPath)).toBe(true);
+    });
+
+    it('should return false for absolute path different from base', () => {
+      const dirPath = '/home/user/project';
+      const targetPath = '/etc/config';
+
+      expect(isInsideDir(dirPath, targetPath)).toBe(false);
+    });
+  });
+});

@@ -9,6 +9,7 @@ import * as os from 'node:os';
 import {
   checkHealth,
   calculateHealthScore,
+  formatHealthReport,
   type HealthReport,
   type HealthStatus,
 } from '../../../skills/memory/src/quality/health.js';
@@ -187,6 +188,140 @@ describe('Health Check', () => {
       const report = await checkHealth(testDir);
 
       expect(['warning', 'critical']).toContain(report.status);
+    });
+  });
+
+  describe('formatHealthReport', () => {
+    it('should format healthy report with checkmark', () => {
+      const report: HealthReport = {
+        status: 'healthy',
+        score: 100,
+        stats: {
+          totalMemories: 10,
+          totalNodes: 10,
+          totalEdges: 5,
+          orphanedNodes: 0,
+          connectivityRatio: 1.0,
+        },
+        issues: [],
+        timestamp: '2026-01-11T00:00:00Z',
+      };
+
+      const formatted = formatHealthReport(report);
+
+      expect(formatted).toContain('✓');
+      expect(formatted).toContain('HEALTHY');
+      expect(formatted).toContain('Score: 100/100');
+      expect(formatted).toContain('Memories: 10');
+      expect(formatted).toContain('Nodes: 10');
+      expect(formatted).toContain('Edges: 5');
+      expect(formatted).toContain('Connectivity: 100.0%');
+    });
+
+    it('should format warning report with warning emoji', () => {
+      const report: HealthReport = {
+        status: 'warning',
+        score: 75,
+        stats: {
+          totalMemories: 8,
+          totalNodes: 10,
+          totalEdges: 3,
+          orphanedNodes: 2,
+          connectivityRatio: 0.8,
+        },
+        issues: [
+          { type: 'orphaned_nodes', count: 2, severity: 'warning', details: ['node-1', 'node-2'] },
+        ],
+        timestamp: '2026-01-11T00:00:00Z',
+      };
+
+      const formatted = formatHealthReport(report);
+
+      expect(formatted).toContain('⚠');
+      expect(formatted).toContain('WARNING');
+      expect(formatted).toContain('Issues:');
+      expect(formatted).toContain('orphaned_nodes: 2');
+      expect(formatted).toContain('- node-1');
+      expect(formatted).toContain('- node-2');
+    });
+
+    it('should format critical report with X emoji', () => {
+      const report: HealthReport = {
+        status: 'critical',
+        score: 40,
+        stats: {
+          totalMemories: 0,
+          totalNodes: 0,
+          totalEdges: 0,
+          orphanedNodes: 0,
+          connectivityRatio: 1,
+        },
+        issues: [
+          { type: 'missing_index', count: 1, severity: 'error' },
+          { type: 'missing_graph', count: 1, severity: 'error' },
+        ],
+        timestamp: '2026-01-11T00:00:00Z',
+      };
+
+      const formatted = formatHealthReport(report);
+
+      expect(formatted).toContain('✗');
+      expect(formatted).toContain('CRITICAL');
+      expect(formatted).toContain('missing_index: 1');
+      expect(formatted).toContain('missing_graph: 1');
+    });
+
+    it('should truncate long details list', () => {
+      const report: HealthReport = {
+        status: 'warning',
+        score: 70,
+        stats: {
+          totalMemories: 20,
+          totalNodes: 20,
+          totalEdges: 0,
+          orphanedNodes: 10,
+          connectivityRatio: 0.5,
+        },
+        issues: [
+          {
+            type: 'orphaned_nodes',
+            count: 10,
+            severity: 'warning',
+            details: ['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10'],
+          },
+        ],
+        timestamp: '2026-01-11T00:00:00Z',
+      };
+
+      const formatted = formatHealthReport(report);
+
+      expect(formatted).toContain('- n1');
+      expect(formatted).toContain('- n5');
+      expect(formatted).toContain('... and 5 more');
+      expect(formatted).not.toContain('- n6');
+    });
+
+    it('should handle info severity issues', () => {
+      const report: HealthReport = {
+        status: 'healthy',
+        score: 95,
+        stats: {
+          totalMemories: 5,
+          totalNodes: 5,
+          totalEdges: 2,
+          orphanedNodes: 0,
+          connectivityRatio: 1,
+        },
+        issues: [
+          { type: 'low_connectivity', count: 1, severity: 'info' },
+        ],
+        timestamp: '2026-01-11T00:00:00Z',
+      };
+
+      const formatted = formatHealthReport(report);
+
+      expect(formatted).toContain('ℹ');
+      expect(formatted).toContain('low_connectivity');
     });
   });
 });

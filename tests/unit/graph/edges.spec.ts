@@ -12,7 +12,12 @@ import {
   getEdges,
   getInboundEdges,
   getOutboundEdges,
+  getAllEdgesForNode,
   hasEdge,
+  getNeighbours,
+  getNodeDegree,
+  findOrphanedNodes,
+  bulkAddEdges,
   type MemoryGraph,
   type GraphEdge,
 } from '../../../skills/memory/src/graph/edges.js';
@@ -303,6 +308,211 @@ describe('Graph Edges', () => {
 
       expect(hasEdge(graph, 'a', 'b', 'relates-to')).toBe(true);
       expect(hasEdge(graph, 'a', 'b', 'informed-by')).toBe(false);
+    });
+  });
+
+  describe('getAllEdgesForNode', () => {
+    it('should return both inbound and outbound edges', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [
+          { source: 'a', target: 'b', label: 'x' },
+          { source: 'b', target: 'c', label: 'y' },
+          { source: 'd', target: 'b', label: 'z' },
+        ],
+      };
+
+      const edges = getAllEdgesForNode(graph, 'b');
+
+      expect(edges).toHaveLength(3);
+    });
+
+    it('should return empty array for unconnected node', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'lonely', type: 'decision' }],
+        edges: [{ source: 'a', target: 'b', label: 'x' }],
+      };
+
+      const edges = getAllEdgesForNode(graph, 'lonely');
+
+      expect(edges).toEqual([]);
+    });
+  });
+
+  describe('getNeighbours', () => {
+    it('should return all connected node IDs', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [
+          { source: 'a', target: 'b', label: 'x' },
+          { source: 'a', target: 'c', label: 'y' },
+          { source: 'd', target: 'a', label: 'z' },
+        ],
+      };
+
+      const neighbours = getNeighbours(graph, 'a');
+
+      expect(neighbours).toHaveLength(3);
+      expect(neighbours).toContain('b');
+      expect(neighbours).toContain('c');
+      expect(neighbours).toContain('d');
+    });
+
+    it('should not duplicate neighbours with multiple edges', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [
+          { source: 'a', target: 'b', label: 'x' },
+          { source: 'a', target: 'b', label: 'y' },
+        ],
+      };
+
+      const neighbours = getNeighbours(graph, 'a');
+
+      expect(neighbours).toHaveLength(1);
+      expect(neighbours).toContain('b');
+    });
+
+    it('should return empty array for unconnected node', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [],
+      };
+
+      const neighbours = getNeighbours(graph, 'lonely');
+
+      expect(neighbours).toEqual([]);
+    });
+  });
+
+  describe('getNodeDegree', () => {
+    it('should return total number of edges connected to node', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [
+          { source: 'a', target: 'b', label: 'x' },
+          { source: 'a', target: 'c', label: 'y' },
+          { source: 'd', target: 'a', label: 'z' },
+        ],
+      };
+
+      expect(getNodeDegree(graph, 'a')).toBe(3);
+    });
+
+    it('should return 0 for unconnected node', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [],
+      };
+
+      expect(getNodeDegree(graph, 'lonely')).toBe(0);
+    });
+  });
+
+  describe('findOrphanedNodes', () => {
+    it('should find nodes with no edges', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'connected', type: 'decision' },
+          { id: 'orphan1', type: 'learning' },
+          { id: 'orphan2', type: 'gotcha' },
+        ],
+        edges: [{ source: 'connected', target: 'other', label: 'x' }],
+      };
+
+      const orphans = findOrphanedNodes(graph);
+
+      expect(orphans).toHaveLength(2);
+      expect(orphans).toContain('orphan1');
+      expect(orphans).toContain('orphan2');
+    });
+
+    it('should return empty array when all nodes connected', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [{ source: 'a', target: 'b', label: 'x' }],
+      };
+
+      const orphans = findOrphanedNodes(graph);
+
+      expect(orphans).toEqual([]);
+    });
+
+    it('should return empty array for empty graph', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [],
+      };
+
+      const orphans = findOrphanedNodes(graph);
+
+      expect(orphans).toEqual([]);
+    });
+  });
+
+  describe('bulkAddEdges', () => {
+    it('should add multiple edges at once', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+          { id: 'c', type: 'gotcha' },
+        ],
+        edges: [],
+      };
+
+      const updated = bulkAddEdges(graph, [
+        { source: 'a', target: 'b', label: 'relates-to' },
+        { source: 'b', target: 'c', label: 'informed-by' },
+      ]);
+
+      expect(updated.edges).toHaveLength(2);
+    });
+
+    it('should skip invalid edges silently', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const updated = bulkAddEdges(graph, [
+        { source: 'a', target: 'b', label: 'valid' },
+        { source: 'missing', target: 'b', label: 'invalid' },
+        { source: 'a', target: 'missing', label: 'invalid' },
+      ]);
+
+      expect(updated.edges).toHaveLength(1);
+      expect(updated.edges[0].label).toBe('valid');
+    });
+
+    it('should handle empty edges array', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [],
+        edges: [],
+      };
+
+      const updated = bulkAddEdges(graph, []);
+
+      expect(updated.edges).toEqual([]);
     });
   });
 });

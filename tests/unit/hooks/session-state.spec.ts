@@ -16,6 +16,8 @@ import {
   getSessionDuration,
   isSessionExpired,
   pruneExpiredEntries,
+  serialiseSessionState,
+  deserialiseSessionState,
 } from '../../../hooks/src/session/session-state.js';
 
 describe('Session State', () => {
@@ -190,6 +192,94 @@ describe('Session State', () => {
 
       // Should not throw
       expect(() => pruneExpiredEntries(state)).not.toThrow();
+    });
+
+    it('should handle state with no shownTimestamps property', () => {
+      const state: SessionState = {
+        shownMemories: new Set(['memory-1']),
+        startTime: Date.now(),
+      };
+
+      // Should not throw when shownTimestamps is undefined
+      expect(() => pruneExpiredEntries(state)).not.toThrow();
+    });
+  });
+
+  describe('markAsShown without existing timestamps', () => {
+    it('should create timestamps map if not present', () => {
+      const state: SessionState = {
+        shownMemories: new Set(),
+        startTime: Date.now(),
+      };
+
+      markAsShown(state, 'memory-123');
+
+      expect(state.shownTimestamps).toBeDefined();
+      expect(state.shownTimestamps?.has('memory-123')).toBe(true);
+    });
+  });
+
+  describe('serialiseSessionState', () => {
+    it('should serialise session state to JSON', () => {
+      const state = createSessionState(1000);
+      markAsShown(state, 'memory-1');
+      markAsShown(state, 'memory-2');
+
+      const json = serialiseSessionState(state);
+      const parsed = JSON.parse(json);
+
+      expect(parsed.shownMemories).toContain('memory-1');
+      expect(parsed.shownMemories).toContain('memory-2');
+      expect(parsed.startTime).toBe(1000);
+    });
+
+    it('should handle state without timestamps', () => {
+      const state: SessionState = {
+        shownMemories: new Set(['mem-1']),
+        startTime: Date.now(),
+      };
+
+      const json = serialiseSessionState(state);
+      const parsed = JSON.parse(json);
+
+      expect(parsed.shownTimestamps).toEqual({});
+    });
+  });
+
+  describe('deserialiseSessionState', () => {
+    it('should deserialise JSON to session state', () => {
+      const json = JSON.stringify({
+        shownMemories: ['memory-1', 'memory-2'],
+        shownTimestamps: { 'memory-1': 1000, 'memory-2': 2000 },
+        startTime: 500,
+      });
+
+      const state = deserialiseSessionState(json);
+
+      expect(state.shownMemories.has('memory-1')).toBe(true);
+      expect(state.shownMemories.has('memory-2')).toBe(true);
+      expect(state.shownTimestamps?.get('memory-1')).toBe(1000);
+      expect(state.startTime).toBe(500);
+    });
+
+    it('should handle missing fields gracefully', () => {
+      const json = JSON.stringify({});
+
+      const state = deserialiseSessionState(json);
+
+      expect(state.shownMemories.size).toBe(0);
+      expect(state.startTime).toBeDefined();
+    });
+
+    it('should round-trip serialise and deserialise', () => {
+      const original = createSessionState(12345);
+      markAsShown(original, 'test-memory');
+
+      const json = serialiseSessionState(original);
+      const restored = deserialiseSessionState(json);
+
+      expect(restored.shownMemories.has('test-memory')).toBe(true);
+      expect(restored.startTime).toBe(12345);
     });
   });
 });

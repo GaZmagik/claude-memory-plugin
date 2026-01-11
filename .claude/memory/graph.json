@@ -63,6 +63,10 @@
     {
       "id": "learning-retro-tdd-test-expectations-guide-implementation",
       "title": "retro-tdd-test-expectations-guide-implementation"
+    },
+    {
+      "id": "retro-test-first-verification-accelerated-security-review",
+      "title": "Test-First Verification: Security Review Acceleration Pattern"
     }
   ],
   "edges": []

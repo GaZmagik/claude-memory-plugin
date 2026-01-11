@@ -255,6 +255,20 @@
         "retro",
         "medium"
       ]
+    },
+    {
+      "id": "retro-test-first-verification-accelerated-security-review",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-test-first-verification-accelerated-security-review.md",
+      "title": "Test-First Verification: Security Review Acceleration Pattern",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T12:05:02Z",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "security"
+      ]
     }
   ]
 }

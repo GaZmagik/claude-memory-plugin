@@ -686,6 +686,49 @@
         "tip",
         "medium"
       ]
+    },
+    {
+      "id": "learning-plugin-integration-test-1",
+      "type": "learning",
+      "title": "Plugin Integration Test",
+      "tags": [
+        "test",
+        "integration",
+        "plugin"
+      ],
+      "created": "2026-01-12T09:22:04.780Z",
+      "updated": "2026-01-12T09:22:04.780Z",
+      "scope": "project",
+      "relativePath": "learning-plugin-integration-test-1.md"
+    },
+    {
+      "id": "learning-plugin-integration-test-2",
+      "type": "learning",
+      "title": "Plugin Integration Test",
+      "tags": [
+        "test",
+        "integration",
+        "plugin"
+      ],
+      "created": "2026-01-12T09:23:14.350Z",
+      "updated": "2026-01-12T09:23:14.350Z",
+      "scope": "project",
+      "relativePath": "learning-plugin-integration-test-2.md"
+    },
+    {
+      "id": "learning-plugin-integration-test-3",
+      "type": "learning",
+      "title": "Plugin Integration Test",
+      "tags": [
+        "test",
+        "integration",
+        "plugin"
+      ],
+      "created": "2026-01-12T09:23:32.054Z",
+      "updated": "2026-01-12T09:23:32.054Z",
+      "scope": "project",
+      "relativePath": "learning-plugin-integration-test-3.md"
     }
-  ]
+  ],
+  "lastUpdated": "2026-01-12T09:23:53.901Z"
 }

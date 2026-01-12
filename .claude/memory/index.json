@@ -1126,7 +1126,52 @@
       "updated": "2026-01-12T20:40:30.559Z",
       "scope": "project",
       "relativePath": "permanent/learning-hook-enforcement-strategy-selective-blocking-with-whitelists.md"
+    },
+    {
+      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "type": "learning",
+      "title": "Namespace enforcement for plugin slash commands critical for routing",
+      "tags": [
+        "plugin-architecture",
+        "slash-commands",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:24.573Z",
+      "updated": "2026-01-12T21:05:24.573Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing.md"
+    },
+    {
+      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "type": "learning",
+      "title": "TDD enforcement requires test files before source edits - creates friction with simple fixes",
+      "tags": [
+        "tdd",
+        "workflow",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:30.797Z",
+      "updated": "2026-01-12T21:05:30.797Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes.md"
+    },
+    {
+      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "type": "learning",
+      "title": "Lean SKILL.md enables quick reference - moved bulk content to README for deep dives",
+      "tags": [
+        "documentation",
+        "user-experience",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:38.847Z",
+      "updated": "2026-01-12T21:05:38.847Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives.md"
     }
   ],
-  "lastUpdated": "2026-01-12T20:40:30.562Z"
+  "lastUpdated": "2026-01-12T21:05:38.851Z"
 }

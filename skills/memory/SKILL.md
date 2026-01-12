@@ -19,6 +19,21 @@ Persist project knowledge across sessions. Record decisions, capture learnings, 
 - User says "brainstorm", "weigh options", "think through", "pros and cons"
 - When you need documented chain-of-thought before committing to a decision
 
+## Usage
+
+The memory skill is a TypeScript CLI that runs on Bun. After installation via `bun link`, invoke it directly as `memory`:
+
+```bash
+# Installation (from plugin root)
+bun link
+
+# Invocation
+memory <command> [options]
+memory help                    # Quick reference
+memory help --full             # Detailed documentation
+memory <command> -h            # Command-specific help
+```
+
 ## Command Reference
 
 Run `memory help` for quick reference, or `memory <command> -h` for command-specific help.
@@ -75,67 +90,141 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `think conclude <text>` | Conclude (--promote type to save) |
 | | `think delete <id>` | Delete thinking document |
 
-## Script Architecture
+## Architecture
+
+The memory skill is implemented in TypeScript and runs on Bun.
 
 ```
-~/.claude/skills/memory/
-├── memory.sh              # Main dispatcher (36 commands)
-├── lib/
-│   ├── core.sh            # Shared utilities and paths
-│   ├── health.sh          # health, validate commands
-│   ├── mermaid.sh         # Mermaid diagram generation
-│   ├── similarity.sh      # Cosine similarity for embeddings
-│   ├── llm.sh             # Haiku 4.5 forked session integration
-│   └── commands/          # Modular command implementations
-│       ├── write.sh       ├── read.sh        ├── list.sh
-│       ├── search.sh      ├── delete.sh      ├── link.sh
-│       ├── graph.sh       ├── prune.sh       ├── status.sh
-│       ├── summarize.sh   ├── suggest.sh     ├── archive.sh
-│       ├── rebuild.sh     ├── sync.sh        ├── repair.sh
-│       ├── reindex.sh     ├── tag.sh         ├── rename.sh
-│       ├── move.sh        ├── edges.sh       ├── bulk.sh
-│       ├── stats.sh       ├── query.sh       ├── promote.sh
-│       ├── snapshot.sh    ├── sync-frontmatter.sh
-│       ├── quality.sh     # Quality assessment (quality command)
-│       ├── audit.sh       # Bulk quality audit
-│       ├── semantic.sh    # Semantic search using embeddings
-│       ├── think.sh       # Ephemeral thinking documents
-│       └── impact.sh      # Dependency impact analysis
-├── breadcrumbs.sh         # Investigative trail wrapper
-├── decisions.sh           # ADR pipeline wrapper
-├── artifacts.sh           # Pattern catalogue wrapper
-├── learnings.sh           # Gotcha/learning wrapper
-└── hubs.sh                # Hub management wrapper
+skills/memory/
+├── src/
+│   ├── cli.ts                 # Entry point (#!/usr/bin/env bun)
+│   ├── index.ts               # Public API exports
+│   ├── cli/                   # CLI layer
+│   │   ├── index.ts           # Command dispatcher (36 commands)
+│   │   ├── parser.ts          # Argument parsing
+│   │   ├── response.ts        # JSON response formatting
+│   │   ├── help.ts            # Help text generation
+│   │   └── commands/          # Command handlers by category
+│   │       ├── crud.ts        # write, read, list, delete, search, semantic
+│   │       ├── tags.ts        # tag, untag
+│   │       ├── graph.ts       # link, unlink, graph, mermaid, edges, remove-node
+│   │       ├── quality.ts     # health, validate, quality, audit, audit-quick
+│   │       ├── maintenance.ts # sync, repair, rebuild, reindex, prune, sync-frontmatter
+│   │       ├── utility.ts     # rename, move, promote, archive, status
+│   │       ├── bulk.ts        # bulk-link, bulk-delete, export, import
+│   │       ├── suggest.ts     # suggest-links, summarize
+│   │       ├── query.ts       # query, stats, impact
+│   │       └── think.ts       # think subcommands
+│   ├── core/                  # Core operations
+│   │   ├── write.ts           # Memory creation/update
+│   │   ├── read.ts            # Memory retrieval
+│   │   ├── list.ts            # Memory listing
+│   │   ├── delete.ts          # Memory deletion
+│   │   ├── search.ts          # Keyword search
+│   │   ├── semantic-search.ts # Embedding-based search
+│   │   ├── tag.ts             # Tag operations
+│   │   ├── frontmatter.ts     # YAML frontmatter parsing
+│   │   ├── validation.ts      # Input validation
+│   │   ├── slug.ts            # ID slug generation
+│   │   ├── formatters.ts      # Output formatting
+│   │   ├── export.ts          # Export functionality
+│   │   ├── import.ts          # Import functionality
+│   │   ├── fs-utils.ts        # Filesystem utilities
+│   │   └── logger.ts          # Logging utilities
+│   ├── graph/                 # Graph operations
+│   │   ├── structure.ts       # Graph data structure
+│   │   ├── link.ts            # Link/unlink operations
+│   │   ├── edges.ts           # Edge queries
+│   │   ├── traversal.ts       # Graph traversal
+│   │   └── mermaid.ts         # Mermaid diagram generation
+│   ├── scope/                 # Scope resolution
+│   │   ├── resolver.ts        # 4-tier scope resolution
+│   │   ├── config.ts          # Configuration loading
+│   │   ├── defaults.ts        # Default paths
+│   │   ├── enterprise.ts      # Enterprise scope handling
+│   │   ├── git-utils.ts       # Git root detection
+│   │   └── gitignore.ts       # Gitignore automation
+│   ├── search/                # Search infrastructure
+│   │   ├── embedding.ts       # Ollama embedding provider
+│   │   ├── semantic.ts        # Semantic search engine
+│   │   └── similarity.ts      # Cosine similarity
+│   ├── suggest/               # Link suggestions
+│   │   └── suggest-links.ts   # Auto-linking by similarity
+│   ├── quality/               # Quality assessment
+│   │   ├── health.ts          # Health checks
+│   │   └── assess.ts          # Quality scoring
+│   ├── maintenance/           # Maintenance operations
+│   │   ├── sync.ts            # Graph/index/disk reconciliation
+│   │   ├── sync-frontmatter.ts # Frontmatter sync
+│   │   ├── rename.ts          # Memory renaming
+│   │   ├── move.ts            # Scope migration
+│   │   ├── promote.ts         # Type promotion
+│   │   ├── archive.ts         # Archival
+│   │   ├── prune.ts           # Temporary cleanup
+│   │   └── reindex.ts         # Orphan re-indexing
+│   ├── bulk/                  # Bulk operations
+│   │   ├── bulk-link.ts       # Batch linking
+│   │   ├── bulk-delete.ts     # Pattern-based deletion
+│   │   └── pattern-matcher.ts # Pattern matching
+│   ├── think/                 # Thinking documents
+│   │   ├── document.ts        # Document operations
+│   │   ├── thoughts.ts        # Thought management
+│   │   ├── conclude.ts        # Conclusion/promotion
+│   │   ├── state.ts           # Current document state
+│   │   ├── discovery.ts       # Document discovery
+│   │   ├── ai-invoke.ts       # Claude invocation
+│   │   ├── frontmatter.ts     # Think-specific frontmatter
+│   │   ├── id-generator.ts    # Document ID generation
+│   │   └── validation.ts      # Think validation
+│   └── types/                 # Type definitions
+│       ├── memory.ts          # Memory entity types
+│       ├── api.ts             # Request/response contracts
+│       ├── operations.ts      # Bulk operation types
+│       ├── think.ts           # Think document types
+│       └── enums.ts           # MemoryType, Scope, Severity, etc.
+├── graph.json                 # Skill's own memory graph
+├── README.md                  # Usage documentation
+├── SKILL.md                   # This file (skill metadata)
+└── tests/                     # Test fixtures
 ```
 
 ## Data Contract
 
-JSON input for `memory.sh write` (via stdin):
+JSON input for `memory write` (via stdin):
 
 ```json
 {
-  "id": "project-topic",
   "title": "Human-readable title",
-  "type": "permanent|temporary",
-  "scope": "local|global",
+  "type": "decision|learning|artifact|gotcha|breadcrumb|hub",
+  "scope": "enterprise|local|project|global",
+  "content": "# Markdown body...",
   "tags": ["tag1", "tag2"],
   "links": ["other-memory-id"],
-  "content": "# Markdown body..."
+  "severity": "low|medium|high|critical",
+  "source": "path/to/source/file.ts",
+  "autoLink": true,
+  "autoLinkThreshold": 0.85
 }
 ```
 
-- `id`, `title`, `type`, `content` required
-- `scope` defaults to `local`
-- Use `{project}-` prefix for IDs to prevent collisions
+- `title`, `type`, `content`, `tags`, `scope` required
+- `id` is auto-generated from title (slug), can be overridden for imports
+- `severity` optional, primarily for gotchas
+- `links`, `source`, `autoLink`, `autoLinkThreshold` optional
+- Default scope depends on configuration (typically `global`)
 
 ## Storage Layout
 
-| Scope | Path | Purpose |
-|-------|------|---------|
-| Local | `{project}/.claude/memory/` | Project-specific memories |
-| Global | `~/.claude/memory/` | Cross-project patterns |
+4-tier scope hierarchy (precedence: enterprise → local → project → global):
 
-Each contains: `permanent/`, `temporary/`, `graph.json`, `index.json`, `summary/`
+| Scope | Path | Purpose | Git-tracked |
+|-------|------|---------|-------------|
+| Enterprise | Configured via `CLAUDE_MEMORY_ENTERPRISE_PATH` | Organisation-wide memories | N/A |
+| Local | `{git-root}/.claude/memory/local/` | Personal project-specific (private) | No (gitignored) |
+| Project | `{git-root}/.claude/memory/` | Shared project memories | Yes |
+| Global | `~/.claude/memory/` | Personal cross-project patterns | N/A |
+
+Each scope contains: `permanent/`, `temporary/`, `graph.json`, `index.json`, `summary/`
 
 ## Quality Assessment
 

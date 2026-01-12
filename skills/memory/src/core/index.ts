@@ -37,6 +37,28 @@ export function createEmptyIndex(): MemoryIndex {
 }
 
 /**
+ * Migrate legacy index entry with 'file' field to 'relativePath'
+ * The bash version used absolute 'file' paths; TypeScript uses 'relativePath'
+ */
+function migrateIndexEntry(entry: IndexEntry & { file?: string }, basePath: string): IndexEntry {
+  // If entry already has relativePath, return as-is
+  if (entry.relativePath) {
+    return entry;
+  }
+
+  // Migrate from legacy 'file' field (absolute path) to 'relativePath'
+  if (entry.file) {
+    const relativePath = path.relative(basePath, entry.file);
+    const { file: _unused, ...rest } = entry;
+    return { ...rest, relativePath };
+  }
+
+  // Fallback: construct relativePath from id - assume permanent unless id starts with think-
+  const subdir = entry.id.startsWith('think-') ? 'temporary' : 'permanent';
+  return { ...entry, relativePath: `${subdir}/${entry.id}.md` };
+}
+
+/**
  * Load the index from disk
  */
 export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex> {
@@ -53,6 +75,9 @@ export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex>
     log.warn('Failed to parse index, returning empty', { path: indexPath });
     return createEmptyIndex();
   }
+
+  // Migrate legacy entries that have 'file' instead of 'relativePath'
+  index.memories = index.memories.map(entry => migrateIndexEntry(entry, basePath));
 
   return index;
 }

@@ -86,6 +86,106 @@ describe('Index operations', () => {
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toEqual([]);
     });
+
+    it('should migrate legacy index with "file" field to "relativePath"', async () => {
+      const indexPath = path.join(testDir, 'index.json');
+      // Legacy bash version used absolute "file" paths instead of "relativePath"
+      const legacyIndex = {
+        version: '1.0.0',
+        lastUpdated: '2026-01-10T12:00:00Z',
+        memories: [
+          {
+            id: 'learning-test-memory',
+            file: path.join(testDir, 'permanent', 'learning-test-memory.md'),
+            title: 'Test Memory',
+            type: 'permanent', // bash used storage type, not memory type
+            scope: 'local',
+            updated: '2026-01-10T12:00:00Z',
+            tags: ['test'],
+          },
+        ],
+      };
+      fs.writeFileSync(indexPath, JSON.stringify(legacyIndex, null, 2));
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories).toHaveLength(1);
+      expect(loaded.memories[0].relativePath).toBe('permanent/learning-test-memory.md');
+      // Legacy 'file' field should be removed
+      expect((loaded.memories[0] as unknown as { file?: string }).file).toBeUndefined();
+    });
+
+    it('should preserve existing relativePath if present', async () => {
+      const indexPath = path.join(testDir, 'index.json');
+      const modernIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: '2026-01-10T12:00:00Z',
+        memories: [
+          {
+            id: 'decision-modern',
+            type: MemoryType.Decision,
+            title: 'Modern Memory',
+            tags: ['test'],
+            created: '2026-01-10T12:00:00Z',
+            updated: '2026-01-10T12:00:00Z',
+            scope: Scope.Global,
+            relativePath: 'permanent/decision-modern.md',
+          },
+        ],
+      };
+      fs.writeFileSync(indexPath, JSON.stringify(modernIndex, null, 2));
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories[0].relativePath).toBe('permanent/decision-modern.md');
+    });
+
+    it('should fallback to constructed path when neither file nor relativePath exists', async () => {
+      const indexPath = path.join(testDir, 'index.json');
+      // Edge case: entry with neither file nor relativePath
+      const brokenIndex = {
+        version: '1.0.0',
+        lastUpdated: '2026-01-10T12:00:00Z',
+        memories: [
+          {
+            id: 'decision-broken',
+            type: MemoryType.Decision,
+            title: 'Broken Memory',
+            tags: [],
+            created: '2026-01-10T12:00:00Z',
+            updated: '2026-01-10T12:00:00Z',
+            scope: Scope.Global,
+            // No file or relativePath!
+          },
+        ],
+      };
+      fs.writeFileSync(indexPath, JSON.stringify(brokenIndex, null, 2));
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories[0].relativePath).toBe('permanent/decision-broken.md');
+    });
+
+    it('should detect think documents as temporary in fallback', async () => {
+      const indexPath = path.join(testDir, 'index.json');
+      const thinkIndex = {
+        version: '1.0.0',
+        lastUpdated: '2026-01-10T12:00:00Z',
+        memories: [
+          {
+            id: 'think-20260110-120000',
+            type: MemoryType.Breadcrumb,
+            title: 'Think Document',
+            tags: [],
+            created: '2026-01-10T12:00:00Z',
+            updated: '2026-01-10T12:00:00Z',
+            scope: Scope.Project,
+            // No file or relativePath
+          },
+        ],
+      };
+      fs.writeFileSync(indexPath, JSON.stringify(thinkIndex, null, 2));
+
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories[0].relativePath).toBe('temporary/think-20260110-120000.md');
+    });
   });
 
   describe('saveIndex', () => {

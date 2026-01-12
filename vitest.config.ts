@@ -11,7 +11,7 @@ export default defineConfig({
     setupFiles: ['./tests/setup.ts'],
     include: [
       'skills/memory/src/**/*.spec.ts',  // Colocated unit tests
-      '.claude/hooks/ts/**/*.spec.ts',   // Hooks unit tests
+      'hooks/src/**/*.spec.ts',          // Hooks unit tests (colocated)
       'tests/integration/**/*.spec.ts',  // Integration tests
       'tests/contract/**/*.spec.ts',     // Contract tests
     ],
@@ -19,7 +19,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['skills/memory/src/**/*.ts', '.claude/hooks/ts/**/*.ts'],
+      include: ['skills/memory/src/**/*.ts', 'hooks/src/**/*.ts'],
       exclude: ['**/*.spec.ts', '**/*.test.ts', '**/types/**'],
     },
     testTimeout: 10000,

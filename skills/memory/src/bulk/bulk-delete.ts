@@ -2,11 +2,13 @@
  * Bulk Delete Operation
  *
  * Delete multiple memories matching pattern, tags, type, or scope.
+ * Uses batch index operations for O(1) index updates instead of O(n).
  */
 
+import * as path from 'node:path';
 import type { BulkDeleteRequest, BulkDeleteResponse } from '../types/api.js';
-import { loadIndex } from '../core/index.js';
-import { deleteMemory } from '../core/delete.js';
+import { loadIndex, batchRemoveFromIndex } from '../core/index.js';
+import { deleteFile, fileExists, isInsideDir } from '../core/fs-utils.js';
 import { filterMemories } from './pattern-matcher.js';
 import { createLogger } from '../core/logger.js';
 
@@ -34,7 +36,7 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
       phase: 'scanning',
     });
 
-    // Load index
+    // Load index once
     const index = await loadIndex({ basePath });
 
     // Filter memories by criteria
@@ -67,7 +69,7 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
       };
     }
 
-    // Process deletions
+    // Process file deletions (batch approach - delete files first, then update index once)
     const deletedIds: string[] = [];
     const failedIds: Array<{ id: string; reason: string }> = [];
 
@@ -82,20 +84,32 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
         phase: 'processing',
       });
 
-      // Attempt deletion
-      const result = await deleteMemory({
-        id: memory.id,
-        basePath,
-      });
+      try {
+        const filePath = path.join(basePath, memory.relativePath);
 
-      if (result.status === 'success') {
-        deletedIds.push(memory.id);
-      } else {
+        // Security: Validate path stays within basePath (prevent path traversal)
+        if (!isInsideDir(basePath, filePath)) {
+          failedIds.push({ id: memory.id, reason: 'Path traversal not allowed' });
+          continue;
+        }
+
+        if (fileExists(filePath)) {
+          deleteFile(filePath);
+          deletedIds.push(memory.id);
+        } else {
+          failedIds.push({ id: memory.id, reason: 'File not found' });
+        }
+      } catch (error) {
         failedIds.push({
           id: memory.id,
-          reason: result.error ?? 'Unknown error',
+          reason: String(error),
         });
       }
+    }
+
+    // Single batch index update at the end (O(1) instead of O(n))
+    if (deletedIds.length > 0) {
+      await batchRemoveFromIndex(basePath, deletedIds);
     }
 
     // Report completion
@@ -110,8 +124,6 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
       failed: failedIds.length,
     });
 
-    // Consider success if at least some deletions succeeded
-    // The failedIds array indicates partial success when present
     return {
       status: 'success',
       deletedCount: deletedIds.length,

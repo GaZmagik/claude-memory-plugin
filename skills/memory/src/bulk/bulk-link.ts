@@ -2,11 +2,13 @@
  * Bulk Link Operation
  *
  * Create links from multiple source memories to a single target.
+ * Uses batch graph operations for O(1) graph updates instead of O(n).
  */
 
 import type { BulkLinkRequest, BulkLinkResponse } from '../types/api.js';
 import { loadIndex } from '../core/index.js';
-import { linkMemories } from '../graph/link.js';
+import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
+import { addEdge, hasEdge } from '../graph/edges.js';
 import { filterMemories } from './pattern-matcher.js';
 import { createLogger } from '../core/logger.js';
 
@@ -45,8 +47,17 @@ export async function bulkLink(request: BulkLinkRequest): Promise<BulkLinkRespon
       phase: 'scanning',
     });
 
-    // Load index
+    // Load index once for validation
     const index = await loadIndex({ basePath });
+
+    // Verify target exists
+    const targetEntry = index.memories.find(m => m.id === request.target);
+    if (!targetEntry) {
+      return {
+        status: 'error',
+        error: `Target memory not found: ${request.target}`,
+      };
+    }
 
     // Find source memories
     let sourceIds: string[];
@@ -87,7 +98,15 @@ export async function bulkLink(request: BulkLinkRequest): Promise<BulkLinkRespon
       };
     }
 
-    // Process links
+    // Load graph once
+    let graph = await loadGraph(basePath);
+
+    // Ensure target node exists
+    if (!hasNode(graph, request.target)) {
+      graph = addNode(graph, { id: request.target, type: targetEntry.type });
+    }
+
+    // Process all links in memory (batch approach)
     const createdLinks: Array<{ source: string; target: string }> = [];
     const failedLinks: Array<{ source: string; reason: string }> = [];
     let existingCount = 0;
@@ -103,26 +122,30 @@ export async function bulkLink(request: BulkLinkRequest): Promise<BulkLinkRespon
         phase: 'processing',
       });
 
-      // Attempt to create link
-      const result = await linkMemories({
-        source: sourceId,
-        target: request.target,
-        relation,
-        basePath,
-      });
-
-      if (result.status === 'success') {
-        if (result.alreadyExists) {
-          existingCount++;
-        } else {
-          createdLinks.push({ source: sourceId, target: request.target });
-        }
-      } else {
-        failedLinks.push({
-          source: sourceId,
-          reason: result.error ?? 'Unknown error',
-        });
+      // Verify source exists
+      const sourceEntry = index.memories.find(m => m.id === sourceId);
+      if (!sourceEntry) {
+        failedLinks.push({ source: sourceId, reason: 'Source memory not found' });
+        continue;
       }
+
+      // Ensure source node exists
+      if (!hasNode(graph, sourceId)) {
+        graph = addNode(graph, { id: sourceId, type: sourceEntry.type });
+      }
+
+      // Check if edge already exists
+      if (hasEdge(graph, sourceId, request.target, relation)) {
+        existingCount++;
+      } else {
+        graph = addEdge(graph, sourceId, request.target, relation);
+        createdLinks.push({ source: sourceId, target: request.target });
+      }
+    }
+
+    // Single graph save at the end (O(1) instead of O(n))
+    if (createdLinks.length > 0) {
+      await saveGraph(basePath, graph);
     }
 
     // Report completion

@@ -14,6 +14,16 @@ $ARGUMENTS
 
 Perform a health check of the memory system using the built-in `memory validate` command. Supports all 4 scope levels: User, Project, Local, and Enterprise.
 
+## Prerequisites
+
+**CRITICAL**: Before running any memory commands, you MUST activate the memory skill first using the Skill tool:
+
+```
+Skill: memory
+```
+
+This ensures the skill is loaded and the `MEMORY_SKILL_DIR` environment variable is set, allowing the memory.sh script to locate itself correctly. Without this step, the commands below will fail with "No such file or directory".
+
 ## Execution Steps
 
 ### 1. Determine Scope
@@ -32,7 +42,7 @@ Perform a health check of the memory system using the built-in `memory validate`
 
 ```bash
 # Check enterprise scope availability (for managed environments)
-~/.claude/skills/memory/memory.sh config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false'
+$MEMORY_SKILL_DIR/memory.sh config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false'
 
 # Check if in a git repo (for project/local scopes)
 git rev-parse --git-dir >/dev/null 2>&1 && echo "in_git_repo"
@@ -64,7 +74,7 @@ Then use AskUserQuestion with available options:
 For each selected scope, run the memory validate command:
 
 ```bash
-~/.claude/skills/memory/memory.sh validate <scope>
+$MEMORY_SKILL_DIR/memory.sh validate <scope>
 ```
 
 Where `<scope>` is one of: `user`, `project`, `local`, `enterprise`.
@@ -141,13 +151,13 @@ After validation, run these additional checks:
 
 **Prune expired temporaries:**
 ```bash
-~/.claude/skills/memory/memory.sh prune
+$MEMORY_SKILL_DIR/memory.sh prune
 ```
 Report if any expired memories were removed.
 
 **Graph statistics:**
 ```bash
-~/.claude/skills/memory/memory.sh stats <scope>
+$MEMORY_SKILL_DIR/memory.sh stats <scope>
 ```
 Include in report:
 - Hub nodes (high connectivity)
@@ -157,7 +167,7 @@ Include in report:
 
 **Quick quality audit (optional, if score >= 90):**
 ```bash
-~/.claude/skills/memory/memory.sh audit-quick <scope> --threshold 50
+$MEMORY_SKILL_DIR/memory.sh audit-quick <scope> --threshold 50
 ```
 Reports memories with quality issues (stale references, missing edges, etc.)
 
@@ -186,7 +196,7 @@ Reports memories with quality issues (stale references, missing edges, etc.)
 **If "Fix issues" selected**:
 1. First run sync to reconcile graph/index/disk:
    ```bash
-   ~/.claude/skills/memory/memory.sh sync <scope>
+   $MEMORY_SKILL_DIR/memory.sh sync <scope>
    ```
 2. Then run any additional fix commands from `data.fix_commands`
 3. Re-run validate to verify fixes
@@ -194,13 +204,13 @@ Reports memories with quality issues (stale references, missing edges, etc.)
 **If "Find new links" selected**:
 1. Check Ollama is running: `ollama list | grep -q embeddinggemma`
 2. If not available, inform user: "Ollama with embeddinggemma model required. Run: `ollama pull embeddinggemma`"
-3. If available, run: `~/.claude/skills/memory/memory.sh suggest-links --threshold 0.80 --scope <scope>`
+3. If available, run: `$MEMORY_SKILL_DIR/memory.sh suggest-links --threshold 0.80 --scope <scope>`
 4. Present suggestions and offer to auto-link with `--auto-link`
 
 **If "Quality audit" selected**:
 1. Run full quality audit:
    ```bash
-   ~/.claude/skills/memory/memory.sh audit <scope> --threshold 70
+   $MEMORY_SKILL_DIR/memory.sh audit <scope> --threshold 70
    ```
 2. Present memories with quality issues
 3. Offer to archive or delete low-quality memories
@@ -222,9 +232,9 @@ After validation, check for frontmatter desync:
 
 ```bash
 # Sample 5 random memories and compare frontmatter links vs graph edges
-~/.claude/skills/memory/memory.sh graph <scope> | jq -r '.edges[] | "\(.source) -> \(.target)"' > /tmp/graph-edges.txt
-for id in $(~/.claude/skills/memory/memory.sh list --scope <scope> | jq -r '.data.memories[].id' | shuf | head -5); do
-  file_links=$(~/.claude/skills/memory/memory.sh read "$id" | jq -r '.data.links // [] | .[]' 2>/dev/null | wc -l)
+$MEMORY_SKILL_DIR/memory.sh graph <scope> | jq -r '.edges[] | "\(.source) -> \(.target)"' > /tmp/graph-edges.txt
+for id in $($MEMORY_SKILL_DIR/memory.sh list --scope <scope> | jq -r '.data.memories[].id' | shuf | head -5); do
+  file_links=$($MEMORY_SKILL_DIR/memory.sh read "$id" | jq -r '.data.links // [] | .[]' 2>/dev/null | wc -l)
   graph_links=$(grep "^$id -> " /tmp/graph-edges.txt | wc -l)
   if [ "$file_links" != "$graph_links" ]; then
     echo "DESYNC: $id has $file_links frontmatter links but $graph_links graph edges"

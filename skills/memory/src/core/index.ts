@@ -110,6 +110,28 @@ export async function findInIndex(basePath: string, id: string): Promise<IndexEn
 }
 
 /**
+ * Batch remove entries from the index (single load/save cycle)
+ * Returns count of entries actually removed
+ */
+export async function batchRemoveFromIndex(basePath: string, ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+
+  const index = await loadIndex({ basePath });
+  const idsSet = new Set(ids);
+  const initialLength = index.memories.length;
+
+  index.memories = index.memories.filter(e => !idsSet.has(e.id));
+
+  const removedCount = initialLength - index.memories.length;
+  if (removedCount > 0) {
+    saveIndex(basePath, index);
+    log.debug('Batch removed from index', { count: removedCount });
+  }
+
+  return removedCount;
+}
+
+/**
  * Create an index entry from a memory file
  */
 function createIndexEntry(

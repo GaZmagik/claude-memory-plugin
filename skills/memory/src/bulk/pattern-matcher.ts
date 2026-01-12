@@ -21,21 +21,42 @@ export interface FilterCriteria {
   scope?: Scope;
 }
 
+// Cache compiled regexes to avoid repeated compilation
+const patternCache = new Map<string, RegExp>();
+const MAX_CACHE_SIZE = 100;
+
 /**
- * Simple glob pattern matching
+ * Simple glob pattern matching (non-recursive)
  * Supports:
- * - * : matches any characters except /
- * - ? : matches single character
- * - ** : not supported (use * for simple matching)
+ * - * : matches any sequence of characters
+ * - ? : matches any single character
+ * - ** : not supported (use * for all-character matching)
+ *
+ * Note: Matching is done on memory IDs only, not paths.
  */
 export function matchGlobPattern(pattern: string, text: string): boolean {
-  // Convert glob pattern to regex
-  const regexPattern = pattern
-    .replace(/[.+^${}()|[\]\\]/g, '\\$&') // Escape special regex chars
-    .replace(/\*/g, '.*') // * -> .*
-    .replace(/\?/g, '.'); // ? -> .
+  // Check cache first
+  let regex = patternCache.get(pattern);
 
-  const regex = new RegExp(`^${regexPattern}$`);
+  if (!regex) {
+    // Escape special regex chars (fixed order to prevent ReDoS)
+    // Important: escape backslash first, then other special chars
+    const regexPattern = pattern
+      .replace(/\\/g, '\\\\')
+      .replace(/[.+^${}()|[\]]/g, '\\$&')
+      .replace(/\*/g, '.*')
+      .replace(/\?/g, '.');
+
+    regex = new RegExp(`^${regexPattern}$`);
+
+    // Cache with LRU eviction
+    if (patternCache.size >= MAX_CACHE_SIZE) {
+      const firstKey = patternCache.keys().next().value;
+      if (firstKey) patternCache.delete(firstKey);
+    }
+    patternCache.set(pattern, regex);
+  }
+
   return regex.test(text);
 }
 

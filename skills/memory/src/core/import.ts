@@ -2,19 +2,83 @@
  * Import Operation
  *
  * Import memories from a portable format (JSON or YAML).
+ * Uses js-yaml for robust YAML parsing with comprehensive validation.
  */
 
+import yaml from 'js-yaml';
 import type {
   ImportMemoriesRequest,
   ImportMemoriesResponse,
   ExportPackage,
+  ExportedMemory,
 } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { writeMemory } from './write.js';
 import { linkMemories } from '../graph/link.js';
 import { createLogger } from './logger.js';
 
 const log = createLogger('import');
+
+/**
+ * Validate that a value is a valid ExportedMemory
+ */
+function isValidMemory(value: unknown): value is ExportedMemory {
+  if (!value || typeof value !== 'object') return false;
+  const mem = value as Record<string, unknown>;
+
+  if (typeof mem.id !== 'string' || mem.id.trim().length === 0) return false;
+  if (typeof mem.content !== 'string') return false;
+
+  // Validate frontmatter
+  if (!mem.frontmatter || typeof mem.frontmatter !== 'object') return false;
+  const fm = mem.frontmatter as Record<string, unknown>;
+
+  if (typeof fm.type !== 'string') return false;
+  if (typeof fm.title !== 'string') return false;
+  if (!Array.isArray(fm.tags)) return false;
+  if (typeof fm.created !== 'string') return false;
+  if (typeof fm.updated !== 'string') return false;
+
+  return true;
+}
+
+/**
+ * Validate that a value is a valid ExportPackage
+ */
+function isValidExportPackage(value: unknown): value is ExportPackage {
+  if (!value || typeof value !== 'object') return false;
+  const pkg = value as Record<string, unknown>;
+
+  if (typeof pkg.version !== 'string') return false;
+  if (typeof pkg.exportedAt !== 'string') return false;
+  if (!Array.isArray(pkg.memories)) return false;
+
+  // Validate each memory
+  for (const memory of pkg.memories) {
+    if (!isValidMemory(memory)) return false;
+  }
+
+  // Validate graph if present
+  if (pkg.graph !== undefined) {
+    if (typeof pkg.graph !== 'object' || pkg.graph === null) return false;
+    const graph = pkg.graph as Record<string, unknown>;
+
+    if (!Array.isArray(graph.nodes)) return false;
+    if (!Array.isArray(graph.edges)) return false;
+
+    // Validate edges have required fields
+    for (const edge of graph.edges) {
+      if (!edge || typeof edge !== 'object') return false;
+      const e = edge as Record<string, unknown>;
+      if (typeof e.source !== 'string') return false;
+      if (typeof e.target !== 'string') return false;
+      if (typeof e.label !== 'string') return false;
+    }
+  }
+
+  return true;
+}
 
 /**
  * Import memories from export package
@@ -161,155 +225,33 @@ export async function importMemories(
 }
 
 /**
- * Parse import data from JSON or YAML string
+ * Parse import data from JSON or YAML string with validation
  */
 function parseImportData(raw: string): ExportPackage {
   const trimmed = raw.trim();
 
-  // Try JSON first
+  let parsed: unknown;
+
+  // Try JSON first (faster and more common)
   if (trimmed.startsWith('{')) {
-    return JSON.parse(trimmed);
-  }
-
-  // Parse YAML (simple parser for our export format)
-  return parseYaml(trimmed);
-}
-
-/**
- * Simple YAML parser for export package format
- */
-function parseYaml(yaml: string): ExportPackage {
-  const lines = yaml.split('\n');
-  const result: ExportPackage = {
-    version: '',
-    exportedAt: '',
-    memories: [],
-  };
-
-  let currentMemory: Record<string, unknown> | null = null;
-  let currentFrontmatter: Record<string, unknown> | null = null;
-  let contentLines: string[] = [];
-  let inContent = false;
-  let inGraph = false;
-  let inNodes = false;
-  let inEdges = false;
-  let currentNode: Record<string, unknown> | null = null;
-  let currentEdge: Record<string, unknown> | null = null;
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    // Skip empty lines
-    if (!trimmed) continue;
-
-    // Top-level fields
-    if (line.startsWith('version:')) {
-      result.version = extractValue(trimmed);
-    } else if (line.startsWith('exportedAt:')) {
-      result.exportedAt = extractValue(trimmed);
-    } else if (line.startsWith('sourceScope:')) {
-      result.sourceScope = extractValue(trimmed) as ExportPackage['sourceScope'];
-    } else if (line.startsWith('memories:')) {
-      // Start memories section
-    } else if (line.startsWith('graph:')) {
-      inGraph = true;
-      result.graph = { nodes: [], edges: [] };
-    } else if (inGraph && trimmed === 'nodes:') {
-      inNodes = true;
-      inEdges = false;
-    } else if (inGraph && trimmed === 'edges:') {
-      inEdges = true;
-      inNodes = false;
-    } else if (inNodes && trimmed.startsWith('- id:')) {
-      if (currentNode) {
-        result.graph!.nodes.push(currentNode as { id: string; type: string });
-      }
-      currentNode = { id: extractValue(trimmed.slice(2)) };
-    } else if (inNodes && currentNode && trimmed.startsWith('type:')) {
-      currentNode.type = extractValue(trimmed);
-    } else if (inEdges && trimmed.startsWith('- source:')) {
-      if (currentEdge) {
-        result.graph!.edges.push(currentEdge as { source: string; target: string; label: string });
-      }
-      currentEdge = { source: extractValue(trimmed.slice(2)) };
-    } else if (inEdges && currentEdge && trimmed.startsWith('target:')) {
-      currentEdge.target = extractValue(trimmed);
-    } else if (inEdges && currentEdge && trimmed.startsWith('label:')) {
-      currentEdge.label = extractValue(trimmed);
-    } else if (trimmed.startsWith('- id:')) {
-      // New memory
-      if (currentMemory && currentFrontmatter) {
-        currentMemory.frontmatter = currentFrontmatter;
-        currentMemory.content = contentLines.join('\n').trim();
-        result.memories.push(currentMemory as unknown as ExportPackage['memories'][0]);
-      }
-      currentMemory = { id: extractValue(trimmed.slice(2)) };
-      currentFrontmatter = null;
-      contentLines = [];
-      inContent = false;
-    } else if (currentMemory && trimmed === 'frontmatter:') {
-      currentFrontmatter = {};
-    } else if (currentFrontmatter && trimmed.startsWith('type:')) {
-      currentFrontmatter.type = extractValue(trimmed);
-    } else if (currentFrontmatter && trimmed.startsWith('title:')) {
-      currentFrontmatter.title = extractValue(trimmed);
-    } else if (currentFrontmatter && trimmed.startsWith('created:')) {
-      currentFrontmatter.created = extractValue(trimmed);
-    } else if (currentFrontmatter && trimmed.startsWith('updated:')) {
-      currentFrontmatter.updated = extractValue(trimmed);
-    } else if (currentFrontmatter && trimmed.startsWith('scope:')) {
-      currentFrontmatter.scope = extractValue(trimmed);
-    } else if (currentFrontmatter && trimmed.startsWith('tags:')) {
-      const tagsStr = trimmed.slice(5).trim();
-      if (tagsStr.startsWith('[')) {
-        currentFrontmatter.tags = tagsStr
-          .slice(1, -1)
-          .split(',')
-          .map(t => t.trim().replace(/"/g, ''))
-          .filter(t => t);
-      } else {
-        currentFrontmatter.tags = [];
-      }
-    } else if (currentMemory && trimmed.startsWith('content:')) {
-      inContent = true;
-    } else if (inContent && line.startsWith('      ')) {
-      contentLines.push(line.slice(6));
+    try {
+      parsed = JSON.parse(trimmed);
+    } catch (error) {
+      throw new Error(`Invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  } else {
+    // Parse YAML using js-yaml library
+    try {
+      parsed = yaml.load(trimmed);
+    } catch (error) {
+      throw new Error(`Invalid YAML: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
-  // Don't forget the last memory
-  if (currentMemory && currentFrontmatter) {
-    currentMemory.frontmatter = currentFrontmatter;
-    currentMemory.content = contentLines.join('\n').trim();
-    result.memories.push(currentMemory as unknown as ExportPackage['memories'][0]);
+  // Validate structure
+  if (!isValidExportPackage(parsed)) {
+    throw new Error('Invalid import package structure: missing or invalid required fields');
   }
 
-  // Don't forget the last graph nodes/edges
-  if (currentNode) {
-    result.graph!.nodes.push(currentNode as { id: string; type: string });
-  }
-  if (currentEdge) {
-    result.graph!.edges.push(currentEdge as { source: string; target: string; label: string });
-  }
-
-  return result;
-}
-
-/**
- * Extract value from YAML line
- */
-function extractValue(line: string): string {
-  const colonIdx = line.indexOf(':');
-  if (colonIdx === -1) return '';
-
-  let value = line.slice(colonIdx + 1).trim();
-
-  // Remove surrounding quotes
-  if ((value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))) {
-    value = value.slice(1, -1);
-  }
-
-  // Unescape
-  return value.replace(/\\"/g, '"').replace(/\\n/g, '\n');
+  return parsed;
 }

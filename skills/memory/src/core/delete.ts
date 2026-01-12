@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
 import { findInIndex, removeFromIndex } from './index.js';
-import { deleteFile, fileExists } from './fs-utils.js';
+import { deleteFile, fileExists, isInsideDir } from './fs-utils.js';
 import { createLogger } from './logger.js';
 
 const log = createLogger('delete');
@@ -37,6 +37,15 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
+    }
+
+    // Security: Validate path stays within basePath (prevent path traversal)
+    if (!isInsideDir(basePath, filePath)) {
+      log.warn('Path traversal attempt detected', { id: request.id, filePath });
+      return {
+        status: 'error',
+        error: 'Invalid memory ID: path traversal not allowed',
+      };
     }
 
     // Check if file exists

@@ -96,24 +96,24 @@ export interface GraphNode {
 
 /**
  * Graph edge representation
+ * Note: Uses source/target to match D3.js and graph library conventions
  */
 export interface GraphEdge {
   /** Source memory ID */
-  from: string;
+  source: string;
   /** Target memory ID */
-  to: string;
+  target: string;
   /** Relationship label */
   label: string;
 }
 
 /**
  * Complete graph structure (adjacency list)
+ * Note: Matches implementation in graph/structure.ts
  */
 export interface MemoryGraph {
-  /** Schema version */
-  version: string;
-  /** Last update timestamp */
-  lastUpdated: string;
+  /** Schema version (numeric for semantic versioning) */
+  version: number;
   /** All nodes in the graph */
   nodes: GraphNode[];
   /** All edges in the graph */

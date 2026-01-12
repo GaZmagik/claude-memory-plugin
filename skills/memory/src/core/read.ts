@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import type { ReadMemoryRequest, ReadMemoryResponse } from '../types/api.js';
 import { findInIndex } from './index.js';
-import { readFile, fileExists } from './fs-utils.js';
+import { readFile, fileExists, isInsideDir } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
 
@@ -38,6 +38,15 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
+    }
+
+    // Security: Validate path stays within basePath (prevent path traversal)
+    if (!isInsideDir(basePath, filePath)) {
+      log.warn('Path traversal attempt detected', { id: request.id, filePath });
+      return {
+        status: 'error',
+        error: 'Invalid memory ID: path traversal not allowed',
+      };
     }
 
     if (!fileExists(filePath)) {

@@ -52,6 +52,7 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `repair [scope]` | Run sync then validate |
 | | `rebuild [scope]` | Rebuild from disk (use with caution) |
 | | `reindex <id>` | Re-index an orphan file |
+| | `bulk-delete [options]` | Delete memories by pattern/type/tags (--dry-run) |
 | **Utility** | `rename <old> <new>` | Rename memory ID (updates refs) |
 | | `move <id> <scope>` | Move between local/global |
 | | `promote <id> <type>` | Convert memory type (preserves edges) |

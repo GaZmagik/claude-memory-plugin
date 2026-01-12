@@ -11,6 +11,7 @@ import type {
   ImportMemoriesResponse,
   ExportPackage,
 } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { writeMemory } from './write.js';
 import { linkMemories } from '../graph/link.js';
@@ -101,9 +102,8 @@ export async function importMemories(
         continue;
       }
 
-      // Determine target scope (default to Global if not specified)
-      // Determine scope - use target scope, then memory's scope, then source scope
-      const scope = request.targetScope ?? memory.frontmatter.scope ?? data.sourceScope;
+      // Determine scope - use target scope, then memory's scope, then source scope, then default to Global
+      const scope = request.targetScope ?? memory.frontmatter.scope ?? data.sourceScope ?? Scope.Global;
 
       // Write the memory
       const result = await writeMemory({
@@ -112,7 +112,7 @@ export async function importMemories(
         title: memory.frontmatter.title,
         content: memory.content,
         tags: memory.frontmatter.tags,
-        ...(scope && { scope }),
+        scope,
         basePath,
       });
 

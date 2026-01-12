@@ -38,6 +38,8 @@ export interface BaseRequest {
  * Request to create or update a memory
  */
 export interface WriteMemoryRequest extends BaseRequest {
+  /** Explicit memory ID (optional - for imports/restore operations) */
+  id?: string;
   /** Memory title */
   title: string;
   /** Memory type */

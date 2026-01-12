@@ -9,6 +9,7 @@
     "memory": "./skills/memory/src/cli.ts"
   },
   "scripts": {
+    "postinstall": "bun link",
     "dev": "tsx watch skills/memory/src/index.ts",
     "build": "tsc",
     "test": "bun run test:clean && bun run test:isolated",

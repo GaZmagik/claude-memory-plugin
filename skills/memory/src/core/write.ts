@@ -123,8 +123,8 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       ensureLocalScopeGitignored(request.projectRoot);
     }
 
-    // Generate unique ID
-    const id = generateUniqueId(request.type, request.title, basePath);
+    // Use provided ID or generate unique ID
+    const id = request.id ?? generateUniqueId(request.type, request.title, basePath);
 
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);

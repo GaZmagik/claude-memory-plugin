@@ -36,15 +36,17 @@ Or clone and install manually:
 git clone https://github.com/GaZmagik/claude-memory-plugin
 cd claude-memory-plugin
 
-# Using Bun
-bun install
-
-# Or using npm
-npm install
+# Using Bun (recommended)
+bun install    # This also runs 'bun link' to expose the 'memory' CLI command
 
 # Then from Claude Code session
 /plugin install .
 ```
+
+> **Note**: The `memory` CLI command requires `~/.bun/bin` in your PATH. Add this to your shell profile if not already present:
+> ```bash
+> export PATH="$HOME/.bun/bin:$PATH"
+> ```
 
 This installs:
 - The memory skill for knowledge storage
@@ -55,14 +57,13 @@ This installs:
 ### Basic Usage
 
 ```bash
-# Use the memory skill
-~/.claude/skills/memory/memory.sh write --title "My Decision" --type decision
-
-# Search for relevant memories
-~/.claude/skills/memory/memory.sh search "typescript patterns"
-
-# View memory health
-~/.claude/skills/memory/memory.sh health local
+# Use the memory CLI (after bun install)
+memory help                       # Show available commands
+memory list                       # List all memories
+memory search "typescript"        # Full-text search
+memory semantic "error handling"  # Semantic search by meaning
+memory health local               # View memory health
+memory stats local                # Graph statistics
 ```
 
 ### Architecture

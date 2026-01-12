@@ -58,6 +58,10 @@ export interface WriteMemoryRequest extends BaseRequest {
   meta?: Record<string, unknown>;
   /** Project root for gitignore automation (optional) */
   projectRoot?: string;
+  /** Automatically link to similar memories after write */
+  autoLink?: boolean;
+  /** Similarity threshold for auto-link (default: 0.85) */
+  autoLinkThreshold?: number;
 }
 
 /**
@@ -75,6 +79,8 @@ export interface WriteMemoryResponse extends BaseResponse {
     /** Storage scope */
     scope: Scope;
   };
+  /** Number of auto-linked memories (if autoLink was true) */
+  autoLinked?: number;
 }
 
 // ============================================================================
@@ -489,3 +495,32 @@ export interface ThinkDeleteResponse extends BaseResponse {
   /** Deleted document ID */
   deletedId?: string;
 }
+
+// ============================================================================
+// Re-export Bulk & Utility Operation Types
+// ============================================================================
+
+export type {
+  TagMemoryRequest,
+  TagMemoryResponse,
+  UntagMemoryRequest,
+  UntagMemoryResponse,
+  LinkMemoriesRequest,
+  LinkMemoriesResponse,
+  UnlinkMemoriesRequest,
+  UnlinkMemoriesResponse,
+  BulkProgress,
+  BulkProgressCallback,
+  BulkDeleteRequest,
+  BulkDeleteResponse,
+  BulkLinkRequest,
+  BulkLinkResponse,
+  ExportFormat,
+  ExportedMemory,
+  ExportPackage,
+  ExportMemoriesRequest,
+  ExportMemoriesResponse,
+  ImportStrategy,
+  ImportMemoriesRequest,
+  ImportMemoriesResponse,
+} from './operations.js';

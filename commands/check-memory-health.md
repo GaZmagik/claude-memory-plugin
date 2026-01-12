@@ -1,7 +1,7 @@
 ---
 description: Check memory system health including graph connectivity, hub integrity, frontmatter sync, and link suggestions.
-argument-hint: "local | global | quick"
-version: "2.0.0"
+argument-hint: "[--user | --project | --local | --all] [--quick]"
+version: "3.1.0"
 ---
 
 ## User Input
@@ -12,31 +12,52 @@ $ARGUMENTS
 
 ## Goal
 
-Perform a health check of the memory system using the built-in `memory validate` command.
+Perform a health check of the memory system using the built-in `memory validate` command. Supports all 4 scope levels: User, Project, Local, and Enterprise.
 
 ## Execution Steps
 
 ### 1. Determine Scope
 
 **Check arguments first**:
-- `global` → Use `global` scope
-- `local` → Use `local` scope
-- `quick` → Use quick check mode (see Quick Check Option below)
-- Combinations (e.g. `local quick`) → Parse accordingly
+- `--user` or `--global` or `user` or `global` → Use `user` scope
+- `--project` or `project` → Use `project` scope
+- `--local` or `local` → Use `local` scope
+- `--enterprise` or `enterprise` → Use `enterprise` scope (for managed environments)
+- `--all` or `all` → Check all accessible scopes sequentially
+- `quick` or `--quick` → Quick check mode (can combine with any scope)
 
-**If no scope provided**, use AskUserQuestion:
+**Note**: `--global` is accepted as a legacy alias for `--user`.
+
+**If no scope provided**, first check which scopes are accessible:
+
+```bash
+# Check enterprise scope availability (for managed environments)
+~/.claude/skills/memory/memory.sh config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false'
+
+# Check if in a git repo (for project/local scopes)
+git rev-parse --git-dir >/dev/null 2>&1 && echo "in_git_repo"
+```
+
+Then use AskUserQuestion with available options:
+
 ```json
 {
-  "question": "Which memory system would you like to check?",
+  "question": "Which memory scope would you like to check?",
   "header": "Memory scope",
   "options": [
-    {"label": "Project", "description": "Project-specific memories in .claude/memory/"},
-    {"label": "User (global)", "description": "Cross-project memories in ~/.claude/memory/"},
-    {"label": "Both", "description": "Check both memory systems sequentially"}
+    {"label": "User", "description": "Personal cross-project memories in ~/.claude/memory/"},
+    {"label": "Project", "description": "Shared project memories in .claude/memory/ (tracked in git)"},
+    {"label": "Local", "description": "Personal project memories in .claude/memory/local/ (gitignored)"},
+    {"label": "All accessible", "description": "Check all accessible scopes sequentially"}
   ],
   "multiSelect": false
 }
 ```
+
+**Dynamic options**:
+- Only show "Project" and "Local" if in a git repository
+- Always show "User" and "All accessible"
+- Enterprise scope is supported but not shown by default (pass `--enterprise` explicitly)
 
 ### 2. Run Validation
 
@@ -46,7 +67,13 @@ For each selected scope, run the memory validate command:
 ~/.claude/skills/memory/memory.sh validate <scope>
 ```
 
-Where `<scope>` is `local` or `global`.
+Where `<scope>` is one of: `user`, `project`, `local`, `enterprise`.
+
+**For `--all` option**, run validation for each accessible scope in precedence order:
+1. User (always)
+2. Project (if in git repo)
+3. Local (if in git repo)
+4. Enterprise (if configured, for managed environments)
 
 ### 3. Parse and Present Results
 
@@ -94,6 +121,20 @@ Present the results as a formatted report:
 {If fix_commands not empty, show them}
 ```
 
+**For multi-scope checks (`--all`)**, present a combined summary first:
+
+```markdown
+# Memory System Health Report - All Scopes
+
+| Scope | Score | Rating | Issues |
+|-------|-------|--------|--------|
+| User | {score}/100 | {rating} | {issue_count} |
+| Project | {score}/100 | {rating} | {issue_count} |
+| Local | {score}/100 | {rating} | {issue_count} |
+
+{Then detailed breakdown for each scope}
+```
+
 ### 4. Run Additional Checks
 
 After validation, run these additional checks:
@@ -114,7 +155,7 @@ Include in report:
 - Source nodes (no inbound edges)
 - Edge-to-node ratio
 
-**Quick quality audit (optional, if score ≥ 90):**
+**Quick quality audit (optional, if score >= 90):**
 ```bash
 ~/.claude/skills/memory/memory.sh audit-quick <scope> --threshold 50
 ```
@@ -139,8 +180,8 @@ Reports memories with quality issues (stale references, missing edges, etc.)
 
 **Dynamic options:**
 - Only show "Fix issues" if there are issues to fix
-- Only show "Find new links" if score ≥ 80
-- Only show "Quality audit" if score ≥ 90 (focus on content quality when structure is healthy)
+- Only show "Find new links" if score >= 80
+- Only show "Quality audit" if score >= 90 (focus on content quality when structure is healthy)
 
 **If "Fix issues" selected**:
 1. First run sync to reconcile graph/index/disk:
@@ -169,11 +210,11 @@ Reports memories with quality issues (stale references, missing edges, etc.)
 
 ## Quick Check Option
 
-If `$ARGUMENTS` contains `quick`:
+If `$ARGUMENTS` contains `quick` or `--quick`:
 - Run `memory health <scope>` instead of `memory validate`
 - This is faster but only checks graph connectivity (not index/file sync)
 
-### 5. Frontmatter Sync Check
+### 6. Frontmatter Sync Check
 
 **Important**: Graph operations (link, tag, move) update graph.json and index.json but do NOT update file frontmatter. This means the `links:` field in .md files can become stale.
 
@@ -192,13 +233,13 @@ done
 ```
 
 **If desync detected**, inform user:
-> ⚠️ Frontmatter desync detected: File `links:` fields don't match graph edges.
+> Frontmatter desync detected: File `links:` fields don't match graph edges.
 > This is cosmetic (graph is authoritative) but can cause confusion when reading raw files.
 > The memory skill doesn't currently have a `sync-frontmatter` command - this is a known limitation.
 
-### 6. Suggest-Links Recommendation
+### 7. Suggest-Links Recommendation
 
-After health check completes successfully (score ≥ 80), check if suggest-links might find new connections:
+After health check completes successfully (score >= 80), check if suggest-links might find new connections:
 
 ```bash
 # Check when suggest-links was last run (from manifest timestamp)
@@ -218,16 +259,18 @@ fi
 - >10 new memories added since last run, OR
 - User explicitly requests link suggestions
 
-Add to the "Next action" options:
-```json
-{"label": "Find new links", "description": "Run suggest-links to discover semantic connections (requires Ollama)"}
-```
+## Scope Reference
 
-**If "Find new links" selected**:
-1. Check Ollama is running: `ollama list | grep -q embeddinggemma`
-2. If not available, inform user: "Ollama with embeddinggemma model required. Run: ollama pull embeddinggemma"
-3. If available, run: `~/.claude/skills/memory/memory.sh suggest-links --threshold 0.80 --scope <scope>`
-4. Present suggestions and offer to auto-link
+| Scope | Flag | Storage Path | Description |
+|-------|------|--------------|-------------|
+| User | `--user` | `~/.claude/memory/` | Personal cross-project memories |
+| Project | `--project` | `.claude/memory/` | Shared project memories (in git) |
+| Local | `--local` | `.claude/memory/local/` | Personal project memories (gitignored) |
+| Enterprise | `--enterprise` | `CLAUDE_MEMORY_ENTERPRISE_PATH` | Organisation-wide (managed environments) |
+
+**Precedence order**: User > Project > Local > Enterprise
+
+**Legacy alias**: `--global` is accepted as an alias for `--user`.
 
 ## Notes
 
@@ -237,3 +280,4 @@ Add to the "Next action" options:
 - The validate command detects: missing nodes, ghost nodes, orphan files, hub issues, tag issues
 - **Frontmatter desync** is a known limitation - graph.json is authoritative, file frontmatter is informational only
 - **suggest-links** requires Ollama with embeddinggemma model for semantic similarity
+- **Enterprise scope** is for managed environments and requires explicit configuration via environment variable or managed-settings.json

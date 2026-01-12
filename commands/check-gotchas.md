@@ -1,7 +1,7 @@
 ---
 description: Check recent work against documented gotchas and warnings in memory system. Prevents repeating past mistakes.
-argument-hint: "topic"
-version: "1.0.0"
+argument-hint: "[topic] [--scope <user|project|local>]"
+version: "2.1.0"
 ---
 
 ## User Input
@@ -16,26 +16,74 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 Search the memory system for relevant gotchas, warnings, and learnings that apply to recent work. This is a proactive mistake-prevention check, not a git pre-commit hook.
 
+By default, searches ALL accessible scopes (User → Project → Local) to ensure comprehensive gotcha coverage.
+
 ## Execution Steps
 
-### 1. Load Gotcha Prevention Checklist Hub
+### 1. Parse Arguments
 
-**First**, check for the centralised gotcha hub which provides pre-categorised, severity-ranked gotchas:
+**Check for scope restriction**:
+- `--scope user` or `--scope global` → Search user scope only
+- `--scope project` → Search project scope only
+- `--scope local` → Search local scope only
+- `--scope enterprise` → Search enterprise scope only (for managed environments)
+- No `--scope` specified → Search ALL accessible scopes (recommended)
+
+**Note**: `--scope global` is accepted as a legacy alias for `--scope user`.
+
+**Check for work scope** (what to check):
+- `all` or `--all` → Check all memories for gotchas (comprehensive review)
+- `staged` → Check only staged git changes
+- `recent` → Check recent work (last commit, uncommitted changes)
+- `{file-path}` → Check specific file or pattern
+- `{topic}` → Any other argument is treated as a topic to search for
+
+**If no arguments** (default):
+- Check recent work (uncommitted changes + last commit)
+- If nothing recent, offer to check all gotchas
+
+### 2. Determine Accessible Scopes
+
+Check which scopes are accessible for searching:
 
 ```bash
-# Check if hub exists
-test -f .claude/memory/permanent/artifact-gotcha-prevention-checklist.md && echo "Hub exists"
+# Check enterprise scope availability (for managed environments)
+enterprise_enabled=$(~/.claude/skills/memory/memory.sh config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false')
+
+# Check if in a git repo (for project/local scopes)
+in_git_repo=$(git rev-parse --git-dir >/dev/null 2>&1 && echo "true" || echo "false")
 ```
 
-**If hub exists**:
-- Read `.claude/memory/permanent/artifact-gotcha-prevention-checklist.md`
+**Accessible scopes** (in precedence order):
+1. User - always accessible
+2. Project - if `in_git_repo` is true
+3. Local - if `in_git_repo` is true
+4. Enterprise - if `enterprise_enabled` is true (for managed environments)
+
+### 3. Load Gotcha Prevention Checklist Hubs
+
+**For each accessible scope**, check for the centralised gotcha hub:
+
+```bash
+# Check hub in each scope
+# User: ~/.claude/memory/permanent/artifact-gotcha-prevention-checklist.md
+# Project: .claude/memory/permanent/artifact-gotcha-prevention-checklist.md
+# Local: .claude/memory/local/permanent/artifact-gotcha-prevention-checklist.md
+# Enterprise: $CLAUDE_MEMORY_ENTERPRISE_PATH/permanent/artifact-gotcha-prevention-checklist.md
+
+test -f <scope-path>/permanent/artifact-gotcha-prevention-checklist.md && echo "Hub exists in <scope>"
+```
+
+**If hub exists in any scope**:
+- Read the hub file(s)
 - Extract Critical and High severity gotchas already catalogued
 - Note the linked learning IDs for cross-reference
-- Use this as the **primary source** of known gotchas
+- Use these as the **primary source** of known gotchas
+- Track which scope each gotcha came from
 
-**If hub does not exist**:
-- Note: "Gotcha Prevention Checklist hub not yet created"
-- Proceed with raw memory search (Step 4)
+**If no hubs exist**:
+- Note: "Gotcha Prevention Checklist hub not yet created in any scope"
+- Proceed with raw memory search (Step 5)
 - Flag this for potential hub creation at end of check
 
 **Hub structure expected**:
@@ -47,21 +95,7 @@ test -f .claude/memory/permanent/artifact-gotcha-prevention-checklist.md && echo
 - [ ] {gotcha description} → `learning-{id}`
 ```
 
-### 2. Determine Scope
-
-Check what work to analyse based on arguments or current state:
-
-**If $ARGUMENTS provided**:
-- `all` or `--all` → Check all memories for gotchas (comprehensive review)
-- `staged` → Check only staged git changes
-- `recent` → Check recent work (last commit, uncommitted changes)
-- `{file-path}` → Check specific file or pattern
-
-**If no arguments** (default):
-- Check recent work (uncommitted changes + last commit)
-- If nothing recent, offer to check all gotchas
-
-### 3. Gather Context
+### 4. Gather Context
 
 Collect information about the work to check:
 
@@ -84,31 +118,34 @@ git branch --show-current
 - **Keywords from changes**: What operations? (validation, schema, test, build, auth)
 - **Technologies**: Frameworks/libraries mentioned? (IPFS, AJV, Helia, TypeScript)
 
-### 4. Three-Tier Gotcha Search Strategy
+### 5. Multi-Scope Gotcha Search Strategy
 
-Execute searches in priority order:
+Execute searches across all accessible scopes:
 
-#### Tier 1: Hub Checklist (Primary Source)
+#### Tier 1: Hub Checklists (Primary Source)
 
-**If hub was loaded in Step 1**:
+**For each scope with a hub** (loaded in Step 3):
 - Filter hub gotchas by relevance to gathered context
 - Match gotcha descriptions against:
   - File paths being modified
   - Technologies in use
   - Operations being performed
 - Mark applicable hub gotchas for inclusion in results
+- Tag each result with its source scope
 - These are **pre-validated, high-confidence** matches
 
 #### Tier 2: Raw Memory Search (Supplementary)
 
-Search raw learnings for additional gotchas **not already in the hub**.
+Search raw learnings in ALL accessible scopes for additional gotchas **not already in any hub**.
 
 Use the **memory-recall agent** to find applicable warnings:
 
 ```
 Invoke Task tool with subagent_type=memory-recall:
 
-"Search memory for gotchas, warnings, and learnings relevant to this work context:
+"Search memory for gotchas, warnings, and learnings relevant to this work context.
+
+**Scopes to Search**: [list accessible scopes: user, project, local, enterprise]
 
 **Work Context:**
 - Files modified: [list file paths]
@@ -124,55 +161,66 @@ Invoke Task tool with subagent_type=memory-recall:
 **Required Output:**
 For each relevant gotcha, provide:
 1. Memory ID
-2. Severity (critical/high/medium/low)
-3. Title/description
-4. Why it's relevant (matching pattern)
-5. Prevention strategy
-6. Related memories (decisions, artifacts)
+2. Source scope (user/project/local/enterprise)
+3. Severity (critical/high/medium/low)
+4. Title/description
+5. Why it's relevant (matching pattern)
+6. Prevention strategy
+7. Related memories (decisions, artifacts)
 
 **Prioritize by:**
 1. Severity (critical > high > medium > low)
-2. Relevance (exact file match > technology match > general pattern)
-3. Recurrence (if marked as recurring issue)
+2. Scope (user > project > local for same severity)
+3. Relevance (exact file match > technology match > general pattern)
+4. Recurrence (if marked as recurring issue)
 
-Limit to top 10 most relevant gotchas.
+Limit to top 15 most relevant gotchas across all scopes.
+Deduplicate by memory ID (same gotcha in multiple scopes = show highest precedence scope only).
 "
 ```
 
 #### Tier 3: Hub Coverage Analysis
 
 **Flag missing high-severity learnings**:
-- Compare raw memory search results against hub contents
-- Identify any learnings with severity `critical` or `high` that are **not** in the hub
+- Compare raw memory search results against all hub contents
+- Identify any learnings with severity `critical` or `high` that are **not** in any hub
 - Track these for the Hub Coverage report section
 
 ```
 For each high-severity learning found in raw search:
-  - Check if its ID appears in hub checklist
-  - If NOT in hub → flag as "missing from hub"
-  - Record: learning ID, severity, title
+  - Check if its ID appears in any hub checklist
+  - If NOT in any hub → flag as "missing from hub"
+  - Record: learning ID, severity, title, source scope
 ```
 
-### 5. Present Findings
+### 6. Present Findings
 
-Format findings from memory-recall agent:
+Format findings with scope information:
 
 ```markdown
 # Gotcha Check Results
 
 **Date**: {current_date}
-**Scope**: {what was checked}
+**Work Scope**: {what was checked}
+**Memory Scopes Searched**: {list of scopes searched}
 **Context**: {files/technologies/operations detected}
 
 ---
 
 ## Summary
 
-Found **{count}** relevant gotchas from memory:
+Found **{count}** relevant gotchas across {scope_count} scopes:
 - **Critical**: {count} - Must address before proceeding
 - **High**: {count} - Should address soon
 - **Medium**: {count} - Good to be aware of
 - **Low**: {count} - FYI only
+
+**By Scope**:
+| Scope | Gotchas Found |
+|-------|---------------|
+| User | {count} |
+| Project | {count} |
+| Local | {count} |
 
 ---
 
@@ -180,7 +228,7 @@ Found **{count}** relevant gotchas from memory:
 
 ### [CRITICAL] {Gotcha Title}
 
-**Memory**: `{memory-id}` ([View full memory](#))
+**Memory**: `{memory-id}` | **Scope**: {scope}
 
 **Why Relevant**:
 - You're working on: {matching file/pattern}
@@ -228,6 +276,11 @@ Found **{count}** relevant gotchas from memory:
 - "{Gotcha X}" appears in {count} memories
 - Recommendation: Create automation to prevent this (see /session-end)
 
+**Cross-Scope Patterns**:
+{If same gotcha appears in multiple scopes}
+- "{Gotcha Y}" found in both Project and User scopes
+- Consider: Promote to higher scope or deduplicate
+
 **Coverage Gaps**:
 {If work area has no related gotchas}
 - No gotchas documented for: {technology/area}
@@ -238,9 +291,11 @@ Found **{count}** relevant gotchas from memory:
 
 ## Hub Coverage Report
 
-**Status**: {Hub exists / Hub not found}
+**Hubs Found**: {list scopes with hubs}
 
-{If hub exists}:
+{For each scope with a hub}:
+
+### {Scope} Scope Hub
 
 **Hub Coverage**: {X}/{Y} high-severity learnings are in the Gotcha Checklist
 
@@ -252,30 +307,15 @@ Found **{count}** relevant gotchas from memory:
 **Missing from Hub** (should be added):
 {If any high-severity learnings found that are NOT in hub}
 - `learning-{id}`: {title} [severity: {critical/high}]
-- `learning-{id}`: {title} [severity: {critical/high}]
 
-**Recommendation**: Run the memory skill to add missing learnings to the hub:
-```
-Add these learnings to .claude/memory/permanent/artifact-gotcha-prevention-checklist.md
-```
+{If no hubs exist}:
 
-{If hub does not exist}:
-
-**Hub Not Found**: The Gotcha Prevention Checklist hub does not exist yet.
+**No Hubs Found**: Gotcha Prevention Checklist hubs do not exist in any scope.
 
 Found **{count}** high-severity learnings that should be catalogued:
-- `learning-{id}`: {title} [severity: {critical/high}]
+- `learning-{id}`: {title} [severity: {critical/high}] [scope: {scope}]
 
-**Recommendation**: Create the hub to centralise gotcha tracking:
-```markdown
-# Gotcha Prevention Checklist
-
-## Critical Gotchas
-- [ ] {gotcha description} → `learning-{id}`
-
-## High Priority Gotchas
-- [ ] {gotcha description} → `learning-{id}`
-```
+**Recommendation**: Create a hub in the appropriate scope to centralise gotcha tracking.
 
 ---
 
@@ -285,7 +325,7 @@ Found **{count}** high-severity learnings that should be catalogued:
 Use AskUserQuestion to offer next actions:
 
 {
-  question: "Found {count} relevant gotchas. What would you like to do?",
+  question: "Found {count} relevant gotchas across {scope_count} scopes. What would you like to do?",
   header: "Next action",
   options: [
     {
@@ -315,77 +355,70 @@ Use AskUserQuestion to offer next actions:
 - Show code examples if available
 
 **If "Update hub" selected**:
-- If hub exists:
+- Ask which scope's hub to update (if multiple exist)
+- If hub exists in selected scope:
   - Read current hub contents
   - Append missing high-severity gotchas to appropriate sections
   - Preserve existing checklist items
   - Use memory skill to update the artifact
-- If hub does not exist:
-  - Create new hub file at `.claude/memory/permanent/artifact-gotcha-prevention-checklist.md`
-  - Populate with all discovered high-severity gotchas
+- If hub does not exist in selected scope:
+  - Create new hub file at `<scope-path>/permanent/artifact-gotcha-prevention-checklist.md`
+  - Populate with all discovered high-severity gotchas for that scope
   - Structure with Critical and High Priority sections
   - Link each item to its source learning ID
 
 **If "Create prevention" selected**:
 - For recurring issues, offer to create hooks/skills/commands
 - Use same automation creation flow as /session-end
-- Ask: project-level or user-level automation?
+- Ask: which scope for the automation? (project-level or user-level)
 
 ---
 
 ## Examples by Scope
 
-### Example 1: Recent Work Check
+### Example 1: Default Multi-Scope Search
 
 ```
 User: /check-gotchas
 
-Memory search finds:
-- 2 critical: Build-test mismatch (matches uncommitted CLI changes)
-- 1 high: Schema string manipulation (matches validation.ts changes)
-- 3 medium: General TypeScript patterns
-
-Output: Focused warning on build-test and schema issues
-```
-
-### Example 2: Staged Changes
-
-```
-User: /check-gotchas staged
-
-Git shows: src/ipfs/daemon.ts, tests/daemon.test.ts
+Searches: User → Project → Local
 
 Memory search finds:
-- 1 critical: Daemon validation bypass (exact file match!)
-- 1 high: Async test timing (matches test file)
+- 1 critical from User: Common TypeScript pattern violation
+- 2 critical from Project: Build-test mismatch, Schema validation
+- 1 high from Local: Personal workflow gotcha
 
-Output: Strong warning about known daemon path issue
+Output: Combined results with scope tags, sorted by severity
 ```
 
-### Example 3: Comprehensive Review
+### Example 2: Single Scope Search
 
 ```
-User: /check-gotchas all
+User: /check-gotchas --scope project
 
-Memory search returns:
-- All learnings tagged 'gotcha' or 'warning'
-- Grouped by severity
-- Full list for review
-
-Output: Complete gotcha inventory from memory
-```
-
-### Example 4: Specific File
-
-```
-User: /check-gotchas src/validation/schema.ts
+Searches: Project scope only
 
 Memory search finds:
-- Schema-related gotchas only
-- Validation-specific warnings
+- 2 critical: Build-test mismatch, Schema validation
+- 1 high: Async test timing
+
+Output: Project-only gotchas
+```
+
+### Example 3: Staged Changes with Topic
+
+```
+User: /check-gotchas staged validation
+
+Git shows: src/validation/schema.ts
+Topic filter: "validation"
+
+Memory search finds across all scopes:
+- Validation-related gotchas only
+- Schema-specific warnings
 - Related decisions about validation approach
 
-Output: Targeted warnings for that file
+Output: Targeted warnings for validation work
 ```
 
 ---
@@ -402,7 +435,8 @@ No relevant gotchas found for this work.
 **Checked:**
 - Files: {list}
 - Technologies: {list}
-- Memory search: {count} total gotchas reviewed
+- Scopes searched: {list}
+- Memory search: {count} total gotchas reviewed across all scopes
 
 **This means:**
 ✅ No documented past mistakes match this work
@@ -418,62 +452,44 @@ Document any gotchas you discover during this work so future sessions can benefi
 ```markdown
 # Gotcha Check: No Memory Data
 
-The memory system has no documented gotchas yet.
+The memory system has no documented gotchas in any accessible scope.
+
+**Scopes checked**: {list}
 
 **This is expected if:**
 - This is a new project
-- Memory system was recently initialized
+- Memory system was recently initialised
 - No learnings have been documented
 
 **Recommendation:**
 As you work, document gotchas using:
-`~/.claude/skills/memory/learnings.sh add {id} --tags gotcha,warning`
-```
-
-### Multiple Recurring Issues
-
-```markdown
-# Gotcha Check: Recurring Pattern Detected
-
-⚠️  **ALERT**: {count} gotchas are recurring (appear multiple times in memory)
-
-**Most Frequent:**
-1. "{Gotcha X}" - appears {count} times
-2. "{Gotcha Y}" - appears {count} times
-3. "{Gotcha Z}" - appears {count} times
-
-**RECOMMENDATION: Create Automation**
-
-These issues keep happening. Time to prevent them permanently:
-- Use `/session-end` quality gate to set up prevention
-- Create git hooks, linters, or validation scripts
-- Stop documenting the same mistake repeatedly
+`~/.claude/skills/memory/memory.sh write --type gotcha --scope <scope> ...`
 ```
 
 ---
 
-## Integration with Other Commands
+## Scope Reference
 
-**From /session-end**:
-- Quality review finds recurring issue
-- Suggests: "Run /check-gotchas to see full history of this issue"
-- Then offer automation creation
+| Scope | Flag | Hub Path | Description |
+|-------|------|----------|-------------|
+| User | `--scope user` | `~/.claude/memory/permanent/` | Personal cross-project |
+| Project | `--scope project` | `.claude/memory/permanent/` | Shared project (in git) |
+| Local | `--scope local` | `.claude/memory/local/permanent/` | Personal project (gitignored) |
+| Enterprise | `--scope enterprise` | `$CLAUDE_MEMORY_ENTERPRISE_PATH/permanent/` | Organisation-wide (managed environments) |
 
-**Before /speckit.implement**:
-- Check gotchas related to feature area before starting
-- Proactive warning: "Past issues in this area: X, Y, Z"
+**Precedence order**: User > Project > Local > Enterprise
 
-**After fixing a bug**:
-- Document the gotcha
-- Run /check-gotchas to see if it's related to existing warnings
+**Legacy alias**: `--scope global` is accepted as an alias for `--scope user`.
 
----
+**Default behaviour**: Search all accessible scopes, merge and deduplicate results.
 
 ## Notes
 
 - This command is **read-only** by default - never modifies code or git state
 - "Update hub" option can modify the gotcha checklist hub (with user consent)
-- Uses **three-tier search**: Hub checklist → Raw memory → Coverage analysis
+- Uses **three-tier search**: Hub checklists → Raw memory → Coverage analysis
+- **Multi-scope search** merges results across all accessible scopes by default
+- Gotchas are deduplicated by memory ID (highest precedence scope wins)
 - Hub provides curated, severity-ranked gotchas; raw search finds additional matches
 - Effectiveness depends on documented learnings in memory
 - Use **memory-recall agent** for intelligent pattern matching
@@ -481,3 +497,4 @@ These issues keep happening. Time to prevent them permanently:
 - Best used proactively before starting work, not just before committing
 - Recurring gotchas indicate need for automation (hooks/linters/skills)
 - Hub Coverage Report helps maintain completeness of the gotcha checklist
+- **Enterprise scope** is for managed environments - pass `--scope enterprise` explicitly if needed

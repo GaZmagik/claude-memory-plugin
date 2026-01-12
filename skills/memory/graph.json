@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "hub-decisions",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-auth",
+      "type": "decision"
+    },
+    {
+      "id": "decision-api",
+      "type": "decision"
+    }
+  ],
+  "edges": [
+    {
+      "source": "decision-auth",
+      "target": "hub-decisions",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-api",
+      "target": "hub-decisions",
+      "label": "relates-to"
+    }
+  ]
+}

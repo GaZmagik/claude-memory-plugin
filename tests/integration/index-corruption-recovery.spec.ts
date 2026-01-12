@@ -48,7 +48,7 @@ describe('Index Corruption Recovery', () => {
 
       // loadIndex should return empty index when corrupted
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toEqual([]);
+      expect(loaded.memories).toEqual([]);
       expect(loaded.version).toBe('1.0.0');
 
       // Rebuild should recover the memory
@@ -58,8 +58,8 @@ describe('Index Corruption Recovery', () => {
 
       // Verify index is now valid
       const recoveredIndex = await loadIndex({ basePath: testDir });
-      expect(recoveredIndex.entries).toHaveLength(1);
-      expect(recoveredIndex.entries[0].title).toBe('Test Memory');
+      expect(recoveredIndex.memories).toHaveLength(1);
+      expect(recoveredIndex.memories[0].title).toBe('Test Memory');
     });
 
     it('should handle truncated JSON files', async () => {
@@ -78,12 +78,12 @@ describe('Index Corruption Recovery', () => {
 
       // Should handle gracefully
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toEqual([]);
+      expect(loaded.memories).toEqual([]);
 
       // Rebuild recovers
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries).toHaveLength(1);
+      expect(recovered.memories).toHaveLength(1);
     });
 
     it('should handle empty index file', async () => {
@@ -100,11 +100,11 @@ describe('Index Corruption Recovery', () => {
       fs.writeFileSync(indexPath, '');
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toEqual([]);
+      expect(loaded.memories).toEqual([]);
 
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries).toHaveLength(1);
+      expect(recovered.memories).toHaveLength(1);
     });
 
     it('should handle JSON with wrong root type', async () => {
@@ -171,7 +171,7 @@ describe('Index Corruption Recovery', () => {
 
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded).toBeDefined();
-      expect(loaded.entries).toBeUndefined(); // No entries array in corrupted index
+      expect(loaded.memories).toBeUndefined(); // No entries array in corrupted index
 
       // rebuildIndex fails when existing index has no entries array
       // The implementation tries to access existingIndex.entries.map() which throws
@@ -191,8 +191,8 @@ describe('Index Corruption Recovery', () => {
 
       // Corrupt an entry by removing required fields
       const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-      delete index.entries[0].title;
-      delete index.entries[0].type;
+      delete index.memories[0].title;
+      delete index.memories[0].type;
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       // List should still work (might skip invalid entries)
@@ -202,8 +202,8 @@ describe('Index Corruption Recovery', () => {
       // Rebuild fixes it
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries[0].title).toBe('Complete Memory');
-      expect(recovered.entries[0].type).toBe(MemoryType.Gotcha);
+      expect(recovered.memories[0].title).toBe('Complete Memory');
+      expect(recovered.memories[0].type).toBe(MemoryType.Gotcha);
     });
   });
 
@@ -225,7 +225,7 @@ describe('Index Corruption Recovery', () => {
 
       // Should still load
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.memories).toHaveLength(1);
     });
 
     it('should handle missing version', async () => {
@@ -243,7 +243,7 @@ describe('Index Corruption Recovery', () => {
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.memories).toHaveLength(1);
     });
 
     it('should handle invalid version format', async () => {
@@ -261,7 +261,7 @@ describe('Index Corruption Recovery', () => {
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.memories).toHaveLength(1);
     });
   });
 
@@ -278,15 +278,15 @@ describe('Index Corruption Recovery', () => {
 
       // Corrupt field types
       const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-      index.entries[0].tags = 'not-an-array'; // Should be array
-      index.entries[0].created = 12345; // Should be string
+      index.memories[0].tags = 'not-an-array'; // Should be array
+      index.memories[0].created = 12345; // Should be string
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       // Rebuild recovers correct types
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(Array.isArray(recovered.entries[0].tags)).toBe(true);
-      expect(typeof recovered.entries[0].created).toBe('string');
+      expect(Array.isArray(recovered.memories[0].tags)).toBe(true);
+      expect(typeof recovered.memories[0].created).toBe('string');
     });
 
     it('should handle lastUpdated as number instead of string', async () => {
@@ -304,7 +304,7 @@ describe('Index Corruption Recovery', () => {
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.memories).toHaveLength(1);
     });
   });
 
@@ -332,7 +332,7 @@ describe('Index Corruption Recovery', () => {
       // Corrupt the index but keep structure
       const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
       // Add invalid entry
-      index.entries.push({
+      index.memories.push({
         id: null,
         type: null,
         title: null,
@@ -343,8 +343,8 @@ describe('Index Corruption Recovery', () => {
       // Rebuild recovers valid entries
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries).toHaveLength(2);
-      expect(recovered.entries.every(e => e.title !== null)).toBe(true);
+      expect(recovered.memories).toHaveLength(2);
+      expect(recovered.memories.every(e => e.title !== null)).toBe(true);
     });
 
     it('should handle duplicate IDs in index', async () => {
@@ -359,14 +359,14 @@ describe('Index Corruption Recovery', () => {
 
       // Duplicate the entry
       const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-      const entry = index.entries[0];
-      index.entries.push({ ...entry, title: 'Duplicate' });
+      const entry = index.memories[0];
+      index.memories.push({ ...entry, title: 'Duplicate' });
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       // Rebuild deduplicates
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries).toHaveLength(1);
+      expect(recovered.memories).toHaveLength(1);
     });
 
     it('should recover when index has extra unknown fields', async () => {
@@ -382,12 +382,12 @@ describe('Index Corruption Recovery', () => {
       // Add unknown fields
       const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
       index.unknownField = 'unknown value';
-      index.entries[0].extraData = { foo: 'bar' };
+      index.memories[0].extraData = { foo: 'bar' };
       fs.writeFileSync(indexPath, JSON.stringify(index));
 
       // Should still load (ignoring unknown fields)
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
+      expect(loaded.memories).toHaveLength(1);
     });
   });
 
@@ -421,7 +421,7 @@ describe('Index Corruption Recovery', () => {
       // Rebuild recovers all memories
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.entries.length).toBeGreaterThanOrEqual(2);
+      expect(recovered.memories.length).toBeGreaterThanOrEqual(2);
     });
 
     it('should handle permission-denied scenarios gracefully', async () => {

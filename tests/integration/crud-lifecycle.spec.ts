@@ -129,15 +129,15 @@ describe('Full CRUD lifecycle integration', () => {
     // Verify index has 3 entries
     const indexPath = path.join(testDir, 'index.json');
     let index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(3);
+    expect(index.memories).toHaveLength(3);
 
     // Delete middle memory
     await deleteMemory({ id: createdIds[1], basePath: testDir });
 
     // Verify index has 2 entries
     index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(2);
-    expect(index.entries.some((e: { id: string }) => e.id === createdIds[1])).toBe(false);
+    expect(index.memories).toHaveLength(2);
+    expect(index.memories.some((e: { id: string }) => e.id === createdIds[1])).toBe(false);
 
     // Add another memory
     const newResult = await writeMemory({
@@ -151,8 +151,8 @@ describe('Full CRUD lifecycle integration', () => {
 
     // Verify index has 3 entries again
     index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(3);
-    expect(index.entries.some((e: { id: string }) => e.id === newResult.memory?.id)).toBe(true);
+    expect(index.memories).toHaveLength(3);
+    expect(index.memories.some((e: { id: string }) => e.id === newResult.memory?.id)).toBe(true);
   });
 
   it('should handle sequential writes correctly', async () => {

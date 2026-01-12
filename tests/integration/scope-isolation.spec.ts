@@ -234,13 +234,13 @@ describe('Scope Isolation', () => {
         fs.readFileSync(path.join(project1LocalDir, 'index.json'), 'utf-8')
       );
 
-      expect(globalIndex.entries.length).toBe(1);
-      expect(projectIndex.entries.length).toBe(1);
-      expect(localIndex.entries.length).toBe(1);
+      expect(globalIndex.memories.length).toBe(1);
+      expect(projectIndex.memories.length).toBe(1);
+      expect(localIndex.memories.length).toBe(1);
 
-      expect(globalIndex.entries[0].title).toBe('Global Memory');
-      expect(projectIndex.entries[0].title).toBe('Project Memory');
-      expect(localIndex.entries[0].title).toBe('Local Memory');
+      expect(globalIndex.memories[0].title).toBe('Global Memory');
+      expect(projectIndex.memories[0].title).toBe('Project Memory');
+      expect(localIndex.memories[0].title).toBe('Local Memory');
     });
   });
 

@@ -48,7 +48,7 @@ describe('Index rebuild integration', () => {
     const indexPath = path.join(testDir, 'index.json');
     expect(fs.existsSync(indexPath)).toBe(true);
     let index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(2);
+    expect(index.memories).toHaveLength(2);
 
     // Delete the index file
     fs.unlinkSync(indexPath);
@@ -62,7 +62,7 @@ describe('Index rebuild integration', () => {
     // Verify index is restored
     expect(fs.existsSync(indexPath)).toBe(true);
     index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(2);
+    expect(index.memories).toHaveLength(2);
 
     // Verify list still works
     const listResult = await listMemories({ basePath: testDir });
@@ -91,7 +91,7 @@ describe('Index rebuild integration', () => {
 
     // Verify index is valid again
     const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(1);
+    expect(index.memories).toHaveLength(1);
   });
 
   it('should detect orphaned index entries', async () => {
@@ -126,8 +126,8 @@ describe('Index rebuild integration', () => {
 
     // Verify index only has the valid memory
     const index = await loadIndex({ basePath: testDir });
-    expect(index.entries).toHaveLength(1);
-    expect(index.entries[0].id).toBe(result1.memory?.id);
+    expect(index.memories).toHaveLength(1);
+    expect(index.memories[0].id).toBe(result1.memory?.id);
   });
 
   it('should discover unindexed memory files', async () => {
@@ -167,7 +167,7 @@ This was added manually without updating the index.
 
     // Verify both are in index
     const index = await loadIndex({ basePath: testDir });
-    expect(index.entries).toHaveLength(2);
+    expect(index.memories).toHaveLength(2);
   });
 
   it('should preserve metadata during rebuild', async () => {
@@ -186,7 +186,7 @@ This was added manually without updating the index.
     // Get original index
     const indexPath = path.join(testDir, 'index.json');
     const originalIndex = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    const originalEntry = originalIndex.entries[0];
+    const originalEntry = originalIndex.memories[0];
 
     // Delete and rebuild
     fs.unlinkSync(indexPath);
@@ -194,7 +194,7 @@ This was added manually without updating the index.
 
     // Verify metadata preserved
     const newIndex = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    const newEntry = newIndex.entries[0];
+    const newEntry = newIndex.memories[0];
 
     expect(newEntry.id).toBe(originalEntry.id);
     expect(newEntry.title).toBe(originalEntry.title);
@@ -213,7 +213,7 @@ This was added manually without updating the index.
     const indexPath = path.join(testDir, 'index.json');
     expect(fs.existsSync(indexPath)).toBe(true);
     const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries).toHaveLength(0);
+    expect(index.memories).toHaveLength(0);
   });
 
   it('should rebuild with correct timestamps', async () => {
@@ -239,7 +239,7 @@ This was added manually without updating the index.
 
     // Verify entry uses file's creation time, not rebuild time
     const index = await loadIndex({ basePath: testDir });
-    const entry = index.entries.find(e => e.id === originalId);
+    const entry = index.memories.find(e => e.id === originalId);
     expect(entry).toBeDefined();
     expect(new Date(entry!.created).getTime()).toBeLessThan(Date.now());
   });

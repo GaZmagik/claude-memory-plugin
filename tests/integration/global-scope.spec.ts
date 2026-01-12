@@ -149,7 +149,7 @@ describe('Global Scope Storage', () => {
     expect(fs.existsSync(indexPath)).toBe(true);
 
     const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries.length).toBe(1);
-    expect(index.entries[0].scope).toBe(Scope.Global);
+    expect(index.memories.length).toBe(1);
+    expect(index.memories[0].scope).toBe(Scope.Global);
   });
 });

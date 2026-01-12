@@ -221,7 +221,7 @@ describe('Filesystem Permission Errors', () => {
       const loadResult = await loadIndex({ basePath: nonExistentDir });
 
       // Should return empty index
-      expect(loadResult.entries).toEqual([]);
+      expect(loadResult.memories).toEqual([]);
     });
   });
 

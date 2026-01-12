@@ -99,7 +99,7 @@ describe('Project Scope Storage', () => {
     expect(fs.existsSync(indexPath)).toBe(true);
 
     const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    expect(index.entries.length).toBe(2);
+    expect(index.memories.length).toBe(2);
   });
 
   it('should support team sharing via git', async () => {

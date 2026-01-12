@@ -1,12 +1,15 @@
 ---
-id: learning-memory-skill-no-cli
+type: learning
 title: Memory Skill TypeScript Library Has No CLI Entry Point
-type: permanent
+created: "2026-01-12T15:45:00Z"
+updated: "2026-01-12T17:15:29.489Z"
+tags:
+  - cli
+  - architecture
+  - discovery
+  - critical
 scope: project
-tags: [cli, architecture, discovery, critical]
 severity: high
-created: 2026-01-12T15:45:00Z
-updated: 2026-01-12T15:45:00Z
 ---
 
 # Discovery: Memory Skill TypeScript Library Has No CLI Entry Point

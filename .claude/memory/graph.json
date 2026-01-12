@@ -179,6 +179,10 @@
     {
       "id": "learning-retro-test-isolation-pattern-worth-documenting",
       "title": "retro-test-isolation-pattern-worth-documenting"
+    },
+    {
+      "id": "learning-cli-gap",
+      "type": "learning"
     }
   ],
   "edges": [

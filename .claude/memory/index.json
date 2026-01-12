@@ -728,7 +728,23 @@
       "updated": "2026-01-12T09:23:32.054Z",
       "scope": "project",
       "relativePath": "learning-plugin-integration-test-3.md"
+    },
+    {
+      "id": "learning-cli-gap",
+      "title": "Memory Skill TypeScript Library Has No CLI Entry Point",
+      "type": "learning",
+      "tags": [
+        "cli",
+        "architecture",
+        "discovery",
+        "critical"
+      ],
+      "created": "2026-01-12T15:45:00Z",
+      "updated": "2026-01-12T15:45:00Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-gap.md",
+      "severity": "high"
     }
   ],
-  "lastUpdated": "2026-01-12T09:28:05.180Z"
+  "lastUpdated": "2026-01-12T17:15:29.493Z"
 }

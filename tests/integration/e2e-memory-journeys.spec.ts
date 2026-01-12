@@ -59,7 +59,8 @@ describe('E2E Memory Journeys', () => {
         if (readResult.status === 'success' && readResult.memory) {
           expect(readResult.memory.frontmatter.title).toBe('Test Memory');
           expect(readResult.memory.content).toBe('This is the detailed content of the test memory.');
-          expect(readResult.memory.frontmatter.tags).toEqual(['testing', 'e2e']);
+          // Note: writeMemory auto-adds scope tag ('local' for Local scope)
+          expect(readResult.memory.frontmatter.tags).toEqual(['testing', 'e2e', 'local']);
         }
       }
     });
@@ -88,7 +89,8 @@ describe('E2E Memory Journeys', () => {
 
         if (readResult.status === 'success' && readResult.memory) {
           expect(readResult.memory.frontmatter.links).toEqual(['related-1', 'related-2']);
-          expect(readResult.memory.frontmatter.tags).toEqual(['meta', 'data', 'test']);
+          // Note: writeMemory auto-adds scope tag ('local' for Local scope)
+          expect(readResult.memory.frontmatter.tags).toEqual(['meta', 'data', 'test', 'local']);
           expect(readResult.memory.frontmatter.scope).toBe(Scope.Local);
         }
       }
@@ -295,7 +297,8 @@ describe('E2E Memory Journeys', () => {
         if (readResult.status === 'success' && readResult.memory) {
           expect(readResult.memory.frontmatter.title).toBe('First Learning');
           expect(readResult.memory.content).toBe('First content');
-          expect(readResult.memory.frontmatter.tags).toEqual(['first']);
+          // Note: writeMemory auto-adds scope tag ('local' for Local scope)
+          expect(readResult.memory.frontmatter.tags).toEqual(['first', 'local']);
         }
       }
     });

@@ -206,7 +206,8 @@ describe('Full CRUD lifecycle integration', () => {
     expect(readResult.status).toBe('success');
     expect(readResult.memory?.frontmatter.title).toBe(originalData.title);
     expect(readResult.memory?.frontmatter.type).toBe(originalData.type);
-    expect(readResult.memory?.frontmatter.tags).toEqual(originalData.tags);
+    // Note: writeMemory auto-adds scope tag ('user' for Global scope)
+    expect(readResult.memory?.frontmatter.tags).toEqual([...originalData.tags, 'user']);
     expect(readResult.memory?.frontmatter.severity).toBe(originalData.severity);
     expect(readResult.memory?.frontmatter.links).toEqual(originalData.links);
     expect(readResult.memory?.content).toContain('critical');

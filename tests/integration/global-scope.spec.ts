@@ -42,8 +42,9 @@ describe('Global Scope Storage', () => {
 
     expect(result.status).toBe('success');
 
-    // Verify file is in global directory
-    const files = fs.readdirSync(globalMemoryDir);
+    // Verify file is in global directory (in permanent/ subdirectory)
+    const permanentDir = path.join(globalMemoryDir, 'permanent');
+    const files = fs.readdirSync(permanentDir);
     expect(files.some(f => f.includes('decision-global-decision'))).toBe(true);
   });
 

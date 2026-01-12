@@ -45,8 +45,9 @@ describe('Local Scope Storage', () => {
 
     expect(result.status).toBe('success');
 
-    // Verify file is in local directory
-    const files = fs.readdirSync(localMemoryDir);
+    // Verify file is in local directory (in permanent/ subdirectory)
+    const permanentDir = path.join(localMemoryDir, 'permanent');
+    const files = fs.readdirSync(permanentDir);
     expect(files.some(f => f.includes('learning-personal-note'))).toBe(true);
   });
 

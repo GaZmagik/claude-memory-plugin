@@ -43,8 +43,9 @@ describe('Project Scope Storage', () => {
 
     expect(result.status).toBe('success');
 
-    // Verify file is in project directory
-    const files = fs.readdirSync(projectMemoryDir);
+    // Verify file is in project directory (in permanent/ subdirectory)
+    const permanentDir = path.join(projectMemoryDir, 'permanent');
+    const files = fs.readdirSync(permanentDir);
     expect(files.some(f => f.includes('decision-project-decision'))).toBe(true);
   });
 
@@ -115,8 +116,9 @@ describe('Project Scope Storage', () => {
       basePath: projectMemoryDir,
     });
 
-    // Verify the file is in .claude/memory (tracked path)
-    const files = fs.readdirSync(projectMemoryDir);
+    // Verify the file is in .claude/memory/permanent/ (tracked path)
+    const permanentDir = path.join(projectMemoryDir, 'permanent');
+    const files = fs.readdirSync(permanentDir);
     expect(files.some(f => f.endsWith('.md'))).toBe(true);
 
     // Verify file path is relative to project root

@@ -201,6 +201,130 @@ export interface BulkLinkResponse extends BaseResponse {
   dryRun?: boolean;
 }
 
+/**
+ * Shared filter criteria for bulk operations
+ */
+export interface BulkFilterCriteria {
+  /** Glob pattern to match memory IDs (e.g., "decision-*") */
+  pattern?: string;
+  /** Explicit memory IDs (alternative to pattern) */
+  ids?: string[];
+  /** Filter by tags (AND logic) */
+  tags?: string[];
+  /** Filter by memory type */
+  type?: MemoryType;
+  /** Filter by current scope */
+  sourceScope?: Scope;
+}
+
+/**
+ * Request to move multiple memories to a different scope
+ */
+export interface BulkMoveRequest extends BaseRequest, BulkFilterCriteria {
+  /** Target scope to move memories to */
+  targetScope: Scope;
+  /** Preview mode - show what would be moved without moving */
+  dryRun?: boolean;
+  /** Progress callback */
+  onProgress?: BulkProgressCallback;
+}
+
+/**
+ * Response from bulk move operation
+ */
+export interface BulkMoveResponse extends BaseResponse {
+  /** Number of memories moved (or would be moved in dry-run) */
+  movedCount?: number;
+  /** IDs of moved memories */
+  movedIds?: string[];
+  /** IDs that failed to move */
+  failedIds?: Array<{ id: string; reason: string }>;
+  /** Whether this was a dry run */
+  dryRun?: boolean;
+}
+
+/**
+ * Request to add or remove tags from multiple memories
+ */
+export interface BulkTagRequest extends BaseRequest, BulkFilterCriteria {
+  /** Tags to add */
+  addTags?: string[];
+  /** Tags to remove */
+  removeTags?: string[];
+  /** Preview mode - show what would be modified without modifying */
+  dryRun?: boolean;
+  /** Progress callback */
+  onProgress?: BulkProgressCallback;
+}
+
+/**
+ * Response from bulk tag operation
+ */
+export interface BulkTagResponse extends BaseResponse {
+  /** Number of memories modified (or would be modified in dry-run) */
+  modifiedCount?: number;
+  /** IDs of modified memories */
+  modifiedIds?: string[];
+  /** IDs that failed to modify */
+  failedIds?: Array<{ id: string; reason: string }>;
+  /** Whether this was a dry run */
+  dryRun?: boolean;
+}
+
+/**
+ * Request to remove links from multiple memories to a target
+ */
+export interface BulkUnlinkRequest extends BaseRequest, BulkFilterCriteria {
+  /** Target memory ID to unlink from */
+  target: string;
+  /** Specific relation to remove (optional, removes all if not specified) */
+  relation?: string;
+  /** Preview mode - show what would be unlinked without unlinking */
+  dryRun?: boolean;
+  /** Progress callback */
+  onProgress?: BulkProgressCallback;
+}
+
+/**
+ * Response from bulk unlink operation
+ */
+export interface BulkUnlinkResponse extends BaseResponse {
+  /** Number of links removed (or would be removed in dry-run) */
+  unlinkedCount?: number;
+  /** Link pairs that were removed */
+  unlinkedPairs?: Array<{ source: string; target: string }>;
+  /** IDs that failed to unlink */
+  failedIds?: Array<{ id: string; reason: string }>;
+  /** Whether this was a dry run */
+  dryRun?: boolean;
+}
+
+/**
+ * Request to promote or demote multiple memories to a different type
+ */
+export interface BulkPromoteRequest extends BaseRequest, BulkFilterCriteria {
+  /** Target memory type to promote/demote to */
+  targetType: MemoryType;
+  /** Preview mode - show what would be promoted without promoting */
+  dryRun?: boolean;
+  /** Progress callback */
+  onProgress?: BulkProgressCallback;
+}
+
+/**
+ * Response from bulk promote/demote operation
+ */
+export interface BulkPromoteResponse extends BaseResponse {
+  /** Number of memories promoted (or would be promoted in dry-run) */
+  promotedCount?: number;
+  /** IDs of promoted memories */
+  promotedIds?: string[];
+  /** IDs that failed to promote */
+  failedIds?: Array<{ id: string; reason: string }>;
+  /** Whether this was a dry run */
+  dryRun?: boolean;
+}
+
 // ============================================================================
 // Export/Import Operations
 // ============================================================================

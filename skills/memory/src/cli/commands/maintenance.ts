@@ -20,6 +20,9 @@ import { reindexMemory } from '../../maintenance/reindex.js';
 import { syncFrontmatter } from '../../maintenance/sync-frontmatter.js';
 import { refreshFrontmatter } from '../../maintenance/refresh-frontmatter.js';
 import { checkHealth } from '../../quality/health.js';
+import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embedding.js';
+import { loadIndex } from '../../core/index.js';
+import { readMemory } from '../../core/read.js';
 
 /**
  * Get global memory path
@@ -224,15 +227,53 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const project = getFlagString(args.flags, 'project');
   const idFlag = getFlagString(args.flags, 'id');
   const ids = idFlag ? [idFlag] : undefined;
+  const generateEmbeddings = args.flags['embeddings'] === true;
 
   return wrapOperation(
     async () => {
+      // First run frontmatter refresh
       const result = await refreshFrontmatter({
         basePath,
         dryRun,
         project,
         ids,
       });
+
+      // If --embeddings flag, generate embeddings for all memories
+      if (generateEmbeddings && !dryRun) {
+        const index = await loadIndex({ basePath });
+        const provider = createOllamaProvider();
+
+        // Build memory list for embedding
+        const memoriesToEmbed: Array<{ id: string; content: string; hash?: string }> = [];
+        for (const entry of index.memories) {
+          // Skip if filtering by IDs and this one isn't included
+          if (ids && !ids.includes(entry.id)) continue;
+
+          const memoryResult = await readMemory({ id: entry.id, basePath });
+          if (memoryResult.status === 'success' && memoryResult.memory?.content) {
+            memoriesToEmbed.push({
+              id: entry.id,
+              content: memoryResult.memory.content,
+            });
+          }
+        }
+
+        // Generate embeddings
+        const embeddingResults = await batchGenerateEmbeddings(
+          memoriesToEmbed,
+          basePath,
+          provider
+        );
+
+        return {
+          ...result,
+          embeddingsGenerated: embeddingResults.filter(r => !r.fromCache).length,
+          embeddingsCached: embeddingResults.filter(r => r.fromCache).length,
+          embeddingsTotal: embeddingResults.length,
+        };
+      }
+
       return result;
     },
     dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'

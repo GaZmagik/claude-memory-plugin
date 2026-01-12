@@ -18,6 +18,7 @@ import { listMemories } from '../../core/list.js';
 import { deleteMemory } from '../../core/delete.js';
 import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
+import { createOllamaProvider } from '../../search/embedding.js';
 import { getScopePath } from '../../scope/resolver.js';
 
 /**
@@ -253,6 +254,9 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.5;
   const limit = getFlagNumber(args.flags, 'limit') ?? 10;
 
+  // Create Ollama embedding provider
+  const provider = createOllamaProvider();
+
   return wrapOperation(
     async () => {
       const result = await semanticSearchMemories({
@@ -260,6 +264,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
         basePath,
         threshold,
         limit,
+        provider,
       });
       return result;
     },

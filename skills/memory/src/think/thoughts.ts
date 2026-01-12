@@ -28,6 +28,7 @@ import { validateThinkAdd, validateThinkUse } from './validation.js';
 import { writeFileAtomic, readFile, fileExists } from '../core/fs-utils.js';
 import { getScopePath } from '../scope/resolver.js';
 import { createLogger } from '../core/logger.js';
+import { invokeAI } from './ai-invoke.js';
 
 const log = createLogger('think-thoughts');
 
@@ -116,17 +117,52 @@ export async function addThought(
       };
     }
 
+    // Handle AI invocation if --call option provided
+    let thoughtContent = request.thought;
+    let attribution = request.by;
+
+    if (request.call) {
+      log.info('Invoking AI for thought', { documentId, type: request.type });
+
+      const aiResult = await invokeAI({
+        topic: parsed.frontmatter.topic,
+        thoughtType: request.type,
+        existingThoughts: parsed.thoughts ?? [],
+        options: {
+          ...request.call,
+          guidance: request.thought, // User's text becomes guidance for AI
+        },
+        basePath,
+      });
+
+      if (!aiResult.success) {
+        return {
+          status: 'error',
+          error: `AI invocation failed: ${aiResult.error}`,
+        };
+      }
+
+      thoughtContent = aiResult.content ?? '';
+      // Auto-set attribution with model and session ID
+      const model = request.call.model ?? 'haiku';
+      attribution = aiResult.sessionId
+        ? `claude:${model} [${aiResult.sessionId}]`
+        : `claude:${model}`;
+
+      log.info('AI thought generated', { documentId, sessionId: aiResult.sessionId });
+    }
+
     const timestamp = new Date().toISOString();
 
     // Create thought entry
     const entry: ThoughtEntry = {
       timestamp,
       type: request.type,
-      content: request.thought,
+      content: thoughtContent,
     };
 
-    if (request.by) {
-      entry.by = request.by;
+    if (attribution) {
+      entry.by = attribution;
     }
 
     // Format the thought as markdown
@@ -152,8 +188,8 @@ export async function addThought(
       thought: {
         timestamp,
         type: request.type,
-        content: request.thought,
-        by: request.by,
+        content: thoughtContent,
+        by: attribution,
       },
       documentId,
     };

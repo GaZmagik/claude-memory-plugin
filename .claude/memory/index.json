@@ -1337,7 +1337,37 @@
       "updated": "2026-01-12T22:10:04.364Z",
       "scope": "project",
       "relativePath": "temporary/thought-20260112-221004029.md"
+    },
+    {
+      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "type": "learning",
+      "title": "Retro: Explore agent accelerates pattern synthesis",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-12T22:43:03.426Z",
+      "updated": "2026-01-12T22:43:03.426Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-explore-agent-accelerates-pattern-synthesis.md"
+    },
+    {
+      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "type": "learning",
+      "title": "Retro: TDD hook enforcement caught gaps early",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-12T22:43:09.650Z",
+      "updated": "2026-01-12T22:43:09.650Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-hook-enforcement-caught-gaps-early.md"
     }
   ],
-  "lastUpdated": "2026-01-12T22:23:03.876Z"
+  "lastUpdated": "2026-01-12T22:43:09.657Z"
 }

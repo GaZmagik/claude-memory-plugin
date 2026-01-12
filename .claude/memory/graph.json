@@ -347,6 +347,14 @@
     {
       "id": "thought-20260112-221004029",
       "type": "breadcrumb"
+    },
+    {
+      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "type": "learning"
     }
   ],
   "edges": [

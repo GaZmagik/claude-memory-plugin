@@ -15,6 +15,8 @@ import { addToIndex } from './index.js';
 import { validateWriteRequest } from './validation.js';
 import { createLogger } from './logger.js';
 import { ensureLocalScopeGitignored } from '../scope/gitignore.js';
+import { findSimilarToMemory } from '../search/semantic.js';
+import { linkMemories } from '../graph/link.js';
 
 const log = createLogger('write');
 
@@ -44,6 +46,55 @@ function mergeTagsWithScope(userTags: string[] | undefined, scope: Scope): strin
     tags.push(scopeTag);
   }
   return tags;
+}
+
+const AUTO_LINK_RELATION = 'auto-linked-by-similarity';
+
+/**
+ * Perform auto-linking for a newly written memory
+ * @returns Number of links created
+ */
+async function performAutoLink(
+  memoryId: string,
+  basePath: string,
+  threshold: number
+): Promise<number> {
+  try {
+    // Find similar memories using embeddings cache
+    // Note: provider param is unused in current implementation (reads from cache)
+    const dummyProvider = { name: 'cache', generate: async () => [] };
+    const similar = await findSimilarToMemory(
+      memoryId,
+      basePath,
+      dummyProvider,
+      threshold
+    );
+
+    if (similar.length === 0) {
+      return 0;
+    }
+
+    // Create bidirectional links
+    let linksCreated = 0;
+    for (const match of similar) {
+      const result = await linkMemories({
+        source: memoryId,
+        target: match.id,
+        relation: AUTO_LINK_RELATION,
+        basePath,
+      });
+
+      if (result.status === 'success' && !result.alreadyExists) {
+        linksCreated++;
+      }
+    }
+
+    return linksCreated;
+  } catch (error) {
+    // Auto-link failure shouldn't fail the write operation
+    log.warn('Auto-link failed', { memoryId, error: String(error) });
+    return 0;
+  }
 }
 
 /**
@@ -121,6 +172,19 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
 
     log.info('Wrote memory', { id, path: filePath });
 
+    // Auto-link if requested
+    let autoLinked: number | undefined;
+    if (request.autoLink) {
+      autoLinked = await performAutoLink(
+        id,
+        basePath,
+        request.autoLinkThreshold ?? 0.85
+      );
+      if (autoLinked > 0) {
+        log.info('Auto-linked memories', { id, count: autoLinked });
+      }
+    }
+
     return {
       status: 'success',
       memory: {
@@ -129,6 +193,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
         frontmatter,
         scope: request.scope,
       },
+      autoLinked,
     };
   } catch (error) {
     log.error('Failed to write memory', { error: String(error) });

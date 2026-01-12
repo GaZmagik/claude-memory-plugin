@@ -10,7 +10,9 @@ src/think/ai-invoke.ts:getClaudeCliVersion
 src/index.ts
 src/think/index.ts
 src/types/index.ts
+src/bulk/index.ts
 
 # Pure type definition files - no runtime code
 src/types/api.ts
 src/types/think.ts
+src/types/operations.ts

@@ -15,6 +15,9 @@ export { listMemories } from './core/list.js';
 export { deleteMemory } from './core/delete.js';
 export { searchMemories } from './core/search.js';
 export { semanticSearchMemories } from './core/semantic-search.js';
+export { tagMemory, untagMemory } from './core/tag.js';
+export { exportMemories } from './core/export.js';
+export { importMemories } from './core/import.js';
 
 // ============================================================================
 // Index Operations
@@ -119,6 +122,22 @@ export {
 
 export { generateMermaid, generateTextGraph, generateDot } from './graph/mermaid.js';
 
+export { linkMemories, unlinkMemories } from './graph/link.js';
+
+// ============================================================================
+// Bulk Operations
+// ============================================================================
+
+export {
+  bulkDelete,
+  bulkLink,
+  filterMemories,
+  countMatches,
+  matchGlobPattern,
+  matchTags,
+  type FilterCriteria,
+} from './bulk/index.js';
+
 // ============================================================================
 // Quality & Health
 // ============================================================================
@@ -168,6 +187,31 @@ export type {
   SemanticSearchResponse,
   MemorySummary,
   SearchResult,
+  // Tag operations
+  TagMemoryRequest,
+  TagMemoryResponse,
+  UntagMemoryRequest,
+  UntagMemoryResponse,
+  // Link operations
+  LinkMemoriesRequest,
+  LinkMemoriesResponse,
+  UnlinkMemoriesRequest,
+  UnlinkMemoriesResponse,
+  // Bulk operations
+  BulkProgress,
+  BulkDeleteRequest,
+  BulkDeleteResponse,
+  BulkLinkRequest,
+  BulkLinkResponse,
+  // Export/Import operations
+  ExportFormat,
+  ExportedMemory,
+  ExportPackage,
+  ExportMemoriesRequest,
+  ExportMemoriesResponse,
+  ImportStrategy,
+  ImportMemoriesRequest,
+  ImportMemoriesResponse,
 } from './types/api.js';
 
 export type { MemoryFrontmatter, IndexEntry, MemoryIndex } from './types/memory.js';

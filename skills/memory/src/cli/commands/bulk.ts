@@ -11,8 +11,15 @@ import type { ParsedArgs } from '../parser.js';
 import { readStdinJson, getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope } from '../../types/enums.js';
-import { bulkLink, bulkDelete } from '../../bulk/index.js';
+import { Scope, MemoryType } from '../../types/enums.js';
+import {
+  bulkLink,
+  bulkDelete,
+  bulkMove,
+  bulkTag,
+  bulkUnlink,
+  bulkPromote,
+} from '../../bulk/index.js';
 import { exportMemories } from '../../core/export.js';
 import { importMemories } from '../../core/import.js';
 import { getScopePath } from '../../scope/resolver.js';
@@ -49,6 +56,28 @@ function parseScope(scopeStr: string | undefined): Scope {
       return Scope.Enterprise;
     default:
       return Scope.Project;
+  }
+}
+
+/**
+ * Parse memory type string to MemoryType enum
+ */
+function parseMemoryType(typeStr: string | undefined): MemoryType | undefined {
+  switch (typeStr?.toLowerCase()) {
+    case 'decision':
+      return MemoryType.Decision;
+    case 'learning':
+      return MemoryType.Learning;
+    case 'artifact':
+      return MemoryType.Artifact;
+    case 'gotcha':
+      return MemoryType.Gotcha;
+    case 'breadcrumb':
+      return MemoryType.Breadcrumb;
+    case 'hub':
+      return MemoryType.Hub;
+    default:
+      return undefined;
   }
 }
 
@@ -206,5 +235,164 @@ export async function cmdImport(args: ParsedArgs): Promise<CliResponse> {
       return result;
     },
     `Imported from ${file}`
+  );
+}
+
+/**
+ * bulk-move - Move multiple memories to a different scope
+ *
+ * Usage: memory bulk-move --to <scope> [--pattern <glob>] [--scope <source-scope>] [--dry-run]
+ */
+export async function cmdBulkMove(args: ParsedArgs): Promise<CliResponse> {
+  const targetScopeStr = getFlagString(args.flags, 'to');
+  if (!targetScopeStr) {
+    return error('Missing required flag: --to <scope>');
+  }
+  const targetScope = parseScope(targetScopeStr);
+
+  const sourceScope = parseScope(getFlagString(args.flags, 'scope'));
+  const basePath = getResolvedScopePath(sourceScope);
+  const pattern = getFlagString(args.flags, 'pattern');
+  const tagsStr = getFlagString(args.flags, 'tags');
+  const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()) : undefined;
+  const typeStr = getFlagString(args.flags, 'type');
+  const type = parseMemoryType(typeStr);
+  const dryRun = getFlagBool(args.flags, 'dry-run');
+
+  if (!pattern && !tags && !type) {
+    return error('Must specify --pattern, --tags, or --type for bulk move');
+  }
+
+  return wrapOperation(
+    async () => {
+      const result = await bulkMove({
+        basePath,
+        pattern,
+        tags,
+        type,
+        sourceScope,
+        targetScope,
+        dryRun,
+      });
+      return result;
+    },
+    `Bulk move to ${targetScopeStr}`
+  );
+}
+
+/**
+ * bulk-tag - Add tags to multiple memories
+ *
+ * Usage: memory bulk-tag --add <tag1,tag2> [--pattern <glob>] [--scope <scope>] [--dry-run]
+ */
+export async function cmdBulkTag(args: ParsedArgs): Promise<CliResponse> {
+  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const basePath = getResolvedScopePath(scope);
+  const pattern = getFlagString(args.flags, 'pattern');
+  const addStr = getFlagString(args.flags, 'add');
+  const addTags = addStr ? addStr.split(',').map((t) => t.trim()) : undefined;
+  const removeStr = getFlagString(args.flags, 'remove');
+  const removeTags = removeStr ? removeStr.split(',').map((t) => t.trim()) : undefined;
+  const dryRun = getFlagBool(args.flags, 'dry-run');
+
+  if (!pattern) {
+    return error('Must specify --pattern for bulk tag');
+  }
+  if (!addTags && !removeTags) {
+    return error('Must specify --add or --remove tags');
+  }
+
+  return wrapOperation(
+    async () => {
+      const result = await bulkTag({
+        basePath,
+        pattern,
+        addTags,
+        removeTags,
+        dryRun,
+      });
+      return result;
+    },
+    'Bulk tag'
+  );
+}
+
+/**
+ * bulk-unlink - Remove links from multiple memories to a target
+ *
+ * Usage: memory bulk-unlink --from <target> [--pattern <glob>] [--scope <scope>] [--dry-run]
+ */
+export async function cmdBulkUnlink(args: ParsedArgs): Promise<CliResponse> {
+  const target = getFlagString(args.flags, 'from');
+  if (!target) {
+    return error('Missing required flag: --from <target>');
+  }
+
+  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const basePath = getResolvedScopePath(scope);
+  const pattern = getFlagString(args.flags, 'pattern');
+  const relation = getFlagString(args.flags, 'relation');
+  const dryRun = getFlagBool(args.flags, 'dry-run');
+
+  if (!pattern) {
+    return error('Must specify --pattern for bulk unlink');
+  }
+
+  return wrapOperation(
+    async () => {
+      const result = await bulkUnlink({
+        basePath,
+        pattern,
+        target,
+        relation,
+        dryRun,
+      });
+      return result;
+    },
+    `Bulk unlink from ${target}`
+  );
+}
+
+/**
+ * bulk-promote - Promote multiple memories to a different type
+ *
+ * Usage: memory bulk-promote --to <type> [--pattern <glob>] [--scope <scope>] [--dry-run]
+ */
+export async function cmdBulkPromote(args: ParsedArgs): Promise<CliResponse> {
+  const targetTypeStr = getFlagString(args.flags, 'to');
+  if (!targetTypeStr) {
+    return error('Missing required flag: --to <type>');
+  }
+  const targetType = parseMemoryType(targetTypeStr);
+  if (!targetType) {
+    return error(`Invalid target type: ${targetTypeStr}. Valid types: decision, learning, artifact, gotcha, breadcrumb, hub`);
+  }
+
+  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const basePath = getResolvedScopePath(scope);
+  const pattern = getFlagString(args.flags, 'pattern');
+  const tagsStr = getFlagString(args.flags, 'tags');
+  const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()) : undefined;
+  const typeStr = getFlagString(args.flags, 'type');
+  const sourceType = parseMemoryType(typeStr);
+  const dryRun = getFlagBool(args.flags, 'dry-run');
+
+  if (!pattern && !tags && !sourceType) {
+    return error('Must specify --pattern, --tags, or --type for bulk promote');
+  }
+
+  return wrapOperation(
+    async () => {
+      const result = await bulkPromote({
+        basePath,
+        pattern,
+        tags,
+        type: sourceType,
+        targetType,
+        dryRun,
+      });
+      return result;
+    },
+    `Bulk promote to ${targetTypeStr}`
   );
 }

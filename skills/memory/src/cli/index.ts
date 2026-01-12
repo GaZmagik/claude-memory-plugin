@@ -17,7 +17,16 @@ import { cmdLink, cmdUnlink, cmdGraph, cmdMermaid, cmdEdges, cmdRemoveNode } fro
 import { cmdHealth, cmdValidate, cmdQuality, cmdAudit, cmdAuditQuick } from './commands/quality.js';
 import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter, cmdRefresh } from './commands/maintenance.js';
 import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus } from './commands/utility.js';
-import { cmdBulkLink, cmdBulkDelete, cmdExport, cmdImport } from './commands/bulk.js';
+import {
+  cmdBulkLink,
+  cmdBulkDelete,
+  cmdBulkMove,
+  cmdBulkTag,
+  cmdBulkUnlink,
+  cmdBulkPromote,
+  cmdExport,
+  cmdImport,
+} from './commands/bulk.js';
 import { cmdSuggestLinks, cmdSummarize } from './commands/suggest.js';
 import { cmdQuery, cmdStats, cmdImpact } from './commands/query.js';
 import { cmdThink } from './commands/think.js';
@@ -78,6 +87,10 @@ const COMMANDS: Record<string, CommandHandler> = {
   // Bulk operations
   'bulk-link': cmdBulkLink,
   'bulk-delete': cmdBulkDelete,
+  'bulk-move': cmdBulkMove,
+  'bulk-tag': cmdBulkTag,
+  'bulk-unlink': cmdBulkUnlink,
+  'bulk-promote': cmdBulkPromote,
   export: cmdExport,
   import: cmdImport,
 

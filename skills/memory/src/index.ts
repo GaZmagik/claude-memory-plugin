@@ -127,6 +127,7 @@ export {
   checkHealth,
   calculateHealthScore,
   formatHealthReport,
+  type CheckHealthRequest,
   type HealthReport,
   type HealthIssue,
   type HealthStatus,

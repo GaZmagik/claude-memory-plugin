@@ -81,7 +81,7 @@ export interface MemoryIndex {
   /** Last rebuild timestamp */
   lastUpdated: string;
   /** Indexed memories */
-  entries: IndexEntry[];
+  memories: IndexEntry[];
 }
 
 /**

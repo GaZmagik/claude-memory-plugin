@@ -19,7 +19,7 @@ export async function listMemories(request: ListMemoriesRequest): Promise<ListMe
   try {
     const index = await loadIndex({ basePath });
 
-    let entries = [...index.entries];
+    let entries = [...index.memories];
 
     // Filter by type
     if (request.type) {

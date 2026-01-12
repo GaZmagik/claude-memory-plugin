@@ -1,6 +1,6 @@
 ---
 description: Check recent work against documented gotchas and warnings in memory system. Prevents repeating past mistakes.
-argument-hint: "[topic]"
+argument-hint: "topic"
 version: "1.0.0"
 ---
 

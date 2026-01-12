@@ -1,6 +1,6 @@
 ---
 description: Check memory system health including graph connectivity, hub integrity, frontmatter sync, and link suggestions.
-argument-hint: "local | global] [quick]"
+argument-hint: "local | global | quick"
 version: "2.0.0"
 ---
 

@@ -32,7 +32,7 @@ export function createEmptyIndex(): MemoryIndex {
   return {
     version: INDEX_VERSION,
     lastUpdated: new Date().toISOString(),
-    entries: [],
+    memories: [],
   };
 }
 
@@ -64,7 +64,7 @@ export function saveIndex(basePath: string, index: MemoryIndex): void {
   const indexPath = getIndexPath(basePath);
   index.lastUpdated = new Date().toISOString();
   writeJsonFile(indexPath, index);
-  log.debug('Saved index', { path: indexPath, entries: index.entries.length });
+  log.debug('Saved index', { path: indexPath, memories: index.memories.length });
 }
 
 /**
@@ -74,10 +74,10 @@ export async function addToIndex(basePath: string, entry: IndexEntry): Promise<v
   const index = await loadIndex({ basePath });
 
   // Remove existing entry with same ID if present
-  index.entries = index.entries.filter(e => e.id !== entry.id);
+  index.memories = index.memories.filter(e => e.id !== entry.id);
 
   // Add new entry
-  index.entries.push(entry);
+  index.memories.push(entry);
 
   saveIndex(basePath, index);
   log.debug('Added to index', { id: entry.id });
@@ -88,11 +88,11 @@ export async function addToIndex(basePath: string, entry: IndexEntry): Promise<v
  */
 export async function removeFromIndex(basePath: string, id: string): Promise<boolean> {
   const index = await loadIndex({ basePath });
-  const initialLength = index.entries.length;
+  const initialLength = index.memories.length;
 
-  index.entries = index.entries.filter(e => e.id !== id);
+  index.memories = index.memories.filter(e => e.id !== id);
 
-  if (index.entries.length < initialLength) {
+  if (index.memories.length < initialLength) {
     saveIndex(basePath, index);
     log.debug('Removed from index', { id });
     return true;
@@ -106,7 +106,7 @@ export async function removeFromIndex(basePath: string, id: string): Promise<boo
  */
 export async function findInIndex(basePath: string, id: string): Promise<IndexEntry | null> {
   const index = await loadIndex({ basePath });
-  return index.entries.find(e => e.id === id) ?? null;
+  return index.memories.find(e => e.id === id) ?? null;
 }
 
 /**
@@ -149,7 +149,7 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
 
   try {
     const existingIndex = await loadIndex({ basePath });
-    const existingIds = new Set(existingIndex.entries.map(e => e.id));
+    const existingIds = new Set(existingIndex.memories.map(e => e.id));
 
     const files = listMarkdownFiles(basePath);
     const newEntries: IndexEntry[] = [];
@@ -188,19 +188,19 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
     }
 
     // Calculate orphans (entries in index but not on disk)
-    const orphansRemoved = existingIndex.entries.filter(e => !foundIds.has(e.id)).length;
+    const orphansRemoved = existingIndex.memories.filter(e => !foundIds.has(e.id)).length;
 
     // Create new index
     const newIndex: MemoryIndex = {
       version: INDEX_VERSION,
       lastUpdated: new Date().toISOString(),
-      entries: newEntries,
+      memories: newEntries,
     };
 
     saveIndex(basePath, newIndex);
 
     log.info('Rebuilt index', {
-      entries: newEntries.length,
+      memories: newEntries.length,
       orphansRemoved,
       newEntriesAdded,
     });

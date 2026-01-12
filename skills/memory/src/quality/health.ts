@@ -110,9 +110,17 @@ function getStatusFromScore(score: number): HealthStatus {
 }
 
 /**
+ * Check health request
+ */
+export interface CheckHealthRequest {
+  basePath?: string;
+}
+
+/**
  * Check health of memory system
  */
-export async function checkHealth(basePath: string): Promise<HealthReport> {
+export async function checkHealth(request: CheckHealthRequest): Promise<HealthReport> {
+  const basePath = request.basePath ?? process.cwd();
   const issues: HealthIssue[] = [];
   const indexPath = path.join(basePath, 'index.json');
   const graphPath = path.join(basePath, 'graph.json');
@@ -139,7 +147,7 @@ export async function checkHealth(basePath: string): Promise<HealthReport> {
 
   if (hasIndex) {
     const index = await loadIndex({ basePath });
-    indexEntries = index.entries;
+    indexEntries = index.memories;
   }
 
   // Check for orphaned nodes

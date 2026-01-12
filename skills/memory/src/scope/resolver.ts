@@ -287,8 +287,8 @@ export async function mergeMemoriesFromScopes(
       const indexContent = fs.readFileSync(indexPath, 'utf-8');
       const index = JSON.parse(indexContent);
 
-      if (Array.isArray(index.entries)) {
-        for (const entry of index.entries) {
+      if (Array.isArray(index.memories)) {
+        for (const entry of index.memories) {
           memories.push({
             ...entry,
             scope,

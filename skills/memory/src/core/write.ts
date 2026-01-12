@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../types/api.js';
 import type { IndexEntry } from '../types/memory.js';
-import { Scope } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
 import { generateUniqueId } from './slug.js';
 import { createFrontmatter, serialiseMemoryFile } from './frontmatter.js';
 import { writeFileAtomic, ensureDir } from './fs-utils.js';
@@ -61,11 +61,18 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Serialise to file content
     const fileContent = serialiseMemoryFile(frontmatter, request.content);
 
+    // Determine subdirectory based on memory type
+    // Breadcrumb = temporary, everything else = permanent
+    const subdir = request.type === MemoryType.Breadcrumb ? 'temporary' : 'permanent';
+    const memoryDir = path.join(basePath, subdir);
+    ensureDir(memoryDir);
+
     // Write file
-    const filePath = path.join(basePath, `${id}.md`);
+    const filePath = path.join(memoryDir, `${id}.md`);
     writeFileAtomic(filePath, fileContent);
 
     // Update index
+    const relativePath = path.join(subdir, `${id}.md`);
     const indexEntry: IndexEntry = {
       id,
       type: request.type,
@@ -74,7 +81,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       created: frontmatter.created,
       updated: frontmatter.updated,
       scope: request.scope,
-      relativePath: `${id}.md`,
+      relativePath,
       severity: request.severity,
     };
 

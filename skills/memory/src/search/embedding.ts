@@ -33,7 +33,7 @@ export interface EmbeddingCacheEntry {
  */
 export interface EmbeddingCache {
   version: number;
-  entries: Record<string, EmbeddingCacheEntry>;
+  memories: Record<string, EmbeddingCacheEntry>;
 }
 
 /**
@@ -74,7 +74,7 @@ export async function generateEmbedding(
  */
 export async function loadEmbeddingCache(cachePath: string): Promise<EmbeddingCache> {
   if (!fs.existsSync(cachePath)) {
-    return { version: 1, entries: {} };
+    return { version: 1, memories: {} };
   }
 
   try {
@@ -82,7 +82,7 @@ export async function loadEmbeddingCache(cachePath: string): Promise<EmbeddingCa
     return JSON.parse(content) as EmbeddingCache;
   } catch {
     log.warn('Failed to load embedding cache, starting fresh', { path: cachePath });
-    return { version: 1, entries: {} };
+    return { version: 1, memories: {} };
   }
 }
 
@@ -99,7 +99,7 @@ export async function saveEmbeddingCache(
   }
 
   fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
-  log.debug('Saved embedding cache', { path: cachePath, entries: Object.keys(cache.entries).length });
+  log.debug('Saved embedding cache', { path: cachePath, memories: Object.keys(cache.memories).length });
 }
 
 /**
@@ -116,7 +116,7 @@ export async function getEmbeddingForMemory(
   const hash = contentHash ?? generateContentHash(content);
 
   // Check cache
-  const cached = cache.entries[memoryId];
+  const cached = cache.memories[memoryId];
   if (cached && cached.hash === hash) {
     log.debug('Using cached embedding', { memoryId });
     return cached.embedding;
@@ -127,7 +127,7 @@ export async function getEmbeddingForMemory(
   const embedding = await generateEmbedding(content, provider);
 
   // Update cache
-  cache.entries[memoryId] = {
+  cache.memories[memoryId] = {
     embedding,
     hash,
     timestamp: new Date().toISOString(),
@@ -178,7 +178,7 @@ export async function batchGenerateEmbeddings(
     const hash = memory.hash ?? generateContentHash(memory.content);
 
     // Check cache
-    const cached = cache.entries[memory.id];
+    const cached = cache.memories[memory.id];
     if (cached && cached.hash === hash) {
       results.push({
         id: memory.id,
@@ -188,7 +188,7 @@ export async function batchGenerateEmbeddings(
     } else {
       // Generate new embedding
       const embedding = await generateEmbedding(memory.content, provider);
-      cache.entries[memory.id] = {
+      cache.memories[memory.id] = {
         embedding,
         hash,
         timestamp: new Date().toISOString(),

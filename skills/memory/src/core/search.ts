@@ -103,7 +103,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
   try {
     const index = await loadIndex({ basePath });
 
-    let entries = [...index.entries];
+    let entries = [...index.memories];
 
     // Filter by type
     if (request.type) {

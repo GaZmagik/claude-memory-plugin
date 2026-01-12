@@ -319,7 +319,7 @@ describe('Scope Resolver', () => {
       fs.writeFileSync(
         path.join(projectMemoryDir, 'index.json'),
         JSON.stringify({
-          entries: [
+          memories: [
             { id: 'memory-1', type: 'decision', title: 'Test', tags: [], created: '2026-01-01', updated: '2026-01-01' },
           ],
         })

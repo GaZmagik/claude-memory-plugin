@@ -36,7 +36,7 @@ describe('Index operations', () => {
     it('should create a new empty index', () => {
       const index = createEmptyIndex();
       expect(index.version).toBe('1.0.0');
-      expect(index.entries).toEqual([]);
+      expect(index.memories).toEqual([]);
       expect(index.lastUpdated).toBeDefined();
     });
   });
@@ -54,7 +54,7 @@ describe('Index operations', () => {
       const mockIndex: MemoryIndex = {
         version: '1.0.0',
         lastUpdated: '2026-01-10T12:00:00Z',
-        entries: [
+        memories: [
           {
             id: 'test-memory',
             type: MemoryType.Decision,
@@ -70,13 +70,13 @@ describe('Index operations', () => {
       fs.writeFileSync(indexPath, JSON.stringify(mockIndex, null, 2));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
-      expect(loaded.entries[0].id).toBe('test-memory');
+      expect(loaded.memories).toHaveLength(1);
+      expect(loaded.memories[0].id).toBe('test-memory');
     });
 
     it('should return empty index if file does not exist', async () => {
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toEqual([]);
+      expect(loaded.memories).toEqual([]);
     });
 
     it('should return empty index on invalid JSON', async () => {
@@ -84,7 +84,7 @@ describe('Index operations', () => {
       fs.writeFileSync(indexPath, 'not valid json');
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toEqual([]);
+      expect(loaded.memories).toEqual([]);
     });
   });
 
@@ -130,8 +130,8 @@ describe('Index operations', () => {
       await addToIndex(testDir, entry);
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
-      expect(loaded.entries[0].id).toBe('new-memory');
+      expect(loaded.memories).toHaveLength(1);
+      expect(loaded.memories[0].id).toBe('new-memory');
     });
 
     it('should replace existing entry with same id', async () => {
@@ -155,8 +155,8 @@ describe('Index operations', () => {
       await addToIndex(testDir, entry2);
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(1);
-      expect(loaded.entries[0].title).toBe('Updated');
+      expect(loaded.memories).toHaveLength(1);
+      expect(loaded.memories[0].title).toBe('Updated');
     });
   });
 
@@ -178,7 +178,7 @@ describe('Index operations', () => {
 
       expect(removed).toBe(true);
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.entries).toHaveLength(0);
+      expect(loaded.memories).toHaveLength(0);
     });
 
     it('should return false if entry does not exist', async () => {
@@ -215,7 +215,7 @@ describe('Index operations', () => {
 
   describe('filter operations', () => {
     beforeEach(async () => {
-      const entries: IndexEntry[] = [
+      const memories: IndexEntry[] = [
         {
           id: 'decision-1',
           type: MemoryType.Decision,
@@ -248,14 +248,14 @@ describe('Index operations', () => {
         },
       ];
 
-      for (const entry of entries) {
+      for (const entry of memories) {
         await addToIndex(testDir, entry);
       }
     });
 
     it('should filter by type using loadIndex and manual filter', async () => {
       const index = await loadIndex({ basePath: testDir });
-      const decisions = index.entries.filter(e => e.type === MemoryType.Decision);
+      const decisions = index.memories.filter(e => e.type === MemoryType.Decision);
 
       expect(decisions).toHaveLength(1);
       expect(decisions[0].id).toBe('decision-1');
@@ -263,7 +263,7 @@ describe('Index operations', () => {
 
     it('should filter by tag using loadIndex and manual filter', async () => {
       const index = await loadIndex({ basePath: testDir });
-      const typescriptEntries = index.entries.filter(e => e.tags.includes('typescript'));
+      const typescriptEntries = index.memories.filter(e => e.tags.includes('typescript'));
 
       expect(typescriptEntries).toHaveLength(2);
     });
@@ -301,8 +301,8 @@ links: []
 
       // Verify index was saved
       const index = await loadIndex({ basePath: testDir });
-      expect(index.entries).toHaveLength(1);
-      expect(index.entries[0].id).toBe('decision-test-rebuild');
+      expect(index.memories).toHaveLength(1);
+      expect(index.memories[0].id).toBe('decision-test-rebuild');
     });
 
     it('should detect and remove orphans from index', async () => {

@@ -18,7 +18,7 @@ describe('Semantic Search API', () => {
     // Create index.json
     const index = {
       version: 1,
-      entries: [
+      memories: [
         {
           id: 'decision-test',
           type: MemoryType.Decision,
@@ -36,7 +36,7 @@ describe('Semantic Search API', () => {
     // Create embeddings cache
     const embeddings = {
       version: 1,
-      entries: {
+      memories: {
         'decision-test': {
           embedding: [0.9, 0.1, 0.0],
           hash: 'hash1',
@@ -427,8 +427,8 @@ describe('Semantic Search API', () => {
       fs.mkdirSync(readOnlyDir, { recursive: true });
 
       // Create valid files first
-      fs.writeFileSync(path.join(readOnlyDir, 'index.json'), JSON.stringify({ version: 1, entries: [] }));
-      fs.writeFileSync(path.join(readOnlyDir, 'embeddings.json'), JSON.stringify({ version: 1, entries: {} }));
+      fs.writeFileSync(path.join(readOnlyDir, 'index.json'), JSON.stringify({ version: 1, memories: [] }));
+      fs.writeFileSync(path.join(readOnlyDir, 'embeddings.json'), JSON.stringify({ version: 1, memories: {} }));
 
       const mockProvider = {
         name: 'mock',

@@ -26,7 +26,7 @@ describe('Semantic Search', () => {
     // Create index.json with test memories
     const index = {
       version: 1,
-      entries: [
+      memories: [
         {
           id: 'decision-database',
           type: MemoryType.Decision,
@@ -64,7 +64,7 @@ describe('Semantic Search', () => {
     // Create embeddings cache
     const embeddings = {
       version: 1,
-      entries: {
+      memories: {
         'decision-database': {
           embedding: [0.9, 0.1, 0.0], // Database-focused
           hash: 'hash1',
@@ -311,7 +311,7 @@ describe('Semantic Search', () => {
       const embeddings = JSON.parse(
         fs.readFileSync(path.join(testDir, 'embeddings.json'), 'utf-8')
       );
-      embeddings.entries['orphan-memory'] = {
+      embeddings.memories['orphan-memory'] = {
         embedding: [0.9, 0.1, 0.0],
         hash: 'hash-orphan',
         timestamp: '2026-01-04T00:00:00Z',
@@ -480,7 +480,7 @@ describe('Semantic Search', () => {
       const embeddings = JSON.parse(
         fs.readFileSync(path.join(testDir, 'embeddings.json'), 'utf-8')
       );
-      embeddings.entries['orphan-memory'] = {
+      embeddings.memories['orphan-memory'] = {
         embedding: [0.85, 0.15, 0.0], // Similar to decision-database
         hash: 'hash-orphan',
         timestamp: '2026-01-04T00:00:00Z',

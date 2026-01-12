@@ -90,14 +90,14 @@ describe('Embedding Generation', () => {
 
       const cache = await loadEmbeddingCache(cachePath);
 
-      expect(cache).toEqual({ version: 1, entries: {} });
+      expect(cache).toEqual({ version: 1, memories: {} });
     });
 
     it('should load existing cache from file', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const existingCache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           'memory-1': {
             embedding: [0.1, 0.2, 0.3],
             hash: 'abc123',
@@ -109,15 +109,15 @@ describe('Embedding Generation', () => {
 
       const cache = await loadEmbeddingCache(cachePath);
 
-      expect(cache.entries['memory-1']).toBeDefined();
-      expect(cache.entries['memory-1'].embedding).toEqual([0.1, 0.2, 0.3]);
+      expect(cache.memories['memory-1']).toBeDefined();
+      expect(cache.memories['memory-1'].embedding).toEqual([0.1, 0.2, 0.3]);
     });
 
     it('should save cache to file', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const cache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           'memory-2': {
             embedding: [0.4, 0.5, 0.6],
             hash: 'def456',
@@ -129,14 +129,14 @@ describe('Embedding Generation', () => {
       await saveEmbeddingCache(cachePath, cache);
 
       const loaded = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-      expect(loaded.entries['memory-2'].embedding).toEqual([0.4, 0.5, 0.6]);
+      expect(loaded.memories['memory-2'].embedding).toEqual([0.4, 0.5, 0.6]);
     });
 
     it('should detect stale cache entries by content hash', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const staleCache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           'memory-1': {
             embedding: [0.1, 0.2, 0.3],
             hash: 'old-hash',
@@ -149,7 +149,7 @@ describe('Embedding Generation', () => {
       const cache = await loadEmbeddingCache(cachePath);
 
       // Entry exists but hash doesn't match current content
-      expect(cache.entries['memory-1'].hash).toBe('old-hash');
+      expect(cache.memories['memory-1'].hash).toBe('old-hash');
     });
   });
 
@@ -162,7 +162,7 @@ describe('Embedding Generation', () => {
 
       const cache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           [memoryId]: {
             embedding: [0.7, 0.8, 0.9],
             hash: contentHash,
@@ -197,7 +197,7 @@ describe('Embedding Generation', () => {
 
       const cache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           [memoryId]: {
             embedding: [0.1, 0.2, 0.3],
             hash: 'old-hash',
@@ -238,8 +238,8 @@ describe('Embedding Generation', () => {
       await getEmbeddingForMemory(memoryId, content, cachePath, mockProvider, hash);
 
       const updatedCache = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-      expect(updatedCache.entries[memoryId]).toBeDefined();
-      expect(updatedCache.entries[memoryId].hash).toBe(hash);
+      expect(updatedCache.memories[memoryId]).toBeDefined();
+      expect(updatedCache.memories[memoryId].hash).toBe(hash);
     });
   });
 
@@ -270,7 +270,7 @@ describe('Embedding Generation', () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const cache: EmbeddingCache = {
         version: 1,
-        entries: {
+        memories: {
           'mem-1': {
             embedding: [0.1, 0.2],
             hash: 'hash-1',
@@ -332,14 +332,14 @@ describe('Embedding Generation', () => {
 
       const cache = await loadEmbeddingCache(cachePath);
 
-      expect(cache).toEqual({ version: 1, entries: {} });
+      expect(cache).toEqual({ version: 1, memories: {} });
     });
   });
 
   describe('saveEmbeddingCache directory creation', () => {
     it('should create parent directory if it does not exist', async () => {
       const nestedPath = path.join(testDir, 'nested', 'dir', 'embeddings.json');
-      const cache: EmbeddingCache = { version: 1, entries: {} };
+      const cache: EmbeddingCache = { version: 1, memories: {} };
 
       await saveEmbeddingCache(nestedPath, cache);
 
@@ -350,7 +350,7 @@ describe('Embedding Generation', () => {
   describe('saveEmbeddingCache error handling', () => {
     it('should throw on ENOSPC (disk full) error', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
-      const cache: EmbeddingCache = { version: 1, entries: {} };
+      const cache: EmbeddingCache = { version: 1, memories: {} };
 
       // Mock writeFileSync to throw ENOSPC error
       const enospcError = new Error('ENOSPC: no space left on device');
@@ -368,7 +368,7 @@ describe('Embedding Generation', () => {
 
     it('should throw on EACCES (permission denied) error', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
-      const cache: EmbeddingCache = { version: 1, entries: {} };
+      const cache: EmbeddingCache = { version: 1, memories: {} };
 
       // Mock writeFileSync to throw EACCES error
       const eaccesError = new Error('EACCES: permission denied');

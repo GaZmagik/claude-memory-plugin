@@ -69,7 +69,7 @@ export async function semanticSearch(
 
   // Build embeddings map
   const embeddings: Record<string, number[]> = {};
-  for (const [id, entry] of Object.entries(cache.entries)) {
+  for (const [id, entry] of Object.entries(cache.memories)) {
     embeddings[id] = entry.embedding;
   }
 
@@ -83,7 +83,7 @@ export async function semanticSearch(
 
   // Load index for metadata
   const index = await loadIndex({ basePath });
-  const indexMap = new Map(index.entries.map(e => [e.id, e]));
+  const indexMap = new Map(index.memories.map(e => [e.id, e]));
 
   // Build results with metadata
   const results: SemanticSearchResult[] = [];
@@ -143,7 +143,7 @@ export async function findSimilarToMemory(
   const cache = await loadEmbeddingCache(cachePath);
 
   // Get target embedding
-  const targetEntry = cache.entries[memoryId];
+  const targetEntry = cache.memories[memoryId];
   if (!targetEntry) {
     log.warn('No embedding found for memory', { memoryId });
     return [];
@@ -151,7 +151,7 @@ export async function findSimilarToMemory(
 
   // Build embeddings map (excluding target)
   const embeddings: Record<string, number[]> = {};
-  for (const [id, entry] of Object.entries(cache.entries)) {
+  for (const [id, entry] of Object.entries(cache.memories)) {
     if (id !== memoryId) {
       embeddings[id] = entry.embedding;
     }
@@ -167,7 +167,7 @@ export async function findSimilarToMemory(
 
   // Load index for metadata
   const index = await loadIndex({ basePath });
-  const indexMap = new Map(index.entries.map(e => [e.id, e]));
+  const indexMap = new Map(index.memories.map(e => [e.id, e]));
 
   // Build results with metadata
   const results: SemanticSearchResult[] = [];

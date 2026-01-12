@@ -1,0 +1,272 @@
+/**
+ * Think Thought Operations
+ *
+ * Add thoughts, counter-arguments, and branches to thinking documents.
+ */
+
+import * as path from 'node:path';
+import type {
+  ThinkAddRequest,
+  ThinkAddResponse,
+  ThinkUseRequest,
+  ThinkUseResponse,
+} from '../types/api.js';
+import type { ThoughtEntry } from '../types/think.js';
+import { Scope, ThoughtType } from '../types/enums.js';
+import {
+  parseThinkDocument,
+  serialiseThinkDocument,
+  formatThought,
+} from './frontmatter.js';
+import {
+  getCurrentDocumentId,
+  setCurrentDocument,
+  loadState,
+} from './state.js';
+import { thinkDocumentExists, getThinkFilePath } from './document.js';
+import { validateThinkAdd, validateThinkUse } from './validation.js';
+import { writeFileAtomic, readFile, fileExists } from '../core/fs-utils.js';
+import { getScopePath } from '../scope/resolver.js';
+import { createLogger } from '../core/logger.js';
+
+const log = createLogger('think-thoughts');
+
+/**
+ * Get scope path from context
+ */
+function resolveScopePath(scope: Scope, basePath: string, globalPath: string): string {
+  return getScopePath(scope, basePath, globalPath);
+}
+
+/**
+ * Add a thought to a thinking document
+ */
+export async function addThought(
+  request: ThinkAddRequest
+): Promise<ThinkAddResponse> {
+  const validation = validateThinkAdd(request);
+  if (!validation.valid) {
+    const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+    log.error('Validation failed', { errors: errorMessages });
+    return {
+      status: 'error',
+      error: errorMessages,
+    };
+  }
+
+  const basePath = request.basePath ?? process.cwd();
+  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+
+  // Determine target document
+  let documentId = request.documentId;
+  let documentScope: Scope | undefined;
+
+  if (!documentId) {
+    // Find current document from either scope
+    for (const scope of [Scope.Project, Scope.Local]) {
+      const scopePath = resolveScopePath(scope, basePath, globalPath);
+      const currentId = getCurrentDocumentId(scopePath);
+      if (currentId) {
+        documentId = currentId;
+        documentScope = scope;
+        break;
+      }
+    }
+  }
+
+  if (!documentId) {
+    return {
+      status: 'error',
+      error: 'No document specified and no current document set. Create one with thinkCreate()',
+    };
+  }
+
+  // Find the document if scope not determined
+  if (!documentScope) {
+    const result = thinkDocumentExists(documentId, basePath, globalPath);
+    if (!result.exists || !result.scope) {
+      return {
+        status: 'error',
+        error: `Think document not found: ${documentId}`,
+      };
+    }
+    documentScope = result.scope;
+  }
+
+  const scopePath = resolveScopePath(documentScope, basePath, globalPath);
+  const filePath = getThinkFilePath(scopePath, documentId);
+
+  if (!fileExists(filePath)) {
+    return {
+      status: 'error',
+      error: `Think document not found: ${documentId}`,
+    };
+  }
+
+  try {
+    // Read and parse existing document
+    const content = readFile(filePath);
+    const parsed = parseThinkDocument(content);
+
+    // Check if document is still active
+    if (parsed.frontmatter.status !== 'active') {
+      return {
+        status: 'error',
+        error: `Cannot add thought to concluded document: ${documentId}`,
+      };
+    }
+
+    const timestamp = new Date().toISOString();
+
+    // Create thought entry
+    const entry: ThoughtEntry = {
+      timestamp,
+      type: request.type,
+      content: request.thought,
+    };
+
+    if (request.by) {
+      entry.by = request.by;
+    }
+
+    // Format the thought as markdown
+    const thoughtMarkdown = formatThought(entry);
+
+    // Append thought to content
+    const updatedContent = parsed.rawContent + '\n\n' + thoughtMarkdown;
+
+    // Update frontmatter timestamp
+    const updatedFrontmatter = {
+      ...parsed.frontmatter,
+      updated: timestamp,
+    };
+
+    // Write back
+    const fileContent = serialiseThinkDocument(updatedFrontmatter, updatedContent);
+    writeFileAtomic(filePath, fileContent);
+
+    log.info('Added thought', { documentId, type: request.type });
+
+    return {
+      status: 'success',
+      thought: {
+        timestamp,
+        type: request.type,
+        content: request.thought,
+        by: request.by,
+      },
+      documentId,
+    };
+  } catch (error) {
+    log.error('Failed to add thought', { documentId, error: String(error) });
+    return {
+      status: 'error',
+      error: `Failed to add thought: ${String(error)}`,
+    };
+  }
+}
+
+/**
+ * Add a counter-argument (convenience wrapper)
+ */
+export async function addCounterArgument(
+  request: Omit<ThinkAddRequest, 'type'>
+): Promise<ThinkAddResponse> {
+  return addThought({
+    ...request,
+    type: ThoughtType.CounterArgument,
+  });
+}
+
+/**
+ * Add a branch/alternative (convenience wrapper)
+ */
+export async function addBranch(
+  request: Omit<ThinkAddRequest, 'type'>
+): Promise<ThinkAddResponse> {
+  return addThought({
+    ...request,
+    type: ThoughtType.Branch,
+  });
+}
+
+/**
+ * Switch current document
+ */
+export async function useThinkDocument(
+  request: ThinkUseRequest
+): Promise<ThinkUseResponse> {
+  const validation = validateThinkUse(request);
+  if (!validation.valid) {
+    const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+    return {
+      status: 'error',
+      error: errorMessages,
+    };
+  }
+
+  const basePath = request.basePath ?? process.cwd();
+  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const documentId = request.documentId;
+
+  // Find the document
+  const result = thinkDocumentExists(documentId, basePath, globalPath);
+  if (!result.exists || !result.scope || !result.filePath) {
+    return {
+      status: 'error',
+      error: `Think document not found: ${documentId}`,
+    };
+  }
+
+  const scopePath = resolveScopePath(result.scope, basePath, globalPath);
+
+  // Get previous current
+  const previousId = getCurrentDocumentId(scopePath);
+
+  // Read document to get topic
+  const content = readFile(result.filePath);
+  const parsed = parseThinkDocument(content);
+
+  // Set as current
+  setCurrentDocument(scopePath, documentId, result.scope);
+
+  log.info('Switched current document', { documentId, previousId });
+
+  return {
+    status: 'success',
+    previousId,
+    currentId: documentId,
+    topic: parsed.frontmatter.topic,
+  };
+}
+
+/**
+ * Get the current document's topic and ID
+ */
+export function getCurrentThinkContext(
+  basePath: string,
+  globalPath: string
+): { documentId: string; scope: Scope; topic: string } | null {
+  for (const scope of [Scope.Project, Scope.Local]) {
+    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const state = loadState(scopePath);
+
+    if (state.currentDocumentId) {
+      const filePath = getThinkFilePath(scopePath, state.currentDocumentId);
+      if (fileExists(filePath)) {
+        try {
+          const content = readFile(filePath);
+          const parsed = parseThinkDocument(content);
+          return {
+            documentId: state.currentDocumentId,
+            scope,
+            topic: parsed.frontmatter.topic,
+          };
+        } catch {
+          continue;
+        }
+      }
+    }
+  }
+  return null;
+}

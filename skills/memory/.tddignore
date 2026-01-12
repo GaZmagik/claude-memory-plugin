@@ -1,0 +1,16 @@
+# TDD Parity Exclusions
+# Functions intentionally not unit tested
+
+# CLI execution functions - require actual Claude CLI installation
+# These are integration points that shell out to external processes
+src/think/ai-invoke.ts:invokeAI
+src/think/ai-invoke.ts:getClaudeCliVersion
+
+# Index/barrel files - re-exports only, no logic to test
+src/index.ts
+src/think/index.ts
+src/types/index.ts
+
+# Pure type definition files - no runtime code
+src/types/api.ts
+src/types/think.ts

@@ -14,6 +14,7 @@ import {
   isValidLinks,
   validateWriteRequest,
   validateFrontmatter,
+  validateMemory,
 } from './validation.js';
 import { MemoryType, Scope, Severity } from '../types/enums.js';
 
@@ -274,6 +275,65 @@ describe('Validation', () => {
       const result = validateFrontmatter({ ...validFrontmatter, severity: 'invalid' });
       expect(result.valid).toBe(false);
       expect(result.errors.some(e => e.field === 'severity')).toBe(true);
+    });
+
+    it('should return error for invalid links when provided', () => {
+      const result = validateFrontmatter({ ...validFrontmatter, links: 'not-array' });
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'links')).toBe(true);
+    });
+  });
+
+  describe('validateMemory', () => {
+    const validFrontmatter = {
+      type: MemoryType.Decision,
+      title: 'Test Decision',
+      created: '2026-01-11T12:00:00Z',
+      updated: '2026-01-11T12:00:00Z',
+      tags: ['test'],
+      scope: Scope.Local,
+    };
+
+    it('should return valid for correct memory', () => {
+      const result = validateMemory('decision-test', validFrontmatter, 'Some content');
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    it('should return error for invalid ID', () => {
+      const result = validateMemory('invalid-id', validFrontmatter, 'Content');
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'id')).toBe(true);
+    });
+
+    it('should return error for empty ID', () => {
+      const result = validateMemory('', validFrontmatter, 'Content');
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'id')).toBe(true);
+    });
+
+    it('should return error for invalid frontmatter type', () => {
+      const result = validateMemory('decision-test', { ...validFrontmatter, type: 'invalid' as MemoryType }, 'Content');
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'type')).toBe(true);
+    });
+
+    it('should return error for invalid frontmatter title', () => {
+      const result = validateMemory('decision-test', { ...validFrontmatter, title: '' }, 'Content');
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'title')).toBe(true);
+    });
+
+    it('should return error for non-string content', () => {
+      const result = validateMemory('decision-test', validFrontmatter, 123 as unknown as string);
+      expect(result.valid).toBe(false);
+      expect(result.errors.some(e => e.field === 'content')).toBe(true);
+    });
+
+    it('should aggregate multiple errors', () => {
+      const result = validateMemory('invalid-id', { ...validFrontmatter, title: '' }, 123 as unknown as string);
+      expect(result.valid).toBe(false);
+      expect(result.errors.length).toBeGreaterThanOrEqual(3);
     });
   });
 });

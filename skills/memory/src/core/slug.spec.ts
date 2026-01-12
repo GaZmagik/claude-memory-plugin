@@ -9,6 +9,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import {
+  slugify,
   generateSlug,
   detectCollision,
   resolveCollision,
@@ -19,6 +20,42 @@ import {
   parseId,
 } from './slug.js';
 import { MemoryType } from '../types/enums.js';
+
+describe('slugify', () => {
+  it('converts title to lowercase', () => {
+    expect(slugify('My Title')).toBe('my-title');
+  });
+
+  it('removes diacritics', () => {
+    expect(slugify('Café résumé naïve')).toBe('cafe-resume-naive');
+  });
+
+  it('removes special characters', () => {
+    expect(slugify('Hello @world! #test')).toBe('hello-world-test');
+  });
+
+  it('replaces spaces with hyphens', () => {
+    expect(slugify('hello world test')).toBe('hello-world-test');
+  });
+
+  it('collapses multiple hyphens', () => {
+    expect(slugify('hello---world')).toBe('hello-world');
+  });
+
+  it('removes leading and trailing hyphens', () => {
+    expect(slugify('  hello world  ')).toBe('hello-world');
+    expect(slugify('---hello---')).toBe('hello');
+  });
+
+  it('handles empty input', () => {
+    expect(slugify('')).toBe('');
+    expect(slugify('   ')).toBe('');
+  });
+
+  it('preserves numbers', () => {
+    expect(slugify('version 2.0')).toBe('version-20');
+  });
+});
 
 describe('generateSlug', () => {
   it('should convert title to lowercase kebab-case', () => {

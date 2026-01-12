@@ -33,6 +33,10 @@ export interface HookInput {
   permission_mode?: 'default' | 'bypassPermissions';
   /** Path to session transcript file */
   transcript_path?: string;
+  /** Hook trigger type (e.g., 'auto', 'manual') - used in PreCompact */
+  trigger?: string;
+  /** Reason for session end (e.g., 'clear', 'exit') - used in SessionEnd */
+  reason?: string;
 }
 
 /**

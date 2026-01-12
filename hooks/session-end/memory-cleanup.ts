@@ -23,9 +23,9 @@ runHook(async (input) => {
     return allow();
   }
 
-  const sessionId = (input as any)?.session_id || '';
+  const sessionId = input?.session_id || '';
   const cwd = input?.cwd || process.cwd();
-  const reason = (input as any)?.reason || 'unknown';
+  const reason = input?.reason || 'unknown';
 
   // Only trigger on "clear" - other exit reasons don't need memory capture
   if (reason !== 'clear') {

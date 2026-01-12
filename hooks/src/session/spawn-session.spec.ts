@@ -146,7 +146,7 @@ describe('spawn-session', () => {
       expect(contextCall[1]).toBe('My conversation context');
     });
 
-    it('should spawn detached bash process', async () => {
+    it('should spawn detached wrapper script process', async () => {
       mockExistsSync.mockReturnValue(true);
 
       await spawnSessionWithContext({
@@ -158,8 +158,16 @@ describe('spawn-session', () => {
       });
 
       expect(childProcess.spawn).toHaveBeenCalledWith(
-        'bash',
-        expect.arrayContaining(['-c', expect.any(String)]),
+        expect.stringContaining('wrapper-test-session.sh'),
+        expect.arrayContaining([
+          expect.stringContaining('.log'), // logFile
+          expect.stringContaining('context-'), // contextFile
+          '300', // timeout
+          'claude-haiku-4-5-20251001', // model
+          'Bash,Read,Grep,Glob,TodoWrite', // tools
+          '/memory-commit', // prompt
+          '/project', // cwd
+        ]),
         expect.objectContaining({
           cwd: '/project',
           detached: true,
@@ -232,8 +240,8 @@ describe('spawn-session', () => {
       });
 
       const spawnCall = mockSpawn.mock.calls[0];
-      const script = spawnCall[1][1];
-      expect(script).toContain('TIMEOUT=600');
+      const args = spawnCall[1] as string[];
+      expect(args).toContain('600'); // timeout as string argument
     });
 
     it('should use custom model when provided', async () => {
@@ -249,8 +257,8 @@ describe('spawn-session', () => {
       });
 
       const spawnCall = mockSpawn.mock.calls[0];
-      const script = spawnCall[1][1];
-      expect(script).toContain('claude-sonnet-4-20250514');
+      const args = spawnCall[1] as string[];
+      expect(args).toContain('claude-sonnet-4-20250514');
     });
 
     it('should use custom tools when provided', async () => {
@@ -266,8 +274,8 @@ describe('spawn-session', () => {
       });
 
       const spawnCall = mockSpawn.mock.calls[0];
-      const script = spawnCall[1][1];
-      expect(script).toContain('Read,Write,Edit');
+      const args = spawnCall[1] as string[];
+      expect(args).toContain('Read,Write,Edit');
     });
 
     it('should include trigger in log header when provided', async () => {
@@ -288,21 +296,22 @@ describe('spawn-session', () => {
       expect(headerCall[1]).toContain('Trigger: compaction');
     });
 
-    it('should escape shell special characters in prompt', async () => {
+    it('should pass special characters in prompt without shell escaping', async () => {
       mockExistsSync.mockReturnValue(true);
 
+      const prompt = "/memory-commit msg='test with quotes'";
       await spawnSessionWithContext({
         sessionId: 'test',
         cwd: '/project',
-        prompt: "/memory-commit msg='test with quotes'",
+        prompt,
         contextPrompt: 'Context',
         logPrefix: 'test',
       });
 
       const spawnCall = mockSpawn.mock.calls[0];
-      const script = spawnCall[1][1];
-      // Should have escaped the single quotes
-      expect(script).toContain("'\\''");
+      const args = spawnCall[1] as string[];
+      // Args are passed directly, no shell escaping needed
+      expect(args).toContain(prompt);
     });
   });
 });

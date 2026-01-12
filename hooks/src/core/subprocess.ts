@@ -140,9 +140,13 @@ export async function spawn(
         proc.stdin.end();
       }
 
-      // Set up timeout
+      // Set up timeout with proper resource cleanup
       const timeoutId = setTimeout(() => {
         timedOut = true;
+        // Destroy streams to prevent resource leaks
+        proc.stdin?.destroy();
+        proc.stdout?.destroy();
+        proc.stderr?.destroy();
         proc.kill('SIGTERM');
       }, timeout);
 
@@ -161,9 +165,13 @@ export async function spawn(
         });
       });
 
-      // Handle errors
+      // Handle errors with cleanup
       proc.on('error', (error: Error) => {
         clearTimeout(timeoutId);
+        // Clean up streams on error
+        proc.stdin?.destroy();
+        proc.stdout?.destroy();
+        proc.stderr?.destroy();
         const durationMs = Date.now() - start;
 
         resolve({

@@ -85,6 +85,9 @@ export const isForkedSession = isMemoryCaptureSession;
  * 2. Receives conversation context via --additional-system-prompt
  * 3. Runs the specified prompt
  * 4. Logs output to timestamped file
+ *
+ * Security: Uses a minimal wrapper script with all values passed via
+ * files or validated arguments to prevent shell injection.
  */
 export async function spawnSessionWithContext(
   options: SpawnSessionOptions
@@ -104,56 +107,74 @@ Context size: ${options.contextPrompt.length} bytes
 `;
   writeFileSync(logFile, header);
 
-  const timeoutSecs = options.timeoutSecs ?? 300;
+  // Validate numeric timeout to prevent injection
+  const timeoutSecs = Math.max(1, Math.min(3600, Math.floor(options.timeoutSecs ?? 300)));
   const model = options.model ?? 'claude-haiku-4-5-20251001';
   const tools = options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite';
 
-  // Escape strings for shell
-  const escapeShell = (s: string) => `'${s.replace(/'/g, "'\\''")}'`;
-
-  // Write context to temp file to avoid shell escaping issues with large text
+  // Write context to file to avoid shell escaping issues
   const contextFile = join(logDir, `context-${options.sessionId}.txt`);
   writeFileSync(contextFile, options.contextPrompt);
 
-  const backgroundScript = `
-    LOG_FILE=${escapeShell(logFile)}
-    CONTEXT_FILE=${escapeShell(contextFile)}
-    TIMEOUT=${timeoutSecs}
-    MODEL=${escapeShell(model)}
-    TOOLS=${escapeShell(tools)}
-    PROMPT=${escapeShell(options.prompt)}
-    CWD=${escapeShell(options.cwd)}
+  // Write a wrapper script that reads all values from files/args
+  // This avoids shell interpolation vulnerabilities
+  const wrapperScript = join(logDir, `wrapper-${options.sessionId}.sh`);
+  const scriptContent = `#!/bin/bash
+set -euo pipefail
 
-    echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
+LOG_FILE="$1"
+CONTEXT_FILE="$2"
+TIMEOUT="$3"
+MODEL="$4"
+TOOLS="$5"
+PROMPT="$6"
+CWD="$7"
+WRAPPER_SCRIPT="$8"
 
-    cd "$CWD"
+echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
 
-    timeout ${timeoutSecs}s claude \\
-      --model "$MODEL" \\
-      --permission-mode bypassPermissions \\
-      --dangerously-skip-permissions \\
-      --output-format "stream-json" \\
-      --verbose \\
-      --additional-system-prompt "$(cat "$CONTEXT_FILE")" \\
-      --tools "$TOOLS" \\
-      --print "$PROMPT" 2>&1 | tee -a "$LOG_FILE"
+cd "$CWD"
 
-    EXIT_CODE=\${PIPESTATUS[0]}
-    echo "---" >> "$LOG_FILE"
-    echo "Completed with exit code: $EXIT_CODE" >> "$LOG_FILE"
-    echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
+timeout "\${TIMEOUT}s" claude \\
+  --model "$MODEL" \\
+  --permission-mode bypassPermissions \\
+  --dangerously-skip-permissions \\
+  --output-format "stream-json" \\
+  --verbose \\
+  --additional-system-prompt "$(cat "$CONTEXT_FILE")" \\
+  --tools "$TOOLS" \\
+  --print "$PROMPT" 2>&1 | tee -a "$LOG_FILE"
 
-    # Clean up context file
-    rm -f "$CONTEXT_FILE"
-  `;
+EXIT_CODE=\${PIPESTATUS[0]}
+echo "---" >> "$LOG_FILE"
+echo "Completed with exit code: $EXIT_CODE" >> "$LOG_FILE"
+echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
 
-  // Launch detached background process
+# Clean up temp files
+rm -f "$CONTEXT_FILE" "$WRAPPER_SCRIPT"
+`;
+  writeFileSync(wrapperScript, scriptContent, { mode: 0o755 });
+
+  // Launch detached background process with arguments passed safely
   const { spawn: nodeSpawn } = await import('node:child_process');
-  const proc = nodeSpawn('bash', ['-c', backgroundScript], {
-    cwd: options.cwd,
-    detached: true,
-    stdio: 'ignore',
-  });
+  const proc = nodeSpawn(
+    wrapperScript,
+    [
+      logFile,
+      contextFile,
+      String(timeoutSecs),
+      model,
+      tools,
+      options.prompt,
+      options.cwd,
+      wrapperScript,
+    ],
+    {
+      cwd: options.cwd,
+      detached: true,
+      stdio: 'ignore',
+    }
+  );
 
   // Unref to allow process to continue independently
   proc.unref();

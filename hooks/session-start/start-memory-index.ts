@@ -189,7 +189,7 @@ function buildSummary(indexFile: string, scope: string): string {
 
 runHook(async (input) => {
   const projectDir = input?.cwd || process.cwd();
-  const sessionId = (input as any)?.session_id || '';
+  const sessionId = input?.session_id || '';
   const home = homedir();
 
   const localIndex = join(projectDir, '.claude', 'memory', 'index.json');

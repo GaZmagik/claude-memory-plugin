@@ -24,9 +24,9 @@ runHook(async (input) => {
     return allow();
   }
 
-  const sessionId = (input as any)?.session_id || '';
+  const sessionId = input?.session_id || '';
   const cwd = input?.cwd || process.cwd();
-  const trigger = (input as any)?.trigger || 'auto';
+  const trigger = input?.trigger || 'auto';
 
   if (!sessionId) {
     return allow();

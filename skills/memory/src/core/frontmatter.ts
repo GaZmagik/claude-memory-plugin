@@ -18,9 +18,12 @@ export interface ParseResult {
 /**
  * Parse YAML string into frontmatter object
  * Validates required fields
+ *
+ * Security: Uses JSON_SCHEMA for defence-in-depth - only allows
+ * safe JSON-compatible types (strings, numbers, booleans, null, arrays, objects)
  */
 export function parseFrontmatter(yamlContent: string): MemoryFrontmatter {
-  const parsed = yaml.load(yamlContent) as MemoryFrontmatter;
+  const parsed = yaml.load(yamlContent, { schema: yaml.JSON_SCHEMA }) as MemoryFrontmatter;
 
   if (!parsed || typeof parsed !== 'object') {
     throw new Error('Invalid frontmatter: must be a YAML object');

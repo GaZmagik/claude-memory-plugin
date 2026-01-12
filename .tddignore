@@ -10,6 +10,7 @@
 # Re-export index files (no logic to test)
 src/index.ts
 src/types/index.ts
+src/think/index.ts
 
 # Type definition files (no runtime code)
 src/types/api.ts

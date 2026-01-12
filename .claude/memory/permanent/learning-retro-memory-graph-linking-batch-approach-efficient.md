@@ -6,7 +6,7 @@ scope: local
 project: claude-memory-plugin
 created: 2026-01-11T22:42:03Z
 updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium","['retrospective'","'process'","'memory-graph'","'improvement']"]
+tags: ["learning","tip","medium","retrospective","process","memory-graph","improvement"]
 embedding: "9ca878c98e8c8702e08342f305286210"
 links: [
   "learning-retro-memory-linking-post-compaction"

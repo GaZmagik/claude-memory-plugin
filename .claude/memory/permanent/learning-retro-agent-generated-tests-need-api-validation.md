@@ -6,7 +6,7 @@ scope: local
 project: claude-memory-plugin
 created: 2026-01-11T22:41:51Z
 updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium","['retrospective'","'process'","'testing'","'agent-coordination']"]
+tags: ["learning","tip","medium","retrospective","process","testing","agent-coordination"]
 embedding: "1dfe5a74745a64ef111d87faebddfd7e"
 links: []
 ---

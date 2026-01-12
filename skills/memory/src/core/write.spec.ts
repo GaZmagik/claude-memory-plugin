@@ -214,7 +214,7 @@ describe('writeMemory', () => {
       await writeMemory(validRequest);
 
       expect(fsUtils.writeFileAtomic).toHaveBeenCalledWith(
-        `${mockBasePath}/${mockId}.md`,
+        `${mockBasePath}/permanent/${mockId}.md`,
         serialisedContent
       );
     });
@@ -244,7 +244,7 @@ describe('writeMemory', () => {
         created: mockFrontmatter.created,
         updated: mockFrontmatter.updated,
         scope: Scope.Local,
-        relativePath: `${mockId}.md`,
+        relativePath: `permanent/${mockId}.md`,
         severity: Severity.Medium,
       });
     });
@@ -268,7 +268,7 @@ describe('writeMemory', () => {
       expect(result.status).toBe('success');
       if (result.status === 'success' && result.memory) {
         expect(result.memory.id).toBe(mockId);
-        expect(result.memory.filePath).toBe(`${mockBasePath}/${mockId}.md`);
+        expect(result.memory.filePath).toBe(`${mockBasePath}/permanent/${mockId}.md`);
         expect(result.memory.frontmatter).toEqual(mockFrontmatter);
         expect(result.memory.scope).toBe(Scope.Local);
       }

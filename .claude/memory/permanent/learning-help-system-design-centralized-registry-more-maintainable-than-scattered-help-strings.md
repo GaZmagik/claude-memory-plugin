@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings
 title: "Help system design: centralized registry more maintainable than scattered help strings"
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:02:54.349Z"
-updated: "2026-01-12T20:02:54.349Z"
+updated: "2026-01-12T22:02:47.196Z"
 tags:
   - cli
   - documentation
   - architecture
   - retro
   - project
-scope: project
 ---
 
 ## Learning: Centralized Help Registry Pattern

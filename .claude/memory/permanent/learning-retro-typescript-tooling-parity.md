@@ -4,11 +4,16 @@ title: retro-typescript-tooling-parity
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T18:48:56Z
-updated: 2026-01-11T21:06:11Z
-tags: ["learning","tip","high","retrospective","process","tooling","typescript"]
-embedding: "d2afc81c46b538c40d282b9b96da8c29"
-links: []
+created: "2026-01-11T18:48:56Z"
+updated: "2026-01-12T22:02:47.191Z"
+tags:
+  - learning
+  - tip
+  - high
+  - retrospective
+  - process
+  - tooling
+  - typescript
 ---
 
 # retro-typescript-tooling-parity

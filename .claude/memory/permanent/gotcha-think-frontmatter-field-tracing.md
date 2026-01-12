@@ -1,10 +1,16 @@
 ---
-type: gotcha
+id: gotcha-think-frontmatter-field-tracing
 title: Think frontmatter fields must be traced through full serialisation stack
-topic: Type definition and implementation alignment
-created: 2026-01-12T10:45:00.000Z
-updated: 2026-01-12T10:45:00.000Z
-tags: [think, frontmatter, gotcha, feature-001, typescript]
+type: gotcha
+project: claude-memory-plugin
+created: "2026-01-12T10:45:00.000Z"
+updated: "2026-01-12T22:02:47.191Z"
+tags:
+  - think
+  - frontmatter
+  - gotcha
+  - feature-001
+  - typescript
 severity: high
 ---
 

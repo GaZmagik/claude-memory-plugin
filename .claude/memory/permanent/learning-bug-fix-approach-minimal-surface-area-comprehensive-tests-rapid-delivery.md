@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery
 title: "Bug fix approach: minimal surface area + comprehensive tests = rapid delivery"
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:03:00.034Z"
-updated: "2026-01-12T20:03:00.034Z"
+updated: "2026-01-12T22:02:47.194Z"
 tags:
   - testing
   - debugging
   - process
   - retro
   - project
-scope: project
 ---
 
 ## Learning: Surgical Bug Fixes with Test Coverage

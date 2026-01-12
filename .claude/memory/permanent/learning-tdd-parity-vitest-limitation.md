@@ -4,15 +4,16 @@ title: tdd-parity-vitest-limitation
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T23:27:00Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","gotcha","medium"]
-embedding: "8e7d097982ad9ed1bff357a8ec922d42"
-links: [
-  "decision-colocate-unit-tests",
-  "learning-cargo-cult-tdd-compliance",
-  "learning-test-isolation-bun-mock-module"
-]
+created: "2026-01-11T23:27:00Z"
+updated: "2026-01-12T22:02:47.182Z"
+tags:
+  - learning
+  - gotcha
+  - medium
+links:
+  - decision-colocate-unit-tests
+  - learning-cargo-cult-tdd-compliance
+  - learning-test-isolation-bun-mock-module
 ---
 
 # tdd-parity-vitest-limitation

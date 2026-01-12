@@ -4,13 +4,17 @@ title: retro-memory-linking-post-compaction
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T18:49:07Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium","retrospective","process","memory-graph"]
-embedding: "95c58311ac31a2283d73dab58320c736"
-links: [
-  "learning-semantic-search-embedding-caching-success"
-]
+created: "2026-01-11T18:49:07Z"
+updated: "2026-01-12T22:02:47.200Z"
+tags:
+  - learning
+  - tip
+  - medium
+  - retrospective
+  - process
+  - memory-graph
+links:
+  - learning-semantic-search-embedding-caching-success
 ---
 
 # retro-memory-linking-post-compaction

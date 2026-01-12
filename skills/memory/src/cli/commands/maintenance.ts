@@ -204,3 +204,37 @@ export async function cmdSyncFrontmatter(args: ParsedArgs): Promise<CliResponse>
     dryRun ? 'Sync frontmatter dry run complete' : 'Sync frontmatter complete'
   );
 }
+
+/**
+ * refresh - Backfill missing frontmatter fields and migrate legacy data
+ *
+ * Usage: memory refresh [scope] [--dry-run] [--project <name>] [--id <id>]
+ *
+ * Updates memory files to include:
+ * - id: Memory ID (from filename)
+ * - project: Project name (from git repo or directory)
+ *
+ * Also migrates legacy embedding hashes from frontmatter to embeddings.json.
+ */
+export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
+  const scopeArg = args.positional[0];
+  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
+  const basePath = getResolvedScopePath(scope);
+  const dryRun = args.flags['dry-run'] === true;
+  const project = getFlagString(args.flags, 'project');
+  const idFlag = getFlagString(args.flags, 'id');
+  const ids = idFlag ? [idFlag] : undefined;
+
+  return wrapOperation(
+    async () => {
+      const result = await refreshFrontmatter({
+        basePath,
+        dryRun,
+        project,
+        ids,
+      });
+      return result;
+    },
+    dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'
+  );
+}

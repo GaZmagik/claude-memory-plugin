@@ -4,13 +4,14 @@ title: retro-tdd-parity-typescript-matching-accuracy
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-12T08:32:43Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium"]
-embedding: "98a4bba2914705597757ddc02bbd4931"
-links: [
-  "learning-tdd-parity-vitest-limitation"
-]
+created: "2026-01-12T08:32:43Z"
+updated: "2026-01-12T22:02:47.188Z"
+tags:
+  - learning
+  - tip
+  - medium
+links:
+  - learning-tdd-parity-vitest-limitation
 ---
 
 # retro-tdd-parity-typescript-matching-accuracy

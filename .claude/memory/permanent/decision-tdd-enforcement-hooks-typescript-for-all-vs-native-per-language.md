@@ -1,15 +1,17 @@
 ---
-type: decision
+id: decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language
 title: "TDD enforcement hooks: TypeScript-for-all vs native per-language"
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:31:30.192Z"
-updated: "2026-01-12T20:31:30.192Z"
+updated: "2026-01-12T22:02:47.176Z"
 tags:
   - tdd
   - architecture
   - hooks
   - typescript
   - project
-scope: project
 ---
 
 # Decision: TypeScript-for-all for TDD Hooks

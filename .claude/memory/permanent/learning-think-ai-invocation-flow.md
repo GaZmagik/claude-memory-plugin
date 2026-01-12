@@ -1,10 +1,16 @@
 ---
-type: learning
+id: learning-think-ai-invocation-flow
 title: Think AI invocation - context passing pattern
-topic: AI-assisted thinking document implementation
-created: 2026-01-12T10:45:00.000Z
-updated: 2026-01-12T10:45:00.000Z
-tags: [think, ai-invocation, claude-cli, feature-001, typescript]
+type: learning
+project: claude-memory-plugin
+created: "2026-01-12T10:45:00.000Z"
+updated: "2026-01-12T22:02:47.199Z"
+tags:
+  - think
+  - ai-invocation
+  - claude-cli
+  - feature-001
+  - typescript
 severity: high
 ---
 

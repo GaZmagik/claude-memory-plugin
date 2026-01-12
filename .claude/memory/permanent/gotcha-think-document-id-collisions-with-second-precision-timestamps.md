@@ -1,14 +1,16 @@
 ---
-type: gotcha
+id: gotcha-think-document-id-collisions-with-second-precision-timestamps
 title: Think document ID collisions with second-precision timestamps
+type: gotcha
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:03:00.825Z"
-updated: "2026-01-12T20:03:00.825Z"
+updated: "2026-01-12T22:02:47.191Z"
 tags:
   - think
   - id-generation
   - timestamp
   - project
-scope: project
 ---
 
 ## Problem

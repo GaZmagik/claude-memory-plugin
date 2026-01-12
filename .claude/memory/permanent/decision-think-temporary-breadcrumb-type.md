@@ -1,10 +1,16 @@
 ---
-type: decision
+id: decision-think-temporary-breadcrumb-type
 title: Think documents stored as Breadcrumb type in temporary/ directory
-topic: Think document storage classification
-created: 2026-01-12T10:45:00.000Z
-updated: 2026-01-12T10:45:00.000Z
-tags: [think, storage, decision, feature-001, typescript]
+type: decision
+project: claude-memory-plugin
+created: "2026-01-12T10:45:00.000Z"
+updated: "2026-01-12T22:02:47.186Z"
+tags:
+  - think
+  - storage
+  - decision
+  - feature-001
+  - typescript
 severity: medium
 ---
 

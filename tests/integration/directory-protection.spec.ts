@@ -142,7 +142,7 @@ describe('Directory Protection Integration', () => {
     it('should allow memory skill commands', () => {
       const operation: ToolOperation = {
         tool: 'Bash',
-        command: '~/.claude/skills/memory/memory.sh write',
+        command: '~/.claude/skills/memory/memory write',
       };
 
       expect(isAllowedOperation(operation)).toBe(true);

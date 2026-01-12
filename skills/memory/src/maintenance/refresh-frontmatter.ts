@@ -1,0 +1,284 @@
+/**
+ * Refresh Frontmatter - Backfill missing fields and migrate legacy data
+ *
+ * Updates memory files to include:
+ * - id: Memory ID (from filename)
+ * - project: Project name (from git repo or directory)
+ *
+ * Also migrates legacy data:
+ * - embedding hash from frontmatter → embeddings.json (if not already there)
+ * - Removes legacy embedding field from frontmatter
+ */
+
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { execFileSync } from 'node:child_process';
+import {
+  parseMemoryFile,
+  serialiseMemoryFile,
+  updateFrontmatter,
+} from '../core/frontmatter.js';
+import type { EmbeddingCache } from '../search/embedding.js';
+
+/**
+ * Refresh frontmatter request options
+ */
+export interface RefreshFrontmatterRequest {
+  /** Base path for memory storage */
+  basePath: string;
+  /** Dry run - report changes without applying */
+  dryRun?: boolean;
+  /** Only refresh specific IDs (optional) */
+  ids?: string[];
+  /** Project name to use (optional - auto-detected if not provided) */
+  project?: string;
+}
+
+/**
+ * Refresh frontmatter response
+ */
+export interface RefreshFrontmatterResponse {
+  status: 'success' | 'error';
+  /** Number of files updated */
+  updated: number;
+  /** IDs of files updated */
+  updatedIds: string[];
+  /** Files that would be updated (dry run only) */
+  wouldUpdate?: string[];
+  /** Files skipped (no changes needed) */
+  skipped: number;
+  /** Number of embeddings migrated */
+  embeddingsMigrated: number;
+  /** Project name used */
+  project?: string;
+  /** Any errors encountered */
+  errors?: string[];
+}
+
+/**
+ * Get all memory files from disk
+ */
+function getAllMemoryIds(basePath: string): string[] {
+  const ids: string[] = [];
+
+  for (const subdir of ['permanent', 'temporary']) {
+    const dir = path.join(basePath, subdir);
+    if (!fs.existsSync(dir)) continue;
+
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+    for (const file of files) {
+      ids.push(file.replace('.md', ''));
+    }
+  }
+
+  return ids;
+}
+
+/**
+ * Find a memory file by ID
+ */
+function findMemoryFile(basePath: string, id: string): string | null {
+  const permanentPath = path.join(basePath, 'permanent', `${id}.md`);
+  if (fs.existsSync(permanentPath)) {
+    return permanentPath;
+  }
+
+  const temporaryPath = path.join(basePath, 'temporary', `${id}.md`);
+  if (fs.existsSync(temporaryPath)) {
+    return temporaryPath;
+  }
+
+  return null;
+}
+
+/**
+ * Detect project name from git repo or directory
+ */
+function detectProjectName(basePath: string): string | undefined {
+  // Find the project root from .claude/memory path
+  let projectRoot = basePath;
+  if (basePath.includes('.claude/memory')) {
+    projectRoot = basePath.split('.claude/memory')[0].replace(/\/$/, '');
+  }
+
+  // Try to get git repo name (using execFileSync for security)
+  try {
+    const remote = execFileSync('git', ['remote', 'get-url', 'origin'], {
+      cwd: projectRoot,
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    }).trim();
+
+    if (remote) {
+      // Extract repo name from URL
+      const match = remote.match(/\/([^/]+?)(\.git)?$/);
+      if (match) {
+        return match[1];
+      }
+    }
+  } catch {
+    // Not a git repo or no remote
+  }
+
+  // Fall back to directory name
+  try {
+    return path.basename(projectRoot);
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Load or create embeddings cache
+ */
+function loadEmbeddingsCache(basePath: string): EmbeddingCache {
+  const cachePath = path.join(basePath, 'embeddings.json');
+  if (!fs.existsSync(cachePath)) {
+    return { version: 1, memories: {} };
+  }
+
+  try {
+    const content = fs.readFileSync(cachePath, 'utf-8');
+    const cache = JSON.parse(content) as EmbeddingCache;
+    // Ensure memories property exists
+    if (!cache.memories) {
+      cache.memories = {};
+    }
+    return cache;
+  } catch {
+    return { version: 1, memories: {} };
+  }
+}
+
+/**
+ * Save embeddings cache
+ */
+function saveEmbeddingsCache(basePath: string, cache: EmbeddingCache): void {
+  const cachePath = path.join(basePath, 'embeddings.json');
+  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+}
+
+/**
+ * Refresh frontmatter for all memories
+ */
+export async function refreshFrontmatter(
+  request: RefreshFrontmatterRequest
+): Promise<RefreshFrontmatterResponse> {
+  const { basePath, dryRun = false, ids } = request;
+
+  const errors: string[] = [];
+  const updatedIds: string[] = [];
+  const wouldUpdate: string[] = [];
+  let skipped = 0;
+  let embeddingsMigrated = 0;
+
+  // Detect project name if not provided
+  const project = request.project ?? detectProjectName(basePath);
+
+  // Load embeddings cache (for migration)
+  let embeddingsCache = loadEmbeddingsCache(basePath);
+  let embeddingsCacheModified = false;
+
+  // Get IDs to process
+  const idsToProcess = ids ?? getAllMemoryIds(basePath);
+
+  for (const id of idsToProcess) {
+    try {
+      // Find file
+      const filePath = findMemoryFile(basePath, id);
+      if (!filePath) {
+        continue;
+      }
+
+      // Read current file
+      const content = fs.readFileSync(filePath, 'utf8');
+      const parsed = parseMemoryFile(content);
+
+      if (!parsed.frontmatter) {
+        errors.push(`${id}: Failed to parse frontmatter`);
+        continue;
+      }
+
+      const fm = parsed.frontmatter;
+      let needsUpdate = false;
+
+      // Check if id needs adding
+      if (!fm.id || fm.id !== id) {
+        needsUpdate = true;
+      }
+
+      // Check if project needs adding (only for project-scoped memories)
+      if (project && !fm.project) {
+        needsUpdate = true;
+      }
+
+      // Check for legacy embedding field to migrate
+      const legacyEmbedding = (fm as unknown as Record<string, unknown>).embedding as string | undefined;
+      if (legacyEmbedding && typeof legacyEmbedding === 'string') {
+        needsUpdate = true;
+
+        // Migrate to embeddings.json if not already there
+        // Note: The legacy embedding is just a hash, not the actual vector
+        // We can store it as a placeholder that needs regeneration
+        if (!embeddingsCache.memories[id]) {
+          embeddingsCache.memories[id] = {
+            embedding: [], // Empty - needs regeneration via suggest-links
+            hash: legacyEmbedding,
+            timestamp: new Date().toISOString(),
+          };
+          embeddingsCacheModified = true;
+          embeddingsMigrated++;
+        }
+      }
+
+      if (!needsUpdate) {
+        skipped++;
+        continue;
+      }
+
+      // Build updates
+      const updates: Record<string, unknown> = {};
+      if (!fm.id || fm.id !== id) {
+        updates.id = id;
+      }
+      if (project && !fm.project) {
+        updates.project = project;
+      }
+
+      if (dryRun) {
+        wouldUpdate.push(id);
+      } else {
+        // Update frontmatter
+        const updatedFm = updateFrontmatter(fm, updates);
+
+        // Remove legacy embedding field if present
+        if (legacyEmbedding) {
+          delete (updatedFm as unknown as Record<string, unknown>).embedding;
+        }
+
+        // Serialise and write
+        const newContent = serialiseMemoryFile(updatedFm, parsed.content);
+        fs.writeFileSync(filePath, newContent, 'utf8');
+        updatedIds.push(id);
+      }
+    } catch (err) {
+      errors.push(`${id}: ${err}`);
+    }
+  }
+
+  // Save embeddings cache if modified
+  if (embeddingsCacheModified && !dryRun) {
+    saveEmbeddingsCache(basePath, embeddingsCache);
+  }
+
+  return {
+    status: errors.length > 0 ? 'error' : 'success',
+    updated: updatedIds.length,
+    updatedIds,
+    ...(dryRun && { wouldUpdate }),
+    skipped,
+    embeddingsMigrated,
+    project,
+    ...(errors.length > 0 && { errors }),
+  };
+}

@@ -4,11 +4,12 @@ title: retro-tdd-test-expectations-guide-implementation
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T21:05:07Z
-updated: 2026-01-10T21:05:09Z
-tags: ["learning","retro","medium"]
-embedding: "54f643ab4e7734b87a654311dfe24ddd"
-links: []
+created: "2026-01-10T21:05:07Z"
+updated: "2026-01-12T22:02:47.195Z"
+tags:
+  - learning
+  - retro
+  - medium
 ---
 
 # retro-tdd-test-expectations-guide-implementation

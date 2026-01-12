@@ -4,11 +4,14 @@ title: TDD discipline across multi-phase session maintains test coverage
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T19:58:34Z
-updated: 2026-01-10T19:58:37Z
-tags: ["retrospective","process","tdd","multi-phase","best-practice"]
-embedding: "4e09fc9b7b275a684038f757d951ffd9"
-links: []
+created: "2026-01-10T19:58:34Z"
+updated: "2026-01-12T22:02:47.185Z"
+tags:
+  - retrospective
+  - process
+  - tdd
+  - multi-phase
+  - best-practice
 ---
 
 # Retrospective: TDD Discipline Across Phases

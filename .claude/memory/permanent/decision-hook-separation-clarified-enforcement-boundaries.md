@@ -1,8 +1,11 @@
 ---
-type: decision
+id: decision-hook-separation-clarified-enforcement-boundaries
 title: Hook separation clarified enforcement boundaries
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:40:17.712Z"
-updated: "2026-01-12T20:40:17.712Z"
+updated: "2026-01-12T22:02:47.182Z"
 tags:
   - retrospective
   - process
@@ -10,7 +13,6 @@ tags:
   - memory-plugin
   - hooks
   - project
-scope: project
 ---
 
 # Retrospective: Hook Separation Clarified Enforcement

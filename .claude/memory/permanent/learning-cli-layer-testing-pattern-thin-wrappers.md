@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-cli-layer-testing-pattern-thin-wrappers
 title: CLI Layer Testing Pattern - Thin Wrappers
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T18:00:59.206Z"
-updated: "2026-01-12T18:00:59.206Z"
+updated: "2026-01-12T22:02:47.195Z"
 tags:
   - testing
   - typescript
   - cli
   - memory-skill
   - project
-scope: project
 ---
 
 # CLI Layer Testing Pattern

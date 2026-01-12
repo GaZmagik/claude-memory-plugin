@@ -1,15 +1,17 @@
 ---
-type: artifact
+id: artifact-typescript-cli-testing-infrastructure-first-approach
 title: TypeScript CLI Testing - Infrastructure-First Approach
+type: artifact
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T18:01:16.436Z"
-updated: "2026-01-12T18:01:16.436Z"
+updated: "2026-01-12T22:02:47.192Z"
 tags:
   - typescript
   - testing
   - cli
   - vitest
   - project
-scope: project
 ---
 
 # TypeScript CLI Testing Strategy

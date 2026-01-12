@@ -4,13 +4,16 @@ title: regex-based-language-parsing-tradeoff
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T18:49:01Z
-updated: 2026-01-11T21:06:48Z
-tags: ["insight","learning","medium","tdd-parity","typescript"]
-embedding: "22db882ac3cb6a052a3b3cac4188c21f"
-links: [
-  "learning-retro-typescript-tooling-parity"
-]
+created: "2026-01-11T18:49:01Z"
+updated: "2026-01-12T22:02:47.193Z"
+tags:
+  - insight
+  - learning
+  - medium
+  - tdd-parity
+  - typescript
+links:
+  - learning-retro-typescript-tooling-parity
 ---
 
 # regex-based-language-parsing-tradeoff

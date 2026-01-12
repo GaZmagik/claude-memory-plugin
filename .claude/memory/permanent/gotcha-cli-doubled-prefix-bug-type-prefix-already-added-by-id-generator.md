@@ -1,14 +1,16 @@
 ---
-type: gotcha
+id: gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator
 title: "CLI doubled prefix bug: type prefix already added by ID generator"
+type: gotcha
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:02:50.449Z"
-updated: "2026-01-12T20:02:50.449Z"
+updated: "2026-01-12T22:02:47.193Z"
 tags:
   - cli
   - think-promotion
   - id-generation
   - project
-scope: project
 ---
 
 ## The Bug

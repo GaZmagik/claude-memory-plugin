@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives
 title: Lean SKILL.md enables quick reference - moved bulk content to README for deep dives
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T21:05:38.847Z"
-updated: "2026-01-12T21:05:38.847Z"
+updated: "2026-01-12T22:02:47.193Z"
 tags:
   - documentation
   - user-experience
   - retro
   - project
-scope: project
 ---
 
 # Lean SKILL.md for AI Trigger Detection

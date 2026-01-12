@@ -1,14 +1,16 @@
 ---
-type: decision
+id: decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead
 title: SubagentStop hook receives insufficient context - use PostToolUse instead
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:31:36.909Z"
-updated: "2026-01-12T20:31:36.909Z"
+updated: "2026-01-12T22:02:47.180Z"
 tags:
   - hooks
   - claude-code
   - gotcha
   - project
-scope: project
 ---
 
 # SubagentStop Hook Input Limitation

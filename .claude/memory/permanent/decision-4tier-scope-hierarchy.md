@@ -4,17 +4,18 @@ title: 4-Tier Scope Hierarchy for Memory Storage
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T19:59:00Z
-updated: 2026-01-11T21:07:54Z
-tags: ["architecture","scope-resolution","phase-2"]
-embedding: "f68017c868b73315fc56950fa44dc675"
-links: [
-  "learning-gitignore-comment-formatting-two-phase-fix",
-  "learning-scope-field-frontmatter-serialisation-gotcha",
-  "learning-scope-field-frontmatter-serialisation-gotcha-two",
-  "learning-scope-isolation-architecture-design",
-  "learning-tdd-scope-resolution-module-structure"
-]
+created: "2026-01-10T19:59:00Z"
+updated: "2026-01-12T22:02:47.194Z"
+tags:
+  - architecture
+  - scope-resolution
+  - phase-2
+links:
+  - learning-gitignore-comment-formatting-two-phase-fix
+  - learning-scope-field-frontmatter-serialisation-gotcha
+  - learning-scope-field-frontmatter-serialisation-gotcha-two
+  - learning-scope-isolation-architecture-design
+  - learning-tdd-scope-resolution-module-structure
 ---
 
 # Decision: 4-Tier Scope Hierarchy

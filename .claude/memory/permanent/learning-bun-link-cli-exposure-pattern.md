@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-bun-link-cli-exposure-pattern
 title: bun link CLI Exposure Pattern
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T18:01:04.688Z"
-updated: "2026-01-12T18:01:04.688Z"
+updated: "2026-01-12T22:02:47.198Z"
 tags:
   - bun
   - package-management
   - cli
   - setup
   - project
-scope: project
 ---
 
 # bun link Pattern for CLI Exposure

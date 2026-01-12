@@ -12,7 +12,7 @@ import { readJsonFile, writeJsonFile, fileExists, ensureDir } from '../core/fs-u
 import { createLogger } from '../core/logger.js';
 
 const log = createLogger('think-state');
-const STATE_FILENAME = '.think-current';
+const STATE_FILENAME = 'thought.json';
 
 /**
  * Get the path to the state file for a given base path

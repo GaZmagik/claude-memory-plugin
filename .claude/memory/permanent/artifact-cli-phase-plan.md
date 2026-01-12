@@ -3,9 +3,14 @@ id: artifact-cli-phase-plan
 title: 6-Phase CLI Implementation Plan for Memory Skill
 type: permanent
 scope: project
-tags: [artifact, plan, cli, phases]
-created: 2026-01-12T15:48:00Z
-updated: 2026-01-12T15:48:00Z
+project: claude-memory-plugin
+created: "2026-01-12T15:48:00Z"
+updated: "2026-01-12T22:02:47.185Z"
+tags:
+  - artifact
+  - plan
+  - cli
+  - phases
 ---
 
 # Artifact: 6-Phase CLI Implementation Plan

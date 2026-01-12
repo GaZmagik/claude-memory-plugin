@@ -30,9 +30,9 @@ describe('think/state', () => {
   });
 
   describe('getStatePath', () => {
-    it('returns path to .think-current file', () => {
+    it('returns path to thought.json file', () => {
       const result = getStatePath('/some/path');
-      expect(result).toBe('/some/path/.think-current');
+      expect(result).toBe('/some/path/thought.json');
     });
   });
 
@@ -45,7 +45,7 @@ describe('think/state', () => {
     });
 
     it('loads existing state from file', () => {
-      const stateFile = path.join(tempDir, '.think-current');
+      const stateFile = path.join(tempDir, 'thought.json');
       fs.writeFileSync(stateFile, JSON.stringify({
         currentDocumentId: 'think-20260112-100000',
         currentScope: Scope.Project,
@@ -58,7 +58,7 @@ describe('think/state', () => {
     });
 
     it('returns empty state on invalid JSON', () => {
-      const stateFile = path.join(tempDir, '.think-current');
+      const stateFile = path.join(tempDir, 'thought.json');
       fs.writeFileSync(stateFile, 'not valid json');
 
       const state = loadState(tempDir);
@@ -74,7 +74,7 @@ describe('think/state', () => {
         lastUpdated: '2026-01-12T10:00:00Z',
       });
 
-      const stateFile = path.join(tempDir, '.think-current');
+      const stateFile = path.join(tempDir, 'thought.json');
       expect(fs.existsSync(stateFile)).toBe(true);
 
       const content = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
@@ -90,7 +90,7 @@ describe('think/state', () => {
         lastUpdated: '2026-01-12T10:00:00Z',
       });
 
-      expect(fs.existsSync(path.join(nestedDir, '.think-current'))).toBe(true);
+      expect(fs.existsSync(path.join(nestedDir, 'thought.json'))).toBe(true);
     });
 
     it('updates lastUpdated timestamp', () => {
@@ -103,7 +103,7 @@ describe('think/state', () => {
       const after = new Date().toISOString();
 
       const content = JSON.parse(fs.readFileSync(
-        path.join(tempDir, '.think-current'),
+        path.join(tempDir, 'thought.json'),
         'utf-8'
       ));
       expect(content.lastUpdated >= before).toBe(true);

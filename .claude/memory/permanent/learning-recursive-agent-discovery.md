@@ -1,10 +1,16 @@
 ---
-type: learning
+id: learning-recursive-agent-discovery
 title: Recursive agent and style discovery beats hardcoded paths
-topic: File discovery architecture
-created: 2026-01-12T10:45:00.000Z
-updated: 2026-01-12T10:45:00.000Z
-tags: [think, discovery, architecture, feature-001, typescript]
+type: learning
+project: claude-memory-plugin
+created: "2026-01-12T10:45:00.000Z"
+updated: "2026-01-12T22:02:47.190Z"
+tags:
+  - think
+  - discovery
+  - architecture
+  - feature-001
+  - typescript
 severity: medium
 ---
 

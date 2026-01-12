@@ -4,13 +4,18 @@ title: test-isolation-bun-mock-module
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T17:55:16Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium","testing","bun","mock","isolation"]
-embedding: "3e239f4d95f659bbf68bf6873f170489"
-links: [
-  "learning-tdd-test-coverage-expansion-pattern"
-]
+created: "2026-01-11T17:55:16Z"
+updated: "2026-01-12T22:02:47.182Z"
+tags:
+  - learning
+  - tip
+  - medium
+  - testing
+  - bun
+  - mock
+  - isolation
+links:
+  - learning-tdd-test-coverage-expansion-pattern
 ---
 
 # test-isolation-bun-mock-module

@@ -4,11 +4,15 @@ title: gitignore-comment-formatting-two-phase-fix
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T18:12:23Z
-updated: 2026-01-10T18:12:25Z
-tags: ["learning","gotcha","low","phase-2","gitignore","formatting"]
-embedding: "dc77c4294d29a34ae1fc41d78aba8925"
-links: []
+created: "2026-01-10T18:12:23Z"
+updated: "2026-01-12T22:02:47.198Z"
+tags:
+  - learning
+  - gotcha
+  - low
+  - phase-2
+  - gitignore
+  - formatting
 ---
 
 # gitignore-comment-formatting-two-phase-fix

@@ -115,10 +115,10 @@ describe('Directory Protection', () => {
         expect(shouldBlockOperation(operation)).toBe(true);
       });
 
-      it('should allow memory.sh commands', () => {
+      it('should allow memory commands', () => {
         const operation: ToolOperation = {
           tool: 'Bash',
-          command: '~/.claude/skills/memory/memory.sh write',
+          command: '~/.claude/skills/memory/memory write',
         };
         expect(shouldBlockOperation(operation)).toBe(false);
       });
@@ -244,10 +244,10 @@ describe('Directory Protection', () => {
       expect(isAllowedOperation(operation)).toBe(true);
     });
 
-    it('should allow memory.sh commands', () => {
+    it('should allow memory commands', () => {
       const operation: ToolOperation = {
         tool: 'Bash',
-        command: '.claude/skills/memory/memory.sh list',
+        command: '.claude/skills/memory/memory list',
       };
       expect(isAllowedOperation(operation)).toBe(true);
     });

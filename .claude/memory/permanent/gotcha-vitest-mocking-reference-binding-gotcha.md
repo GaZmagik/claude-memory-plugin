@@ -1,15 +1,17 @@
 ---
-type: gotcha
+id: gotcha-vitest-mocking-reference-binding-gotcha
 title: vitest Mocking - Reference Binding Gotcha
+type: gotcha
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T18:01:10.614Z"
-updated: "2026-01-12T18:01:10.614Z"
+updated: "2026-01-12T22:02:47.197Z"
 tags:
   - vitest
   - testing
   - typescript
   - mocking
   - project
-scope: project
 severity: high
 ---
 

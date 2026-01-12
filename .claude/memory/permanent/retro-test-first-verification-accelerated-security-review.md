@@ -1,14 +1,16 @@
 ---
 id: retro-test-first-verification-accelerated-security-review
-title: Test-First Verification: Security Review Acceleration Pattern
+title: "Test-First Verification: Security Review Acceleration Pattern"
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T12:05:02Z
-updated: 2026-01-11T12:05:04Z
-tags: ["retrospective","process","testing","security"]
-embedding: "d9cb2d6135bde8babe095e3420d11129"
-links: []
+created: "2026-01-11T12:05:02Z"
+updated: "2026-01-12T22:06:28.752Z"
+tags:
+  - retrospective
+  - process
+  - testing
+  - security
 ---
 
 # Test-First Verification Accelerated Security Review

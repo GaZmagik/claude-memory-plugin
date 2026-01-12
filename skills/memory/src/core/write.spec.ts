@@ -167,10 +167,12 @@ describe('writeMemory', () => {
       await writeMemory(validRequest);
 
       expect(frontmatter.createFrontmatter).toHaveBeenCalledWith({
+        id: 'learning-test',
         type: MemoryType.Learning,
         title: 'Test Memory',
         tags: ['test', 'learning', 'local'],  // 'local' auto-added from scope
         scope: Scope.Local,
+        project: undefined,
         severity: Severity.Medium,
         links: undefined,
         source: undefined,

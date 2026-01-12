@@ -235,7 +235,7 @@ runHook(async (input) => {
     }
   }
 
-  summary += "\n💡 Use 'memory.sh search <topic>' to find relevant memories before starting work.";
+  summary += "\n💡 Use 'memory search <topic>' to find relevant memories before starting work.";
 
   return {
     exitCode: 0,

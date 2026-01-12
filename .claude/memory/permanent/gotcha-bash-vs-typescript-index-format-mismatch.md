@@ -1,8 +1,11 @@
 ---
-type: gotcha
+id: gotcha-bash-vs-typescript-index-format-mismatch
 title: Bash vs TypeScript Index Format Mismatch
+type: gotcha
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:40:27.578Z"
-updated: "2026-01-12T20:40:27.578Z"
+updated: "2026-01-12T22:02:47.184Z"
 tags:
   - gotcha
   - high
@@ -10,7 +13,6 @@ tags:
   - migration
   - index
   - project
-scope: project
 severity: high
 ---
 

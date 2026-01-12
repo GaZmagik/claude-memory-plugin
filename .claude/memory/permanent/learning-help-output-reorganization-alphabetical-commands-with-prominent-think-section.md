@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section
 title: "Help output reorganization: alphabetical commands with prominent think section"
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:03:16.349Z"
-updated: "2026-01-12T20:03:16.349Z"
+updated: "2026-01-12T22:02:47.197Z"
 tags:
   - cli
   - help
   - ux
   - project
-scope: project
 ---
 
 ## Improvement

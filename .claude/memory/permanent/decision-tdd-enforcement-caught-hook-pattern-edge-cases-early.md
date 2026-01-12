@@ -1,8 +1,11 @@
 ---
-type: decision
+id: decision-tdd-enforcement-caught-hook-pattern-edge-cases-early
 title: TDD enforcement caught hook pattern edge cases early
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:40:21.659Z"
-updated: "2026-01-12T20:40:21.659Z"
+updated: "2026-01-12T22:02:47.198Z"
 tags:
   - retrospective
   - process
@@ -10,7 +13,6 @@ tags:
   - memory-plugin
   - testing
   - project
-scope: project
 ---
 
 # Retrospective: TDD Enforcement Caught Hook Edge Cases

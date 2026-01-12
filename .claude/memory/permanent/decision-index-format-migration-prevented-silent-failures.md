@@ -1,8 +1,11 @@
 ---
-type: decision
+id: decision-index-format-migration-prevented-silent-failures
 title: Index format migration prevented silent failures
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:40:14.159Z"
-updated: "2026-01-12T20:40:14.159Z"
+updated: "2026-01-12T22:02:47.192Z"
 tags:
   - retrospective
   - process
@@ -10,7 +13,6 @@ tags:
   - memory-plugin
   - testing
   - project
-scope: project
 ---
 
 # Retrospective: Index Format Migration Detected via Tests

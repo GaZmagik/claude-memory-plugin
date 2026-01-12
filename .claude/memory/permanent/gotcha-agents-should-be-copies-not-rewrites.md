@@ -4,13 +4,15 @@ title: Plugin agents must copy user-level versions, not simplified rewrites
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T13:58:32Z
-updated: 2026-01-12T08:37:10Z
-tags: ["plugin","agents","gotcha","maintenance"]
-embedding: "5c3d0840b344d68aa62b726244e70e85"
-links: [
-  "learning-memory-context-hook-graceful-search-degradation"
-]
+created: "2026-01-11T13:58:32Z"
+updated: "2026-01-12T22:02:47.181Z"
+tags:
+  - plugin
+  - agents
+  - gotcha
+  - maintenance
+links:
+  - learning-memory-context-hook-graceful-search-degradation
 ---
 
 ## Issue

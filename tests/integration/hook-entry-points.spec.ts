@@ -367,10 +367,10 @@ describe('Hook Entry Points Integration', () => {
     });
 
     it('should provide actionable guidance in error', () => {
-      const result = block('Use memory.sh script instead');
+      const result = block('Use memory script instead');
 
       const errorMessage = result.error?.message;
-      expect(errorMessage).toContain('memory.sh');
+      expect(errorMessage).toContain('memory');
     });
 
     it('should indicate memory type in block message', () => {

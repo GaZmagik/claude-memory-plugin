@@ -4,14 +4,19 @@ title: tdd-test-coverage-expansion-pattern
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T17:55:22Z
-updated: 2026-01-12T07:58:19Z
-tags: ["learning","tip","medium","tdd","testing","coverage","process"]
-embedding: "5734920e0132ea00ac06311f9a6b37e5"
-links: [
-  "learning-test-coverage-achieved-99-percent-functions",
-  "learning-test-naming-convention-spec-ts"
-]
+created: "2026-01-11T17:55:22Z"
+updated: "2026-01-12T22:02:47.190Z"
+tags:
+  - learning
+  - tip
+  - medium
+  - tdd
+  - testing
+  - coverage
+  - process
+links:
+  - learning-test-coverage-achieved-99-percent-functions
+  - learning-test-naming-convention-spec-ts
 ---
 
 # tdd-test-coverage-expansion-pattern

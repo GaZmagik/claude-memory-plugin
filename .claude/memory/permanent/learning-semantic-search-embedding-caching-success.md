@@ -4,14 +4,20 @@ title: semantic-search-embedding-caching-success
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T19:58:47Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","high","semantic-search","embedding","caching","optimization","ollama"]
-embedding: "fe3edaecc5ec0a50fb88f41f969df92b"
-links: [
-  "learning-post-compaction-memory-restoration-prevented-duplicate-work",
-  "learning-test-coverage-achieved-99-percent-functions"
-]
+created: "2026-01-10T19:58:47Z"
+updated: "2026-01-12T22:02:47.184Z"
+tags:
+  - learning
+  - tip
+  - high
+  - semantic-search
+  - embedding
+  - caching
+  - optimization
+  - ollama
+links:
+  - learning-post-compaction-memory-restoration-prevented-duplicate-work
+  - learning-test-coverage-achieved-99-percent-functions
 ---
 
 # semantic-search-embedding-caching-success

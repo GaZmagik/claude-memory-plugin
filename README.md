@@ -114,7 +114,7 @@ Find memories by meaning, not just keywords:
 
 ```bash
 # Returns all memories about API design patterns
-~/.claude/skills/memory/memory.sh semantic "How should API parameters be validated?"
+~/.claude/skills/memory/memory semantic "How should API parameters be validated?"
 ```
 
 ### 4. Memory Graph
@@ -221,12 +221,12 @@ Inspect the memory system:
 
 ## Memory Skill Reference
 
-The memory skill is installed at `~/.claude/skills/memory/memory.sh`.
+The memory skill is installed at `~/.claude/skills/memory/memory`.
 
 ### Write a Memory
 
 ```bash
-memory.sh write \
+memory write \
   --title "My Decision" \
   --type decision \
   --content "Why we chose X instead of Y..." \
@@ -238,58 +238,58 @@ memory.sh write \
 
 ```bash
 # Full-text search
-memory.sh search "postgresql performance"
+memory search "postgresql performance"
 
 # Semantic search
-memory.sh semantic "How do I optimize query performance?"
+memory semantic "How do I optimize query performance?"
 
 # List by type
-memory.sh list gotcha
-memory.sh list learning --tag typescript
+memory list gotcha
+memory list learning --tag typescript
 
 # Query with filters
-memory.sh query --type decision --scope local --tag "api"
+memory query --type decision --scope local --tag "api"
 ```
 
 ### Read a Memory
 
 ```bash
-memory.sh read learning-typescript-imports
+memory read learning-typescript-imports
 ```
 
 ### Delete
 
 ```bash
-memory.sh delete learning-old-pattern
+memory delete learning-old-pattern
 ```
 
 ### Graph Operations
 
 ```bash
 # View memory graph
-memory.sh mermaid local
+memory mermaid local
 
 # Check connectivity
-memory.sh graph local
+memory graph local
 
 # Find related memories
-memory.sh edges decision-ipfs-cid
+memory edges decision-ipfs-cid
 
 # Suggest new links
-memory.sh suggest-links
+memory suggest-links
 ```
 
 ### Health & Quality
 
 ```bash
 # System health
-memory.sh health local
-memory.sh stats local
-memory.sh validate local
+memory health local
+memory stats local
+memory validate local
 
 # Quality audit (checks for stale/duplicate memories)
-memory.sh audit local
-memory.sh audit-quick local  # Deterministic checks only
+memory audit local
+memory audit-quick local  # Deterministic checks only
 ```
 
 ## Configuration
@@ -373,12 +373,12 @@ export DEBUG=memory:*
 
 Verify memory files are readable:
 ```bash
-memory.sh health local
+memory health local
 ```
 
 Check file patterns match your current file:
 ```bash
-memory.sh list gotcha  # Review file_patterns
+memory list gotcha  # Review file_patterns
 ```
 
 ### Slow Performance

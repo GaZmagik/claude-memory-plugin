@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value
 title: CLI parser now supports --flag=value syntax in addition to --flag value
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:03:05.628Z"
-updated: "2026-01-12T20:03:05.628Z"
+updated: "2026-01-12T22:02:47.181Z"
 tags:
   - cli
   - parser
   - enhancement
   - project
-scope: project
 ---
 
 ## Enhancement

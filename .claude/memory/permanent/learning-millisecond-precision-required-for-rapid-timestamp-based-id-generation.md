@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation
 title: Millisecond precision required for rapid timestamp-based ID generation
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:02:49.071Z"
-updated: "2026-01-12T20:02:49.071Z"
+updated: "2026-01-12T22:02:47.199Z"
 tags:
   - id-generation
   - timestamps
   - performance
   - retro
   - project
-scope: project
 ---
 
 ## Learning: Timer Granularity in ID Schemes

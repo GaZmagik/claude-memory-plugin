@@ -16255,5 +16255,232 @@
       "hash": "8465fd1a1a0601ee",
       "timestamp": "2026-01-11T15:32:05.316Z"
     }
+  },
+  "memories": {
+    "learning-scope-isolation-architecture-design": {
+      "embedding": [],
+      "hash": "469e7228f6086c126e227d6e13db1e2a",
+      "timestamp": "2026-01-12T22:02:47.173Z"
+    },
+    "learning-retro-tmpdir-cleanup-permissions-fragile": {
+      "embedding": [],
+      "hash": "d355fde1b2a2baca6b9559b7d0a02a69",
+      "timestamp": "2026-01-12T22:02:47.179Z"
+    },
+    "learning-tdd-scope-resolution-module-structure": {
+      "embedding": [],
+      "hash": "82b913a716c6227603309d0c73c4b355",
+      "timestamp": "2026-01-12T22:02:47.180Z"
+    },
+    "learning-memory-context-hook-graceful-search-degradation": {
+      "embedding": [],
+      "hash": "ce7a142c08bd3c1d88de62445a27e70e",
+      "timestamp": "2026-01-12T22:02:47.180Z"
+    },
+    "gotcha-agents-should-be-copies-not-rewrites": {
+      "embedding": [],
+      "hash": "5c3d0840b344d68aa62b726244e70e85",
+      "timestamp": "2026-01-12T22:02:47.181Z"
+    },
+    "learning-tdd-parity-vitest-limitation": {
+      "embedding": [],
+      "hash": "8e7d097982ad9ed1bff357a8ec922d42",
+      "timestamp": "2026-01-12T22:02:47.182Z"
+    },
+    "learning-test-agent-generates-aspirational-tests": {
+      "embedding": [],
+      "hash": "708e6610f43b149dde6538d159a537a9",
+      "timestamp": "2026-01-12T22:02:47.182Z"
+    },
+    "learning-test-isolation-bun-mock-module": {
+      "embedding": [],
+      "hash": "3e239f4d95f659bbf68bf6873f170489",
+      "timestamp": "2026-01-12T22:02:47.182Z"
+    },
+    "learning-scope-field-frontmatter-serialisation-gotcha-two": {
+      "embedding": [],
+      "hash": "ccc079edd565539e05b6281bb44778ce",
+      "timestamp": "2026-01-12T22:02:47.183Z"
+    },
+    "learning-retro-agent-verification-for-exclusions": {
+      "embedding": [],
+      "hash": "81d9e007d6ad77fe6cd9e469e870fd8c",
+      "timestamp": "2026-01-12T22:02:47.183Z"
+    },
+    "retro-mock-syntax-friction-bun": {
+      "embedding": [],
+      "hash": "c65b16dba543f2b1c8241a9cbc3f8ad6",
+      "timestamp": "2026-01-12T22:02:47.184Z"
+    },
+    "learning-semantic-search-embedding-caching-success": {
+      "embedding": [],
+      "hash": "fe3edaecc5ec0a50fb88f41f969df92b",
+      "timestamp": "2026-01-12T22:02:47.184Z"
+    },
+    "learning-tdd-discipline-across-multi-phase-session-maintains-coverage": {
+      "embedding": [],
+      "hash": "4e09fc9b7b275a684038f757d951ffd9",
+      "timestamp": "2026-01-12T22:02:47.185Z"
+    },
+    "learning-scope-field-frontmatter-serialisation-gotcha": {
+      "embedding": [],
+      "hash": "66d40e1f4be2886cd9a7335c40937bbe",
+      "timestamp": "2026-01-12T22:02:47.185Z"
+    },
+    "learning-constitution-first-approach-prevents-scope-creep-in-sdd": {
+      "embedding": [],
+      "hash": "7d3665f1e08b760964b965f2240627be",
+      "timestamp": "2026-01-12T22:02:47.186Z"
+    },
+    "learning-immutable-graph-operations-pattern": {
+      "embedding": [],
+      "hash": "ac7a908b716028f1f12d6ee42b131af8",
+      "timestamp": "2026-01-12T22:02:47.186Z"
+    },
+    "learning-typescript-tdd-hook-naming-enforcement": {
+      "embedding": [],
+      "hash": "df4f55670a161eef6be2390018c3d11e",
+      "timestamp": "2026-01-12T22:02:47.187Z"
+    },
+    "learning-typescript-import-path-consistency-prevents-batch-compilation-failures": {
+      "embedding": [],
+      "hash": "0acf81d6f164965edf59e16b6d20e1d2",
+      "timestamp": "2026-01-12T22:02:47.187Z"
+    },
+    "learning-retro-tdd-parity-typescript-matching-accuracy": {
+      "embedding": [],
+      "hash": "98a4bba2914705597757ddc02bbd4931",
+      "timestamp": "2026-01-12T22:02:47.188Z"
+    },
+    "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching": {
+      "embedding": [],
+      "hash": "f631d345357f12369cf4ee7bf24f470b",
+      "timestamp": "2026-01-12T22:02:47.188Z"
+    },
+    "learning-test-coverage-achieved-99-percent-functions": {
+      "embedding": [],
+      "hash": "ab1dbe0f48bf537e56f91bbca6d263a6",
+      "timestamp": "2026-01-12T22:02:47.188Z"
+    },
+    "learning-retro-test-isolation-pattern-worth-documenting": {
+      "embedding": [],
+      "hash": "d80729448aad7a6165e95a37523282aa",
+      "timestamp": "2026-01-12T22:02:47.189Z"
+    },
+    "learning-tdd-parity-typescript-support": {
+      "embedding": [],
+      "hash": "66d458ac7a11b60ecedcf3be2a7949e6",
+      "timestamp": "2026-01-12T22:02:47.189Z"
+    },
+    "learning-tdd-phase-completion-pattern": {
+      "embedding": [],
+      "hash": "7636daead6722477255a8b0a983fa6f1",
+      "timestamp": "2026-01-12T22:02:47.189Z"
+    },
+    "learning-tdd-test-coverage-expansion-pattern": {
+      "embedding": [],
+      "hash": "5734920e0132ea00ac06311f9a6b37e5",
+      "timestamp": "2026-01-12T22:02:47.190Z"
+    },
+    "learning-cargo-cult-tdd-compliance": {
+      "embedding": [],
+      "hash": "512320fc82a866b7de4fbdc8555b13b0",
+      "timestamp": "2026-01-12T22:02:47.190Z"
+    },
+    "learning-post-compaction-memory-restoration-prevented-duplicate-work": {
+      "embedding": [],
+      "hash": "a2ec506d28f2a5b3449b55f46f362a21",
+      "timestamp": "2026-01-12T22:02:47.191Z"
+    },
+    "learning-retro-typescript-tooling-parity": {
+      "embedding": [],
+      "hash": "d2afc81c46b538c40d282b9b96da8c29",
+      "timestamp": "2026-01-12T22:02:47.191Z"
+    },
+    "learning-retro-agent-generated-tests-need-api-validation": {
+      "embedding": [],
+      "hash": "1dfe5a74745a64ef111d87faebddfd7e",
+      "timestamp": "2026-01-12T22:02:47.192Z"
+    },
+    "learning-regex-based-language-parsing-tradeoff": {
+      "embedding": [],
+      "hash": "22db882ac3cb6a052a3b3cac4188c21f",
+      "timestamp": "2026-01-12T22:02:47.193Z"
+    },
+    "decision-4tier-scope-hierarchy": {
+      "embedding": [],
+      "hash": "f68017c868b73315fc56950fa44dc675",
+      "timestamp": "2026-01-12T22:02:47.194Z"
+    },
+    "learning-retro-memory-graph-linking-batch-approach-efficient": {
+      "embedding": [],
+      "hash": "9ca878c98e8c8702e08342f305286210",
+      "timestamp": "2026-01-12T22:02:47.195Z"
+    },
+    "retro-hook-pattern-non-python-projects": {
+      "embedding": [],
+      "hash": "f78ec46cc7c6a5fdcb00d19ee97b5751",
+      "timestamp": "2026-01-12T22:02:47.195Z"
+    },
+    "learning-retro-tdd-test-expectations-guide-implementation": {
+      "embedding": [],
+      "hash": "54f643ab4e7734b87a654311dfe24ddd",
+      "timestamp": "2026-01-12T22:02:47.195Z"
+    },
+    "learning-retro-test-coverage-asymptotic-returns": {
+      "embedding": [],
+      "hash": "f2deac0051697ba07cf0ce97d28d5f51",
+      "timestamp": "2026-01-12T22:02:47.196Z"
+    },
+    "learning-spawn-session-refactor": {
+      "embedding": [],
+      "hash": "68bc488a9f9fa264da24f4eb93de8413",
+      "timestamp": "2026-01-12T22:02:47.196Z"
+    },
+    "learning-specification-audit-caught-architectural-gaps-before-planning": {
+      "embedding": [],
+      "hash": "48f706126afb77b685c2ccd9bca7b8b6",
+      "timestamp": "2026-01-12T22:02:47.197Z"
+    },
+    "learning-gitignore-comment-formatting-two-phase-fix": {
+      "embedding": [],
+      "hash": "dc77c4294d29a34ae1fc41d78aba8925",
+      "timestamp": "2026-01-12T22:02:47.198Z"
+    },
+    "gotcha-vi-mock-global-pollution": {
+      "embedding": [],
+      "hash": "47487ac003ab2154fdaebbd71f43455e",
+      "timestamp": "2026-01-12T22:02:47.199Z"
+    },
+    "decision-colocate-unit-tests": {
+      "embedding": [],
+      "hash": "141f3084a2c1202235a04825e4d4399c",
+      "timestamp": "2026-01-12T22:02:47.199Z"
+    },
+    "learning-retro-memory-linking-post-compaction": {
+      "embedding": [],
+      "hash": "95c58311ac31a2283d73dab58320c736",
+      "timestamp": "2026-01-12T22:02:47.200Z"
+    },
+    "learning-tdd-typescript-hook-bidirectional-enforcement": {
+      "embedding": [],
+      "hash": "8bf007098a6cf8ad6c5efa29c3ef2dae",
+      "timestamp": "2026-01-12T22:06:28.743Z"
+    },
+    "retro-duplicate-test-discovery": {
+      "embedding": [],
+      "hash": "953aa0221575a409bcf784a240be0866",
+      "timestamp": "2026-01-12T22:06:28.748Z"
+    },
+    "learning-test-naming-convention-spec-ts": {
+      "embedding": [],
+      "hash": "e8d82950a83123b4e474149a8be99cb6",
+      "timestamp": "2026-01-12T22:06:28.749Z"
+    },
+    "retro-test-first-verification-accelerated-security-review": {
+      "embedding": [],
+      "hash": "d9cb2d6135bde8babe095e3420d11129",
+      "timestamp": "2026-01-12T22:06:28.752Z"
+    }
   }
 }

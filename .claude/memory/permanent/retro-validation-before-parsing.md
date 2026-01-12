@@ -1,10 +1,16 @@
 ---
-type: learning
+id: retro-validation-before-parsing
 title: Define Validation Before Touching Parser Logic
+type: learning
+project: claude-memory-plugin
+created: "2026-01-12T16:00:00Z"
+updated: "2026-01-12T22:02:47.199Z"
+tags:
+  - retrospective
+  - process
+  - code-quality
+  - validation
 severity: medium
-tags: [retrospective, process, code-quality, validation]
-created: 2026-01-12T16:00:00Z
-updated: 2026-01-12T16:00:00Z
 ---
 
 # Validation-First Approach for Data Parsing

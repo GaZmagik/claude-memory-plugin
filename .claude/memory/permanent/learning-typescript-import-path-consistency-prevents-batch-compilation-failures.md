@@ -4,11 +4,14 @@ title: TypeScript import path consistency prevents batch compilation failures
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T19:58:47Z
-updated: 2026-01-10T19:58:51Z
-tags: ["retrospective","process","typescript","build-system","lessons-learned"]
-embedding: "0acf81d6f164965edf59e16b6d20e1d2"
-links: []
+created: "2026-01-10T19:58:47Z"
+updated: "2026-01-12T22:02:47.187Z"
+tags:
+  - retrospective
+  - process
+  - typescript
+  - build-system
+  - lessons-learned
 ---
 
 # Retrospective: Import Path Consistency

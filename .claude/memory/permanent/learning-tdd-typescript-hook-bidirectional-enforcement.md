@@ -1,17 +1,20 @@
 ---
 id: learning-tdd-typescript-hook-bidirectional-enforcement
-title: TDD TypeScript hook: bidirectional stub-test-implementation enforcement
+title: "TDD TypeScript hook: bidirectional stub-test-implementation enforcement"
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T13:58:25Z
-updated: 2026-01-11T21:07:37Z
-tags: ["plugin","tdd","typescript","hook","user-level"]
-embedding: "8bf007098a6cf8ad6c5efa29c3ef2dae"
-links: [
-  "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
-  "learning-memory-context-hook-graceful-search-degradation"
-]
+created: "2026-01-11T13:58:25Z"
+updated: "2026-01-12T22:06:28.743Z"
+tags:
+  - plugin
+  - tdd
+  - typescript
+  - hook
+  - user-level
+links:
+  - learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
+  - learning-memory-context-hook-graceful-search-degradation
 ---
 
 ## Purpose

@@ -3,9 +3,14 @@ id: decision-cli-dispatcher-pattern
 title: CLI Dispatcher Architecture Pattern
 type: permanent
 scope: project
-tags: [architecture, decision, cli, design]
-created: 2026-01-12T15:46:00Z
-updated: 2026-01-12T15:46:00Z
+project: claude-memory-plugin
+created: "2026-01-12T15:46:00Z"
+updated: "2026-01-12T22:02:47.194Z"
+tags:
+  - architecture
+  - decision
+  - cli
+  - design
 ---
 
 # Decision: CLI Dispatcher Pattern for Memory Skill

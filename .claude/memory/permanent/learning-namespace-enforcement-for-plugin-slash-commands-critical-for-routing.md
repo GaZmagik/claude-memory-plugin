@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing
 title: Namespace enforcement for plugin slash commands critical for routing
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T21:05:24.573Z"
-updated: "2026-01-12T21:05:24.573Z"
+updated: "2026-01-12T22:02:47.183Z"
 tags:
   - plugin-architecture
   - slash-commands
   - retro
   - project
-scope: project
 ---
 
 # Namespace Enforcement for Plugin Slash Commands

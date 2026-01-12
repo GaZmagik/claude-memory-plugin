@@ -1,14 +1,16 @@
 ---
-type: decision
+id: decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun
 title: "Gotcha: execFileSync loses PATH when spawning child processes from Bun"
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:31:27.884Z"
-updated: "2026-01-12T20:31:27.884Z"
+updated: "2026-01-12T22:02:47.194Z"
 tags:
   - retrospective
   - gotcha
   - subprocess
   - project
-scope: project
 ---
 
 # Gotcha: execFileSync PATH Environment in Bun

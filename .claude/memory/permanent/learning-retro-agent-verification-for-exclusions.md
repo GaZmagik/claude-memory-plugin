@@ -4,13 +4,14 @@ title: retro-agent-verification-for-exclusions
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-12T08:32:37Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium"]
-embedding: "81d9e007d6ad77fe6cd9e469e870fd8c"
-links: [
-  "learning-retro-agent-generated-tests-need-api-validation"
-]
+created: "2026-01-12T08:32:37Z"
+updated: "2026-01-12T22:02:47.183Z"
+tags:
+  - learning
+  - tip
+  - medium
+links:
+  - learning-retro-agent-generated-tests-need-api-validation
 ---
 
 # retro-agent-verification-for-exclusions

@@ -4,13 +4,17 @@ title: Hook protection can block legitimate git operations - requires careful pa
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T06:08:44Z
-updated: 2026-01-11T21:07:39Z
-tags: ["learning","gotcha","medium","process","hooks","protection-patterns"]
-embedding: "f631d345357f12369cf4ee7bf24f470b"
-links: [
-  "learning-gitignore-comment-formatting-two-phase-fix"
-]
+created: "2026-01-10T06:08:44Z"
+updated: "2026-01-12T22:02:47.188Z"
+tags:
+  - learning
+  - gotcha
+  - medium
+  - process
+  - hooks
+  - protection-patterns
+links:
+  - learning-gitignore-comment-formatting-two-phase-fix
 ---
 
 # Hook protection can block legitimate git operations - requires careful pattern matching

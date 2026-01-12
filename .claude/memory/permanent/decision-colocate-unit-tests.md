@@ -4,15 +4,17 @@ title: colocate-unit-tests
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T23:27:12Z
-updated: 2026-01-12T07:58:12Z
-tags: ["decision","adr","architecture","accepted"]
-embedding: "141f3084a2c1202235a04825e4d4399c"
-links: [
-  "learning-tdd-scope-resolution-module-structure",
-  "learning-tdd-test-coverage-expansion-pattern",
-  "learning-test-naming-convention-spec-ts"
-]
+created: "2026-01-11T23:27:12Z"
+updated: "2026-01-12T22:02:47.199Z"
+tags:
+  - decision
+  - adr
+  - architecture
+  - accepted
+links:
+  - learning-tdd-scope-resolution-module-structure
+  - learning-tdd-test-coverage-expansion-pattern
+  - learning-test-naming-convention-spec-ts
 ---
 
 # colocate-unit-tests

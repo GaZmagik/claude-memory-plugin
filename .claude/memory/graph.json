@@ -223,6 +223,122 @@
     {
       "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
       "type": "learning"
+    },
+    {
+      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "type": "decision"
+    },
+    {
+      "id": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "type": "learning"
+    },
+    {
+      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "type": "decision"
+    },
+    {
+      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "type": "learning"
+    },
+    {
+      "id": "decision-hook-separation-clarified-enforcement-boundaries",
+      "type": "decision"
+    },
+    {
+      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-bash-vs-typescript-index-format-mismatch",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-cli-phase-plan",
+      "type": "permanent"
+    },
+    {
+      "id": "decision-think-temporary-breadcrumb-type",
+      "type": "decision"
+    },
+    {
+      "id": "gotcha-scope-resolver-params",
+      "type": "permanent"
+    },
+    {
+      "id": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "type": "learning"
+    },
+    {
+      "id": "learning-recursive-agent-discovery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-think-frontmatter-field-tracing",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "type": "decision"
+    },
+    {
+      "id": "decision-index-format-migration-prevented-silent-failures",
+      "type": "decision"
+    },
+    {
+      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "type": "learning"
+    },
+    {
+      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "type": "decision"
+    },
+    {
+      "id": "decision-cli-dispatcher-pattern",
+      "type": "permanent"
+    },
+    {
+      "id": "retro-batch-operations-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "retro-multi-agent-review-effectiveness",
+      "type": "learning"
+    },
+    {
+      "id": "learning-bun-link-cli-exposure-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-two-hook-enforcement-pattern-for-memory-operations",
+      "type": "learning"
+    },
+    {
+      "id": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "type": "decision"
+    },
+    {
+      "id": "retro-validation-before-parsing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-think-ai-invocation-flow",
+      "type": "learning"
+    },
+    {
+      "id": "think-20260112-190617",
+      "type": "breadcrumb"
+    },
+    {
+      "id": "think-20260112-002048",
+      "type": "temporary"
+    },
+    {
+      "id": "learning-think-scope-project-vs-local-split",
+      "type": "learning"
     }
   ],
   "edges": [

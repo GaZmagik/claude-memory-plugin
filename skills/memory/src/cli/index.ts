@@ -15,7 +15,7 @@ import { cmdWrite, cmdRead, cmdList, cmdDelete, cmdSearch, cmdSemantic } from '.
 import { cmdTag, cmdUntag } from './commands/tags.js';
 import { cmdLink, cmdUnlink, cmdGraph, cmdMermaid, cmdEdges, cmdRemoveNode } from './commands/graph.js';
 import { cmdHealth, cmdValidate, cmdQuality, cmdAudit, cmdAuditQuick } from './commands/quality.js';
-import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter } from './commands/maintenance.js';
+import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter, cmdRefresh } from './commands/maintenance.js';
 import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus } from './commands/utility.js';
 import { cmdBulkLink, cmdBulkDelete, cmdExport, cmdImport } from './commands/bulk.js';
 import { cmdSuggestLinks, cmdSummarize } from './commands/suggest.js';
@@ -65,6 +65,7 @@ const COMMANDS: Record<string, CommandHandler> = {
   reindex: cmdReindex,
   prune: cmdPrune,
   'sync-frontmatter': cmdSyncFrontmatter,
+  refresh: cmdRefresh,
 
   // Utility operations
   rename: cmdRename,

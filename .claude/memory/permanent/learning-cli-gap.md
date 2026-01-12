@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-cli-gap
 title: Memory Skill TypeScript Library Has No CLI Entry Point
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T15:45:00Z"
-updated: "2026-01-12T17:15:29.489Z"
+updated: "2026-01-12T22:02:47.197Z"
 tags:
   - cli
   - architecture
   - discovery
   - critical
-scope: project
 severity: high
 ---
 

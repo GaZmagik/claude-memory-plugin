@@ -1,10 +1,16 @@
 ---
-type: learning
+id: retro-multi-agent-review-effectiveness
 title: Multi-Agent Pre-Ship Review Effectiveness
+type: learning
+project: claude-memory-plugin
+created: "2026-01-12T16:00:00Z"
+updated: "2026-01-12T22:02:47.198Z"
+tags:
+  - retrospective
+  - process
+  - quality-assurance
+  - feature-parity
 severity: high
-tags: [retrospective, process, quality-assurance, feature-parity]
-created: 2026-01-12T16:00:00Z
-updated: 2026-01-12T16:00:00Z
 ---
 
 # Multi-Agent Review for Feature Validation

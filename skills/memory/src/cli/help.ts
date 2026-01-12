@@ -35,6 +35,7 @@ COMMANDS:
   query [options]     Query memories with filters (type, tags, edges)
   read <id>           Read a memory by ID
   rebuild [scope]     Rebuild graph and index from disk (use with caution)
+  refresh [scope]     Backfill missing frontmatter fields (id, project)
   reindex <id>        Re-index an orphan file
   remove-node <id>    Remove a node from graph (keeps file)
   rename <old> <new>  Rename a memory ID (updates all references)

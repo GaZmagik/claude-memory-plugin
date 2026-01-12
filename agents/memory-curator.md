@@ -224,7 +224,7 @@ Run periodically or during handover to identify temporary memories ready for pro
    - Suggested promotion:
      ```bash
      # Extract learning
-     learnings.sh add learning-[topic] --title "[title]" --content "[excerpt]"
+     memory add learning-[topic] --title "[title]" --content "[excerpt]"
      # Link to breadcrumb
      memory link learning-[topic] breadcrumb-2025-10-20 "documented-in"
      # Archive breadcrumb

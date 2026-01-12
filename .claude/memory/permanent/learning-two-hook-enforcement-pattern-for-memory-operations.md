@@ -1,15 +1,17 @@
 ---
-type: learning
+id: learning-two-hook-enforcement-pattern-for-memory-operations
 title: Two-Hook Enforcement Pattern for Memory Operations
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:40:21.402Z"
-updated: "2026-01-12T20:40:21.402Z"
+updated: "2026-01-12T22:02:47.198Z"
 tags:
   - hooks
   - architecture
   - enforcement
   - memory-plugin
   - project
-scope: project
 ---
 
 Split memory protection into two separate hooks: protect-memory-directory.ts blocks Write/Edit/MultiEdit tools from modifying .claude/memory/ files, while enforce-memory-cli.ts blocks bash operations (rm, mv, cp, redirects) with whitelists for memory CLI and read-only operations. Each hook has focused responsibility.

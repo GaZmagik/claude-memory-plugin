@@ -1,14 +1,16 @@
 ---
-type: learning
+id: learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes
 title: TDD enforcement requires test files before source edits - creates friction with simple fixes
+type: learning
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T21:05:30.797Z"
-updated: "2026-01-12T21:05:30.797Z"
+updated: "2026-01-12T22:02:47.191Z"
 tags:
   - tdd
   - workflow
   - retro
   - project
-scope: project
 ---
 
 # TDD Enforcement and Simple Fixes Friction

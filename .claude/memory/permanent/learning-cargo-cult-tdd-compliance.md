@@ -4,15 +4,16 @@ title: cargo-cult-tdd-compliance
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-11T23:27:06Z
-updated: 2026-01-12T07:58:19Z
-tags: ["learning","gotcha","high"]
-embedding: "512320fc82a866b7de4fbdc8555b13b0"
-links: [
-  "learning-retro-agent-generated-tests-need-api-validation",
-  "learning-tdd-parity-vitest-limitation",
-  "learning-test-agent-generates-aspirational-tests"
-]
+created: "2026-01-11T23:27:06Z"
+updated: "2026-01-12T22:02:47.190Z"
+tags:
+  - learning
+  - gotcha
+  - high
+links:
+  - learning-retro-agent-generated-tests-need-api-validation
+  - learning-tdd-parity-vitest-limitation
+  - learning-test-agent-generates-aspirational-tests
 ---
 
 # cargo-cult-tdd-compliance

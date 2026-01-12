@@ -1,14 +1,16 @@
 ---
-type: artifact
+id: artifact-per-command-help-system-registry-pattern-with-command-specific-documentation
 title: "Per-command help system: registry pattern with command-specific documentation"
+type: artifact
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:03:10.869Z"
-updated: "2026-01-12T20:03:10.869Z"
+updated: "2026-01-12T22:02:47.193Z"
 tags:
   - cli
   - help
   - design-pattern
   - project
-scope: project
 ---
 
 ## Pattern

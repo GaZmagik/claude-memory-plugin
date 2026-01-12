@@ -4,11 +4,17 @@ title: vi.mock and mock.module cause global test pollution
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-12T04:22:50Z
-updated: 2026-01-12T04:22:54Z
-tags: ["gotcha","testing","vitest","bun","mocking","high"]
-embedding: "47487ac003ab2154fdaebbd71f43455e"
-links: ["learning-test-isolation-bun-mock-module"]
+created: "2026-01-12T04:22:50Z"
+updated: "2026-01-12T22:02:47.199Z"
+tags:
+  - gotcha
+  - testing
+  - vitest
+  - bun
+  - mocking
+  - high
+links:
+  - learning-test-isolation-bun-mock-module
 ---
 
 # vi.mock and mock.module cause global test pollution

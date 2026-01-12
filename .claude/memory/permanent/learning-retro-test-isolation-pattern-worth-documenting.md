@@ -4,13 +4,14 @@ title: retro-test-isolation-pattern-worth-documenting
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-12T08:32:49Z
-updated: 2026-01-12T08:37:10Z
-tags: ["learning","tip","medium"]
-embedding: "d80729448aad7a6165e95a37523282aa"
-links: [
-  "learning-test-isolation-bun-mock-module"
-]
+created: "2026-01-12T08:32:49Z"
+updated: "2026-01-12T22:02:47.189Z"
+tags:
+  - learning
+  - tip
+  - medium
+links:
+  - learning-test-isolation-bun-mock-module
 ---
 
 # retro-test-isolation-pattern-worth-documenting

@@ -4,11 +4,16 @@ title: Specification audit caught architectural gaps before planning
 type: permanent
 scope: local
 project: claude-memory-plugin
-created: 2026-01-10T06:08:38Z
-updated: 2026-01-10T06:08:40Z
-tags: ["learning","tip","high","process","specification","quality-gates","best-practice"]
-embedding: "48f706126afb77b685c2ccd9bca7b8b6"
-links: []
+created: "2026-01-10T06:08:38Z"
+updated: "2026-01-12T22:02:47.197Z"
+tags:
+  - learning
+  - tip
+  - high
+  - process
+  - specification
+  - quality-gates
+  - best-practice
 ---
 
 # Specification audit caught architectural gaps before planning

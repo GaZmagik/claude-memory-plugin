@@ -3,10 +3,15 @@ id: gotcha-scope-resolver-params
 title: getScopePath() Requires (scope, cwd, globalPath) Not Just Scope
 type: permanent
 scope: project
-tags: [gotcha, cli, scope-resolution, critical]
+project: claude-memory-plugin
+created: "2026-01-12T15:47:00Z"
+updated: "2026-01-12T22:02:47.186Z"
+tags:
+  - gotcha
+  - cli
+  - scope-resolution
+  - critical
 severity: medium
-created: 2026-01-12T15:47:00Z
-updated: 2026-01-12T15:47:00Z
 ---
 
 # Gotcha: getScopePath() Signature

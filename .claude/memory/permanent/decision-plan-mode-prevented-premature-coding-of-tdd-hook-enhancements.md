@@ -1,14 +1,16 @@
 ---
-type: decision
+id: decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements
 title: Plan mode prevented premature coding of TDD hook enhancements
+type: decision
+scope: project
+project: claude-memory-plugin
 created: "2026-01-12T20:31:21.668Z"
-updated: "2026-01-12T20:31:21.668Z"
+updated: "2026-01-12T22:02:47.192Z"
 tags:
   - retrospective
   - process
   - planning
   - project
-scope: project
 ---
 
 # Retrospective: Planning Discipline Prevented Scope Creep

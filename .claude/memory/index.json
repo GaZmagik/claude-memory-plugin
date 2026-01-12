@@ -699,7 +699,40 @@
       "updated": "2026-01-12T00:25:50Z",
       "scope": "local",
       "relativePath": "temporary/thought-20260112-002048.md"
+    },
+    {
+      "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "type": "learning",
+      "title": "Bulk Operations: TDD Caught Interface Mismatches Early",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "bulk-operations",
+        "project"
+      ],
+      "created": "2026-01-12T23:38:24.507Z",
+      "updated": "2026-01-12T23:38:24.507Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bulk-operations-tdd-caught-interface-mismatches-early.md"
+    },
+    {
+      "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "type": "gotcha",
+      "title": "Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)",
+      "tags": [
+        "gotcha",
+        "bulk-operations",
+        "graph-design",
+        "scope-isolation",
+        "project"
+      ],
+      "created": "2026-01-12T23:38:34.450Z",
+      "updated": "2026-01-12T23:38:34.450Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive.md",
+      "severity": "medium"
     }
   ],
-  "lastUpdated": "2026-01-12T23:20:09.012Z"
+  "lastUpdated": "2026-01-12T23:38:34.453Z"
 }

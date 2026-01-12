@@ -90,6 +90,19 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `think conclude <text>` | Conclude (--promote type to save) |
 | | `think delete <id>` | Delete thinking document |
 
+## Requirements
+
+- **Bun** - TypeScript runtime (install via `bun link` from plugin root)
+- **Ollama** (optional) - Required for semantic features:
+  - `semantic` search by meaning
+  - `write --auto-link` automatic linking
+  - `suggest-links` relationship suggestions
+  - `refresh --embeddings` embedding generation
+
+  Install: `ollama pull embeddinggemma` (see [Ollama docs](https://ollama.ai/))
+
+  Without Ollama, semantic features gracefully fall back to keyword search.
+
 ## Full Documentation
 
 See [README.md](README.md) for detailed documentation on:

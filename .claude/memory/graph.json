@@ -183,6 +183,14 @@
     {
       "id": "thought-20260112-002048",
       "type": "temporary"
+    },
+    {
+      "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "type": "gotcha"
     }
   ],
   "edges": [

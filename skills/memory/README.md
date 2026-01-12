@@ -28,6 +28,27 @@ memory help
 memory status
 ```
 
+### Optional: Ollama for Semantic Features
+
+Semantic search, auto-linking, and link suggestions require [Ollama](https://ollama.ai/) running locally with an embedding model:
+
+```bash
+# Install Ollama (https://ollama.ai/download)
+# Then pull the embedding model:
+ollama pull embeddinggemma
+
+# Verify Ollama is running:
+curl http://localhost:11434/api/tags
+```
+
+**Features requiring Ollama:**
+- `memory semantic <query>` - Search by meaning
+- `memory write --auto-link` - Auto-link to similar memories
+- `memory suggest-links` - Find potential relationships
+- `memory refresh --embeddings` - Pre-generate embedding cache
+
+**Graceful degradation:** If Ollama is unavailable, semantic features fall back to keyword search (2s timeout check on `localhost:11434`).
+
 ## Quick Start
 
 ### Store a Decision
@@ -290,6 +311,25 @@ This ensures `.md` files stay in sync with `graph.json` - no more stale frontmat
 
 ## Semantic Search & Auto-Link
 
+### Embedding Generation
+
+Semantic features require pre-generated embeddings. Generate them with:
+
+```bash
+# Generate embeddings for all memories in a scope
+memory refresh project --embeddings
+
+# Generate for specific memory
+memory refresh project --embeddings --id my-memory-id
+
+# Dry run to see what would be processed
+memory refresh project --embeddings --dry-run
+```
+
+Embeddings are cached in `embeddings.json` with content-hash deduplication (regenerates only when content changes).
+
+**Requires:** Ollama running with `embeddinggemma` model (see Installation).
+
 ### Semantic Search
 
 Search memories by meaning rather than keyword matching:
@@ -299,7 +339,7 @@ memory semantic "error handling patterns" --limit 5
 memory semantic "database design" --threshold 0.5
 ```
 
-Uses existing embedding cache (from `suggest-links`) to find conceptually similar memories. "database persistence" will find "PostgreSQL storage decisions".
+Uses existing embedding cache to find conceptually similar memories. "database persistence" will find "PostgreSQL storage decisions".
 
 ### Auto-Link on Write
 

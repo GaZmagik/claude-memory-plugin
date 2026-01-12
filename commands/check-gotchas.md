@@ -48,7 +48,7 @@ Check which scopes are accessible for searching:
 
 ```bash
 # Check enterprise scope availability (for managed environments)
-enterprise_enabled=$(~/.claude/skills/memory/memory.sh config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false')
+enterprise_enabled=$(memory config get scopes.enterprise.enabled 2>/dev/null | jq -r '.data // false')
 
 # Check if in a git repo (for project/local scopes)
 in_git_repo=$(git rev-parse --git-dir >/dev/null 2>&1 && echo "true" || echo "false")
@@ -463,7 +463,7 @@ The memory system has no documented gotchas in any accessible scope.
 
 **Recommendation:**
 As you work, document gotchas using:
-`~/.claude/skills/memory/memory.sh write --type gotcha --scope <scope> ...`
+`memory write --type gotcha --scope <scope> ...`
 ```
 
 ---

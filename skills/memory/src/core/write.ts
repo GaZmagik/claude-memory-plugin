@@ -17,6 +17,7 @@ import { createLogger } from './logger.js';
 import { ensureLocalScopeGitignored } from '../scope/gitignore.js';
 import { findSimilarToMemory } from '../search/semantic.js';
 import { linkMemories } from '../graph/link.js';
+import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
 
 const log = createLogger('write');
 
@@ -129,12 +130,14 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);
 
-    // Create frontmatter with scope
+    // Create frontmatter with id, scope, and project
     const frontmatter = createFrontmatter({
+      id,
       type: request.type,
       title: request.title,
       tags,
       scope: request.scope,
+      project: request.project,
       severity: request.severity,
       links: request.links,
       source: request.source,
@@ -169,6 +172,18 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     };
 
     await addToIndex(basePath, indexEntry);
+
+    // Add node to graph if not present
+    try {
+      let graph = await loadGraph(basePath);
+      if (!hasNode(graph, id)) {
+        graph = addNode(graph, { id, type: request.type });
+        await saveGraph(basePath, graph);
+      }
+    } catch {
+      // Graph update is best-effort - sync.ts can fix later
+      log.warn('Failed to add graph node', { id });
+    }
 
     log.info('Wrote memory', { id, path: filePath });
 

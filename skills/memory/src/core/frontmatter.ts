@@ -45,17 +45,23 @@ export function parseFrontmatter(yamlContent: string): MemoryFrontmatter {
  */
 export function serialiseFrontmatter(frontmatter: MemoryFrontmatter): string {
   // Create a clean object without undefined values
-  const clean: Record<string, unknown> = {
-    type: frontmatter.type,
-    title: frontmatter.title,
-    created: frontmatter.created,
-    updated: frontmatter.updated,
-    tags: frontmatter.tags,
-  };
+  // Order: id, title, type, scope, project (for readability in YAML)
+  const clean: Record<string, unknown> = {};
 
+  if (frontmatter.id) {
+    clean.id = frontmatter.id;
+  }
+  clean.title = frontmatter.title;
+  clean.type = frontmatter.type;
   if (frontmatter.scope) {
     clean.scope = frontmatter.scope;
   }
+  if (frontmatter.project) {
+    clean.project = frontmatter.project;
+  }
+  clean.created = frontmatter.created;
+  clean.updated = frontmatter.updated;
+  clean.tags = frontmatter.tags;
   if (frontmatter.severity) {
     clean.severity = frontmatter.severity;
   }
@@ -123,10 +129,12 @@ export function updateFrontmatter(
  * Create new frontmatter from write request data
  */
 export function createFrontmatter(params: {
+  id?: string;
   type: MemoryFrontmatter['type'];
   title: string;
   tags: string[];
   scope?: MemoryFrontmatter['scope'];
+  project?: string;
   severity?: MemoryFrontmatter['severity'];
   links?: string[];
   source?: string;
@@ -142,8 +150,16 @@ export function createFrontmatter(params: {
     tags: params.tags,
   };
 
+  if (params.id) {
+    frontmatter.id = params.id;
+  }
+
   if (params.scope) {
     frontmatter.scope = params.scope;
+  }
+
+  if (params.project) {
+    frontmatter.project = params.project;
   }
 
   if (params.severity) {

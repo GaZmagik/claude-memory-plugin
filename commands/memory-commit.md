@@ -1,7 +1,7 @@
 ---
 description: Capture memories from conversation context (forked session use)
 version: "1.1.0"
-allowed-tools: Bash(~/.claude/skills/memory/*.sh:*)
+allowed-tools: Bash(memory:*)
 ---
 
 # Memory Commit
@@ -66,7 +66,7 @@ if [[ "$branch" =~ ^feature/([0-9]+)- ]]; then
   feature_num="${BASH_REMATCH[1]}"
   feature_hub="artifact-feature-${feature_num}-hub"
   # Verify hub exists
-  if ~/.claude/skills/memory/memory.sh read "$feature_hub" >/dev/null 2>&1; then
+  if memory read "$feature_hub" >/dev/null 2>&1; then
     HAS_FEATURE_HUB=true
     echo "Feature hub detected: $feature_hub"
   fi
@@ -78,7 +78,7 @@ if [[ "$branch" =~ ^feature/[0-9]+-(.+)$ ]]; then
   core_name=$(echo "$feature_name" | sed 's/-report$//' | sed 's/-integration$//')
   core_hub="artifact-core-${core_name}-hub"
   # Verify hub exists
-  if ~/.claude/skills/memory/memory.sh read "$core_hub" >/dev/null 2>&1; then
+  if memory read "$core_hub" >/dev/null 2>&1; then
     HAS_CORE_HUB=true
     echo "Core hub detected: $core_hub"
   fi
@@ -99,31 +99,31 @@ For each item, call the appropriate memory script via Bash, then **immediately l
 **Learnings** (gotchas, tips, insights):
 ```bash
 # Create the learning
-~/.claude/skills/memory/learnings.sh add '<title>' --description '<1-2 sentence description>' --tags '<tag1>,<tag2>'
+memory write --type learning --title '<title>' --content '<1-2 sentence description>' --tags '<tag1>,<tag2>'
 
 # Link to hubs (replace <slug> with the slugified title, e.g., "my-learning-title")
-[[ "$HAS_FEATURE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "learning-<slug>" "$feature_hub" "discovered-in"
-[[ "$HAS_CORE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "learning-<slug>" "$core_hub" "relates-to"
+[[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "learning-<slug>" "$feature_hub" "discovered-in"
+[[ "$HAS_CORE_HUB" == "true" ]] && memory link "learning-<slug>" "$core_hub" "relates-to"
 ```
 
 **Decisions** (architectural choices):
 ```bash
 # Create the decision
-~/.claude/skills/memory/decisions.sh add '<decision-id>' '<1-2 sentence description>'
+memory write --type decision --id '<decision-id>' --content '<1-2 sentence description>'
 
 # Link to hubs
-[[ "$HAS_FEATURE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "decision-<id>" "$feature_hub" "decided-in"
-[[ "$HAS_CORE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "decision-<id>" "$core_hub" "affects"
+[[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "decision-<id>" "$feature_hub" "decided-in"
+[[ "$HAS_CORE_HUB" == "true" ]] && memory link "decision-<id>" "$core_hub" "affects"
 ```
 
 **Artifacts** (reusable patterns):
 ```bash
 # Create the artifact
-~/.claude/skills/memory/artifacts.sh save '<name>' '<1-2 sentence description>'
+memory write --type artifact --id '<name>' --content '<1-2 sentence description>'
 
 # Link to hubs
-[[ "$HAS_FEATURE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "artifact-<name>" "$feature_hub" "created-in"
-[[ "$HAS_CORE_HUB" == "true" ]] && ~/.claude/skills/memory/memory.sh link "artifact-<name>" "$core_hub" "implements"
+[[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "artifact-<name>" "$feature_hub" "created-in"
+[[ "$HAS_CORE_HUB" == "true" ]] && memory link "artifact-<name>" "$core_hub" "implements"
 ```
 
 **Relation types by memory type:**

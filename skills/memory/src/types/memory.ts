@@ -10,10 +10,14 @@ import { MemoryType, Scope, Severity } from './enums.js';
  * YAML Frontmatter structure for memory files
  */
 export interface MemoryFrontmatter {
+  /** Unique identifier (matches filename without .md extension) */
+  id?: string;
   /** Memory type from taxonomy */
   type: MemoryType;
   /** Human-readable title */
   title: string;
+  /** Project name (for cross-project context) */
+  project?: string;
   /** ISO 8601 creation timestamp */
   created: string;
   /** ISO 8601 last updated timestamp */

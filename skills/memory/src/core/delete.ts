@@ -1,14 +1,17 @@
 /**
  * T032: Memory Delete Operation
  *
- * Delete memory files and clean up index.
+ * Delete memory files and clean up index, graph, and embeddings.
  */
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
 import { findInIndex, removeFromIndex } from './index.js';
 import { deleteFile, fileExists, isInsideDir } from './fs-utils.js';
 import { createLogger } from './logger.js';
+import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
+import type { EmbeddingCache } from '../search/embedding.js';
 
 const log = createLogger('delete');
 
@@ -61,6 +64,32 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
 
     // Remove from index
     await removeFromIndex(basePath, request.id);
+
+    // Remove from graph (node and all edges involving it)
+    try {
+      let graph = await loadGraph(basePath);
+      graph = removeNode(graph, request.id);
+      await saveGraph(basePath, graph);
+    } catch {
+      // Graph cleanup is best-effort - sync.ts can fix orphans later
+      log.warn('Failed to clean up graph node', { id: request.id });
+    }
+
+    // Remove from embeddings cache
+    try {
+      const embeddingsPath = path.join(basePath, 'embeddings.json');
+      if (fs.existsSync(embeddingsPath)) {
+        const content = fs.readFileSync(embeddingsPath, 'utf-8');
+        const cache = JSON.parse(content) as EmbeddingCache;
+        if (cache.memories && cache.memories[request.id]) {
+          delete cache.memories[request.id];
+          fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+        }
+      }
+    } catch {
+      // Embeddings cleanup is best-effort
+      log.warn('Failed to clean up embedding', { id: request.id });
+    }
 
     log.info('Deleted memory', { id: request.id, path: filePath });
 

@@ -60,6 +60,8 @@ export interface WriteMemoryRequest extends BaseRequest {
   meta?: Record<string, unknown>;
   /** Project root for gitignore automation (optional) */
   projectRoot?: string;
+  /** Project name for cross-project context */
+  project?: string;
   /** Automatically link to similar memories after write */
   autoLink?: boolean;
   /** Similarity threshold for auto-link (default: 0.85) */

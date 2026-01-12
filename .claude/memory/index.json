@@ -2,7 +2,6 @@
   "memories": [
     {
       "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-constitution-first-approach-prevents-scope-creep-in-sdd.md",
       "title": "Constitution-first approach prevents scope creep in SDD",
       "type": "permanent",
       "scope": "local",
@@ -15,11 +14,11 @@
         "governance",
         "sdd-workflow",
         "best-practice"
-      ]
+      ],
+      "relativePath": "permanent/learning-constitution-first-approach-prevents-scope-creep-in-sdd.md"
     },
     {
       "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-specification-audit-caught-architectural-gaps-before-planning.md",
       "title": "Specification audit caught architectural gaps before planning",
       "type": "permanent",
       "scope": "local",
@@ -32,11 +31,11 @@
         "specification",
         "quality-gates",
         "best-practice"
-      ]
+      ],
+      "relativePath": "permanent/learning-specification-audit-caught-architectural-gaps-before-planning.md"
     },
     {
       "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching.md",
       "title": "Hook protection can block legitimate git operations - requires careful pattern matching",
       "type": "permanent",
       "scope": "local",
@@ -48,11 +47,11 @@
         "process",
         "hooks",
         "protection-patterns"
-      ]
+      ],
+      "relativePath": "permanent/learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching.md"
     },
     {
       "id": "learning-tdd-scope-resolution-module-structure",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-scope-resolution-module-structure.md",
       "title": "tdd-scope-resolution-module-structure",
       "type": "permanent",
       "scope": "local",
@@ -65,11 +64,11 @@
         "tdd",
         "scope-resolution",
         "test-driven-development"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-scope-resolution-module-structure.md"
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-field-frontmatter-serialisation-gotcha.md",
       "title": "scope-field-frontmatter-serialisation-gotcha",
       "type": "permanent",
       "scope": "local",
@@ -82,11 +81,11 @@
         "scope-resolution",
         "frontmatter",
         "serialisation"
-      ]
+      ],
+      "relativePath": "permanent/learning-scope-field-frontmatter-serialisation-gotcha.md"
     },
     {
       "id": "learning-gitignore-comment-formatting-two-phase-fix",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-gitignore-comment-formatting-two-phase-fix.md",
       "title": "gitignore-comment-formatting-two-phase-fix",
       "type": "permanent",
       "scope": "local",
@@ -98,11 +97,11 @@
         "phase-2",
         "gitignore",
         "formatting"
-      ]
+      ],
+      "relativePath": "permanent/learning-gitignore-comment-formatting-two-phase-fix.md"
     },
     {
       "id": "learning-scope-isolation-architecture-design",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-isolation-architecture-design.md",
       "title": "scope-isolation-architecture-design",
       "type": "permanent",
       "scope": "local",
@@ -115,11 +114,11 @@
         "scope-resolution",
         "architecture",
         "isolation"
-      ]
+      ],
+      "relativePath": "permanent/learning-scope-isolation-architecture-design.md"
     },
     {
       "id": "learning-tdd-phase-completion-pattern",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-phase-completion-pattern.md",
       "title": "tdd-phase-completion-pattern",
       "type": "permanent",
       "scope": "local",
@@ -132,11 +131,11 @@
         "test-driven-development",
         "workflow",
         "typescript"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-phase-completion-pattern.md"
     },
     {
       "id": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-discipline-across-multi-phase-session-maintains-coverage.md",
       "title": "TDD discipline across multi-phase session maintains test coverage",
       "type": "permanent",
       "scope": "local",
@@ -147,11 +146,11 @@
         "tdd",
         "multi-phase",
         "best-practice"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-discipline-across-multi-phase-session-maintains-coverage.md"
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-scope-field-frontmatter-serialisation-gotcha-two.md",
       "title": "scope-field-frontmatter-serialisation-gotcha-two",
       "type": "permanent",
       "scope": "local",
@@ -164,11 +163,11 @@
         "serialisation",
         "frontmatter",
         "type-safety"
-      ]
+      ],
+      "relativePath": "permanent/learning-scope-field-frontmatter-serialisation-gotcha-two.md"
     },
     {
       "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-post-compaction-memory-restoration-prevented-duplicate-work.md",
       "title": "Post-compaction memory restoration prevented duplicate work",
       "type": "permanent",
       "scope": "local",
@@ -178,11 +177,11 @@
         "process",
         "memory-system",
         "context-continuity"
-      ]
+      ],
+      "relativePath": "permanent/learning-post-compaction-memory-restoration-prevented-duplicate-work.md"
     },
     {
       "id": "learning-immutable-graph-operations-pattern",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-immutable-graph-operations-pattern.md",
       "title": "immutable-graph-operations-pattern",
       "type": "permanent",
       "scope": "local",
@@ -195,11 +194,11 @@
         "immutability",
         "typescript-patterns",
         "design-pattern"
-      ]
+      ],
+      "relativePath": "permanent/learning-immutable-graph-operations-pattern.md"
     },
     {
       "id": "learning-semantic-search-embedding-caching-success",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-semantic-search-embedding-caching-success.md",
       "title": "semantic-search-embedding-caching-success",
       "type": "permanent",
       "scope": "local",
@@ -213,11 +212,11 @@
         "caching",
         "optimization",
         "ollama"
-      ]
+      ],
+      "relativePath": "permanent/learning-semantic-search-embedding-caching-success.md"
     },
     {
       "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-typescript-import-path-consistency-prevents-batch-compilation-failures.md",
       "title": "TypeScript import path consistency prevents batch compilation failures",
       "type": "permanent",
       "scope": "local",
@@ -228,11 +227,11 @@
         "typescript",
         "build-system",
         "lessons-learned"
-      ]
+      ],
+      "relativePath": "permanent/learning-typescript-import-path-consistency-prevents-batch-compilation-failures.md"
     },
     {
       "id": "decision-4tier-scope-hierarchy",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/decision-4tier-scope-hierarchy.md",
       "title": "4-Tier Scope Hierarchy for Memory Storage",
       "type": "permanent",
       "scope": "local",
@@ -241,11 +240,11 @@
         "architecture",
         "scope-resolution",
         "phase-2"
-      ]
+      ],
+      "relativePath": "permanent/decision-4tier-scope-hierarchy.md"
     },
     {
       "id": "learning-retro-tdd-test-expectations-guide-implementation",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tdd-test-expectations-guide-implementation.md",
       "title": "retro-tdd-test-expectations-guide-implementation",
       "type": "permanent",
       "scope": "local",
@@ -254,11 +253,11 @@
         "learning",
         "retro",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-tdd-test-expectations-guide-implementation.md"
     },
     {
       "id": "retro-test-first-verification-accelerated-security-review",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-test-first-verification-accelerated-security-review.md",
       "title": "Test-First Verification: Security Review Acceleration Pattern",
       "type": "permanent",
       "scope": "local",
@@ -268,11 +267,11 @@
         "process",
         "testing",
         "security"
-      ]
+      ],
+      "relativePath": "permanent/retro-test-first-verification-accelerated-security-review.md"
     },
     {
       "id": "learning-memory-context-hook-graceful-search-degradation",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-memory-context-hook-graceful-search-degradation.md",
       "title": "Memory context hook graceful search degradation pattern",
       "type": "permanent",
       "scope": "local",
@@ -283,11 +282,11 @@
         "hook",
         "degradation",
         "pattern"
-      ]
+      ],
+      "relativePath": "permanent/learning-memory-context-hook-graceful-search-degradation.md"
     },
     {
       "id": "learning-test-naming-convention-spec-ts",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-naming-convention-spec-ts.md",
       "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)",
       "type": "permanent",
       "scope": "local",
@@ -297,11 +296,11 @@
         "tests",
         "naming",
         "convention"
-      ]
+      ],
+      "relativePath": "permanent/learning-test-naming-convention-spec-ts.md"
     },
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-typescript-hook-bidirectional-enforcement.md",
       "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
       "type": "permanent",
       "scope": "local",
@@ -312,11 +311,11 @@
         "typescript",
         "hook",
         "user-level"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-typescript-hook-bidirectional-enforcement.md"
     },
     {
       "id": "gotcha-agents-should-be-copies-not-rewrites",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/gotcha-agents-should-be-copies-not-rewrites.md",
       "title": "Plugin agents must copy user-level versions, not simplified rewrites",
       "type": "permanent",
       "scope": "local",
@@ -326,11 +325,11 @@
         "agents",
         "gotcha",
         "maintenance"
-      ]
+      ],
+      "relativePath": "permanent/gotcha-agents-should-be-copies-not-rewrites.md"
     },
     {
       "id": "learning-spawn-session-refactor",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-spawn-session-refactor.md",
       "title": "spawn-session-refactor",
       "type": "permanent",
       "scope": "local",
@@ -342,11 +341,11 @@
         "architecture",
         "refactoring",
         "session-management"
-      ]
+      ],
+      "relativePath": "permanent/learning-spawn-session-refactor.md"
     },
     {
       "id": "learning-test-isolation-bun-mock-module",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-isolation-bun-mock-module.md",
       "title": "test-isolation-bun-mock-module",
       "type": "permanent",
       "scope": "local",
@@ -359,11 +358,11 @@
         "bun",
         "mock",
         "isolation"
-      ]
+      ],
+      "relativePath": "permanent/learning-test-isolation-bun-mock-module.md"
     },
     {
       "id": "learning-tdd-test-coverage-expansion-pattern",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-test-coverage-expansion-pattern.md",
       "title": "tdd-test-coverage-expansion-pattern",
       "type": "permanent",
       "scope": "local",
@@ -376,11 +375,11 @@
         "testing",
         "coverage",
         "process"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-test-coverage-expansion-pattern.md"
     },
     {
       "id": "learning-typescript-tdd-hook-naming-enforcement",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-typescript-tdd-hook-naming-enforcement.md",
       "title": "typescript-tdd-hook-naming-enforcement",
       "type": "permanent",
       "scope": "local",
@@ -393,11 +392,11 @@
         "naming",
         "typescript",
         "build"
-      ]
+      ],
+      "relativePath": "permanent/learning-typescript-tdd-hook-naming-enforcement.md"
     },
     {
       "id": "learning-retro-typescript-tooling-parity",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-typescript-tooling-parity.md",
       "title": "retro-typescript-tooling-parity",
       "type": "permanent",
       "scope": "local",
@@ -410,11 +409,11 @@
         "process",
         "tooling",
         "typescript"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-typescript-tooling-parity.md"
     },
     {
       "id": "learning-retro-test-coverage-asymptotic-returns",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-test-coverage-asymptotic-returns.md",
       "title": "retro-test-coverage-asymptotic-returns",
       "type": "permanent",
       "scope": "local",
@@ -427,11 +426,11 @@
         "process",
         "testing",
         "coverage"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-test-coverage-asymptotic-returns.md"
     },
     {
       "id": "learning-test-coverage-achieved-99-percent-functions",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-coverage-achieved-99-percent-functions.md",
       "title": "test-coverage-achieved-99-percent-functions",
       "type": "permanent",
       "scope": "local",
@@ -440,11 +439,11 @@
         "learning",
         "tip",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-test-coverage-achieved-99-percent-functions.md"
     },
     {
       "id": "learning-retro-memory-linking-post-compaction",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-memory-linking-post-compaction.md",
       "title": "retro-memory-linking-post-compaction",
       "type": "permanent",
       "scope": "local",
@@ -456,11 +455,11 @@
         "retrospective",
         "process",
         "memory-graph"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-memory-linking-post-compaction.md"
     },
     {
       "id": "retro-hook-pattern-non-python-projects",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-hook-pattern-non-python-projects.md",
       "title": "Hook detection pattern for non-Python projects",
       "type": "permanent",
       "scope": "local",
@@ -469,11 +468,11 @@
         "retrospective",
         "process",
         "hooks"
-      ]
+      ],
+      "relativePath": "permanent/retro-hook-pattern-non-python-projects.md"
     },
     {
       "id": "retro-mock-syntax-friction-bun",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-mock-syntax-friction-bun.md",
       "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests",
       "type": "permanent",
       "scope": "local",
@@ -483,11 +482,11 @@
         "process",
         "testing",
         "bun"
-      ]
+      ],
+      "relativePath": "permanent/retro-mock-syntax-friction-bun.md"
     },
     {
       "id": "retro-duplicate-test-discovery",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/retro-duplicate-test-discovery.md",
       "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts",
       "type": "permanent",
       "scope": "local",
@@ -496,11 +495,11 @@
         "retrospective",
         "process",
         "quality"
-      ]
+      ],
+      "relativePath": "permanent/retro-duplicate-test-discovery.md"
     },
     {
       "id": "learning-tdd-parity-typescript-support",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-typescript-support.md",
       "title": "tdd-parity-typescript-support",
       "type": "permanent",
       "scope": "local",
@@ -511,11 +510,11 @@
         "tdd-parity",
         "tip",
         "typescript"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-parity-typescript-support.md"
     },
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-regex-based-language-parsing-tradeoff.md",
       "title": "regex-based-language-parsing-tradeoff",
       "type": "permanent",
       "scope": "local",
@@ -526,11 +525,11 @@
         "medium",
         "tdd-parity",
         "typescript"
-      ]
+      ],
+      "relativePath": "permanent/learning-regex-based-language-parsing-tradeoff.md"
     },
     {
       "id": "learning-retro-agent-generated-tests-need-api-validation",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-agent-generated-tests-need-api-validation.md",
       "title": "retro-agent-generated-tests-need-api-validation",
       "type": "permanent",
       "scope": "local",
@@ -543,11 +542,11 @@
         "'process'",
         "'testing'",
         "'agent-coordination']"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-agent-generated-tests-need-api-validation.md"
     },
     {
       "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tmpdir-cleanup-permissions-fragile.md",
       "title": "retro-tmpdir-cleanup-permissions-fragile",
       "type": "permanent",
       "scope": "local",
@@ -560,11 +559,11 @@
         "'process'",
         "'testing'",
         "'edge-cases']"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-tmpdir-cleanup-permissions-fragile.md"
     },
     {
       "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-memory-graph-linking-batch-approach-efficient.md",
       "title": "retro-memory-graph-linking-batch-approach-efficient",
       "type": "permanent",
       "scope": "local",
@@ -577,11 +576,11 @@
         "'process'",
         "'memory-graph'",
         "'improvement']"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-memory-graph-linking-batch-approach-efficient.md"
     },
     {
       "id": "learning-tdd-parity-vitest-limitation",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-vitest-limitation.md",
       "title": "tdd-parity-vitest-limitation",
       "type": "permanent",
       "scope": "local",
@@ -590,11 +589,11 @@
         "learning",
         "gotcha",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-tdd-parity-vitest-limitation.md"
     },
     {
       "id": "learning-cargo-cult-tdd-compliance",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-cargo-cult-tdd-compliance.md",
       "title": "cargo-cult-tdd-compliance",
       "type": "permanent",
       "scope": "local",
@@ -603,11 +602,11 @@
         "learning",
         "gotcha",
         "high"
-      ]
+      ],
+      "relativePath": "permanent/learning-cargo-cult-tdd-compliance.md"
     },
     {
       "id": "decision-colocate-unit-tests",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/decision-colocate-unit-tests.md",
       "title": "colocate-unit-tests",
       "type": "permanent",
       "scope": "local",
@@ -617,11 +616,11 @@
         "adr",
         "architecture",
         "accepted"
-      ]
+      ],
+      "relativePath": "permanent/decision-colocate-unit-tests.md"
     },
     {
       "id": "learning-test-agent-generates-aspirational-tests",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-agent-generates-aspirational-tests.md",
       "title": "test-agent-generates-aspirational-tests",
       "type": "permanent",
       "scope": "local",
@@ -630,11 +629,11 @@
         "learning",
         "gotcha",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-test-agent-generates-aspirational-tests.md"
     },
     {
       "id": "gotcha-vi-mock-global-pollution",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/gotcha-vi-mock-global-pollution.md",
       "title": "vi.mock and mock.module cause global test pollution",
       "type": "permanent",
       "scope": "local",
@@ -646,11 +645,11 @@
         "bun",
         "mocking",
         "high"
-      ]
+      ],
+      "relativePath": "permanent/gotcha-vi-mock-global-pollution.md"
     },
     {
       "id": "learning-retro-agent-verification-for-exclusions",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-agent-verification-for-exclusions.md",
       "title": "retro-agent-verification-for-exclusions",
       "type": "permanent",
       "scope": "local",
@@ -659,11 +658,11 @@
         "learning",
         "tip",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-agent-verification-for-exclusions.md"
     },
     {
       "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tdd-parity-typescript-matching-accuracy.md",
       "title": "retro-tdd-parity-typescript-matching-accuracy",
       "type": "permanent",
       "scope": "local",
@@ -672,11 +671,11 @@
         "learning",
         "tip",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-tdd-parity-typescript-matching-accuracy.md"
     },
     {
       "id": "learning-retro-test-isolation-pattern-worth-documenting",
-      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-test-isolation-pattern-worth-documenting.md",
       "title": "retro-test-isolation-pattern-worth-documenting",
       "type": "permanent",
       "scope": "local",
@@ -685,7 +684,8 @@
         "learning",
         "tip",
         "medium"
-      ]
+      ],
+      "relativePath": "permanent/learning-retro-test-isolation-pattern-worth-documenting.md"
     },
     {
       "id": "learning-plugin-integration-test-1",
@@ -932,7 +932,84 @@
       "updated": "2026-01-12T20:03:16.349Z",
       "scope": "project",
       "relativePath": "permanent/learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section.md"
+    },
+    {
+      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "type": "decision",
+      "title": "Plan mode prevented premature coding of TDD hook enhancements",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:21.668Z",
+      "updated": "2026-01-12T20:31:21.668Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements.md"
+    },
+    {
+      "id": "decision-bun-execfilesync-path-environment-issue-with-child-processes",
+      "type": "decision",
+      "title": "Bun execFileSync PATH environment issue with child processes",
+      "tags": [
+        "bun",
+        "subprocess",
+        "hooks",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:21.892Z",
+      "updated": "2026-01-12T20:31:21.892Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-bun-execfilesync-path-environment-issue-with-child-processes.md"
+    },
+    {
+      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "type": "decision",
+      "title": "Gotcha: execFileSync loses PATH when spawning child processes from Bun",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "subprocess",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:27.884Z",
+      "updated": "2026-01-12T20:31:27.884Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun.md"
+    },
+    {
+      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "type": "decision",
+      "title": "TDD enforcement hooks: TypeScript-for-all vs native per-language",
+      "tags": [
+        "tdd",
+        "architecture",
+        "hooks",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:30.192Z",
+      "updated": "2026-01-12T20:31:30.192Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language.md"
+    },
+    {
+      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "type": "decision",
+      "title": "SubagentStop hook receives insufficient context - use PostToolUse instead",
+      "tags": [
+        "hooks",
+        "claude-code",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:36.909Z",
+      "updated": "2026-01-12T20:31:36.909Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead.md"
     }
   ],
-  "lastUpdated": "2026-01-12T20:03:16.352Z"
+  "lastUpdated": "2026-01-12T20:31:36.916Z"
 }

@@ -578,6 +578,59 @@
         "'memory-graph'",
         "'improvement']"
       ]
+    },
+    {
+      "id": "learning-tdd-parity-vitest-limitation",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-tdd-parity-vitest-limitation.md",
+      "title": "tdd-parity-vitest-limitation",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T23:27:00Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-cargo-cult-tdd-compliance",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-cargo-cult-tdd-compliance.md",
+      "title": "cargo-cult-tdd-compliance",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T23:27:06Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "high"
+      ]
+    },
+    {
+      "id": "decision-colocate-unit-tests",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/decision-colocate-unit-tests.md",
+      "title": "colocate-unit-tests",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T23:27:12Z",
+      "tags": [
+        "decision",
+        "adr",
+        "architecture",
+        "accepted"
+      ]
+    },
+    {
+      "id": "learning-test-agent-generates-aspirational-tests",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-test-agent-generates-aspirational-tests.md",
+      "title": "test-agent-generates-aspirational-tests",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-11T23:27:17Z",
+      "tags": [
+        "learning",
+        "gotcha",
+        "medium"
+      ]
     }
   ]
 }

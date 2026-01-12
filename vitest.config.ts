@@ -9,12 +9,17 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: ['./tests/setup.ts'],
-    include: ['tests/**/*.spec.ts'],
+    include: [
+      'skills/memory/src/**/*.spec.ts',  // Colocated unit tests
+      '.claude/hooks/ts/**/*.spec.ts',   // Hooks unit tests
+      'tests/integration/**/*.spec.ts',  // Integration tests
+      'tests/contract/**/*.spec.ts',     // Contract tests
+    ],
     exclude: ['node_modules', 'lib', 'dist'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['skills/memory/src/**/*.ts'],
+      include: ['skills/memory/src/**/*.ts', '.claude/hooks/ts/**/*.ts'],
       exclude: ['**/*.spec.ts', '**/*.test.ts', '**/types/**'],
     },
     testTimeout: 10000,

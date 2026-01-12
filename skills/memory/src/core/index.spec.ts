@@ -13,6 +13,7 @@ import {
   removeFromIndex,
   findInIndex,
   getIndexPath,
+  rebuildIndex,
 } from './index.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { MemoryIndex, IndexEntry } from '../types/memory.js';
@@ -265,6 +266,194 @@ describe('Index operations', () => {
       const typescriptEntries = index.entries.filter(e => e.tags.includes('typescript'));
 
       expect(typescriptEntries).toHaveLength(2);
+    });
+  });
+
+  describe('rebuildIndex', () => {
+    it('should rebuild index from filesystem', async () => {
+      // rebuildIndex scans basePath directly (not subdirs)
+      const memoryContent = `---
+id: decision-test-rebuild
+title: Test Rebuild Memory
+type: decision
+scope: local
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags:
+  - test
+  - rebuild
+links: []
+---
+
+# Test content`;
+
+      fs.writeFileSync(
+        path.join(testDir, 'decision-test-rebuild.md'),
+        memoryContent
+      );
+
+      const result = await rebuildIndex({ basePath: testDir });
+
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBe(1);
+      expect(result.newEntriesAdded).toBe(1);
+      expect(result.orphansRemoved).toBe(0);
+
+      // Verify index was saved
+      const index = await loadIndex({ basePath: testDir });
+      expect(index.entries).toHaveLength(1);
+      expect(index.entries[0].id).toBe('decision-test-rebuild');
+    });
+
+    it('should detect and remove orphans from index', async () => {
+      // Create an index with an entry that has no corresponding file
+      const orphanEntry: IndexEntry = {
+        id: 'orphan-memory',
+        type: MemoryType.Learning,
+        title: 'Orphan Memory',
+        tags: [],
+        created: '2026-01-10T12:00:00Z',
+        updated: '2026-01-10T12:00:00Z',
+        scope: Scope.Global,
+        relativePath: 'learning-orphan-memory.md',
+      };
+      await addToIndex(testDir, orphanEntry);
+
+      // No files in directory - the index entry is an orphan
+      const result = await rebuildIndex({ basePath: testDir });
+
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBe(0);
+      expect(result.orphansRemoved).toBe(1);
+    });
+
+    it('should handle multiple memory files', async () => {
+      const createMemory = (id: string, type: string, title: string) => `---
+id: ${id}
+title: ${title}
+type: ${type}
+scope: local
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags: []
+links: []
+---
+
+# ${title}`;
+
+      fs.writeFileSync(
+        path.join(testDir, 'decision-one.md'),
+        createMemory('decision-one', 'decision', 'Decision One')
+      );
+      fs.writeFileSync(
+        path.join(testDir, 'learning-two.md'),
+        createMemory('learning-two', 'learning', 'Learning Two')
+      );
+      fs.writeFileSync(
+        path.join(testDir, 'gotcha-three.md'),
+        createMemory('gotcha-three', 'gotcha', 'Gotcha Three')
+      );
+
+      const result = await rebuildIndex({ basePath: testDir });
+
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBe(3);
+      expect(result.newEntriesAdded).toBe(3);
+    });
+
+    it('should handle parse errors gracefully', async () => {
+      // Create a valid memory
+      const validContent = `---
+id: valid-memory
+title: Valid Memory
+type: decision
+scope: local
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags: []
+links: []
+---
+
+# Valid`;
+
+      // Create an invalid memory (bad YAML)
+      const invalidContent = `---
+id: invalid-memory
+title: [[[invalid yaml
+---
+
+# Invalid`;
+
+      fs.writeFileSync(path.join(testDir, 'decision-valid.md'), validContent);
+      fs.writeFileSync(path.join(testDir, 'decision-invalid.md'), invalidContent);
+
+      const result = await rebuildIndex({ basePath: testDir });
+
+      // Should succeed with the valid file, skip the invalid one
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should return success with zero entries for empty directory', async () => {
+      const result = await rebuildIndex({ basePath: testDir });
+
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBe(0);
+      expect(result.newEntriesAdded).toBe(0);
+      expect(result.orphansRemoved).toBe(0);
+    });
+
+    it('should count only truly new entries', async () => {
+      // Add an existing entry to the index
+      const existingEntry: IndexEntry = {
+        id: 'existing-memory',
+        type: MemoryType.Decision,
+        title: 'Existing Memory',
+        tags: [],
+        created: '2026-01-10T12:00:00Z',
+        updated: '2026-01-10T12:00:00Z',
+        scope: Scope.Global,
+        relativePath: 'existing-memory.md',
+      };
+      await addToIndex(testDir, existingEntry);
+
+      // Create the file for the existing entry
+      const existingContent = `---
+id: existing-memory
+title: Existing Memory
+type: decision
+scope: global
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags: []
+links: []
+---
+
+# Existing`;
+
+      // Create a new file not in the index
+      const newContent = `---
+id: new-memory
+title: New Memory
+type: learning
+scope: local
+created: 2026-01-10T12:00:00Z
+updated: 2026-01-10T12:00:00Z
+tags: []
+links: []
+---
+
+# New`;
+
+      fs.writeFileSync(path.join(testDir, 'existing-memory.md'), existingContent);
+      fs.writeFileSync(path.join(testDir, 'new-memory.md'), newContent);
+
+      const result = await rebuildIndex({ basePath: testDir });
+
+      expect(result.status).toBe('success');
+      expect(result.entriesCount).toBe(2);
+      expect(result.newEntriesAdded).toBe(1); // Only the new-memory is new
+      expect(result.orphansRemoved).toBe(0);
     });
   });
 });

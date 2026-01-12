@@ -8,7 +8,7 @@
  * Instead of forking the session (which requires a separate HOME), this approach:
  * 1. Extracts conversation context from the JSONL file since last compaction
  * 2. Passes the context as --additional-system-prompt to a new Claude process
- * 3. Runs the /memory-commit command with full conversation awareness
+ * 3. Runs the /memory:memory-commit command with full conversation awareness
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
@@ -78,7 +78,7 @@ runHook(async (input) => {
   const result = await spawnSessionWithContext({
     sessionId,
     cwd,
-    prompt: `/memory-commit precompact-trigger=${trigger}`,
+    prompt: `/memory:memory-commit precompact-trigger=${trigger}`,
     contextPrompt,
     logPrefix: 'memory-capture',
     timeoutSecs: 600,

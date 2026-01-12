@@ -24,10 +24,21 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
             "command": "bun ${CLAUDE_PLUGIN_ROOT}/hooks/pre-tool-use/protect-memory-directory.ts",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun ${CLAUDE_PLUGIN_ROOT}/hooks/pre-tool-use/enforce-memory-cli.ts",
             "timeout": 5
           }
         ]

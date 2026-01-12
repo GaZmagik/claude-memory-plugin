@@ -178,7 +178,7 @@ Run when building knowledge graph or when requested for specific memory.
 1. → `[target-memory-id]`: [title]
    - Relation: [relation-type]
    - Reason: [X] keyword matches
-   - Command: `memory.sh link [source] [target] "[relation]"`
+   - Command: `memory link [source] [target] "[relation]"`
 
 **Medium Confidence (40-70%)**
 [Similar format]
@@ -226,7 +226,7 @@ Run periodically or during handover to identify temporary memories ready for pro
      # Extract learning
      learnings.sh add learning-[topic] --title "[title]" --content "[excerpt]"
      # Link to breadcrumb
-     memory.sh link learning-[topic] breadcrumb-2025-10-20 "documented-in"
+     memory link learning-[topic] breadcrumb-2025-10-20 "documented-in"
      # Archive breadcrumb
      mv .claude/memory/temporary/breadcrumb-2025-10-20.md .claude/memory/archive/
      ```
@@ -320,8 +320,8 @@ This agent is called by:
 
 **Duplicate Prevention Integration:**
 - The memory-curator acts as a **detection layer** that catches duplicates that slip through
-- The memory.sh script has **prevention layer** that blocks duplicate IDs at write time
-- If memory-curator finds duplicate IDs, this indicates a bug in memory.sh that needs fixing
+- The memory script has **prevention layer** that blocks duplicate IDs at write time
+- If memory-curator finds duplicate IDs, this indicates a bug in memory that needs fixing
 - Duplicate titles and similar content are legitimate scenarios that only need warnings/suggestions
 
 ## Example Workflows
@@ -490,7 +490,7 @@ For common issues, suggest automated fixes:
 # Auto-tag based on content keywords
 for orphan in $ORPHANS; do
   keywords=$(grep -oE '[A-Z][a-z]+' ".claude/memory/permanent/$orphan.md" | head -5)
-  echo "memory.sh tag $orphan $keywords"
+  echo "memory tag $orphan $keywords"
 done
 
 # Auto-link based on shared topics

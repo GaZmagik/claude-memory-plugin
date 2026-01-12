@@ -744,7 +744,72 @@
       "scope": "project",
       "relativePath": "permanent/learning-cli-gap.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "type": "learning",
+      "title": "CLI Layer Testing Pattern - Thin Wrappers",
+      "tags": [
+        "testing",
+        "typescript",
+        "cli",
+        "memory-skill",
+        "project"
+      ],
+      "created": "2026-01-12T18:00:59.206Z",
+      "updated": "2026-01-12T18:00:59.206Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-layer-testing-pattern-thin-wrappers.md"
+    },
+    {
+      "id": "learning-bun-link-cli-exposure-pattern",
+      "type": "learning",
+      "title": "bun link CLI Exposure Pattern",
+      "tags": [
+        "bun",
+        "package-management",
+        "cli",
+        "setup",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:04.688Z",
+      "updated": "2026-01-12T18:01:04.688Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-link-cli-exposure-pattern.md"
+    },
+    {
+      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "type": "gotcha",
+      "title": "vitest Mocking - Reference Binding Gotcha",
+      "tags": [
+        "vitest",
+        "testing",
+        "typescript",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:10.614Z",
+      "updated": "2026-01-12T18:01:10.614Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vitest-mocking-reference-binding-gotcha.md",
+      "severity": "high"
+    },
+    {
+      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "type": "artifact",
+      "title": "TypeScript CLI Testing - Infrastructure-First Approach",
+      "tags": [
+        "typescript",
+        "testing",
+        "cli",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:16.436Z",
+      "updated": "2026-01-12T18:01:16.436Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-typescript-cli-testing-infrastructure-first-approach.md"
     }
   ],
-  "lastUpdated": "2026-01-12T17:15:29.493Z"
+  "lastUpdated": "2026-01-12T18:01:16.439Z"
 }

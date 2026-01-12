@@ -5,10 +5,14 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T23:27:17Z
-updated: 2026-01-11T23:27:19Z
+updated: 2026-01-12T07:58:19Z
 tags: ["learning","gotcha","medium"]
 embedding: "708e6610f43b149dde6538d159a537a9"
-links: []
+links: [
+  "learning-cargo-cult-tdd-compliance",
+  "learning-retro-agent-generated-tests-need-api-validation",
+  "learning-tdd-test-coverage-expansion-pattern"
+]
 ---
 
 # test-agent-generates-aspirational-tests

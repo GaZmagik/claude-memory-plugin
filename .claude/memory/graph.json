@@ -163,6 +163,10 @@
     {
       "id": "learning-test-agent-generates-aspirational-tests",
       "title": "test-agent-generates-aspirational-tests"
+    },
+    {
+      "id": "gotcha-vi-mock-global-pollution",
+      "title": "vi.mock and mock.module cause global test pollution"
     }
   ],
   "edges": [
@@ -350,6 +354,71 @@
       "source": "learning-test-isolation-bun-mock-module",
       "target": "learning-tdd-test-coverage-expansion-pattern",
       "relation": "enables"
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution",
+      "target": "learning-test-isolation-bun-mock-module",
+      "relation": "links-to"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "implements-naming-convention"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "enables-scope-resolution"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "enables-expansion-pattern"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "same-pattern"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-test-agent-generates-aspirational-tests",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "decision-colocate-unit-tests",
+      "relation": "motivated-decision"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-test-isolation-bun-mock-module",
+      "relation": "framework-comparison"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "relation": "same-gotcha-family"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "detailed-analysis"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "manual-coverage-required"
     }
   ]
 }

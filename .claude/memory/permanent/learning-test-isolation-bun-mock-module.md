@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T17:55:16Z
-updated: 2026-01-11T21:08:13Z
+updated: 2026-01-12T07:58:12Z
 tags: ["learning","tip","medium","testing","bun","mock","isolation"]
 embedding: "3e239f4d95f659bbf68bf6873f170489"
 links: [

@@ -5,10 +5,14 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T23:27:00Z
-updated: 2026-01-11T23:27:02Z
+updated: 2026-01-12T07:58:13Z
 tags: ["learning","gotcha","medium"]
 embedding: "8e7d097982ad9ed1bff357a8ec922d42"
-links: []
+links: [
+  "decision-colocate-unit-tests",
+  "learning-cargo-cult-tdd-compliance",
+  "learning-test-isolation-bun-mock-module"
+]
 ---
 
 # tdd-parity-vitest-limitation

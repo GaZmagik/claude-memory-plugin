@@ -631,6 +631,22 @@
         "gotcha",
         "medium"
       ]
+    },
+    {
+      "id": "gotcha-vi-mock-global-pollution",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/gotcha-vi-mock-global-pollution.md",
+      "title": "vi.mock and mock.module cause global test pollution",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-12T04:22:50Z",
+      "tags": [
+        "gotcha",
+        "testing",
+        "vitest",
+        "bun",
+        "mocking",
+        "high"
+      ]
     }
   ]
 }

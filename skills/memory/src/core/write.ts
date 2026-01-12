@@ -54,6 +54,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
   const validation = validateWriteRequest(request);
   if (!validation.valid) {
     const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+    log.error('Validation failed', { errors: errorMessages });
     return {
       status: 'error',
       error: errorMessages,

@@ -109,8 +109,8 @@ export function validateWriteRequest(request: WriteMemoryRequest): ValidationRes
     errors.push({ field: 'type', message: `type must be one of: ${Object.values(MemoryType).join(', ')}` });
   }
 
-  if (typeof request.content !== 'string') {
-    errors.push({ field: 'content', message: 'content must be a string' });
+  if (typeof request.content !== 'string' || request.content.trim().length === 0) {
+    errors.push({ field: 'content', message: 'content is required and must be a non-empty string' });
   }
 
   if (!isValidTags(request.tags)) {

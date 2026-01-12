@@ -329,16 +329,24 @@
       "type": "learning"
     },
     {
-      "id": "think-20260112-190617",
+      "id": "thought-20260112-190617",
       "type": "breadcrumb"
     },
     {
-      "id": "think-20260112-002048",
+      "id": "thought-20260112-002048",
       "type": "temporary"
     },
     {
       "id": "learning-think-scope-project-vs-local-split",
       "type": "learning"
+    },
+    {
+      "id": "learning-retrospective-memory-refactor-session",
+      "type": "learning"
+    },
+    {
+      "id": "thought-20260112-221004029",
+      "type": "breadcrumb"
     }
   ],
   "edges": [

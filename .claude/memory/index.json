@@ -1270,7 +1270,7 @@
       "relativePath": "permanent/learning-think-ai-invocation-flow.md"
     },
     {
-      "id": "think-20260112-190617",
+      "id": "thought-20260112-190617",
       "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages",
       "type": "breadcrumb",
       "tags": [
@@ -1280,10 +1280,10 @@
       "created": "2026-01-12T19:06:17.085Z",
       "updated": "2026-01-12T19:21:05.680Z",
       "scope": "project",
-      "relativePath": "temporary/think-20260112-190617.md"
+      "relativePath": "temporary/thought-20260112-190617.md"
     },
     {
-      "id": "think-20260112-002048",
+      "id": "thought-20260112-002048",
       "title": "Thinking: Test Framework: vitest vs bun:test",
       "type": "temporary",
       "tags": [
@@ -1293,7 +1293,7 @@
       "created": "2026-01-12T00:20:48Z",
       "updated": "2026-01-12T00:25:50Z",
       "scope": "local",
-      "relativePath": "temporary/think-20260112-002048.md"
+      "relativePath": "temporary/thought-20260112-002048.md"
     },
     {
       "id": "learning-think-scope-project-vs-local-split",
@@ -1311,7 +1311,33 @@
       "updated": "2026-01-12T21:54:49.697Z",
       "scope": "project",
       "relativePath": "permanent/learning-think-scope-project-vs-local-split.md"
+    },
+    {
+      "id": "learning-retrospective-memory-refactor-session",
+      "type": "learning",
+      "title": "Retrospective: Memory refactor session",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-12T22:10:04.368Z",
+      "updated": "2026-01-12T22:10:04.368Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retrospective-memory-refactor-session.md"
+    },
+    {
+      "id": "thought-20260112-221004029",
+      "title": "Think: Retrospective: Memory refactor session",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-12T22:10:04.033Z",
+      "updated": "2026-01-12T22:10:04.364Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260112-221004029.md"
     }
   ],
-  "lastUpdated": "2026-01-12T21:54:56.476Z"
+  "lastUpdated": "2026-01-12T22:23:03.876Z"
 }

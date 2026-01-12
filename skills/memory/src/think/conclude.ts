@@ -246,8 +246,9 @@ export async function concludeThinkDocument(
       ];
 
       // Create permanent memory in same scope as think document
+      // Note: Don't prefix title with type - generateId already adds type prefix to ID
       const writeResult = await writeMemory({
-        title: `${request.promote.charAt(0).toUpperCase() + request.promote.slice(1)}: ${parsed.frontmatter.topic}`,
+        title: parsed.frontmatter.topic,
         type: memoryType,
         content: promotedContent,
         tags: promotedTags,

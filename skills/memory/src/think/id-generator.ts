@@ -2,12 +2,12 @@
  * Think Document ID Generator
  *
  * Generates unique IDs for thinking documents in the format:
- * think-YYYYMMDD-HHMMSS
+ * think-YYYYMMDD-HHMMSSmmm (with milliseconds to prevent same-second collisions)
  */
 
 /**
  * Generate a think document ID with timestamp format
- * Format: think-YYYYMMDD-HHMMSS
+ * Format: think-YYYYMMDD-HHMMSSmmm (includes milliseconds)
  */
 export function generateThinkId(): string {
   const now = new Date();
@@ -17,17 +17,19 @@ export function generateThinkId(): string {
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
+  const millis = String(now.getMilliseconds()).padStart(3, '0');
 
-  return `think-${year}${month}${day}-${hours}${minutes}${seconds}`;
+  return `think-${year}${month}${day}-${hours}${minutes}${seconds}${millis}`;
 }
 
 /**
  * Validate a think document ID format
  * @param id - The ID to validate
- * @returns true if the ID matches the think-YYYYMMDD-HHMMSS format
+ * @returns true if the ID matches think-YYYYMMDD-HHMMSS or think-YYYYMMDD-HHMMSSmmm format
  */
 export function isValidThinkId(id: string): boolean {
-  return /^think-\d{8}-\d{6}$/.test(id);
+  // Accept both old format (6 digits) and new format (9 digits with millis)
+  return /^think-\d{8}-\d{6,9}$/.test(id);
 }
 
 /**
@@ -40,14 +42,14 @@ export function parseThinkIdTimestamp(id: string): Date | null {
     return null;
   }
 
-  // Extract date parts from think-YYYYMMDD-HHMMSS
-  const match = id.match(/^think-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})$/);
+  // Extract date parts from think-YYYYMMDD-HHMMSS or think-YYYYMMDD-HHMMSSmmm
+  const match = id.match(/^think-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})(\d{3})?$/);
   if (!match) {
     return null;
   }
 
-  const [, year, month, day, hours, minutes, seconds] = match;
-  return new Date(
+  const [, year, month, day, hours, minutes, seconds, millis] = match;
+  const date = new Date(
     parseInt(year, 10),
     parseInt(month, 10) - 1, // Month is 0-indexed
     parseInt(day, 10),
@@ -55,4 +57,11 @@ export function parseThinkIdTimestamp(id: string): Date | null {
     parseInt(minutes, 10),
     parseInt(seconds, 10)
   );
+
+  // Add milliseconds if present
+  if (millis) {
+    date.setMilliseconds(parseInt(millis, 10));
+  }
+
+  return date;
 }

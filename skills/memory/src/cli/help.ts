@@ -15,7 +15,11 @@ COMMANDS:
   audit [scope]       Bulk quality scan (--threshold, --deep)
   audit-quick [scope] Fast deterministic-only audit
   bulk-delete         Delete multiple memories matching criteria
-  bulk-link [file]    Create multiple links from JSON input
+  bulk-link <target>  Create links to target (--pattern, --ids)
+  bulk-move           Move multiple memories (--pattern --to <scope>)
+  bulk-promote        Promote memories to type (--pattern --to <type>)
+  bulk-tag            Add/remove tags (--pattern --add/--remove <tags>)
+  bulk-unlink         Remove links (--pattern --from <target>)
   delete <id>         Delete a memory
   demote <id> <type>  Reverse conversion (gotcha->learning, etc)
   edges <id>          Show inbound and outbound edges for a node
@@ -126,8 +130,29 @@ Graph Operations:
 
   remove-node <id>   Remove node from graph (file remains on disk)
 
-  bulk-link [file]   Create multiple links from JSON
-                     Input: [{source, target, relation?}, ...]
+Bulk Operations:
+  bulk-delete        Delete multiple memories matching criteria
+                     Flags: --pattern <glob>, --tags <t1,t2>, --dry-run
+
+  bulk-link <target> Create links from matching memories to target
+                     Flags: --pattern <glob>, --ids <id1,id2>, --relation <rel>
+                     Also accepts IDs from stdin: echo '["id1","id2"]' | memory bulk-link target
+
+  bulk-move          Move multiple memories to different scope
+                     Flags: --to <scope>, --pattern <glob>, --tags <t1,t2>, --type <type>, --dry-run
+                     Example: memory bulk-move --pattern "decision-*" --to local
+
+  bulk-promote       Promote/demote multiple memories to different type
+                     Flags: --to <type>, --pattern <glob>, --tags <t1,t2>, --type <source-type>, --dry-run
+                     Example: memory bulk-promote --pattern "thought-*" --to decision
+
+  bulk-tag           Add or remove tags from multiple memories
+                     Flags: --pattern <glob>, --add <t1,t2>, --remove <t1,t2>, --dry-run
+                     Example: memory bulk-tag --pattern "learning-*" --add important,reviewed
+
+  bulk-unlink        Remove links from multiple memories to a target
+                     Flags: --from <target>, --pattern <glob>, --relation <rel>, --dry-run
+                     Example: memory bulk-unlink --pattern "*" --from hub-orphans
 
 Tag Operations:
   tag <id> <tags...>   Add one or more tags to a memory

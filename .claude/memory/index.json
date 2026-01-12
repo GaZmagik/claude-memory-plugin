@@ -647,6 +647,45 @@
         "mocking",
         "high"
       ]
+    },
+    {
+      "id": "learning-retro-agent-verification-for-exclusions",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-agent-verification-for-exclusions.md",
+      "title": "retro-agent-verification-for-exclusions",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-12T08:32:37Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-tdd-parity-typescript-matching-accuracy.md",
+      "title": "retro-tdd-parity-typescript-matching-accuracy",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-12T08:32:43Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium"
+      ]
+    },
+    {
+      "id": "learning-retro-test-isolation-pattern-worth-documenting",
+      "file": "/home/gareth/.vs/claude-memory-plugin/.claude/memory/permanent/learning-retro-test-isolation-pattern-worth-documenting.md",
+      "title": "retro-test-isolation-pattern-worth-documenting",
+      "type": "permanent",
+      "scope": "local",
+      "updated": "2026-01-12T08:32:49Z",
+      "tags": [
+        "learning",
+        "tip",
+        "medium"
+      ]
     }
   ]
 }

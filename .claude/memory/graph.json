@@ -167,6 +167,18 @@
     {
       "id": "gotcha-vi-mock-global-pollution",
       "title": "vi.mock and mock.module cause global test pollution"
+    },
+    {
+      "id": "learning-retro-agent-verification-for-exclusions",
+      "title": "retro-agent-verification-for-exclusions"
+    },
+    {
+      "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "title": "retro-tdd-parity-typescript-matching-accuracy"
+    },
+    {
+      "id": "learning-retro-test-isolation-pattern-worth-documenting",
+      "title": "retro-test-isolation-pattern-worth-documenting"
     }
   ],
   "edges": [
@@ -419,6 +431,36 @@
       "source": "learning-test-agent-generates-aspirational-tests",
       "target": "learning-tdd-test-coverage-expansion-pattern",
       "relation": "manual-coverage-required"
+    },
+    {
+      "source": "learning-retro-agent-verification-for-exclusions",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "related-retrospective-pattern"
+    },
+    {
+      "source": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "relation": "same-process"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "relation": "session-continuity"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "relation": "tooling-limitation"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-test-isolation-bun-mock-module",
+      "relation": "documents-pattern"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "demonstrates-correct-pattern"
     }
   ]
 }

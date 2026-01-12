@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T13:58:08Z
-updated: 2026-01-11T21:07:35Z
+updated: 2026-01-12T08:37:10Z
 tags: ["plugin","search","hook","degradation","pattern"]
 embedding: "ce7a142c08bd3c1d88de62445a27e70e"
 links: []

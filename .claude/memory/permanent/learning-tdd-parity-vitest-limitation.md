@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T23:27:00Z
-updated: 2026-01-12T07:58:13Z
+updated: 2026-01-12T08:37:10Z
 tags: ["learning","gotcha","medium"]
 embedding: "8e7d097982ad9ed1bff357a8ec922d42"
 links: [

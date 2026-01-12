@@ -5,7 +5,7 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-10T19:58:47Z
-updated: 2026-01-11T21:08:07Z
+updated: 2026-01-12T08:37:10Z
 tags: ["learning","tip","high","semantic-search","embedding","caching","optimization","ollama"]
 embedding: "fe3edaecc5ec0a50fb88f41f969df92b"
 links: [

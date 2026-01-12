@@ -5,10 +5,12 @@ type: permanent
 scope: local
 project: claude-memory-plugin
 created: 2026-01-11T18:49:07Z
-updated: 2026-01-11T18:49:10Z
+updated: 2026-01-12T08:37:10Z
 tags: ["learning","tip","medium","retrospective","process","memory-graph"]
 embedding: "95c58311ac31a2283d73dab58320c736"
-links: []
+links: [
+  "learning-semantic-search-embedding-caching-success"
+]
 ---
 
 # retro-memory-linking-post-compaction

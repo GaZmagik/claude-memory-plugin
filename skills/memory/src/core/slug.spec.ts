@@ -55,6 +55,40 @@ describe('slugify', () => {
   it('preserves numbers', () => {
     expect(slugify('version 2.0')).toBe('version-20');
   });
+
+  it('handles emoji by removing them', () => {
+    expect(slugify('Hello 🎉 World')).toBe('hello-world');
+    expect(slugify('🚀 Launch')).toBe('launch');
+    expect(slugify('Test 👍🏻 emoji')).toBe('test-emoji');
+  });
+
+  it('handles RTL and non-Latin scripts by removing them', () => {
+    expect(slugify('Hello العربية World')).toBe('hello-world');
+    expect(slugify('日本語 Test')).toBe('test');
+    expect(slugify('Mixed עברית text')).toBe('mixed-text');
+  });
+
+  it('handles combining characters beyond diacritics', () => {
+    expect(slugify('Ña')).toBe('na'); // ñ as single char
+    expect(slugify('n\u0303a')).toBe('na'); // n + combining tilde
+  });
+
+  it('is idempotent', () => {
+    const inputs = ['Hello World', 'café', 'test-slug', '  spaces  ', '---dashes---'];
+    for (const input of inputs) {
+      const once = slugify(input);
+      const twice = slugify(once);
+      expect(twice).toBe(once);
+    }
+  });
+
+  it('produces valid slugs for non-empty input', () => {
+    const inputs = ['Hello', 'Test 123', 'café', 'a b c', 'UPPER'];
+    for (const input of inputs) {
+      const result = slugify(input);
+      expect(isValidSlug(result)).toBe(true);
+    }
+  });
 });
 
 describe('generateSlug', () => {
@@ -103,6 +137,23 @@ describe('generateSlug', () => {
     const longTitle = 'This is a very long title that exceeds the maximum length allowed for slugs in the memory system';
     const slug = generateSlug(longTitle);
     expect(slug.length).toBeLessThanOrEqual(80);
+  });
+
+  it('should handle exact boundary lengths (79, 80, 81 chars)', () => {
+    // Generate titles that will produce specific slug lengths
+    const title79 = 'a '.repeat(39) + 'b'; // Produces 79-char slug after processing
+    const title80 = 'a '.repeat(40); // Produces 80-char slug
+    const title81 = 'a '.repeat(40) + 'b'; // Would be 81 chars, must truncate
+
+    const slug79 = generateSlug(title79);
+    const slug80 = generateSlug(title80);
+    const slug81 = generateSlug(title81);
+
+    expect(slug79.length).toBeLessThanOrEqual(80);
+    expect(slug80.length).toBeLessThanOrEqual(80);
+    expect(slug81.length).toBeLessThanOrEqual(80);
+    // Verify truncation doesn't leave trailing hyphen
+    expect(slug81.endsWith('-')).toBe(false);
   });
 });
 

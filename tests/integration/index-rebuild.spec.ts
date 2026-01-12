@@ -141,7 +141,7 @@ describe('Index rebuild integration', () => {
       basePath: testDir,
     });
 
-    // Manually create a memory file without updating index
+    // Manually create a memory file without updating index (in permanent/ subdirectory)
     const unindexedContent = `---
 id: learning-unindexed-memory
 title: Unindexed Memory
@@ -156,7 +156,8 @@ tags: []
 
 This was added manually without updating the index.
 `;
-    const unindexedPath = path.join(testDir, 'learning-unindexed-memory.md');
+    const permanentDir = path.join(testDir, 'permanent');
+    const unindexedPath = path.join(permanentDir, 'learning-unindexed-memory.md');
     fs.writeFileSync(unindexedPath, unindexedContent);
 
     // Rebuild should discover it

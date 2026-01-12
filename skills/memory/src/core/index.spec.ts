@@ -271,7 +271,7 @@ describe('Index operations', () => {
 
   describe('rebuildIndex', () => {
     it('should rebuild index from filesystem', async () => {
-      // rebuildIndex scans basePath directly (not subdirs)
+      // rebuildIndex scans permanent/ and temporary/ subdirectories
       const memoryContent = `---
 id: decision-test-rebuild
 title: Test Rebuild Memory
@@ -287,8 +287,10 @@ links: []
 
 # Test content`;
 
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir, { recursive: true });
       fs.writeFileSync(
-        path.join(testDir, 'decision-test-rebuild.md'),
+        path.join(permanentDir, 'decision-test-rebuild.md'),
         memoryContent
       );
 
@@ -341,16 +343,18 @@ links: []
 
 # ${title}`;
 
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir, { recursive: true });
       fs.writeFileSync(
-        path.join(testDir, 'decision-one.md'),
+        path.join(permanentDir, 'decision-one.md'),
         createMemory('decision-one', 'decision', 'Decision One')
       );
       fs.writeFileSync(
-        path.join(testDir, 'learning-two.md'),
+        path.join(permanentDir, 'learning-two.md'),
         createMemory('learning-two', 'learning', 'Learning Two')
       );
       fs.writeFileSync(
-        path.join(testDir, 'gotcha-three.md'),
+        path.join(permanentDir, 'gotcha-three.md'),
         createMemory('gotcha-three', 'gotcha', 'Gotcha Three')
       );
 
@@ -384,8 +388,10 @@ title: [[[invalid yaml
 
 # Invalid`;
 
-      fs.writeFileSync(path.join(testDir, 'decision-valid.md'), validContent);
-      fs.writeFileSync(path.join(testDir, 'decision-invalid.md'), invalidContent);
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir, { recursive: true });
+      fs.writeFileSync(path.join(permanentDir, 'decision-valid.md'), validContent);
+      fs.writeFileSync(path.join(permanentDir, 'decision-invalid.md'), invalidContent);
 
       const result = await rebuildIndex({ basePath: testDir });
 
@@ -445,8 +451,10 @@ links: []
 
 # New`;
 
-      fs.writeFileSync(path.join(testDir, 'existing-memory.md'), existingContent);
-      fs.writeFileSync(path.join(testDir, 'new-memory.md'), newContent);
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir, { recursive: true });
+      fs.writeFileSync(path.join(permanentDir, 'existing-memory.md'), existingContent);
+      fs.writeFileSync(path.join(permanentDir, 'new-memory.md'), newContent);
 
       const result = await rebuildIndex({ basePath: testDir });
 

@@ -151,7 +151,13 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
     const existingIndex = await loadIndex({ basePath });
     const existingIds = new Set(existingIndex.memories.map(e => e.id));
 
-    const files = listMarkdownFiles(basePath);
+    // Memory files are stored in permanent/ and temporary/ subdirectories
+    const permanentDir = path.join(basePath, 'permanent');
+    const temporaryDir = path.join(basePath, 'temporary');
+    const files = [
+      ...listMarkdownFiles(permanentDir),
+      ...listMarkdownFiles(temporaryDir),
+    ];
     const newEntries: IndexEntry[] = [];
     const foundIds = new Set<string>();
 

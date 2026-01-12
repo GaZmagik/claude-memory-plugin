@@ -60,9 +60,11 @@ describe('Enterprise Scope Storage', () => {
       expect(result.error).toMatch(/config\.json|enable/i);
     });
 
-    it('should return false for isEnterpriseEnabled with no config', () => {
+    it('should return true for isEnterpriseEnabled with no config (soft-enabled by default)', () => {
+      // Enterprise is soft-enabled by default - still requires CLAUDE_MEMORY_ENTERPRISE_PATH
+      // to be configured in managed-settings.json, but the config flag defaults to true
       const result = isEnterpriseEnabled(projectDir);
-      expect(result).toBe(false);
+      expect(result).toBe(true);
     });
   });
 
@@ -124,8 +126,9 @@ describe('Enterprise Scope Storage', () => {
 
       expect(result.status).toBe('success');
 
-      // Verify file is in enterprise directory
-      const files = fs.readdirSync(enterpriseDir);
+      // Verify file is in enterprise directory (in permanent/ subdirectory)
+      const permanentDir = path.join(enterpriseDir, 'permanent');
+      const files = fs.readdirSync(permanentDir);
       expect(files.some(f => f.includes('decision-enterprise-decision'))).toBe(true);
     });
 

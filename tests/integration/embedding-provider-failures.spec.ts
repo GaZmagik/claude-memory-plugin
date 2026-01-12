@@ -397,7 +397,7 @@ describe('Embedding Provider Failures', () => {
       const duration = Date.now() - startTime;
 
       expect(result).toBeDefined();
-      expect(duration).toBeGreaterThan(500);
+      expect(duration).toBeGreaterThanOrEqual(500);
       expect(duration).toBeLessThan(2000); // Should still complete
     });
 

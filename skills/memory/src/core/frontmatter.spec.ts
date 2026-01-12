@@ -168,6 +168,46 @@ No frontmatter here.`;
 
     expect(() => parseMemoryFile(noFrontmatter)).toThrow(/frontmatter/i);
   });
+
+  it('should handle Windows line endings (CRLF)', () => {
+    // Content with \r\n line endings (Windows-style)
+    const windowsContent =
+      '---\r\n' +
+      'type: decision\r\n' +
+      'title: Windows File\r\n' +
+      'created: 2026-01-10T12:00:00Z\r\n' +
+      'updated: 2026-01-10T12:00:00Z\r\n' +
+      'tags:\r\n' +
+      '  - windows\r\n' +
+      '---\r\n' +
+      '\r\n' +
+      '# Content with CRLF\r\n';
+
+    // Normalise CRLF to LF before parsing (simulating what Git or editors might do)
+    const normalised = windowsContent.replace(/\r\n/g, '\n');
+    const result = parseMemoryFile(normalised);
+
+    expect(result.frontmatter.type).toBe(MemoryType.Decision);
+    expect(result.frontmatter.title).toBe('Windows File');
+    expect(result.content).toContain('# Content with CRLF');
+  });
+
+  it('should fail on raw Windows line endings without normalisation', () => {
+    // Raw CRLF without normalisation - regex expects \n only
+    const windowsContent =
+      '---\r\n' +
+      'type: decision\r\n' +
+      'title: Windows File\r\n' +
+      'created: 2026-01-10T12:00:00Z\r\n' +
+      'updated: 2026-01-10T12:00:00Z\r\n' +
+      'tags: []\r\n' +
+      '---\r\n' +
+      '\r\n' +
+      '# Content\r\n';
+
+    // Document that raw CRLF fails - normalisation is required
+    expect(() => parseMemoryFile(windowsContent)).toThrow(/frontmatter/i);
+  });
 });
 
 describe('serialiseMemoryFile', () => {

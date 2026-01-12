@@ -2,7 +2,7 @@
  * Tests for Think Conclude Operations
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach, setSystemTime } from 'bun:test';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -129,9 +129,13 @@ describe('think/conclude', () => {
     });
 
     it('concludes specific document by ID', async () => {
+      // Use fake time to avoid ID collision (IDs are per-second)
+      const baseTime = new Date('2026-01-12T10:00:00Z');
+      setSystemTime(baseTime);
       const first = await createThinkDocument({ topic: 'First', basePath });
-      // Wait to avoid ID collision (IDs are per-second)
-      await new Promise(r => setTimeout(r, 1100));
+
+      // Advance time by 1 second to get different ID
+      setSystemTime(new Date('2026-01-12T10:00:01Z'));
       await createThinkDocument({ topic: 'Second', basePath });
 
       const result = await concludeThinkDocument({
@@ -139,6 +143,9 @@ describe('think/conclude', () => {
         documentId: first.document!.id,
         basePath,
       });
+
+      // Reset system time
+      setSystemTime();
 
       expect(result.status).toBe('success');
       expect(result.concluded?.id).toBe(first.document!.id);

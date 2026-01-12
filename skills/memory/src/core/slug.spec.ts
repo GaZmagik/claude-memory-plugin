@@ -260,6 +260,18 @@ describe('generateUniqueId', () => {
 
     expect(id).toBe('decision-test-3');
   });
+
+  it('should throw error when safety limit exceeded (>1000 collisions)', () => {
+    // Create base file and files for suffixes 1-1001
+    fs.writeFileSync(path.join(testDir, 'decision-limit.md'), 'content');
+    for (let i = 1; i <= 1001; i++) {
+      fs.writeFileSync(path.join(testDir, `decision-limit-${i}.md`), 'content');
+    }
+
+    expect(() => generateUniqueId(MemoryType.Decision, 'Limit', testDir)).toThrow(
+      'Too many collisions for ID: decision-limit'
+    );
+  });
 });
 
 describe('isValidSlug', () => {

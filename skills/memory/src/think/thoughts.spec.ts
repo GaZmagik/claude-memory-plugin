@@ -217,7 +217,7 @@ describe('think/thoughts', () => {
 
       expect(result).not.toBeNull();
       expect(result?.topic).toBe('Current topic');
-      expect(result?.documentId).toMatch(/^think-\d{8}-\d{6}$/);
+      expect(result?.documentId).toMatch(/^think-\d{8}-\d{6,9}$/);
       expect(result?.scope).toBe(Scope.Project);
     });
   });

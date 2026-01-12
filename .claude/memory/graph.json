@@ -195,6 +195,34 @@
     {
       "id": "gotcha-vitest-mocking-reference-binding-gotcha",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -496,6 +524,31 @@
     {
       "source": "gotcha-vitest-mocking-reference-binding-gotcha",
       "target": "gotcha-vi-mock-global-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "target": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "target": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "target": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "target": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "target": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
       "label": "relates-to"
     }
   ]

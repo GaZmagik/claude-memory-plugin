@@ -63,7 +63,7 @@ describe('think/document', () => {
       expect(result.status).toBe('success');
       expect(result.document).toBeDefined();
       expect(result.document?.topic).toBe('Test deliberation');
-      expect(result.document?.id).toMatch(/^think-\d{8}-\d{6}$/);
+      expect(result.document?.id).toMatch(/^think-\d{8}-\d{6,9}$/);
     });
 
     it('creates document file on disk', async () => {

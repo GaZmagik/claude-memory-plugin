@@ -809,7 +809,130 @@
       "updated": "2026-01-12T18:01:16.436Z",
       "scope": "project",
       "relativePath": "permanent/artifact-typescript-cli-testing-infrastructure-first-approach.md"
+    },
+    {
+      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "type": "learning",
+      "title": "Millisecond precision required for rapid timestamp-based ID generation",
+      "tags": [
+        "id-generation",
+        "timestamps",
+        "performance",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:49.071Z",
+      "updated": "2026-01-12T20:02:49.071Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation.md"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "type": "gotcha",
+      "title": "CLI doubled prefix bug: type prefix already added by ID generator",
+      "tags": [
+        "cli",
+        "think-promotion",
+        "id-generation",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:50.449Z",
+      "updated": "2026-01-12T20:02:50.449Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator.md"
+    },
+    {
+      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "type": "learning",
+      "title": "Help system design: centralized registry more maintainable than scattered help strings",
+      "tags": [
+        "cli",
+        "documentation",
+        "architecture",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:54.349Z",
+      "updated": "2026-01-12T20:02:54.349Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings.md"
+    },
+    {
+      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "type": "learning",
+      "title": "Bug fix approach: minimal surface area + comprehensive tests = rapid delivery",
+      "tags": [
+        "testing",
+        "debugging",
+        "process",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:00.034Z",
+      "updated": "2026-01-12T20:03:00.034Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery.md"
+    },
+    {
+      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "type": "gotcha",
+      "title": "Think document ID collisions with second-precision timestamps",
+      "tags": [
+        "think",
+        "id-generation",
+        "timestamp",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:00.825Z",
+      "updated": "2026-01-12T20:03:00.825Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-think-document-id-collisions-with-second-precision-timestamps.md"
+    },
+    {
+      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "type": "learning",
+      "title": "CLI parser now supports --flag=value syntax in addition to --flag value",
+      "tags": [
+        "cli",
+        "parser",
+        "enhancement",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:05.628Z",
+      "updated": "2026-01-12T20:03:05.628Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value.md"
+    },
+    {
+      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "type": "artifact",
+      "title": "Per-command help system: registry pattern with command-specific documentation",
+      "tags": [
+        "cli",
+        "help",
+        "design-pattern",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:10.869Z",
+      "updated": "2026-01-12T20:03:10.869Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-per-command-help-system-registry-pattern-with-command-specific-documentation.md"
+    },
+    {
+      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "type": "learning",
+      "title": "Help output reorganization: alphabetical commands with prominent think section",
+      "tags": [
+        "cli",
+        "help",
+        "ux",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:16.349Z",
+      "updated": "2026-01-12T20:03:16.349Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section.md"
     }
   ],
-  "lastUpdated": "2026-01-12T18:01:16.439Z"
+  "lastUpdated": "2026-01-12T20:03:16.352Z"
 }

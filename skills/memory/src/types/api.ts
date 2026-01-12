@@ -4,8 +4,9 @@
  * Contracts for all memory operations.
  */
 
-import type { MemoryType, Scope, Severity } from './enums.js';
+import type { MemoryType, Scope, Severity, ThinkStatus, ThoughtType } from './enums.js';
 import type { MemoryFrontmatter, MemoryIndex } from './memory.js';
+import type { ThinkDocument, ThinkDocumentSummary, AICallOptions } from './think.js';
 
 // ============================================================================
 // Common Types
@@ -314,3 +315,177 @@ export interface LoadIndexRequest extends BaseRequest {}
  * Response from load index operation - returns the full index
  */
 export type LoadIndexResponse = MemoryIndex;
+
+// ============================================================================
+// Think Operations
+// ============================================================================
+
+/**
+ * Request to create a new thinking document
+ */
+export interface ThinkCreateRequest extends BaseRequest {
+  /** The topic for deliberation */
+  topic: string;
+  /** Storage scope (default: Project) */
+  scope?: Scope;
+}
+
+/**
+ * Response from think create operation
+ */
+export interface ThinkCreateResponse extends BaseResponse {
+  /** Created document details */
+  document?: {
+    /** Document ID */
+    id: string;
+    /** Absolute file path */
+    filePath: string;
+    /** Topic */
+    topic: string;
+    /** Scope */
+    scope: Scope;
+  };
+}
+
+/**
+ * Request to add a thought to a document
+ */
+export interface ThinkAddRequest extends BaseRequest {
+  /** The thought content (or guidance if using --call) */
+  thought: string;
+  /** Type of thought */
+  type: ThoughtType;
+  /** Target document ID (optional, uses current if not specified) */
+  documentId?: string;
+  /** Attribution (e.g., "Claude", "User") */
+  by?: string;
+  /** AI call options (if using --call) */
+  call?: AICallOptions;
+}
+
+/**
+ * Response from think add operation
+ */
+export interface ThinkAddResponse extends BaseResponse {
+  /** Added thought details */
+  thought?: {
+    /** Timestamp when added */
+    timestamp: string;
+    /** Thought type */
+    type: ThoughtType;
+    /** Thought content */
+    content: string;
+    /** Attribution */
+    by?: string;
+    /** Session ID (for --resume) */
+    sessionId?: string;
+  };
+  /** Document ID the thought was added to */
+  documentId?: string;
+}
+
+/**
+ * Request to list thinking documents
+ */
+export interface ThinkListRequest extends BaseRequest {
+  /** Filter by status */
+  status?: ThinkStatus;
+  /** Filter by scope */
+  scope?: Scope;
+}
+
+/**
+ * Response from think list operation
+ */
+export interface ThinkListResponse extends BaseResponse {
+  /** List of document summaries */
+  documents?: ThinkDocumentSummary[];
+  /** Current document ID (if any) */
+  currentId?: string | null;
+}
+
+/**
+ * Request to show a thinking document
+ */
+export interface ThinkShowRequest extends BaseRequest {
+  /** Document ID (optional, uses current if not specified) */
+  documentId?: string;
+}
+
+/**
+ * Response from think show operation
+ */
+export interface ThinkShowResponse extends BaseResponse {
+  /** Full document details */
+  document?: ThinkDocument;
+}
+
+/**
+ * Request to switch current document
+ */
+export interface ThinkUseRequest extends BaseRequest {
+  /** Document ID to switch to */
+  documentId: string;
+}
+
+/**
+ * Response from think use operation
+ */
+export interface ThinkUseResponse extends BaseResponse {
+  /** Previous current document ID */
+  previousId?: string | null;
+  /** New current document ID */
+  currentId?: string;
+  /** Topic of the new current document */
+  topic?: string;
+}
+
+/**
+ * Request to conclude a thinking document
+ */
+export interface ThinkConcludeRequest extends BaseRequest {
+  /** Conclusion text */
+  conclusion: string;
+  /** Document ID (optional, uses current if not specified) */
+  documentId?: string;
+  /** Promote to permanent memory type */
+  promote?: MemoryType;
+}
+
+/**
+ * Response from think conclude operation
+ */
+export interface ThinkConcludeResponse extends BaseResponse {
+  /** Concluded document details */
+  concluded?: {
+    /** Document ID */
+    id: string;
+    /** Conclusion text */
+    conclusion: string;
+  };
+  /** Promoted memory details (if promoted) */
+  promoted?: {
+    /** New memory ID */
+    id: string;
+    /** Memory type */
+    type: MemoryType;
+    /** Absolute file path */
+    filePath: string;
+  };
+}
+
+/**
+ * Request to delete a thinking document
+ */
+export interface ThinkDeleteRequest extends BaseRequest {
+  /** Document ID to delete */
+  documentId: string;
+}
+
+/**
+ * Response from think delete operation
+ */
+export interface ThinkDeleteResponse extends BaseResponse {
+  /** Deleted document ID */
+  deletedId?: string;
+}

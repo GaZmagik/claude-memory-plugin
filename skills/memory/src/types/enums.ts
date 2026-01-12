@@ -48,6 +48,34 @@ export enum Severity {
 }
 
 /**
+ * Think Document Status
+ *
+ * Defines the lifecycle status of a thinking document.
+ */
+export enum ThinkStatus {
+  /** Document is active and accepting new thoughts */
+  Active = 'active',
+  /** Document has been concluded */
+  Concluded = 'concluded',
+}
+
+/**
+ * Thought Entry Type
+ *
+ * Defines the type of thought within a thinking document.
+ */
+export enum ThoughtType {
+  /** A regular thought or observation */
+  Thought = 'thought',
+  /** A counter-argument or challenge to existing thoughts */
+  CounterArgument = 'counter-argument',
+  /** An alternative approach or branch in thinking */
+  Branch = 'branch',
+  /** The final conclusion of the deliberation */
+  Conclusion = 'conclusion',
+}
+
+/**
  * Graph Edge Relationship Types
  *
  * Defines the types of relationships between memories in the graph.

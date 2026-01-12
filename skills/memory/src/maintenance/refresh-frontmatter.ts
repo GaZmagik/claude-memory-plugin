@@ -8,6 +8,8 @@
  * Also migrates legacy data:
  * - embedding hash from frontmatter → embeddings.json (if not already there)
  * - Removes legacy embedding field from frontmatter
+ * - Renames think-* files to thought-* (ID prefix migration)
+ * - Updates thought.json, graph.json, index.json with new IDs
  */
 
 import * as fs from 'node:fs';
@@ -49,10 +51,103 @@ export interface RefreshFrontmatterResponse {
   skipped: number;
   /** Number of embeddings migrated */
   embeddingsMigrated: number;
+  /** Number of think→thought ID migrations */
+  thinkToThoughtMigrated: number;
   /** Project name used */
   project?: string;
   /** Any errors encountered */
   errors?: string[];
+}
+
+/**
+ * Migrate a think- prefixed ID to thought- prefix
+ */
+function migrateThinkId(id: string): string {
+  if (id.startsWith('think-')) {
+    return 'thought-' + id.slice(6);
+  }
+  return id;
+}
+
+/**
+ * Update thought.json state file with migrated IDs
+ */
+function migrateThoughtJsonState(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
+  const statePath = path.join(basePath, 'thought.json');
+  if (!fs.existsSync(statePath)) {
+    return false;
+  }
+
+  try {
+    const content = fs.readFileSync(statePath, 'utf-8');
+    const state = JSON.parse(content);
+
+    if (state.currentDocumentId === oldId) {
+      if (!dryRun) {
+        state.currentDocumentId = newId;
+        fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+      }
+      return true;
+    }
+  } catch {
+    // Ignore errors
+  }
+  return false;
+}
+
+/**
+ * Update graph.json with migrated IDs
+ */
+function migrateGraphJson(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
+  const graphPath = path.join(basePath, 'graph.json');
+  if (!fs.existsSync(graphPath)) {
+    return false;
+  }
+
+  try {
+    const content = fs.readFileSync(graphPath, 'utf-8');
+    if (!content.includes(`"${oldId}"`)) {
+      return false;
+    }
+
+    if (!dryRun) {
+      const updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
+      fs.writeFileSync(graphPath, updated);
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Update index.json with migrated IDs and paths
+ */
+function migrateIndexJson(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
+  const indexPath = path.join(basePath, 'index.json');
+  if (!fs.existsSync(indexPath)) {
+    return false;
+  }
+
+  try {
+    const content = fs.readFileSync(indexPath, 'utf-8');
+    if (!content.includes(`"${oldId}"`)) {
+      return false;
+    }
+
+    if (!dryRun) {
+      // Replace ID and file paths
+      let updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
+      updated = updated.replace(
+        new RegExp(`temporary/${oldId}\\.md`, 'g'),
+        `temporary/${newId}.md`
+      );
+      fs.writeFileSync(indexPath, updated);
+    }
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -171,6 +266,7 @@ export async function refreshFrontmatter(
   const wouldUpdate: string[] = [];
   let skipped = 0;
   let embeddingsMigrated = 0;
+  let thinkToThoughtMigrated = 0;
 
   // Detect project name if not provided
   const project = request.project ?? detectProjectName(basePath);
@@ -185,9 +281,30 @@ export async function refreshFrontmatter(
   for (const id of idsToProcess) {
     try {
       // Find file
-      const filePath = findMemoryFile(basePath, id);
+      let filePath = findMemoryFile(basePath, id);
       if (!filePath) {
         continue;
+      }
+
+      // Check for think→thought migration
+      let currentId = id;
+      if (id.startsWith('think-')) {
+        const newId = migrateThinkId(id);
+        const newFilePath = filePath.replace(`${id}.md`, `${newId}.md`);
+
+        if (!dryRun) {
+          // Rename file
+          fs.renameSync(filePath, newFilePath);
+          filePath = newFilePath;
+
+          // Update JSON files
+          migrateThoughtJsonState(basePath, id, newId, dryRun);
+          migrateGraphJson(basePath, id, newId, dryRun);
+          migrateIndexJson(basePath, id, newId, dryRun);
+        }
+
+        currentId = newId;
+        thinkToThoughtMigrated++;
       }
 
       // Read current file
@@ -202,8 +319,8 @@ export async function refreshFrontmatter(
       const fm = parsed.frontmatter;
       let needsUpdate = false;
 
-      // Check if id needs adding
-      if (!fm.id || fm.id !== id) {
+      // Check if id needs adding or updating (use currentId which may have been migrated)
+      if (!fm.id || fm.id !== currentId) {
         needsUpdate = true;
       }
 
@@ -238,15 +355,15 @@ export async function refreshFrontmatter(
 
       // Build updates
       const updates: Record<string, unknown> = {};
-      if (!fm.id || fm.id !== id) {
-        updates.id = id;
+      if (!fm.id || fm.id !== currentId) {
+        updates.id = currentId;
       }
       if (project && !fm.project) {
         updates.project = project;
       }
 
       if (dryRun) {
-        wouldUpdate.push(id);
+        wouldUpdate.push(currentId);
       } else {
         // Update frontmatter
         const updatedFm = updateFrontmatter(fm, updates);
@@ -259,7 +376,7 @@ export async function refreshFrontmatter(
         // Serialise and write
         const newContent = serialiseMemoryFile(updatedFm, parsed.content);
         fs.writeFileSync(filePath, newContent, 'utf8');
-        updatedIds.push(id);
+        updatedIds.push(currentId);
       }
     } catch (err) {
       errors.push(`${id}: ${err}`);
@@ -278,6 +395,7 @@ export async function refreshFrontmatter(
     ...(dryRun && { wouldUpdate }),
     skipped,
     embeddingsMigrated,
+    thinkToThoughtMigrated,
     project,
     ...(errors.length > 0 && { errors }),
   };

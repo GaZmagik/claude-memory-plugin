@@ -53,8 +53,8 @@ function migrateIndexEntry(entry: IndexEntry & { file?: string }, basePath: stri
     return { ...rest, relativePath };
   }
 
-  // Fallback: construct relativePath from id - assume permanent unless id starts with think-
-  const subdir = entry.id.startsWith('think-') ? 'temporary' : 'permanent';
+  // Fallback: construct relativePath from id - assume permanent unless id starts with thought-/think-
+  const subdir = (entry.id.startsWith('thought-') || entry.id.startsWith('think-')) ? 'temporary' : 'permanent';
   return { ...entry, relativePath: `${subdir}/${entry.id}.md` };
 }
 

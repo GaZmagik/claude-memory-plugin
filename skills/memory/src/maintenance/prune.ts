@@ -104,7 +104,8 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
       let effectiveTtl = ttlDays;
 
       // Check if it's a concluded think document (shorter TTL)
-      const isThinkDocument = id.startsWith('think-');
+      // Supports both new thought- prefix and legacy think- prefix
+      const isThinkDocument = id.startsWith('thought-') || id.startsWith('think-');
       // Status can be at root level (think docs) or in meta
       // Cast to access fields that aren't in strict MemoryFrontmatter type
       const fm = frontmatter as unknown as Record<string, unknown>;

@@ -371,8 +371,8 @@ Can have multiple thinking documents active simultaneously:
 ```bash
 memory think create "Topic A"      # Creates and sets as current
 memory think create "Topic B"      # Creates new, now current
-memory think use think-20260106-101500  # Switch back to earlier
-memory think add "Thought for Topic A" --to think-20260106-101500  # Add to specific
+memory think use thought-20260106-101500  # Switch back to earlier
+memory think add "Thought for Topic A" --to thought-20260106-101500  # Add to specific
 ```
 
 ### AI-Assisted Deliberation

@@ -582,7 +582,7 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
       'memory think conclude "Use PostgreSQL" --promote decision',
       'memory think list',
       'memory think show',
-      'memory think delete think-20240115-123456',
+      'memory think delete thought-20240115-123456',
     ],
     notes: `  Thinking documents are ephemeral - they live in temporary/ and are
   meant to be concluded and optionally promoted to permanent memories.

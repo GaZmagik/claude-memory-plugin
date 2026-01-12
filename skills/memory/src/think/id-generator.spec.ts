@@ -9,13 +9,13 @@ describe('think/id-generator', () => {
   describe('generateThinkId', () => {
     it('generates ID in correct format with milliseconds', () => {
       const id = generateThinkId();
-      // Format: think-YYYYMMDD-HHMMSSmmm (9 digits after second hyphen)
-      expect(id).toMatch(/^think-\d{8}-\d{9}$/);
+      // Format: thought-YYYYMMDD-HHMMSSmmm (9 digits after second hyphen)
+      expect(id).toMatch(/^thought-\d{8}-\d{9}$/);
     });
 
-    it('starts with think- prefix', () => {
+    it('starts with thought- prefix', () => {
       const id = generateThinkId();
-      expect(id.startsWith('think-')).toBe(true);
+      expect(id.startsWith('thought-')).toBe(true);
     });
 
     it('generates unique IDs when called with small delays', async () => {
@@ -31,13 +31,25 @@ describe('think/id-generator', () => {
   });
 
   describe('isValidThinkId', () => {
-    it('returns true for valid IDs (old format without millis)', () => {
+    it('returns true for valid IDs with thought- prefix (without millis)', () => {
+      expect(isValidThinkId('thought-20260112-103000')).toBe(true);
+      expect(isValidThinkId('thought-00000000-000000')).toBe(true);
+      expect(isValidThinkId('thought-99999999-999999')).toBe(true);
+    });
+
+    it('returns true for valid IDs with thought- prefix (with millis)', () => {
+      expect(isValidThinkId('thought-20260112-103000123')).toBe(true);
+      expect(isValidThinkId('thought-00000000-000000000')).toBe(true);
+      expect(isValidThinkId('thought-99999999-999999999')).toBe(true);
+    });
+
+    it('returns true for legacy think- prefix IDs (without millis)', () => {
       expect(isValidThinkId('think-20260112-103000')).toBe(true);
       expect(isValidThinkId('think-00000000-000000')).toBe(true);
       expect(isValidThinkId('think-99999999-999999')).toBe(true);
     });
 
-    it('returns true for valid IDs (new format with millis)', () => {
+    it('returns true for legacy think- prefix IDs (with millis)', () => {
       expect(isValidThinkId('think-20260112-103000123')).toBe(true);
       expect(isValidThinkId('think-00000000-000000000')).toBe(true);
       expect(isValidThinkId('think-99999999-999999999')).toBe(true);
@@ -45,15 +57,15 @@ describe('think/id-generator', () => {
 
     it('returns false for invalid IDs', () => {
       expect(isValidThinkId('')).toBe(false);
-      expect(isValidThinkId('think')).toBe(false);
-      expect(isValidThinkId('think-')).toBe(false);
-      expect(isValidThinkId('think-12345678')).toBe(false);
-      expect(isValidThinkId('think-1234567-123456')).toBe(false);
-      expect(isValidThinkId('think-123456789-123456')).toBe(false);
-      expect(isValidThinkId('think-12345678-12345')).toBe(false); // 5 digits
-      expect(isValidThinkId('think-12345678-1234567890')).toBe(false); // 10 digits
+      expect(isValidThinkId('thought')).toBe(false);
+      expect(isValidThinkId('thought-')).toBe(false);
+      expect(isValidThinkId('thought-12345678')).toBe(false);
+      expect(isValidThinkId('thought-1234567-123456')).toBe(false);
+      expect(isValidThinkId('thought-123456789-123456')).toBe(false);
+      expect(isValidThinkId('thought-12345678-12345')).toBe(false); // 5 digits
+      expect(isValidThinkId('thought-12345678-1234567890')).toBe(false); // 10 digits
       expect(isValidThinkId('decision-20260112-103000')).toBe(false);
-      expect(isValidThinkId('THINK-20260112-103000')).toBe(false);
+      expect(isValidThinkId('THOUGHT-20260112-103000')).toBe(false);
     });
 
     it('validates generated IDs', () => {
@@ -63,8 +75,8 @@ describe('think/id-generator', () => {
   });
 
   describe('parseThinkIdTimestamp', () => {
-    it('parses valid think ID to Date (old format)', () => {
-      const date = parseThinkIdTimestamp('think-20260112-103045');
+    it('parses valid thought ID to Date (without millis)', () => {
+      const date = parseThinkIdTimestamp('thought-20260112-103045');
       expect(date).not.toBeNull();
       expect(date?.getFullYear()).toBe(2026);
       expect(date?.getMonth()).toBe(0); // January (0-indexed)
@@ -74,8 +86,8 @@ describe('think/id-generator', () => {
       expect(date?.getSeconds()).toBe(45);
     });
 
-    it('parses valid think ID with milliseconds (new format)', () => {
-      const date = parseThinkIdTimestamp('think-20260112-103045678');
+    it('parses valid thought ID with milliseconds', () => {
+      const date = parseThinkIdTimestamp('thought-20260112-103045678');
       expect(date).not.toBeNull();
       expect(date?.getFullYear()).toBe(2026);
       expect(date?.getMonth()).toBe(0);
@@ -84,6 +96,14 @@ describe('think/id-generator', () => {
       expect(date?.getMinutes()).toBe(30);
       expect(date?.getSeconds()).toBe(45);
       expect(date?.getMilliseconds()).toBe(678);
+    });
+
+    it('parses legacy think- prefix IDs', () => {
+      const date = parseThinkIdTimestamp('think-20260112-103045');
+      expect(date).not.toBeNull();
+      expect(date?.getFullYear()).toBe(2026);
+      expect(date?.getMonth()).toBe(0);
+      expect(date?.getDate()).toBe(12);
     });
 
     it('returns null for invalid ID', () => {

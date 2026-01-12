@@ -2,12 +2,15 @@
  * Think Document ID Generator
  *
  * Generates unique IDs for thinking documents in the format:
- * think-YYYYMMDD-HHMMSSmmm (with milliseconds to prevent same-second collisions)
+ * thought-YYYYMMDD-HHMMSSmmm (with milliseconds to prevent same-second collisions)
+ *
+ * Note: The CLI command remains `memory think` but generated IDs use `thought-` prefix
+ * for visual consistency with thought.json state file.
  */
 
 /**
  * Generate a think document ID with timestamp format
- * Format: think-YYYYMMDD-HHMMSSmmm (includes milliseconds)
+ * Format: thought-YYYYMMDD-HHMMSSmmm (includes milliseconds)
  */
 export function generateThinkId(): string {
   const now = new Date();
@@ -19,17 +22,19 @@ export function generateThinkId(): string {
   const seconds = String(now.getSeconds()).padStart(2, '0');
   const millis = String(now.getMilliseconds()).padStart(3, '0');
 
-  return `think-${year}${month}${day}-${hours}${minutes}${seconds}${millis}`;
+  return `thought-${year}${month}${day}-${hours}${minutes}${seconds}${millis}`;
 }
 
 /**
  * Validate a think document ID format
  * @param id - The ID to validate
- * @returns true if the ID matches think-YYYYMMDD-HHMMSS or think-YYYYMMDD-HHMMSSmmm format
+ * @returns true if the ID matches thought-YYYYMMDD-HHMMSS or thought-YYYYMMDD-HHMMSSmmm format
+ *          Also accepts legacy think- prefix for backwards compatibility
  */
 export function isValidThinkId(id: string): boolean {
+  // Accept both thought- (new) and think- (legacy) prefixes
   // Accept both old format (6 digits) and new format (9 digits with millis)
-  return /^think-\d{8}-\d{6,9}$/.test(id);
+  return /^(thought|think)-\d{8}-\d{6,9}$/.test(id);
 }
 
 /**
@@ -42,8 +47,9 @@ export function parseThinkIdTimestamp(id: string): Date | null {
     return null;
   }
 
-  // Extract date parts from think-YYYYMMDD-HHMMSS or think-YYYYMMDD-HHMMSSmmm
-  const match = id.match(/^think-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})(\d{3})?$/);
+  // Extract date parts from thought-YYYYMMDD-HHMMSS or thought-YYYYMMDD-HHMMSSmmm
+  // Also handles legacy think- prefix
+  const match = id.match(/^(?:thought|think)-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})(\d{3})?$/);
   if (!match) {
     return null;
   }

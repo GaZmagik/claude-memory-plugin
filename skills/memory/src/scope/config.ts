@@ -110,8 +110,10 @@ export function loadConfig(projectPath: string, globalPath?: string): MemoryConf
  * Get enterprise configuration from config
  */
 export function getEnterpriseConfig(config: MemoryConfig): EnterpriseConfig {
+  // Default to true - enterprise still requires CLAUDE_MEMORY_ENTERPRISE_PATH
+  // to be configured in managed-settings.json, so this is a soft enable
   return {
-    enabled: config.scopes?.enterprise?.enabled ?? false,
+    enabled: config.scopes?.enterprise?.enabled ?? true,
   };
 }
 

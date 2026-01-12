@@ -157,9 +157,9 @@ describe('Scope Resolver', () => {
   });
 
   describe('isEnterpriseEnabled', () => {
-    it('should return false when no config exists', () => {
+    it('should return true when no config exists (soft enable by default)', () => {
       const result = isEnterpriseEnabled(testDir);
-      expect(result).toBe(false);
+      expect(result).toBe(true);
     });
 
     it('should return false when config does not enable enterprise', () => {
@@ -388,12 +388,12 @@ describe('Scope Resolver', () => {
   });
 
   describe('buildScopeContext', () => {
-    it('should build context with enterprise disabled by default', () => {
+    it('should build context with enterprise enabled by default (soft enable)', () => {
       const context = buildScopeContext(testDir, globalMemoryDir);
 
       expect(context.cwd).toBe(testDir);
       expect(context.globalMemoryPath).toBe(globalMemoryDir);
-      expect(context.enterpriseEnabled).toBe(false);
+      expect(context.enterpriseEnabled).toBe(true);  // Soft enable - still needs path
       expect(context.enterprisePath).toBeUndefined();
     });
 

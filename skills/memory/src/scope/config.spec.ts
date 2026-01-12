@@ -87,12 +87,13 @@ describe('Config Parser', () => {
   });
 
   describe('getEnterpriseConfig', () => {
-    it('should return disabled when no enterprise config', () => {
+    it('should return enabled by default when no enterprise config', () => {
+      // Enterprise defaults to enabled (soft enable) - still requires path
       const config: MemoryConfig = {};
 
       const result = getEnterpriseConfig(config);
 
-      expect(result.enabled).toBe(false);
+      expect(result.enabled).toBe(true);
     });
 
     it('should return enabled state from config', () => {

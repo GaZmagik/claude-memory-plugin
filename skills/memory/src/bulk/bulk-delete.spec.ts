@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { bulkDelete } from './bulk-delete.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
-import * as deleteModule from '../core/delete.js';
+import * as fsUtils from '../core/fs-utils.js';
 
 describe('bulkDelete', () => {
   beforeEach(() => {
@@ -74,17 +74,17 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(2);
 
     const result = await bulkDelete({ pattern: 'decision-*' });
 
     expect(result.status).toBe('success');
     expect(result.deletedCount).toBe(2);
     expect(result.deletedIds).toEqual(['decision-foo', 'decision-bar']);
-    expect(deleteModule.deleteMemory).toHaveBeenCalledTimes(2);
+    expect(fsUtils.deleteFile).toHaveBeenCalledTimes(2);
   });
 
   it('should filter by tags', async () => {
@@ -115,10 +115,10 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
 
     const result = await bulkDelete({ tags: ['auth'] });
 
@@ -155,10 +155,10 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
 
     const result = await bulkDelete({ type: MemoryType.Learning });
 
@@ -195,10 +195,10 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
 
     const result = await bulkDelete({ scope: Scope.Project });
 
@@ -235,7 +235,7 @@ describe('bulkDelete', () => {
       ],
     });
 
-    const deleteMemorySpy = vi.spyOn(deleteModule, 'deleteMemory');
+    const deleteFileSpy = vi.spyOn(fsUtils, 'deleteFile');
 
     const result = await bulkDelete({ pattern: 'decision-*', dryRun: true });
 
@@ -243,7 +243,7 @@ describe('bulkDelete', () => {
     expect(result.deletedCount).toBe(2);
     expect(result.deletedIds).toEqual(['decision-foo', 'decision-bar']);
     expect(result.dryRun).toBe(true);
-    expect(deleteMemorySpy).not.toHaveBeenCalled();
+    expect(deleteFileSpy).not.toHaveBeenCalled();
   });
 
   it('should report failed deletions', async () => {
@@ -274,9 +274,12 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory')
-      .mockResolvedValueOnce({ status: 'success', deletedId: 'decision-foo' })
-      .mockResolvedValueOnce({ status: 'error', error: 'File not found' });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists')
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false); // Second file not found
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
 
     const result = await bulkDelete({ pattern: 'decision-*' });
 
@@ -314,10 +317,10 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(2);
 
     const progressCalls: Array<{ current: number; total: number; phase: string }> = [];
     const onProgress = vi.fn((p) => progressCalls.push(p));
@@ -368,10 +371,10 @@ describe('bulkDelete', () => {
       ],
     });
 
-    vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({
-      status: 'success',
-      deletedId: 'mock-id',
-    });
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockReturnValue(undefined);
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
 
     const result = await bulkDelete({
       pattern: 'decision-*',

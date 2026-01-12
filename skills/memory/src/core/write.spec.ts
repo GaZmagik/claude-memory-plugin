@@ -169,7 +169,7 @@ describe('writeMemory', () => {
       expect(frontmatter.createFrontmatter).toHaveBeenCalledWith({
         type: MemoryType.Learning,
         title: 'Test Memory',
-        tags: ['test', 'learning'],
+        tags: ['test', 'learning', 'local'],  // 'local' auto-added from scope
         scope: Scope.Local,
         severity: Severity.Medium,
         links: undefined,
@@ -240,7 +240,7 @@ describe('writeMemory', () => {
         id: mockId,
         type: MemoryType.Learning,
         title: 'Test Memory',
-        tags: ['test', 'learning'],
+        tags: ['test', 'learning', 'local'],  // 'local' auto-added from scope
         created: mockFrontmatter.created,
         updated: mockFrontmatter.updated,
         scope: Scope.Local,

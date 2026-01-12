@@ -19,6 +19,34 @@ import { ensureLocalScopeGitignored } from '../scope/gitignore.js';
 const log = createLogger('write');
 
 /**
+ * Get the scope tag for a given scope
+ */
+function getScopeTag(scope: Scope): string {
+  switch (scope) {
+    case Scope.Enterprise:
+      return 'enterprise';
+    case Scope.Local:
+      return 'local';
+    case Scope.Project:
+      return 'project';
+    case Scope.Global:
+      return 'user';
+  }
+}
+
+/**
+ * Merge user tags with auto-generated scope tag (no duplicates)
+ */
+function mergeTagsWithScope(userTags: string[] | undefined, scope: Scope): string[] {
+  const scopeTag = getScopeTag(scope);
+  const tags = userTags ? [...userTags] : [];
+  if (!tags.includes(scopeTag)) {
+    tags.push(scopeTag);
+  }
+  return tags;
+}
+
+/**
  * Write a memory to disk
  */
 export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMemoryResponse> {
@@ -46,11 +74,14 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Generate unique ID
     const id = generateUniqueId(request.type, request.title, basePath);
 
+    // Merge user tags with auto-generated scope tag
+    const tags = mergeTagsWithScope(request.tags, request.scope);
+
     // Create frontmatter with scope
     const frontmatter = createFrontmatter({
       type: request.type,
       title: request.title,
-      tags: request.tags,
+      tags,
       scope: request.scope,
       severity: request.severity,
       links: request.links,
@@ -77,7 +108,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       id,
       type: request.type,
       title: request.title,
-      tags: request.tags,
+      tags,
       created: frontmatter.created,
       updated: frontmatter.updated,
       scope: request.scope,

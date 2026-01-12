@@ -2,11 +2,11 @@
 /**
  * protect-memory-directory.ts - Block direct writes to .claude/memory/
  *
- * This hook ensures all memory operations go through the sanctioned
- * memory.sh script, which properly creates YAML frontmatter.
+ * This hook ensures Write/Edit/MultiEdit tools cannot directly modify
+ * .claude/memory/ files. Use the memory CLI instead.
  *
  * Blocks: Write, Edit, MultiEdit to any .claude/memory/ path
- * Allows: Bash calls to memory.sh (the proper way)
+ * Allows: All other tools (Bash enforcement is in enforce-memory-cli.ts)
  *
  * Exit codes:
  *   0 - Allow the operation
@@ -61,24 +61,25 @@ which can result in malformed memories missing required fields like:
   - created/updated timestamps
   - proper tag/link formatting
 
-✅ CORRECT APPROACH: Use the memory skill shell script:
+✅ CORRECT APPROACH: Use the memory CLI (requires bun link):
 
-  echo '{
-    "id": "your-memory-id",
-    "title": "Your Memory Title",
-    "type": "permanent",
-    "scope": "local",
-    "tags": ["tag1", "tag2"],
-    "links": ["related-memory-id"],
-    "content": "Your markdown content here..."
-  }' | ~/.claude/skills/memory/memory.sh write
+  # Setup (one time):
+  cd skills/memory && bun link
 
-Or use the other memory commands:
-  ~/.claude/skills/memory/memory.sh link <source> <target> <relation>
-  ~/.claude/skills/memory/memory.sh delete <id>
+  # Operations:
+  echo '{"title":"...", "content":"..."}' | memory write
+  memory read <id>
+  memory search <query>
+  memory link <source> <target> [relation]
+  memory delete <id>
 
-For graph.json and index.json updates, these are managed
-automatically by the memory.sh script.`);
+Or invoke directly:
+  skills/memory/src/cli.ts <command> [args]
+
+The memory CLI ensures proper:
+  - YAML frontmatter generation
+  - index.json updates
+  - graph.json consistency`);
   }
 
   // Not a memory path, allow the operation

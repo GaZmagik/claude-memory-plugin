@@ -11,7 +11,8 @@ export default defineConfig({
     setupFiles: ['./tests/setup.ts'],
     include: [
       'skills/memory/src/**/*.spec.ts',  // Colocated unit tests
-      'hooks/src/**/*.spec.ts',          // Hooks unit tests (colocated)
+      'hooks/src/**/*.spec.ts',          // Hooks library tests (colocated)
+      'hooks/pre-tool-use/**/*.spec.ts', // Hook implementation tests
       'tests/integration/**/*.spec.ts',  // Integration tests
       'tests/contract/**/*.spec.ts',     // Contract tests
     ],

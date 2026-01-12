@@ -414,31 +414,36 @@ describe('Gotcha Injector', () => {
       expect(result).toHaveLength(2);
     });
 
-    it('should sort by severity first, then by score', async () => {
-      // Note: This test verifies the sorting happens in the result
-      // The actual sorting order depends on the implementation details
+    it('should sort by score descending', async () => {
+      // Note: severity from listMemories is undefined, defaults to 'medium' for all
+      // So primary sort is effectively by score only
       (listMemories as Mock).mockResolvedValue({
         status: 'success',
         memories: [
-          mockMemory({ id: 'gotcha-low', title: 'Low', severity: 'low' }),
-          mockMemory({ id: 'gotcha-critical', title: 'Critical', severity: 'critical' }),
-          mockMemory({ id: 'gotcha-high', title: 'High', severity: 'high' }),
+          mockMemory({ id: 'gotcha-1', title: 'First' }),
+          mockMemory({ id: 'gotcha-2', title: 'Second' }),
+          mockMemory({ id: 'gotcha-3', title: 'Third' }),
         ],
       } as any);
-      (calculateRelevanceScore as Mock).mockReturnValue(0.5);
+      // Return different scores for each gotcha
+      (calculateRelevanceScore as Mock)
+        .mockReturnValueOnce(0.3)  // gotcha-1: low score
+        .mockReturnValueOnce(0.9)  // gotcha-2: highest score
+        .mockReturnValueOnce(0.6); // gotcha-3: medium score
 
       const result = await getRelevantGotchas({
         filePath: '/path/to/file.ts',
         basePath: '/path',
       });
 
-      // Verify all three results are returned
+      // Verify sorted by score descending
       expect(result).toHaveLength(3);
-      // Verify all IDs are present (order depends on implementation)
-      const ids = result.map(r => r.id);
-      expect(ids).toContain('gotcha-critical');
-      expect(ids).toContain('gotcha-high');
-      expect(ids).toContain('gotcha-low');
+      expect(result[0].id).toBe('gotcha-2'); // 0.9 - highest
+      expect(result[0].score).toBe(0.9);
+      expect(result[1].id).toBe('gotcha-3'); // 0.6
+      expect(result[1].score).toBe(0.6);
+      expect(result[2].id).toBe('gotcha-1'); // 0.3 - lowest
+      expect(result[2].score).toBe(0.3);
     });
 
     it('should include memory content in results', async () => {

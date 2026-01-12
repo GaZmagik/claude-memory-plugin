@@ -347,6 +347,74 @@ describe('Embedding Generation', () => {
     });
   });
 
+  describe('saveEmbeddingCache error handling', () => {
+    it('should throw on ENOSPC (disk full) error', async () => {
+      const cachePath = path.join(testDir, 'embeddings.json');
+      const cache: EmbeddingCache = { version: 1, entries: {} };
+
+      // Mock writeFileSync to throw ENOSPC error
+      const enospcError = new Error('ENOSPC: no space left on device');
+      (enospcError as NodeJS.ErrnoException).code = 'ENOSPC';
+      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
+        throw enospcError;
+      });
+
+      try {
+        await expect(saveEmbeddingCache(cachePath, cache)).rejects.toThrow('ENOSPC');
+      } finally {
+        spy.mockRestore();
+      }
+    });
+
+    it('should throw on EACCES (permission denied) error', async () => {
+      const cachePath = path.join(testDir, 'embeddings.json');
+      const cache: EmbeddingCache = { version: 1, entries: {} };
+
+      // Mock writeFileSync to throw EACCES error
+      const eaccesError = new Error('EACCES: permission denied');
+      (eaccesError as NodeJS.ErrnoException).code = 'EACCES';
+      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
+        throw eaccesError;
+      });
+
+      try {
+        await expect(saveEmbeddingCache(cachePath, cache)).rejects.toThrow('EACCES');
+      } finally {
+        spy.mockRestore();
+      }
+    });
+  });
+
+  describe('getEmbeddingForMemory cache write failure', () => {
+    it('should reject with error when cache write fails with EACCES', async () => {
+      const cachePath = path.join(testDir, 'embeddings.json');
+      const memoryId = 'learning-test';
+      const content = 'Test content';
+      const hash = 'test-hash';
+
+      const mockProvider: EmbeddingProvider = {
+        name: 'mock',
+        generate: vi.fn().mockResolvedValue([0.5, 0.5]),
+      };
+
+      // Mock writeFileSync to throw EACCES error after generation
+      const eaccesError = new Error('EACCES: permission denied');
+      (eaccesError as NodeJS.ErrnoException).code = 'EACCES';
+      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
+        throw eaccesError;
+      });
+
+      try {
+        // Should reject because cache write fails
+        await expect(
+          getEmbeddingForMemory(memoryId, content, cachePath, mockProvider, hash)
+        ).rejects.toThrow('EACCES');
+      } finally {
+        spy.mockRestore();
+      }
+    });
+  });
+
   describe('generateContentHash', () => {
     it('should generate consistent hash for same content', () => {
       const hash1 = generateContentHash('test content');

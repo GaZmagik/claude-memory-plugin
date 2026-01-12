@@ -116,6 +116,32 @@ describe('listMemories', () => {
       expect(result.memories![0].tags).toContain('testing');
     });
 
+    it('should filter by type - gotcha', async () => {
+      const result = await listMemories({ basePath: testDir, type: MemoryType.Gotcha });
+
+      expect(result.status).toBe('success');
+      expect(result.memories!.length).toBe(1);
+      expect(result.memories![0].type).toBe('gotcha');
+      expect(result.memories![0].title).toBe('Project Gotcha');
+    });
+
+    it('should filter by type - decision', async () => {
+      const result = await listMemories({ basePath: testDir, type: MemoryType.Decision });
+
+      expect(result.status).toBe('success');
+      expect(result.memories!.length).toBe(1);
+      expect(result.memories![0].type).toBe('decision');
+      expect(result.memories![0].title).toBe('Local Decision');
+    });
+
+    it('should return empty array when type has no matches', async () => {
+      const result = await listMemories({ basePath: testDir, type: MemoryType.Hub });
+
+      expect(result.status).toBe('success');
+      expect(result.memories!.length).toBe(0);
+      expect(result.count).toBe(0);
+    });
+
     it('should filter by scope', async () => {
       const result = await listMemories({ basePath: testDir, scope: Scope.Project });
 

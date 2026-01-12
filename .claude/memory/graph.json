@@ -183,6 +183,18 @@
     {
       "id": "learning-cli-gap",
       "type": "learning"
+    },
+    {
+      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "type": "artifact"
+    },
+    {
+      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -465,6 +477,26 @@
       "source": "gotcha-agents-should-be-copies-not-rewrites",
       "target": "learning-memory-context-hook-graceful-search-degradation",
       "relation": "demonstrates-correct-pattern"
+    },
+    {
+      "source": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "target": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "target": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "target": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "target": "gotcha-vi-mock-global-pollution",
+      "label": "relates-to"
     }
   ]
 }

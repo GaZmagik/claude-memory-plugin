@@ -10,75 +10,14 @@ import type {
   ImportMemoriesRequest,
   ImportMemoriesResponse,
   ExportPackage,
-  ExportedMemory,
 } from '../types/api.js';
-import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { writeMemory } from './write.js';
 import { linkMemories } from '../graph/link.js';
 import { createLogger } from './logger.js';
+import { isValidExportPackage } from './validation.js';
 
 const log = createLogger('import');
-
-/**
- * Validate that a value is a valid ExportedMemory
- */
-function isValidMemory(value: unknown): value is ExportedMemory {
-  if (!value || typeof value !== 'object') return false;
-  const mem = value as Record<string, unknown>;
-
-  if (typeof mem.id !== 'string' || mem.id.trim().length === 0) return false;
-  if (typeof mem.content !== 'string') return false;
-
-  // Validate frontmatter
-  if (!mem.frontmatter || typeof mem.frontmatter !== 'object') return false;
-  const fm = mem.frontmatter as Record<string, unknown>;
-
-  if (typeof fm.type !== 'string') return false;
-  if (typeof fm.title !== 'string') return false;
-  if (!Array.isArray(fm.tags)) return false;
-  if (typeof fm.created !== 'string') return false;
-  if (typeof fm.updated !== 'string') return false;
-
-  return true;
-}
-
-/**
- * Validate that a value is a valid ExportPackage
- */
-function isValidExportPackage(value: unknown): value is ExportPackage {
-  if (!value || typeof value !== 'object') return false;
-  const pkg = value as Record<string, unknown>;
-
-  if (typeof pkg.version !== 'string') return false;
-  if (typeof pkg.exportedAt !== 'string') return false;
-  if (!Array.isArray(pkg.memories)) return false;
-
-  // Validate each memory
-  for (const memory of pkg.memories) {
-    if (!isValidMemory(memory)) return false;
-  }
-
-  // Validate graph if present
-  if (pkg.graph !== undefined) {
-    if (typeof pkg.graph !== 'object' || pkg.graph === null) return false;
-    const graph = pkg.graph as Record<string, unknown>;
-
-    if (!Array.isArray(graph.nodes)) return false;
-    if (!Array.isArray(graph.edges)) return false;
-
-    // Validate edges have required fields
-    for (const edge of graph.edges) {
-      if (!edge || typeof edge !== 'object') return false;
-      const e = edge as Record<string, unknown>;
-      if (typeof e.source !== 'string') return false;
-      if (typeof e.target !== 'string') return false;
-      if (typeof e.label !== 'string') return false;
-    }
-  }
-
-  return true;
-}
 
 /**
  * Import memories from export package
@@ -163,7 +102,8 @@ export async function importMemories(
       }
 
       // Determine target scope (default to Global if not specified)
-      const scope = request.targetScope ?? memory.frontmatter.scope ?? data.sourceScope ?? undefined;
+      // Determine scope - use target scope, then memory's scope, then source scope
+      const scope = request.targetScope ?? memory.frontmatter.scope ?? data.sourceScope;
 
       // Write the memory
       const result = await writeMemory({
@@ -172,7 +112,7 @@ export async function importMemories(
         title: memory.frontmatter.title,
         content: memory.content,
         tags: memory.frontmatter.tags,
-        scope,
+        ...(scope && { scope }),
         basePath,
       });
 

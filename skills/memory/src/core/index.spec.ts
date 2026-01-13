@@ -11,6 +11,7 @@ import {
   saveIndex,
   addToIndex,
   removeFromIndex,
+  batchRemoveFromIndex,
   findInIndex,
   getIndexPath,
   rebuildIndex,
@@ -284,6 +285,54 @@ describe('Index operations', () => {
     it('should return false if entry does not exist', async () => {
       const removed = await removeFromIndex(testDir, 'nonexistent');
       expect(removed).toBe(false);
+    });
+  });
+
+  describe('batchRemoveFromIndex', () => {
+    it('should remove multiple entries in single operation', async () => {
+      const entries: IndexEntry[] = [
+        { id: 'batch-1', type: MemoryType.Learning, title: 'Batch 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-1.md' },
+        { id: 'batch-2', type: MemoryType.Learning, title: 'Batch 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-2.md' },
+        { id: 'batch-3', type: MemoryType.Learning, title: 'Batch 3', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-3.md' },
+      ];
+      for (const entry of entries) await addToIndex(testDir, entry);
+
+      const removed = await batchRemoveFromIndex(testDir, ['batch-1', 'batch-3']);
+
+      expect(removed).toBe(2);
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories).toHaveLength(1);
+      expect(loaded.memories[0].id).toBe('batch-2');
+    });
+
+    it('should return 0 for empty ids array', async () => {
+      const removed = await batchRemoveFromIndex(testDir, []);
+      expect(removed).toBe(0);
+    });
+
+    it('should return 0 when no ids match', async () => {
+      const entry: IndexEntry = { id: 'existing', type: MemoryType.Decision, title: 'Existing', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'decision-existing.md' };
+      await addToIndex(testDir, entry);
+
+      const removed = await batchRemoveFromIndex(testDir, ['nonexistent-1', 'nonexistent-2']);
+
+      expect(removed).toBe(0);
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories).toHaveLength(1);
+    });
+
+    it('should handle partial matches', async () => {
+      const entries: IndexEntry[] = [
+        { id: 'exists-1', type: MemoryType.Gotcha, title: 'Exists 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-1.md' },
+        { id: 'exists-2', type: MemoryType.Gotcha, title: 'Exists 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-2.md' },
+      ];
+      for (const entry of entries) await addToIndex(testDir, entry);
+
+      const removed = await batchRemoveFromIndex(testDir, ['exists-1', 'nonexistent', 'exists-2']);
+
+      expect(removed).toBe(2);
+      const loaded = await loadIndex({ basePath: testDir });
+      expect(loaded.memories).toHaveLength(0);
     });
   });
 

@@ -3,11 +3,12 @@
  */
 
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter } from './maintenance.js';
+import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter, cmdRefresh } from './maintenance.js';
 import * as syncModule from '../../maintenance/sync.js';
 import * as pruneModule from '../../maintenance/prune.js';
 import * as reindexModule from '../../maintenance/reindex.js';
 import * as syncFrontmatterModule from '../../maintenance/sync-frontmatter.js';
+import * as refreshFrontmatterModule from '../../maintenance/refresh-frontmatter.js';
 import * as indexModule from '../../core/index.js';
 import * as healthModule from '../../quality/health.js';
 import type { ParsedArgs } from '../parser.js';
@@ -185,6 +186,72 @@ describe('cmdSyncFrontmatter', () => {
     await cmdSyncFrontmatter(args);
 
     expect(syncFrontmatterModule.syncFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePath: expect.stringContaining('.claude/memory'),
+      })
+    );
+  });
+});
+
+describe('cmdRefresh', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('calls refreshFrontmatter', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({
+      updated: 5,
+      unchanged: 15,
+      errors: 0,
+    } as any);
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalled();
+  });
+
+  it('passes dry-run flag', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: [], flags: { 'dry-run': true } };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({ dryRun: true })
+    );
+  });
+
+  it('passes project filter', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: [], flags: { project: 'my-project' } };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({ project: 'my-project' })
+    );
+  });
+
+  it('passes id filter', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: [], flags: { id: 'specific-memory' } };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({ ids: ['specific-memory'] })
+    );
+  });
+
+  it('accepts scope positional', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: ['local'], flags: {} };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
       expect.objectContaining({
         basePath: expect.stringContaining('.claude/memory'),
       })

@@ -6,6 +6,11 @@
 src/think/ai-invoke.ts:invokeAI
 src/think/ai-invoke.ts:getClaudeCliVersion
 
+# Stdin functions - tested indirectly via CLI command integration tests
+# Require mocking process.stdin events which is integration-level testing
+src/cli/parser.ts:readStdinJson
+src/cli/parser.ts:readStdinRaw
+
 # Index/barrel files - re-exports only, no logic to test
 src/index.ts
 src/think/index.ts

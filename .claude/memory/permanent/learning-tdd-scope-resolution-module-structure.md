@@ -1,11 +1,11 @@
 ---
 id: learning-tdd-scope-resolution-module-structure
 title: tdd-scope-resolution-module-structure
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T18:12:10Z"
-updated: "2026-01-12T22:02:47.180Z"
+updated: "2026-01-13T13:24:05.914Z"
 tags:
   - learning
   - tip

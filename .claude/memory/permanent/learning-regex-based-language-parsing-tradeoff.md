@@ -1,11 +1,11 @@
 ---
 id: learning-regex-based-language-parsing-tradeoff
 title: regex-based-language-parsing-tradeoff
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:49:01Z"
-updated: "2026-01-12T22:02:47.193Z"
+updated: "2026-01-13T13:24:05.777Z"
 tags:
   - insight
   - learning

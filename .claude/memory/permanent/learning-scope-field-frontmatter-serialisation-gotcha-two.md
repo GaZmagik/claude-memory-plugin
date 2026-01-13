@@ -1,11 +1,11 @@
 ---
 id: learning-scope-field-frontmatter-serialisation-gotcha-two
 title: scope-field-frontmatter-serialisation-gotcha-two
-type: permanent
+type: gotcha
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:35Z"
-updated: "2026-01-12T22:02:47.183Z"
+updated: "2026-01-13T13:24:16.496Z"
 tags:
   - learning
   - gotcha

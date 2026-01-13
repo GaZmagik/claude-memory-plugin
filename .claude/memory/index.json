@@ -3,7 +3,7 @@
     {
       "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
       "title": "Constitution-first approach prevents scope creep in SDD",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-10T06:08:30Z",
       "tags": [
@@ -53,7 +53,7 @@
     {
       "id": "learning-tdd-scope-resolution-module-structure",
       "title": "tdd-scope-resolution-module-structure",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-10T18:12:10Z",
       "tags": [
@@ -70,7 +70,7 @@
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha",
       "title": "scope-field-frontmatter-serialisation-gotcha",
-      "type": "permanent",
+      "type": "gotcha",
       "scope": "local",
       "updated": "2026-01-10T18:12:16Z",
       "tags": [
@@ -103,7 +103,7 @@
     {
       "id": "learning-scope-isolation-architecture-design",
       "title": "scope-isolation-architecture-design",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-10T18:12:29Z",
       "tags": [
@@ -152,7 +152,7 @@
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
       "title": "scope-field-frontmatter-serialisation-gotcha-two",
-      "type": "permanent",
+      "type": "gotcha",
       "scope": "local",
       "updated": "2026-01-10T19:58:35Z",
       "tags": [
@@ -183,7 +183,7 @@
     {
       "id": "learning-immutable-graph-operations-pattern",
       "title": "immutable-graph-operations-pattern",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-10T19:58:41Z",
       "tags": [
@@ -200,7 +200,7 @@
     {
       "id": "learning-semantic-search-embedding-caching-success",
       "title": "semantic-search-embedding-caching-success",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-10T19:58:47Z",
       "tags": [
@@ -302,7 +302,7 @@
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
       "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-11T13:58:25Z",
       "tags": [
@@ -331,7 +331,7 @@
     {
       "id": "learning-spawn-session-refactor",
       "title": "spawn-session-refactor",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-11T17:55:11Z",
       "tags": [
@@ -347,7 +347,7 @@
     {
       "id": "learning-test-isolation-bun-mock-module",
       "title": "test-isolation-bun-mock-module",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-11T17:55:16Z",
       "tags": [
@@ -516,7 +516,7 @@
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
       "title": "regex-based-language-parsing-tradeoff",
-      "type": "permanent",
+      "type": "decision",
       "scope": "local",
       "updated": "2026-01-11T21:06:47Z",
       "tags": [
@@ -737,7 +737,7 @@
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "learning",
+      "type": "decision",
       "title": "retro: Graceful Degradation by Default Prevents Coupling",
       "tags": [
         "retrospective",
@@ -788,7 +788,177 @@
       ],
       "scope": "project",
       "relativePath": "permanent/learning-retro-orphaned-nodes-accumulate-post-compaction.md"
+    },
+    {
+      "id": "artifact-tdd-testing-patterns-catalogue",
+      "type": "hub",
+      "title": "TDD Testing Patterns Catalogue",
+      "tags": [
+        "tdd",
+        "testing",
+        "patterns",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-13T08:04:01.136Z",
+      "updated": "2026-01-13T08:04:01.136Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-tdd-testing-patterns-catalogue.md"
+    },
+    {
+      "id": "artifact-gotcha-prevention-checklist",
+      "type": "hub",
+      "title": "Gotcha Prevention Checklist",
+      "tags": [
+        "gotcha",
+        "checklist",
+        "prevention",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-13T08:04:02.007Z",
+      "updated": "2026-01-13T08:04:02.007Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-gotcha-prevention-checklist.md"
+    },
+    {
+      "id": "artifact-memory-system-architecture-reference",
+      "type": "hub",
+      "title": "Memory System Architecture Reference",
+      "tags": [
+        "architecture",
+        "memory",
+        "reference",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-13T08:05:56.873Z",
+      "updated": "2026-01-13T08:05:56.873Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-memory-system-architecture-reference.md"
+    },
+    {
+      "id": "decision-session-continuity-strategy",
+      "type": "decision",
+      "title": "Session Continuity Strategy",
+      "tags": [
+        "decision",
+        "session",
+        "continuity",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-13T08:06:12.875Z",
+      "updated": "2026-01-13T08:06:12.875Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-session-continuity-strategy.md"
+    },
+    {
+      "id": "artifact-hook-system-patterns-catalogue",
+      "type": "hub",
+      "title": "Hook System Patterns Catalogue",
+      "tags": [
+        "hooks",
+        "patterns",
+        "claude-code",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-13T08:06:13.533Z",
+      "updated": "2026-01-13T08:06:13.533Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-hook-system-patterns-catalogue.md"
+    },
+    {
+      "id": "hub-cli-module-hub",
+      "type": "hub",
+      "title": "CLI Module Hub",
+      "tags": [
+        "hub",
+        "cli",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:03.300Z",
+      "updated": "2026-01-13T13:25:03.300Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-cli-module-hub.md"
+    },
+    {
+      "id": "hub-core-module-hub",
+      "type": "hub",
+      "title": "Core Module Hub",
+      "tags": [
+        "hub",
+        "core",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:04.171Z",
+      "updated": "2026-01-13T13:25:04.171Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-core-module-hub.md"
+    },
+    {
+      "id": "hub-graph-module-hub",
+      "type": "hub",
+      "title": "Graph Module Hub",
+      "tags": [
+        "hub",
+        "graph",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:04.953Z",
+      "updated": "2026-01-13T13:25:04.953Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-graph-module-hub.md"
+    },
+    {
+      "id": "hub-think-module-hub",
+      "type": "hub",
+      "title": "Think Module Hub",
+      "tags": [
+        "hub",
+        "think",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:05.708Z",
+      "updated": "2026-01-13T13:25:05.708Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-think-module-hub.md"
+    },
+    {
+      "id": "hub-search-module-hub",
+      "type": "hub",
+      "title": "Search Module Hub",
+      "tags": [
+        "hub",
+        "search",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:06.499Z",
+      "updated": "2026-01-13T13:25:06.499Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-search-module-hub.md"
+    },
+    {
+      "id": "hub-scope-module-hub",
+      "type": "hub",
+      "title": "Scope Module Hub",
+      "tags": [
+        "hub",
+        "scope",
+        "module",
+        "project"
+      ],
+      "created": "2026-01-13T13:25:07.322Z",
+      "updated": "2026-01-13T13:25:07.322Z",
+      "scope": "project",
+      "relativePath": "permanent/hub-scope-module-hub.md"
     }
   ],
-  "lastUpdated": "2026-01-13T07:40:12.436Z"
+  "lastUpdated": "2026-01-13T13:25:07.326Z"
 }

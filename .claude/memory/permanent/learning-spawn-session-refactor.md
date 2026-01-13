@@ -1,11 +1,11 @@
 ---
 id: learning-spawn-session-refactor
 title: spawn-session-refactor
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T17:55:11Z"
-updated: "2026-01-12T22:02:47.196Z"
+updated: "2026-01-13T13:24:06.205Z"
 tags:
   - learning
   - tip

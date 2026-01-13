@@ -1,11 +1,11 @@
 ---
 id: learning-semantic-search-embedding-caching-success
 title: semantic-search-embedding-caching-success
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:47Z"
-updated: "2026-01-12T22:02:47.184Z"
+updated: "2026-01-13T13:24:06.055Z"
 tags:
   - learning
   - tip

@@ -2,7 +2,8 @@
   "nodes": [
     {
       "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "title": "Constitution-first approach prevents scope creep in SDD"
+      "title": "Constitution-first approach prevents scope creep in SDD",
+      "type": "decision"
     },
     {
       "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
@@ -14,11 +15,13 @@
     },
     {
       "id": "learning-tdd-scope-resolution-module-structure",
-      "title": "tdd-scope-resolution-module-structure"
+      "title": "tdd-scope-resolution-module-structure",
+      "type": "decision"
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha",
-      "title": "scope-field-frontmatter-serialisation-gotcha"
+      "title": "scope-field-frontmatter-serialisation-gotcha",
+      "type": "gotcha"
     },
     {
       "id": "learning-gitignore-comment-formatting-two-phase-fix",
@@ -26,7 +29,8 @@
     },
     {
       "id": "learning-scope-isolation-architecture-design",
-      "title": "scope-isolation-architecture-design"
+      "title": "scope-isolation-architecture-design",
+      "type": "decision"
     },
     {
       "id": "learning-tdd-phase-completion-pattern",
@@ -38,7 +42,8 @@
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
-      "title": "scope-field-frontmatter-serialisation-gotcha-two"
+      "title": "scope-field-frontmatter-serialisation-gotcha-two",
+      "type": "gotcha"
     },
     {
       "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
@@ -46,11 +51,13 @@
     },
     {
       "id": "learning-immutable-graph-operations-pattern",
-      "title": "immutable-graph-operations-pattern"
+      "title": "immutable-graph-operations-pattern",
+      "type": "decision"
     },
     {
       "id": "learning-semantic-search-embedding-caching-success",
-      "title": "semantic-search-embedding-caching-success"
+      "title": "semantic-search-embedding-caching-success",
+      "type": "decision"
     },
     {
       "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
@@ -78,7 +85,8 @@
     },
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
-      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement"
+      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
+      "type": "decision"
     },
     {
       "id": "gotcha-agents-should-be-copies-not-rewrites",
@@ -86,11 +94,13 @@
     },
     {
       "id": "learning-spawn-session-refactor",
-      "title": "spawn-session-refactor"
+      "title": "spawn-session-refactor",
+      "type": "decision"
     },
     {
       "id": "learning-test-isolation-bun-mock-module",
-      "title": "test-isolation-bun-mock-module"
+      "title": "test-isolation-bun-mock-module",
+      "type": "decision"
     },
     {
       "id": "learning-tdd-test-coverage-expansion-pattern",
@@ -110,7 +120,8 @@
     },
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
-      "title": "regex-based-language-parsing-tradeoff"
+      "title": "regex-based-language-parsing-tradeoff",
+      "type": "decision"
     },
     {
       "id": "learning-retro-test-coverage-asymptotic-returns",
@@ -194,7 +205,7 @@
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "learning"
+      "type": "decision"
     },
     {
       "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
@@ -207,6 +218,50 @@
     {
       "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
       "type": "learning"
+    },
+    {
+      "id": "artifact-tdd-testing-patterns-catalogue",
+      "type": "hub"
+    },
+    {
+      "id": "artifact-gotcha-prevention-checklist",
+      "type": "hub"
+    },
+    {
+      "id": "artifact-memory-system-architecture-reference",
+      "type": "hub"
+    },
+    {
+      "id": "decision-session-continuity-strategy",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-hook-system-patterns-catalogue",
+      "type": "hub"
+    },
+    {
+      "id": "hub-cli-module-hub",
+      "type": "hub"
+    },
+    {
+      "id": "hub-core-module-hub",
+      "type": "hub"
+    },
+    {
+      "id": "hub-graph-module-hub",
+      "type": "hub"
+    },
+    {
+      "id": "hub-think-module-hub",
+      "type": "hub"
+    },
+    {
+      "id": "hub-search-module-hub",
+      "type": "hub"
+    },
+    {
+      "id": "hub-scope-module-hub",
+      "type": "hub"
     }
   ],
   "edges": [
@@ -563,6 +618,186 @@
     {
       "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
       "target": "learning-scope-isolation-architecture-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-naming-convention-spec-ts",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-bun-mock-module",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-coverage-achieved-99-percent-functions",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-phase-completion-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-immutable-graph-operations-pattern",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-hook-pattern-non-python-projects",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-memory-system-architecture-reference",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-hook-system-patterns-catalogue",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-hook-system-patterns-catalogue",
+      "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
     }
   ]

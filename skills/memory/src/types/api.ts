@@ -88,6 +88,8 @@ export interface WriteMemoryResponse extends BaseResponse {
   };
   /** Number of auto-linked memories (if autoLink was true) */
   autoLinked?: number;
+  /** Similar existing titles (warning, not error) */
+  similarTitles?: Array<{ id: string; title: string; similarity: number }>;
 }
 
 // ============================================================================

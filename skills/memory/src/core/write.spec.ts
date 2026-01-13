@@ -556,6 +556,157 @@ describe('writeMemory', () => {
     });
   });
 
+  describe('cross-scope duplicate detection', () => {
+    beforeEach(() => {
+      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
+        updated: '2026-01-13T00:00:00.000Z', tags: [],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
+    });
+
+    it('should reject if memory ID already exists in another scope', async () => {
+      // Mock file existence check - memory exists in a different scope
+      vi.spyOn(fsUtils, 'fileExists').mockImplementation((path: string) => {
+        // Exists in project scope, but we're trying to write to local scope
+        return path.includes('/.claude/memory/permanent/learning-test-topic.md');
+      });
+
+      const request: WriteMemoryRequest = {
+        type: MemoryType.Learning,
+        title: 'Test Topic',
+        content: 'Content',
+        tags: [],
+        scope: Scope.Local,  // Trying to write to local
+        basePath: mockBasePath,
+      };
+
+      const result = await writeMemory(request);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('already exists');
+    });
+
+    it('should allow write if memory ID does not exist in any scope', async () => {
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+
+      const request: WriteMemoryRequest = {
+        type: MemoryType.Learning,
+        title: 'Unique Topic',
+        content: 'Content',
+        tags: [],
+        scope: Scope.Local,
+        basePath: mockBasePath,
+      };
+
+      const result = await writeMemory(request);
+
+      expect(result.status).toBe('success');
+    });
+
+    it('should check all scopes for duplicate IDs', async () => {
+      const fileExistsSpy = vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+
+      const request: WriteMemoryRequest = {
+        type: MemoryType.Learning,
+        title: 'Topic',
+        content: 'Content',
+        tags: [],
+        scope: Scope.Project,
+        basePath: mockBasePath,
+      };
+
+      await writeMemory(request);
+
+      // Should check project, local, and global paths
+      expect(fileExistsSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('similar titles warning', () => {
+    beforeEach(() => {
+      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
+        updated: '2026-01-13T00:00:00.000Z', tags: [],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
+      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+    });
+
+    it('should include warning if similar title exists', async () => {
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        version: '1',
+        lastUpdated: '2026-01-01T00:00:00.000Z',
+        memories: [{
+          id: 'learning-existing-topic',
+          type: MemoryType.Learning,
+          title: 'Test Topic Already Exists',  // Similar title
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          relativePath: 'permanent/learning-existing-topic.md',
+          scope: Scope.Project,
+        }],
+      });
+
+      const request: WriteMemoryRequest = {
+        type: MemoryType.Learning,
+        title: 'Test Topic',  // Similar to existing
+        content: 'Content',
+        tags: [],
+        scope: Scope.Project,
+        basePath: mockBasePath,
+      };
+
+      const result = await writeMemory(request);
+
+      expect(result.status).toBe('success');
+      expect(result.similarTitles).toBeDefined();
+      expect(result.similarTitles!.length).toBeGreaterThan(0);
+    });
+
+    it('should not include warning if no similar titles', async () => {
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        version: '1',
+        lastUpdated: '2026-01-01T00:00:00.000Z',
+        memories: [{
+          id: 'learning-unrelated',
+          type: MemoryType.Learning,
+          title: 'Completely Different Title',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          relativePath: 'permanent/learning-unrelated.md',
+          scope: Scope.Project,
+        }],
+      });
+
+      const request: WriteMemoryRequest = {
+        type: MemoryType.Learning,
+        title: 'Unique Title',
+        content: 'Content',
+        tags: [],
+        scope: Scope.Project,
+        basePath: mockBasePath,
+      };
+
+      const result = await writeMemory(request);
+
+      expect(result.status).toBe('success');
+      expect(result.similarTitles).toBeUndefined();
+    });
+  });
+
   describe('auto-link functionality', () => {
     beforeEach(() => {
       vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });

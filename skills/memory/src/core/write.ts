@@ -10,8 +10,8 @@ import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import { generateUniqueId } from './slug.js';
 import { createFrontmatter, serialiseMemoryFile } from './frontmatter.js';
-import { writeFileAtomic, ensureDir } from './fs-utils.js';
-import { addToIndex } from './index.js';
+import { writeFileAtomic, ensureDir, fileExists } from './fs-utils.js';
+import { addToIndex, loadIndex } from './index.js';
 import { validateWriteRequest } from './validation.js';
 import { createLogger } from './logger.js';
 import { ensureLocalScopeGitignored } from '../scope/gitignore.js';
@@ -54,6 +54,104 @@ function mergeTagsWithScope(userTags: string[] | undefined, scope: Scope): strin
     tags.push(scopeTag);
   }
   return tags;
+}
+
+/**
+ * Check if a memory ID already exists in any scope
+ * Returns the path where it was found, or null if not found
+ */
+function checkCrossScopeDuplicate(
+  id: string,
+  basePath: string,
+  projectRoot?: string
+): string | null {
+  const homedir = process.env.HOME || process.env.USERPROFILE || '';
+
+  // Paths to check for duplicates
+  const pathsToCheck: string[] = [];
+
+  // Add project scope path if in a project
+  if (projectRoot) {
+    pathsToCheck.push(path.join(projectRoot, '.claude', 'memory', 'permanent', `${id}.md`));
+    pathsToCheck.push(path.join(projectRoot, '.claude', 'memory', 'temporary', `${id}.md`));
+    // Local scope
+    pathsToCheck.push(path.join(projectRoot, '.claude', 'memory', 'local', 'permanent', `${id}.md`));
+    pathsToCheck.push(path.join(projectRoot, '.claude', 'memory', 'local', 'temporary', `${id}.md`));
+  }
+
+  // Add global/user scope path
+  pathsToCheck.push(path.join(homedir, '.claude', 'memory', 'permanent', `${id}.md`));
+  pathsToCheck.push(path.join(homedir, '.claude', 'memory', 'temporary', `${id}.md`));
+
+  // Exclude the current basePath from checks (that's where we're writing)
+  const currentPermanent = path.join(basePath, 'permanent', `${id}.md`);
+  const currentTemporary = path.join(basePath, 'temporary', `${id}.md`);
+
+  for (const checkPath of pathsToCheck) {
+    if (checkPath !== currentPermanent && checkPath !== currentTemporary) {
+      if (fileExists(checkPath)) {
+        return checkPath;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Find memories with similar titles (Levenshtein-based)
+ * Returns matches with similarity > 0.7
+ */
+async function findSimilarTitles(
+  title: string,
+  basePath: string,
+  excludeId?: string
+): Promise<Array<{ id: string; title: string; similarity: number }>> {
+  try {
+    const index = await loadIndex({ basePath });
+    const results: Array<{ id: string; title: string; similarity: number }> = [];
+
+    const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const normalisedTitle = normalise(title);
+
+    for (const memory of index.memories) {
+      if (memory.id === excludeId) continue;
+
+      const normalisedMemoryTitle = normalise(memory.title);
+      const similarity = calculateSimilarity(normalisedTitle, normalisedMemoryTitle);
+
+      if (similarity > 0.7) {
+        results.push({ id: memory.id, title: memory.title, similarity });
+      }
+    }
+
+    return results.sort((a, b) => b.similarity - a.similarity).slice(0, 5);
+  } catch {
+    // Index might not exist yet
+    return [];
+  }
+}
+
+/**
+ * Calculate similarity ratio between two strings (simplified Jaccard)
+ */
+function calculateSimilarity(a: string, b: string): number {
+  if (a === b) return 1;
+  if (!a || !b) return 0;
+
+  // Use trigram similarity for better fuzzy matching
+  const trigramsA = new Set<string>();
+  const trigramsB = new Set<string>();
+
+  for (let i = 0; i <= a.length - 3; i++) trigramsA.add(a.slice(i, i + 3));
+  for (let i = 0; i <= b.length - 3; i++) trigramsB.add(b.slice(i, i + 3));
+
+  if (trigramsA.size === 0 || trigramsB.size === 0) return 0;
+
+  let intersection = 0;
+  for (const t of trigramsA) if (trigramsB.has(t)) intersection++;
+
+  return intersection / Math.max(trigramsA.size, trigramsB.size);
 }
 
 const AUTO_LINK_RELATION = 'auto-linked-by-similarity';
@@ -174,6 +272,19 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
         };
       }
     }
+
+    // Check for cross-scope duplicates
+    const duplicatePath = checkCrossScopeDuplicate(id, basePath, request.projectRoot);
+    if (duplicatePath) {
+      log.error('Duplicate ID in another scope', { id, path: duplicatePath });
+      return {
+        status: 'error',
+        error: `Memory with ID "${id}" already exists in another scope: ${duplicatePath}`,
+      };
+    }
+
+    // Check for similar titles (warning, not error)
+    const similarTitles = await findSimilarTitles(request.title, basePath, id);
 
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);

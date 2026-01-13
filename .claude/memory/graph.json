@@ -312,6 +312,22 @@
     {
       "id": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
       "type": "learning"
+    },
+    {
+      "id": "retro-type-consistency-required-triple-sync",
+      "type": "learning"
+    },
+    {
+      "id": "retro-frontend-type-field-indicates-git-files-stale",
+      "type": "learning"
+    },
+    {
+      "id": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "type": "learning"
+    },
+    {
+      "id": "retro-test-quality-audit-2026-01-13",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -969,6 +985,26 @@
       "source": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
       "target": "artifact-memory-system-architecture-reference",
       "label": "documents"
+    },
+    {
+      "source": "retro-type-consistency-required-triple-sync",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-frontend-type-field-indicates-git-files-stale",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-quality-audit-2026-01-13",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
     }
   ]
 }

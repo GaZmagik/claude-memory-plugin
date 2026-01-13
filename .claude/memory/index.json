@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T18:57:13.854Z",
+  "lastUpdated": "2026-01-13T19:16:12.781Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -30,7 +30,7 @@
         "project"
       ],
       "created": "2026-01-13T00:22:26.518Z",
-      "updated": "2026-01-13T18:49:49.817Z",
+      "updated": "2026-01-13T19:02:56.174Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-graceful-degradation-by-default-prevents-coupling.md"
     },
@@ -255,7 +255,7 @@
         "project"
       ],
       "created": "2026-01-13T00:22:30.292Z",
-      "updated": "2026-01-13T18:49:49.823Z",
+      "updated": "2026-01-13T19:02:56.179Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh.md"
     },
@@ -270,7 +270,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:07.322Z",
-      "updated": "2026-01-13T18:49:49.823Z",
+      "updated": "2026-01-13T19:02:56.180Z",
       "scope": "global",
       "relativePath": "permanent/hub-scope-module-hub.md"
     },
@@ -286,7 +286,7 @@
         "project"
       ],
       "created": "2026-01-12T23:38:24.507Z",
-      "updated": "2026-01-13T18:49:49.823Z",
+      "updated": "2026-01-13T19:02:56.181Z",
       "scope": "global",
       "relativePath": "permanent/learning-bulk-operations-tdd-caught-interface-mismatches-early.md"
     },
@@ -356,7 +356,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:22.404Z",
-      "updated": "2026-01-13T13:25:22.404Z",
+      "updated": "2026-01-13T19:02:56.182Z",
       "scope": "global",
       "relativePath": "permanent/learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories.md"
     },
@@ -371,7 +371,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:05.708Z",
-      "updated": "2026-01-13T18:49:49.825Z",
+      "updated": "2026-01-13T19:02:56.182Z",
       "scope": "global",
       "relativePath": "permanent/hub-think-module-hub.md"
     },
@@ -420,7 +420,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:03.300Z",
-      "updated": "2026-01-13T18:49:49.825Z",
+      "updated": "2026-01-13T19:02:56.183Z",
       "scope": "global",
       "relativePath": "permanent/hub-cli-module-hub.md"
     },
@@ -436,7 +436,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:33.710Z",
-      "updated": "2026-01-13T18:49:49.825Z",
+      "updated": "2026-01-13T19:02:56.183Z",
       "scope": "global",
       "relativePath": "permanent/learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes.md"
     },
@@ -467,6 +467,21 @@
       "updated": "2026-01-12T22:02:47.188Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-tdd-parity-typescript-matching-accuracy.md"
+    },
+    {
+      "id": "retro-frontend-type-field-indicates-git-files-stale",
+      "type": "learning",
+      "title": "Frontend type field values indicate when git-tracked files are stale",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "devops"
+      ],
+      "created": "2026-01-13T19:10:30.000Z",
+      "updated": "2026-01-13T19:10:30.000Z",
+      "scope": "global",
+      "relativePath": "permanent/retro-frontend-type-field-indicates-git-files-stale.md"
     },
     {
       "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
@@ -563,6 +578,21 @@
       "relativePath": "permanent/learning-tdd-phase-completion-pattern.md"
     },
     {
+      "id": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "type": "learning",
+      "title": "Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-continuity",
+        "agents"
+      ],
+      "created": "2026-01-13T19:10:45.000Z",
+      "updated": "2026-01-13T19:10:45.000Z",
+      "scope": "global",
+      "relativePath": "permanent/retro-session-restore-with-parallel-agents-restored-85percent-context.md"
+    },
+    {
       "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
       "type": "gotcha",
       "title": "Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)",
@@ -574,7 +604,7 @@
         "project"
       ],
       "created": "2026-01-12T23:38:34.450Z",
-      "updated": "2026-01-13T18:49:49.828Z",
+      "updated": "2026-01-13T19:02:56.185Z",
       "scope": "global",
       "relativePath": "permanent/gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive.md",
       "severity": "medium"
@@ -609,7 +639,7 @@
         "project"
       ],
       "created": "2026-01-13T08:04:01.136Z",
-      "updated": "2026-01-13T18:49:49.829Z",
+      "updated": "2026-01-13T19:02:56.186Z",
       "scope": "global",
       "relativePath": "permanent/artifact-tdd-testing-patterns-catalogue.md"
     },
@@ -638,7 +668,7 @@
         "project"
       ],
       "created": "2026-01-13T00:22:22.298Z",
-      "updated": "2026-01-13T18:49:49.829Z",
+      "updated": "2026-01-13T19:02:56.186Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-plan-mode-catches-architectural-assumptions-early.md"
     },
@@ -654,7 +684,7 @@
         "project"
       ],
       "created": "2026-01-13T08:04:02.007Z",
-      "updated": "2026-01-13T13:22:18.144Z",
+      "updated": "2026-01-13T19:02:56.186Z",
       "scope": "global",
       "relativePath": "permanent/artifact-gotcha-prevention-checklist.md"
     },
@@ -685,9 +715,24 @@
         "project"
       ],
       "created": "2026-01-13T08:05:56.873Z",
-      "updated": "2026-01-13T18:49:49.830Z",
+      "updated": "2026-01-13T19:02:56.187Z",
       "scope": "global",
       "relativePath": "permanent/artifact-memory-system-architecture-reference.md"
+    },
+    {
+      "id": "retro-type-consistency-required-triple-sync",
+      "type": "learning",
+      "title": "Type consistency requires triple sync: frontmatter, index, graph",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "architecture"
+      ],
+      "created": "2026-01-13T19:10:00.000Z",
+      "updated": "2026-01-13T19:10:00.000Z",
+      "scope": "global",
+      "relativePath": "permanent/retro-type-consistency-required-triple-sync.md"
     },
     {
       "id": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
@@ -701,7 +746,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:26.177Z",
-      "updated": "2026-01-13T18:49:49.830Z",
+      "updated": "2026-01-13T19:02:56.187Z",
       "scope": "global",
       "relativePath": "permanent/learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories.md"
     },
@@ -753,7 +798,7 @@
         "project"
       ],
       "created": "2026-01-13T08:06:13.533Z",
-      "updated": "2026-01-13T18:49:49.831Z",
+      "updated": "2026-01-13T19:02:56.187Z",
       "scope": "global",
       "relativePath": "permanent/artifact-hook-system-patterns-catalogue.md"
     },
@@ -784,7 +829,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:06.499Z",
-      "updated": "2026-01-13T18:49:49.831Z",
+      "updated": "2026-01-13T19:02:56.187Z",
       "scope": "global",
       "relativePath": "permanent/hub-search-module-hub.md"
     },
@@ -860,7 +905,7 @@
         "project"
       ],
       "created": "2026-01-13T08:06:12.875Z",
-      "updated": "2026-01-13T08:06:12.875Z",
+      "updated": "2026-01-13T19:02:56.188Z",
       "scope": "global",
       "relativePath": "permanent/decision-session-continuity-strategy.md"
     },
@@ -910,7 +955,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:04.171Z",
-      "updated": "2026-01-13T18:49:49.833Z",
+      "updated": "2026-01-13T19:02:56.188Z",
       "scope": "global",
       "relativePath": "permanent/hub-core-module-hub.md"
     },
@@ -958,7 +1003,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:04.953Z",
-      "updated": "2026-01-13T18:49:49.834Z",
+      "updated": "2026-01-13T19:02:56.189Z",
       "scope": "global",
       "relativePath": "permanent/hub-graph-module-hub.md"
     },
@@ -972,7 +1017,7 @@
         "hooks",
         "memory-graph"
       ],
-      "updated": "2026-01-13T18:49:49.834Z",
+      "updated": "2026-01-13T19:02:56.189Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-hook-created-memories-need-linking.md"
     },
@@ -1054,7 +1099,7 @@
         "project"
       ],
       "created": "2026-01-13T13:25:29.913Z",
-      "updated": "2026-01-13T13:25:29.913Z",
+      "updated": "2026-01-13T19:02:56.189Z",
       "scope": "global",
       "relativePath": "permanent/learning-hub-documents-improved-en-ratio-36-with-just-5-nodes.md"
     },
@@ -1068,9 +1113,24 @@
         "memory-graph",
         "graph-health"
       ],
-      "updated": "2026-01-13T18:49:49.836Z",
+      "updated": "2026-01-13T19:02:56.189Z",
       "scope": "global",
       "relativePath": "permanent/learning-retro-orphaned-nodes-accumulate-post-compaction.md"
+    },
+    {
+      "id": "retro-test-quality-audit-2026-01-13",
+      "title": "Test Quality Audit Retrospective - Property Tests Expose Contract Violations",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "property-testing",
+        "test-quality",
+        "debugging"
+      ],
+      "created": "2026-01-13T00:36:00.000Z",
+      "updated": "2026-01-13T00:36:00.000Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-test-quality-audit-2026-01-13.md"
     }
   ]
 }

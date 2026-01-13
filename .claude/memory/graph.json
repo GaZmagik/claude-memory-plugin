@@ -191,6 +191,18 @@
     {
       "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-plan-mode-catches-architectural-assumptions-early",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "type": "learning"
     }
   ],
   "edges": [

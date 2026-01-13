@@ -732,7 +732,50 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-plan-mode-catches-architectural-assumptions-early",
+      "type": "learning",
+      "title": "retro: Plan Mode Catches Architectural Assumptions Early",
+      "tags": [
+        "retrospective",
+        "process",
+        "auto-link",
+        "project"
+      ],
+      "created": "2026-01-13T00:22:22.298Z",
+      "updated": "2026-01-13T00:22:22.298Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plan-mode-catches-architectural-assumptions-early.md"
+    },
+    {
+      "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "type": "learning",
+      "title": "retro: Graceful Degradation by Default Prevents Coupling",
+      "tags": [
+        "retrospective",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-13T00:22:26.518Z",
+      "updated": "2026-01-13T00:22:26.518Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-graceful-degradation-by-default-prevents-coupling.md"
+    },
+    {
+      "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "type": "learning",
+      "title": "retro: Session Restore with Memory Linking Works - Keeps Context Fresh",
+      "tags": [
+        "retrospective",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-13T00:22:30.292Z",
+      "updated": "2026-01-13T00:22:30.292Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh.md"
     }
   ],
-  "lastUpdated": "2026-01-12T23:38:34.453Z"
+  "lastUpdated": "2026-01-13T00:22:30.295Z"
 }

@@ -162,6 +162,19 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Use provided ID or generate unique ID
     const id = request.id ?? generateUniqueId(request.type, request.title, basePath);
 
+    // Validate custom ID prefix matches type
+    if (request.id) {
+      const expectedPrefix = `${request.type}-`;
+      if (!request.id.startsWith(expectedPrefix)) {
+        const actualPrefix = request.id.split('-')[0];
+        log.error('ID prefix mismatch', { id: request.id, type: request.type });
+        return {
+          status: 'error',
+          error: `ID prefix "${actualPrefix}" does not match type "${request.type}". Custom IDs must start with "${expectedPrefix}"`,
+        };
+      }
+    }
+
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);
 

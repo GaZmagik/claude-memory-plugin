@@ -109,6 +109,63 @@ describe('writeMemory', () => {
       expect(result.status).toBe('success');
       expect(validation.validateWriteRequest).toHaveBeenCalledWith(validRequest);
     });
+
+    it('should reject custom ID with mismatched type prefix', async () => {
+      const mismatchedRequest: WriteMemoryRequest = {
+        id: 'learning-some-topic',  // ID says "learning"
+        type: MemoryType.Decision,   // but type is "decision"
+        title: 'Some Topic',
+        content: 'Test content',
+        tags: ['test'],
+        scope: Scope.Project,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
+        valid: true,
+        errors: [],
+      });
+      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+
+      const result = await writeMemory(mismatchedRequest);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('ID prefix');
+      expect(result.error).toContain('learning');
+      expect(result.error).toContain('decision');
+    });
+
+    it('should accept custom ID with matching type prefix', async () => {
+      const matchingRequest: WriteMemoryRequest = {
+        id: 'gotcha-test-issue',
+        type: MemoryType.Gotcha,
+        title: 'Test Issue',
+        content: 'Test content',
+        tags: ['test'],
+        scope: Scope.Project,
+        basePath: mockBasePath,
+      };
+
+      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
+        valid: true,
+        errors: [],
+      });
+      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Gotcha,
+        title: 'Test Issue',
+        created: '2026-01-11T00:00:00.000Z',
+        updated: '2026-01-11T00:00:00.000Z',
+        tags: ['test'],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('---\ntype: gotcha\n---\nTest content\n');
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
+
+      const result = await writeMemory(matchingRequest);
+
+      expect(result.status).toBe('success');
+    });
   });
 
   describe('successful write', () => {

@@ -109,6 +109,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   const autoLink = getFlagBool(args.flags, 'auto-link') || input.autoLink;
 
   const request: WriteMemoryRequest = {
+    id: input.id,  // Pass custom ID if provided (validation in writeMemory)
     title: input.title,
     content: input.content,
     type,

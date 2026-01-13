@@ -12,6 +12,10 @@ import * as frontmatter from './frontmatter.js';
 import * as fsUtils from './fs-utils.js';
 import * as indexModule from './index.js';
 import * as gitignore from '../scope/gitignore.js';
+import * as semantic from '../search/semantic.js';
+import * as link from '../graph/link.js';
+import * as embedding from '../search/embedding.js';
+import * as graph from '../graph/structure.js';
 
 describe('writeMemory', () => {
   const mockBasePath = '/test/base';
@@ -492,6 +496,74 @@ describe('writeMemory', () => {
       expect(result).toHaveProperty('error');
       expect(typeof result.error).toBe('string');
       expect(result.error).toContain(errorMessage);
+    });
+  });
+
+  describe('auto-link functionality', () => {
+    beforeEach(() => {
+      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Learning, title: 'Test', created: '2026-01-11T00:00:00.000Z',
+        updated: '2026-01-11T00:00:00.000Z', tags: [],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
+      vi.spyOn(graph, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
+      vi.spyOn(graph, 'hasNode').mockReturnValue(false);
+      vi.spyOn(graph, 'addNode').mockReturnValue({ version: 1, nodes: [{ id: 'learning-test', type: MemoryType.Learning }], edges: [] });
+      vi.spyOn(graph, 'saveGraph').mockResolvedValue();
+    });
+
+    it('should generate embedding and create links when provider given', async () => {
+      const mockProvider = { name: 'mock', generate: vi.fn().mockResolvedValue([0.1, 0.2, 0.3]) };
+      vi.spyOn(embedding, 'generateEmbedding').mockResolvedValue([0.1, 0.2, 0.3]);
+      vi.spyOn(embedding, 'loadEmbeddingCache').mockResolvedValue({ version: 1, memories: {} });
+      vi.spyOn(embedding, 'saveEmbeddingCache').mockResolvedValue();
+      vi.spyOn(embedding, 'generateContentHash').mockReturnValue('abc123');
+      vi.spyOn(semantic, 'findSimilarToMemory').mockResolvedValue([{ id: 'learning-similar', score: 0.9, type: MemoryType.Learning, title: 'Similar', tags: [] }]);
+      vi.spyOn(link, 'linkMemories').mockResolvedValue({ status: 'success', alreadyExists: false });
+
+      const result = await writeMemory({
+        type: MemoryType.Learning, title: 'Test', content: 'Content', tags: [], scope: Scope.Local,
+        basePath: mockBasePath, autoLink: true, embeddingProvider: mockProvider,
+      });
+
+      expect(result.status).toBe('success');
+      expect(embedding.generateEmbedding).toHaveBeenCalledWith('Content', mockProvider);
+      expect(embedding.saveEmbeddingCache).toHaveBeenCalled();
+      expect(link.linkMemories).toHaveBeenCalled();
+      expect(result.autoLinked).toBe(1);
+    });
+
+    it('should skip embedding generation without provider', async () => {
+      vi.spyOn(embedding, 'generateEmbedding');
+      vi.spyOn(semantic, 'findSimilarToMemory').mockResolvedValue([]);
+
+      const result = await writeMemory({
+        type: MemoryType.Learning, title: 'Test', content: 'Content', tags: [], scope: Scope.Local,
+        basePath: mockBasePath, autoLink: true, // No embeddingProvider
+      });
+
+      expect(result.status).toBe('success');
+      expect(embedding.generateEmbedding).not.toHaveBeenCalled();
+      expect(result.autoLinked).toBe(0);
+    });
+
+    it('should gracefully handle auto-link errors', async () => {
+      const mockProvider = { name: 'mock', generate: vi.fn().mockResolvedValue([0.1, 0.2]) };
+      vi.spyOn(embedding, 'generateEmbedding').mockRejectedValue(new Error('Ollama down'));
+      vi.spyOn(embedding, 'loadEmbeddingCache').mockResolvedValue({ version: 1, memories: {} });
+
+      const result = await writeMemory({
+        type: MemoryType.Learning, title: 'Test', content: 'Content', tags: [], scope: Scope.Local,
+        basePath: mockBasePath, autoLink: true, embeddingProvider: mockProvider,
+      });
+
+      expect(result.status).toBe('success'); // Memory still written
+      expect(result.autoLinked).toBe(0); // But no links created
     });
   });
 });

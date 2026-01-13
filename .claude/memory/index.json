@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T19:30:39.925Z",
+  "lastUpdated": "2026-01-13T19:40:57.913Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1147,6 +1147,51 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-embeddings-cache-schema-must-match-code.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-post-compaction-parallel-agent-restoration-effective",
+      "type": "learning",
+      "title": "Post-Compaction Parallel Agent Restoration Effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-continuity",
+        "project"
+      ],
+      "created": "2026-01-13T19:40:49.598Z",
+      "updated": "2026-01-13T19:40:49.598Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-post-compaction-parallel-agent-restoration-effective.md"
+    },
+    {
+      "id": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
+      "type": "learning",
+      "title": "Feature Already Implemented - Pivot to Testing Instead of Re-implementing",
+      "tags": [
+        "retrospective",
+        "process",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-01-13T19:40:53.196Z",
+      "updated": "2026-01-13T19:40:53.196Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing.md"
+    },
+    {
+      "id": "learning-stale-context-summary-after-compaction-can-mislead",
+      "type": "learning",
+      "title": "Stale Context Summary After Compaction Can Mislead",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-01-13T19:40:57.910Z",
+      "updated": "2026-01-13T19:40:57.910Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-stale-context-summary-after-compaction-can-mislead.md"
     }
   ]
 }

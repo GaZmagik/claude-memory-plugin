@@ -3,7 +3,7 @@
     {
       "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
       "title": "Constitution-first approach prevents scope creep in SDD",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
@@ -18,12 +18,12 @@
     {
       "id": "learning-tdd-scope-resolution-module-structure",
       "title": "tdd-scope-resolution-module-structure",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha",
       "title": "scope-field-frontmatter-serialisation-gotcha",
-      "type": "gotcha"
+      "type": "learning"
     },
     {
       "id": "learning-gitignore-comment-formatting-two-phase-fix",
@@ -33,7 +33,7 @@
     {
       "id": "learning-scope-isolation-architecture-design",
       "title": "scope-isolation-architecture-design",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-tdd-phase-completion-pattern",
@@ -48,7 +48,7 @@
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
       "title": "scope-field-frontmatter-serialisation-gotcha-two",
-      "type": "gotcha"
+      "type": "learning"
     },
     {
       "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
@@ -58,12 +58,12 @@
     {
       "id": "learning-immutable-graph-operations-pattern",
       "title": "immutable-graph-operations-pattern",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-semantic-search-embedding-caching-success",
       "title": "semantic-search-embedding-caching-success",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
@@ -98,7 +98,7 @@
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
       "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "gotcha-agents-should-be-copies-not-rewrites",
@@ -108,12 +108,12 @@
     {
       "id": "learning-spawn-session-refactor",
       "title": "spawn-session-refactor",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-test-isolation-bun-mock-module",
       "title": "test-isolation-bun-mock-module",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-tdd-test-coverage-expansion-pattern",
@@ -138,7 +138,7 @@
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
       "title": "regex-based-language-parsing-tradeoff",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-retro-test-coverage-asymptotic-returns",
@@ -239,7 +239,7 @@
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "decision"
+      "type": "learning"
     },
     {
       "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
@@ -255,15 +255,15 @@
     },
     {
       "id": "artifact-tdd-testing-patterns-catalogue",
-      "type": "hub"
+      "type": "artifact"
     },
     {
       "id": "artifact-gotcha-prevention-checklist",
-      "type": "hub"
+      "type": "artifact"
     },
     {
       "id": "artifact-memory-system-architecture-reference",
-      "type": "hub"
+      "type": "artifact"
     },
     {
       "id": "decision-session-continuity-strategy",
@@ -271,7 +271,7 @@
     },
     {
       "id": "artifact-hook-system-patterns-catalogue",
-      "type": "hub"
+      "type": "artifact"
     },
     {
       "id": "hub-cli-module-hub",
@@ -358,11 +358,15 @@
       "type": "learning"
     },
     {
-      "id": "learning-graph-test-source",
+      "id": "learning-retro-self-referential-tool-testing-creates-productive-loops",
       "type": "learning"
     },
     {
-      "id": "learning-graph-test-target",
+      "id": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "type": "learning"
     }
   ],
@@ -1060,6 +1064,36 @@
     {
       "source": "learning-stale-context-summary-after-compaction-can-mislead",
       "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-call-flag-passed-as-model-name-bug",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-review-findings-verification-consulting-specialist-agents",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-review-findings-verification-multi-perspective-analysis",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-self-referential-tool-testing-creates-productive-loops",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
+      "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     }
   ]

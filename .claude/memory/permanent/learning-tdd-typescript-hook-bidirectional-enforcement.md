@@ -1,11 +1,11 @@
 ---
 id: learning-tdd-typescript-hook-bidirectional-enforcement
 title: "TDD TypeScript hook: bidirectional stub-test-implementation enforcement"
-type: decision
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T13:58:25Z"
-updated: "2026-01-13T18:49:49.818Z"
+updated: "2026-01-13T22:47:21.033Z"
 tags:
   - plugin
   - tdd

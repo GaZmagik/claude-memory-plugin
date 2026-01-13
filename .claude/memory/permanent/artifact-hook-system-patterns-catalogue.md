@@ -1,11 +1,11 @@
 ---
 id: artifact-hook-system-patterns-catalogue
 title: Hook System Patterns Catalogue
-type: hub
+type: artifact
 scope: project
 project: claude-memory-plugin
 created: "2026-01-13T08:06:13.533Z"
-updated: "2026-01-13T19:02:56.187Z"
+updated: "2026-01-13T22:47:30.272Z"
 tags:
   - hooks
   - patterns

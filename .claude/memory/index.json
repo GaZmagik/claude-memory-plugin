@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T22:25:33.270Z",
+  "lastUpdated": "2026-01-13T22:57:23.535Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
-      "type": "decision",
+      "type": "learning",
       "title": "scope-isolation-architecture-design",
       "tags": [
         "learning",
@@ -22,7 +22,7 @@
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "decision",
+      "type": "learning",
       "title": "retro: Graceful Degradation by Default Prevents Coupling",
       "tags": [
         "retrospective",
@@ -36,7 +36,7 @@
     },
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
-      "type": "decision",
+      "type": "learning",
       "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
       "tags": [
         "plugin",
@@ -70,7 +70,7 @@
     },
     {
       "id": "learning-tdd-scope-resolution-module-structure",
-      "type": "decision",
+      "type": "learning",
       "title": "tdd-scope-resolution-module-structure",
       "tags": [
         "learning",
@@ -147,7 +147,7 @@
     },
     {
       "id": "learning-test-isolation-bun-mock-module",
-      "type": "decision",
+      "type": "learning",
       "title": "test-isolation-bun-mock-module",
       "tags": [
         "learning",
@@ -165,7 +165,7 @@
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
-      "type": "gotcha",
+      "type": "learning",
       "title": "scope-field-frontmatter-serialisation-gotcha-two",
       "tags": [
         "learning",
@@ -212,7 +212,7 @@
     },
     {
       "id": "learning-semantic-search-embedding-caching-success",
-      "type": "decision",
+      "type": "learning",
       "title": "semantic-search-embedding-caching-success",
       "tags": [
         "learning",
@@ -292,7 +292,7 @@
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha",
-      "type": "gotcha",
+      "type": "learning",
       "title": "scope-field-frontmatter-serialisation-gotcha",
       "tags": [
         "learning",
@@ -310,7 +310,7 @@
     },
     {
       "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "type": "decision",
+      "type": "learning",
       "title": "Constitution-first approach prevents scope creep in SDD",
       "tags": [
         "learning",
@@ -328,7 +328,7 @@
     },
     {
       "id": "learning-immutable-graph-operations-pattern",
-      "type": "decision",
+      "type": "learning",
       "title": "immutable-graph-operations-pattern",
       "tags": [
         "learning",
@@ -629,7 +629,7 @@
     },
     {
       "id": "artifact-tdd-testing-patterns-catalogue",
-      "type": "hub",
+      "type": "artifact",
       "title": "TDD Testing Patterns Catalogue",
       "tags": [
         "tdd",
@@ -674,7 +674,7 @@
     },
     {
       "id": "artifact-gotcha-prevention-checklist",
-      "type": "hub",
+      "type": "artifact",
       "title": "Gotcha Prevention Checklist",
       "tags": [
         "gotcha",
@@ -705,7 +705,7 @@
     },
     {
       "id": "artifact-memory-system-architecture-reference",
-      "type": "hub",
+      "type": "artifact",
       "title": "Memory System Architecture Reference",
       "tags": [
         "architecture",
@@ -788,7 +788,7 @@
     },
     {
       "id": "artifact-hook-system-patterns-catalogue",
-      "type": "hub",
+      "type": "artifact",
       "title": "Hook System Patterns Catalogue",
       "tags": [
         "hooks",
@@ -804,7 +804,7 @@
     },
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
-      "type": "decision",
+      "type": "learning",
       "title": "regex-based-language-parsing-tradeoff",
       "tags": [
         "insight",
@@ -929,7 +929,7 @@
     },
     {
       "id": "learning-spawn-session-refactor",
-      "type": "decision",
+      "type": "learning",
       "title": "spawn-session-refactor",
       "tags": [
         "learning",
@@ -1233,32 +1233,49 @@
       "relativePath": "permanent/learning-review-findings-verification-multi-perspective-analysis.md"
     },
     {
-      "id": "learning-graph-test-source",
+      "id": "learning-retro-self-referential-tool-testing-creates-productive-loops",
       "type": "learning",
-      "title": "Graph test source",
+      "title": "retro: Self-referential tool testing creates productive loops",
       "tags": [
-        "test",
-        "graph",
+        "retrospective",
+        "process",
+        "tooling",
         "project"
       ],
-      "created": "2026-01-13T22:25:33.196Z",
-      "updated": "2026-01-13T22:25:33.196Z",
+      "created": "2026-01-13T22:26:46.163Z",
+      "updated": "2026-01-13T22:26:46.163Z",
       "scope": "project",
-      "relativePath": "permanent/learning-graph-test-source.md"
+      "relativePath": "permanent/learning-retro-self-referential-tool-testing-creates-productive-loops.md"
     },
     {
-      "id": "learning-graph-test-target",
+      "id": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
       "type": "learning",
-      "title": "Graph test target",
+      "title": "retro: Consensus theatre produces louder echoes, not more accuracy",
       "tags": [
-        "test",
-        "graph",
+        "retrospective",
+        "process",
+        "review",
         "project"
       ],
-      "created": "2026-01-13T22:25:33.267Z",
-      "updated": "2026-01-13T22:25:33.267Z",
+      "created": "2026-01-13T22:26:46.240Z",
+      "updated": "2026-01-13T22:26:46.240Z",
       "scope": "project",
-      "relativePath": "permanent/learning-graph-test-target.md"
+      "relativePath": "permanent/learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy.md"
+    },
+    {
+      "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
+      "type": "learning",
+      "title": "retro: Silent error handlers hide type errors from TypeScript",
+      "tags": [
+        "retrospective",
+        "process",
+        "type-safety",
+        "project"
+      ],
+      "created": "2026-01-13T22:26:46.311Z",
+      "updated": "2026-01-13T22:26:46.311Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-silent-error-handlers-hide-type-errors-from-typescript.md"
     }
   ]
 }

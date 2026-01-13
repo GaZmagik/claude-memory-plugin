@@ -1,11 +1,11 @@
 ---
 id: learning-scope-isolation-architecture-design
 title: scope-isolation-architecture-design
-type: decision
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T18:12:29Z"
-updated: "2026-01-13T18:49:49.814Z"
+updated: "2026-01-13T22:47:20.757Z"
 tags:
   - learning
   - tip

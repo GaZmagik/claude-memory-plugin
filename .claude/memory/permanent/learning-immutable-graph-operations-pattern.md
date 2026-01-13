@@ -1,11 +1,11 @@
 ---
 id: learning-immutable-graph-operations-pattern
 title: immutable-graph-operations-pattern
-type: decision
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:41Z"
-updated: "2026-01-13T18:49:49.824Z"
+updated: "2026-01-13T22:47:20.530Z"
 tags:
   - learning
   - tip

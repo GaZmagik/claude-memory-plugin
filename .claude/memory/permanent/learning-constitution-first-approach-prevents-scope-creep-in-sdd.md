@@ -1,11 +1,11 @@
 ---
 id: learning-constitution-first-approach-prevents-scope-creep-in-sdd
 title: Constitution-first approach prevents scope creep in SDD
-type: decision
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T06:08:30Z"
-updated: "2026-01-13T18:49:49.824Z"
+updated: "2026-01-13T22:47:20.460Z"
 tags:
   - learning
   - tip

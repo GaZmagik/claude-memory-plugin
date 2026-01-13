@@ -1,11 +1,11 @@
 ---
 id: learning-retro-graceful-degradation-by-default-prevents-coupling
 title: "retro: Graceful Degradation by Default Prevents Coupling"
-type: decision
+type: learning
 scope: project
 project: claude-memory-plugin
 created: "2026-01-13T00:22:26.518Z"
-updated: "2026-01-13T19:02:56.174Z"
+updated: "2026-01-13T22:47:20.682Z"
 tags:
   - retrospective
   - process

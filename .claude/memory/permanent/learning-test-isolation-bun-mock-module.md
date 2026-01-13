@@ -1,11 +1,11 @@
 ---
 id: learning-test-isolation-bun-mock-module
 title: test-isolation-bun-mock-module
-type: decision
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T17:55:16Z"
-updated: "2026-01-13T18:49:49.821Z"
+updated: "2026-01-13T22:47:21.101Z"
 tags:
   - learning
   - tip

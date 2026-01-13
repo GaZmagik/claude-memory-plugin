@@ -1,11 +1,11 @@
 ---
 id: artifact-tdd-testing-patterns-catalogue
 title: TDD Testing Patterns Catalogue
-type: hub
+type: artifact
 scope: project
 project: claude-memory-plugin
 created: "2026-01-13T08:04:01.136Z"
-updated: "2026-01-13T19:02:56.186Z"
+updated: "2026-01-13T22:47:30.405Z"
 tags:
   - tdd
   - testing

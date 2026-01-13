@@ -630,6 +630,11 @@ describe('writeMemory', () => {
 
   describe('similar titles warning', () => {
     beforeEach(() => {
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        version: '1',
+        lastUpdated: '2026-01-01T00:00:00.000Z',
+        memories: [],
+      });
       vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');

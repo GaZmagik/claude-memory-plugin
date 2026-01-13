@@ -111,20 +111,22 @@ async function findSimilarTitles(
     const index = await loadIndex({ basePath });
     const results: Array<{ id: string; title: string; similarity: number }> = [];
 
-    const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
-    const normalisedTitle = normalise(title);
+    const getWords = (s: string) => s.toLowerCase().split(/\W+/).filter(w => w.length > 1);
+    const titleWords = getWords(title);
 
+    if (titleWords.length === 0) return [];
     for (const memory of index.memories) {
       if (memory.id === excludeId) continue;
 
-      const normalisedMemoryTitle = normalise(memory.title);
-      const similarity = calculateSimilarity(normalisedTitle, normalisedMemoryTitle);
+      const memoryWords = getWords(memory.title);
+      const commonWords = titleWords.filter(w => memoryWords.includes(w)).length;
+      const similarity = commonWords / Math.max(titleWords.length, memoryWords.length);
 
-      if (similarity > 0.7) {
+      // Only include if 2+ words in common OR single word that dominates the titles
+      if (commonWords >= 2 && similarity > 0.4) {
         results.push({ id: memory.id, title: memory.title, similarity });
       }
     }
-
     return results.sort((a, b) => b.similarity - a.similarity).slice(0, 5);
   } catch {
     // Index might not exist yet
@@ -135,24 +137,6 @@ async function findSimilarTitles(
 /**
  * Calculate similarity ratio between two strings (simplified Jaccard)
  */
-function calculateSimilarity(a: string, b: string): number {
-  if (a === b) return 1;
-  if (!a || !b) return 0;
-
-  // Use trigram similarity for better fuzzy matching
-  const trigramsA = new Set<string>();
-  const trigramsB = new Set<string>();
-
-  for (let i = 0; i <= a.length - 3; i++) trigramsA.add(a.slice(i, i + 3));
-  for (let i = 0; i <= b.length - 3; i++) trigramsB.add(b.slice(i, i + 3));
-
-  if (trigramsA.size === 0 || trigramsB.size === 0) return 0;
-
-  let intersection = 0;
-  for (const t of trigramsA) if (trigramsB.has(t)) intersection++;
-
-  return intersection / Math.max(trigramsA.size, trigramsB.size);
-}
 
 const AUTO_LINK_RELATION = 'auto-linked-by-similarity';
 
@@ -370,6 +354,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
         scope: request.scope,
       },
       autoLinked,
+      similarTitles: similarTitles.length > 0 ? similarTitles : undefined,
     };
   } catch (error) {
     log.error('Failed to write memory', { error: String(error) });

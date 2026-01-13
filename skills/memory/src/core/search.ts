@@ -89,11 +89,21 @@ function extractSnippet(content: string, query: string, maxLength: number = 150)
  * Search memories by keyword
  */
 export async function searchMemories(request: SearchMemoriesRequest): Promise<SearchMemoriesResponse> {
+  const MAX_QUERY_LENGTH = 10000;
+
   // Validate query
   if (!request.query || request.query.trim().length === 0) {
     return {
       status: 'error',
       error: 'query is required',
+    };
+  }
+
+  // Check query length
+  if (request.query.length > MAX_QUERY_LENGTH) {
+    return {
+      status: 'error',
+      error: `Query too long (max ${MAX_QUERY_LENGTH} characters)`,
     };
   }
 

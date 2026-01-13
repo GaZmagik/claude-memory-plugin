@@ -21,6 +21,30 @@ import { isValidExportPackage } from './validation.js';
 const log = createLogger('import');
 
 /**
+ * Sanitise an object to prevent prototype pollution
+ */
+function sanitiseObject<T>(obj: T): T {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  const dangerous = ['__proto__', 'constructor', 'prototype'];
+
+  if (Array.isArray(obj)) {
+    return obj.map(item => sanitiseObject(item)) as T;
+  }
+
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(obj as object)) {
+    if (!dangerous.includes(key)) {
+      result[key] = sanitiseObject((obj as Record<string, unknown>)[key]);
+    }
+  }
+
+  return result as T;
+}
+
+/**
  * Import memories from export package
  */
 export async function importMemories(
@@ -176,6 +200,7 @@ function parseImportData(raw: string): ExportPackage {
   if (trimmed.startsWith('{')) {
     try {
       parsed = JSON.parse(trimmed);
+      parsed = sanitiseObject(parsed);
     } catch (error) {
       throw new Error(`Invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
     }
@@ -183,6 +208,7 @@ function parseImportData(raw: string): ExportPackage {
     // Parse YAML using js-yaml library
     try {
       parsed = yaml.load(trimmed);
+      parsed = sanitiseObject(parsed);
     } catch (error) {
       throw new Error(`Invalid YAML: ${error instanceof Error ? error.message : String(error)}`);
     }

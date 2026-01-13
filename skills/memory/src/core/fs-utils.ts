@@ -140,3 +140,32 @@ export function isInsideDir(dirPath: string, targetPath: string): boolean {
   const relative = path.relative(dirPath, targetPath);
   return !relative.startsWith('..') && !path.isAbsolute(relative);
 }
+
+/**
+ * Check if a path is a symlink
+ */
+export function isSymlink(filePath: string): boolean {
+  try {
+    const stats = fs.lstatSync(filePath);
+    return stats.isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Validate that a symlink target is within allowed directory
+ * Returns the resolved path if valid, throws if invalid
+ */
+export function validateSymlinkTarget(filePath: string, allowedBaseDir: string): string {
+  if (!isSymlink(filePath)) {
+    return filePath; // Not a symlink, return as-is
+  }
+
+  const resolvedPath = fs.realpathSync(filePath);
+  if (!isInsideDir(allowedBaseDir, resolvedPath)) {
+    throw new Error(`Symlink target outside allowed directory: ${resolvedPath}`);
+  }
+
+  return resolvedPath;
+}

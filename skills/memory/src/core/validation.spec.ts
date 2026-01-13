@@ -15,6 +15,8 @@ import {
   validateWriteRequest,
   validateFrontmatter,
   validateMemory,
+  isValidExportedMemory,
+  isValidExportPackage,
 } from './validation.js';
 import { MemoryType, Scope, Severity } from '../types/enums.js';
 
@@ -334,6 +336,242 @@ describe('Validation', () => {
       const result = validateMemory('invalid-id', { ...validFrontmatter, title: '' }, 123 as unknown as string);
       expect(result.valid).toBe(false);
       expect(result.errors.length).toBeGreaterThanOrEqual(3);
+    });
+  });
+
+  describe('isValidExportedMemory', () => {
+    const validExportedMemory = {
+      id: 'decision-test-memory',
+      content: 'Some content here',
+      frontmatter: {
+        type: 'decision',
+        title: 'Test Memory',
+        tags: ['tag1', 'tag2'],
+        created: '2026-01-11T12:00:00Z',
+        updated: '2026-01-11T12:00:00Z',
+      },
+    };
+
+    it('should return true for valid exported memory', () => {
+      expect(isValidExportedMemory(validExportedMemory)).toBe(true);
+    });
+
+    it('should return false for null or undefined', () => {
+      expect(isValidExportedMemory(null)).toBe(false);
+      expect(isValidExportedMemory(undefined)).toBe(false);
+    });
+
+    it('should return false for non-object', () => {
+      expect(isValidExportedMemory('string')).toBe(false);
+      expect(isValidExportedMemory(123)).toBe(false);
+      expect(isValidExportedMemory([])).toBe(false);
+    });
+
+    it('should return false for missing id', () => {
+      const { id: _, ...noId } = validExportedMemory;
+      expect(isValidExportedMemory(noId)).toBe(false);
+    });
+
+    it('should return false for empty id', () => {
+      expect(isValidExportedMemory({ ...validExportedMemory, id: '' })).toBe(false);
+      expect(isValidExportedMemory({ ...validExportedMemory, id: '   ' })).toBe(false);
+    });
+
+    it('should return false for non-string id', () => {
+      expect(isValidExportedMemory({ ...validExportedMemory, id: 123 })).toBe(false);
+    });
+
+    it('should return false for missing content', () => {
+      const { content: _, ...noContent } = validExportedMemory;
+      expect(isValidExportedMemory(noContent)).toBe(false);
+    });
+
+    it('should return false for non-string content', () => {
+      expect(isValidExportedMemory({ ...validExportedMemory, content: 123 })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter', () => {
+      const { frontmatter: _, ...noFrontmatter } = validExportedMemory;
+      expect(isValidExportedMemory(noFrontmatter)).toBe(false);
+    });
+
+    it('should return false for non-object frontmatter', () => {
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: 'string' })).toBe(false);
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: null })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter.type', () => {
+      const { type: _, ...noType } = validExportedMemory.frontmatter;
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: noType })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter.title', () => {
+      const { title: _, ...noTitle } = validExportedMemory.frontmatter;
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: noTitle })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter.tags', () => {
+      const { tags: _, ...noTags } = validExportedMemory.frontmatter;
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: noTags })).toBe(false);
+    });
+
+    it('should return false for non-array frontmatter.tags', () => {
+      expect(isValidExportedMemory({
+        ...validExportedMemory,
+        frontmatter: { ...validExportedMemory.frontmatter, tags: 'not-array' },
+      })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter.created', () => {
+      const { created: _, ...noCreated } = validExportedMemory.frontmatter;
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: noCreated })).toBe(false);
+    });
+
+    it('should return false for missing frontmatter.updated', () => {
+      const { updated: _, ...noUpdated } = validExportedMemory.frontmatter;
+      expect(isValidExportedMemory({ ...validExportedMemory, frontmatter: noUpdated })).toBe(false);
+    });
+  });
+
+  describe('isValidExportPackage', () => {
+    const validMemory = {
+      id: 'decision-test-memory',
+      content: 'Some content',
+      frontmatter: {
+        type: 'decision',
+        title: 'Test',
+        tags: ['tag'],
+        created: '2026-01-11T12:00:00Z',
+        updated: '2026-01-11T12:00:00Z',
+      },
+    };
+
+    const validPackage = {
+      version: '1.0.0',
+      exportedAt: '2026-01-11T12:00:00Z',
+      memories: [validMemory],
+    };
+
+    it('should return true for valid package without graph', () => {
+      expect(isValidExportPackage(validPackage)).toBe(true);
+    });
+
+    it('should return true for valid package with empty memories', () => {
+      expect(isValidExportPackage({ ...validPackage, memories: [] })).toBe(true);
+    });
+
+    it('should return true for valid package with graph', () => {
+      const packageWithGraph = {
+        ...validPackage,
+        graph: {
+          nodes: ['decision-test-memory'],
+          edges: [{ source: 'decision-a', target: 'decision-b', label: 'relates-to' }],
+        },
+      };
+      expect(isValidExportPackage(packageWithGraph)).toBe(true);
+    });
+
+    it('should return false for null or undefined', () => {
+      expect(isValidExportPackage(null)).toBe(false);
+      expect(isValidExportPackage(undefined)).toBe(false);
+    });
+
+    it('should return false for non-object', () => {
+      expect(isValidExportPackage('string')).toBe(false);
+      expect(isValidExportPackage(123)).toBe(false);
+    });
+
+    it('should return false for missing version', () => {
+      const { version: _, ...noVersion } = validPackage;
+      expect(isValidExportPackage(noVersion)).toBe(false);
+    });
+
+    it('should return false for non-string version', () => {
+      expect(isValidExportPackage({ ...validPackage, version: 123 })).toBe(false);
+    });
+
+    it('should return false for missing exportedAt', () => {
+      const { exportedAt: _, ...noExportedAt } = validPackage;
+      expect(isValidExportPackage(noExportedAt)).toBe(false);
+    });
+
+    it('should return false for non-string exportedAt', () => {
+      expect(isValidExportPackage({ ...validPackage, exportedAt: 123 })).toBe(false);
+    });
+
+    it('should return false for missing memories', () => {
+      const { memories: _, ...noMemories } = validPackage;
+      expect(isValidExportPackage(noMemories)).toBe(false);
+    });
+
+    it('should return false for non-array memories', () => {
+      expect(isValidExportPackage({ ...validPackage, memories: 'not-array' })).toBe(false);
+    });
+
+    it('should return false for invalid memory in array', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        memories: [{ id: 'bad', content: 123 }],
+      })).toBe(false);
+    });
+
+    it('should return false for invalid graph (non-object)', () => {
+      expect(isValidExportPackage({ ...validPackage, graph: 'not-object' })).toBe(false);
+      expect(isValidExportPackage({ ...validPackage, graph: null })).toBe(false);
+    });
+
+    it('should return false for graph with missing nodes', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: { edges: [] },
+      })).toBe(false);
+    });
+
+    it('should return false for graph with missing edges', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: { nodes: [] },
+      })).toBe(false);
+    });
+
+    it('should return false for graph with invalid edge (missing source)', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: {
+          nodes: [],
+          edges: [{ target: 'b', label: 'x' }],
+        },
+      })).toBe(false);
+    });
+
+    it('should return false for graph with invalid edge (missing target)', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: {
+          nodes: [],
+          edges: [{ source: 'a', label: 'x' }],
+        },
+      })).toBe(false);
+    });
+
+    it('should return false for graph with invalid edge (missing label)', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: {
+          nodes: [],
+          edges: [{ source: 'a', target: 'b' }],
+        },
+      })).toBe(false);
+    });
+
+    it('should return false for graph with non-object edge', () => {
+      expect(isValidExportPackage({
+        ...validPackage,
+        graph: {
+          nodes: [],
+          edges: ['not-an-object'],
+        },
+      })).toBe(false);
     });
   });
 });

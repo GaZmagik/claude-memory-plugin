@@ -688,19 +688,6 @@
       "relativePath": "permanent/learning-retro-test-isolation-pattern-worth-documenting.md"
     },
     {
-      "id": "thought-20260112-002048",
-      "title": "Thinking: Test Framework: vitest vs bun:test",
-      "type": "temporary",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-12T00:20:48Z",
-      "updated": "2026-01-12T00:25:50Z",
-      "scope": "local",
-      "relativePath": "temporary/thought-20260112-002048.md"
-    },
-    {
       "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
       "type": "learning",
       "title": "Bulk Operations: TDD Caught Interface Mismatches Early",
@@ -803,5 +790,5 @@
       "relativePath": "permanent/learning-retro-orphaned-nodes-accumulate-post-compaction.md"
     }
   ],
-  "lastUpdated": "2026-01-13T04:07:06.020Z"
+  "lastUpdated": "2026-01-13T07:40:12.436Z"
 }

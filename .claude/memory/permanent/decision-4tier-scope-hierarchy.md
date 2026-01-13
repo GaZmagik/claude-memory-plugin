@@ -1,21 +1,22 @@
 ---
 id: decision-4tier-scope-hierarchy
 title: 4-Tier Scope Hierarchy for Memory Storage
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:59:00Z"
-updated: "2026-01-12T22:02:47.194Z"
+updated: "2026-01-13T18:49:49.832Z"
 tags:
   - architecture
   - scope-resolution
   - phase-2
 links:
+  - learning-scope-isolation-architecture-design
+  - learning-tdd-scope-resolution-module-structure
   - learning-gitignore-comment-formatting-two-phase-fix
   - learning-scope-field-frontmatter-serialisation-gotcha
   - learning-scope-field-frontmatter-serialisation-gotcha-two
-  - learning-scope-isolation-architecture-design
-  - learning-tdd-scope-resolution-module-structure
+  - artifact-memory-system-architecture-reference
 ---
 
 # Decision: 4-Tier Scope Hierarchy

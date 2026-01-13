@@ -1,11 +1,11 @@
 ---
 id: learning-specification-audit-caught-architectural-gaps-before-planning
 title: Specification audit caught architectural gaps before planning
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T06:08:38Z"
-updated: "2026-01-12T22:02:47.197Z"
+updated: "2026-01-13T18:49:49.833Z"
 tags:
   - learning
   - tip
@@ -14,6 +14,8 @@ tags:
   - specification
   - quality-gates
   - best-practice
+links:
+  - decision-4tier-scope-hierarchy
 ---
 
 # Specification audit caught architectural gaps before planning

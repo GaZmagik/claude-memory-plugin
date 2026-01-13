@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:47Z"
-updated: "2026-01-13T13:24:06.055Z"
+updated: "2026-01-13T18:49:49.822Z"
 tags:
   - learning
   - tip
@@ -18,6 +18,7 @@ tags:
 links:
   - learning-post-compaction-memory-restoration-prevented-duplicate-work
   - learning-test-coverage-achieved-99-percent-functions
+  - artifact-memory-system-architecture-reference
 ---
 
 # semantic-search-embedding-caching-success

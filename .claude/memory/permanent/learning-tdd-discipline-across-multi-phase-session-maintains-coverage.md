@@ -1,17 +1,19 @@
 ---
 id: learning-tdd-discipline-across-multi-phase-session-maintains-coverage
 title: TDD discipline across multi-phase session maintains test coverage
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:34Z"
-updated: "2026-01-12T22:02:47.185Z"
+updated: "2026-01-13T18:49:49.822Z"
 tags:
   - retrospective
   - process
   - tdd
   - multi-phase
   - best-practice
+links:
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # Retrospective: TDD Discipline Across Phases

@@ -1,7 +1,7 @@
 ---
 id: learning-retro-agent-verification-for-exclusions
 title: retro-agent-verification-for-exclusions
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-12T08:32:37Z"

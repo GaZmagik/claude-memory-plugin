@@ -1,11 +1,11 @@
 ---
 id: learning-retro-tmpdir-cleanup-permissions-fragile
 title: retro-tmpdir-cleanup-permissions-fragile
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T22:41:57Z"
-updated: "2026-01-12T22:02:47.179Z"
+updated: "2026-01-13T18:49:49.819Z"
 tags:
   - learning
   - tip
@@ -14,6 +14,8 @@ tags:
   - process
   - testing
   - edge-cases
+links:
+  - learning-test-isolation-bun-mock-module
 ---
 
 # retro-tmpdir-cleanup-permissions-fragile

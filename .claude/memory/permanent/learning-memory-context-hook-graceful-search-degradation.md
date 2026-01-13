@@ -1,17 +1,20 @@
 ---
 id: learning-memory-context-hook-graceful-search-degradation
 title: Memory context hook graceful search degradation pattern
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T13:58:08Z"
-updated: "2026-01-12T22:02:47.180Z"
+updated: "2026-01-13T18:49:49.820Z"
 tags:
   - plugin
   - search
   - hook
   - degradation
   - pattern
+links:
+  - artifact-memory-system-architecture-reference
+  - artifact-hook-system-patterns-catalogue
 ---
 
 ## Problem

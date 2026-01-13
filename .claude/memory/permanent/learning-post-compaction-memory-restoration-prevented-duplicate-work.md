@@ -1,16 +1,18 @@
 ---
 id: learning-post-compaction-memory-restoration-prevented-duplicate-work
 title: Post-compaction memory restoration prevented duplicate work
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:41Z"
-updated: "2026-01-12T22:02:47.191Z"
+updated: "2026-01-13T18:49:49.830Z"
 tags:
   - retrospective
   - process
   - memory-system
   - context-continuity
+links:
+  - decision-session-continuity-strategy
 ---
 
 # Retrospective: Memory Restoration Efficiency

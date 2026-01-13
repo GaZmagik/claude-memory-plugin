@@ -1,11 +1,11 @@
 ---
 id: learning-tdd-parity-typescript-support
 title: tdd-parity-typescript-support
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:48:56Z"
-updated: "2026-01-12T22:02:47.189Z"
+updated: "2026-01-13T18:49:49.827Z"
 tags:
   - learning
   - medium
@@ -15,6 +15,7 @@ tags:
 links:
   - learning-regex-based-language-parsing-tradeoff
   - learning-retro-typescript-tooling-parity
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # tdd-parity-typescript-support

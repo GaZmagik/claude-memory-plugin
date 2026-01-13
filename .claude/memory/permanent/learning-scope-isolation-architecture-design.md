@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T18:12:29Z"
-updated: "2026-01-13T13:24:05.636Z"
+updated: "2026-01-13T18:49:49.814Z"
 tags:
   - learning
   - tip
@@ -16,6 +16,7 @@ tags:
   - isolation
 links:
   - learning-tdd-scope-resolution-module-structure
+  - artifact-memory-system-architecture-reference
 ---
 
 # scope-isolation-architecture-design

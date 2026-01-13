@@ -3,13 +3,20 @@ id: hub-core-module-hub
 title: Core Module Hub
 type: hub
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T13:25:04.171Z"
-updated: "2026-01-13T13:25:04.171Z"
+updated: "2026-01-13T19:02:56.188Z"
 tags:
   - hub
   - core
   - module
   - project
+links:
+  - artifact-memory-system-architecture-reference
+  - learning-bulk-operations-tdd-caught-interface-mismatches-early
+  - learning-immutable-graph-operations-pattern
+  - learning-scope-field-frontmatter-serialisation-gotcha
+  - decision-colocate-unit-tests
 ---
 
 # Core Module Hub

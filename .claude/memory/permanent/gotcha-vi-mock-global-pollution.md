@@ -1,11 +1,11 @@
 ---
 id: gotcha-vi-mock-global-pollution
 title: vi.mock and mock.module cause global test pollution
-type: permanent
+type: gotcha
 scope: local
 project: claude-memory-plugin
 created: "2026-01-12T04:22:50Z"
-updated: "2026-01-12T22:02:47.199Z"
+updated: "2026-01-13T18:49:49.835Z"
 tags:
   - gotcha
   - testing
@@ -15,6 +15,7 @@ tags:
   - high
 links:
   - learning-test-isolation-bun-mock-module
+  - artifact-gotcha-prevention-checklist
 ---
 
 # vi.mock and mock.module cause global test pollution

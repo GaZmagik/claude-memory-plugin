@@ -1,7 +1,7 @@
 ---
 id: learning-typescript-import-path-consistency-prevents-batch-compilation-failures
 title: TypeScript import path consistency prevents batch compilation failures
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:47Z"

@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:41Z"
-updated: "2026-01-13T13:24:05.565Z"
+updated: "2026-01-13T18:49:49.824Z"
 tags:
   - learning
   - tip
@@ -14,6 +14,9 @@ tags:
   - immutability
   - typescript-patterns
   - design-pattern
+links:
+  - learning-tdd-scope-resolution-module-structure
+  - artifact-memory-system-architecture-reference
 ---
 
 # immutable-graph-operations-pattern

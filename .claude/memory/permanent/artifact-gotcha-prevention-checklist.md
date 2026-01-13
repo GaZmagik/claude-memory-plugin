@@ -3,8 +3,9 @@ id: artifact-gotcha-prevention-checklist
 title: Gotcha Prevention Checklist
 type: hub
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T08:04:02.007Z"
-updated: "2026-01-13T13:22:18.144Z"
+updated: "2026-01-13T19:02:56.186Z"
 tags:
   - gotcha
   - checklist

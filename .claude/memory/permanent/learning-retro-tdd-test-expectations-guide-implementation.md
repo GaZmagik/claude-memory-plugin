@@ -1,15 +1,17 @@
 ---
 id: learning-retro-tdd-test-expectations-guide-implementation
 title: retro-tdd-test-expectations-guide-implementation
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T21:05:07Z"
-updated: "2026-01-12T22:02:47.195Z"
+updated: "2026-01-13T18:49:49.833Z"
 tags:
   - learning
   - retro
   - medium
+links:
+  - learning-tdd-phase-completion-pattern
 ---
 
 # retro-tdd-test-expectations-guide-implementation

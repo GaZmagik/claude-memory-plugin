@@ -3,8 +3,9 @@ id: decision-session-continuity-strategy
 title: Session Continuity Strategy
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T08:06:12.875Z"
-updated: "2026-01-13T08:06:12.875Z"
+updated: "2026-01-13T19:02:56.188Z"
 tags:
   - decision
   - session

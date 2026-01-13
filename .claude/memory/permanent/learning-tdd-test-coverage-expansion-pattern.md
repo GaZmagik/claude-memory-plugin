@@ -1,11 +1,11 @@
 ---
 id: learning-tdd-test-coverage-expansion-pattern
 title: tdd-test-coverage-expansion-pattern
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T17:55:22Z"
-updated: "2026-01-12T22:02:47.190Z"
+updated: "2026-01-13T18:49:49.828Z"
 tags:
   - learning
   - tip
@@ -15,8 +15,9 @@ tags:
   - coverage
   - process
 links:
-  - learning-test-coverage-achieved-99-percent-functions
   - learning-test-naming-convention-spec-ts
+  - learning-test-coverage-achieved-99-percent-functions
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # tdd-test-coverage-expansion-pattern

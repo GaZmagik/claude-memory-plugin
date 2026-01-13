@@ -3,8 +3,9 @@ id: gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive
 title: Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-12T23:38:34.450Z"
-updated: "2026-01-12T23:38:34.450Z"
+updated: "2026-01-13T19:02:56.185Z"
 tags:
   - gotcha
   - bulk-operations
@@ -12,6 +13,10 @@ tags:
   - scope-isolation
   - project
 severity: medium
+links:
+  - learning-immutable-graph-operations-pattern
+  - learning-scope-isolation-architecture-design
+  - artifact-gotcha-prevention-checklist
 ---
 
 # Gotcha: Bulk Move Loses Graph Relationships
@@ -62,4 +67,3 @@ This is intentional design, not a bug. Document it in help text and recovery pro
 - bulk-operations
 - graph-design
 - scope-isolation
-

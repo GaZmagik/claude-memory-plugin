@@ -1,11 +1,11 @@
 ---
 id: gotcha-agents-should-be-copies-not-rewrites
 title: Plugin agents must copy user-level versions, not simplified rewrites
-type: permanent
+type: gotcha
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T13:58:32Z"
-updated: "2026-01-12T22:02:47.181Z"
+updated: "2026-01-13T18:49:49.820Z"
 tags:
   - plugin
   - agents
@@ -13,6 +13,8 @@ tags:
   - maintenance
 links:
   - learning-memory-context-hook-graceful-search-degradation
+  - learning-memory-context-hook-graceful-search-degradation
+  - artifact-gotcha-prevention-checklist
 ---
 
 ## Issue

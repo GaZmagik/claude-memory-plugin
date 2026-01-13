@@ -1,7 +1,7 @@
 ---
 id: retro-mock-syntax-friction-bun
 title: Bun vi.mock requires factory functions - causes friction with auto-generated tests
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T19:16:09Z"

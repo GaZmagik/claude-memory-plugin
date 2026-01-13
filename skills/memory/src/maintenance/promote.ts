@@ -20,6 +20,8 @@ import {
 import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph } from '../graph/structure.js';
 import { MemoryType } from '../types/enums.js';
+import { renameMemory } from './rename.js';
+import { parseId } from '../core/slug.js';
 
 /**
  * Promote request options
@@ -39,6 +41,8 @@ export interface PromoteRequest {
 export interface PromoteResponse {
   status: 'success' | 'error';
   id: string;
+  /** New ID if renamed (when type prefix changes) */
+  newId?: string;
   /** Original type */
   fromType?: string;
   /** New type */
@@ -49,6 +53,7 @@ export interface PromoteResponse {
     fileMoved: boolean;
     graphUpdated: boolean;
     indexUpdated: boolean;
+    fileRenamed: boolean;
   };
   error?: string;
 }
@@ -97,6 +102,7 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
     fileMoved: false,
     graphUpdated: false,
     indexUpdated: false,
+    fileRenamed: false,
   };
 
   // Find the file
@@ -211,9 +217,37 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
     // Index may not exist
   }
 
+  // Rename file if ID prefix doesn't match the new type
+  // e.g., learning-foo promoted to decision should become decision-foo
+  let newId: string | undefined;
+  const parsedId = parseId(id);
+
+  if (parsedId && parsedId.type !== targetType) {
+    // ID has a different type prefix - need to rename
+    newId = `${targetType}-${parsedId.slug}`;
+
+    try {
+      const renameResult = await renameMemory({
+        oldId: id,
+        newId,
+        basePath,
+      });
+
+      if (renameResult.status === 'success') {
+        changes.fileRenamed = true;
+      } else {
+        // Rename failed but promotion succeeded - warn but don't fail
+        // The memory has correct type in frontmatter, just wrong filename
+      }
+    } catch {
+      // Rename failed - promotion still succeeded
+    }
+  }
+
   return {
     status: 'success',
     id,
+    newId,
     fromType,
     toType: targetType,
     changes,

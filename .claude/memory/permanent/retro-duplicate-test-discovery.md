@@ -1,7 +1,7 @@
 ---
 id: retro-duplicate-test-discovery
 title: "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts"
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T19:16:14Z"

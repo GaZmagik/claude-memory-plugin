@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T06:08:30Z"
-updated: "2026-01-13T13:24:05.706Z"
+updated: "2026-01-13T18:49:49.824Z"
 tags:
   - learning
   - tip
@@ -14,6 +14,8 @@ tags:
   - governance
   - sdd-workflow
   - best-practice
+links:
+  - learning-specification-audit-caught-architectural-gaps-before-planning
 ---
 
 # Constitution-first approach prevents scope creep in SDD

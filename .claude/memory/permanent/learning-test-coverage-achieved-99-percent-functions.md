@@ -1,17 +1,18 @@
 ---
 id: learning-test-coverage-achieved-99-percent-functions
 title: test-coverage-achieved-99-percent-functions
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:49:07Z"
-updated: "2026-01-12T22:02:47.188Z"
+updated: "2026-01-13T18:49:49.827Z"
 tags:
   - learning
   - tip
   - medium
 links:
   - learning-retro-test-coverage-asymptotic-returns
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # test-coverage-achieved-99-percent-functions

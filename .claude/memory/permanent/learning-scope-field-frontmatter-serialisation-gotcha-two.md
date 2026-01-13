@@ -5,7 +5,7 @@ type: gotcha
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:35Z"
-updated: "2026-01-13T13:24:16.496Z"
+updated: "2026-01-13T18:49:49.821Z"
 tags:
   - learning
   - gotcha
@@ -14,6 +14,8 @@ tags:
   - serialisation
   - frontmatter
   - type-safety
+links:
+  - artifact-memory-system-architecture-reference
 ---
 
 # scope-field-frontmatter-serialisation-gotcha-two

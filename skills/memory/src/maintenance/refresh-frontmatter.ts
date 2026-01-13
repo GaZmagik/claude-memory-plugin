@@ -53,6 +53,8 @@ export interface RefreshFrontmatterResponse {
   embeddingsMigrated: number;
   /** Number of think→thought ID migrations */
   thinkToThoughtMigrated: number;
+  /** Number of graph node types updated */
+  graphTypesUpdated: number;
   /** Project name used */
   project?: string;
   /** Any errors encountered */
@@ -267,6 +269,7 @@ export async function refreshFrontmatter(
   let skipped = 0;
   let embeddingsMigrated = 0;
   let thinkToThoughtMigrated = 0;
+  let graphTypesUpdated = 0;
 
   // Detect project name if not provided
   const project = request.project ?? detectProjectName(basePath);
@@ -388,6 +391,40 @@ export async function refreshFrontmatter(
     saveEmbeddingsCache(basePath, embeddingsCache);
   }
 
+  // Sync types from frontmatter to graph
+  if (!dryRun) {
+    const graphPath = path.join(basePath, 'graph.json');
+    if (fs.existsSync(graphPath)) {
+      try {
+        const graphContent = fs.readFileSync(graphPath, 'utf-8');
+        const graph = JSON.parse(graphContent);
+        let graphModified = false;
+
+        for (const id of idsToProcess) {
+          const filePath = findMemoryFile(basePath, id);
+          if (!filePath) continue;
+
+          const content = fs.readFileSync(filePath, 'utf8');
+          const parsed = parseMemoryFile(content);
+          if (!parsed.frontmatter?.type) continue;
+
+          const nodeIndex = graph.nodes?.findIndex((n: { id: string }) => n.id === id);
+          if (nodeIndex >= 0 && graph.nodes[nodeIndex].type !== parsed.frontmatter.type) {
+            graph.nodes[nodeIndex].type = parsed.frontmatter.type;
+            graphModified = true;
+            graphTypesUpdated++;
+          }
+        }
+
+        if (graphModified) {
+          fs.writeFileSync(graphPath, JSON.stringify(graph, null, 2));
+        }
+      } catch {
+        // Graph sync failed, not critical
+      }
+    }
+  }
+
   return {
     status: errors.length > 0 ? 'error' : 'success',
     updated: updatedIds.length,
@@ -396,6 +433,7 @@ export async function refreshFrontmatter(
     skipped,
     embeddingsMigrated,
     thinkToThoughtMigrated,
+    graphTypesUpdated,
     project,
     ...(errors.length > 0 && { errors }),
   };

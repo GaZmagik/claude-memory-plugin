@@ -1,11 +1,11 @@
 ---
 id: learning-retro-memory-linking-post-compaction
 title: retro-memory-linking-post-compaction
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:49:07Z"
-updated: "2026-01-12T22:02:47.200Z"
+updated: "2026-01-13T18:49:49.835Z"
 tags:
   - learning
   - tip
@@ -15,6 +15,7 @@ tags:
   - memory-graph
 links:
   - learning-semantic-search-embedding-caching-success
+  - decision-session-continuity-strategy
 ---
 
 # retro-memory-linking-post-compaction

@@ -1,7 +1,7 @@
 ---
 id: learning-retro-agent-generated-tests-need-api-validation
 title: retro-agent-generated-tests-need-api-validation
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T22:41:51Z"

@@ -1,7 +1,7 @@
 ---
 id: learning-retro-tdd-parity-typescript-matching-accuracy
 title: retro-tdd-parity-typescript-matching-accuracy
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-12T08:32:43Z"

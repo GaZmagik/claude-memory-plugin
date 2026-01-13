@@ -3,14 +3,18 @@ id: learning-bulk-operations-tdd-caught-interface-mismatches-early
 title: "Bulk Operations: TDD Caught Interface Mismatches Early"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-12T23:38:24.507Z"
-updated: "2026-01-12T23:38:24.507Z"
+updated: "2026-01-13T19:02:56.181Z"
 tags:
   - retrospective
   - process
   - tdd
   - bulk-operations
   - project
+links:
+  - learning-tdd-scope-resolution-module-structure
+  - decision-colocate-unit-tests
 ---
 
 # Retrospective: TDD for Bulk Operations Prevented Runtime Errors
@@ -42,4 +46,3 @@ This prevented 4-5 integration debugging cycles that would have happened with im
 - tdd
 - bulk-operations
 - efficiency
-

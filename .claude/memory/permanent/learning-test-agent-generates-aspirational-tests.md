@@ -1,11 +1,11 @@
 ---
 id: learning-test-agent-generates-aspirational-tests
 title: test-agent-generates-aspirational-tests
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T23:27:17Z"
-updated: "2026-01-12T22:02:47.182Z"
+updated: "2026-01-13T18:49:49.821Z"
 tags:
   - learning
   - gotcha
@@ -14,6 +14,7 @@ links:
   - learning-cargo-cult-tdd-compliance
   - learning-retro-agent-generated-tests-need-api-validation
   - learning-tdd-test-coverage-expansion-pattern
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # test-agent-generates-aspirational-tests

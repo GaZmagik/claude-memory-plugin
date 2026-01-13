@@ -1,19 +1,20 @@
 ---
 id: learning-cargo-cult-tdd-compliance
 title: cargo-cult-tdd-compliance
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T23:27:06Z"
-updated: "2026-01-12T22:02:47.190Z"
+updated: "2026-01-13T18:49:49.829Z"
 tags:
   - learning
   - gotcha
   - high
 links:
-  - learning-retro-agent-generated-tests-need-api-validation
   - learning-tdd-parity-vitest-limitation
+  - learning-retro-agent-generated-tests-need-api-validation
   - learning-test-agent-generates-aspirational-tests
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # cargo-cult-tdd-compliance

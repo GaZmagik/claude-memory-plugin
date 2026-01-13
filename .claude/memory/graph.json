@@ -7,11 +7,13 @@
     },
     {
       "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
-      "title": "Specification audit caught architectural gaps before planning"
+      "title": "Specification audit caught architectural gaps before planning",
+      "type": "learning"
     },
     {
       "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
-      "title": "Hook protection can block legitimate git operations - requires careful pattern matching"
+      "title": "Hook protection can block legitimate git operations - requires careful pattern matching",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-scope-resolution-module-structure",
@@ -25,7 +27,8 @@
     },
     {
       "id": "learning-gitignore-comment-formatting-two-phase-fix",
-      "title": "gitignore-comment-formatting-two-phase-fix"
+      "title": "gitignore-comment-formatting-two-phase-fix",
+      "type": "learning"
     },
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -34,11 +37,13 @@
     },
     {
       "id": "learning-tdd-phase-completion-pattern",
-      "title": "tdd-phase-completion-pattern"
+      "title": "tdd-phase-completion-pattern",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
-      "title": "TDD discipline across multi-phase session maintains test coverage"
+      "title": "TDD discipline across multi-phase session maintains test coverage",
+      "type": "learning"
     },
     {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
@@ -47,7 +52,8 @@
     },
     {
       "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
-      "title": "Post-compaction memory restoration prevented duplicate work"
+      "title": "Post-compaction memory restoration prevented duplicate work",
+      "type": "learning"
     },
     {
       "id": "learning-immutable-graph-operations-pattern",
@@ -61,27 +67,33 @@
     },
     {
       "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
-      "title": "TypeScript import path consistency prevents batch compilation failures"
+      "title": "TypeScript import path consistency prevents batch compilation failures",
+      "type": "learning"
     },
     {
       "id": "decision-4tier-scope-hierarchy",
-      "title": "4-Tier Scope Hierarchy for Memory Storage"
+      "title": "4-Tier Scope Hierarchy for Memory Storage",
+      "type": "decision"
     },
     {
       "id": "learning-retro-tdd-test-expectations-guide-implementation",
-      "title": "retro-tdd-test-expectations-guide-implementation"
+      "title": "retro-tdd-test-expectations-guide-implementation",
+      "type": "learning"
     },
     {
       "id": "retro-test-first-verification-accelerated-security-review",
-      "title": "Test-First Verification: Security Review Acceleration Pattern"
+      "title": "Test-First Verification: Security Review Acceleration Pattern",
+      "type": "learning"
     },
     {
       "id": "learning-memory-context-hook-graceful-search-degradation",
-      "title": "Memory context hook graceful search degradation pattern"
+      "title": "Memory context hook graceful search degradation pattern",
+      "type": "learning"
     },
     {
       "id": "learning-test-naming-convention-spec-ts",
-      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)"
+      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
@@ -90,7 +102,8 @@
     },
     {
       "id": "gotcha-agents-should-be-copies-not-rewrites",
-      "title": "Plugin agents must copy user-level versions, not simplified rewrites"
+      "title": "Plugin agents must copy user-level versions, not simplified rewrites",
+      "type": "gotcha"
     },
     {
       "id": "learning-spawn-session-refactor",
@@ -104,19 +117,23 @@
     },
     {
       "id": "learning-tdd-test-coverage-expansion-pattern",
-      "title": "tdd-test-coverage-expansion-pattern"
+      "title": "tdd-test-coverage-expansion-pattern",
+      "type": "learning"
     },
     {
       "id": "learning-typescript-tdd-hook-naming-enforcement",
-      "title": "typescript-tdd-hook-naming-enforcement"
+      "title": "typescript-tdd-hook-naming-enforcement",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-parity-typescript-support",
-      "title": "tdd-parity-typescript-support"
+      "title": "tdd-parity-typescript-support",
+      "type": "learning"
     },
     {
       "id": "learning-retro-typescript-tooling-parity",
-      "title": "retro-typescript-tooling-parity"
+      "title": "retro-typescript-tooling-parity",
+      "type": "learning"
     },
     {
       "id": "learning-regex-based-language-parsing-tradeoff",
@@ -125,71 +142,88 @@
     },
     {
       "id": "learning-retro-test-coverage-asymptotic-returns",
-      "title": "retro-test-coverage-asymptotic-returns"
+      "title": "retro-test-coverage-asymptotic-returns",
+      "type": "learning"
     },
     {
       "id": "learning-test-coverage-achieved-99-percent-functions",
-      "title": "test-coverage-achieved-99-percent-functions"
+      "title": "test-coverage-achieved-99-percent-functions",
+      "type": "learning"
     },
     {
       "id": "learning-retro-memory-linking-post-compaction",
-      "title": "retro-memory-linking-post-compaction"
+      "title": "retro-memory-linking-post-compaction",
+      "type": "learning"
     },
     {
       "id": "retro-hook-pattern-non-python-projects",
-      "title": "Hook detection pattern for non-Python projects"
+      "title": "Hook detection pattern for non-Python projects",
+      "type": "learning"
     },
     {
       "id": "retro-mock-syntax-friction-bun",
-      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests"
+      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests",
+      "type": "learning"
     },
     {
       "id": "retro-duplicate-test-discovery",
-      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts"
+      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts",
+      "type": "learning"
     },
     {
       "id": "learning-retro-agent-generated-tests-need-api-validation",
-      "title": "retro-agent-generated-tests-need-api-validation"
+      "title": "retro-agent-generated-tests-need-api-validation",
+      "type": "learning"
     },
     {
       "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
-      "title": "retro-tmpdir-cleanup-permissions-fragile"
+      "title": "retro-tmpdir-cleanup-permissions-fragile",
+      "type": "learning"
     },
     {
       "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
-      "title": "retro-memory-graph-linking-batch-approach-efficient"
+      "title": "retro-memory-graph-linking-batch-approach-efficient",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-parity-vitest-limitation",
-      "title": "tdd-parity-vitest-limitation"
+      "title": "tdd-parity-vitest-limitation",
+      "type": "learning"
     },
     {
       "id": "learning-cargo-cult-tdd-compliance",
-      "title": "cargo-cult-tdd-compliance"
+      "title": "cargo-cult-tdd-compliance",
+      "type": "learning"
     },
     {
       "id": "decision-colocate-unit-tests",
-      "title": "colocate-unit-tests"
+      "title": "colocate-unit-tests",
+      "type": "decision"
     },
     {
       "id": "learning-test-agent-generates-aspirational-tests",
-      "title": "test-agent-generates-aspirational-tests"
+      "title": "test-agent-generates-aspirational-tests",
+      "type": "learning"
     },
     {
       "id": "gotcha-vi-mock-global-pollution",
-      "title": "vi.mock and mock.module cause global test pollution"
+      "title": "vi.mock and mock.module cause global test pollution",
+      "type": "gotcha"
     },
     {
       "id": "learning-retro-agent-verification-for-exclusions",
-      "title": "retro-agent-verification-for-exclusions"
+      "title": "retro-agent-verification-for-exclusions",
+      "type": "learning"
     },
     {
       "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
-      "title": "retro-tdd-parity-typescript-matching-accuracy"
+      "title": "retro-tdd-parity-typescript-matching-accuracy",
+      "type": "learning"
     },
     {
       "id": "learning-retro-test-isolation-pattern-worth-documenting",
-      "title": "retro-test-isolation-pattern-worth-documenting"
+      "title": "retro-test-isolation-pattern-worth-documenting",
+      "type": "learning"
     },
     {
       "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
@@ -262,6 +296,22 @@
     {
       "id": "hub-scope-module-hub",
       "type": "hub"
+    },
+    {
+      "id": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
+      "type": "learning"
+    },
+    {
+      "id": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
+      "type": "learning"
+    },
+    {
+      "id": "learning-hub-documents-improved-en-ratio-36-with-just-5-nodes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -799,6 +849,126 @@
       "source": "artifact-hook-system-patterns-catalogue",
       "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
+    },
+    {
+      "source": "hub-cli-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-cli-module-hub",
+      "target": "hub-core-module-hub",
+      "label": "related-module"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "decision-colocate-unit-tests",
+      "label": "implements"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-hub-documents-improved-en-ratio-36-with-just-5-nodes",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "documents"
+    },
+    {
+      "source": "hub-think-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
+      "target": "hub-graph-module-hub",
+      "label": "documents"
+    },
+    {
+      "source": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
     }
   ]
 }

@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T17:55:16Z"
-updated: "2026-01-13T13:24:05.845Z"
+updated: "2026-01-13T18:49:49.821Z"
 tags:
   - learning
   - tip
@@ -16,6 +16,8 @@ tags:
   - isolation
 links:
   - learning-tdd-test-coverage-expansion-pattern
+  - learning-tdd-test-coverage-expansion-pattern
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # test-isolation-bun-mock-module

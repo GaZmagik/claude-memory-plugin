@@ -3,13 +3,16 @@ id: hub-think-module-hub
 title: Think Module Hub
 type: hub
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T13:25:05.708Z"
-updated: "2026-01-13T13:25:05.708Z"
+updated: "2026-01-13T19:02:56.182Z"
 tags:
   - hub
   - think
   - module
   - project
+links:
+  - artifact-memory-system-architecture-reference
 ---
 
 # Think Module Hub

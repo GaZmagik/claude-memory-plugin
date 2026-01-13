@@ -1,7 +1,7 @@
 ---
 id: learning-retro-test-isolation-pattern-worth-documenting
 title: retro-test-isolation-pattern-worth-documenting
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-12T08:32:49Z"

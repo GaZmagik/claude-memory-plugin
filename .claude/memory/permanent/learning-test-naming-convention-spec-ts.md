@@ -1,11 +1,11 @@
 ---
 id: learning-test-naming-convention-spec-ts
 title: "Test file naming convention: <name>.spec.ts (drop test- prefix)"
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T13:58:15Z"
-updated: "2026-01-12T22:06:28.749Z"
+updated: "2026-01-13T18:49:49.826Z"
 tags:
   - plugin
   - tests
@@ -13,6 +13,7 @@ tags:
   - convention
 links:
   - learning-typescript-import-path-consistency-prevents-batch-compilation-failures
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 ## Change

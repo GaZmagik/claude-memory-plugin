@@ -1,7 +1,7 @@
 ---
 id: learning-gitignore-comment-formatting-two-phase-fix
 title: gitignore-comment-formatting-two-phase-fix
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T18:12:23Z"

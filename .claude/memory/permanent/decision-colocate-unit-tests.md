@@ -1,20 +1,21 @@
 ---
 id: decision-colocate-unit-tests
 title: colocate-unit-tests
-type: permanent
+type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T23:27:12Z"
-updated: "2026-01-12T22:02:47.199Z"
+updated: "2026-01-13T18:49:49.835Z"
 tags:
   - decision
   - adr
   - architecture
   - accepted
 links:
+  - learning-test-naming-convention-spec-ts
   - learning-tdd-scope-resolution-module-structure
   - learning-tdd-test-coverage-expansion-pattern
-  - learning-test-naming-convention-spec-ts
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # colocate-unit-tests

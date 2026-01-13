@@ -1,19 +1,20 @@
 ---
 id: learning-tdd-parity-vitest-limitation
 title: tdd-parity-vitest-limitation
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T23:27:00Z"
-updated: "2026-01-12T22:02:47.182Z"
+updated: "2026-01-13T18:49:49.820Z"
 tags:
   - learning
   - gotcha
   - medium
 links:
   - decision-colocate-unit-tests
-  - learning-cargo-cult-tdd-compliance
   - learning-test-isolation-bun-mock-module
+  - learning-cargo-cult-tdd-compliance
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # tdd-parity-vitest-limitation

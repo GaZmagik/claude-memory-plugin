@@ -20,6 +20,7 @@ const mockPromoteSuccess = (id: string, toType: MemoryType): PromoteResponse => 
     fileMoved: true,
     graphUpdated: true,
     indexUpdated: true,
+    fileRenamed: false,
   },
 });
 
@@ -166,6 +167,7 @@ describe('bulkPromote', () => {
           fileMoved: false,
           graphUpdated: false,
           indexUpdated: false,
+          fileRenamed: false,
         },
         error: 'File not found',
       });

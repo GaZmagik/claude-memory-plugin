@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T18:12:10Z"
-updated: "2026-01-13T13:24:05.914Z"
+updated: "2026-01-13T18:49:49.819Z"
 tags:
   - learning
   - tip
@@ -15,8 +15,9 @@ tags:
   - scope-resolution
   - test-driven-development
 links:
-  - learning-scope-isolation-architecture-design
   - learning-tdd-phase-completion-pattern
+  - learning-scope-isolation-architecture-design
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # tdd-scope-resolution-module-structure

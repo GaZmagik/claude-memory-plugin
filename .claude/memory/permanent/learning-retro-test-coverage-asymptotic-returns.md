@@ -1,7 +1,7 @@
 ---
 id: learning-retro-test-coverage-asymptotic-returns
 title: retro-test-coverage-asymptotic-returns
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:49:02Z"

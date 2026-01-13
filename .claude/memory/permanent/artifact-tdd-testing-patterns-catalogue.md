@@ -3,14 +3,17 @@ id: artifact-tdd-testing-patterns-catalogue
 title: TDD Testing Patterns Catalogue
 type: hub
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T08:04:01.136Z"
-updated: "2026-01-13T13:22:18.071Z"
+updated: "2026-01-13T19:02:56.186Z"
 tags:
   - tdd
   - testing
   - patterns
   - hub
   - project
+links:
+  - artifact-gotcha-prevention-checklist
 ---
 
 # TDD Testing Patterns Catalogue

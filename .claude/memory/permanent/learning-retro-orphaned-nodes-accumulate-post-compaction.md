@@ -3,11 +3,17 @@ id: learning-retro-orphaned-nodes-accumulate-post-compaction
 title: "retro: Orphaned Nodes Accumulate Post-Compaction Without Linking Step"
 type: learning
 scope: project
+project: claude-memory-plugin
+updated: "2026-01-13T19:02:56.189Z"
 tags:
   - retrospective
   - process
   - memory-graph
   - graph-health
+links:
+  - learning-retro-memory-linking-post-compaction
+  - learning-semantic-search-embedding-caching-success
+  - decision-session-continuity-strategy
 ---
 
 Post-compaction, memory health shows 8 orphaned nodes (connectivity 84.6%, down from ideal ~95%+).

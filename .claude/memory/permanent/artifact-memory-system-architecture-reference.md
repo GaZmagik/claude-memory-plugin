@@ -3,14 +3,17 @@ id: artifact-memory-system-architecture-reference
 title: Memory System Architecture Reference
 type: hub
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T08:05:56.873Z"
-updated: "2026-01-13T13:22:18.216Z"
+updated: "2026-01-13T19:02:56.187Z"
 tags:
   - architecture
   - memory
   - reference
   - hub
   - project
+links:
+  - decision-session-continuity-strategy
 ---
 
 # Memory System Architecture Reference

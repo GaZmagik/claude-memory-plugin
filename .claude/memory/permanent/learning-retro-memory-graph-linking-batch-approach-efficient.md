@@ -1,11 +1,11 @@
 ---
 id: learning-retro-memory-graph-linking-batch-approach-efficient
 title: retro-memory-graph-linking-batch-approach-efficient
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T22:42:03Z"
-updated: "2026-01-12T22:02:47.195Z"
+updated: "2026-01-13T18:49:49.832Z"
 tags:
   - learning
   - tip
@@ -16,6 +16,7 @@ tags:
   - improvement
 links:
   - learning-retro-memory-linking-post-compaction
+  - decision-session-continuity-strategy
 ---
 
 # retro-memory-graph-linking-batch-approach-efficient

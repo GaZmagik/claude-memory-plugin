@@ -50,8 +50,11 @@ Content`);
       expect(result.fromType).toBe('learning');
       expect(result.toType).toBe(MemoryType.Artifact);
       expect(result.changes.frontmatterUpdated).toBe(true);
+      expect(result.changes.fileRenamed).toBe(true);
+      expect(result.newId).toBe('artifact-test');
 
-      const content = fs.readFileSync(path.join(permanentDir, 'learning-test.md'), 'utf8');
+      // File is renamed to artifact-test.md
+      const content = fs.readFileSync(path.join(permanentDir, 'artifact-test.md'), 'utf8');
       expect(content).toContain('type: artifact');
     });
 

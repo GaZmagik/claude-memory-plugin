@@ -177,7 +177,7 @@ function createIndexEntry(
 
   return {
     id,
-    type: parsed?.type ?? frontmatter.type as IndexEntry['type'],
+    type: (frontmatter.type || parsed?.type) as IndexEntry['type'],
     title: frontmatter.title,
     tags: frontmatter.tags,
     created: frontmatter.created,

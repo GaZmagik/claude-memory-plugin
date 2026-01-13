@@ -5,7 +5,7 @@ type: decision
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T13:58:25Z"
-updated: "2026-01-13T13:24:05.985Z"
+updated: "2026-01-13T18:49:49.818Z"
 tags:
   - plugin
   - tdd
@@ -13,8 +13,10 @@ tags:
   - hook
   - user-level
 links:
-  - learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
   - learning-memory-context-hook-graceful-search-degradation
+  - learning-memory-context-hook-graceful-search-degradation
+  - learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 ## Purpose

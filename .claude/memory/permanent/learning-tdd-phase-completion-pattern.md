@@ -1,11 +1,11 @@
 ---
 id: learning-tdd-phase-completion-pattern
 title: tdd-phase-completion-pattern
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T19:58:29Z"
-updated: "2026-01-12T22:02:47.189Z"
+updated: "2026-01-13T18:49:49.828Z"
 tags:
   - learning
   - tip
@@ -14,6 +14,8 @@ tags:
   - test-driven-development
   - workflow
   - typescript
+links:
+  - artifact-tdd-testing-patterns-catalogue
 ---
 
 # tdd-phase-completion-pattern

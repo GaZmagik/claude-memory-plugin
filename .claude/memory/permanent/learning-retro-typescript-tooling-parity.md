@@ -1,7 +1,7 @@
 ---
 id: learning-retro-typescript-tooling-parity
 title: retro-typescript-tooling-parity
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T18:48:56Z"

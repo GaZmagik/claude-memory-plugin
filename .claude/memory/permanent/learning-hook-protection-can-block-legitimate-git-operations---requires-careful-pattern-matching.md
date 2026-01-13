@@ -1,11 +1,11 @@
 ---
 id: learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
 title: Hook protection can block legitimate git operations - requires careful pattern matching
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-10T06:08:44Z"
-updated: "2026-01-12T22:02:47.188Z"
+updated: "2026-01-13T18:49:49.826Z"
 tags:
   - learning
   - gotcha
@@ -15,6 +15,7 @@ tags:
   - protection-patterns
 links:
   - learning-gitignore-comment-formatting-two-phase-fix
+  - artifact-hook-system-patterns-catalogue
 ---
 
 # Hook protection can block legitimate git operations - requires careful pattern matching

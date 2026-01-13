@@ -1,7 +1,7 @@
 ---
 id: learning-typescript-tdd-hook-naming-enforcement
 title: typescript-tdd-hook-naming-enforcement
-type: permanent
+type: learning
 scope: local
 project: claude-memory-plugin
 created: "2026-01-11T17:55:27Z"

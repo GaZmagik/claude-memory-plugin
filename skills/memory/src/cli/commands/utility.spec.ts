@@ -74,13 +74,14 @@ describe('cmdMove', () => {
     expect(result.error).toContain('Missing required argument: target scope');
   });
 
-  it('calls moveMemory with id and target scope', async () => {
+  it('calls moveMemory with id and target scope when --scope provided', async () => {
     vi.spyOn(moveModule, 'moveMemory').mockResolvedValue({
       status: 'success',
       movedTo: 'global',
     } as any);
 
-    const args: ParsedArgs = { positional: ['my-id', 'global'], flags: {} };
+    // Provide explicit --scope to skip auto-detection
+    const args: ParsedArgs = { positional: ['my-id', 'global'], flags: { scope: 'project' } };
     const result = await cmdMove(args);
 
     expect(result.status).toBe('success');
@@ -90,6 +91,46 @@ describe('cmdMove', () => {
         targetScope: 'global',
       })
     );
+  });
+
+  it('auto-detects source scope when memory exists in different scope', async () => {
+    // Mock fs.existsSync to simulate memory found in project scope
+    vi.spyOn(fs, 'existsSync').mockImplementation((p: fs.PathLike) => {
+      const pathStr = String(p);
+      // Simulate memory exists in project/permanent
+      return pathStr.includes('/permanent/my-id.md') && pathStr.includes('.claude/memory') && !pathStr.includes('/local/');
+    });
+
+    vi.spyOn(moveModule, 'moveMemory').mockResolvedValue({
+      status: 'success',
+      id: 'my-id',
+      changes: {
+        fileMoved: true,
+        sourceGraphUpdated: true,
+        targetGraphUpdated: true,
+        sourceIndexUpdated: true,
+        targetIndexUpdated: true,
+      },
+    } as any);
+
+    // No --scope flag provided, should auto-detect
+    const args: ParsedArgs = { positional: ['my-id', 'local'], flags: {} };
+    const result = await cmdMove(args);
+
+    // Should succeed - implementation will search all scopes
+    expect(result.status).toBe('success');
+    expect(moveModule.moveMemory).toHaveBeenCalled();
+  });
+
+  it('returns error when memory not found in any scope', async () => {
+    // Mock fs.existsSync to return false for all paths
+    vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+
+    const args: ParsedArgs = { positional: ['nonexistent-id', 'global'], flags: {} };
+    const result = await cmdMove(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Memory not found in any scope');
   });
 });
 

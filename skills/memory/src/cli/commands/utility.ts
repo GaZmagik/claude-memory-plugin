@@ -37,6 +37,26 @@ function getResolvedScopePath(scope: Scope): string {
 }
 
 /**
+ * Find which scope a memory exists in
+ * Searches all scopes and returns the first one where the memory is found
+ */
+function findMemoryScope(id: string): { scope: Scope; basePath: string } | null {
+  const scopesToSearch: Scope[] = [Scope.Project, Scope.Local, Scope.Global];
+
+  for (const scope of scopesToSearch) {
+    const basePath = getResolvedScopePath(scope);
+    const permanentPath = path.join(basePath, 'permanent', `${id}.md`);
+    const temporaryPath = path.join(basePath, 'temporary', `${id}.md`);
+
+    if (fs.existsSync(permanentPath) || fs.existsSync(temporaryPath)) {
+      return { scope, basePath };
+    }
+  }
+
+  return null;
+}
+
+/**
  * Parse scope string to Scope enum
  */
 function parseScope(scopeStr: string | undefined): Scope {
@@ -88,6 +108,7 @@ export async function cmdRename(args: ParsedArgs): Promise<CliResponse> {
  * Usage: memory move <id> <target-scope> [--scope <source-scope>]
  *
  * Moves a memory from one scope to another.
+ * If --scope is not provided, auto-detects which scope the memory is in.
  */
 export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -101,11 +122,23 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: target scope');
   }
 
-  const sourceScope = parseScope(getFlagString(args.flags, 'scope'));
   const targetScope = parseScope(targetScopeStr);
-
-  const sourceBasePath = getResolvedScopePath(sourceScope);
   const targetBasePath = getResolvedScopePath(targetScope);
+
+  // If --scope is explicitly provided, use it; otherwise auto-detect
+  const explicitScope = getFlagString(args.flags, 'scope');
+  let sourceBasePath: string;
+
+  if (explicitScope) {
+    sourceBasePath = getResolvedScopePath(parseScope(explicitScope));
+  } else {
+    // Auto-detect which scope the memory is in
+    const found = findMemoryScope(id);
+    if (!found) {
+      return error(`Memory not found in any scope: ${id}`);
+    }
+    sourceBasePath = found.basePath;
+  }
 
   return wrapOperation(
     async () => {

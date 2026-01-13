@@ -17,6 +17,13 @@ import { createLogger } from './logger.js';
 import { ensureLocalScopeGitignored } from '../scope/gitignore.js';
 import { findSimilarToMemory } from '../search/semantic.js';
 import { linkMemories } from '../graph/link.js';
+import {
+  generateEmbedding,
+  loadEmbeddingCache,
+  saveEmbeddingCache,
+  generateContentHash,
+  type EmbeddingProvider,
+} from '../search/embedding.js';
 import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
 
 const log = createLogger('write');
@@ -53,21 +60,49 @@ const AUTO_LINK_RELATION = 'auto-linked-by-similarity';
 
 /**
  * Perform auto-linking for a newly written memory
+ *
+ * If an embedding provider is given, generates an embedding for the new memory
+ * and saves it to cache before searching for similar memories.
+ *
+ * @param memoryId - ID of the newly written memory
+ * @param memoryContent - Content of the memory (for embedding generation)
+ * @param basePath - Base path for memory storage
+ * @param threshold - Similarity threshold for auto-linking
+ * @param provider - Optional embedding provider (if not provided, uses cache only)
  * @returns Number of links created
  */
 async function performAutoLink(
   memoryId: string,
+  memoryContent: string,
   basePath: string,
-  threshold: number
+  threshold: number,
+  provider?: EmbeddingProvider
 ): Promise<number> {
   try {
+    // If provider given, generate embedding for the new memory and save to cache
+    if (provider) {
+      const cachePath = path.join(basePath, 'embeddings.json');
+      const embedding = await generateEmbedding(memoryContent, provider);
+
+      // Save to cache
+      const cache = await loadEmbeddingCache(cachePath);
+      cache.memories[memoryId] = {
+        embedding,
+        hash: generateContentHash(memoryContent),
+        timestamp: new Date().toISOString(),
+      };
+      await saveEmbeddingCache(cachePath, cache);
+
+      log.debug('Generated embedding for auto-link', { memoryId });
+    }
+
     // Find similar memories using embeddings cache
-    // Note: provider param is unused in current implementation (reads from cache)
-    const dummyProvider = { name: 'cache', generate: async () => [] };
+    // Provider is passed but findSimilarToMemory reads from cache
+    const searchProvider = provider ?? { name: 'cache', generate: async () => [] };
     const similar = await findSimilarToMemory(
       memoryId,
       basePath,
-      dummyProvider,
+      searchProvider,
       threshold
     );
 
@@ -192,8 +227,10 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     if (request.autoLink) {
       autoLinked = await performAutoLink(
         id,
+        request.content,
         basePath,
-        request.autoLinkThreshold ?? 0.85
+        request.autoLinkThreshold ?? 0.85,
+        request.embeddingProvider
       );
       if (autoLinked > 0) {
         log.info('Auto-linked memories', { id, count: autoLinked });

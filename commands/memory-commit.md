@@ -98,8 +98,8 @@ For each item, call the appropriate memory script via Bash, then **immediately l
 
 **Learnings** (gotchas, tips, insights):
 ```bash
-# Create the learning
-memory write --type learning --title '<title>' --content '<1-2 sentence description>' --tags '<tag1>,<tag2>'
+# Create the learning (--auto-link finds semantically similar memories)
+memory write --type learning --title '<title>' --content '<1-2 sentence description>' --tags '<tag1>,<tag2>' --auto-link
 
 # Link to hubs (replace <slug> with the slugified title, e.g., "my-learning-title")
 [[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "learning-<slug>" "$feature_hub" "discovered-in"
@@ -108,8 +108,8 @@ memory write --type learning --title '<title>' --content '<1-2 sentence descript
 
 **Decisions** (architectural choices):
 ```bash
-# Create the decision
-memory write --type decision --id '<decision-id>' --content '<1-2 sentence description>'
+# Create the decision (--auto-link finds semantically similar memories)
+memory write --type decision --id '<decision-id>' --content '<1-2 sentence description>' --auto-link
 
 # Link to hubs
 [[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "decision-<id>" "$feature_hub" "decided-in"
@@ -118,8 +118,8 @@ memory write --type decision --id '<decision-id>' --content '<1-2 sentence descr
 
 **Artifacts** (reusable patterns):
 ```bash
-# Create the artifact
-memory write --type artifact --id '<name>' --content '<1-2 sentence description>'
+# Create the artifact (--auto-link finds semantically similar memories)
+memory write --type artifact --id '<name>' --content '<1-2 sentence description>' --auto-link
 
 # Link to hubs
 [[ "$HAS_FEATURE_HUB" == "true" ]] && memory link "artifact-<name>" "$feature_hub" "created-in"

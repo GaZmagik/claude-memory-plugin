@@ -7,6 +7,7 @@
 import type { MemoryType, Scope, Severity, ThinkStatus, ThoughtType } from './enums.js';
 import type { MemoryFrontmatter, MemoryIndex } from './memory.js';
 import type { ThinkDocument, ThinkDocumentSummary, AICallOptions } from './think.js';
+import type { EmbeddingProvider } from '../search/embedding.js';
 
 // ============================================================================
 // Common Types
@@ -66,6 +67,8 @@ export interface WriteMemoryRequest extends BaseRequest {
   autoLink?: boolean;
   /** Similarity threshold for auto-link (default: 0.85) */
   autoLinkThreshold?: number;
+  /** Embedding provider for auto-link (optional - skips embedding generation if not provided) */
+  embeddingProvider?: EmbeddingProvider;
 }
 
 /**

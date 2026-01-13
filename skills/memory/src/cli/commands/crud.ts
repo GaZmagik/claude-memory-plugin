@@ -106,6 +106,8 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   const typeStr = getFlagString(args.flags, 'type') ?? (input.type as string | undefined);
   const type = parseMemoryType(typeStr) ?? MemoryType.Decision;
 
+  const autoLink = getFlagBool(args.flags, 'auto-link') || input.autoLink;
+
   const request: WriteMemoryRequest = {
     title: input.title,
     content: input.content,
@@ -116,8 +118,10 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     links: input.links,
     source: input.source,
     meta: input.meta,
-    autoLink: getFlagBool(args.flags, 'auto-link') || input.autoLink,
+    autoLink,
     autoLinkThreshold: getFlagNumber(args.flags, 'auto-link-threshold') ?? input.autoLinkThreshold,
+    // Inject Ollama provider when auto-link requested (for embedding generation)
+    embeddingProvider: autoLink ? createOllamaProvider() : undefined,
     basePath,
   };
 

@@ -268,13 +268,14 @@ describe('similarity property-based tests', () => {
     it('should exclude self from nearest neighbours', () => {
       const embeddings = {
         'target': [1, 0, 0],
-        'identical': [1, 0, 0],
-        'similar': [0.9, 0, 0],
+        'different1': [0.7, 0.7, 0],  // ~0.7 similarity
+        'different2': [0.5, 0.5, 0.7], // different direction
       };
 
       const avg = averageKNearestSimilarity('target', embeddings, 2);
 
       // Should not include perfect self-similarity of 1.0
+      // With different directions, average should be less than 1
       expect(avg).toBeLessThan(1);
     });
 

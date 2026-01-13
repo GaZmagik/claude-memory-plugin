@@ -253,29 +253,25 @@ describe('frontmatter property-based tests', () => {
   });
 
   describe('parseMemoryFile error handling', () => {
-    it('should handle files without frontmatter', () => {
+    it('should throw on files without frontmatter', () => {
       const content = 'Just plain content without frontmatter';
-      const parsed = parseMemoryFile(content);
 
-      expect(parsed.frontmatter).toBeNull();
-      expect(parsed.content).toBe(content);
+      expect(() => parseMemoryFile(content)).toThrow('Invalid memory file format');
     });
 
-    it('should handle empty files', () => {
-      const parsed = parseMemoryFile('');
-
-      expect(parsed.frontmatter).toBeNull();
-      expect(parsed.content).toBe('');
+    it('should throw on empty files', () => {
+      expect(() => parseMemoryFile('')).toThrow('Invalid memory file format');
     });
 
-    it('should handle files with only frontmatter', () => {
+    it('should handle files with only frontmatter (empty content)', () => {
       const file = `---
 type: learning
 title: Test
 created: 2026-01-13T00:00:00.000Z
 updated: 2026-01-13T00:00:00.000Z
 tags: []
----`;
+---
+`;
 
       const parsed = parseMemoryFile(file);
 
@@ -283,7 +279,7 @@ tags: []
       expect(parsed.content).toBe('');
     });
 
-    it('should handle malformed YAML gracefully', () => {
+    it('should throw on malformed YAML', () => {
       const file = `---
 type: learning
 title: Test
@@ -291,10 +287,7 @@ invalid: [unclosed
 ---
 Content`;
 
-      const parsed = parseMemoryFile(file);
-
-      // Should either parse successfully or return null frontmatter
-      expect(parsed).toBeDefined();
+      expect(() => parseMemoryFile(file)).toThrow();
     });
   });
 

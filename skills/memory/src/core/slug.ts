@@ -19,7 +19,7 @@ export function slugify(title: string): string {
     .trim()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-    .replace(/[^\w\s-]/g, '') // Remove non-word chars except spaces and hyphens
+    .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric chars except spaces and hyphens
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-') // Replace multiple hyphens with single
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens

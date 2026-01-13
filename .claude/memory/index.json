@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T19:40:57.913Z",
+  "lastUpdated": "2026-01-13T21:57:02.122Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1192,6 +1192,32 @@
       "updated": "2026-01-13T19:40:57.910Z",
       "scope": "project",
       "relativePath": "permanent/learning-stale-context-summary-after-compaction-can-mislead.md"
+    },
+    {
+      "id": "gotcha-call-flag-passed-as-model-name-bug",
+      "type": "gotcha",
+      "title": "Feature review findings verification and fix planning",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-13T21:52:14.200Z",
+      "updated": "2026-01-13T21:52:14.200Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-call-flag-passed-as-model-name-bug.md"
+    },
+    {
+      "id": "decision-review-findings-verification-consulting-specialist-agents",
+      "type": "decision",
+      "title": "Review findings verification - consulting specialist agents",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-13T21:57:02.120Z",
+      "updated": "2026-01-13T21:57:02.120Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-review-findings-verification-consulting-specialist-agents.md"
     }
   ]
 }

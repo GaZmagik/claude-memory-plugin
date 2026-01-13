@@ -82,7 +82,7 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     ],
     notes: `  Required JSON fields: title, content, type
   Optional JSON fields: id (auto-generated if omitted), tags, links, scope
-  Memory types: decision, learning, gotcha, artifact, context, temporary`,
+  Memory types: decision, learning, gotcha, artifact, breadcrumb, hub`,
   },
 
   read: {

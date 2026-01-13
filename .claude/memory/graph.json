@@ -344,6 +344,14 @@
     {
       "id": "learning-stale-context-summary-after-compaction-can-mislead",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-call-flag-passed-as-model-name-bug",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-review-findings-verification-consulting-specialist-agents",
+      "type": "decision"
     }
   ],
   "edges": [

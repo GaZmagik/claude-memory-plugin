@@ -158,6 +158,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   const style = getFlagString(args.flags, 'style');
   const agent = getFlagString(args.flags, 'agent');
   const resume = getFlagString(args.flags, 'resume');
+  const model = getFlagString(args.flags, 'model');
 
   return wrapOperation(
     async () => {
@@ -169,7 +170,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
         basePath,
         call: callAgent
           ? {
-              model: callAgent,
+              model,  // Use --model flag (defaults to 'haiku' in invoker)
               outputStyle: style,
               agent,
               resume,

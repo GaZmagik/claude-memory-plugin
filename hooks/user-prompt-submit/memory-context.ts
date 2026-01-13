@@ -16,6 +16,7 @@ import { join } from 'path';
 // Import plugin's search modules
 import { searchMemories } from '../../skills/memory/src/core/search.js';
 import { semanticSearch, type SemanticSearchResult } from '../../skills/memory/src/search/semantic.js';
+import { createOllamaProvider } from '../../skills/memory/src/search/embedding.js';
 
 const OLLAMA_MODEL = 'gemma3:4b';
 const OLLAMA_TIMEOUT = 30000;
@@ -113,7 +114,7 @@ async function trySemanticSearch(
     const results = await semanticSearch({
       query,
       basePath,
-      provider: 'ollama' as const,
+      provider: createOllamaProvider(),
       threshold: 0.4,
       limit,
     });

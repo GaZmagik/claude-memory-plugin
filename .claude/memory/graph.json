@@ -352,6 +352,10 @@
     {
       "id": "decision-review-findings-verification-consulting-specialist-agents",
       "type": "decision"
+    },
+    {
+      "id": "learning-review-findings-verification-multi-perspective-analysis",
+      "type": "learning"
     }
   ],
   "edges": [

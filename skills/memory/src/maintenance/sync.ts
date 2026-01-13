@@ -98,6 +98,7 @@ function parseFileToNode(id: string, filePath: string): GraphNode | null {
     return {
       id,
       type: String(parsed.frontmatter.type),
+      title: parsed.frontmatter.title,
     };
   } catch {
     return null;
@@ -165,19 +166,28 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // Build lookup sets
-  const nodeIds = new Set(graph.nodes.map(n => n.id));
   const indexIds = new Set(index.memories.map(e => e.id));
   const fileIds = new Set(filesOnDisk.keys());
 
   // 1. Find files not in graph - add them
+  // Also refresh existing nodes that are missing title
   for (const [id, filePath] of filesOnDisk) {
-    if (!nodeIds.has(id)) {
+    const existingNode = graph.nodes.find(n => n.id === id);
+
+    if (!existingNode) {
+      // Node missing entirely - add it
       const node = parseFileToNode(id, filePath);
       if (node) {
         changes.addedToGraph.push(id);
         if (!dryRun) {
           graph = addNode(graph, node);
         }
+      }
+    } else if (!existingNode.title) {
+      // Node exists but missing title - refresh it
+      const node = parseFileToNode(id, filePath);
+      if (node && !dryRun) {
+        graph = addNode(graph, node); // addNode updates existing nodes
       }
     }
   }

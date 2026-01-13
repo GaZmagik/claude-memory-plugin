@@ -16,6 +16,8 @@ const log = createLogger('graph');
 export interface GraphNode {
   id: string;
   type: string;
+  /** Memory title (optional for backward compatibility with existing data) */
+  title?: string;
 }
 
 /**

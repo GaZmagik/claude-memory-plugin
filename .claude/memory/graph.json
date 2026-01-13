@@ -227,147 +227,183 @@
     },
     {
       "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
-      "type": "learning"
+      "type": "learning",
+      "title": "Bulk Operations: TDD Caught Interface Mismatches Early"
     },
     {
       "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)"
     },
     {
       "id": "learning-retro-plan-mode-catches-architectural-assumptions-early",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Plan Mode Catches Architectural Assumptions Early"
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Graceful Degradation by Default Prevents Coupling"
     },
     {
       "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Session Restore with Memory Linking Works - Keeps Context Fresh"
     },
     {
       "id": "learning-retro-hook-created-memories-need-linking",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Hook-Created Memories Not Auto-Linked Into Graph"
     },
     {
       "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Orphaned Nodes Accumulate Post-Compaction Without Linking Step"
     },
     {
       "id": "artifact-tdd-testing-patterns-catalogue",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "TDD Testing Patterns Catalogue"
     },
     {
       "id": "artifact-gotcha-prevention-checklist",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Gotcha Prevention Checklist"
     },
     {
       "id": "artifact-memory-system-architecture-reference",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Memory System Architecture Reference"
     },
     {
       "id": "decision-session-continuity-strategy",
-      "type": "decision"
+      "type": "decision",
+      "title": "Session Continuity Strategy"
     },
     {
       "id": "artifact-hook-system-patterns-catalogue",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Hook System Patterns Catalogue"
     },
     {
       "id": "hub-cli-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "CLI Module Hub"
     },
     {
       "id": "hub-core-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "Core Module Hub"
     },
     {
       "id": "hub-graph-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "Graph Module Hub"
     },
     {
       "id": "hub-think-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "Think Module Hub"
     },
     {
       "id": "hub-search-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "Search Module Hub"
     },
     {
       "id": "hub-scope-module-hub",
-      "type": "hub"
+      "type": "hub",
+      "title": "Scope Module Hub"
     },
     {
       "id": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
-      "type": "learning"
+      "type": "learning",
+      "title": "Semantic linking with Ollama effective for recovering orphaned memories"
     },
     {
       "id": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
-      "type": "learning"
+      "type": "learning",
+      "title": "Promoting learnings to decisions revealed 12 misclassified memories"
     },
     {
       "id": "learning-hub-documents-improved-en-ratio-36-with-just-5-nodes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hub documents improved E:N ratio 36% with just 5 nodes"
     },
     {
       "id": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Memory curator agent identified 5 thematic clusters in orphaned nodes"
     },
     {
       "id": "retro-type-consistency-required-triple-sync",
-      "type": "learning"
+      "type": "learning",
+      "title": "Type consistency requires triple sync: frontmatter, index, graph"
     },
     {
       "id": "retro-frontend-type-field-indicates-git-files-stale",
-      "type": "learning"
+      "type": "learning",
+      "title": "Frontend type field values indicate when git-tracked files are stale"
     },
     {
       "id": "retro-session-restore-with-parallel-agents-restored-85percent-context",
-      "type": "learning"
+      "type": "learning",
+      "title": "Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents"
     },
     {
       "id": "retro-test-quality-audit-2026-01-13",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test Quality Audit Retrospective - Property Tests Expose Contract Violations"
     },
     {
       "id": "gotcha-embeddings-cache-schema-must-match-code",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Embeddings Cache Schema Must Match Code"
     },
     {
       "id": "learning-post-compaction-parallel-agent-restoration-effective",
-      "type": "learning"
+      "type": "learning",
+      "title": "Post-Compaction Parallel Agent Restoration Effective"
     },
     {
       "id": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Feature Already Implemented - Pivot to Testing Instead of Re-implementing"
     },
     {
       "id": "learning-stale-context-summary-after-compaction-can-mislead",
-      "type": "learning"
+      "type": "learning",
+      "title": "Stale Context Summary After Compaction Can Mislead"
     },
     {
       "id": "gotcha-call-flag-passed-as-model-name-bug",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Feature review findings verification and fix planning"
     },
     {
       "id": "decision-review-findings-verification-consulting-specialist-agents",
-      "type": "decision"
+      "type": "decision",
+      "title": "Review findings verification - consulting specialist agents"
     },
     {
       "id": "learning-review-findings-verification-multi-perspective-analysis",
-      "type": "learning"
+      "type": "learning",
+      "title": "Review findings verification - multi-perspective analysis"
     },
     {
       "id": "learning-retro-self-referential-tool-testing-creates-productive-loops",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Self-referential tool testing creates productive loops"
     },
     {
       "id": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Consensus theatre produces louder echoes, not more accuracy"
     },
     {
       "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
-      "type": "learning"
+      "type": "learning",
+      "title": "retro: Silent error handlers hide type errors from TypeScript"
     }
   ],
   "edges": [

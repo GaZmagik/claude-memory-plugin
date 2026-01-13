@@ -90,10 +90,10 @@ Content here`
       expect(result.changes.addedToGraph).toContain('learning-test');
       expect(result.changes.addedToIndex).toContain('learning-test');
 
-      // Verify graph was updated
+      // Verify graph was updated with title
       const graphContent = fs.readFileSync(path.join(basePath, 'graph.json'), 'utf8');
       const graph = JSON.parse(graphContent);
-      expect(graph.nodes).toContainEqual({ id: 'learning-test', type: 'learning' });
+      expect(graph.nodes).toContainEqual({ id: 'learning-test', type: 'learning', title: 'Test Learning' });
     });
 
     it('should add multiple orphan files', async () => {
@@ -388,6 +388,51 @@ Content`
       const index = JSON.parse(indexContent);
       expect(index.memories).toHaveLength(1);
       expect(index.memories[0].id).toBe('learning-exists');
+    });
+  });
+
+  describe('updating incomplete graph nodes', () => {
+    it('should add title to existing nodes missing it', async () => {
+      const permanentDir = path.join(basePath, 'permanent');
+      fs.mkdirSync(permanentDir, { recursive: true });
+
+      // Create a file with title
+      fs.writeFileSync(
+        path.join(permanentDir, 'learning-incomplete.md'),
+        `---
+type: learning
+title: Complete Title
+created: 2026-01-13T00:00:00.000Z
+updated: 2026-01-13T00:00:00.000Z
+tags: []
+---
+Content`
+      );
+
+      // Create graph with node missing title
+      fs.writeFileSync(
+        path.join(basePath, 'graph.json'),
+        JSON.stringify({
+          version: 1,
+          nodes: [{ id: 'learning-incomplete', type: 'learning' }], // No title!
+          edges: [],
+        })
+      );
+
+      const request: SyncRequest = {
+        basePath,
+        dryRun: false,
+      };
+
+      const result = await syncMemories(request);
+
+      expect(result.status).toBe('success');
+
+      // Verify node now has title
+      const graphContent = fs.readFileSync(path.join(basePath, 'graph.json'), 'utf8');
+      const graph = JSON.parse(graphContent);
+      const node = graph.nodes.find((n: any) => n.id === 'learning-incomplete');
+      expect(node).toEqual({ id: 'learning-incomplete', type: 'learning', title: 'Complete Title' });
     });
   });
 

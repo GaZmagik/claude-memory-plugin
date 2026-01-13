@@ -3,8 +3,9 @@ id: learning-feature-already-implemented-pivot-to-testing-instead-of-re-implemen
 title: Feature Already Implemented - Pivot to Testing Instead of Re-implementing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T19:40:53.196Z"
-updated: "2026-01-13T19:40:53.196Z"
+updated: "2026-01-13T19:45:06.422Z"
 tags:
   - retrospective
   - process

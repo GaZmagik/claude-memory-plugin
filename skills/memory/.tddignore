@@ -16,6 +16,13 @@ src/index.ts
 src/think/index.ts
 src/types/index.ts
 src/bulk/index.ts
+src/maintenance/index.ts
+src/suggest/index.ts
+
+# Known "orphaned" test files (false positives - they test real code):
+# - maintenance.spec.ts: Integration tests for rename/move/promote/archive modules
+# - similarity.property.spec.ts: Property-based tests for similarity.ts
+# These don't follow 1:1 naming but are legitimate test files.
 
 # Pure type definition files - no runtime code
 src/types/api.ts

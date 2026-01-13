@@ -1,11 +1,16 @@
 ---
-id: retro-test-quality-2026-01-13
-type: learning
+id: retro-test-quality-audit-2026-01-13
 title: Test Quality Audit Retrospective - Property Tests Expose Contract Violations
-created: 2026-01-13T00:36:00.000Z
-updated: 2026-01-13T00:36:00.000Z
-tags: [retrospective, property-testing, test-quality, debugging]
+type: learning
 scope: project
+project: claude-memory-plugin
+created: "2026-01-13T00:36:00.000Z"
+updated: "2026-01-13T19:45:06.428Z"
+tags:
+  - retrospective
+  - property-testing
+  - test-quality
+  - debugging
 ---
 
 ## Session Insights

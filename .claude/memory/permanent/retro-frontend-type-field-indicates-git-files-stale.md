@@ -1,11 +1,16 @@
 ---
 id: retro-frontend-type-field-indicates-git-files-stale
+title: Frontend type field values indicate when git-tracked files are stale
 type: learning
-title: "Frontend type field values indicate when git-tracked files are stale"
-tags: [retrospective, process, debugging, devops]
-created: 2026-01-13T19:10:30.000Z
-updated: 2026-01-13T19:10:30.000Z
 scope: project
+project: claude-memory-plugin
+created: "2026-01-13T19:10:30.000Z"
+updated: "2026-01-13T19:45:06.424Z"
+tags:
+  - retrospective
+  - process
+  - debugging
+  - devops
 ---
 
 When the `memory list --json` command shows `type: permanent` for 34 files, but frontmatter inspection shows the correct types, the index.json is stale.

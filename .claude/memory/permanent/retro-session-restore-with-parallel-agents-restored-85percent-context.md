@@ -1,11 +1,16 @@
 ---
 id: retro-session-restore-with-parallel-agents-restored-85percent-context
+title: Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents
 type: learning
-title: "Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents"
-tags: [retrospective, process, session-continuity, agents]
-created: 2026-01-13T19:10:45.000Z
-updated: 2026-01-13T19:10:45.000Z
 scope: project
+project: claude-memory-plugin
+created: "2026-01-13T19:10:45.000Z"
+updated: "2026-01-13T19:45:06.426Z"
+tags:
+  - retrospective
+  - process
+  - session-continuity
+  - agents
 ---
 
 After compaction, launching three agents in parallel to:

@@ -3,8 +3,9 @@ id: learning-post-compaction-parallel-agent-restoration-effective
 title: Post-Compaction Parallel Agent Restoration Effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T19:40:49.598Z"
-updated: "2026-01-13T19:40:49.598Z"
+updated: "2026-01-13T19:45:06.429Z"
 tags:
   - retrospective
   - process

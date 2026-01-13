@@ -1021,6 +1021,26 @@
       "source": "retro-test-quality-audit-2026-01-13",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
+    },
+    {
+      "source": "gotcha-embeddings-cache-schema-must-match-code",
+      "target": "hub-search-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-parallel-agent-restoration-effective",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-stale-context-summary-after-compaction-can-mislead",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
     }
   ]
 }

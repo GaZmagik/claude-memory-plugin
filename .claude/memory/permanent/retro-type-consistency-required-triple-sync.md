@@ -1,11 +1,16 @@
 ---
 id: retro-type-consistency-required-triple-sync
-type: learning
 title: "Type consistency requires triple sync: frontmatter, index, graph"
-tags: [retrospective, process, memory-system, architecture]
-created: 2026-01-13T19:10:00.000Z
-updated: 2026-01-13T19:10:00.000Z
+type: learning
 scope: project
+project: claude-memory-plugin
+created: "2026-01-13T19:10:00.000Z"
+updated: "2026-01-13T19:45:06.427Z"
+tags:
+  - retrospective
+  - process
+  - memory-system
+  - architecture
 ---
 
 ## Insight

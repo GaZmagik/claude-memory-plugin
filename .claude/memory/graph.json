@@ -328,6 +328,10 @@
     {
       "id": "retro-test-quality-audit-2026-01-13",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-embeddings-cache-schema-must-match-code",
+      "type": "gotcha"
     }
   ],
   "edges": [

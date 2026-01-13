@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T19:16:12.781Z",
+  "lastUpdated": "2026-01-13T19:30:39.925Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1131,6 +1131,22 @@
       "updated": "2026-01-13T00:36:00.000Z",
       "scope": "project",
       "relativePath": "permanent/retro-test-quality-audit-2026-01-13.md"
+    },
+    {
+      "id": "gotcha-embeddings-cache-schema-must-match-code",
+      "type": "gotcha",
+      "title": "Embeddings Cache Schema Must Match Code",
+      "tags": [
+        "embedding",
+        "cache",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-13T19:30:39.922Z",
+      "updated": "2026-01-13T19:30:39.922Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-embeddings-cache-schema-must-match-code.md",
+      "severity": "medium"
     }
   ]
 }

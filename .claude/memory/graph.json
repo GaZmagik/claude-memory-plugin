@@ -356,6 +356,14 @@
     {
       "id": "learning-review-findings-verification-multi-perspective-analysis",
       "type": "learning"
+    },
+    {
+      "id": "learning-graph-test-source",
+      "type": "learning"
+    },
+    {
+      "id": "learning-graph-test-target",
+      "type": "learning"
     }
   ],
   "edges": [

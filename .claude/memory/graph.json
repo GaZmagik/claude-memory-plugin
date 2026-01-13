@@ -203,6 +203,14 @@
     {
       "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-hook-created-memories-need-linking",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -485,6 +493,81 @@
       "source": "gotcha-agents-should-be-copies-not-rewrites",
       "target": "learning-memory-context-hook-graceful-search-degradation",
       "relation": "demonstrates-correct-pattern"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-catches-architectural-assumptions-early",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-catches-architectural-assumptions-early",
+      "target": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "decision-colocate-unit-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "relates-to"
     }
   ]
 }

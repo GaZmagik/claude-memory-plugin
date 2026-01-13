@@ -775,7 +775,33 @@
       "updated": "2026-01-13T00:22:30.292Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh.md"
+    },
+    {
+      "id": "learning-retro-hook-created-memories-need-linking",
+      "title": "retro: Hook-Created Memories Not Auto-Linked Into Graph",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "hooks",
+        "memory-graph"
+      ],
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-hook-created-memories-need-linking.md"
+    },
+    {
+      "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "title": "retro: Orphaned Nodes Accumulate Post-Compaction Without Linking Step",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-graph",
+        "graph-health"
+      ],
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-orphaned-nodes-accumulate-post-compaction.md"
     }
   ],
-  "lastUpdated": "2026-01-13T00:22:30.295Z"
+  "lastUpdated": "2026-01-13T04:07:06.020Z"
 }

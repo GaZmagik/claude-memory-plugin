@@ -1,0 +1,49 @@
+# TDD Parity Exclusions for hooks
+# Paths are relative to PARENT of --src directory (hooks/)
+
+# Constants and types (no runtime logic)
+src/core/constants.ts
+src/core/types.ts
+
+# Functions tested via isolated mock-heavy test files
+# These are tested but tdd-parity can't trace vitest mock patterns
+
+# extract-context.ts - tested in extract-context.spec.ts (isolated with vitest)
+src/session/extract-context.ts:cwdToProjectPath
+src/session/extract-context.ts:findSessionJsonl
+src/session/extract-context.ts:extractSessionContext
+src/session/extract-context.ts:extractContextAsSystemPrompt
+
+# fork-detection.ts - tested in fork-detection.spec.ts (isolated with bun:test mocks)
+src/session/fork-detection.ts:hasClaudeBinary
+src/session/fork-detection.ts:getClaudeBinaryPath
+src/session/fork-detection.ts:canSpawnForkSession
+src/session/fork-detection.ts:spawnForkSession
+src/session/fork-detection.ts:createForkLogFile
+src/session/fork-detection.ts:writeForkLog
+src/session/fork-detection.ts:isForkedSession
+src/session/fork-detection.ts:getSessionId
+
+# spawn-session.ts - tested in spawn-session.spec.ts (isolated with bun:test mocks)
+src/session/spawn-session.ts:getLogDir
+src/session/spawn-session.ts:getTimestamp
+src/session/spawn-session.ts:isMemoryCaptureSession
+src/session/spawn-session.ts:spawnSessionWithContext
+
+# semantic-search.ts - requires ollama mock (tested in ollama.spec.ts for embeddings)
+src/services/semantic-search.ts:getQueryEmbedding
+src/services/semantic-search.ts:searchMemories
+src/services/semantic-search.ts:logSearchPerformance
+
+# error-handler.ts - runHook calls process.exit() making it untestable
+src/core/error-handler.ts:runHook
+
+# errors.ts - class methods tested indirectly
+src/core/errors.ts:HookError.toStderr
+src/core/errors.ts:HookError.toJSON
+
+# session-cache.ts - class methods tested via session-cache.spec.ts
+src/session/session-cache.ts:SessionCache.has
+src/session/session-cache.ts:SessionCache.add
+src/session/session-cache.ts:SessionCache.cleanup
+src/session/session-cache.ts:SessionCache.clear

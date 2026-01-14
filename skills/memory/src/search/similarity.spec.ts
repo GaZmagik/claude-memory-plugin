@@ -277,6 +277,15 @@ describe('Cosine Similarity', () => {
       expect(avgSim).toBe(0);
     });
 
+    it('should return 0 when k=0 (division by zero protection)', () => {
+      const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings, 0);
+
+      // Should handle k=0 gracefully without NaN or Infinity
+      expect(avgSim).toBe(0);
+      expect(Number.isFinite(avgSim)).toBe(true);
+      expect(Number.isNaN(avgSim)).toBe(false);
+    });
+
     it('should use default k=5 when not provided', () => {
       const avgSim = averageKNearestSimilarity('memory-1', mockEmbeddings);
 

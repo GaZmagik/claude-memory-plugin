@@ -404,6 +404,10 @@
       "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "type": "learning",
       "title": "retro: Silent error handlers hide type errors from TypeScript"
+    },
+    {
+      "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "type": "learning"
     }
   ],
   "edges": [

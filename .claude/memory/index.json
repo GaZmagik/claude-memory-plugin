@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-13T23:50:20.567Z",
+  "lastUpdated": "2026-01-14T08:24:08.936Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1276,6 +1276,19 @@
       "updated": "2026-01-13T22:26:46.311Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-silent-error-handlers-hide-type-errors-from-typescript.md"
+    },
+    {
+      "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "type": "learning",
+      "title": "TDD Parity Gap Investigation: Is 97.4% Good Enough?",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-14T08:24:08.934Z",
+      "updated": "2026-01-14T08:24:08.934Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-parity-gap-investigation-is-974-good-enough.md"
     }
   ]
 }

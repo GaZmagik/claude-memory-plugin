@@ -38,21 +38,6 @@ src/think/ai-invoke.ts:invokeAI
 src/think/ai-invoke.ts:getClaudeCliVersion
 
 # =============================================================================
-# Legitimate "orphaned" test files (alternative naming conventions)
-# =============================================================================
-
-# Property-based test files use .property.spec.ts convention
-# These test the corresponding source files but parity tool doesn't recognise suffix
-# traversal.property.spec.ts → tests graph/traversal.ts
-# similarity.property.spec.ts → tests search/similarity.ts
-src/graph/traversal.property.spec.ts
-src/search/similarity.property.spec.ts
-
-# Integration test covering multiple maintenance source files
-# Tests rename.ts, move.ts, promote.ts, archive.ts together
-src/maintenance/maintenance.spec.ts
-
-# =============================================================================
 # For --src hooks/src: Constants, types, and mock-tested functions
 # =============================================================================
 

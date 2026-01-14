@@ -1,18 +1,19 @@
 /**
- * Tests for Maintenance Operations
+ * Integration tests for Maintenance Operations
  *
  * These tests use temporary directories for real file system operations.
+ * Tests rename, move, promote, and archive operations together.
  */
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { renameMemory } from './rename.js';
-import { moveMemory } from './move.js';
-import { promoteMemory } from './promote.js';
-import { archiveMemory } from './archive.js';
-import { MemoryType, Scope } from '../types/enums.js';
+import { renameMemory } from '../../src/maintenance/rename.js';
+import { moveMemory } from '../../src/maintenance/move.js';
+import { promoteMemory } from '../../src/maintenance/promote.js';
+import { archiveMemory } from '../../src/maintenance/archive.js';
+import { MemoryType, Scope } from '../../src/types/enums.js';
 
 const MOCK_FRONTMATTER = `---
 title: Test Memory

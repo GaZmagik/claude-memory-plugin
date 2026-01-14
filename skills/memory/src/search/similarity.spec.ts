@@ -9,7 +9,6 @@ import {
   rankBySimilarity,
   averageKNearestSimilarity,
   findPotentialDuplicates,
-  type SimilarityResult,
 } from './similarity.js';
 
 describe('Cosine Similarity', () => {
@@ -510,6 +509,161 @@ describe('Cosine Similarity', () => {
 
       const similarity = cosineSimilarity(vec1, vec2);
       expect(similarity).toBeCloseTo(-1.0, 10);
+    });
+  });
+
+  /**
+   * Property-based tests for mathematical invariants
+   * Merged from similarity.property.spec.ts
+   */
+  describe('Property-based tests', () => {
+    describe('cosineSimilarity mathematical properties', () => {
+      it('should be symmetric across multiple vector pairs', () => {
+        const testCases = [
+          [[1, 0, 0], [0, 1, 0]],
+          [[1, 2, 3], [4, 5, 6]],
+          [[0.5, 0.5], [0.8, 0.2]],
+          [[1, 1, 1], [2, 2, 2]],
+        ];
+
+        for (const [vec1, vec2] of testCases) {
+          const sim1 = cosineSimilarity(vec1, vec2);
+          const sim2 = cosineSimilarity(vec2, vec1);
+          expect(sim1).toBeCloseTo(sim2, 10);
+        }
+      });
+
+      it('should return 1 for identical vectors across multiple cases', () => {
+        const testVectors = [
+          [1, 0, 0],
+          [1, 2, 3],
+          [0.5, 0.5, 0.5],
+          [10, 20, 30, 40],
+        ];
+
+        for (const vec of testVectors) {
+          const similarity = cosineSimilarity(vec, vec);
+          expect(similarity).toBeCloseTo(1, 10);
+        }
+      });
+
+      it('should return value in range [-1, 1] for all inputs', () => {
+        const testCases = [
+          [[1, 0], [0, 1]],
+          [[1, 2, 3], [4, 5, 6]],
+          [[-1, -2], [1, 2]],
+          [[100, 200], [300, 400]],
+        ];
+
+        for (const [vec1, vec2] of testCases) {
+          const similarity = cosineSimilarity(vec1, vec2);
+          expect(similarity).toBeGreaterThanOrEqual(-1);
+          expect(similarity).toBeLessThanOrEqual(1);
+        }
+      });
+
+      it('should return 0 for orthogonal vectors across multiple pairs', () => {
+        const orthogonalPairs = [
+          [[1, 0, 0], [0, 1, 0]],
+          [[1, 0], [0, 1]],
+          [[1, 1, 0], [1, -1, 0]],
+        ];
+
+        for (const [vec1, vec2] of orthogonalPairs) {
+          const similarity = cosineSimilarity(vec1, vec2);
+          expect(Math.abs(similarity)).toBeLessThan(0.0001);
+        }
+      });
+
+      it('should be scale invariant for multiple scale factors', () => {
+        const vec1 = [1, 2, 3];
+        const vec2 = [4, 5, 6];
+        const scales = [0.1, 2, 10, 100];
+
+        const baseSimilarity = cosineSimilarity(vec1, vec2);
+
+        for (const scale of scales) {
+          const scaledVec1 = vec1.map(x => x * scale);
+          const similarity = cosineSimilarity(scaledVec1, vec2);
+          expect(similarity).toBeCloseTo(baseSimilarity, 10);
+        }
+      });
+
+      it('should return -1 for opposite vectors across multiple cases', () => {
+        const testCases = [
+          [[1, 0], [-1, 0]],
+          [[1, 2, 3], [-1, -2, -3]],
+          [[5, 5, 5], [-5, -5, -5]],
+        ];
+
+        for (const [vec1, vec2] of testCases) {
+          const similarity = cosineSimilarity(vec1, vec2);
+          expect(similarity).toBeCloseTo(-1, 10);
+        }
+      });
+
+      it('should handle vectors with negative values', () => {
+        const testCases = [
+          [[-1, -2, -3], [1, 2, 3]],
+          [[-5, 10], [5, -10]],
+          [[-1, -1], [-2, -2]],
+        ];
+
+        for (const [vec1, vec2] of testCases) {
+          const similarity = cosineSimilarity(vec1, vec2);
+          expect(similarity).toBeGreaterThanOrEqual(-1);
+          expect(similarity).toBeLessThanOrEqual(1);
+        }
+      });
+
+      it('should handle mixed magnitude vectors without NaN', () => {
+        const vec1 = [1, 1000, 0.001];
+        const vec2 = [0.001, 1000, 1];
+
+        const similarity = cosineSimilarity(vec1, vec2);
+
+        expect(similarity).toBeGreaterThanOrEqual(-1);
+        expect(similarity).toBeLessThanOrEqual(1);
+        expect(isNaN(similarity)).toBe(false);
+        expect(isFinite(similarity)).toBe(true);
+      });
+    });
+
+    describe('findPotentialDuplicates properties', () => {
+      it('should never include duplicate pairs (a,b) and (b,a)', () => {
+        const embeddings = {
+          'a': [1, 0, 0],
+          'b': [0.95, 0, 0],
+          'c': [0.94, 0, 0],
+        };
+
+        const duplicates = findPotentialDuplicates(embeddings, 0.9);
+        const pairSet = new Set<string>();
+
+        for (const { id1, id2 } of duplicates) {
+          const normalizedPair = [id1, id2].sort().join(',');
+          expect(pairSet.has(normalizedPair)).toBe(false);
+          pairSet.add(normalizedPair);
+        }
+      });
+    });
+
+    describe('findSimilarMemories properties', () => {
+      it('should handle similarity values across full range', () => {
+        const queryEmbedding = [1, 0, 0];
+        const embeddings = {
+          'opposite': [-1, 0, 0],
+          'orthogonal': [0, 1, 0],
+          'similar': [0.9, 0, 0],
+        };
+
+        const results = findSimilarMemories(queryEmbedding, embeddings, 0);
+
+        for (const result of results) {
+          expect(result.similarity).toBeGreaterThanOrEqual(-1);
+          expect(result.similarity).toBeLessThanOrEqual(1);
+        }
+      });
     });
   });
 });

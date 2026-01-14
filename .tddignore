@@ -7,19 +7,50 @@
 # For --src skills/memory/src: Re-export and type-only files
 # =============================================================================
 
-# Re-export index files (no logic to test)
+# Re-export index files (no logic to test - only re-export other modules)
 src/index.ts
 src/types/index.ts
 src/think/index.ts
+src/bulk/index.ts
+src/maintenance/index.ts
+src/suggest/index.ts
 
-# Type definition files (no runtime code)
+# Type definition files (no runtime code - TypeScript interfaces/types only)
 src/types/api.ts
+src/types/operations.ts
+src/types/think.ts
 
 # Functions tested in different files (cross-file coverage)
 # slugify - tested indirectly via generateSlug in slug.spec.ts
 src/core/slug.ts:slugify
 # validateMemory - tested in types/memory.spec.ts (6 test cases)
 src/core/validation.ts:validateMemory
+
+# Stdin reading functions (require mocking process.stdin which is fragile)
+# These read raw input from stdin - testing would require complex stream mocking
+src/cli/parser.ts:readStdinJson
+src/cli/parser.ts:readStdinRaw
+
+# External CLI invocation (calls Claude CLI binary - untestable without E2E)
+# invokeAI spawns a child process running the claude CLI
+# getClaudeCliVersion executes claude --version
+src/think/ai-invoke.ts:invokeAI
+src/think/ai-invoke.ts:getClaudeCliVersion
+
+# =============================================================================
+# Legitimate "orphaned" test files (alternative naming conventions)
+# =============================================================================
+
+# Property-based test files use .property.spec.ts convention
+# These test the corresponding source files but parity tool doesn't recognise suffix
+# traversal.property.spec.ts → tests graph/traversal.ts
+# similarity.property.spec.ts → tests search/similarity.ts
+src/graph/traversal.property.spec.ts
+src/search/similarity.property.spec.ts
+
+# Integration test covering multiple maintenance source files
+# Tests rename.ts, move.ts, promote.ts, archive.ts together
+src/maintenance/maintenance.spec.ts
 
 # =============================================================================
 # For --src hooks/src: Constants, types, and mock-tested functions

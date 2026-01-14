@@ -621,3 +621,104 @@ describe('calculateImpact', () => {
     expect(result.orphanedNodes).not.toContain('d');
   });
 });
+
+// =============================================================================
+// Property-Based Tests (mathematical invariants)
+// =============================================================================
+
+describe('Graph Traversal Properties', () => {
+  // Helper for property tests
+  function createPropertyGraph(nodeIds: string[], edges: Array<[string, string]>): MemoryGraph {
+    return {
+      version: 1,
+      nodes: nodeIds.map(id => ({ id, type: 'learning' })),
+      edges: edges.map(([source, target]) => ({ source, target, label: 'related' })),
+    };
+  }
+
+  describe('bfsTraversal properties', () => {
+    it('should never contain duplicate nodes', () => {
+      const graph = createPropertyGraph(
+        ['a', 'b', 'c', 'd'],
+        [['a', 'b'], ['a', 'c'], ['b', 'd'], ['c', 'd']] // Diamond pattern
+      );
+      const result = bfsTraversal(graph, 'a');
+      const uniqueNodes = new Set(result.visited);
+      expect(result.visited.length).toBe(uniqueNodes.size);
+    });
+
+    it('should assign monotonically increasing depths from start', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd'], [['a', 'b'], ['b', 'c'], ['c', 'd']]);
+      const result = bfsTraversal(graph, 'a');
+      expect(result.depths.get('a')).toBe(0);
+      for (let i = 1; i < result.visited.length; i++) {
+        expect(result.depths.get(result.visited[i])!).toBeGreaterThan(0);
+      }
+    });
+  });
+
+  describe('dfsTraversal properties', () => {
+    it('should visit same nodes as BFS (just different order)', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd'], [['a', 'b'], ['a', 'c'], ['b', 'd'], ['c', 'd']]);
+      const bfsResult = bfsTraversal(graph, 'a');
+      const dfsResult = dfsTraversal(graph, 'a');
+      expect(new Set(bfsResult.visited)).toEqual(new Set(dfsResult.visited));
+    });
+  });
+
+  describe('findShortestPath properties', () => {
+    it('should return valid path where all edges exist', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd'], [['a', 'b'], ['b', 'c'], ['c', 'd']]);
+      const path = findShortestPath(graph, 'a', 'd');
+      expect(path).not.toBeNull();
+      for (let i = 0; i < path!.length - 1; i++) {
+        const edgeExists = graph.edges.some(e => e.source === path![i] && e.target === path![i + 1]);
+        expect(edgeExists).toBe(true);
+      }
+    });
+  });
+
+  describe('findConnectedComponents properties', () => {
+    it('should partition nodes into disjoint sets', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd'], [['a', 'b'], ['c', 'd']]);
+      const components = findConnectedComponents(graph);
+      const allNodes = components.flat();
+      const uniqueNodes = new Set(allNodes);
+      expect(allNodes.length).toBe(uniqueNodes.size);
+    });
+
+    it('should cover all nodes', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd', 'e'], [['a', 'b'], ['c', 'd']]);
+      const components = findConnectedComponents(graph);
+      const allNodes = new Set(components.flat());
+      expect(allNodes.size).toBe(graph.nodes.length);
+    });
+  });
+
+  describe('findReachable properties', () => {
+    it('should always include start node (reflexivity)', () => {
+      const graph = createPropertyGraph(['a'], []);
+      expect(findReachable(graph, 'a')).toContain('a');
+    });
+
+    it('should respect edge direction (no reverse traversal)', () => {
+      const graph = createPropertyGraph(['a', 'b'], [['a', 'b']]);
+      expect(findReachable(graph, 'a')).toContain('b');
+      expect(findReachable(graph, 'b')).not.toContain('a');
+    });
+
+    it('should be transitive', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c'], [['a', 'b'], ['b', 'c']]);
+      expect(findReachable(graph, 'a')).toContain('c');
+    });
+  });
+
+  describe('getSubgraph properties', () => {
+    it('should only include edges between included nodes', () => {
+      const graph = createPropertyGraph(['a', 'b', 'c', 'd'], [['a', 'b'], ['b', 'c'], ['c', 'd']]);
+      const subgraph = getSubgraph(graph, 'a', 1);
+      expect(subgraph.edges.some(e => e.source === 'a' && e.target === 'b')).toBe(true);
+      expect(subgraph.edges.some(e => e.source === 'b' && e.target === 'c')).toBe(false);
+    });
+  });
+});

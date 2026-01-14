@@ -22,6 +22,8 @@ import {
   resolvePath,
   getBasename,
   isInsideDir,
+  isSymlink,
+  validateSymlinkTarget,
 } from './fs-utils.js';
 
 describe('File System Utilities', () => {
@@ -342,6 +344,90 @@ describe('File System Utilities', () => {
       const targetPath = '/etc/config';
 
       expect(isInsideDir(dirPath, targetPath)).toBe(false);
+    });
+  });
+
+  describe('isSymlink', () => {
+    it('should return true for symlink', () => {
+      const targetFile = path.join(testDir, 'target.txt');
+      const symlinkPath = path.join(testDir, 'link.txt');
+      fs.writeFileSync(targetFile, 'content');
+      fs.symlinkSync(targetFile, symlinkPath);
+
+      expect(isSymlink(symlinkPath)).toBe(true);
+    });
+
+    it('should return false for regular file', () => {
+      const filePath = path.join(testDir, 'regular.txt');
+      fs.writeFileSync(filePath, 'content');
+
+      expect(isSymlink(filePath)).toBe(false);
+    });
+
+    it('should return false for directory', () => {
+      const dirPath = path.join(testDir, 'subdir');
+      fs.mkdirSync(dirPath);
+
+      expect(isSymlink(dirPath)).toBe(false);
+    });
+
+    it('should return false for non-existent path', () => {
+      expect(isSymlink(path.join(testDir, 'missing'))).toBe(false);
+    });
+  });
+
+  describe('validateSymlinkTarget', () => {
+    it('should return path as-is for regular file', () => {
+      const filePath = path.join(testDir, 'regular.txt');
+      fs.writeFileSync(filePath, 'content');
+
+      const result = validateSymlinkTarget(filePath, testDir);
+
+      expect(result).toBe(filePath);
+    });
+
+    it('should return resolved path for symlink within allowed dir', () => {
+      const targetFile = path.join(testDir, 'target.txt');
+      const symlinkPath = path.join(testDir, 'link.txt');
+      fs.writeFileSync(targetFile, 'content');
+      fs.symlinkSync(targetFile, symlinkPath);
+
+      const result = validateSymlinkTarget(symlinkPath, testDir);
+
+      expect(result).toBe(fs.realpathSync(targetFile));
+    });
+
+    it('should throw for symlink pointing outside allowed dir', () => {
+      // Create a file outside testDir
+      const outsideDir = fs.mkdtempSync(path.join(os.tmpdir(), 'outside-'));
+      const outsideFile = path.join(outsideDir, 'external.txt');
+      fs.writeFileSync(outsideFile, 'external content');
+
+      // Create symlink inside testDir pointing to outside
+      const symlinkPath = path.join(testDir, 'evil-link.txt');
+      fs.symlinkSync(outsideFile, symlinkPath);
+
+      try {
+        expect(() => validateSymlinkTarget(symlinkPath, testDir)).toThrow(
+          /Symlink target outside allowed directory/
+        );
+      } finally {
+        fs.rmSync(outsideDir, { recursive: true, force: true });
+      }
+    });
+
+    it('should handle nested symlinks within allowed dir', () => {
+      const subdir = path.join(testDir, 'subdir');
+      fs.mkdirSync(subdir);
+      const targetFile = path.join(subdir, 'nested.txt');
+      fs.writeFileSync(targetFile, 'nested content');
+
+      const symlinkPath = path.join(testDir, 'nested-link.txt');
+      fs.symlinkSync(targetFile, symlinkPath);
+
+      const result = validateSymlinkTarget(symlinkPath, testDir);
+
+      expect(result).toBe(fs.realpathSync(targetFile));
     });
   });
 });

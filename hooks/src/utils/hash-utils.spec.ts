@@ -281,6 +281,70 @@ describe('hash-utils', () => {
     });
   });
 
+/**
+   * Property-based tests for hash function invariants
+   * Merged from hash-utils.property.spec.ts
+   */
+  describe('Hash Function Properties', () => {
+    // Generate test strings of varying lengths and characters
+    const testStrings = [
+      '',
+      'a',
+      'hello',
+      'Hello World',
+      'the quick brown fox jumps over the lazy dog',
+      '!@#$%^&*()',
+      '日本語テスト',
+      '🎉🚀💻',
+      'a'.repeat(1000),
+      'b'.repeat(10000),
+      Array.from({ length: 100 }, () => Math.random().toString(36)).join(''),
+    ];
+
+    it('md5 should be deterministic across diverse inputs', () => {
+      for (const input of testStrings) {
+        expect(md5(input)).toBe(md5(input));
+      }
+    });
+
+    it('sha256 should be deterministic across diverse inputs', () => {
+      for (const input of testStrings) {
+        expect(sha256(input)).toBe(sha256(input));
+      }
+    });
+
+    it('md5 should produce unique hashes for all test strings', () => {
+      const hashes = new Set(testStrings.map(md5));
+      expect(hashes.size).toBe(testStrings.length);
+    });
+
+    it('sha256 should produce unique hashes for all test strings', () => {
+      const hashes = new Set(testStrings.map(sha256));
+      expect(hashes.size).toBe(testStrings.length);
+    });
+
+    it('gotchaCacheKey should not be commutative', () => {
+      const key1 = gotchaCacheKey('topic', 'summary');
+      const key2 = gotchaCacheKey('summary', 'topic');
+      expect(key1).not.toBe(key2);
+    });
+
+    it('compositeKey should produce different keys for different orderings', () => {
+      const key1 = compositeKey('a', 'b', 'c');
+      const key2 = compositeKey('c', 'b', 'a');
+      const key3 = compositeKey('b', 'a', 'c');
+
+      expect(key1).not.toBe(key2);
+      expect(key1).not.toBe(key3);
+    });
+
+    it('compositeKey should handle edge cases consistently', () => {
+      expect(compositeKey()).toBe(compositeKey()); // No args
+      expect(compositeKey('')).toBe(compositeKey('')); // Single empty
+      expect(compositeKey('|')).toBe(compositeKey('|')); // Separator char
+    });
+  });
+
   describe('hash collision resistance', () => {
     it('should handle similar inputs without collision', () => {
       const hashes = [

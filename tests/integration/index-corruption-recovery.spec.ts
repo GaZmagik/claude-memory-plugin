@@ -120,15 +120,15 @@ describe('Index Corruption Recovery', () => {
       // Write array instead of object
       fs.writeFileSync(indexPath, '["not", "an", "object"]');
 
-      // loadIndex returns whatever JSON parses to - doesn't validate shape
-      // Array parsed from JSON won't have entries property as an array
+      // loadIndex now validates structure and returns empty index for invalid shapes
       const loaded = await loadIndex({ basePath: testDir });
-      expect(Array.isArray(loaded)).toBe(true);
+      expect(loaded).toBeDefined();
+      expect(Array.isArray(loaded.memories)).toBe(true);
+      expect(loaded.memories).toHaveLength(0);
 
-      // rebuildIndex fails when existing index has wrong shape (no entries array)
-      // The implementation tries to access existingIndex.entries.map() which throws
+      // rebuildIndex should succeed and recover the memory from disk
       const rebuildResult = await rebuildIndex({ basePath: testDir });
-      expect(rebuildResult.status).toBe('error');
+      expect(rebuildResult.status).toBe('success');
     });
   });
 
@@ -169,14 +169,15 @@ describe('Index Corruption Recovery', () => {
         lastUpdated: new Date().toISOString(),
       }));
 
+      // loadIndex now validates structure and returns empty index for missing memories array
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded).toBeDefined();
-      expect(loaded.memories).toBeUndefined(); // No entries array in corrupted index
+      expect(Array.isArray(loaded.memories)).toBe(true);
+      expect(loaded.memories).toHaveLength(0);
 
-      // rebuildIndex fails when existing index has no entries array
-      // The implementation tries to access existingIndex.entries.map() which throws
+      // rebuildIndex should succeed and recover the memory from disk
       const rebuildResult = await rebuildIndex({ basePath: testDir });
-      expect(rebuildResult.status).toBe('error');
+      expect(rebuildResult.status).toBe('success');
     });
 
     it('should handle entries with missing required fields', async () => {

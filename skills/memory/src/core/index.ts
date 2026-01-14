@@ -76,8 +76,17 @@ export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex>
     return createEmptyIndex();
   }
 
+  // Validate index structure - must have memories array
+  if (!Array.isArray(index.memories)) {
+    log.warn('Index has invalid structure (missing memories array), returning empty', { path: indexPath });
+    return createEmptyIndex();
+  }
+
   // Migrate legacy entries that have 'file' instead of 'relativePath'
-  index.memories = index.memories.map(entry => migrateIndexEntry(entry, basePath));
+  // Filter out null/invalid entries before migration
+  index.memories = index.memories
+    .filter(entry => entry && typeof entry === 'object' && typeof entry.id === 'string')
+    .map(entry => migrateIndexEntry(entry, basePath));
 
   return index;
 }

@@ -143,13 +143,19 @@ export async function addThought(
       }
 
       thoughtContent = aiResult.content ?? '';
-      // Auto-set attribution with model and session ID
+      // Auto-set attribution with model, style, and session ID
       const model = request.call.model ?? 'haiku';
-      attribution = aiResult.sessionId
-        ? `claude:${model} [${aiResult.sessionId}]`
-        : `claude:${model}`;
+      const style = request.call.outputStyle;
+      const agent = request.call.agent;
 
-      log.info('AI thought generated', { documentId, sessionId: aiResult.sessionId });
+      // Build attribution string with explicit labels: model:X style:Y agent:Z [session]
+      const parts: string[] = [`model:${model}`];
+      if (style) parts.push(`style:${style}`);
+      if (agent) parts.push(`agent:${agent}`);
+      if (aiResult.sessionId) parts.push(`[${aiResult.sessionId}]`);
+      attribution = parts.join(' ');
+
+      log.info('AI thought generated', { documentId, sessionId: aiResult.sessionId, style, agent });
     }
 
     const timestamp = new Date().toISOString();
@@ -163,6 +169,16 @@ export async function addThought(
 
     if (attribution) {
       entry.by = attribution;
+    }
+
+    // Add AI metadata if this was an AI-generated thought
+    if (request.call) {
+      if (request.call.outputStyle) {
+        entry.outputStyle = request.call.outputStyle;
+      }
+      if (request.call.agent) {
+        entry.agent = request.call.agent;
+      }
     }
 
     // Format the thought as markdown
@@ -185,12 +201,7 @@ export async function addThought(
 
     return {
       status: 'success',
-      thought: {
-        timestamp,
-        type: request.type,
-        content: thoughtContent,
-        by: attribution,
-      },
+      thought: entry,
       documentId,
     };
   } catch (error) {

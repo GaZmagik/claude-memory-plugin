@@ -29,7 +29,14 @@ describe('start-memory-index hook', () => {
       expect(result.exitCode).toBe(0);
     });
 
-    it('should return valid JSON when memory index exists', async () => {
+    it('should return JSON with hookSpecificOutput when memory index exists', async () => {
+      const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
+      if (!existsSync(localIndex)) {
+        // Skip if no index - test requires memory index to exist
+        expect(true).toBe(true);
+        return;
+      }
+
       const result = await spawn(['bun', HOOK_PATH], {
         stdin: JSON.stringify({
           hook_event_name: 'SessionStart',
@@ -39,13 +46,40 @@ describe('start-memory-index hook', () => {
         timeout: 15000,
       });
 
-      // Hook may return empty or JSON depending on index presence
-      if (result.stdout.trim()) {
-        // If there's output, it should be parseable or contain memory info
-        const hasMemoryInfo = result.stdout.includes('Memory Index') ||
-                             result.stdout.includes('hookSpecificOutput');
-        expect(hasMemoryInfo || result.stdout.trim() === '').toBe(true);
+      expect(result.success).toBe(true);
+      expect(result.stdout.trim()).not.toBe('');
+
+      // Parse JSON output and validate structure
+      const output = JSON.parse(result.stdout);
+      expect(output).toHaveProperty('hookSpecificOutput');
+      expect(output.hookSpecificOutput).toHaveProperty('additionalContext');
+      expect(output.hookSpecificOutput.additionalContext).toContain('Memory Index Available');
+    });
+
+    it('should include memory counts in summary when index exists', async () => {
+      const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
+      if (!existsSync(localIndex)) {
+        expect(true).toBe(true);
+        return;
       }
+
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-session-123',
+          cwd: process.cwd(),
+        }),
+        timeout: 15000,
+      });
+
+      // Parse JSON and get the additionalContext
+      const output = JSON.parse(result.stdout);
+      const context = output.hookSpecificOutput.additionalContext;
+
+      // Should contain memory type counts
+      expect(context).toMatch(/Decisions: \d+/);
+      expect(context).toMatch(/Learnings: \d+/);
+      expect(context).toMatch(/Artifacts: \d+/);
     });
   });
 
@@ -140,6 +174,87 @@ describe('start-memory-index hook', () => {
         // This would indicate prune output leaked to agent - unexpected but not fatal
         expect(result.stdout).not.toContain('expired temporary');
       }
+    });
+  });
+
+  describe('error resilience', () => {
+    it('should handle malformed JSON input gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: '{"unclosed": ',
+        timeout: 5000,
+      });
+
+      // Should not crash or hang
+      expect(result.timedOut).toBe(false);
+      // Hook should allow by default on parse error
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should handle empty stdin gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: '',
+        timeout: 5000,
+      });
+
+      expect(result.timedOut).toBe(false);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should handle missing session_id gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          cwd: process.cwd(),
+        }),
+        timeout: 15000,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should handle missing cwd gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-no-cwd',
+        }),
+        timeout: 15000,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should handle invalid cwd path gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-bad-cwd',
+          cwd: '/nonexistent/path/that/does/not/exist',
+        }),
+        timeout: 15000,
+      });
+
+      // Should still succeed - hook should handle missing directories
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should handle extra/unexpected fields gracefully', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-extra-fields',
+          cwd: process.cwd(),
+          unexpected_field: 'should be ignored',
+          another_field: { nested: true },
+        }),
+        timeout: 15000,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
     });
   });
 });

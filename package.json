@@ -11,7 +11,8 @@
   "scripts": {
     "postinstall": "bun link",
     "dev": "tsx watch skills/memory/src/index.ts",
-    "build": "tsc",
+    "build": "tsc --noEmit -p tsconfig.build.json",
+    "build:dist": "bun build skills/memory/src/cli.ts --outdir=./lib --target=node",
     "test": "bun run test:clean && bun run test:isolated",
     "test:clean": "bun test skills/memory/src/ hooks/src/core/ hooks/src/services/semantic-search.spec.ts hooks/src/utils/ hooks/src/memory/directory-protection.spec.ts hooks/src/memory/pattern-matcher.spec.ts hooks/src/memory/relevance-scorer.spec.ts hooks/src/memory/topic-classifier.spec.ts hooks/src/session/session-cache.spec.ts hooks/src/session/session-state.spec.ts tests/integration/",
     "test:isolated": "bunx vitest run hooks/src/memory/gotcha-injector.spec.ts hooks/src/session/extract-context.spec.ts hooks/src/services/ollama.spec.ts && bun test hooks/src/session/fork-detection.spec.ts && bun test hooks/src/session/spawn-session.spec.ts",

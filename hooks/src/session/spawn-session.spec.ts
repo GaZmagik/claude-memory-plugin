@@ -113,7 +113,7 @@ describe('spawn-session', () => {
       await spawnSessionWithContext({
         sessionId: 'test-session-123',
         cwd: '/home/user/project',
-        prompt: '/memory:memory-commit',
+        prompt: '/memory:commit',
         contextPrompt: 'Session context here',
         logPrefix: 'memory-capture',
       });
@@ -133,7 +133,7 @@ describe('spawn-session', () => {
       await spawnSessionWithContext({
         sessionId: 'test-session-123',
         cwd: '/home/user/project',
-        prompt: '/memory:memory-commit',
+        prompt: '/memory:commit',
         contextPrompt: 'My conversation context',
         logPrefix: 'test',
       });
@@ -152,7 +152,7 @@ describe('spawn-session', () => {
       await spawnSessionWithContext({
         sessionId: 'test-session',
         cwd: '/project',
-        prompt: '/memory:memory-commit',
+        prompt: '/memory:commit',
         contextPrompt: 'Context',
         logPrefix: 'test',
       });
@@ -165,7 +165,7 @@ describe('spawn-session', () => {
           '300', // timeout
           'claude-haiku-4-5-20251001', // model
           'Bash,Read,Grep,Glob,TodoWrite', // tools
-          '/memory:memory-commit', // prompt
+          '/memory:commit', // prompt
           '/project', // cwd
         ]),
         expect.objectContaining({
@@ -299,7 +299,7 @@ describe('spawn-session', () => {
     it('should pass special characters in prompt without shell escaping', async () => {
       mockExistsSync.mockReturnValue(true);
 
-      const prompt = "/memory:memory-commit msg='test with quotes'";
+      const prompt = "/memory:commit msg='test with quotes'";
       await spawnSessionWithContext({
         sessionId: 'test',
         cwd: '/project',

@@ -27,11 +27,11 @@ describe('SessionEnd Memory Cleanup Hook', () => {
   });
 
   describe('command invocation', () => {
-    it('should use namespaced command /memory:memory-commit', () => {
+    it('should use namespaced command /memory:commit', () => {
       // The hook should use the namespaced command format
-      // Format: /memory:memory-commit session-end-trigger=<reason>
-      const expectedPattern = /^\/memory:memory-commit session-end-trigger=/;
-      expect(expectedPattern.test('/memory:memory-commit session-end-trigger=clear')).toBe(true);
+      // Format: /memory:commit session-end-trigger=<reason>
+      const expectedPattern = /^\/memory:commit session-end-trigger=/;
+      expect(expectedPattern.test('/memory:commit session-end-trigger=clear')).toBe(true);
       expect(expectedPattern.test('/memory-commit session-end-trigger=clear')).toBe(false);
     });
   });

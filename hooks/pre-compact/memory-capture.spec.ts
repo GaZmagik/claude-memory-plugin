@@ -28,11 +28,11 @@ describe('PreCompact Memory Capture Hook', () => {
   });
 
   describe('command invocation', () => {
-    it('should use namespaced command /memory:memory-commit', () => {
+    it('should use namespaced command /memory:commit', () => {
       // The hook should use the namespaced command format
-      // Format: /memory:memory-commit precompact-trigger=<trigger>
-      const expectedPattern = /^\/memory:memory-commit precompact-trigger=/;
-      expect(expectedPattern.test('/memory:memory-commit precompact-trigger=auto')).toBe(true);
+      // Format: /memory:commit precompact-trigger=<trigger>
+      const expectedPattern = /^\/memory:commit precompact-trigger=/;
+      expect(expectedPattern.test('/memory:commit precompact-trigger=auto')).toBe(true);
       expect(expectedPattern.test('/memory-commit precompact-trigger=auto')).toBe(false);
     });
   });

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-15T18:46:20.686Z",
+  "lastUpdated": "2026-01-15T19:44:49.358Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1417,6 +1417,19 @@
       "updated": "2026-01-15T18:46:20.683Z",
       "scope": "project",
       "relativePath": "permanent/learning-performance-constraints-should-be-documented-upfront.md"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-plan-review",
+      "type": "decision",
+      "title": "Memory Hook Enhancement Plan Review",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-15T19:44:49.357Z",
+      "updated": "2026-01-15T19:44:49.357Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-memory-hook-enhancement-plan-review.md"
     }
   ]
 }

@@ -440,6 +440,10 @@
     {
       "id": "learning-performance-constraints-should-be-documented-upfront",
       "type": "learning"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-plan-review",
+      "type": "decision"
     }
   ],
   "edges": [

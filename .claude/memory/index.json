@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-14T08:24:08.936Z",
+  "lastUpdated": "2026-01-15T08:03:39.066Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1289,6 +1289,54 @@
       "updated": "2026-01-14T08:24:08.934Z",
       "scope": "project",
       "relativePath": "permanent/learning-tdd-parity-gap-investigation-is-974-good-enough.md"
+    },
+    {
+      "id": "learning-tool-defaults-need-project-aware-discovery",
+      "type": "learning",
+      "title": "Tool defaults need project-aware discovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "tooling",
+        "discovery",
+        "project"
+      ],
+      "created": "2026-01-15T08:03:26.660Z",
+      "updated": "2026-01-15T08:03:26.660Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tool-defaults-need-project-aware-discovery.md"
+    },
+    {
+      "id": "learning-typescript-overload-detection-bias-tests",
+      "type": "learning",
+      "title": "TypeScript overload detection bias tests",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-15T08:03:34.531Z",
+      "updated": "2026-01-15T08:03:34.531Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-overload-detection-bias-tests.md"
+    },
+    {
+      "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "type": "learning",
+      "title": "Feature automation should verify existing capability before implementing",
+      "tags": [
+        "retrospective",
+        "process",
+        "analysis",
+        "duplication",
+        "project"
+      ],
+      "created": "2026-01-15T08:03:39.063Z",
+      "updated": "2026-01-15T08:03:39.063Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-feature-automation-should-verify-existing-capability-before-implementing.md"
     }
   ]
 }

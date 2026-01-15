@@ -408,6 +408,18 @@
     {
       "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
       "type": "learning"
+    },
+    {
+      "id": "learning-tool-defaults-need-project-aware-discovery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-typescript-overload-detection-bias-tests",
+      "type": "learning"
+    },
+    {
+      "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1134,6 +1146,31 @@
     {
       "source": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-typescript-overload-detection-bias-tests",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-typescript-overload-detection-bias-tests",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "target": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
       "label": "relates-to"
     }
   ]

@@ -80,11 +80,12 @@ claude-memory-plugin/
 │   ├── session-end/       # Cleanup on /clear command
 │   └── pre-compact/       # Capture memories before compaction
 ├── agents/                # Advanced memory agents
-│   ├── memory-recall.md   # Query and restore memory context
-│   └── memory-curator.md  # Audit memory graph health
+│   ├── recall.md          # Query and restore memory context
+│   └── curator.md         # Audit memory graph health
 └── commands/              # Slash commands
     ├── check-gotchas.md   # Search for relevant warnings
-    └── check-memory-health.md  # Inspect memory system
+    ├── check-health.md    # Inspect memory system
+    └── commit.md          # Capture memories before compaction
 ```
 
 ## Key Features
@@ -206,17 +207,26 @@ tags: [react, error-handling]
 Find relevant warnings for your current work:
 
 ```bash
-/check-gotchas typescript
-/check-gotchas
+/memory:check-gotchas typescript
+/memory:check-gotchas
 ```
 
-### Check Memory Health
+### Check Health
 
 Inspect the memory system:
 
 ```bash
-/check-memory-health local
-/check-memory-health --fix
+/memory:check-health local
+/memory:check-health --fix
+```
+
+### Commit Memories
+
+Capture memories before compaction or at session end:
+
+```bash
+/memory:commit precompact-trigger=context_threshold
+/memory:commit session-end-trigger=user_clear
 ```
 
 ## Memory Skill Reference

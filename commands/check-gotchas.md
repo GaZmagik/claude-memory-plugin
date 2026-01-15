@@ -138,10 +138,10 @@ Execute searches across all accessible scopes:
 
 Search raw learnings in ALL accessible scopes for additional gotchas **not already in any hub**.
 
-Use the **memory-recall agent** to find applicable warnings:
+Use the **memory:recall agent** to find applicable warnings:
 
 ```
-Invoke Task tool with subagent_type=memory-recall:
+Invoke Task tool with subagent_type=memory:recall:
 
 "Search memory for gotchas, warnings, and learnings relevant to this work context.
 
@@ -492,7 +492,7 @@ As you work, document gotchas using:
 - Gotchas are deduplicated by memory ID (highest precedence scope wins)
 - Hub provides curated, severity-ranked gotchas; raw search finds additional matches
 - Effectiveness depends on documented learnings in memory
-- Use **memory-recall agent** for intelligent pattern matching
+- Use **memory:recall agent** for intelligent pattern matching
 - Can run anytime - doesn't require staged changes
 - Best used proactively before starting work, not just before committing
 - Recurring gotchas indicate need for automation (hooks/linters/skills)

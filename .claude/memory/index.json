@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-15T08:03:39.066Z",
+  "lastUpdated": "2026-01-15T18:02:43.949Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1337,6 +1337,38 @@
       "updated": "2026-01-15T08:03:39.063Z",
       "scope": "project",
       "relativePath": "permanent/learning-feature-automation-should-verify-existing-capability-before-implementing.md"
+    },
+    {
+      "id": "learning-test-setup-validation-prevents-false-failures",
+      "type": "learning",
+      "title": "Test setup validation prevents false failures",
+      "tags": [
+        "retrospective",
+        "testing",
+        "workflows",
+        "high",
+        "project"
+      ],
+      "created": "2026-01-15T18:02:39.051Z",
+      "updated": "2026-01-15T18:02:39.051Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-setup-validation-prevents-false-failures.md"
+    },
+    {
+      "id": "learning-spec-documents-can-drift-from-implementation-state",
+      "type": "learning",
+      "title": "Spec documents can drift from implementation state",
+      "tags": [
+        "retrospective",
+        "documentation",
+        "maintenance",
+        "medium",
+        "project"
+      ],
+      "created": "2026-01-15T18:02:43.946Z",
+      "updated": "2026-01-15T18:02:43.946Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-spec-documents-can-drift-from-implementation-state.md"
     }
   ]
 }

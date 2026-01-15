@@ -420,6 +420,14 @@
     {
       "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
       "type": "learning"
+    },
+    {
+      "id": "learning-test-setup-validation-prevents-false-failures",
+      "type": "learning"
+    },
+    {
+      "id": "learning-spec-documents-can-drift-from-implementation-state",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1171,6 +1179,26 @@
     {
       "source": "learning-feature-automation-should-verify-existing-capability-before-implementing",
       "target": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-spec-documents-can-drift-from-implementation-state",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-spec-documents-can-drift-from-implementation-state",
+      "target": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
       "label": "relates-to"
     }
   ]

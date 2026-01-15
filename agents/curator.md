@@ -314,14 +314,14 @@ Only read full memory content when:
 
 This agent is called by:
 1. `/prepare-handover` command (before git commit)
-2. Manual invocation for deep analysis: `claude -a memory-curator "health check"`
-3. Specific mode invocation: `claude -a memory-curator "validate handover"`
-4. Link suggestions: `claude -a memory-curator "suggest links for decision-X"`
+2. Manual invocation for deep analysis: `claude -a memory:curator "health check"`
+3. Specific mode invocation: `claude -a memory:curator "validate handover"`
+4. Link suggestions: `claude -a memory:curator "suggest links for decision-X"`
 
 **Duplicate Prevention Integration:**
-- The memory-curator acts as a **detection layer** that catches duplicates that slip through
+- The memory:curator acts as a **detection layer** that catches duplicates that slip through
 - The memory script has **prevention layer** that blocks duplicate IDs at write time
-- If memory-curator finds duplicate IDs, this indicates a bug in memory that needs fixing
+- If memory:curator finds duplicate IDs, this indicates a bug in memory that needs fixing
 - Duplicate titles and similar content are legitimate scenarios that only need warnings/suggestions
 
 ## Example Workflows

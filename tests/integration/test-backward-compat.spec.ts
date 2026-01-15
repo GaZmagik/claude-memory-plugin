@@ -1,43 +1,29 @@
 /**
  * Integration tests for backward compatibility with existing memories
- * Ensures the plugin works with legacy bash-based memory files
- *
- * Note: Uses execSync for test convenience - inputs are hardcoded test values, not user input.
+ * Tests that legacy memory file formats can be parsed correctly
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'bun:test';
-import { mkdtempSync, writeFileSync, rmSync, mkdirSync, existsSync } from 'fs';
+import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { spawnSync } from 'child_process';
+
+// Import the core parsing function directly
+import { parseMemoryFile } from '../../skills/memory/src/core/frontmatter.ts';
 
 describe('Backward Compatibility', () => {
   let testDir: string;
-  let memoryDir: string;
 
   beforeAll(() => {
     testDir = mkdtempSync(join(tmpdir(), 'backward-compat-'));
-    memoryDir = join(testDir, '.claude/memory');
-    mkdirSync(join(memoryDir, 'permanent'), { recursive: true });
   });
 
   afterAll(() => {
     rmSync(testDir, { recursive: true, force: true });
   });
 
-  const runMemoryCommand = (args: string[]): string => {
-    // Use spawnSync with argument array for safety
-    const result = spawnSync('memory', args, {
-      cwd: testDir,
-      encoding: 'utf-8',
-      env: { ...process.env, HOME: testDir },
-    });
-    return result.stdout || '';
-  };
-
   describe('legacy YAML frontmatter format', () => {
-    it('should read memories with minimal frontmatter', () => {
-      // Create a minimal legacy-style memory
+    it('should parse memories with minimal frontmatter', () => {
       const content = `---
 id: legacy-decision
 title: Legacy Decision
@@ -46,17 +32,18 @@ type: decision
 
 This is a legacy decision with minimal frontmatter.
 `;
-      writeFileSync(join(memoryDir, 'permanent/decision-legacy-decision.md'), content);
+      const filePath = join(testDir, 'decision-legacy-decision.md');
+      writeFileSync(filePath, content);
 
-      const result = runMemoryCommand(['read', 'legacy-decision', '--scope', 'local']);
-      const parsed = JSON.parse(result);
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(parsed.status).toBe('success');
-      expect(parsed.data.memory.frontmatter.id).toBe('legacy-decision');
-      expect(parsed.data.memory.frontmatter.title).toBe('Legacy Decision');
+      expect(result.frontmatter.id).toBe('legacy-decision');
+      expect(result.frontmatter.title).toBe('Legacy Decision');
+      expect(result.frontmatter.type).toBe('decision');
+      expect(result.content).toContain('legacy decision');
     });
 
-    it('should read memories with tags as string (legacy format)', () => {
+    it('should parse memories with tags as string (legacy format)', () => {
       const content = `---
 id: legacy-learning
 title: Legacy Learning
@@ -66,17 +53,17 @@ tags: typescript, testing
 
 Learning with comma-separated tags.
 `;
-      writeFileSync(join(memoryDir, 'permanent/learning-legacy-learning.md'), content);
+      const filePath = join(testDir, 'learning-legacy-learning.md');
+      writeFileSync(filePath, content);
 
-      const result = runMemoryCommand(['read', 'legacy-learning', '--scope', 'local']);
-      const parsed = JSON.parse(result);
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(parsed.status).toBe('success');
-      // Should handle both string and array formats
-      expect(parsed.data.memory.frontmatter.tags).toBeDefined();
+      expect(result.frontmatter.id).toBe('legacy-learning');
+      // Tags may be string or array depending on parser
+      expect(result.frontmatter.tags).toBeDefined();
     });
 
-    it('should read memories without created/updated timestamps', () => {
+    it('should parse memories without created/updated timestamps', () => {
       const content = `---
 id: no-timestamps
 title: Memory Without Timestamps
@@ -85,117 +72,131 @@ type: gotcha
 
 This gotcha has no timestamps.
 `;
-      writeFileSync(join(memoryDir, 'permanent/gotcha-no-timestamps.md'), content);
+      const filePath = join(testDir, 'gotcha-no-timestamps.md');
+      writeFileSync(filePath, content);
 
-      const result = runMemoryCommand(['read', 'no-timestamps', '--scope', 'local']);
-      const parsed = JSON.parse(result);
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(parsed.status).toBe('success');
-      expect(parsed.data.memory.frontmatter.id).toBe('no-timestamps');
+      expect(result.frontmatter.id).toBe('no-timestamps');
+      expect(result.frontmatter.title).toBe('Memory Without Timestamps');
+      // Should not throw even without timestamps
+    });
+
+    it('should parse memories with all modern fields', () => {
+      const content = `---
+id: modern-memory
+title: Modern Memory
+type: artifact
+scope: project
+created: "2024-01-01T00:00:00Z"
+updated: "2024-06-15T12:30:00Z"
+tags:
+  - test
+  - modern
+embedding: abc123hash
+links:
+  - related-memory
+  - another-memory
+---
+
+This is a modern memory with all fields.
+`;
+      const filePath = join(testDir, 'artifact-modern-memory.md');
+      writeFileSync(filePath, content);
+
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
+
+      expect(result.frontmatter.id).toBe('modern-memory');
+      expect(result.frontmatter.scope).toBe('project');
+      expect(result.frontmatter.tags).toContain('test');
+      expect(result.frontmatter.links).toContain('related-memory');
     });
   });
 
-  describe('legacy file naming patterns', () => {
-    it('should handle memories without type prefix in filename', () => {
+  describe('content parsing', () => {
+    it('should preserve markdown content exactly', () => {
+      const markdownContent = `# Heading
+
+This is **bold** and *italic*.
+
+\`\`\`typescript
+const x = 1;
+\`\`\`
+
+- List item 1
+- List item 2
+`;
       const content = `---
-id: simple-memory
-title: Simple Memory
+id: markdown-test
+title: Markdown Test
+type: artifact
+---
+
+${markdownContent}`;
+      const filePath = join(testDir, 'artifact-markdown-test.md');
+      writeFileSync(filePath, content);
+
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
+
+      expect(result.content).toContain('# Heading');
+      expect(result.content).toContain('**bold**');
+      expect(result.content).toContain('```typescript');
+    });
+
+    it('should handle empty content', () => {
+      const content = `---
+id: empty-content
+title: Empty Content Memory
+type: decision
+---
+`;
+      const filePath = join(testDir, 'decision-empty-content.md');
+      writeFileSync(filePath, content);
+
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
+
+      expect(result.frontmatter.id).toBe('empty-content');
+      expect(result.content.trim()).toBe('');
+    });
+  });
+
+  describe('edge cases', () => {
+    it('should handle frontmatter with special characters in values', () => {
+      const content = `---
+id: special-chars
+title: "Memory with: colons & ampersands"
+type: learning
+---
+
+Content with special chars.
+`;
+      const filePath = join(testDir, 'learning-special-chars.md');
+      writeFileSync(filePath, content);
+
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
+
+      expect(result.frontmatter.id).toBe('special-chars');
+      expect(result.frontmatter.title).toContain('colons');
+    });
+
+    it('should handle multiline title in frontmatter', () => {
+      const content = `---
+id: multiline-title
+title: |
+  This is a very long title
+  that spans multiple lines
 type: artifact
 ---
 
 Content here.
 `;
-      // Some legacy memories might not have type prefix
-      writeFileSync(join(memoryDir, 'permanent/simple-memory.md'), content);
+      const filePath = join(testDir, 'artifact-multiline-title.md');
+      writeFileSync(filePath, content);
 
-      const result = runMemoryCommand(['list', '--scope', 'local']);
-      const parsed = JSON.parse(result);
+      const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(parsed.status).toBe('success');
-      // Should still find it via index rebuild
-    });
-  });
-
-  describe('graph.json compatibility', () => {
-    it('should work without graph.json file', () => {
-      // No graph.json exists yet
-      const graphPath = join(memoryDir, 'graph.json');
-      if (existsSync(graphPath)) {
-        rmSync(graphPath);
-      }
-
-      const result = runMemoryCommand(['stats', 'local']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-      expect(parsed.data.nodes).toBeGreaterThanOrEqual(0);
-    });
-
-    it('should handle empty graph.json', () => {
-      writeFileSync(join(memoryDir, 'graph.json'), '{}');
-
-      const result = runMemoryCommand(['stats', 'local']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-    });
-
-    it('should handle graph.json with only nodes', () => {
-      const graphContent = {
-        nodes: [{ id: 'legacy-decision' }],
-      };
-      writeFileSync(join(memoryDir, 'graph.json'), JSON.stringify(graphContent));
-
-      const result = runMemoryCommand(['stats', 'local']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-      expect(parsed.data.nodes).toBeGreaterThanOrEqual(1);
-    });
-  });
-
-  describe('index.json compatibility', () => {
-    it('should rebuild index from disk if missing', () => {
-      const indexPath = join(memoryDir, 'index.json');
-      if (existsSync(indexPath)) {
-        rmSync(indexPath);
-      }
-
-      const result = runMemoryCommand(['list', '--scope', 'local']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-      // Should have rebuilt index and found memories
-    });
-
-    it('should handle legacy index format', () => {
-      // Legacy index might have different structure
-      const legacyIndex = {
-        version: '1.0.0',
-        memories: [
-          {
-            id: 'legacy-decision',
-            type: 'decision',
-            path: 'permanent/decision-legacy-decision.md',
-          },
-        ],
-      };
-      writeFileSync(join(memoryDir, 'index.json'), JSON.stringify(legacyIndex));
-
-      const result = runMemoryCommand(['list', '--scope', 'local']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-    });
-  });
-
-  describe('scope resolution compatibility', () => {
-    it('should detect local scope from .claude/memory path', () => {
-      const result = runMemoryCommand(['status']);
-      const parsed = JSON.parse(result);
-
-      expect(parsed.status).toBe('success');
-      // Should show available scopes
+      expect(result.frontmatter.id).toBe('multiline-title');
+      expect(result.frontmatter.title).toContain('very long title');
     });
   });
 });

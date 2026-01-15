@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-15T18:02:43.949Z",
+  "lastUpdated": "2026-01-15T18:46:20.686Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1369,6 +1369,54 @@
       "updated": "2026-01-15T18:02:43.946Z",
       "scope": "project",
       "relativePath": "permanent/learning-spec-documents-can-drift-from-implementation-state.md"
+    },
+    {
+      "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "type": "learning",
+      "title": "Systematic find-replace with testing prevents reference chaos",
+      "tags": [
+        "process",
+        "refactoring",
+        "testing",
+        "retrospective",
+        "project"
+      ],
+      "created": "2026-01-15T18:46:11.030Z",
+      "updated": "2026-01-15T18:46:11.030Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-systematic-find-replace-with-testing-prevents-reference-chaos.md"
+    },
+    {
+      "id": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "type": "learning",
+      "title": "TDD caught hook integration pattern mismatch",
+      "tags": [
+        "process",
+        "tdd",
+        "testing",
+        "retrospective",
+        "project"
+      ],
+      "created": "2026-01-15T18:46:15.740Z",
+      "updated": "2026-01-15T18:46:15.740Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-caught-hook-integration-pattern-mismatch.md"
+    },
+    {
+      "id": "learning-performance-constraints-should-be-documented-upfront",
+      "type": "learning",
+      "title": "Performance constraints should be documented upfront",
+      "tags": [
+        "process",
+        "planning",
+        "performance",
+        "retrospective",
+        "project"
+      ],
+      "created": "2026-01-15T18:46:20.683Z",
+      "updated": "2026-01-15T18:46:20.683Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-performance-constraints-should-be-documented-upfront.md"
     }
   ]
 }

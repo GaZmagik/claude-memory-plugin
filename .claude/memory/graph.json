@@ -428,6 +428,18 @@
     {
       "id": "learning-spec-documents-can-drift-from-implementation-state",
       "type": "learning"
+    },
+    {
+      "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "type": "learning"
+    },
+    {
+      "id": "learning-performance-constraints-should-be-documented-upfront",
+      "type": "learning"
     }
   ],
   "edges": [

@@ -239,11 +239,9 @@ runHook(async (input) => {
 
   return {
     exitCode: 0,
-    output: {
-      hookSpecificOutput: {
-        hookEventName: 'SessionStart',
-        additionalContext: summary,
-      },
+    hookSpecificOutput: {
+      hookEventName: 'SessionStart',
+      additionalContext: summary,
     },
   };
 });

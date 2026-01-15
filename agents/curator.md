@@ -1,6 +1,6 @@
 ---
-name: memory-curator
-version: 1.1.0
+name: curator
+version: 1.1.1
 model: haiku
 description: Automated memory health monitoring, graph integrity analysis, quality assurance, and handover validation. Identifies orphaned nodes, suggests links, detects promotion candidates, validates tags, and ensures complete handover references.
 tools: Glob, Grep, Read, TodoWrite, Bash

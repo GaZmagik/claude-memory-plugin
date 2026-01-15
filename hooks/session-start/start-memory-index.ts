@@ -4,6 +4,10 @@
  *
  * Provides agent with a "table of contents" of available memories
  * plus semantic search results based on git branch context.
+ *
+ * Also performs automatic maintenance:
+ * - Health check: warns if graph health is degraded
+ * - Auto-prune: silently removes expired temporary memories
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
@@ -187,6 +191,76 @@ function buildSummary(indexFile: string, scope: string): string {
   }
 }
 
+/**
+ * Run memory health check and return warning if score is below threshold
+ */
+async function checkMemoryHealth(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string
+): Promise<string> {
+  try {
+    const result = await spawn(['memory', 'health', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (!result.success) {
+      return '';
+    }
+
+    const health = JSON.parse(result.stdout);
+    const score = health.score ?? health.health_score ?? 1.0;
+    const issues = health.issues || [];
+
+    logOutput(
+      logFile,
+      sessionId,
+      `[HEALTH] Score: ${(score * 100).toFixed(0)}% | Issues: ${issues.length}`
+    );
+
+    // Warn if health is below 70%
+    if (score < 0.7) {
+      const issueList = issues.slice(0, 3).map((i: string) => `    - ${i}`).join('\n');
+      return `\n⚠️ Memory health: ${(score * 100).toFixed(0)}% - consider running 'memory repair'\n${issueList ? `  Issues:\n${issueList}` : ''}`;
+    }
+
+    return '';
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Auto-prune expired temporary memories (runs silently)
+ */
+async function autoPruneTemporaries(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string
+): Promise<void> {
+  try {
+    const result = await spawn(['memory', 'prune', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (result.success) {
+      try {
+        const pruneResult = JSON.parse(result.stdout);
+        const pruned = pruneResult.pruned || pruneResult.deleted || 0;
+        if (pruned > 0) {
+          logOutput(logFile, sessionId, `[PRUNE] Removed ${pruned} expired temporary memories`);
+        }
+      } catch {
+        // Ignore parse errors
+      }
+    }
+  } catch {
+    // Silently ignore prune errors
+  }
+}
+
 runHook(async (input) => {
   const projectDir = input?.cwd || process.cwd();
   const sessionId = input?.session_id || '';
@@ -234,6 +308,15 @@ runHook(async (input) => {
       summary += '\n' + semanticResults + '\n';
     }
   }
+
+  // Run health check and add warning if degraded
+  const healthWarning = await checkMemoryHealth(projectDir, logFile, sessionId);
+  if (healthWarning) {
+    summary += healthWarning;
+  }
+
+  // Auto-prune expired temporaries (silent, logs only)
+  await autoPruneTemporaries(projectDir, logFile, sessionId);
 
   summary += "\n💡 Use 'memory search <topic>' to find relevant memories before starting work.";
 

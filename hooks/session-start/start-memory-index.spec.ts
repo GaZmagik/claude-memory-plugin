@@ -89,4 +89,57 @@ describe('start-memory-index hook', () => {
       }
     });
   });
+
+  describe('automatic maintenance', () => {
+    it('should not fail when memory CLI is unavailable', async () => {
+      // Run in /tmp where memory CLI may not be installed/linked
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-maintenance',
+          cwd: '/tmp',
+        }),
+        timeout: 20000,
+      });
+
+      // Should succeed even if health check/prune fail
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should run health check without blocking on errors', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-health-check',
+          cwd: process.cwd(),
+        }),
+        timeout: 25000,
+      });
+
+      // Hook should complete regardless of health check result
+      expect(result.success).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should run auto-prune silently', async () => {
+      const result = await spawn(['bun', HOOK_PATH], {
+        stdin: JSON.stringify({
+          hook_event_name: 'SessionStart',
+          session_id: 'test-auto-prune',
+          cwd: process.cwd(),
+        }),
+        timeout: 25000,
+      });
+
+      // Prune should not add output to stdout (logs only)
+      expect(result.success).toBe(true);
+      // If output exists, it should not mention "pruned" explicitly
+      // (prune results go to log file, not agent output)
+      if (result.stdout.includes('pruned')) {
+        // This would indicate prune output leaked to agent - unexpected but not fatal
+        expect(result.stdout).not.toContain('expired temporary');
+      }
+    });
+  });
 });

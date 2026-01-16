@@ -595,6 +595,22 @@
     {
       "id": "learning-exclude-thoughts-from-embedding-generation",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-learning-inspect-implementation-before-fixing-promotions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-system-analysis-session-linking-quality-audit",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1621,6 +1637,61 @@
     {
       "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
       "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "target": "learning-exclude-thoughts-from-embedding-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-exclude-thoughts-from-embedding-generation",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "target": "gotcha-embedding-context-length-causes-500-error",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "target": "learning-retro-embedding-truncation-solved-silent-failures",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-vi-mock-global-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-learning-inspect-implementation-before-fixing-promotions",
+      "target": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "target": "learning-retro-embedding-truncation-solved-silent-failures",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
       "label": "relates-to"
     }
   ]

@@ -1,11 +1,6 @@
 {
   "nodes": [
     {
-      "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "title": "Constitution-first approach prevents scope creep in SDD",
-      "type": "learning"
-    },
-    {
       "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
       "title": "Specification audit caught architectural gaps before planning",
       "type": "learning"
@@ -111,11 +106,6 @@
       "type": "learning"
     },
     {
-      "id": "learning-test-isolation-bun-mock-module",
-      "title": "test-isolation-bun-mock-module",
-      "type": "learning"
-    },
-    {
       "id": "learning-tdd-test-coverage-expansion-pattern",
       "title": "tdd-test-coverage-expansion-pattern",
       "type": "learning"
@@ -206,11 +196,6 @@
       "type": "learning"
     },
     {
-      "id": "gotcha-vi-mock-global-pollution",
-      "title": "vi.mock and mock.module cause global test pollution",
-      "type": "gotcha"
-    },
-    {
       "id": "learning-retro-agent-verification-for-exclusions",
       "title": "retro-agent-verification-for-exclusions",
       "type": "learning"
@@ -234,11 +219,6 @@
       "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
       "type": "gotcha",
       "title": "Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)"
-    },
-    {
-      "id": "learning-retro-plan-mode-catches-architectural-assumptions-early",
-      "type": "learning",
-      "title": "retro: Plan Mode Catches Architectural Assumptions Early"
     },
     {
       "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
@@ -396,11 +376,6 @@
       "title": "retro: Self-referential tool testing creates productive loops"
     },
     {
-      "id": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
-      "type": "learning",
-      "title": "retro: Consensus theatre produces louder echoes, not more accuracy"
-    },
-    {
       "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "type": "learning",
       "title": "retro: Silent error handlers hide type errors from TypeScript"
@@ -429,11 +404,6 @@
       "id": "learning-test-setup-validation-prevents-false-failures",
       "type": "learning",
       "title": "Test setup validation prevents false failures"
-    },
-    {
-      "id": "learning-spec-documents-can-drift-from-implementation-state",
-      "type": "learning",
-      "title": "Spec documents can drift from implementation state"
     },
     {
       "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
@@ -551,11 +521,6 @@
       "title": "Retro - Embedding truncation solved silent failures"
     },
     {
-      "id": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
-      "type": "learning",
-      "title": "Retro - DRY extraction patterns reduce duplication pressure"
-    },
-    {
       "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
       "type": "learning",
       "title": "Retro - TDD parity audit forced complete test coverage"
@@ -569,11 +534,6 @@
       "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
       "type": "learning",
       "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall"
-    },
-    {
-      "id": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "type": "gotcha",
-      "title": "Retro - Pragmatic >perfect when debugging test infrastructure issues"
     },
     {
       "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
@@ -609,11 +569,6 @@
       "id": "learning-exclude-thoughts-from-embedding-generation",
       "type": "learning",
       "title": "Exclude thoughts from embedding generation"
-    },
-    {
-      "id": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
-      "type": "learning",
-      "title": "Retro - Multi-agent deliberation effective for complex technical decisions"
     },
     {
       "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
@@ -686,11 +641,6 @@
       "title": "Retro - Coverage achievement on core modules enables rapid progress on secondary modules"
     },
     {
-      "id": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
-      "type": "learning",
-      "title": "Retro - Coverage asymptotic returns - 99%+ becomes exponentially harder"
-    },
-    {
       "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
       "type": "learning",
       "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly"
@@ -715,47 +665,191 @@
       "type": "learning"
     },
     {
-      "id": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
-      "type": "learning"
-    },
-    {
       "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
       "type": "learning"
-    },
-    {
-      "id": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
-      "type": "learning"
-    },
-    {
-      "id": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
-      "type": "gotcha"
     },
     {
       "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
       "type": "learning"
     },
     {
-      "id": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
-      "type": "gotcha"
-    },
-    {
       "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "type": "gotcha"
     },
     {
-      "id": "learning-retro-tdd-catches-security-regressions",
+      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
       "type": "learning"
     },
     {
-      "id": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
+      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retrospective-memory-refactor-session",
+      "type": "learning"
+    },
+    {
+      "id": "thought-20260112-221004029",
+      "type": "breadcrumb"
+    },
+    {
+      "id": "learning-think-scope-project-vs-local-split",
+      "type": "learning"
+    },
+    {
+      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-bash-vs-typescript-index-format-mismatch",
       "type": "gotcha"
     },
     {
-      "id": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
+      "id": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "type": "decision"
+    },
+    {
+      "id": "learning-two-hook-enforcement-pattern-for-memory-operations",
       "type": "learning"
     },
     {
-      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "id": "decision-hook-separation-clarified-enforcement-boundaries",
+      "type": "decision"
+    },
+    {
+      "id": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "type": "learning"
+    },
+    {
+      "id": "decision-index-format-migration-prevented-silent-failures",
+      "type": "decision"
+    },
+    {
+      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "type": "decision"
+    },
+    {
+      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "type": "decision"
+    },
+    {
+      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "type": "decision"
+    },
+    {
+      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "type": "decision"
+    },
+    {
+      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "type": "learning"
+    },
+    {
+      "id": "thought-20260112-190617",
+      "type": "breadcrumb"
+    },
+    {
+      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "type": "artifact"
+    },
+    {
+      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-bun-link-cli-exposure-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "type": "learning"
+    },
+    {
+      "id": "retro-batch-operations-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "retro-multi-agent-review-effectiveness",
+      "type": "learning"
+    },
+    {
+      "id": "retro-validation-before-parsing",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-cli-phase-plan",
+      "type": "permanent"
+    },
+    {
+      "id": "gotcha-scope-resolver-params",
+      "type": "permanent"
+    },
+    {
+      "id": "decision-cli-dispatcher-pattern",
+      "type": "permanent"
+    },
+    {
+      "id": "learning-cli-gap",
+      "type": "learning"
+    },
+    {
+      "id": "decision-think-temporary-breadcrumb-type",
+      "type": "decision"
+    },
+    {
+      "id": "learning-recursive-agent-discovery",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-think-frontmatter-field-tracing",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-think-ai-invocation-flow",
       "type": "learning"
     }
   ],
@@ -806,11 +900,6 @@
       "relation": "informed-by"
     },
     {
-      "source": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "target": "learning-specification-audit-caught-architectural-gaps-before-planning",
-      "relation": "process-dependency"
-    },
-    {
       "source": "retro-test-first-verification-accelerated-security-review",
       "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
       "relation": "applied-same-pattern"
@@ -839,11 +928,6 @@
       "source": "learning-retro-tdd-test-expectations-guide-implementation",
       "target": "learning-tdd-phase-completion-pattern",
       "relation": "tdd-workflow"
-    },
-    {
-      "source": "learning-test-isolation-bun-mock-module",
-      "target": "learning-tdd-test-coverage-expansion-pattern",
-      "relation": "related-testing-patterns"
     },
     {
       "source": "learning-typescript-tdd-hook-naming-enforcement",
@@ -884,11 +968,6 @@
       "source": "retro-duplicate-test-discovery",
       "target": "learning-test-naming-convention-spec-ts",
       "relation": "prevents"
-    },
-    {
-      "source": "retro-mock-syntax-friction-bun",
-      "target": "learning-test-isolation-bun-mock-module",
-      "relation": "documents-friction-for"
     },
     {
       "source": "retro-mock-syntax-friction-bun",
@@ -941,16 +1020,6 @@
       "relation": "enables"
     },
     {
-      "source": "learning-test-isolation-bun-mock-module",
-      "target": "learning-tdd-test-coverage-expansion-pattern",
-      "relation": "enables"
-    },
-    {
-      "source": "gotcha-vi-mock-global-pollution",
-      "target": "learning-test-isolation-bun-mock-module",
-      "relation": "links-to"
-    },
-    {
       "source": "decision-colocate-unit-tests",
       "target": "learning-test-naming-convention-spec-ts",
       "relation": "implements-naming-convention"
@@ -984,11 +1053,6 @@
       "source": "learning-tdd-parity-vitest-limitation",
       "target": "decision-colocate-unit-tests",
       "relation": "motivated-decision"
-    },
-    {
-      "source": "learning-tdd-parity-vitest-limitation",
-      "target": "learning-test-isolation-bun-mock-module",
-      "relation": "framework-comparison"
     },
     {
       "source": "learning-tdd-parity-vitest-limitation",
@@ -1031,11 +1095,6 @@
       "relation": "tooling-limitation"
     },
     {
-      "source": "learning-retro-test-isolation-pattern-worth-documenting",
-      "target": "learning-test-isolation-bun-mock-module",
-      "relation": "documents-pattern"
-    },
-    {
       "source": "gotcha-agents-should-be-copies-not-rewrites",
       "target": "learning-memory-context-hook-graceful-search-degradation",
       "relation": "demonstrates-correct-pattern"
@@ -1071,16 +1130,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-plan-mode-catches-architectural-assumptions-early",
-      "target": "decision-4tier-scope-hierarchy",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-plan-mode-catches-architectural-assumptions-early",
-      "target": "learning-specification-audit-caught-architectural-gaps-before-planning",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
       "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
       "label": "relates-to"
@@ -1088,11 +1137,6 @@
     {
       "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
       "target": "learning-spawn-session-refactor",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-tmpdir-cleanup-permissions-fragile",
-      "target": "learning-test-isolation-bun-mock-module",
       "label": "relates-to"
     },
     {
@@ -1117,11 +1161,6 @@
     },
     {
       "source": "learning-test-naming-convention-spec-ts",
-      "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-test-isolation-bun-mock-module",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     },
@@ -1187,11 +1226,6 @@
     },
     {
       "source": "gotcha-agents-should-be-copies-not-rewrites",
-      "target": "artifact-gotcha-prevention-checklist",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-vi-mock-global-pollution",
       "target": "artifact-gotcha-prevention-checklist",
       "label": "relates-to"
     },
@@ -1476,11 +1510,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
-      "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
@@ -1516,18 +1545,8 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-spec-documents-can-drift-from-implementation-state",
-      "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-test-setup-validation-prevents-false-failures",
       "target": "decision-4tier-scope-hierarchy",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-spec-documents-can-drift-from-implementation-state",
-      "target": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
       "label": "relates-to"
     },
     {
@@ -1608,11 +1627,6 @@
     {
       "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
       "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
-      "target": "learning-test-isolation-bun-mock-module",
       "label": "relates-to"
     },
     {
@@ -1706,33 +1720,13 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
-      "target": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
-      "target": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
-      "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     },
     {
       "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
       "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
       "label": "relates-to"
     },
     {
@@ -1756,26 +1750,6 @@
       "label": "relates-to"
     },
     {
-      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "target": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
-      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
-      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "label": "relates-to"
-    },
-    {
-      "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
-      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-strip-deliberation-trail-from-promoted-think-memories",
       "target": "learning-exclude-thoughts-from-embedding-generation",
       "label": "relates-to"
@@ -1796,16 +1770,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
-      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "target": "gotcha-vi-mock-global-pollution",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-learning-inspect-implementation-before-fixing-promotions",
       "target": "learning-strip-deliberation-trail-from-promoted-think-memories",
       "label": "relates-to"
@@ -1813,11 +1777,6 @@
     {
       "source": "learning-memory-system-analysis-session-linking-quality-audit",
       "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "target": "learning-test-isolation-bun-mock-module",
       "label": "relates-to"
     },
     {
@@ -1831,38 +1790,8 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
-      "target": "learning-test-isolation-bun-mock-module",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
-      "target": "gotcha-vi-mock-global-pollution",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
-      "target": "learning-test-isolation-bun-mock-module",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
-      "target": "learning-test-isolation-bun-mock-module",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
       "target": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
-      "target": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
-      "target": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
       "label": "relates-to"
     },
     {
@@ -1886,33 +1815,8 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
-      "target": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
-      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "target": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-tdd-catches-security-regressions",
-      "target": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
-      "label": "relates-to"
-    },
-    {
-      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "target": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
       "label": "relates-to"
     }
   ]

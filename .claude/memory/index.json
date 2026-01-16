@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T22:33:18.500Z",
+  "lastUpdated": "2026-01-16T23:10:44.937Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -146,24 +146,6 @@
       "relativePath": "permanent/learning-test-agent-generates-aspirational-tests.md"
     },
     {
-      "id": "learning-test-isolation-bun-mock-module",
-      "type": "learning",
-      "title": "test-isolation-bun-mock-module",
-      "tags": [
-        "learning",
-        "tip",
-        "medium",
-        "testing",
-        "bun",
-        "mock",
-        "isolation"
-      ],
-      "created": "2026-01-11T17:55:16Z",
-      "updated": "2026-01-13T18:49:49.821Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-test-isolation-bun-mock-module.md"
-    },
-    {
       "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
       "type": "learning",
       "title": "scope-field-frontmatter-serialisation-gotcha-two",
@@ -307,24 +289,6 @@
       "updated": "2026-01-13T18:49:49.824Z",
       "scope": "global",
       "relativePath": "permanent/learning-scope-field-frontmatter-serialisation-gotcha.md"
-    },
-    {
-      "id": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
-      "type": "learning",
-      "title": "Constitution-first approach prevents scope creep in SDD",
-      "tags": [
-        "learning",
-        "tip",
-        "medium",
-        "process",
-        "governance",
-        "sdd-workflow",
-        "best-practice"
-      ],
-      "created": "2026-01-10T06:08:30Z",
-      "updated": "2026-01-13T18:49:49.824Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-constitution-first-approach-prevents-scope-creep-in-sdd.md"
     },
     {
       "id": "learning-immutable-graph-operations-pattern",
@@ -656,21 +620,6 @@
       "updated": "2026-01-13T18:49:49.829Z",
       "scope": "global",
       "relativePath": "permanent/learning-cargo-cult-tdd-compliance.md"
-    },
-    {
-      "id": "learning-retro-plan-mode-catches-architectural-assumptions-early",
-      "type": "learning",
-      "title": "retro: Plan Mode Catches Architectural Assumptions Early",
-      "tags": [
-        "retrospective",
-        "process",
-        "auto-link",
-        "project"
-      ],
-      "created": "2026-01-13T00:22:22.298Z",
-      "updated": "2026-01-13T19:02:56.186Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-plan-mode-catches-architectural-assumptions-early.md"
     },
     {
       "id": "artifact-gotcha-prevention-checklist",
@@ -1039,23 +988,6 @@
       "relativePath": "permanent/learning-gitignore-comment-formatting-two-phase-fix.md"
     },
     {
-      "id": "gotcha-vi-mock-global-pollution",
-      "type": "gotcha",
-      "title": "vi.mock and mock.module cause global test pollution",
-      "tags": [
-        "gotcha",
-        "testing",
-        "vitest",
-        "bun",
-        "mocking",
-        "high"
-      ],
-      "created": "2026-01-12T04:22:50Z",
-      "updated": "2026-01-13T18:49:49.835Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-vi-mock-global-pollution.md"
-    },
-    {
       "id": "decision-colocate-unit-tests",
       "type": "decision",
       "title": "colocate-unit-tests",
@@ -1248,21 +1180,6 @@
       "relativePath": "permanent/learning-retro-self-referential-tool-testing-creates-productive-loops.md"
     },
     {
-      "id": "learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy",
-      "type": "learning",
-      "title": "retro: Consensus theatre produces louder echoes, not more accuracy",
-      "tags": [
-        "retrospective",
-        "process",
-        "review",
-        "project"
-      ],
-      "created": "2026-01-13T22:26:46.240Z",
-      "updated": "2026-01-13T22:26:46.240Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy.md"
-    },
-    {
       "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
       "type": "learning",
       "title": "retro: Silent error handlers hide type errors from TypeScript",
@@ -1353,22 +1270,6 @@
       "updated": "2026-01-15T18:02:39.051Z",
       "scope": "project",
       "relativePath": "permanent/learning-test-setup-validation-prevents-false-failures.md"
-    },
-    {
-      "id": "learning-spec-documents-can-drift-from-implementation-state",
-      "type": "learning",
-      "title": "Spec documents can drift from implementation state",
-      "tags": [
-        "retrospective",
-        "documentation",
-        "maintenance",
-        "medium",
-        "project"
-      ],
-      "created": "2026-01-15T18:02:43.946Z",
-      "updated": "2026-01-15T18:02:43.946Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-spec-documents-can-drift-from-implementation-state.md"
     },
     {
       "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
@@ -1713,22 +1614,6 @@
       "severity": "high"
     },
     {
-      "id": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
-      "type": "learning",
-      "title": "Retro - DRY extraction patterns reduce duplication pressure",
-      "tags": [
-        "retrospective",
-        "refactoring",
-        "DRY",
-        "project"
-      ],
-      "created": "2026-01-16T16:38:07.690Z",
-      "updated": "2026-01-16T16:38:07.690Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-dry-extraction-patterns-reduce-duplication-pressure.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
       "type": "learning",
       "title": "Retro - TDD parity audit forced complete test coverage",
@@ -1760,23 +1645,6 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall.md",
       "severity": "medium"
-    },
-    {
-      "id": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "type": "gotcha",
-      "title": "Retro - Pragmatic >perfect when debugging test infrastructure issues",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "pragmatism",
-        "project"
-      ],
-      "created": "2026-01-16T17:06:20.387Z",
-      "updated": "2026-01-16T17:06:20.387Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues.md",
-      "severity": "high"
     },
     {
       "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
@@ -1926,23 +1794,6 @@
       "updated": "2026-01-16T18:24:45.230Z",
       "scope": "project",
       "relativePath": "permanent/learning-exclude-thoughts-from-embedding-generation.md"
-    },
-    {
-      "id": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
-      "type": "learning",
-      "title": "Retro - Multi-agent deliberation effective for complex technical decisions",
-      "tags": [
-        "retrospective",
-        "process",
-        "decision-making",
-        "agents",
-        "project"
-      ],
-      "created": "2026-01-16T18:31:35.623Z",
-      "updated": "2026-01-16T18:31:35.623Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions.md",
-      "severity": "low"
     },
     {
       "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
@@ -2175,23 +2026,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
-      "type": "learning",
-      "title": "Retro - Coverage asymptotic returns - 99%+ becomes exponentially harder",
-      "tags": [
-        "retrospective",
-        "testing",
-        "coverage",
-        "vitest",
-        "project"
-      ],
-      "created": "2026-01-16T20:25:03.409Z",
-      "updated": "2026-01-16T20:25:03.409Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
       "type": "learning",
       "title": "Retro - Error handling test pattern replication reduced per-file time",
@@ -2269,23 +2103,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
-      "type": "learning",
-      "title": "Retro - Coverage asymptotic returns hit practical ceiling around 99%",
-      "tags": [
-        "retrospective",
-        "testing",
-        "coverage",
-        "diminishing-returns",
-        "project"
-      ],
-      "created": "2026-01-16T20:48:59.466Z",
-      "updated": "2026-01-16T20:48:59.466Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99.md",
-      "severity": "low"
-    },
-    {
       "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
       "type": "learning",
       "title": "Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling",
@@ -2302,41 +2119,6 @@
       "updated": "2026-01-16T21:10:10.061Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling.md",
-      "severity": "high"
-    },
-    {
-      "id": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
-      "type": "learning",
-      "title": "Retro - Function coverage ≠ line coverage; branch testing matters",
-      "tags": [
-        "retrospective",
-        "testing",
-        "coverage",
-        "metrics",
-        "project"
-      ],
-      "created": "2026-01-16T21:10:19.692Z",
-      "updated": "2026-01-16T21:10:19.692Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-function-coverage-line-coverage-branch-testing-matters.md",
-      "severity": "medium"
-    },
-    {
-      "id": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
-      "type": "gotcha",
-      "title": "Gotcha - Coverage plateau at 95-99% signals asymptotic returns, not missed work",
-      "tags": [
-        "retrospective",
-        "testing",
-        "coverage",
-        "risk",
-        "pragmatism",
-        "project"
-      ],
-      "created": "2026-01-16T21:10:28.944Z",
-      "updated": "2026-01-16T21:10:28.944Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work.md",
       "severity": "high"
     },
     {
@@ -2357,22 +2139,6 @@
       "severity": "medium"
     },
     {
-      "id": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
-      "type": "gotcha",
-      "title": "Retro - Coverage plateau gotcha: final 1-2% requires 3x effort, focus on meaningful gaps",
-      "tags": [
-        "retrospective",
-        "coverage",
-        "effort-estimation",
-        "project"
-      ],
-      "created": "2026-01-16T21:44:23.584Z",
-      "updated": "2026-01-16T21:44:23.584Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps.md",
-      "severity": "high"
-    },
-    {
       "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "type": "gotcha",
       "title": "Retro - Test quality audit post-coverage risks releasing cheating tests",
@@ -2390,57 +2156,6 @@
       "severity": "critical"
     },
     {
-      "id": "learning-retro-tdd-catches-security-regressions",
-      "type": "learning",
-      "title": "Retro - TDD catches security regressions",
-      "tags": [
-        "retrospective",
-        "process",
-        "security",
-        "tdd",
-        "project"
-      ],
-      "created": "2026-01-16T22:27:50.477Z",
-      "updated": "2026-01-16T22:27:50.477Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-tdd-catches-security-regressions.md",
-      "severity": "high"
-    },
-    {
-      "id": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
-      "type": "gotcha",
-      "title": "Retro - Bypassing security checks demonstrates why they exist",
-      "tags": [
-        "retrospective",
-        "process",
-        "security",
-        "hooks",
-        "project"
-      ],
-      "created": "2026-01-16T22:27:55.908Z",
-      "updated": "2026-01-16T22:27:55.908Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist.md",
-      "severity": "high"
-    },
-    {
-      "id": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
-      "type": "learning",
-      "title": "Retro - Ephemeral files belong in /tmp/ not project directories",
-      "tags": [
-        "retrospective",
-        "process",
-        "cleanup",
-        "infrastructure",
-        "project"
-      ],
-      "created": "2026-01-16T22:28:04.255Z",
-      "updated": "2026-01-16T22:28:04.255Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-ephemeral-files-belong-in-tmp-not-project-directories.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-memory-system-analysis-linking-quality-audit-complete",
       "type": "learning",
       "title": "Memory System Analysis - Linking & Quality Audit Complete",
@@ -2455,6 +2170,682 @@
       "updated": "2026-01-16T22:33:18.496Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-system-analysis-linking-quality-audit-complete.md"
+    },
+    {
+      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "title": "Retro: TDD hook enforcement caught gaps early",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-12T22:43:09.650Z",
+      "updated": "2026-01-16T23:10:42.104Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-hook-enforcement-caught-gaps-early.md"
+    },
+    {
+      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "title": "Retro: Explore agent accelerates pattern synthesis",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-12T22:43:03.426Z",
+      "updated": "2026-01-16T23:10:42.172Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-explore-agent-accelerates-pattern-synthesis.md"
+    },
+    {
+      "id": "learning-retrospective-memory-refactor-session",
+      "title": "Retrospective: Memory refactor session",
+      "type": "learning",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-12T22:10:04.368Z",
+      "updated": "2026-01-16T23:10:42.240Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retrospective-memory-refactor-session.md"
+    },
+    {
+      "id": "thought-20260112-221004029",
+      "title": "Think: Retrospective: Memory refactor session",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-12T22:10:04.033Z",
+      "updated": "2026-01-16T23:10:42.311Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260112-221004029.md"
+    },
+    {
+      "id": "learning-think-scope-project-vs-local-split",
+      "title": "Think scope - Project vs Local split",
+      "type": "learning",
+      "tags": [
+        "think",
+        "scope",
+        "architecture",
+        "feature-001",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-12T21:54:49.697Z",
+      "updated": "2026-01-16T23:10:42.381Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-think-scope-project-vs-local-split.md"
+    },
+    {
+      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "title": "Lean SKILL.md enables quick reference - moved bulk content to README for deep dives",
+      "type": "learning",
+      "tags": [
+        "documentation",
+        "user-experience",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:38.847Z",
+      "updated": "2026-01-16T23:10:42.460Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives.md"
+    },
+    {
+      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "title": "TDD enforcement requires test files before source edits - creates friction with simple fixes",
+      "type": "learning",
+      "tags": [
+        "tdd",
+        "workflow",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:30.797Z",
+      "updated": "2026-01-16T23:10:42.539Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes.md"
+    },
+    {
+      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "title": "Namespace enforcement for plugin slash commands critical for routing",
+      "type": "learning",
+      "tags": [
+        "plugin-architecture",
+        "slash-commands",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T21:05:24.573Z",
+      "updated": "2026-01-16T23:10:42.607Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing.md"
+    },
+    {
+      "id": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "title": "Hook Enforcement Strategy - Selective Blocking with Whitelists",
+      "type": "learning",
+      "tags": [
+        "hooks",
+        "enforcement",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:30.559Z",
+      "updated": "2026-01-16T23:10:42.679Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hook-enforcement-strategy-selective-blocking-with-whitelists.md"
+    },
+    {
+      "id": "gotcha-bash-vs-typescript-index-format-mismatch",
+      "title": "Bash vs TypeScript Index Format Mismatch",
+      "type": "gotcha",
+      "tags": [
+        "gotcha",
+        "high",
+        "memory-plugin",
+        "migration",
+        "index",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:27.578Z",
+      "updated": "2026-01-16T23:10:42.754Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bash-vs-typescript-index-format-mismatch.md",
+      "severity": "high"
+    },
+    {
+      "id": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "title": "TDD enforcement caught hook pattern edge cases early",
+      "type": "decision",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "memory-plugin",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:21.659Z",
+      "updated": "2026-01-16T23:10:42.819Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-tdd-enforcement-caught-hook-pattern-edge-cases-early.md"
+    },
+    {
+      "id": "learning-two-hook-enforcement-pattern-for-memory-operations",
+      "title": "Two-Hook Enforcement Pattern for Memory Operations",
+      "type": "learning",
+      "tags": [
+        "hooks",
+        "architecture",
+        "enforcement",
+        "memory-plugin",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:21.402Z",
+      "updated": "2026-01-16T23:10:42.895Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-two-hook-enforcement-pattern-for-memory-operations.md"
+    },
+    {
+      "id": "decision-hook-separation-clarified-enforcement-boundaries",
+      "title": "Hook separation clarified enforcement boundaries",
+      "type": "decision",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "memory-plugin",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:17.712Z",
+      "updated": "2026-01-16T23:10:42.962Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-hook-separation-clarified-enforcement-boundaries.md"
+    },
+    {
+      "id": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "title": "Index Migration Layer Handles Bash-to-TypeScript Format Transition",
+      "type": "learning",
+      "tags": [
+        "typescript",
+        "migration",
+        "index",
+        "backward-compatibility",
+        "memory-plugin",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:14.596Z",
+      "updated": "2026-01-16T23:10:43.037Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-index-migration-layer-handles-bash-to-typescript-format-transition.md"
+    },
+    {
+      "id": "decision-index-format-migration-prevented-silent-failures",
+      "title": "Index format migration prevented silent failures",
+      "type": "decision",
+      "tags": [
+        "retrospective",
+        "process",
+        "quality",
+        "memory-plugin",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-12T20:40:14.159Z",
+      "updated": "2026-01-16T23:10:43.107Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-index-format-migration-prevented-silent-failures.md"
+    },
+    {
+      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "title": "SubagentStop hook receives insufficient context - use PostToolUse instead",
+      "type": "decision",
+      "tags": [
+        "hooks",
+        "claude-code",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:36.909Z",
+      "updated": "2026-01-16T23:10:43.170Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead.md"
+    },
+    {
+      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "title": "TDD enforcement hooks: TypeScript-for-all vs native per-language",
+      "type": "decision",
+      "tags": [
+        "tdd",
+        "architecture",
+        "hooks",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:30.192Z",
+      "updated": "2026-01-16T23:10:43.243Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language.md"
+    },
+    {
+      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "title": "Gotcha: execFileSync loses PATH when spawning child processes from Bun",
+      "type": "decision",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "subprocess",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:27.884Z",
+      "updated": "2026-01-16T23:10:43.310Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun.md"
+    },
+    {
+      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "title": "Plan mode prevented premature coding of TDD hook enhancements",
+      "type": "decision",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "project"
+      ],
+      "created": "2026-01-12T20:31:21.668Z",
+      "updated": "2026-01-16T23:10:43.372Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements.md"
+    },
+    {
+      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "title": "Help output reorganization: alphabetical commands with prominent think section",
+      "type": "learning",
+      "tags": [
+        "cli",
+        "help",
+        "ux",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:16.349Z",
+      "updated": "2026-01-16T23:10:43.439Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section.md"
+    },
+    {
+      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "title": "Per-command help system: registry pattern with command-specific documentation",
+      "type": "artifact",
+      "tags": [
+        "cli",
+        "help",
+        "design-pattern",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:10.869Z",
+      "updated": "2026-01-16T23:10:43.505Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-per-command-help-system-registry-pattern-with-command-specific-documentation.md"
+    },
+    {
+      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "title": "CLI parser now supports --flag=value syntax in addition to --flag value",
+      "type": "learning",
+      "tags": [
+        "cli",
+        "parser",
+        "enhancement",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:05.628Z",
+      "updated": "2026-01-16T23:10:43.568Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value.md"
+    },
+    {
+      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "title": "Think document ID collisions with second-precision timestamps",
+      "type": "gotcha",
+      "tags": [
+        "think",
+        "id-generation",
+        "timestamp",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:00.825Z",
+      "updated": "2026-01-16T23:10:43.633Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-think-document-id-collisions-with-second-precision-timestamps.md"
+    },
+    {
+      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "title": "Bug fix approach: minimal surface area + comprehensive tests = rapid delivery",
+      "type": "learning",
+      "tags": [
+        "testing",
+        "debugging",
+        "process",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:03:00.034Z",
+      "updated": "2026-01-16T23:10:43.697Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery.md"
+    },
+    {
+      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "title": "Help system design: centralized registry more maintainable than scattered help strings",
+      "type": "learning",
+      "tags": [
+        "cli",
+        "documentation",
+        "architecture",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:54.349Z",
+      "updated": "2026-01-16T23:10:43.760Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings.md"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "title": "CLI doubled prefix bug: type prefix already added by ID generator",
+      "type": "gotcha",
+      "tags": [
+        "cli",
+        "think-promotion",
+        "id-generation",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:50.449Z",
+      "updated": "2026-01-16T23:10:43.823Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator.md"
+    },
+    {
+      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "title": "Millisecond precision required for rapid timestamp-based ID generation",
+      "type": "learning",
+      "tags": [
+        "id-generation",
+        "timestamps",
+        "performance",
+        "retro",
+        "project"
+      ],
+      "created": "2026-01-12T20:02:49.071Z",
+      "updated": "2026-01-16T23:10:43.887Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation.md"
+    },
+    {
+      "id": "thought-20260112-190617",
+      "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "active"
+      ],
+      "created": "2026-01-12T19:06:17.085Z",
+      "updated": "2026-01-16T23:10:43.949Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260112-190617.md"
+    },
+    {
+      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "title": "TypeScript CLI Testing - Infrastructure-First Approach",
+      "type": "artifact",
+      "tags": [
+        "typescript",
+        "testing",
+        "cli",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:16.436Z",
+      "updated": "2026-01-16T23:10:44.015Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-typescript-cli-testing-infrastructure-first-approach.md"
+    },
+    {
+      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "title": "vitest Mocking - Reference Binding Gotcha",
+      "type": "gotcha",
+      "tags": [
+        "vitest",
+        "testing",
+        "typescript",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:10.614Z",
+      "updated": "2026-01-16T23:10:44.078Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vitest-mocking-reference-binding-gotcha.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-bun-link-cli-exposure-pattern",
+      "title": "bun link CLI Exposure Pattern",
+      "type": "learning",
+      "tags": [
+        "bun",
+        "package-management",
+        "cli",
+        "setup",
+        "project"
+      ],
+      "created": "2026-01-12T18:01:04.688Z",
+      "updated": "2026-01-16T23:10:44.140Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-link-cli-exposure-pattern.md"
+    },
+    {
+      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "title": "CLI Layer Testing Pattern - Thin Wrappers",
+      "type": "learning",
+      "tags": [
+        "testing",
+        "typescript",
+        "cli",
+        "memory-skill",
+        "project"
+      ],
+      "created": "2026-01-12T18:00:59.206Z",
+      "updated": "2026-01-16T23:10:44.205Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-layer-testing-pattern-thin-wrappers.md"
+    },
+    {
+      "id": "retro-batch-operations-pattern",
+      "title": "Batch Operations Pattern for Performance",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "performance",
+        "phase-4"
+      ],
+      "created": "2026-01-12T16:00:00Z",
+      "updated": "2026-01-16T23:10:44.270Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-batch-operations-pattern.md",
+      "severity": "medium"
+    },
+    {
+      "id": "retro-multi-agent-review-effectiveness",
+      "title": "Multi-Agent Pre-Ship Review Effectiveness",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "quality-assurance",
+        "feature-parity"
+      ],
+      "created": "2026-01-12T16:00:00Z",
+      "updated": "2026-01-16T23:10:44.342Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-multi-agent-review-effectiveness.md",
+      "severity": "high"
+    },
+    {
+      "id": "retro-validation-before-parsing",
+      "title": "Define Validation Before Touching Parser Logic",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-quality",
+        "validation"
+      ],
+      "created": "2026-01-12T16:00:00Z",
+      "updated": "2026-01-16T23:10:44.412Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-validation-before-parsing.md",
+      "severity": "medium"
+    },
+    {
+      "id": "artifact-cli-phase-plan",
+      "title": "6-Phase CLI Implementation Plan for Memory Skill",
+      "type": "permanent",
+      "tags": [
+        "artifact",
+        "plan",
+        "cli",
+        "phases"
+      ],
+      "created": "2026-01-12T15:48:00Z",
+      "updated": "2026-01-16T23:10:44.481Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-cli-phase-plan.md"
+    },
+    {
+      "id": "gotcha-scope-resolver-params",
+      "title": "getScopePath() Requires (scope, cwd, globalPath) Not Just Scope",
+      "type": "permanent",
+      "tags": [
+        "gotcha",
+        "cli",
+        "scope-resolution",
+        "critical"
+      ],
+      "created": "2026-01-12T15:47:00Z",
+      "updated": "2026-01-16T23:10:44.544Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-scope-resolver-params.md",
+      "severity": "medium"
+    },
+    {
+      "id": "decision-cli-dispatcher-pattern",
+      "title": "CLI Dispatcher Architecture Pattern",
+      "type": "permanent",
+      "tags": [
+        "architecture",
+        "decision",
+        "cli",
+        "design"
+      ],
+      "created": "2026-01-12T15:46:00Z",
+      "updated": "2026-01-16T23:10:44.609Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-cli-dispatcher-pattern.md"
+    },
+    {
+      "id": "learning-cli-gap",
+      "title": "Memory Skill TypeScript Library Has No CLI Entry Point",
+      "type": "learning",
+      "tags": [
+        "cli",
+        "architecture",
+        "discovery",
+        "critical"
+      ],
+      "created": "2026-01-12T15:45:00Z",
+      "updated": "2026-01-16T23:10:44.674Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-gap.md",
+      "severity": "high"
+    },
+    {
+      "id": "decision-think-temporary-breadcrumb-type",
+      "title": "Think documents stored as Breadcrumb type in temporary/ directory",
+      "type": "decision",
+      "tags": [
+        "think",
+        "storage",
+        "decision",
+        "feature-001",
+        "typescript"
+      ],
+      "created": "2026-01-12T10:45:00.000Z",
+      "updated": "2026-01-16T23:10:44.740Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-think-temporary-breadcrumb-type.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-recursive-agent-discovery",
+      "title": "Recursive agent and style discovery beats hardcoded paths",
+      "type": "learning",
+      "tags": [
+        "think",
+        "discovery",
+        "architecture",
+        "feature-001",
+        "typescript"
+      ],
+      "created": "2026-01-12T10:45:00.000Z",
+      "updated": "2026-01-16T23:10:44.805Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-recursive-agent-discovery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-think-frontmatter-field-tracing",
+      "title": "Think frontmatter fields must be traced through full serialisation stack",
+      "type": "gotcha",
+      "tags": [
+        "think",
+        "frontmatter",
+        "gotcha",
+        "feature-001",
+        "typescript"
+      ],
+      "created": "2026-01-12T10:45:00.000Z",
+      "updated": "2026-01-16T23:10:44.867Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-think-frontmatter-field-tracing.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-think-ai-invocation-flow",
+      "title": "Think AI invocation - context passing pattern",
+      "type": "learning",
+      "tags": [
+        "think",
+        "ai-invocation",
+        "claude-cli",
+        "feature-001",
+        "typescript"
+      ],
+      "created": "2026-01-12T10:45:00.000Z",
+      "updated": "2026-01-16T23:10:44.931Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-think-ai-invocation-flow.md",
+      "severity": "high"
     }
   ]
 }

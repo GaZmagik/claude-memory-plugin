@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T21:44:27.963Z",
+  "lastUpdated": "2026-01-16T22:33:18.500Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2388,6 +2388,73 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests.md",
       "severity": "critical"
+    },
+    {
+      "id": "learning-retro-tdd-catches-security-regressions",
+      "type": "learning",
+      "title": "Retro - TDD catches security regressions",
+      "tags": [
+        "retrospective",
+        "process",
+        "security",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-16T22:27:50.477Z",
+      "updated": "2026-01-16T22:27:50.477Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-catches-security-regressions.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
+      "type": "gotcha",
+      "title": "Retro - Bypassing security checks demonstrates why they exist",
+      "tags": [
+        "retrospective",
+        "process",
+        "security",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-16T22:27:55.908Z",
+      "updated": "2026-01-16T22:27:55.908Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
+      "type": "learning",
+      "title": "Retro - Ephemeral files belong in /tmp/ not project directories",
+      "tags": [
+        "retrospective",
+        "process",
+        "cleanup",
+        "infrastructure",
+        "project"
+      ],
+      "created": "2026-01-16T22:28:04.255Z",
+      "updated": "2026-01-16T22:28:04.255Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-ephemeral-files-belong-in-tmp-not-project-directories.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "type": "learning",
+      "title": "Memory System Analysis - Linking & Quality Audit Complete",
+      "tags": [
+        "memory-system",
+        "linking",
+        "quality-audit",
+        "analysis",
+        "project"
+      ],
+      "created": "2026-01-16T22:33:18.496Z",
+      "updated": "2026-01-16T22:33:18.496Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-system-analysis-linking-quality-audit-complete.md"
     }
   ]
 }

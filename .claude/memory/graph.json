@@ -741,6 +741,22 @@
     {
       "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-tdd-catches-security-regressions",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1877,6 +1893,26 @@
     {
       "source": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
       "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "target": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-catches-security-regressions",
+      "target": "gotcha-retro-bypassing-security-checks-demonstrates-why-they-exist",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "target": "learning-retro-ephemeral-files-belong-in-tmp-not-project-directories",
       "label": "relates-to"
     }
   ]

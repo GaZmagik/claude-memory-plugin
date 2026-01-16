@@ -202,4 +202,59 @@ describe('bulkPromote', () => {
     expect(progressCalls.some((p) => p.phase === 'processing')).toBe(true);
     expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
   });
+
+  it('should filter by explicit IDs when provided', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(promoteModule, 'promoteMemory').mockResolvedValue(
+      mockPromoteSuccess('learning-foo', MemoryType.Decision)
+    );
+
+    const result = await bulkPromote({
+      pattern: 'learning-*',
+      ids: ['learning-foo'], // Only promote this one, not learning-bar
+      targetType: MemoryType.Decision,
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.promotedCount).toBe(1);
+    expect(result.promotedIds).toEqual(['learning-foo']);
+    expect(promoteModule.promoteMemory).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle thrown exceptions during promote operation', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(promoteModule, 'promoteMemory')
+      .mockResolvedValueOnce(mockPromoteSuccess('learning-foo', MemoryType.Decision))
+      .mockRejectedValueOnce(new Error('Network failure'));
+
+    const result = await bulkPromote({
+      pattern: 'learning-*',
+      targetType: MemoryType.Decision,
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.promotedCount).toBe(1);
+    expect(result.failedIds).toEqual([{ id: 'learning-bar', reason: 'Error: Network failure' }]);
+  });
+
+  it('should handle general errors in outer try block', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await bulkPromote({
+      pattern: 'learning-*',
+      targetType: MemoryType.Decision,
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Bulk promote failed');
+    expect(result.error).toContain('Index corrupted');
+  });
 });

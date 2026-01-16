@@ -183,4 +183,74 @@ describe('bulkTag', () => {
     expect(progressCalls.some((p) => p.phase === 'processing')).toBe(true);
     expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
   });
+
+  it('should filter by explicit IDs when provided', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(tagModule, 'tagMemory').mockResolvedValue(mockTagSuccess('test', ['new']));
+
+    const result = await bulkTag({
+      pattern: 'decision-*',
+      ids: ['decision-foo'], // Only tag this one, not decision-bar
+      addTags: ['new'],
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.modifiedCount).toBe(1);
+    expect(result.modifiedIds).toEqual(['decision-foo']);
+    expect(tagModule.tagMemory).toHaveBeenCalledTimes(1);
+  });
+
+  it('should report failed untag after successful tag', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [testMemories[0]],
+    });
+    vi.spyOn(tagModule, 'tagMemory').mockResolvedValue(mockTagSuccess('decision-foo', ['new']));
+    vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({
+      status: 'error',
+      error: 'Tag not found',
+    });
+
+    const result = await bulkTag({
+      pattern: 'decision-*',
+      addTags: ['new'],
+      removeTags: ['old'],
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.modifiedCount).toBe(0);
+    expect(result.failedIds).toEqual([{ id: 'decision-foo', reason: 'Tag not found' }]);
+  });
+
+  it('should handle thrown exceptions during tag operation', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(tagModule, 'tagMemory')
+      .mockResolvedValueOnce(mockTagSuccess('decision-foo', ['new']))
+      .mockRejectedValueOnce(new Error('Network failure'));
+
+    const result = await bulkTag({ pattern: 'decision-*', addTags: ['new'] });
+
+    expect(result.status).toBe('success');
+    expect(result.modifiedCount).toBe(1);
+    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Network failure' }]);
+  });
+
+  it('should handle general errors in outer try block', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await bulkTag({ pattern: 'decision-*', addTags: ['new'] });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Bulk tag failed');
+    expect(result.error).toContain('Index corrupted');
+  });
 });

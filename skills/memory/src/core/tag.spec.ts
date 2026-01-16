@@ -286,4 +286,30 @@ describe('untagMemory', () => {
     expect(result.status).toBe('success');
     expect(result.newTags).toEqual(['a', 'c']);
   });
+
+  it('should handle errors in tagMemory', async () => {
+    vi.spyOn(readModule, 'readMemory').mockRejectedValue(new Error('Read failed'));
+
+    const result = await tagMemory({
+      id: 'test-id',
+      tags: ['new-tag'],
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Failed to tag memory');
+    expect(result.error).toContain('Read failed');
+  });
+
+  it('should handle errors in untagMemory', async () => {
+    vi.spyOn(readModule, 'readMemory').mockRejectedValue(new Error('Read failed'));
+
+    const result = await untagMemory({
+      id: 'test-id',
+      tags: ['some-tag'],
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Failed to untag memory');
+    expect(result.error).toContain('Read failed');
+  });
 });

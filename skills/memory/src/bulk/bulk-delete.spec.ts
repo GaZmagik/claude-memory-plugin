@@ -385,4 +385,83 @@ describe('bulkDelete', () => {
     expect(result.deletedCount).toBe(1);
     expect(result.deletedIds).toEqual(['decision-auth-v1']);
   });
+
+  it('should reject path traversal attempts', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-malicious',
+          type: MemoryType.Decision,
+          title: 'Malicious',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: Scope.Global,
+          relativePath: '../../../etc/passwd',
+        },
+      ],
+    });
+
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(false); // Path traversal detected
+
+    const result = await bulkDelete({ pattern: 'decision-*' });
+
+    expect(result.status).toBe('success');
+    expect(result.deletedCount).toBe(0);
+    expect(result.failedIds).toEqual([{ id: 'decision-malicious', reason: 'Path traversal not allowed' }]);
+  });
+
+  it('should handle thrown exceptions during file deletion', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-foo',
+          type: MemoryType.Decision,
+          title: 'Foo',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: Scope.Global,
+          relativePath: 'permanent/decision-foo.md',
+        },
+        {
+          id: 'decision-bar',
+          type: MemoryType.Decision,
+          title: 'Bar',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: Scope.Global,
+          relativePath: 'permanent/decision-bar.md',
+        },
+      ],
+    });
+
+    vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+    vi.spyOn(fsUtils, 'deleteFile')
+      .mockReturnValueOnce(undefined) // First succeeds
+      .mockImplementationOnce(() => { throw new Error('Permission denied'); }); // Second throws
+    vi.spyOn(indexModule, 'batchRemoveFromIndex').mockResolvedValue(1);
+
+    const result = await bulkDelete({ pattern: 'decision-*' });
+
+    expect(result.status).toBe('success');
+    expect(result.deletedCount).toBe(1);
+    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Permission denied' }]);
+  });
+
+  it('should handle general errors in outer try block', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await bulkDelete({ pattern: 'decision-*' });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Bulk delete failed');
+    expect(result.error).toContain('Index corrupted');
+  });
 });

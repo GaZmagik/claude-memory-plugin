@@ -253,6 +253,19 @@ describe('linkMemories', () => {
     expect(result.status).toBe('success');
     expect(result.edge?.label).toBe('relates-to');
   });
+
+  it('should handle errors during link creation', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await linkMemories({
+      source: 'source-id',
+      target: 'target-id',
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Failed to create link');
+    expect(result.error).toContain('Index corrupted');
+  });
 });
 
 describe('unlinkMemories', () => {
@@ -370,5 +383,18 @@ describe('unlinkMemories', () => {
       'target-id',
       'implements'
     );
+  });
+
+  it('should handle errors during link removal', async () => {
+    vi.spyOn(structureModule, 'loadGraph').mockRejectedValue(new Error('Graph corrupted'));
+
+    const result = await unlinkMemories({
+      source: 'source-id',
+      target: 'target-id',
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Failed to remove link');
+    expect(result.error).toContain('Graph corrupted');
   });
 });

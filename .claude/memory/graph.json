@@ -522,135 +522,193 @@
     },
     {
       "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Plugin installation solved forked session hook inheritance"
     },
     {
       "id": "gotcha-retro-help-system-broken-for-subcommands",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Help system broken for subcommands"
     },
     {
       "id": "retro-parallel-expert-review-effective",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retrospective: Parallel Expert Review Orchestration"
     },
     {
       "id": "retro-test-subprocess-hanging",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retrospective: Full Test Suite Runs Hang Indefinitely"
     },
     {
       "id": "gotcha-embedding-context-length-causes-500-error",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Embedding Context Length Causes 500 Error"
     },
     {
       "id": "learning-retro-embedding-truncation-solved-silent-failures",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Embedding truncation solved silent failures"
     },
     {
       "id": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - DRY extraction patterns reduce duplication pressure"
     },
     {
       "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD parity audit forced complete test coverage"
     },
     {
       "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - GPU vs CPU embedding model selection matters"
     },
     {
       "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall"
     },
     {
       "id": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Pragmatic >perfect when debugging test infrastructure issues"
     },
     {
       "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Artifact - CLI test pattern: JSON stdin/stdout with log line filtering"
     },
     {
       "id": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Trust gotcha memory before investigating duplicates"
     },
     {
       "id": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel agent context restoration accelerates handover"
     },
     {
       "id": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Spec review discovered 59 TypeScript compilation errors at end-of-phase"
     },
     {
       "id": "learning-strip-deliberation-trail-from-promoted-think-memories",
-      "type": "learning"
+      "type": "learning",
+      "title": "Strip deliberation trail from promoted think memories"
     },
     {
       "id": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "type": "decision"
+      "type": "decision",
+      "title": "Embedding context limit solution for memory refresh --embeddings"
     },
     {
       "id": "learning-exclude-thoughts-from-embedding-generation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Exclude thoughts from embedding generation"
     },
     {
       "id": "learning-retro-multi-agent-deliberation-effective-for-complex-technical-decisions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Multi-agent deliberation effective for complex technical decisions"
     },
     {
       "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - vi.mock() causes test pollution in coverage mode"
     },
     {
       "id": "learning-learning-inspect-implementation-before-fixing-promotions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Learning - Inspect implementation before fixing promotions"
     },
     {
       "id": "learning-memory-system-analysis-session-linking-quality-audit",
-      "type": "learning"
+      "type": "learning",
+      "title": "Memory System Analysis Session - Linking & Quality Audit"
     },
     {
       "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly"
     },
     {
       "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking"
     },
     {
       "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact"
     },
     {
       "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly"
     },
     {
       "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Mock.module isolation in separate spec files prevents test pollution while enabling comprehensive AI path coverage"
     },
     {
       "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic coverage patterns accelerate edge case discovery"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents post-compaction proved efficient"
     },
     {
       "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Coverage tool continuation threshold unclear"
     },
     {
       "id": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Pattern replication across test suites dramatically accelerates coverage completion"
     },
     {
       "id": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Session restore workflow reduced context loss and context reorientation time significantly"
     },
     {
       "id": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Coverage achievement on core modules enables rapid progress on secondary modules"
+    },
+    {
+      "id": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
+      "type": "learning",
+      "title": "Retro - Coverage asymptotic returns - 99%+ becomes exponentially harder"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "type": "learning",
+      "title": "Retro - Error handling test pattern replication reduced per-file time"
+    },
+    {
+      "id": "thought-20260116-180811237",
+      "type": "breadcrumb",
+      "title": "Think: Embedding context limit solution for memory refresh --embeddings"
+    },
+    {
+      "id": "thought-20260116-183846962",
+      "type": "breadcrumb",
+      "title": "Think: Memory System Analysis Session - Linking & Quality Audit"
     }
   ],
   "edges": [

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T20:11:23.062Z",
+  "lastUpdated": "2026-01-16T20:27:59.146Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2173,6 +2173,83 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
+      "type": "learning",
+      "title": "Retro - Coverage asymptotic returns - 99%+ becomes exponentially harder",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-16T20:25:03.409Z",
+      "updated": "2026-01-16T20:25:03.409Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly",
+      "tags": [
+        "retrospective",
+        "testing",
+        "vitest",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-01-16T20:25:09.682Z",
+      "updated": "2026-01-16T20:25:09.682Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "type": "learning",
+      "title": "Retro - Error handling test pattern replication reduced per-file time",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "pattern-replication",
+        "project"
+      ],
+      "created": "2026-01-16T20:25:16.431Z",
+      "updated": "2026-01-16T20:25:16.431Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-error-handling-test-pattern-replication-reduced-per-file-time.md",
+      "severity": "medium"
+    },
+    {
+      "id": "thought-20260116-180811237",
+      "title": "Think: Embedding context limit solution for memory refresh --embeddings",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-16T18:08:11.240Z",
+      "updated": "2026-01-16T18:10:42.185Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260116-180811237.md"
+    },
+    {
+      "id": "thought-20260116-183846962",
+      "title": "Think: Memory System Analysis Session - Linking & Quality Audit",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-16T18:38:46.965Z",
+      "updated": "2026-01-16T18:39:23.317Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260116-183846962.md"
     }
   ]
 }

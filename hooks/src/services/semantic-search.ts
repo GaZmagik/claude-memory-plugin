@@ -19,7 +19,7 @@ import { homedir } from 'os';
 import { embed } from './ollama.ts';
 
 // Configuration
-const EMBEDDING_MODEL = 'embeddinggemma:latest-cpu';
+const EMBEDDING_MODEL = 'embeddinggemma:latest';
 
 // Tiered thresholds (calibrated for embeddinggemma scores ~0.3-0.6 range)
 // Exact topic match typically scores ~0.55-0.60, related ~0.45-0.50

@@ -165,7 +165,7 @@ describe('constants', () => {
     });
 
     it('should specify embedding model', () => {
-      expect(OLLAMA_MODELS.EMBEDDING).toBe('embeddinggemma:latest-cpu');
+      expect(OLLAMA_MODELS.EMBEDDING).toBe('embeddinggemma:latest');
     });
 
     it('should have model names in expected format', () => {

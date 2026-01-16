@@ -163,7 +163,7 @@ export async function generate(
  * - Graceful degradation (returns empty array on error)
  *
  * @param text - Text to embed
- * @param model - Embedding model name (default: embeddinggemma:latest-cpu)
+ * @param model - Embedding model name (default: embeddinggemma:latest)
  * @param options - Additional options like timeout, maxRetries
  * @returns Embedding vector or empty array on error
  */

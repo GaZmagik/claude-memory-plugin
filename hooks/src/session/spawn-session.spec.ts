@@ -10,7 +10,7 @@
 
 import { describe, it, expect, mock, beforeEach, afterEach, afterAll } from 'bun:test';
 import { join } from 'path';
-import { homedir } from 'os';
+import { homedir, tmpdir } from 'os';
 import * as originalFs from 'fs';
 import * as originalChildProcess from 'node:child_process';
 
@@ -131,7 +131,7 @@ describe('spawn-session', () => {
       }
     });
 
-    it('should write context to temp file', async () => {
+    it('should write context to /tmp/ instead of logDir', async () => {
       mockExistsSync.mockReturnValue(true);
 
       await spawnSessionWithContext({
@@ -142,19 +142,20 @@ describe('spawn-session', () => {
         logPrefix: 'test',
       });
 
-      // Should write context file
+      // Should write context file to /tmp/ with claude- prefix
       type WriteCall = [path: string, content: string, options?: unknown];
       const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
       const contextCall = calls.find(
-        (call) => call[0].includes('context-test-session-123.txt')
+        (call) => call[0].includes('claude-context-test-session-123.txt')
       );
       expect(contextCall).toBeTruthy();
       if (contextCall) {
+        expect(contextCall[0]).toContain(tmpdir());
         expect(contextCall[1]).toBe('My conversation context');
       }
     });
 
-    it('should spawn detached wrapper script process', async () => {
+    it('should spawn detached wrapper script from /tmp/', async () => {
       mockExistsSync.mockReturnValue(true);
 
       await spawnSessionWithContext({
@@ -166,10 +167,10 @@ describe('spawn-session', () => {
       });
 
       expect(childProcess.spawn).toHaveBeenCalledWith(
-        expect.stringContaining('wrapper-test-session.sh'),
+        expect.stringContaining('claude-wrapper-test-session.sh'),
         expect.arrayContaining([
-          expect.stringContaining('.log'), // logFile
-          expect.stringContaining('context-'), // contextFile
+          expect.stringContaining('.log'), // logFile (still in .claude/logs)
+          expect.stringContaining('claude-context-'), // contextFile (in /tmp/)
           '300', // timeout
           'claude-haiku-4-5-20251001', // model
           'Bash,Read,Grep,Glob,TodoWrite', // tools

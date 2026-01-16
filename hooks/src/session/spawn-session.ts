@@ -11,7 +11,7 @@
 
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { homedir } from 'os';
+import { homedir, tmpdir } from 'os';
 
 export interface SpawnSessionOptions {
   /** Session ID (for logging and file naming) */
@@ -112,14 +112,19 @@ Context size: ${options.contextPrompt.length} bytes
   const model = options.model ?? 'claude-haiku-4-5-20251001';
   const tools = options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite';
 
-  // Write context to file to avoid shell escaping issues
+  // Write ephemeral files to /tmp/ instead of .claude/logs/
+  // These are only needed during execution and self-clean on completion
+  // Using /tmp/ avoids cluttering project directories if cleanup fails
+  const tempDir = tmpdir();
+
+  // Write context to temp file to avoid shell escaping issues
   // Use mode 0600 for security (owner read/write only)
-  const contextFile = join(logDir, `context-${options.sessionId}.txt`);
+  const contextFile = join(tempDir, `claude-context-${options.sessionId}.txt`);
   writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
 
   // Write a wrapper script that reads all values from files/args
   // This avoids shell interpolation vulnerabilities
-  const wrapperScript = join(logDir, `wrapper-${options.sessionId}.sh`);
+  const wrapperScript = join(tempDir, `claude-wrapper-${options.sessionId}.sh`);
   const scriptContent = `#!/bin/bash
 set -euo pipefail
 
@@ -131,6 +136,12 @@ TOOLS="$5"
 PROMPT="$6"
 CWD="$7"
 WRAPPER_SCRIPT="$8"
+
+# Cleanup function - ensures temp files are removed even on signals
+cleanup() {
+  rm -f "$CONTEXT_FILE" "$WRAPPER_SCRIPT"
+}
+trap cleanup EXIT INT TERM
 
 echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
 
@@ -155,9 +166,7 @@ EXIT_CODE=\${PIPESTATUS[0]}
 echo "---" >> "$LOG_FILE"
 echo "Completed with exit code: $EXIT_CODE" >> "$LOG_FILE"
 echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
-
-# Clean up temp files
-rm -f "$CONTEXT_FILE" "$WRAPPER_SCRIPT"
+# Cleanup handled by EXIT trap
 `;
   writeFileSync(wrapperScript, scriptContent, { mode: 0o755 });
 

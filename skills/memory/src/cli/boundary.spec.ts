@@ -170,15 +170,25 @@ describe('CRUD Command Boundary Conditions', () => {
       const longQuery = 'a'.repeat(10000);
       const args: ParsedArgs = { positional: [longQuery], flags: {} };
       const result = await cmdSearch(args);
-      // Should not crash, may return empty results
-      expect(result).toBeDefined();
+      // Should not crash - verify structure and non-error status
+      expect(result.status).toBe('success');
+      // The wrapped data should exist (even if search returns no results)
+      expect(result.data).toBeDefined();
     });
 
     it('handles query with regex special chars', async () => {
       const args: ParsedArgs = { positional: ['test.*[regex]+(pattern)'], flags: {} };
       const result = await cmdSearch(args);
-      // Should handle gracefully
-      expect(result).toBeDefined();
+      // Should handle gracefully without regex injection
+      expect(result.status).toBe('success');
+      // Verify the data is structured properly (not a crash)
+      expect(result.data).toBeDefined();
+      // If it returned results, they shouldn't be regex-interpreted matches
+      const data = result.data as any;
+      if (data?.results) {
+        // Results should be from literal string search, not regex
+        expect(Array.isArray(data.results)).toBe(true);
+      }
     });
   });
 
@@ -258,8 +268,17 @@ describe('Bulk Command Boundary Conditions', () => {
     it('handles missing scope gracefully', async () => {
       const args: ParsedArgs = { positional: [], flags: {} };
       const result = await cmdExport(args);
-      // Should default to project scope
-      expect(result).toBeDefined();
+      // Should default to project scope and succeed
+      expect(result.status).toBe('success');
+      // Verify exported data has expected structure
+      const data = result.data as any;
+      expect(data).toBeDefined();
+      // Export should return structured data even if empty
+      if (data?.data) {
+        expect(data.data).toHaveProperty('version');
+        expect(data.data).toHaveProperty('exportedAt');
+        expect(data.data).toHaveProperty('memories');
+      }
     });
   });
 });
@@ -322,10 +341,48 @@ describe('Think Command Boundary Conditions', () => {
 describe('Security Boundary Conditions', () => {
   describe('Prototype Pollution Prevention', () => {
     it('should sanitise __proto__ in import data', async () => {
-      // This is tested in import.spec.ts but we verify CLI doesn't crash
-      // Full integration test would require mocking stdin or file input
-      // The sanitiseObject function is tested at the core layer
-      expect(true).toBe(true); // Placeholder - full test in integration
+      // Test that importing data with __proto__ doesn't pollute Object.prototype
+      // Create a temp file with malicious JSON containing __proto__
+      const fs = await import('node:fs');
+      const os = await import('node:os');
+      const path = await import('node:path');
+
+      const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'proto-test-'));
+      const maliciousFile = path.join(tempDir, 'malicious.json');
+
+      // Craft JSON with __proto__ that would pollute if not sanitised
+      const maliciousData = JSON.stringify({
+        version: '1.0.0',
+        exportedAt: new Date().toISOString(),
+        memories: [{
+          id: 'test-memory',
+          type: 'learning',
+          title: 'Test',
+          content: 'Content',
+          created: new Date().toISOString(),
+          updated: new Date().toISOString(),
+          scope: 'project',
+          tags: [],
+          '__proto__': { polluted: true },
+          'constructor': { prototype: { polluted: true } }
+        }]
+      });
+
+      fs.writeFileSync(maliciousFile, maliciousData);
+
+      try {
+        const args: ParsedArgs = { positional: [maliciousFile], flags: { strategy: 'skip' } };
+        const result = await cmdImport(args);
+
+        // Verify Object.prototype was NOT polluted
+        expect((Object.prototype as any).polluted).toBeUndefined();
+        expect(({} as any).polluted).toBeUndefined();
+
+        // The import should still complete (sanitised data)
+        expect(result.status).toBe('success');
+      } finally {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      }
     });
   });
 

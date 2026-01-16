@@ -444,6 +444,18 @@
     {
       "id": "decision-memory-hook-enhancement-plan-review",
       "type": "decision"
+    },
+    {
+      "id": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "type": "decision"
     }
   ],
   "edges": [

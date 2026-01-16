@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-15T19:44:49.358Z",
+  "lastUpdated": "2026-01-16T06:59:27.442Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1430,6 +1430,51 @@
       "updated": "2026-01-15T19:44:49.357Z",
       "scope": "project",
       "relativePath": "permanent/decision-memory-hook-enhancement-plan-review.md"
+    },
+    {
+      "id": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "type": "learning",
+      "title": "Scope reduction for system hooks through expert consultation prevents coupling",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "plugin",
+        "project"
+      ],
+      "created": "2026-01-15T23:03:58.115Z",
+      "updated": "2026-01-15T23:03:58.115Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling.md"
+    },
+    {
+      "id": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "type": "gotcha",
+      "title": "TDD test files must exist before editing hooks - catches integration mismatches",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-15T23:04:02.442Z",
+      "updated": "2026-01-15T23:04:02.442Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches.md"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "type": "decision",
+      "title": "Memory Hook Enhancement - Multi-Expert Deliberation Round 2",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-16T06:59:27.441Z",
+      "updated": "2026-01-16T06:59:27.441Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-memory-hook-enhancement-multi-expert-deliberation-round-2.md"
     }
   ]
 }

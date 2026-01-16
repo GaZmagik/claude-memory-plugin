@@ -20,6 +20,7 @@ import {
   serialiseMemoryFile,
   updateFrontmatter,
 } from '../core/frontmatter.js';
+import { getAllMemoryIds, findMemoryFile } from '../core/fs-utils.js';
 import type { EmbeddingCache } from '../search/embedding.js';
 
 /**
@@ -150,42 +151,6 @@ function migrateIndexJson(basePath: string, oldId: string, newId: string, dryRun
   } catch {
     return false;
   }
-}
-
-/**
- * Get all memory files from disk
- */
-function getAllMemoryIds(basePath: string): string[] {
-  const ids: string[] = [];
-
-  for (const subdir of ['permanent', 'temporary']) {
-    const dir = path.join(basePath, subdir);
-    if (!fs.existsSync(dir)) continue;
-
-    const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
-    for (const file of files) {
-      ids.push(file.replace('.md', ''));
-    }
-  }
-
-  return ids;
-}
-
-/**
- * Find a memory file by ID
- */
-function findMemoryFile(basePath: string, id: string): string | null {
-  const permanentPath = path.join(basePath, 'permanent', `${id}.md`);
-  if (fs.existsSync(permanentPath)) {
-    return permanentPath;
-  }
-
-  const temporaryPath = path.join(basePath, 'temporary', `${id}.md`);
-  if (fs.existsSync(temporaryPath)) {
-    return temporaryPath;
-  }
-
-  return null;
 }
 
 /**

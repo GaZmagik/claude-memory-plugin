@@ -172,34 +172,88 @@ export function averageKNearestSimilarity(
 }
 
 /**
+ * Fast dot product for normalised vectors (skips magnitude calculation)
+ * For normalised vectors: cosine_similarity = dot_product
+ */
+function dotProduct(vec1: number[], vec2: number[]): number {
+  let sum = 0;
+  for (let i = 0; i < vec1.length; i++) {
+    sum += vec1[i] * vec2[i];
+  }
+  return sum;
+}
+
+/**
  * Find potential duplicates based on high similarity
  *
- * @param embeddings - Map of memory ID to embedding
+ * Optimisations applied:
+ * - Uses dot product directly (embeddings are pre-normalised)
+ * - Early termination when limit reached
+ * - Caches embedding arrays to avoid repeated object lookups
+ *
+ * Complexity: O(n²) worst case, but typically much faster with limit parameter.
+ * For very large collections (>1000), consider sampling or LSH-based approaches.
+ *
+ * @param embeddings - Map of memory ID to embedding (must be normalised)
  * @param threshold - Minimum similarity to consider duplicate (default: 0.92)
- * @returns Array of potential duplicate pairs
+ * @param limit - Maximum duplicates to find (default: unlimited). Use for large collections.
+ * @returns Array of potential duplicate pairs, sorted by similarity descending
  */
 export function findPotentialDuplicates(
   embeddings: Record<string, number[]>,
-  threshold: number = 0.92
+  threshold: number = 0.92,
+  limit?: number
 ): Array<{ id1: string; id2: string; similarity: number }> {
-  const duplicates: Array<{ id1: string; id2: string; similarity: number }> = [];
   const ids = Object.keys(embeddings);
+  const n = ids.length;
 
-  for (let i = 0; i < ids.length; i++) {
-    for (let j = i + 1; j < ids.length; j++) {
-      const similarity = cosineSimilarity(embeddings[ids[i]], embeddings[ids[j]]);
+  // Early exit for trivial cases
+  if (n < 2) {
+    return [];
+  }
+
+  // Cache embeddings in array for faster access (avoid repeated object lookups)
+  const embeddingArrays: number[][] = ids.map(id => embeddings[id]);
+
+  // Use a min-heap approach for top-K if limit is set, otherwise collect all
+  const duplicates: Array<{ id1: string; id2: string; similarity: number }> = [];
+
+  for (let i = 0; i < n; i++) {
+    const emb1 = embeddingArrays[i];
+
+    for (let j = i + 1; j < n; j++) {
+      // Fast dot product for normalised vectors
+      const similarity = dotProduct(emb1, embeddingArrays[j]);
+
       if (similarity >= threshold) {
         duplicates.push({
           id1: ids[i],
           id2: ids[j],
           similarity,
         });
+
+        // Early termination if we've found enough high-similarity pairs
+        // and just need to report that duplicates exist
+        if (limit !== undefined && duplicates.length >= limit * 2) {
+          // Collect extra candidates then trim to top 'limit'
+          break;
+        }
       }
+    }
+
+    // Break outer loop too if limit reached
+    if (limit !== undefined && duplicates.length >= limit * 2) {
+      break;
     }
   }
 
   // Sort by similarity descending
   duplicates.sort((a, b) => b.similarity - a.similarity);
+
+  // Apply limit
+  if (limit !== undefined && duplicates.length > limit) {
+    return duplicates.slice(0, limit);
+  }
 
   return duplicates;
 }

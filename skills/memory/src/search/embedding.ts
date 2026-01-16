@@ -237,23 +237,58 @@ export function createMockProvider(dimension: number = 384): EmbeddingProvider {
 }
 
 /**
+ * Maximum content length for embedding (in characters)
+ * Embedding models typically have 2K-8K token limits.
+ * Using 6000 chars (~1500 tokens) to leave headroom.
+ */
+const MAX_EMBEDDING_CONTENT_LENGTH = 6000;
+
+/**
+ * Truncate content for embedding if too long
+ */
+export function truncateForEmbedding(content: string): string {
+  if (content.length <= MAX_EMBEDDING_CONTENT_LENGTH) {
+    return content;
+  }
+  // Truncate at word boundary and add indicator
+  const truncated = content.slice(0, MAX_EMBEDDING_CONTENT_LENGTH);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > MAX_EMBEDDING_CONTENT_LENGTH - 100
+    ? truncated.slice(0, lastSpace)
+    : truncated) + '...';
+}
+
+/**
  * Create Ollama embedding provider
  */
 export function createOllamaProvider(
-  model: string = 'embeddinggemma',
+  model: string = 'embeddinggemma:latest',
   baseUrl: string = 'http://localhost:11434'
 ): EmbeddingProvider {
   return {
     name: `ollama:${model}`,
     generate: async (text: string) => {
+      // Truncate long content to avoid exceeding model context length
+      const truncatedText = truncateForEmbedding(text);
+
       const response = await fetch(`${baseUrl}/api/embeddings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model, prompt: text }),
+        body: JSON.stringify({ model, prompt: truncatedText }),
       });
 
       if (!response.ok) {
-        throw new Error(`Ollama API error: ${response.statusText}`);
+        // Parse actual error from Ollama response body
+        let errorDetail = response.statusText;
+        try {
+          const errorBody = await response.json() as { error?: string };
+          if (errorBody.error) {
+            errorDetail = errorBody.error;
+          }
+        } catch {
+          // Fall back to statusText if body parsing fails
+        }
+        throw new Error(`Ollama API error: ${errorDetail}`);
       }
 
       const data = (await response.json()) as { embedding: number[] };

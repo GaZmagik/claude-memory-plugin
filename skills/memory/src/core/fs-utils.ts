@@ -169,3 +169,47 @@ export function validateSymlinkTarget(filePath: string, allowedBaseDir: string):
 
   return resolvedPath;
 }
+
+/**
+ * Memory storage subdirectories
+ */
+export const MEMORY_SUBDIRS = ['permanent', 'temporary'] as const;
+
+/**
+ * Get all memory IDs from disk by scanning permanent and temporary directories
+ *
+ * @param basePath - Base memory storage path (e.g., .claude/memory)
+ * @returns Array of memory IDs (filenames without .md extension)
+ */
+export function getAllMemoryIds(basePath: string): string[] {
+  const ids: string[] = [];
+
+  for (const subdir of MEMORY_SUBDIRS) {
+    const dir = path.join(basePath, subdir);
+    if (!fs.existsSync(dir)) continue;
+
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+    for (const file of files) {
+      ids.push(file.replace('.md', ''));
+    }
+  }
+
+  return ids;
+}
+
+/**
+ * Find a memory file by ID, searching both permanent and temporary directories
+ *
+ * @param basePath - Base memory storage path
+ * @param id - Memory ID
+ * @returns Full path to the memory file, or null if not found
+ */
+export function findMemoryFile(basePath: string, id: string): string | null {
+  for (const subdir of MEMORY_SUBDIRS) {
+    const filePath = path.join(basePath, subdir, `${id}.md`);
+    if (fs.existsSync(filePath)) {
+      return filePath;
+    }
+  }
+  return null;
+}

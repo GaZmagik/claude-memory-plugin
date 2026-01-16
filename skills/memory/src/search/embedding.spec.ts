@@ -473,7 +473,7 @@ describe('Embedding Generation', () => {
     it('should create provider with default model and URL', () => {
       const provider = createOllamaProvider();
 
-      expect(provider.name).toBe('ollama:embeddinggemma');
+      expect(provider.name).toBe('ollama:embeddinggemma:latest');
     });
 
     it('should create provider with custom model', () => {

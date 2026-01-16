@@ -222,4 +222,12 @@ export type { MemoryFrontmatter, IndexEntry, MemoryIndex } from './types/memory.
 
 export { generateSlug, generateUniqueId } from './core/slug.js';
 export { createLogger } from './core/logger.js';
-export { fileExists, readFile, writeFileAtomic, ensureDir } from './core/fs-utils.js';
+export {
+  fileExists,
+  readFile,
+  writeFileAtomic,
+  ensureDir,
+  getAllMemoryIds,
+  findMemoryFile,
+  MEMORY_SUBDIRS,
+} from './core/fs-utils.js';

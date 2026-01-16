@@ -10,6 +10,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
+import { getAllMemoryIds } from '../core/fs-utils.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../graph/edges.js';
 
@@ -296,25 +297,6 @@ export interface AuditResponse {
     averageScore: number;
   };
   error?: string;
-}
-
-/**
- * Get all memory IDs from disk
- */
-function getAllMemoryIds(basePath: string): string[] {
-  const ids: string[] = [];
-
-  for (const subdir of ['permanent', 'temporary']) {
-    const dir = path.join(basePath, subdir);
-    if (!fs.existsSync(dir)) continue;
-
-    const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
-    for (const file of files) {
-      ids.push(file.replace('.md', ''));
-    }
-  }
-
-  return ids;
 }
 
 /**

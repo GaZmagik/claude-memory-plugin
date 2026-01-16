@@ -82,6 +82,11 @@ claude-memory-plugin/
 ├── agents/                # Advanced memory agents
 │   ├── recall.md          # Query and restore memory context
 │   └── curator.md         # Audit memory graph health
+├── output-styles/         # AI deliberation perspectives (15 styles)
+│   ├── Architect.md       # System design perspective
+│   ├── Devils-Advocate.md # Challenge assumptions
+│   ├── Security-Auditor.md# Security-focused analysis
+│   └── ...                # See full list below
 └── commands/              # Slash commands
     ├── check-gotchas.md   # Search for relevant warnings
     ├── check-health.md    # Inspect memory system
@@ -125,6 +130,47 @@ Track relationships between memories:
 - Gotchas → related warnings
 - Artifacts → code patterns they inspired
 - Learnings → what caused them
+
+### 5. Thinking Documents & AI Deliberation
+
+Use ephemeral thinking documents for complex decisions with optional AI-assisted perspectives:
+
+```bash
+# Create a thinking document
+memory think create "Should we use Redis or PostgreSQL for caching?"
+
+# Add thoughts manually
+memory think add "Redis offers sub-millisecond latency"
+memory think counter "But PostgreSQL reduces operational complexity"
+
+# Or get AI-assisted deliberation with different perspectives
+memory think add "Evaluate caching options" --call claude --style Devils-Advocate
+memory think add "Consider security implications" --call claude --style Security-Auditor
+memory think add "Review system design" --call claude --agent typescript-expert
+
+# Conclude and optionally promote to permanent memory
+memory think conclude "Use PostgreSQL with UNLOGGED tables" --promote decision
+```
+
+**Available Output Styles** (15 perspectives for AI deliberation):
+
+| Style | Perspective |
+|-------|-------------|
+| `Architect` | System design, scalability, maintainability |
+| `Concise` | Brief, focused responses |
+| `Debugger` | Root cause analysis, systematic debugging |
+| `Devils-Advocate` | Challenge assumptions, find weaknesses |
+| `Historian` | Historical context, precedent analysis |
+| `Mentor` | Teaching, guidance, best practices |
+| `Optimist` | Opportunities, positive framing |
+| `Pair-Programmer` | Collaborative problem-solving |
+| `Pragmatist` | Practical trade-offs, shipping focus |
+| `Product-Manager` | User value, business impact |
+| `Risk-Assessor` | Risk identification and mitigation |
+| `Rubber-Duck` | Reflective questioning |
+| `Security-Auditor` | Security vulnerabilities, threat modelling |
+| `Simplifier` | Complexity reduction, clarity |
+| `User-Advocate` | End-user experience focus |
 
 ## Security
 

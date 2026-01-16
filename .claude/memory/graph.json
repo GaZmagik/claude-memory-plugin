@@ -639,6 +639,18 @@
     {
       "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
+      "type": "learning"
     }
   ],
   "edges": [

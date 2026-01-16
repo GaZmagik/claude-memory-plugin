@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T20:01:16.486Z",
+  "lastUpdated": "2026-01-16T20:11:23.062Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2121,6 +2121,57 @@
       "updated": "2026-01-16T20:01:16.483Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-coverage-tool-continuation-threshold-unclear.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "type": "learning",
+      "title": "Retro - Pattern replication across test suites dramatically accelerates coverage completion",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-01-16T20:11:15.075Z",
+      "updated": "2026-01-16T20:11:15.075Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "type": "learning",
+      "title": "Retro - Session restore workflow reduced context loss and context reorientation time significantly",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-01-16T20:11:18.823Z",
+      "updated": "2026-01-16T20:11:18.823Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
+      "type": "learning",
+      "title": "Retro - Coverage achievement on core modules enables rapid progress on secondary modules",
+      "tags": [
+        "retrospective",
+        "process",
+        "coverage",
+        "prioritization",
+        "project"
+      ],
+      "created": "2026-01-16T20:11:23.059Z",
+      "updated": "2026-01-16T20:11:23.059Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules.md",
       "severity": "medium"
     }
   ]

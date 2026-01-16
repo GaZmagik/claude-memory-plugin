@@ -1,6 +1,14 @@
 /**
  * Unit tests for plugin.json schema validation
- * Validates that plugin metadata conforms to expected structure
+ * Validates that plugin metadata conforms to Claude Code plugin schema
+ *
+ * Official schema reference: https://code.claude.com/docs/en/plugins-reference#plugin-manifest-schema
+ *
+ * Required fields: name, version, description
+ * Optional fields: author, license, repository, keywords
+ *
+ * Note: Claude Code uses auto-discovery for components (skills/, agents/, commands/, hooks/)
+ * so 'engines' and 'components' are NOT part of the official schema.
  */
 
 import { describe, it, expect, beforeAll } from 'bun:test';
@@ -64,85 +72,37 @@ describe('Plugin Metadata (plugin.json)', () => {
     });
   });
 
-  describe('engine requirements', () => {
-    it('should specify claude-code version', () => {
-      expect(pluginJson.engines).toBeDefined();
-      const engines = pluginJson.engines as Record<string, string>;
-      expect(engines['claude-code']).toBeDefined();
-      expect(engines['claude-code']).toMatch(/^>=?\d+/);
+  describe('auto-discovery directories', () => {
+    it('should have skills directory', () => {
+      const skillsDir = join(pluginRoot, 'skills');
+      expect(existsSync(skillsDir)).toBe(true);
     });
 
-    it('should specify bun version', () => {
-      const engines = pluginJson.engines as Record<string, string>;
-      expect(engines.bun).toBeDefined();
-      expect(engines.bun).toMatch(/^>=?\d+/);
-    });
-  });
-
-  describe('components declaration', () => {
-    it('should declare components object', () => {
-      expect(pluginJson.components).toBeDefined();
-      expect(typeof pluginJson.components).toBe('object');
+    it('should have agents directory', () => {
+      const agentsDir = join(pluginRoot, 'agents');
+      expect(existsSync(agentsDir)).toBe(true);
     });
 
-    it('should declare skills', () => {
-      const components = pluginJson.components as Record<string, unknown>;
-      expect(components.skills).toBeDefined();
-      expect(Array.isArray(components.skills)).toBe(true);
-      expect((components.skills as string[]).length).toBeGreaterThan(0);
+    it('should have commands directory', () => {
+      const commandsDir = join(pluginRoot, 'commands');
+      expect(existsSync(commandsDir)).toBe(true);
     });
 
-    it('should declare hooks configuration', () => {
-      const components = pluginJson.components as Record<string, unknown>;
-      expect(components.hooks).toBeDefined();
-      expect(typeof components.hooks).toBe('string');
-      expect(components.hooks).toContain('hooks.json');
-    });
-
-    it('should declare commands', () => {
-      const components = pluginJson.components as Record<string, unknown>;
-      expect(components.commands).toBeDefined();
-      expect(Array.isArray(components.commands)).toBe(true);
-      expect((components.commands as string[]).length).toBeGreaterThan(0);
-    });
-
-    it('should declare agents', () => {
-      const components = pluginJson.components as Record<string, unknown>;
-      expect(components.agents).toBeDefined();
-      expect(Array.isArray(components.agents)).toBe(true);
-      expect((components.agents as string[]).length).toBeGreaterThan(0);
+    it('should have hooks directory', () => {
+      const hooksDir = join(pluginRoot, 'hooks');
+      expect(existsSync(hooksDir)).toBe(true);
     });
   });
 
-  describe('component paths validation', () => {
-    it('should have valid skill paths', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      for (const skillPath of components.skills) {
-        const fullPath = join(pluginRoot, skillPath);
-        expect(existsSync(fullPath)).toBe(true);
-      }
+  describe('schema compliance', () => {
+    it('should not have deprecated components field', () => {
+      // Official schema uses auto-discovery, not explicit components
+      expect(pluginJson.components).toBeUndefined();
     });
 
-    it('should have valid hooks.json path', () => {
-      const components = pluginJson.components as Record<string, string>;
-      const hooksPath = join(pluginRoot, components.hooks);
-      expect(existsSync(hooksPath)).toBe(true);
-    });
-
-    it('should have valid command paths', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      for (const cmdPath of components.commands) {
-        const fullPath = join(pluginRoot, cmdPath);
-        expect(existsSync(fullPath)).toBe(true);
-      }
-    });
-
-    it('should have valid agent paths', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      for (const agentPath of components.agents) {
-        const fullPath = join(pluginRoot, agentPath);
-        expect(existsSync(fullPath)).toBe(true);
-      }
+    it('should not have engines field (not in official schema)', () => {
+      // engines field is not part of official Claude Code plugin schema
+      expect(pluginJson.engines).toBeUndefined();
     });
   });
 });

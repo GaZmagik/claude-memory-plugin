@@ -42,28 +42,20 @@ describe('Plugin Installation', () => {
       expect(() => JSON.parse(content)).not.toThrow();
     });
 
-    it('should reference existing files', () => {
-      const pluginJson = JSON.parse(
-        readFileSync(join(pluginRoot, '.claude-plugin/plugin.json'), 'utf-8')
-      );
-
-      // Validate skills
-      for (const skillPath of pluginJson.components.skills) {
-        expect(existsSync(join(pluginRoot, skillPath))).toBe(true);
-      }
+    it('should have auto-discoverable component directories', () => {
+      // Claude Code auto-discovers components from these directories
+      // Validate skills directory
+      expect(existsSync(join(pluginRoot, 'skills'))).toBe(true);
+      expect(existsSync(join(pluginRoot, 'skills/memory/SKILL.md'))).toBe(true);
 
       // Validate hooks.json
-      expect(existsSync(join(pluginRoot, pluginJson.components.hooks))).toBe(true);
+      expect(existsSync(join(pluginRoot, 'hooks/hooks.json'))).toBe(true);
 
-      // Validate commands
-      for (const cmdPath of pluginJson.components.commands) {
-        expect(existsSync(join(pluginRoot, cmdPath))).toBe(true);
-      }
+      // Validate commands directory
+      expect(existsSync(join(pluginRoot, 'commands'))).toBe(true);
 
-      // Validate agents
-      for (const agentPath of pluginJson.components.agents) {
-        expect(existsSync(join(pluginRoot, agentPath))).toBe(true);
-      }
+      // Validate agents directory
+      expect(existsSync(join(pluginRoot, 'agents'))).toBe(true);
     });
   });
 

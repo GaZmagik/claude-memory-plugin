@@ -1,31 +1,30 @@
 /**
  * Integration tests for plugin component registration
  * Validates that all components are properly discoverable and configured
+ *
+ * Note: Claude Code uses auto-discovery for components:
+ * - skills/ -> SKILL.md files
+ * - commands/ -> .md files
+ * - agents/ -> .md files
+ * - hooks/ -> hooks.json
  */
 
 import { describe, it, expect, beforeAll } from 'bun:test';
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 describe('Component Registration', () => {
   const pluginRoot = join(import.meta.dir, '../..');
-  let pluginJson: Record<string, unknown>;
   let hooksJson: Record<string, unknown>;
 
   beforeAll(() => {
-    pluginJson = JSON.parse(
-      readFileSync(join(pluginRoot, '.claude-plugin/plugin.json'), 'utf-8')
-    );
     hooksJson = JSON.parse(
       readFileSync(join(pluginRoot, 'hooks/hooks.json'), 'utf-8')
     );
   });
 
   describe('skill registration', () => {
-    it('should register memory skill with SKILL.md', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      expect(components.skills).toContain('skills/memory/SKILL.md');
-
+    it('should have memory skill with SKILL.md', () => {
       const skillPath = join(pluginRoot, 'skills/memory/SKILL.md');
       expect(existsSync(skillPath)).toBe(true);
 
@@ -96,43 +95,36 @@ describe('Component Registration', () => {
     });
   });
 
-  describe('command registration', () => {
-    it('should register all commands in plugin.json', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      expect(components.commands).toBeDefined();
-      expect(Array.isArray(components.commands)).toBe(true);
-      expect(components.commands.length).toBeGreaterThan(0);
+  describe('command auto-discovery', () => {
+    const commandsDir = join(import.meta.dir, '../../commands');
+
+    it('should have commands directory', () => {
+      expect(existsSync(commandsDir)).toBe(true);
     });
 
     it('should have check-gotchas command', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      const hasCheckGotchas = components.commands.some((cmd: string) =>
-        cmd.includes('check-gotchas')
-      );
+      const files = readdirSync(commandsDir);
+      const hasCheckGotchas = files.some((f: string) => f.includes('check-gotchas'));
       expect(hasCheckGotchas).toBe(true);
     });
 
     it('should have check-health command', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      const hasCheckHealth = components.commands.some((cmd: string) =>
-        cmd.includes('check-health')
-      );
+      const files = readdirSync(commandsDir);
+      const hasCheckHealth = files.some((f: string) => f.includes('check-health'));
       expect(hasCheckHealth).toBe(true);
     });
 
     it('should have commit command', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      const hasCommit = components.commands.some((cmd: string) =>
-        cmd.includes('commit')
-      );
+      const files = readdirSync(commandsDir);
+      const hasCommit = files.some((f: string) => f.includes('commit'));
       expect(hasCommit).toBe(true);
     });
 
     it('should have valid command frontmatter', () => {
-      const components = pluginJson.components as Record<string, string[]>;
+      const files = readdirSync(commandsDir).filter(f => f.endsWith('.md'));
 
-      for (const cmdPath of components.commands) {
-        const fullPath = join(pluginRoot, cmdPath);
+      for (const cmdFile of files) {
+        const fullPath = join(commandsDir, cmdFile);
         const content = readFileSync(fullPath, 'utf-8');
 
         // Commands use YAML frontmatter with description field
@@ -142,35 +134,30 @@ describe('Component Registration', () => {
     });
   });
 
-  describe('agent registration', () => {
-    it('should register all agents in plugin.json', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      expect(components.agents).toBeDefined();
-      expect(Array.isArray(components.agents)).toBe(true);
-      expect(components.agents.length).toBeGreaterThan(0);
+  describe('agent auto-discovery', () => {
+    const agentsDir = join(import.meta.dir, '../../agents');
+
+    it('should have agents directory', () => {
+      expect(existsSync(agentsDir)).toBe(true);
     });
 
     it('should have recall agent', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      const hasRecall = components.agents.some((agent: string) =>
-        agent.includes('recall')
-      );
+      const files = readdirSync(agentsDir);
+      const hasRecall = files.some((f: string) => f.includes('recall'));
       expect(hasRecall).toBe(true);
     });
 
     it('should have curator agent', () => {
-      const components = pluginJson.components as Record<string, string[]>;
-      const hasCurator = components.agents.some((agent: string) =>
-        agent.includes('curator')
-      );
+      const files = readdirSync(agentsDir);
+      const hasCurator = files.some((f: string) => f.includes('curator'));
       expect(hasCurator).toBe(true);
     });
 
     it('should have valid agent frontmatter', () => {
-      const components = pluginJson.components as Record<string, string[]>;
+      const files = readdirSync(agentsDir).filter(f => f.endsWith('.md'));
 
-      for (const agentPath of components.agents) {
-        const fullPath = join(pluginRoot, agentPath);
+      for (const agentFile of files) {
+        const fullPath = join(agentsDir, agentFile);
         const content = readFileSync(fullPath, 'utf-8');
 
         expect(content.startsWith('---')).toBe(true);
@@ -182,22 +169,21 @@ describe('Component Registration', () => {
 
   describe('cross-component references', () => {
     it('should have commands that reference agents correctly', () => {
-      const components = pluginJson.components as Record<string, string[]>;
+      const commandsDir = join(import.meta.dir, '../../commands');
+      const agentsDir = join(import.meta.dir, '../../agents');
+      const commands = readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+      const agents = readdirSync(agentsDir).filter(f => f.endsWith('.md'));
 
-      for (const cmdPath of components.commands) {
-        const content = readFileSync(join(pluginRoot, cmdPath), 'utf-8');
+      for (const cmdFile of commands) {
+        const content = readFileSync(join(commandsDir, cmdFile), 'utf-8');
 
         if (content.includes('memory:recall')) {
-          const hasRecallAgent = components.agents.some((a: string) =>
-            a.includes('recall')
-          );
+          const hasRecallAgent = agents.some((a: string) => a.includes('recall'));
           expect(hasRecallAgent).toBe(true);
         }
 
         if (content.includes('memory:curator')) {
-          const hasCuratorAgent = components.agents.some((a: string) =>
-            a.includes('curator')
-          );
+          const hasCuratorAgent = agents.some((a: string) => a.includes('curator'));
           expect(hasCuratorAgent).toBe(true);
         }
       }
@@ -224,41 +210,32 @@ describe('Component Registration', () => {
   });
 
   describe('component discoverability', () => {
-    it('should have all paths relative to plugin root', () => {
-      const components = pluginJson.components as Record<string, string | string[]>;
-
-      for (const skillPath of components.skills as string[]) {
-        expect(skillPath.startsWith('/')).toBe(false);
-        expect(skillPath.startsWith('./')).toBe(false);
-      }
-
-      for (const cmdPath of components.commands as string[]) {
-        expect(cmdPath.startsWith('/')).toBe(false);
-        expect(cmdPath.startsWith('./')).toBe(false);
-      }
-
-      for (const agentPath of components.agents as string[]) {
-        expect(agentPath.startsWith('/')).toBe(false);
-        expect(agentPath.startsWith('./')).toBe(false);
-      }
-
-      expect((components.hooks as string).startsWith('/')).toBe(false);
+    it('should have all component directories exist', () => {
+      expect(existsSync(join(pluginRoot, 'skills'))).toBe(true);
+      expect(existsSync(join(pluginRoot, 'commands'))).toBe(true);
+      expect(existsSync(join(pluginRoot, 'agents'))).toBe(true);
+      expect(existsSync(join(pluginRoot, 'hooks'))).toBe(true);
     });
 
     it('should use consistent naming conventions', () => {
-      const components = pluginJson.components as Record<string, string[]>;
+      const commandsDir = join(pluginRoot, 'commands');
+      const agentsDir = join(pluginRoot, 'agents');
+      const skillsDir = join(pluginRoot, 'skills/memory');
 
-      for (const cmdPath of components.commands) {
-        expect(cmdPath.endsWith('.md')).toBe(true);
+      // Commands should be .md files
+      const commands = readdirSync(commandsDir).filter(f => !f.startsWith('.'));
+      for (const cmd of commands) {
+        expect(cmd.endsWith('.md')).toBe(true);
       }
 
-      for (const agentPath of components.agents) {
-        expect(agentPath.endsWith('.md')).toBe(true);
+      // Agents should be .md files
+      const agents = readdirSync(agentsDir).filter(f => !f.startsWith('.'));
+      for (const agent of agents) {
+        expect(agent.endsWith('.md')).toBe(true);
       }
 
-      for (const skillPath of components.skills) {
-        expect(skillPath.endsWith('SKILL.md')).toBe(true);
-      }
+      // Skills should have SKILL.md
+      expect(existsSync(join(skillsDir, 'SKILL.md'))).toBe(true);
     });
   });
 });

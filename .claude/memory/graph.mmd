@@ -1,0 +1,451 @@
+flowchart TB
+  learning-specification-audit-caught-architectural-gaps-before-planning(["learning-specification-audit-caught-architectural-gaps-before-planning"])
+  learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching(["learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching"])
+  learning-tdd-scope-resolution-module-structure(["learning-tdd-scope-resolution-module-structure"])
+  learning-scope-field-frontmatter-serialisation-gotcha(["learning-scope-field-frontmatter-serialisation-gotcha"])
+  learning-gitignore-comment-formatting-two-phase-fix(["learning-gitignore-comment-formatting-two-phase-fix"])
+  learning-scope-isolation-architecture-design(["learning-scope-isolation-architecture-design"])
+  learning-tdd-phase-completion-pattern(["learning-tdd-phase-completion-pattern"])
+  learning-tdd-discipline-across-multi-phase-session-maintains-coverage(["learning-tdd-discipline-across-multi-phase-session-maintains-coverage"])
+  learning-scope-field-frontmatter-serialisation-gotcha-two(["learning-scope-field-frontmatter-serialisation-gotcha-two"])
+  learning-post-compaction-memory-restoration-prevented-duplicate-work(["learning-post-compaction-memory-restoration-prevented-duplicate-work"])
+  learning-immutable-graph-operations-pattern(["learning-immutable-graph-operations-pattern"])
+  learning-semantic-search-embedding-caching-success(["learning-semantic-search-embedding-caching-success"])
+  learning-typescript-import-path-consistency-prevents-batch-compilation-failures(["learning-typescript-import-path-consistency-prevents-batch-compilation-failures"])
+  decision-4tier-scope-hierarchy{{"decision-4tier-scope-hierarchy"}}
+  learning-retro-tdd-test-expectations-guide-implementation(["learning-retro-tdd-test-expectations-guide-implementation"])
+  retro-test-first-verification-accelerated-security-review(["retro-test-first-verification-accelerated-security-review"])
+  learning-memory-context-hook-graceful-search-degradation(["learning-memory-context-hook-graceful-search-degradation"])
+  learning-test-naming-convention-spec-ts(["learning-test-naming-convention-spec-ts"])
+  learning-tdd-typescript-hook-bidirectional-enforcement(["learning-tdd-typescript-hook-bidirectional-enforcement"])
+  gotcha-agents-should-be-copies-not-rewrites["gotcha-agents-should-be-copies-not-rewrites"]
+  learning-spawn-session-refactor(["learning-spawn-session-refactor"])
+  learning-tdd-test-coverage-expansion-pattern(["learning-tdd-test-coverage-expansion-pattern"])
+  learning-typescript-tdd-hook-naming-enforcement(["learning-typescript-tdd-hook-naming-enforcement"])
+  learning-tdd-parity-typescript-support(["learning-tdd-parity-typescript-support"])
+  learning-retro-typescript-tooling-parity(["learning-retro-typescript-tooling-parity"])
+  learning-regex-based-language-parsing-tradeoff(["learning-regex-based-language-parsing-tradeoff"])
+  learning-retro-test-coverage-asymptotic-returns(["learning-retro-test-coverage-asymptotic-returns"])
+  learning-test-coverage-achieved-99-percent-functions(["learning-test-coverage-achieved-99-percent-functions"])
+  learning-retro-memory-linking-post-compaction(["learning-retro-memory-linking-post-compaction"])
+  retro-hook-pattern-non-python-projects(["retro-hook-pattern-non-python-projects"])
+  retro-mock-syntax-friction-bun(["retro-mock-syntax-friction-bun"])
+  retro-duplicate-test-discovery(["retro-duplicate-test-discovery"])
+  learning-retro-agent-generated-tests-need-api-validation(["learning-retro-agent-generated-tests-need-api-validation"])
+  learning-retro-tmpdir-cleanup-permissions-fragile(["learning-retro-tmpdir-cleanup-permissions-fragile"])
+  learning-retro-memory-graph-linking-batch-approach-efficient(["learning-retro-memory-graph-linking-batch-approach-efficient"])
+  learning-tdd-parity-vitest-limitation(["learning-tdd-parity-vitest-limitation"])
+  learning-cargo-cult-tdd-compliance(["learning-cargo-cult-tdd-compliance"])
+  decision-colocate-unit-tests{{"decision-colocate-unit-tests"}}
+  learning-test-agent-generates-aspirational-tests(["learning-test-agent-generates-aspirational-tests"])
+  learning-retro-agent-verification-for-exclusions(["learning-retro-agent-verification-for-exclusions"])
+  learning-retro-tdd-parity-typescript-matching-accuracy(["learning-retro-tdd-parity-typescript-matching-accuracy"])
+  learning-retro-test-isolation-pattern-worth-documenting(["learning-retro-test-isolation-pattern-worth-documenting"])
+  learning-bulk-operations-tdd-caught-interface-mismatches-early(["learning-bulk-operations-tdd-caught-interface-mismatches-early"])
+  gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive["gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive"]
+  learning-retro-graceful-degradation-by-default-prevents-coupling(["learning-retro-graceful-degradation-by-default-prevents-coupling"])
+  learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh(["learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh"])
+  learning-retro-hook-created-memories-need-linking(["learning-retro-hook-created-memories-need-linking"])
+  learning-retro-orphaned-nodes-accumulate-post-compaction(["learning-retro-orphaned-nodes-accumulate-post-compaction"])
+  artifact-tdd-testing-patterns-catalogue["artifact-tdd-testing-patterns-catalogue"]
+  artifact-gotcha-prevention-checklist["artifact-gotcha-prevention-checklist"]
+  artifact-memory-system-architecture-reference["artifact-memory-system-architecture-reference"]
+  decision-session-continuity-strategy{{"decision-session-continuity-strategy"}}
+  artifact-hook-system-patterns-catalogue["artifact-hook-system-patterns-catalogue"]
+  hub-cli-module-hub(("hub-cli-module-hub"))
+  hub-core-module-hub(("hub-core-module-hub"))
+  hub-graph-module-hub(("hub-graph-module-hub"))
+  hub-think-module-hub(("hub-think-module-hub"))
+  hub-search-module-hub(("hub-search-module-hub"))
+  hub-scope-module-hub(("hub-scope-module-hub"))
+  learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories(["learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories"])
+  learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories(["learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories"])
+  learning-hub-documents-improved-en-ratio-36-with-just-5-nodes(["learning-hub-documents-improved-en-ratio-36-with-just-5-nodes"])
+  learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes(["learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes"])
+  retro-type-consistency-required-triple-sync(["retro-type-consistency-required-triple-sync"])
+  retro-frontend-type-field-indicates-git-files-stale(["retro-frontend-type-field-indicates-git-files-stale"])
+  retro-session-restore-with-parallel-agents-restored-85percent-context(["retro-session-restore-with-parallel-agents-restored-85percent-context"])
+  retro-test-quality-audit-2026-01-13(["retro-test-quality-audit-2026-01-13"])
+  gotcha-embeddings-cache-schema-must-match-code["gotcha-embeddings-cache-schema-must-match-code"]
+  learning-post-compaction-parallel-agent-restoration-effective(["learning-post-compaction-parallel-agent-restoration-effective"])
+  learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing(["learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing"])
+  learning-stale-context-summary-after-compaction-can-mislead(["learning-stale-context-summary-after-compaction-can-mislead"])
+  gotcha-call-flag-passed-as-model-name-bug["gotcha-call-flag-passed-as-model-name-bug"]
+  decision-review-findings-verification-consulting-specialist-agents{{"decision-review-findings-verification-consulting-specialist-agents"}}
+  learning-review-findings-verification-multi-perspective-analysis(["learning-review-findings-verification-multi-perspective-analysis"])
+  learning-retro-self-referential-tool-testing-creates-productive-loops(["learning-retro-self-referential-tool-testing-creates-productive-loops"])
+  learning-retro-silent-error-handlers-hide-type-errors-from-typescript(["learning-retro-silent-error-handlers-hide-type-errors-from-typescript"])
+  learning-tdd-parity-gap-investigation-is-974-good-enough(["learning-tdd-parity-gap-investigation-is-974-good-enough"])
+  learning-tool-defaults-need-project-aware-discovery(["learning-tool-defaults-need-project-aware-discovery"])
+  learning-typescript-overload-detection-bias-tests(["learning-typescript-overload-detection-bias-tests"])
+  learning-feature-automation-should-verify-existing-capability-before-implementing(["learning-feature-automation-should-verify-existing-capability-before-implementing"])
+  learning-test-setup-validation-prevents-false-failures(["learning-test-setup-validation-prevents-false-failures"])
+  learning-systematic-find-replace-with-testing-prevents-reference-chaos(["learning-systematic-find-replace-with-testing-prevents-reference-chaos"])
+  learning-tdd-caught-hook-integration-pattern-mismatch(["learning-tdd-caught-hook-integration-pattern-mismatch"])
+  learning-performance-constraints-should-be-documented-upfront(["learning-performance-constraints-should-be-documented-upfront"])
+  decision-memory-hook-enhancement-plan-review{{"decision-memory-hook-enhancement-plan-review"}}
+  learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling(["learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling"])
+  gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches["gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches"]
+  decision-memory-hook-enhancement-multi-expert-deliberation-round-2{{"decision-memory-hook-enhancement-multi-expert-deliberation-round-2"}}
+  learning-expert-consultation-effectiveness(["learning-expert-consultation-effectiveness"])
+  learning-plugin-schema-discovery-pattern(["learning-plugin-schema-discovery-pattern"])
+  learning-hook-naming-consistency-prevents-state-deadlock(["learning-hook-naming-consistency-prevents-state-deadlock"])
+  learning-test-isolation-failure-filtering-requires-environment-awareness(["learning-test-isolation-failure-filtering-requires-environment-awareness"])
+  retro-subprocess-security-audit["retro-subprocess-security-audit"]
+  retro-parallel-expert-review(["retro-parallel-expert-review"])
+  thought-20260114-200851835["thought-20260114-200851835"]
+  thought-20260115-232204899["thought-20260115-232204899"]
+  thought-20260116-070440686["thought-20260116-070440686"]
+  thought-20260115-194159327["thought-20260115-194159327"]
+  learning-retro-plugin-installation-solved-forked-session-hook-inheritance(["learning-retro-plugin-installation-solved-forked-session-hook-inheritance"])
+  gotcha-retro-help-system-broken-for-subcommands["gotcha-retro-help-system-broken-for-subcommands"]
+  retro-parallel-expert-review-effective(["retro-parallel-expert-review-effective"])
+  retro-test-subprocess-hanging["retro-test-subprocess-hanging"]
+  gotcha-embedding-context-length-causes-500-error["gotcha-embedding-context-length-causes-500-error"]
+  learning-retro-embedding-truncation-solved-silent-failures(["learning-retro-embedding-truncation-solved-silent-failures"])
+  learning-retro-tdd-parity-audit-forced-complete-test-coverage(["learning-retro-tdd-parity-audit-forced-complete-test-coverage"])
+  gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters["gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters"]
+  learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall(["learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall"])
+  artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering["artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering"]
+  learning-retro-trust-gotcha-memory-before-investigating-duplicates(["learning-retro-trust-gotcha-memory-before-investigating-duplicates"])
+  learning-retro-parallel-agent-context-restoration-accelerates-handover(["learning-retro-parallel-agent-context-restoration-accelerates-handover"])
+  gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase["gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase"]
+  learning-strip-deliberation-trail-from-promoted-think-memories(["learning-strip-deliberation-trail-from-promoted-think-memories"])
+  decision-embedding-context-limit-solution-for-memory-refresh-embeddings{{"decision-embedding-context-limit-solution-for-memory-refresh-embeddings"}}
+  learning-exclude-thoughts-from-embedding-generation(["learning-exclude-thoughts-from-embedding-generation"])
+  gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode["gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode"]
+  learning-learning-inspect-implementation-before-fixing-promotions(["learning-learning-inspect-implementation-before-fixing-promotions"])
+  learning-memory-system-analysis-session-linking-quality-audit(["learning-memory-system-analysis-session-linking-quality-audit"])
+  learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly(["learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly"])
+  learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking(["learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking"])
+  learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact(["learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact"])
+  learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly(["learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly"])
+  learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage(["learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage"])
+  learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery(["learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery"])
+  learning-retro-parallel-restoration-agents-post-compaction-proved-efficient(["learning-retro-parallel-restoration-agents-post-compaction-proved-efficient"])
+  gotcha-retro-coverage-tool-continuation-threshold-unclear["gotcha-retro-coverage-tool-continuation-threshold-unclear"]
+  learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion(["learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion"])
+  learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly(["learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly"])
+  learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules(["learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules"])
+  learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly(["learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly"])
+  learning-retro-error-handling-test-pattern-replication-reduced-per-file-time(["learning-retro-error-handling-test-pattern-replication-reduced-per-file-time"])
+  thought-20260116-180811237["thought-20260116-180811237"]
+  thought-20260116-183846962["thought-20260116-183846962"]
+  learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions(["learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions"])
+  learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling(["learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling"])
+  learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling(["learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling"])
+  gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests["gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests"]
+  learning-memory-system-analysis-linking-quality-audit-complete(["learning-memory-system-analysis-linking-quality-audit-complete"])
+  learning-retro-tdd-hook-enforcement-caught-gaps-early(["learning-retro-tdd-hook-enforcement-caught-gaps-early"])
+  learning-retro-explore-agent-accelerates-pattern-synthesis(["learning-retro-explore-agent-accelerates-pattern-synthesis"])
+  learning-retrospective-memory-refactor-session(["learning-retrospective-memory-refactor-session"])
+  thought-20260112-221004029["thought-20260112-221004029"]
+  learning-think-scope-project-vs-local-split(["learning-think-scope-project-vs-local-split"])
+  learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives(["learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives"])
+  learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes(["learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes"])
+  learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing(["learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing"])
+  learning-hook-enforcement-strategy-selective-blocking-with-whitelists(["learning-hook-enforcement-strategy-selective-blocking-with-whitelists"])
+  gotcha-bash-vs-typescript-index-format-mismatch["gotcha-bash-vs-typescript-index-format-mismatch"]
+  decision-tdd-enforcement-caught-hook-pattern-edge-cases-early{{"decision-tdd-enforcement-caught-hook-pattern-edge-cases-early"}}
+  learning-two-hook-enforcement-pattern-for-memory-operations(["learning-two-hook-enforcement-pattern-for-memory-operations"])
+  decision-hook-separation-clarified-enforcement-boundaries{{"decision-hook-separation-clarified-enforcement-boundaries"}}
+  learning-index-migration-layer-handles-bash-to-typescript-format-transition(["learning-index-migration-layer-handles-bash-to-typescript-format-transition"])
+  decision-index-format-migration-prevented-silent-failures{{"decision-index-format-migration-prevented-silent-failures"}}
+  decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead{{"decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead"}}
+  decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language{{"decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language"}}
+  decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun{{"decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun"}}
+  decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements{{"decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements"}}
+  learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section(["learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section"])
+  artifact-per-command-help-system-registry-pattern-with-command-specific-documentation["artifact-per-command-help-system-registry-pattern-with-command-specific-documentation"]
+  learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value(["learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value"])
+  gotcha-think-document-id-collisions-with-second-precision-timestamps["gotcha-think-document-id-collisions-with-second-precision-timestamps"]
+  learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery(["learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery"])
+  learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings(["learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings"])
+  gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator["gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator"]
+  learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation(["learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation"])
+  thought-20260112-190617["thought-20260112-190617"]
+  artifact-typescript-cli-testing-infrastructure-first-approach["artifact-typescript-cli-testing-infrastructure-first-approach"]
+  gotcha-vitest-mocking-reference-binding-gotcha["gotcha-vitest-mocking-reference-binding-gotcha"]
+  learning-bun-link-cli-exposure-pattern(["learning-bun-link-cli-exposure-pattern"])
+  learning-cli-layer-testing-pattern-thin-wrappers(["learning-cli-layer-testing-pattern-thin-wrappers"])
+  retro-batch-operations-pattern(["retro-batch-operations-pattern"])
+  retro-multi-agent-review-effectiveness(["retro-multi-agent-review-effectiveness"])
+  retro-validation-before-parsing(["retro-validation-before-parsing"])
+  gotcha-scope-resolver-params["gotcha-scope-resolver-params"]
+  decision-cli-dispatcher-pattern["decision-cli-dispatcher-pattern"]
+  learning-cli-gap(["learning-cli-gap"])
+  decision-think-temporary-breadcrumb-type{{"decision-think-temporary-breadcrumb-type"}}
+  learning-recursive-agent-discovery(["learning-recursive-agent-discovery"])
+  gotcha-think-frontmatter-field-tracing["gotcha-think-frontmatter-field-tracing"]
+  learning-think-ai-invocation-flow(["learning-think-ai-invocation-flow"])
+  learning-retro-structured-investigation-prevents-premature-design-decisions(["learning-retro-structured-investigation-prevents-premature-design-decisions"])
+  gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected["gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected"]
+  learning-retro-batch-memory-scope-moves-with-atomic-verification(["learning-retro-batch-memory-scope-moves-with-atomic-verification"])
+  gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links["gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links"]
+  learning-scope-field-frontmatter-serialisation-gotcha --> learning-scope-field-frontmatter-serialisation-gotcha-two
+  decision-4tier-scope-hierarchy --> learning-scope-isolation-architecture-design
+  learning-tdd-scope-resolution-module-structure --> learning-tdd-phase-completion-pattern
+  decision-4tier-scope-hierarchy --> learning-tdd-scope-resolution-module-structure
+  learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching --> learning-gitignore-comment-formatting-two-phase-fix
+  learning-tdd-typescript-hook-bidirectional-enforcement --> learning-memory-context-hook-graceful-search-degradation
+  decision-4tier-scope-hierarchy --> learning-gitignore-comment-formatting-two-phase-fix
+  learning-tdd-scope-resolution-module-structure --> learning-scope-isolation-architecture-design
+  learning-specification-audit-caught-architectural-gaps-before-planning --> decision-4tier-scope-hierarchy
+  retro-test-first-verification-accelerated-security-review --> learning-tdd-discipline-across-multi-phase-session-maintains-coverage
+  learning-semantic-search-embedding-caching-success --> learning-post-compaction-memory-restoration-prevented-duplicate-work
+  learning-test-naming-convention-spec-ts --> learning-typescript-import-path-consistency-prevents-batch-compilation-failures
+  gotcha-agents-should-be-copies-not-rewrites --> learning-memory-context-hook-graceful-search-degradation
+  learning-immutable-graph-operations-pattern --> learning-tdd-scope-resolution-module-structure
+  learning-retro-tdd-test-expectations-guide-implementation --> learning-tdd-phase-completion-pattern
+  learning-typescript-tdd-hook-naming-enforcement --> learning-test-naming-convention-spec-ts
+  learning-tdd-test-coverage-expansion-pattern --> learning-test-naming-convention-spec-ts
+  learning-spawn-session-refactor --> learning-post-compaction-memory-restoration-prevented-duplicate-work
+  learning-typescript-tdd-hook-naming-enforcement --> learning-tdd-scope-resolution-module-structure
+  learning-tdd-parity-typescript-support --> learning-regex-based-language-parsing-tradeoff
+  learning-tdd-parity-typescript-support --> learning-retro-typescript-tooling-parity
+  learning-regex-based-language-parsing-tradeoff --> learning-retro-typescript-tooling-parity
+  retro-duplicate-test-discovery --> learning-test-naming-convention-spec-ts
+  retro-mock-syntax-friction-bun --> retro-duplicate-test-discovery
+  learning-test-coverage-achieved-99-percent-functions --> learning-retro-test-coverage-asymptotic-returns
+  learning-tdd-typescript-hook-bidirectional-enforcement --> learning-memory-context-hook-graceful-search-degradation
+  learning-tdd-typescript-hook-bidirectional-enforcement --> learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
+  retro-hook-pattern-non-python-projects --> learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching
+  decision-4tier-scope-hierarchy --> learning-scope-field-frontmatter-serialisation-gotcha
+  decision-4tier-scope-hierarchy --> learning-scope-field-frontmatter-serialisation-gotcha-two
+  learning-scope-isolation-architecture-design --> learning-tdd-scope-resolution-module-structure
+  learning-semantic-search-embedding-caching-success --> learning-test-coverage-achieved-99-percent-functions
+  learning-tdd-test-coverage-expansion-pattern --> learning-test-coverage-achieved-99-percent-functions
+  decision-colocate-unit-tests --> learning-test-naming-convention-spec-ts
+  decision-colocate-unit-tests --> learning-tdd-scope-resolution-module-structure
+  decision-colocate-unit-tests --> learning-tdd-test-coverage-expansion-pattern
+  learning-cargo-cult-tdd-compliance --> learning-tdd-parity-vitest-limitation
+  learning-cargo-cult-tdd-compliance --> learning-retro-agent-generated-tests-need-api-validation
+  learning-cargo-cult-tdd-compliance --> learning-test-agent-generates-aspirational-tests
+  learning-tdd-parity-vitest-limitation --> decision-colocate-unit-tests
+  learning-tdd-parity-vitest-limitation --> learning-cargo-cult-tdd-compliance
+  learning-test-agent-generates-aspirational-tests --> learning-cargo-cult-tdd-compliance
+  learning-test-agent-generates-aspirational-tests --> learning-retro-agent-generated-tests-need-api-validation
+  learning-test-agent-generates-aspirational-tests --> learning-tdd-test-coverage-expansion-pattern
+  learning-retro-agent-verification-for-exclusions --> learning-retro-agent-generated-tests-need-api-validation
+  learning-retro-memory-graph-linking-batch-approach-efficient --> learning-retro-memory-linking-post-compaction
+  learning-retro-memory-linking-post-compaction --> learning-semantic-search-embedding-caching-success
+  learning-retro-tdd-parity-typescript-matching-accuracy --> learning-tdd-parity-vitest-limitation
+  gotcha-agents-should-be-copies-not-rewrites --> learning-memory-context-hook-graceful-search-degradation
+  learning-retro-hook-created-memories-need-linking -->|relates-to| learning-memory-context-hook-graceful-search-degradation
+  learning-retro-hook-created-memories-need-linking -->|relates-to| learning-post-compaction-memory-restoration-prevented-duplicate-work
+  learning-retro-orphaned-nodes-accumulate-post-compaction -->|relates-to| learning-retro-memory-linking-post-compaction
+  learning-retro-orphaned-nodes-accumulate-post-compaction -->|relates-to| learning-semantic-search-embedding-caching-success
+  learning-retro-graceful-degradation-by-default-prevents-coupling -->|relates-to| learning-memory-context-hook-graceful-search-degradation
+  learning-retro-graceful-degradation-by-default-prevents-coupling -->|relates-to| learning-scope-isolation-architecture-design
+  learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh -->|relates-to| learning-post-compaction-memory-restoration-prevented-duplicate-work
+  learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh -->|relates-to| learning-spawn-session-refactor
+  learning-bulk-operations-tdd-caught-interface-mismatches-early -->|relates-to| learning-tdd-scope-resolution-module-structure
+  learning-bulk-operations-tdd-caught-interface-mismatches-early -->|relates-to| decision-colocate-unit-tests
+  gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive -->|relates-to| learning-immutable-graph-operations-pattern
+  gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive -->|relates-to| learning-scope-isolation-architecture-design
+  learning-test-naming-convention-spec-ts -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-test-coverage-expansion-pattern -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-parity-vitest-limitation -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-parity-typescript-support -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-test-agent-generates-aspirational-tests -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  decision-colocate-unit-tests -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-test-coverage-achieved-99-percent-functions -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-phase-completion-pattern -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-cargo-cult-tdd-compliance -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-scope-resolution-module-structure -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-typescript-hook-bidirectional-enforcement -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-discipline-across-multi-phase-session-maintains-coverage -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive -->|relates-to| artifact-gotcha-prevention-checklist
+  gotcha-agents-should-be-copies-not-rewrites -->|relates-to| artifact-gotcha-prevention-checklist
+  learning-semantic-search-embedding-caching-success -->|relates-to| artifact-memory-system-architecture-reference
+  learning-scope-field-frontmatter-serialisation-gotcha-two -->|relates-to| artifact-memory-system-architecture-reference
+  learning-scope-isolation-architecture-design -->|relates-to| artifact-memory-system-architecture-reference
+  decision-4tier-scope-hierarchy -->|relates-to| artifact-memory-system-architecture-reference
+  learning-immutable-graph-operations-pattern -->|relates-to| artifact-memory-system-architecture-reference
+  learning-scope-field-frontmatter-serialisation-gotcha -->|relates-to| artifact-memory-system-architecture-reference
+  learning-memory-context-hook-graceful-search-degradation -->|relates-to| artifact-memory-system-architecture-reference
+  learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching -->|relates-to| artifact-hook-system-patterns-catalogue
+  learning-memory-context-hook-graceful-search-degradation -->|relates-to| artifact-hook-system-patterns-catalogue
+  learning-retro-hook-created-memories-need-linking -->|relates-to| artifact-hook-system-patterns-catalogue
+  retro-hook-pattern-non-python-projects -->|relates-to| artifact-hook-system-patterns-catalogue
+  learning-post-compaction-memory-restoration-prevented-duplicate-work -->|relates-to| decision-session-continuity-strategy
+  learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh -->|relates-to| decision-session-continuity-strategy
+  learning-retro-memory-linking-post-compaction -->|relates-to| decision-session-continuity-strategy
+  learning-retro-orphaned-nodes-accumulate-post-compaction -->|relates-to| decision-session-continuity-strategy
+  learning-retro-memory-graph-linking-batch-approach-efficient -->|relates-to| decision-session-continuity-strategy
+  artifact-tdd-testing-patterns-catalogue -->|relates-to| artifact-gotcha-prevention-checklist
+  artifact-memory-system-architecture-reference -->|relates-to| decision-session-continuity-strategy
+  artifact-hook-system-patterns-catalogue -->|relates-to| decision-session-continuity-strategy
+  artifact-hook-system-patterns-catalogue -->|relates-to| artifact-memory-system-architecture-reference
+  hub-cli-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  hub-cli-module-hub -->|related-module| hub-core-module-hub
+  hub-core-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  hub-core-module-hub -->|documents| learning-bulk-operations-tdd-caught-interface-mismatches-early
+  hub-core-module-hub -->|documents| learning-immutable-graph-operations-pattern
+  hub-core-module-hub -->|documents| learning-scope-field-frontmatter-serialisation-gotcha
+  hub-core-module-hub -->|implements| decision-colocate-unit-tests
+  hub-graph-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  hub-graph-module-hub -->|documents| gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive
+  hub-graph-module-hub -->|documents| learning-immutable-graph-operations-pattern
+  hub-graph-module-hub -->|documents| learning-retro-memory-graph-linking-batch-approach-efficient
+  hub-graph-module-hub -->|documents| learning-retro-orphaned-nodes-accumulate-post-compaction
+  hub-graph-module-hub -->|documents| learning-hub-documents-improved-en-ratio-36-with-just-5-nodes
+  hub-search-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  hub-search-module-hub -->|documents| learning-semantic-search-embedding-caching-success
+  hub-search-module-hub -->|documents| learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories
+  hub-search-module-hub -->|documents| learning-memory-context-hook-graceful-search-degradation
+  hub-scope-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  hub-scope-module-hub -->|documents| decision-4tier-scope-hierarchy
+  hub-scope-module-hub -->|documents| learning-scope-isolation-architecture-design
+  hub-scope-module-hub -->|documents| learning-tdd-scope-resolution-module-structure
+  hub-think-module-hub -->|part-of| artifact-memory-system-architecture-reference
+  learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes -->|documents| hub-graph-module-hub
+  learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories -->|documents| artifact-memory-system-architecture-reference
+  retro-type-consistency-required-triple-sync -->|relates-to| decision-4tier-scope-hierarchy
+  retro-frontend-type-field-indicates-git-files-stale -->|relates-to| learning-semantic-search-embedding-caching-success
+  retro-session-restore-with-parallel-agents-restored-85percent-context -->|relates-to| decision-session-continuity-strategy
+  retro-test-quality-audit-2026-01-13 -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  gotcha-embeddings-cache-schema-must-match-code -->|relates-to| hub-search-module-hub
+  learning-post-compaction-parallel-agent-restoration-effective -->|relates-to| decision-session-continuity-strategy
+  learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-stale-context-summary-after-compaction-can-mislead -->|relates-to| decision-session-continuity-strategy
+  gotcha-call-flag-passed-as-model-name-bug -->|relates-to| artifact-gotcha-prevention-checklist
+  decision-review-findings-verification-consulting-specialist-agents -->|relates-to| decision-session-continuity-strategy
+  learning-review-findings-verification-multi-perspective-analysis -->|relates-to| decision-session-continuity-strategy
+  learning-retro-self-referential-tool-testing-creates-productive-loops -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-retro-silent-error-handlers-hide-type-errors-from-typescript -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-parity-gap-investigation-is-974-good-enough -->|relates-to| learning-retro-tdd-parity-typescript-matching-accuracy
+  learning-typescript-overload-detection-bias-tests -->|relates-to| learning-retro-tdd-parity-typescript-matching-accuracy
+  learning-typescript-overload-detection-bias-tests -->|relates-to| learning-tdd-parity-typescript-support
+  learning-tool-defaults-need-project-aware-discovery -->|relates-to| decision-4tier-scope-hierarchy
+  learning-feature-automation-should-verify-existing-capability-before-implementing -->|relates-to| learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing
+  learning-test-setup-validation-prevents-false-failures -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-test-setup-validation-prevents-false-failures -->|relates-to| decision-4tier-scope-hierarchy
+  learning-plugin-schema-discovery-pattern -->|relates-to| learning-expert-consultation-effectiveness
+  decision-memory-hook-enhancement-multi-expert-deliberation-round-2 -->|relates-to| learning-expert-consultation-effectiveness
+  decision-memory-hook-enhancement-multi-expert-deliberation-round-2 -->|relates-to| learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling
+  learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling -->|relates-to| decision-memory-hook-enhancement-plan-review
+  learning-plugin-schema-discovery-pattern -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-tdd-caught-hook-integration-pattern-mismatch -->|relates-to| decision-memory-hook-enhancement-multi-expert-deliberation-round-2
+  learning-tdd-caught-hook-integration-pattern-mismatch -->|relates-to| gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches
+  learning-performance-constraints-should-be-documented-upfront -->|relates-to| decision-memory-hook-enhancement-plan-review
+  learning-performance-constraints-should-be-documented-upfront -->|relates-to| decision-memory-hook-enhancement-multi-expert-deliberation-round-2
+  learning-systematic-find-replace-with-testing-prevents-reference-chaos -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-systematic-find-replace-with-testing-prevents-reference-chaos -->|relates-to| learning-tdd-discipline-across-multi-phase-session-maintains-coverage
+  gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches -->|relates-to| artifact-gotcha-prevention-checklist
+  gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches -->|relates-to| decision-memory-hook-enhancement-plan-review
+  learning-hook-naming-consistency-prevents-state-deadlock -->|relates-to| learning-tdd-caught-hook-integration-pattern-mismatch
+  learning-hook-naming-consistency-prevents-state-deadlock -->|relates-to| learning-memory-context-hook-graceful-search-degradation
+  learning-test-isolation-failure-filtering-requires-environment-awareness -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  retro-subprocess-security-audit -->|relates-to| learning-spawn-session-refactor
+  retro-subprocess-security-audit -->|relates-to| retro-test-first-verification-accelerated-security-review
+  retro-parallel-expert-review -->|relates-to| learning-post-compaction-parallel-agent-restoration-effective
+  thought-20260115-232204899 -->|relates-to| decision-memory-hook-enhancement-multi-expert-deliberation-round-2
+  thought-20260115-194159327 -->|relates-to| decision-memory-hook-enhancement-plan-review
+  gotcha-retro-help-system-broken-for-subcommands -->|relates-to| hub-cli-module-hub
+  gotcha-retro-help-system-broken-for-subcommands -->|relates-to| artifact-memory-system-architecture-reference
+  learning-retro-plugin-installation-solved-forked-session-hook-inheritance -->|relates-to| decision-memory-hook-enhancement-plan-review
+  learning-retro-plugin-installation-solved-forked-session-hook-inheritance -->|relates-to| learning-expert-consultation-effectiveness
+  learning-retro-plugin-installation-solved-forked-session-hook-inheritance -->|relates-to| artifact-hook-system-patterns-catalogue
+  retro-parallel-expert-review-effective -->|relates-to| learning-expert-consultation-effectiveness
+  retro-parallel-expert-review-effective -->|relates-to| learning-post-compaction-parallel-agent-restoration-effective
+  retro-parallel-expert-review-effective -->|relates-to| decision-session-continuity-strategy
+  retro-test-subprocess-hanging -->|relates-to| learning-spawn-session-refactor
+  retro-test-subprocess-hanging -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  retro-test-subprocess-hanging -->|relates-to| gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches
+  learning-retro-embedding-truncation-solved-silent-failures -->|relates-to| gotcha-embedding-context-length-causes-500-error
+  gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters -->|relates-to| learning-retro-embedding-truncation-solved-silent-failures
+  learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  thought-20260114-200851835 -->|relates-to| decision-review-findings-verification-consulting-specialist-agents
+  thought-20260116-070440686 -->|relates-to| decision-memory-hook-enhancement-plan-review
+  learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall -->|relates-to| learning-retro-parallel-agent-context-restoration-accelerates-handover
+  learning-retro-parallel-agent-context-restoration-accelerates-handover -->|relates-to| learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall
+  learning-strip-deliberation-trail-from-promoted-think-memories -->|relates-to| learning-exclude-thoughts-from-embedding-generation
+  learning-exclude-thoughts-from-embedding-generation -->|relates-to| decision-embedding-context-limit-solution-for-memory-refresh-embeddings
+  decision-embedding-context-limit-solution-for-memory-refresh-embeddings -->|relates-to| gotcha-embedding-context-length-causes-500-error
+  decision-embedding-context-limit-solution-for-memory-refresh-embeddings -->|relates-to| learning-retro-embedding-truncation-solved-silent-failures
+  learning-learning-inspect-implementation-before-fixing-promotions -->|relates-to| learning-strip-deliberation-trail-from-promoted-think-memories
+  learning-memory-system-analysis-session-linking-quality-audit -->|relates-to| decision-embedding-context-limit-solution-for-memory-refresh-embeddings
+  learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact -->|relates-to| decision-session-continuity-strategy
+  gotcha-retro-coverage-tool-continuation-threshold-unclear -->|relates-to| learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage
+  learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion -->|relates-to| learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly
+  learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly -->|relates-to| learning-retro-parallel-restoration-agents-post-compaction-proved-efficient
+  learning-retro-error-handling-test-pattern-replication-reduced-per-file-time -->|relates-to| learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions
+  learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules -->|relates-to| gotcha-retro-coverage-tool-continuation-threshold-unclear
+  gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests -->|relates-to| learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling
+  retro-batch-operations-pattern -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  retro-batch-operations-pattern -->|relates-to| decision-cli-dispatcher-pattern
+  retro-batch-operations-pattern -->|relates-to| learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery
+  retro-multi-agent-review-effectiveness -->|relates-to| decision-review-findings-verification-consulting-specialist-agents
+  retro-multi-agent-review-effectiveness -->|relates-to| learning-review-findings-verification-multi-perspective-analysis
+  retro-multi-agent-review-effectiveness -->|relates-to| learning-two-hook-enforcement-pattern-for-memory-operations
+  retro-validation-before-parsing -->|relates-to| artifact-tdd-testing-patterns-catalogue
+  retro-validation-before-parsing -->|relates-to| learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes
+  retro-validation-before-parsing -->|relates-to| gotcha-bash-vs-typescript-index-format-mismatch
+  thought-20260112-221004029 -->|relates-to| learning-retro-structured-investigation-prevents-premature-design-decisions
+  thought-20260112-221004029 -->|relates-to| gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links
+  thought-20260112-221004029 -->|relates-to| learning-index-migration-layer-handles-bash-to-typescript-format-transition
+  retro-parallel-expert-review -->|related-to| retro-parallel-expert-review-effective
+  decision-review-findings-verification-consulting-specialist-agents -->|documents| learning-review-findings-verification-multi-perspective-analysis
+  learning-retro-tdd-parity-typescript-matching-accuracy -->|related-to| learning-retro-typescript-tooling-parity
+  learning-retro-tdd-parity-typescript-matching-accuracy -->|extends| learning-tdd-parity-typescript-support
+  learning-tdd-parity-vitest-limitation -->|related-to| learning-tdd-parity-typescript-support
+  learning-tdd-parity-vitest-limitation -->|related-to| learning-regex-based-language-parsing-tradeoff
+  decision-memory-hook-enhancement-plan-review -->|supersedes| decision-memory-hook-enhancement-multi-expert-deliberation-round-2
+  learning-tdd-discipline-across-multi-phase-session-maintains-coverage -->|extends| learning-tdd-phase-completion-pattern
+  learning-tdd-parity-gap-investigation-is-974-good-enough -->|documents| learning-tdd-parity-vitest-limitation
+  learning-retro-tdd-parity-audit-forced-complete-test-coverage -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-retro-test-isolation-pattern-worth-documenting -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly -->|resolves| gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode
+  learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly -->|resolves| gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode
+  learning-retro-trust-gotcha-memory-before-investigating-duplicates -->|documents| artifact-memory-system-architecture-reference
+  learning-retro-tmpdir-cleanup-permissions-fragile -->|documents| decision-session-continuity-strategy
+  gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-retro-tdd-hook-enforcement-caught-gaps-early -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-think-scope-project-vs-local-split -->|documents| artifact-memory-system-architecture-reference
+  learning-memory-system-analysis-linking-quality-audit-complete -->|documents| artifact-memory-system-architecture-reference
+  learning-retro-explore-agent-accelerates-pattern-synthesis -->|documents| decision-session-continuity-strategy
+  learning-retrospective-memory-refactor-session -->|documents| decision-session-continuity-strategy
+  learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives -->|documents| artifact-memory-system-architecture-reference
+  learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-hook-enforcement-strategy-selective-blocking-with-whitelists -->|documents| artifact-tdd-testing-patterns-catalogue
+  decision-tdd-enforcement-caught-hook-pattern-edge-cases-early -->|documents| artifact-tdd-testing-patterns-catalogue
+  decision-hook-separation-clarified-enforcement-boundaries -->|documents| artifact-tdd-testing-patterns-catalogue
+  decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language -->|documents| artifact-tdd-testing-patterns-catalogue
+  decision-index-format-migration-prevented-silent-failures -->|documents| artifact-memory-system-architecture-reference
+  decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun -->|documents| artifact-memory-system-architecture-reference
+  decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead -->|documents| decision-session-continuity-strategy
+  learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section -->|documents| artifact-memory-system-architecture-reference
+  artifact-per-command-help-system-registry-pattern-with-command-specific-documentation -->|documents| artifact-memory-system-architecture-reference
+  learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value -->|documents| artifact-memory-system-architecture-reference
+  learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings -->|documents| artifact-memory-system-architecture-reference
+  decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements -->|documents| artifact-tdd-testing-patterns-catalogue
+  gotcha-think-document-id-collisions-with-second-precision-timestamps -->|documents| artifact-memory-system-architecture-reference
+  gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator -->|documents| artifact-memory-system-architecture-reference
+  learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation -->|documents| artifact-memory-system-architecture-reference
+  artifact-typescript-cli-testing-infrastructure-first-approach -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-cli-layer-testing-pattern-thin-wrappers -->|documents| artifact-tdd-testing-patterns-catalogue
+  gotcha-vitest-mocking-reference-binding-gotcha -->|documents| artifact-tdd-testing-patterns-catalogue
+  learning-bun-link-cli-exposure-pattern -->|documents| artifact-memory-system-architecture-reference
+  gotcha-scope-resolver-params -->|documents| artifact-memory-system-architecture-reference
+  learning-cli-gap -->|documents| artifact-memory-system-architecture-reference
+  decision-think-temporary-breadcrumb-type -->|documents| artifact-memory-system-architecture-reference
+  learning-retro-tdd-parity-typescript-matching-accuracy -->|related-to| learning-regex-based-language-parsing-tradeoff
+  learning-think-ai-invocation-flow -->|documents| artifact-memory-system-architecture-reference
+  gotcha-think-frontmatter-field-tracing -->|documents| artifact-memory-system-architecture-reference
+  learning-recursive-agent-discovery -->|documents| decision-session-continuity-strategy
+  gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected -->|documents| decision-session-continuity-strategy
+  learning-retro-batch-memory-scope-moves-with-atomic-verification -->|documents| artifact-memory-system-architecture-reference
+
+  classDef learning fill:#fff3e0,stroke:#f57c00
+  classDef decision fill:#e1f5fe,stroke:#0288d1
+  classDef artifact fill:#f3e5f5,stroke:#7b1fa2
+  classDef hub fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+  class learning-specification-audit-caught-architectural-gaps-before-planning,learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching,learning-tdd-scope-resolution-module-structure,learning-scope-field-frontmatter-serialisation-gotcha,learning-gitignore-comment-formatting-two-phase-fix,learning-scope-isolation-architecture-design,learning-tdd-phase-completion-pattern,learning-tdd-discipline-across-multi-phase-session-maintains-coverage,learning-scope-field-frontmatter-serialisation-gotcha-two,learning-post-compaction-memory-restoration-prevented-duplicate-work,learning-immutable-graph-operations-pattern,learning-semantic-search-embedding-caching-success,learning-typescript-import-path-consistency-prevents-batch-compilation-failures,learning-retro-tdd-test-expectations-guide-implementation,retro-test-first-verification-accelerated-security-review,learning-memory-context-hook-graceful-search-degradation,learning-test-naming-convention-spec-ts,learning-tdd-typescript-hook-bidirectional-enforcement,learning-spawn-session-refactor,learning-tdd-test-coverage-expansion-pattern,learning-typescript-tdd-hook-naming-enforcement,learning-tdd-parity-typescript-support,learning-retro-typescript-tooling-parity,learning-regex-based-language-parsing-tradeoff,learning-retro-test-coverage-asymptotic-returns,learning-test-coverage-achieved-99-percent-functions,learning-retro-memory-linking-post-compaction,retro-hook-pattern-non-python-projects,retro-mock-syntax-friction-bun,retro-duplicate-test-discovery,learning-retro-agent-generated-tests-need-api-validation,learning-retro-tmpdir-cleanup-permissions-fragile,learning-retro-memory-graph-linking-batch-approach-efficient,learning-tdd-parity-vitest-limitation,learning-cargo-cult-tdd-compliance,learning-test-agent-generates-aspirational-tests,learning-retro-agent-verification-for-exclusions,learning-retro-tdd-parity-typescript-matching-accuracy,learning-retro-test-isolation-pattern-worth-documenting,learning-bulk-operations-tdd-caught-interface-mismatches-early,learning-retro-graceful-degradation-by-default-prevents-coupling,learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh,learning-retro-hook-created-memories-need-linking,learning-retro-orphaned-nodes-accumulate-post-compaction,learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories,learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories,learning-hub-documents-improved-en-ratio-36-with-just-5-nodes,learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes,retro-type-consistency-required-triple-sync,retro-frontend-type-field-indicates-git-files-stale,retro-session-restore-with-parallel-agents-restored-85percent-context,retro-test-quality-audit-2026-01-13,learning-post-compaction-parallel-agent-restoration-effective,learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing,learning-stale-context-summary-after-compaction-can-mislead,learning-review-findings-verification-multi-perspective-analysis,learning-retro-self-referential-tool-testing-creates-productive-loops,learning-retro-silent-error-handlers-hide-type-errors-from-typescript,learning-tdd-parity-gap-investigation-is-974-good-enough,learning-tool-defaults-need-project-aware-discovery,learning-typescript-overload-detection-bias-tests,learning-feature-automation-should-verify-existing-capability-before-implementing,learning-test-setup-validation-prevents-false-failures,learning-systematic-find-replace-with-testing-prevents-reference-chaos,learning-tdd-caught-hook-integration-pattern-mismatch,learning-performance-constraints-should-be-documented-upfront,learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling,learning-expert-consultation-effectiveness,learning-plugin-schema-discovery-pattern,learning-hook-naming-consistency-prevents-state-deadlock,learning-test-isolation-failure-filtering-requires-environment-awareness,retro-parallel-expert-review,learning-retro-plugin-installation-solved-forked-session-hook-inheritance,retro-parallel-expert-review-effective,learning-retro-embedding-truncation-solved-silent-failures,learning-retro-tdd-parity-audit-forced-complete-test-coverage,learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall,learning-retro-trust-gotcha-memory-before-investigating-duplicates,learning-retro-parallel-agent-context-restoration-accelerates-handover,learning-strip-deliberation-trail-from-promoted-think-memories,learning-exclude-thoughts-from-embedding-generation,learning-learning-inspect-implementation-before-fixing-promotions,learning-memory-system-analysis-session-linking-quality-audit,learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly,learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking,learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact,learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly,learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage,learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery,learning-retro-parallel-restoration-agents-post-compaction-proved-efficient,learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion,learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly,learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules,learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly,learning-retro-error-handling-test-pattern-replication-reduced-per-file-time,learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions,learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling,learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling,learning-memory-system-analysis-linking-quality-audit-complete,learning-retro-tdd-hook-enforcement-caught-gaps-early,learning-retro-explore-agent-accelerates-pattern-synthesis,learning-retrospective-memory-refactor-session,learning-think-scope-project-vs-local-split,learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives,learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes,learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing,learning-hook-enforcement-strategy-selective-blocking-with-whitelists,learning-two-hook-enforcement-pattern-for-memory-operations,learning-index-migration-layer-handles-bash-to-typescript-format-transition,learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section,learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value,learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery,learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings,learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation,learning-bun-link-cli-exposure-pattern,learning-cli-layer-testing-pattern-thin-wrappers,retro-batch-operations-pattern,retro-multi-agent-review-effectiveness,retro-validation-before-parsing,learning-cli-gap,learning-recursive-agent-discovery,learning-think-ai-invocation-flow,learning-retro-structured-investigation-prevents-premature-design-decisions,learning-retro-batch-memory-scope-moves-with-atomic-verification learning
+  class decision-4tier-scope-hierarchy,decision-colocate-unit-tests,decision-session-continuity-strategy,decision-review-findings-verification-consulting-specialist-agents,decision-memory-hook-enhancement-plan-review,decision-memory-hook-enhancement-multi-expert-deliberation-round-2,decision-embedding-context-limit-solution-for-memory-refresh-embeddings,decision-tdd-enforcement-caught-hook-pattern-edge-cases-early,decision-hook-separation-clarified-enforcement-boundaries,decision-index-format-migration-prevented-silent-failures,decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead,decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language,decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun,decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements,decision-think-temporary-breadcrumb-type decision
+  class artifact-tdd-testing-patterns-catalogue,artifact-gotcha-prevention-checklist,artifact-memory-system-architecture-reference,artifact-hook-system-patterns-catalogue,artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering,artifact-per-command-help-system-registry-pattern-with-command-specific-documentation,artifact-typescript-cli-testing-infrastructure-first-approach artifact
+  class hub-cli-module-hub,hub-core-module-hub,hub-graph-module-hub,hub-think-module-hub,hub-search-module-hub,hub-scope-module-hub hub

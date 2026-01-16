@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T06:59:27.442Z",
+  "lastUpdated": "2026-01-16T07:46:45.797Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1475,6 +1475,36 @@
       "updated": "2026-01-16T06:59:27.441Z",
       "scope": "project",
       "relativePath": "permanent/decision-memory-hook-enhancement-multi-expert-deliberation-round-2.md"
+    },
+    {
+      "id": "learning-expert-consultation-effectiveness",
+      "type": "learning",
+      "title": "Expert consultation with 7 agent perspectives produced high-quality deliberation",
+      "tags": [
+        "retrospective",
+        "process",
+        "decision-making",
+        "project"
+      ],
+      "created": "2026-01-16T07:46:39.873Z",
+      "updated": "2026-01-16T07:46:39.873Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-expert-consultation-effectiveness.md"
+    },
+    {
+      "id": "learning-plugin-schema-discovery-pattern",
+      "type": "learning",
+      "title": "Plugin schema uncertainty wasted time—validate against official spec early",
+      "tags": [
+        "retrospective",
+        "process",
+        "plugin-development",
+        "project"
+      ],
+      "created": "2026-01-16T07:46:45.793Z",
+      "updated": "2026-01-16T07:46:45.793Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-plugin-schema-discovery-pattern.md"
     }
   ]
 }

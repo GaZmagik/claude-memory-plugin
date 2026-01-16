@@ -456,6 +456,14 @@
     {
       "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
       "type": "decision"
+    },
+    {
+      "id": "learning-expert-consultation-effectiveness",
+      "type": "learning"
+    },
+    {
+      "id": "learning-plugin-schema-discovery-pattern",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1227,6 +1235,31 @@
     {
       "source": "learning-spec-documents-can-drift-from-implementation-state",
       "target": "learning-constitution-first-approach-prevents-scope-creep-in-sdd",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-schema-discovery-pattern",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-schema-discovery-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     }
   ]

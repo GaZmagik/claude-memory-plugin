@@ -709,6 +709,14 @@
       "id": "thought-20260116-183846962",
       "type": "breadcrumb",
       "title": "Think: Memory System Analysis Session - Linking & Quality Audit"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
+      "type": "learning"
     }
   ],
   "edges": [

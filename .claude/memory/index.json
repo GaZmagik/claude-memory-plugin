@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T20:27:59.146Z",
+  "lastUpdated": "2026-01-16T20:48:59.469Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2192,23 +2192,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly",
-      "tags": [
-        "retrospective",
-        "testing",
-        "vitest",
-        "pattern",
-        "project"
-      ],
-      "created": "2026-01-16T20:25:09.682Z",
-      "updated": "2026-01-16T20:25:09.682Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
       "type": "learning",
       "title": "Retro - Error handling test pattern replication reduced per-file time",
@@ -2250,6 +2233,57 @@
       "updated": "2026-01-16T18:39:23.317Z",
       "scope": "project",
       "relativePath": "temporary/thought-20260116-183846962.md"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-16T20:48:50.183Z",
+      "updated": "2026-01-16T20:48:50.183Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
+      "type": "learning",
+      "title": "Retro - Error handling test pattern with call-counting mocks for race conditions",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mocking",
+        "race-conditions",
+        "project"
+      ],
+      "created": "2026-01-16T20:48:54.636Z",
+      "updated": "2026-01-16T20:48:54.636Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
+      "type": "learning",
+      "title": "Retro - Coverage asymptotic returns hit practical ceiling around 99%",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "diminishing-returns",
+        "project"
+      ],
+      "created": "2026-01-16T20:48:59.466Z",
+      "updated": "2026-01-16T20:48:59.466Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99.md",
+      "severity": "low"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T19:01:52.834Z",
+  "lastUpdated": "2026-01-16T19:45:22.942Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1977,23 +1977,6 @@
       "severity": "low"
     },
     {
-      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "type": "gotcha",
-      "title": "Retro - Refresh --embeddings flag incomplete, needs debugging",
-      "tags": [
-        "retrospective",
-        "embedding",
-        "memory-system",
-        "project",
-        "resolved"
-      ],
-      "created": "2026-01-16T18:38:07.284Z",
-      "updated": "2026-01-16T18:38:07.284Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging.md",
-      "severity": "low"
-    },
-    {
       "id": "learning-memory-system-analysis-session-linking-quality-audit",
       "type": "learning",
       "title": "Memory System Analysis Session - Linking & Quality Audit",
@@ -2055,6 +2038,40 @@
       "updated": "2026-01-16T19:01:52.830Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-16T19:39:10.475Z",
+      "updated": "2026-01-16T19:39:10.475Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "type": "learning",
+      "title": "Retro - Mock.module isolation in separate spec files prevents test pollution while enabling comprehensive AI path coverage",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-16T19:39:21.033Z",
+      "updated": "2026-01-16T19:39:21.033Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage.md",
       "severity": "medium"
     }
   ]

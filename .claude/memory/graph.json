@@ -525,10 +525,6 @@
       "type": "learning"
     },
     {
-      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "type": "gotcha"
-    },
-    {
       "id": "gotcha-retro-help-system-broken-for-subcommands",
       "type": "gotcha"
     },
@@ -622,6 +618,14 @@
     },
     {
       "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
       "type": "learning"
     }
   ],
@@ -1517,16 +1521,6 @@
       "label": "relates-to"
     },
     {
-      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "target": "hub-search-module-hub",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "target": "gotcha-embeddings-cache-schema-must-match-code",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
       "target": "decision-memory-hook-enhancement-plan-review",
       "label": "relates-to"
@@ -1687,23 +1681,8 @@
       "label": "relates-to"
     },
     {
-      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "target": "learning-retro-embedding-truncation-solved-silent-failures",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-memory-system-analysis-session-linking-quality-audit",
       "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-memory-system-analysis-session-linking-quality-audit",
-      "target": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
       "label": "relates-to"
     },
     {
@@ -1719,6 +1698,21 @@
     {
       "source": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
       "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "gotcha-vi-mock-global-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "target": "learning-test-isolation-bun-mock-module",
       "label": "relates-to"
     }
   ]

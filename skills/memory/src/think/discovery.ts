@@ -27,6 +27,10 @@ export interface DiscoveryConfig {
   homePath: string;
   /** Enterprise configuration path (optional) */
   enterprisePath?: string;
+  /** Plugin root path (optional, defaults to process.cwd() if plugin detected) */
+  pluginPath?: string;
+  /** Disable plugin scope discovery (for testing) */
+  disablePluginScope?: boolean;
 }
 
 /**
@@ -109,14 +113,16 @@ function getAgentPaths(config: DiscoveryConfig): Array<{ path: string; source: D
   });
 
   // Plugin (when running from plugin directory - check for agents/ at cwd root)
-  // Use process.cwd() for plugin detection since basePath may be a scope subpath
-  const cwd = process.cwd();
-  const pluginAgentsPath = path.join(cwd, 'agents');
-  if (fs.existsSync(path.join(cwd, '.claude-plugin', 'plugin.json'))) {
-    paths.push({
-      path: pluginAgentsPath,
-      source: 'plugin',
-    });
+  // Use pluginPath if provided, otherwise detect from process.cwd()
+  if (!config.disablePluginScope) {
+    const pluginRoot = config.pluginPath ?? process.cwd();
+    const pluginAgentsPath = path.join(pluginRoot, 'agents');
+    if (fs.existsSync(path.join(pluginRoot, '.claude-plugin', 'plugin.json'))) {
+      paths.push({
+        path: pluginAgentsPath,
+        source: 'plugin',
+      });
+    }
   }
 
   // Global
@@ -151,14 +157,16 @@ function getStylePaths(config: DiscoveryConfig): Array<{ path: string; source: D
   });
 
   // Plugin (when running from plugin directory - check for output-styles/ at cwd root)
-  // Use process.cwd() for plugin detection since basePath may be a scope subpath
-  const cwd = process.cwd();
-  const pluginStylesPath = path.join(cwd, 'output-styles');
-  if (fs.existsSync(path.join(cwd, '.claude-plugin', 'plugin.json'))) {
-    paths.push({
-      path: pluginStylesPath,
-      source: 'plugin',
-    });
+  // Use pluginPath if provided, otherwise detect from process.cwd()
+  if (!config.disablePluginScope) {
+    const pluginRoot = config.pluginPath ?? process.cwd();
+    const pluginStylesPath = path.join(pluginRoot, 'output-styles');
+    if (fs.existsSync(path.join(pluginRoot, '.claude-plugin', 'plugin.json'))) {
+      paths.push({
+        path: pluginStylesPath,
+        source: 'plugin',
+      });
+    }
   }
 
   // Global

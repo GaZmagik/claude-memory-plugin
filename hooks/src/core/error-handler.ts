@@ -10,6 +10,107 @@ import { HookError, toHookError } from './errors.ts';
 import { parseHookInput, outputHookResponse } from './stdin.ts';
 import { createHookLogger } from './hook-logger.ts';
 import { basename, dirname } from 'path';
+import { unlinkSync, existsSync } from 'fs';
+
+/**
+ * Cleanup registry for signal handlers
+ * Tracks temp files and cleanup functions to run on SIGTERM/SIGINT
+ */
+const cleanupRegistry: {
+  tempFiles: Set<string>;
+  cleanupFns: Set<() => void>;
+} = {
+  tempFiles: new Set(),
+  cleanupFns: new Set(),
+};
+
+/**
+ * Register a temp file for cleanup on signal
+ */
+export function registerTempFile(filePath: string): void {
+  cleanupRegistry.tempFiles.add(filePath);
+}
+
+/**
+ * Unregister a temp file (call after successful cleanup)
+ */
+export function unregisterTempFile(filePath: string): void {
+  cleanupRegistry.tempFiles.delete(filePath);
+}
+
+/**
+ * Register a cleanup function to run on signal
+ */
+export function registerCleanup(fn: () => void): void {
+  cleanupRegistry.cleanupFns.add(fn);
+}
+
+/**
+ * Unregister a cleanup function
+ */
+export function unregisterCleanup(fn: () => void): void {
+  cleanupRegistry.cleanupFns.delete(fn);
+}
+
+/**
+ * Run all registered cleanup operations
+ */
+function runCleanup(): void {
+  // Clean up temp files
+  for (const filePath of cleanupRegistry.tempFiles) {
+    try {
+      if (existsSync(filePath)) {
+        unlinkSync(filePath);
+      }
+    } catch {
+      // Ignore cleanup errors - we're shutting down anyway
+    }
+  }
+  cleanupRegistry.tempFiles.clear();
+
+  // Run cleanup functions
+  for (const fn of cleanupRegistry.cleanupFns) {
+    try {
+      fn();
+    } catch {
+      // Ignore cleanup errors
+    }
+  }
+  cleanupRegistry.cleanupFns.clear();
+}
+
+// Track if signal handlers are installed
+let signalHandlersInstalled = false;
+
+/**
+ * Install process signal handlers for graceful shutdown
+ */
+function installSignalHandlers(): void {
+  if (signalHandlersInstalled) return;
+  signalHandlersInstalled = true;
+
+  const handleSignal = (signal: string) => {
+    runCleanup();
+    // Re-raise signal for default handling (exit)
+    process.exit(signal === 'SIGTERM' ? 143 : 130);
+  };
+
+  process.on('SIGTERM', () => handleSignal('SIGTERM'));
+  process.on('SIGINT', () => handleSignal('SIGINT'));
+
+  // Handle uncaught errors gracefully
+  process.on('uncaughtException', (error) => {
+    console.error('Uncaught exception in hook:', error.message);
+    runCleanup();
+    process.exit(1);
+  });
+
+  process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled rejection in hook:', reason);
+    runCleanup();
+    process.exit(1);
+  });
+}
 
 /**
  * Extract hook name and type from the script path
@@ -142,6 +243,9 @@ export function isForkedSession(input: HookInput): boolean {
  * ```
  */
 export async function runHook(handler: HookHandler): Promise<never> {
+  // Install signal handlers for graceful shutdown
+  installSignalHandlers();
+
   let exitCode: ExitCode = EXIT_ALLOW;
   const { name, type } = getHookInfo();
   const logger = createHookLogger(name, type);

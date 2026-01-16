@@ -363,6 +363,58 @@ describe('writeMemory', () => {
         customBasePath
       );
     });
+
+    it('should auto-add enterprise tag for Enterprise scope', async () => {
+      const enterpriseRequest = {
+        ...validRequest,
+        scope: Scope.Enterprise,
+      };
+
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Learning,
+        title: 'Test',
+        created: '2026-01-11T00:00:00.000Z',
+        updated: '2026-01-11T00:00:00.000Z',
+        tags: ['test', 'learning', 'enterprise'],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+
+      await writeMemory(enterpriseRequest);
+
+      expect(frontmatter.createFrontmatter).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tags: ['test', 'learning', 'enterprise'],
+          scope: Scope.Enterprise,
+        })
+      );
+    });
+
+    it('should auto-add user tag for Global scope', async () => {
+      const globalRequest = {
+        ...validRequest,
+        scope: Scope.Global,
+      };
+
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+        type: MemoryType.Learning,
+        title: 'Test',
+        created: '2026-01-11T00:00:00.000Z',
+        updated: '2026-01-11T00:00:00.000Z',
+        tags: ['test', 'learning', 'user'],
+      });
+      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+
+      await writeMemory(globalRequest);
+
+      expect(frontmatter.createFrontmatter).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tags: ['test', 'learning', 'user'],
+          scope: Scope.Global,
+        })
+      );
+    });
   });
 
   describe('gitignore automation', () => {

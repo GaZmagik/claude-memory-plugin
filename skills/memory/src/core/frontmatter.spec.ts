@@ -270,6 +270,14 @@ tags: []`;
 
     expect(() => parseFrontmatter(missingTitle)).toThrow(/title is required/i);
   });
+
+  it('should skip validation in lenient mode', () => {
+    const invalidYaml = `foo: bar
+random: field`;
+
+    const result = parseFrontmatter(invalidYaml, { lenient: true });
+    expect(result).toEqual({ foo: 'bar', random: 'field' });
+  });
 });
 
 describe('serialiseFrontmatter with all optional fields', () => {
@@ -314,6 +322,34 @@ describe('serialiseFrontmatter with all optional fields', () => {
 
     const yaml = serialiseFrontmatter(frontmatter);
     expect(yaml).toContain('scope: global');
+  });
+
+  it('should include id when present', () => {
+    const frontmatter: MemoryFrontmatter = {
+      id: 'learning-custom-id',
+      type: MemoryType.Learning,
+      title: 'Test with ID',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['test'],
+    };
+
+    const yaml = serialiseFrontmatter(frontmatter);
+    expect(yaml).toContain('id: learning-custom-id');
+  });
+
+  it('should include project when present', () => {
+    const frontmatter: MemoryFrontmatter = {
+      type: MemoryType.Learning,
+      title: 'Test with Project',
+      created: '2026-01-10T12:00:00Z',
+      updated: '2026-01-10T12:00:00Z',
+      tags: ['test'],
+      project: 'my-project',
+    };
+
+    const yaml = serialiseFrontmatter(frontmatter);
+    expect(yaml).toContain('project: my-project');
   });
 });
 
@@ -390,6 +426,17 @@ describe('createFrontmatter', () => {
     });
 
     expect(result.scope).toBe(Scope.Global);
+  });
+
+  it('should include id when provided', () => {
+    const result = createFrontmatter({
+      id: 'learning-custom-id',
+      type: MemoryType.Learning,
+      title: 'Test',
+      tags: [],
+    });
+
+    expect(result.id).toBe('learning-custom-id');
   });
 
   it('should include severity when provided', () => {

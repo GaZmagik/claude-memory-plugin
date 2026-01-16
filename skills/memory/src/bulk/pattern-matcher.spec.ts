@@ -47,6 +47,15 @@ describe('matchGlobPattern', () => {
     expect(matchGlobPattern('decision.foo', 'decisionXfoo')).toBe(false);
     expect(matchGlobPattern('decision[1]', 'decision[1]')).toBe(true);
   });
+
+  it('should handle LRU cache eviction when cache exceeds limit', () => {
+    // MAX_CACHE_SIZE is 100, so calling with 101 unique patterns triggers eviction
+    for (let i = 0; i < 101; i++) {
+      expect(matchGlobPattern(`pattern-${i}-*`, `pattern-${i}-test`)).toBe(true);
+    }
+    // First pattern should have been evicted but still work (re-cached)
+    expect(matchGlobPattern('pattern-0-*', 'pattern-0-test')).toBe(true);
+  });
 });
 
 describe('matchTags', () => {

@@ -113,8 +113,9 @@ Context size: ${options.contextPrompt.length} bytes
   const tools = options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite';
 
   // Write context to file to avoid shell escaping issues
+  // Use mode 0600 for security (owner read/write only)
   const contextFile = join(logDir, `context-${options.sessionId}.txt`);
-  writeFileSync(contextFile, options.contextPrompt);
+  writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
 
   // Write a wrapper script that reads all values from files/args
   // This avoids shell interpolation vulnerabilities
@@ -135,13 +136,18 @@ echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "
 
 cd "$CWD"
 
+# Read context file safely into variable (avoids command substitution vulnerabilities)
+# shellcheck disable=SC2155
+export CLAUDE_CONTEXT_PROMPT
+CLAUDE_CONTEXT_PROMPT=$(<"$CONTEXT_FILE")
+
 timeout "\${TIMEOUT}s" claude \\
   --model "$MODEL" \\
   --permission-mode bypassPermissions \\
   --dangerously-skip-permissions \\
   --output-format "stream-json" \\
   --verbose \\
-  --additional-system-prompt "$(cat "$CONTEXT_FILE")" \\
+  --additional-system-prompt "$CLAUDE_CONTEXT_PROMPT" \\
   --tools "$TOOLS" \\
   --print "$PROMPT" 2>&1 | tee -a "$LOG_FILE"
 

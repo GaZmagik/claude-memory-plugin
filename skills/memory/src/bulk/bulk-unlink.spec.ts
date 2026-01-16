@@ -164,4 +164,53 @@ describe('bulkUnlink', () => {
     expect(progressCalls.some((p) => p.phase === 'processing')).toBe(true);
     expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
   });
+
+  it('should filter by explicit IDs when provided', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(linkModule, 'unlinkMemories').mockResolvedValue(mockUnlinkSuccess());
+
+    const result = await bulkUnlink({
+      pattern: 'decision-*',
+      ids: ['decision-foo'], // Only unlink this one, not decision-bar
+      target: 'hub-main',
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.unlinkedCount).toBe(1);
+    expect(result.unlinkedPairs).toEqual([
+      { source: 'decision-foo', target: 'hub-main' },
+    ]);
+    expect(linkModule.unlinkMemories).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle thrown exceptions during unlink', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: testMemories,
+    });
+    vi.spyOn(linkModule, 'unlinkMemories')
+      .mockResolvedValueOnce(mockUnlinkSuccess())
+      .mockRejectedValueOnce(new Error('Network failure'));
+
+    const result = await bulkUnlink({ pattern: 'decision-*', target: 'hub-main' });
+
+    expect(result.status).toBe('success');
+    expect(result.unlinkedCount).toBe(1);
+    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Network failure' }]);
+  });
+
+  it('should handle general errors in outer try block', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await bulkUnlink({ pattern: 'decision-*', target: 'hub-main' });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Bulk unlink failed');
+    expect(result.error).toContain('Index corrupted');
+  });
 });

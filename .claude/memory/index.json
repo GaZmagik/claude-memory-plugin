@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T19:45:22.942Z",
+  "lastUpdated": "2026-01-16T20:01:16.486Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2072,6 +2072,55 @@
       "updated": "2026-01-16T19:39:21.033Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "type": "learning",
+      "title": "Retro - Systematic coverage patterns accelerate edge case discovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "coverage",
+        "project"
+      ],
+      "created": "2026-01-16T20:01:08.586Z",
+      "updated": "2026-01-16T20:01:08.586Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents post-compaction proved efficient",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-management",
+        "project"
+      ],
+      "created": "2026-01-16T20:01:11.904Z",
+      "updated": "2026-01-16T20:01:11.904Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-post-compaction-proved-efficient.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "type": "gotcha",
+      "title": "Retro - Coverage tool continuation threshold unclear",
+      "tags": [
+        "retrospective",
+        "process",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-01-16T20:01:16.483Z",
+      "updated": "2026-01-16T20:01:16.483Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-coverage-tool-continuation-threshold-unclear.md",
       "severity": "medium"
     }
   ]

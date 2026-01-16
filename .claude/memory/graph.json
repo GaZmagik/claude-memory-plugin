@@ -627,6 +627,18 @@
     {
       "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -1713,6 +1725,16 @@
     {
       "source": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
       "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "target": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
       "label": "relates-to"
     }
   ]

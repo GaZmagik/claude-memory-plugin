@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T23:10:44.937Z",
+  "lastUpdated": "2026-01-16T23:19:01.038Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2156,22 +2156,6 @@
       "severity": "critical"
     },
     {
-      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
-      "type": "learning",
-      "title": "Memory System Analysis - Linking & Quality Audit Complete",
-      "tags": [
-        "memory-system",
-        "linking",
-        "quality-audit",
-        "analysis",
-        "project"
-      ],
-      "created": "2026-01-16T22:33:18.496Z",
-      "updated": "2026-01-16T22:33:18.496Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-memory-system-analysis-linking-quality-audit-complete.md"
-    },
-    {
       "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
       "title": "Retro: TDD hook enforcement caught gaps early",
       "type": "learning",
@@ -2846,6 +2830,87 @@
       "scope": "project",
       "relativePath": "permanent/learning-think-ai-invocation-flow.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "type": "learning",
+      "title": "Retro - Structured investigation prevents premature design decisions",
+      "tags": [
+        "retrospective",
+        "process",
+        "design",
+        "project"
+      ],
+      "created": "2026-01-16T23:12:14.180Z",
+      "updated": "2026-01-16T23:12:14.180Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-structured-investigation-prevents-premature-design-decisions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
+      "type": "gotcha",
+      "title": "Retro - Session-restore agent type mismatch almost went undetected",
+      "tags": [
+        "retrospective",
+        "process",
+        "agent-routing",
+        "project"
+      ],
+      "created": "2026-01-16T23:12:18.818Z",
+      "updated": "2026-01-16T23:12:18.818Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "type": "learning",
+      "title": "Retro - Batch memory scope moves with atomic verification",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-operations",
+        "project"
+      ],
+      "created": "2026-01-16T23:12:23.754Z",
+      "updated": "2026-01-16T23:12:23.754Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-batch-memory-scope-moves-with-atomic-verification.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "type": "gotcha",
+      "title": "Retro - Memory scope moves orphan existing cross-scope links",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-maintenance",
+        "project"
+      ],
+      "created": "2026-01-16T23:12:37.583Z",
+      "updated": "2026-01-16T23:12:37.583Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "type": "learning",
+      "title": "Memory System Analysis - Linking & Quality Audit Complete",
+      "tags": [
+        "memory",
+        "audit",
+        "linking",
+        "quality",
+        "retrospective",
+        "project"
+      ],
+      "created": "2026-01-16T23:19:01.035Z",
+      "updated": "2026-01-16T23:19:01.035Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-system-analysis-linking-quality-audit-complete.md"
     }
   ]
 }

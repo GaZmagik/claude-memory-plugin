@@ -851,6 +851,22 @@
     {
       "id": "learning-think-ai-invocation-flow",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -1817,6 +1833,66 @@
     {
       "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-batch-operations-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-batch-operations-pattern",
+      "target": "decision-cli-dispatcher-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-batch-operations-pattern",
+      "target": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "decision-review-findings-verification-consulting-specialist-agents",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-two-hook-enforcement-pattern-for-memory-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "gotcha-bash-vs-typescript-index-format-mismatch",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
       "label": "relates-to"
     }
   ]

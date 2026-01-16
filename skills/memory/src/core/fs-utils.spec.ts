@@ -24,6 +24,9 @@ import {
   isInsideDir,
   isSymlink,
   validateSymlinkTarget,
+  getAllMemoryIds,
+  findMemoryFile,
+  MEMORY_SUBDIRS,
 } from './fs-utils.js';
 
 describe('File System Utilities', () => {
@@ -428,6 +431,115 @@ describe('File System Utilities', () => {
       const result = validateSymlinkTarget(symlinkPath, testDir);
 
       expect(result).toBe(fs.realpathSync(targetFile));
+    });
+  });
+
+  describe('MEMORY_SUBDIRS', () => {
+    it('should contain permanent and temporary', () => {
+      expect(MEMORY_SUBDIRS).toEqual(['permanent', 'temporary']);
+    });
+  });
+
+  describe('getAllMemoryIds', () => {
+    it('should return empty array for empty directory', () => {
+      const ids = getAllMemoryIds(testDir);
+      expect(ids).toEqual([]);
+    });
+
+    it('should find memories in permanent directory', () => {
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir);
+      fs.writeFileSync(path.join(permanentDir, 'decision-auth.md'), '# Auth');
+      fs.writeFileSync(path.join(permanentDir, 'learning-tdd.md'), '# TDD');
+
+      const ids = getAllMemoryIds(testDir);
+
+      expect(ids).toHaveLength(2);
+      expect(ids).toContain('decision-auth');
+      expect(ids).toContain('learning-tdd');
+    });
+
+    it('should find memories in temporary directory', () => {
+      const temporaryDir = path.join(testDir, 'temporary');
+      fs.mkdirSync(temporaryDir);
+      fs.writeFileSync(path.join(temporaryDir, 'thought-123.md'), '# Think');
+
+      const ids = getAllMemoryIds(testDir);
+
+      expect(ids).toHaveLength(1);
+      expect(ids).toContain('thought-123');
+    });
+
+    it('should combine memories from both directories', () => {
+      const permanentDir = path.join(testDir, 'permanent');
+      const temporaryDir = path.join(testDir, 'temporary');
+      fs.mkdirSync(permanentDir);
+      fs.mkdirSync(temporaryDir);
+      fs.writeFileSync(path.join(permanentDir, 'decision-api.md'), '# API');
+      fs.writeFileSync(path.join(temporaryDir, 'thought-456.md'), '# Thought');
+
+      const ids = getAllMemoryIds(testDir);
+
+      expect(ids).toHaveLength(2);
+      expect(ids).toContain('decision-api');
+      expect(ids).toContain('thought-456');
+    });
+
+    it('should ignore non-markdown files', () => {
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir);
+      fs.writeFileSync(path.join(permanentDir, 'decision-auth.md'), '# Auth');
+      fs.writeFileSync(path.join(permanentDir, 'config.json'), '{}');
+      fs.writeFileSync(path.join(permanentDir, 'notes.txt'), 'notes');
+
+      const ids = getAllMemoryIds(testDir);
+
+      expect(ids).toHaveLength(1);
+      expect(ids).toContain('decision-auth');
+    });
+  });
+
+  describe('findMemoryFile', () => {
+    it('should return null for non-existent memory', () => {
+      const result = findMemoryFile(testDir, 'non-existent');
+      expect(result).toBeNull();
+    });
+
+    it('should find memory in permanent directory', () => {
+      const permanentDir = path.join(testDir, 'permanent');
+      fs.mkdirSync(permanentDir);
+      const filePath = path.join(permanentDir, 'decision-auth.md');
+      fs.writeFileSync(filePath, '# Auth');
+
+      const result = findMemoryFile(testDir, 'decision-auth');
+
+      expect(result).toBe(filePath);
+    });
+
+    it('should find memory in temporary directory', () => {
+      const temporaryDir = path.join(testDir, 'temporary');
+      fs.mkdirSync(temporaryDir);
+      const filePath = path.join(temporaryDir, 'thought-123.md');
+      fs.writeFileSync(filePath, '# Thought');
+
+      const result = findMemoryFile(testDir, 'thought-123');
+
+      expect(result).toBe(filePath);
+    });
+
+    it('should prefer permanent over temporary if both exist', () => {
+      const permanentDir = path.join(testDir, 'permanent');
+      const temporaryDir = path.join(testDir, 'temporary');
+      fs.mkdirSync(permanentDir);
+      fs.mkdirSync(temporaryDir);
+      const permanentFile = path.join(permanentDir, 'learning-dup.md');
+      const temporaryFile = path.join(temporaryDir, 'learning-dup.md');
+      fs.writeFileSync(permanentFile, '# Permanent');
+      fs.writeFileSync(temporaryFile, '# Temporary');
+
+      const result = findMemoryFile(testDir, 'learning-dup');
+
+      expect(result).toBe(permanentFile);
     });
   });
 });

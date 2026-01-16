@@ -15,6 +15,7 @@ import {
   createMockProvider,
   createOllamaProvider,
   generateContentHash,
+  truncateForEmbedding,
   type EmbeddingCache,
   type EmbeddingProvider,
 } from './embedding.js';
@@ -527,6 +528,43 @@ describe('Embedding Generation', () => {
       } finally {
         globalThis.fetch = originalFetch;
       }
+    });
+  });
+
+  describe('truncateForEmbedding', () => {
+    it('should return short content unchanged', () => {
+      const content = 'Short content that fits within limits';
+      expect(truncateForEmbedding(content)).toBe(content);
+    });
+
+    it('should truncate content exceeding 6000 characters', () => {
+      const longContent = 'a'.repeat(7000);
+      const result = truncateForEmbedding(longContent);
+
+      expect(result.length).toBeLessThanOrEqual(6003); // 6000 + '...'
+      expect(result.endsWith('...')).toBe(true);
+    });
+
+    it('should truncate at word boundary when possible', () => {
+      const words = 'word '.repeat(1500); // ~7500 chars
+      const result = truncateForEmbedding(words);
+
+      expect(result.endsWith('...')).toBe(true);
+      // Should not end with partial word (no trailing space before ...)
+      expect(result.slice(-4, -3)).not.toBe(' ');
+    });
+
+    it('should handle content exactly at limit', () => {
+      const exactContent = 'x'.repeat(6000);
+      expect(truncateForEmbedding(exactContent)).toBe(exactContent);
+    });
+
+    it('should handle content just over limit', () => {
+      const justOver = 'x'.repeat(6001);
+      const result = truncateForEmbedding(justOver);
+
+      expect(result.length).toBe(6003); // 6000 + '...'
+      expect(result.endsWith('...')).toBe(true);
     });
   });
 });

@@ -119,12 +119,16 @@ describe('spawn-session', () => {
       });
 
       // Should write log file header
-      const headerCall = mockWriteFileSync.mock.calls.find(
+      type WriteCall = [path: string, content: string, options?: unknown];
+      const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
+      const headerCall = calls.find(
         (call) => typeof call[1] === 'string' && call[1].includes('===')
       );
       expect(headerCall).toBeTruthy();
-      expect(headerCall[0]).toContain('memory-capture');
-      expect(headerCall[1]).toContain('=== memory-capture Started:');
+      if (headerCall) {
+        expect(headerCall[0]).toContain('memory-capture');
+        expect(headerCall[1]).toContain('=== memory-capture Started:');
+      }
     });
 
     it('should write context to temp file', async () => {
@@ -139,11 +143,15 @@ describe('spawn-session', () => {
       });
 
       // Should write context file
-      const contextCall = mockWriteFileSync.mock.calls.find(
+      type WriteCall = [path: string, content: string, options?: unknown];
+      const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
+      const contextCall = calls.find(
         (call) => call[0].includes('context-test-session-123.txt')
       );
       expect(contextCall).toBeTruthy();
-      expect(contextCall[1]).toBe('My conversation context');
+      if (contextCall) {
+        expect(contextCall[1]).toBe('My conversation context');
+      }
     });
 
     it('should spawn detached wrapper script process', async () => {
@@ -203,10 +211,15 @@ describe('spawn-session', () => {
         logPrefix: 'test',
       });
 
-      const headerCall = mockWriteFileSync.mock.calls.find(
+      type WriteCall = [path: string, content: string, options?: unknown];
+      const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
+      const headerCall = calls.find(
         (call) => typeof call[1] === 'string' && call[1].includes('===')
       );
-      expect(headerCall[1]).toContain('Session ID: unique-session-id');
+      expect(headerCall).toBeTruthy();
+      if (headerCall) {
+        expect(headerCall[1]).toContain('Session ID: unique-session-id');
+      }
     });
 
     it('should include context size in log header', async () => {
@@ -221,10 +234,15 @@ describe('spawn-session', () => {
         logPrefix: 'test',
       });
 
-      const headerCall = mockWriteFileSync.mock.calls.find(
+      type WriteCall = [path: string, content: string, options?: unknown];
+      const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
+      const headerCall = calls.find(
         (call) => typeof call[1] === 'string' && call[1].includes('===')
       );
-      expect(headerCall[1]).toContain('Context size: 1000 bytes');
+      expect(headerCall).toBeTruthy();
+      if (headerCall) {
+        expect(headerCall[1]).toContain('Context size: 1000 bytes');
+      }
     });
 
     it('should use custom timeout when provided', async () => {
@@ -239,9 +257,13 @@ describe('spawn-session', () => {
         timeoutSecs: 600,
       });
 
-      const spawnCall = mockSpawn.mock.calls[0];
-      const args = spawnCall[1] as string[];
-      expect(args).toContain('600'); // timeout as string argument
+      type SpawnCall = [script: string, args: string[], options: unknown];
+      const spawnCalls = mockSpawn.mock.calls as unknown as SpawnCall[];
+      const spawnCall = spawnCalls[0];
+      expect(spawnCall).toBeTruthy();
+      if (spawnCall) {
+        expect(spawnCall[1]).toContain('600'); // timeout as string argument
+      }
     });
 
     it('should use custom model when provided', async () => {
@@ -256,9 +278,13 @@ describe('spawn-session', () => {
         model: 'claude-sonnet-4-20250514',
       });
 
-      const spawnCall = mockSpawn.mock.calls[0];
-      const args = spawnCall[1] as string[];
-      expect(args).toContain('claude-sonnet-4-20250514');
+      type SpawnCall = [script: string, args: string[], options: unknown];
+      const spawnCalls = mockSpawn.mock.calls as unknown as SpawnCall[];
+      const spawnCall = spawnCalls[0];
+      expect(spawnCall).toBeTruthy();
+      if (spawnCall) {
+        expect(spawnCall[1]).toContain('claude-sonnet-4-20250514');
+      }
     });
 
     it('should use custom tools when provided', async () => {
@@ -273,9 +299,13 @@ describe('spawn-session', () => {
         tools: 'Read,Write,Edit',
       });
 
-      const spawnCall = mockSpawn.mock.calls[0];
-      const args = spawnCall[1] as string[];
-      expect(args).toContain('Read,Write,Edit');
+      type SpawnCall = [script: string, args: string[], options: unknown];
+      const spawnCalls = mockSpawn.mock.calls as unknown as SpawnCall[];
+      const spawnCall = spawnCalls[0];
+      expect(spawnCall).toBeTruthy();
+      if (spawnCall) {
+        expect(spawnCall[1]).toContain('Read,Write,Edit');
+      }
     });
 
     it('should include trigger in log header when provided', async () => {
@@ -290,10 +320,15 @@ describe('spawn-session', () => {
         trigger: 'compaction',
       });
 
-      const headerCall = mockWriteFileSync.mock.calls.find(
+      type WriteCall = [path: string, content: string, options?: unknown];
+      const calls = mockWriteFileSync.mock.calls as unknown as WriteCall[];
+      const headerCall = calls.find(
         (call) => typeof call[1] === 'string' && call[1].includes('===')
       );
-      expect(headerCall[1]).toContain('Trigger: compaction');
+      expect(headerCall).toBeTruthy();
+      if (headerCall) {
+        expect(headerCall[1]).toContain('Trigger: compaction');
+      }
     });
 
     it('should pass special characters in prompt without shell escaping', async () => {
@@ -308,10 +343,14 @@ describe('spawn-session', () => {
         logPrefix: 'test',
       });
 
-      const spawnCall = mockSpawn.mock.calls[0];
-      const args = spawnCall[1] as string[];
-      // Args are passed directly, no shell escaping needed
-      expect(args).toContain(prompt);
+      type SpawnCall = [script: string, args: string[], options: unknown];
+      const spawnCalls = mockSpawn.mock.calls as unknown as SpawnCall[];
+      const spawnCall = spawnCalls[0];
+      expect(spawnCall).toBeTruthy();
+      if (spawnCall) {
+        // Args are passed directly, no shell escaping needed
+        expect(spawnCall[1]).toContain(prompt);
+      }
     });
   });
 });

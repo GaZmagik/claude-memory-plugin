@@ -2130,6 +2130,31 @@
       "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
       "target": "learning-regex-based-language-parsing-tradeoff",
       "label": "related-to"
+    },
+    {
+      "source": "learning-think-ai-invocation-flow",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-think-frontmatter-field-tracing",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-recursive-agent-discovery",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
     }
   ]
 }

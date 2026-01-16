@@ -543,6 +543,22 @@
     {
       "id": "gotcha-embedding-context-length-causes-500-error",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-embedding-truncation-solved-silent-failures",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -1489,6 +1505,26 @@
     {
       "source": "retro-test-subprocess-hanging",
       "target": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-embedding-truncation-solved-silent-failures",
+      "target": "gotcha-embedding-context-length-causes-500-error",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "target": "learning-retro-embedding-truncation-solved-silent-failures",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "target": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
+      "target": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
       "label": "relates-to"
     }
   ]

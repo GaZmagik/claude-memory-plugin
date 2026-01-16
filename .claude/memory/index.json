@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T14:57:37.485Z",
+  "lastUpdated": "2026-01-16T16:38:19.695Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1727,6 +1727,71 @@
       "updated": "2026-01-16T14:57:37.482Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-embedding-context-length-causes-500-error.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-embedding-truncation-solved-silent-failures",
+      "type": "learning",
+      "title": "Retro - Embedding truncation solved silent failures",
+      "tags": [
+        "retrospective",
+        "embedding",
+        "debugging",
+        "fix",
+        "project"
+      ],
+      "created": "2026-01-16T16:38:03.288Z",
+      "updated": "2026-01-16T16:38:03.288Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-embedding-truncation-solved-silent-failures.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
+      "type": "learning",
+      "title": "Retro - DRY extraction patterns reduce duplication pressure",
+      "tags": [
+        "retrospective",
+        "refactoring",
+        "DRY",
+        "project"
+      ],
+      "created": "2026-01-16T16:38:07.690Z",
+      "updated": "2026-01-16T16:38:07.690Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-dry-extraction-patterns-reduce-duplication-pressure.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "type": "learning",
+      "title": "Retro - TDD parity audit forced complete test coverage",
+      "tags": [
+        "retrospective",
+        "testing",
+        "tdd-parity",
+        "project"
+      ],
+      "created": "2026-01-16T16:38:12.771Z",
+      "updated": "2026-01-16T16:38:12.771Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-parity-audit-forced-complete-test-coverage.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "type": "gotcha",
+      "title": "Retro - GPU vs CPU embedding model selection matters",
+      "tags": [
+        "retrospective",
+        "embeddings",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-16T16:38:19.691Z",
+      "updated": "2026-01-16T16:38:19.691Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters.md",
       "severity": "medium"
     }
   ]

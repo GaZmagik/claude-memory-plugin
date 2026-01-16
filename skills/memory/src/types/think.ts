@@ -143,8 +143,8 @@ export interface DiscoveredFile {
   name: string;
   /** Absolute file path */
   path: string;
-  /** Source scope (local, global, enterprise) */
-  source: 'local' | 'global' | 'enterprise';
+  /** Source scope (local, plugin, global, enterprise) */
+  source: 'local' | 'plugin' | 'global' | 'enterprise';
   /** Description from frontmatter (if available) */
   description?: string;
 }

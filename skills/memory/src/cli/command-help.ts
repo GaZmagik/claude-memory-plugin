@@ -5,6 +5,8 @@
  * Used when running `memory <command> --help` or `memory help <command>`.
  */
 
+import { discoverAgents, discoverStyles } from '../think/discovery.js';
+
 /**
  * Command help entry with structured information
  */
@@ -605,6 +607,23 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
 };
 
 /**
+ * Format discovered files into a display list
+ */
+function formatDiscoveredList(
+  items: Array<{ name: string; source: string; description?: string }>
+): string {
+  if (items.length === 0) {
+    return '    (none found)';
+  }
+  return items
+    .map((item) => {
+      const desc = item.description ? ` - ${item.description}` : '';
+      return `    ${item.name} (${item.source})${desc}`;
+    })
+    .join('\n');
+}
+
+/**
  * Get help text for a specific command
  *
  * @param command - Command name
@@ -615,7 +634,22 @@ export function getCommandHelp(command: string): string | undefined {
   if (!help) {
     return undefined;
   }
-  return formatCommandHelp(command, help);
+
+  let output = formatCommandHelp(command, help);
+
+  // Add dynamic agent/style discovery for think command
+  if (command === 'think') {
+    const agents = discoverAgents();
+    const styles = discoverStyles();
+
+    output += '\n\nAVAILABLE AGENTS:\n';
+    output += formatDiscoveredList(agents);
+
+    output += '\n\nAVAILABLE OUTPUT STYLES:\n';
+    output += formatDiscoveredList(styles);
+  }
+
+  return output;
 }
 
 /**

@@ -12,9 +12,10 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, unlinkSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
+import { execFileSync } from 'child_process';
 import { isForkedSession, getLogDir, spawnSessionWithContext } from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
 
@@ -66,6 +67,26 @@ runHook(async (input) => {
     flagFile,
     `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\ntrigger=${trigger}\n`
   );
+
+  // Sync memory graph/index before capture (ensures consistency)
+  // Log result but NEVER block compaction on failure
+  try {
+    const syncResult = execFileSync('memory', ['sync', 'local'], {
+      cwd,
+      timeout: 10000, // 10 second timeout
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    const syncLogFile = join(logDir, `precompact-sync-${sessionId}.log`);
+    appendFileSync(syncLogFile, `[${new Date().toISOString()}] Sync completed:\n${syncResult}\n`);
+  } catch (syncError) {
+    // Log failure but continue - never block compaction
+    const syncLogFile = join(logDir, `precompact-sync-${sessionId}.log`);
+    appendFileSync(
+      syncLogFile,
+      `[${new Date().toISOString()}] Sync failed (non-blocking): ${syncError}\n`
+    );
+  }
 
   // Extract session context
   const contextPrompt = extractContextAsSystemPrompt(sessionId, cwd);

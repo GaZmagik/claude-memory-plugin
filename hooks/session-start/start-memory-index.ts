@@ -232,6 +232,63 @@ async function checkMemoryHealth(
 }
 
 /**
+ * List active thinking documents and warn about stale ones
+ */
+async function listThinkDocuments(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string
+): Promise<string> {
+  try {
+    const result = await spawn(['memory', 'think', 'list', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (!result.success) {
+      return '';
+    }
+
+    const data = JSON.parse(result.stdout);
+    const documents = data.data?.documents || data.documents || [];
+
+    if (documents.length === 0) {
+      return '';
+    }
+
+    logOutput(logFile, sessionId, `[THINK] Found ${documents.length} active deliberation(s)`);
+
+    // Check for stale documents (older than 30 days)
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const staleDate = thirtyDaysAgo.toISOString();
+
+    const staleCount = documents.filter(
+      (d: { created?: string }) => d.created && d.created < staleDate
+    ).length;
+
+    let output = `\n💭 Active deliberations (${documents.length}):\n`;
+    for (const doc of documents.slice(0, 5)) {
+      const topic = doc.topic || doc.id || 'untitled';
+      const created = doc.created ? doc.created.slice(0, 10) : 'unknown';
+      output += `    - ${topic} (${created})\n`;
+    }
+
+    if (documents.length > 5) {
+      output += `    ... and ${documents.length - 5} more\n`;
+    }
+
+    if (staleCount > 0) {
+      output += `  ⚠️ ${staleCount} doc(s) older than 30 days - consider concluding or deleting\n`;
+    }
+
+    return output;
+  } catch {
+    return '';
+  }
+}
+
+/**
  * Auto-prune expired temporary memories (runs silently)
  */
 async function autoPruneTemporaries(
@@ -313,6 +370,12 @@ runHook(async (input) => {
   const healthWarning = await checkMemoryHealth(projectDir, logFile, sessionId);
   if (healthWarning) {
     summary += healthWarning;
+  }
+
+  // List active thinking documents
+  const thinkList = await listThinkDocuments(projectDir, logFile, sessionId);
+  if (thinkList) {
+    summary += thinkList;
   }
 
   // Auto-prune expired temporaries (silent, logs only)

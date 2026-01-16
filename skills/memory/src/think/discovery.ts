@@ -15,7 +15,7 @@ const log = createLogger('think-discovery');
 /**
  * Discovery source with priority (lower = higher priority)
  */
-type DiscoverySource = 'local' | 'global' | 'enterprise';
+type DiscoverySource = 'local' | 'plugin' | 'global' | 'enterprise';
 
 /**
  * Discovery configuration
@@ -108,6 +108,17 @@ function getAgentPaths(config: DiscoveryConfig): Array<{ path: string; source: D
     source: 'local',
   });
 
+  // Plugin (when running from plugin directory - check for agents/ at cwd root)
+  // Use process.cwd() for plugin detection since basePath may be a scope subpath
+  const cwd = process.cwd();
+  const pluginAgentsPath = path.join(cwd, 'agents');
+  if (fs.existsSync(path.join(cwd, '.claude-plugin', 'plugin.json'))) {
+    paths.push({
+      path: pluginAgentsPath,
+      source: 'plugin',
+    });
+  }
+
   // Global
   if (config.homePath) {
     paths.push({
@@ -138,6 +149,17 @@ function getStylePaths(config: DiscoveryConfig): Array<{ path: string; source: D
     path: path.join(config.basePath, '.claude', 'output-styles'),
     source: 'local',
   });
+
+  // Plugin (when running from plugin directory - check for output-styles/ at cwd root)
+  // Use process.cwd() for plugin detection since basePath may be a scope subpath
+  const cwd = process.cwd();
+  const pluginStylesPath = path.join(cwd, 'output-styles');
+  if (fs.existsSync(path.join(cwd, '.claude-plugin', 'plugin.json'))) {
+    paths.push({
+      path: pluginStylesPath,
+      source: 'plugin',
+    });
+  }
 
   // Global
   if (config.homePath) {

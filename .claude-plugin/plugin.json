@@ -8,25 +8,5 @@
   },
   "license": "MIT",
   "repository": "https://github.com/GaZmagik/claude-memory-plugin",
-  "keywords": ["memory", "knowledge-management", "semantic-search", "gotcha-injection"],
-  "engines": {
-    "claude-code": ">=2.0.0",
-    "bun": ">=1.0.0"
-  },
-  "components": {
-    "skills": ["skills/memory/SKILL.md"],
-    "hooks": "hooks/hooks.json",
-    "commands": [
-      "commands/check-gotchas.md",
-      "commands/check-health.md",
-      "commands/commit.md"
-    ],
-    "agents": [
-      "agents/recall.md",
-      "agents/curator.md"
-    ]
-  },
-  "optionalDependencies": {
-    "ollama": "Required for semantic search features (embeddinggemma model)"
-  }
+  "keywords": ["memory", "knowledge-management", "semantic-search", "gotcha-injection"]
 }

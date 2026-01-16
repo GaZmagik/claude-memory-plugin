@@ -821,10 +821,6 @@
       "type": "learning"
     },
     {
-      "id": "artifact-cli-phase-plan",
-      "type": "permanent"
-    },
-    {
       "id": "gotcha-scope-resolver-params",
       "type": "permanent"
     },
@@ -1894,6 +1890,166 @@
       "source": "thought-20260112-221004029",
       "target": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
       "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "related-to"
+    },
+    {
+      "source": "decision-review-findings-verification-consulting-specialist-agents",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "related-to"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "extends"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "related-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "related-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "supersedes"
+    },
+    {
+      "source": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "extends"
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "resolves"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "resolves"
+    },
+    {
+      "source": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-think-scope-project-vs-local-split",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retrospective-memory-refactor-session",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-hook-separation-clarified-enforcement-boundaries",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-index-format-migration-prevented-silent-failures",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T23:19:01.038Z",
+  "lastUpdated": "2026-01-16T23:22:19.875Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2700,21 +2700,6 @@
       "scope": "project",
       "relativePath": "permanent/retro-validation-before-parsing.md",
       "severity": "medium"
-    },
-    {
-      "id": "artifact-cli-phase-plan",
-      "title": "6-Phase CLI Implementation Plan for Memory Skill",
-      "type": "permanent",
-      "tags": [
-        "artifact",
-        "plan",
-        "cli",
-        "phases"
-      ],
-      "created": "2026-01-12T15:48:00Z",
-      "updated": "2026-01-16T23:10:44.481Z",
-      "scope": "project",
-      "relativePath": "permanent/artifact-cli-phase-plan.md"
     },
     {
       "id": "gotcha-scope-resolver-params",

@@ -20,7 +20,7 @@
     "test:memory": "bun test skills/memory/src",
     "test:integration": "bun test tests/integration",
     "test:watch": "bun test --watch",
-    "test:coverage": "bun test --coverage",
+    "test:coverage": "bun run test:clean --coverage && bunx vitest run hooks/src/memory/gotcha-injector.spec.ts hooks/src/session/extract-context.spec.ts hooks/src/services/ollama.spec.ts && bun test hooks/src/session/fork-detection.spec.ts && bun test hooks/src/session/spawn-session.spec.ts",
     "lint": "eslint . --ext .ts",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
     "typecheck:src": "tsc --noEmit",

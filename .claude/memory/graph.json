@@ -717,6 +717,18 @@
     {
       "id": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -1813,6 +1825,46 @@
     {
       "source": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
       "target": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
+      "target": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-asymptotic-returns-99-becomes-exponentially-harder",
+      "target": "learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "target": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
+      "target": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "target": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
       "label": "relates-to"
     }
   ]

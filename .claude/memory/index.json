@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T20:48:59.469Z",
+  "lastUpdated": "2026-01-16T21:10:28.948Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2284,6 +2284,60 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-coverage-asymptotic-returns-hit-practical-ceiling-around-99.md",
       "severity": "low"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "vitest",
+        "mocking",
+        "edge-cases",
+        "project"
+      ],
+      "created": "2026-01-16T21:10:10.061Z",
+      "updated": "2026-01-16T21:10:10.061Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-function-coverage-line-coverage-branch-testing-matters",
+      "type": "learning",
+      "title": "Retro - Function coverage ≠ line coverage; branch testing matters",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "metrics",
+        "project"
+      ],
+      "created": "2026-01-16T21:10:19.692Z",
+      "updated": "2026-01-16T21:10:19.692Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-function-coverage-line-coverage-branch-testing-matters.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
+      "type": "gotcha",
+      "title": "Gotcha - Coverage plateau at 95-99% signals asymptotic returns, not missed work",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "risk",
+        "pragmatism",
+        "project"
+      ],
+      "created": "2026-01-16T21:10:28.944Z",
+      "updated": "2026-01-16T21:10:28.944Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work.md",
+      "severity": "high"
     }
   ]
 }

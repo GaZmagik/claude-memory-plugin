@@ -2050,6 +2050,86 @@
       "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
       "target": "decision-session-continuity-strategy",
       "label": "documents"
+    },
+    {
+      "source": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-bun-link-cli-exposure-pattern",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-scope-resolver-params",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-gap",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-think-temporary-breadcrumb-type",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "related-to"
     }
   ]
 }

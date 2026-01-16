@@ -464,6 +464,32 @@ memory think add --call claude --resume abc12345-6789-... "What about performanc
 
 The `--by`, `--call`, `--style`, `--agent`, and `--resume` parameters work with `add`, `counter`, and `branch`.
 
+### Discovery Configuration
+
+The `--style` and `--agent` options discover files from multiple scopes in priority order:
+
+| Scope | Agents Path | Styles Path | Priority |
+|-------|-------------|-------------|----------|
+| Local | `.claude/agents/` | `.claude/output-styles/` | 1 (highest) |
+| Plugin | `{plugin-root}/agents/` | `{plugin-root}/output-styles/` | 2 |
+| Global | `~/.claude/agents/` | `~/.claude/output-styles/` | 3 |
+| Enterprise | `{enterprise-path}/agents/` | N/A | 4 (lowest) |
+
+**Plugin scope**: Automatically detected when running from a directory containing `.claude-plugin/plugin.json`. This allows plugins to bundle their own agents and styles.
+
+**For testing**: Use `disablePluginScope: true` in the discovery config to prevent plugin-scope discovery during tests, ensuring test isolation:
+
+```typescript
+import { discoverAgents, discoverStyles } from './think/discovery.js';
+
+// In tests, disable plugin scope to avoid discovering real plugin files
+const agents = discoverAgents({
+  basePath: tempDir,
+  homePath: globalDir,
+  disablePluginScope: true,  // Prevents plugin detection
+});
+```
+
 ## Troubleshooting
 
 ### Memory Not Found

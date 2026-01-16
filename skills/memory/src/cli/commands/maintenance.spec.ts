@@ -11,6 +11,8 @@ import * as syncFrontmatterModule from '../../maintenance/sync-frontmatter.js';
 import * as refreshFrontmatterModule from '../../maintenance/refresh-frontmatter.js';
 import * as indexModule from '../../core/index.js';
 import * as healthModule from '../../quality/health.js';
+import * as readModule from '../../core/read.js';
+import * as embeddingModule from '../../search/embedding.js';
 import type { ParsedArgs } from '../parser.js';
 
 describe('cmdSync', () => {
@@ -256,5 +258,268 @@ describe('cmdRefresh', () => {
         basePath: expect.stringContaining('.claude/memory'),
       })
     );
+  });
+
+  it('accepts user scope', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: ['user'], flags: {} };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePath: expect.stringContaining('.claude/memory'),
+      })
+    );
+  });
+
+  it('accepts explicit project scope', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: ['project'], flags: {} };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePath: expect.stringContaining('.claude/memory'),
+      })
+    );
+  });
+
+  it('accepts global scope as alias for user', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: ['global'], flags: {} };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePath: expect.stringContaining('.claude/memory'),
+      })
+    );
+  });
+
+  it('accepts enterprise scope', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    const args: ParsedArgs = { positional: ['enterprise'], flags: {} };
+    await cmdRefresh(args);
+
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalled();
+  });
+
+  it('generates embeddings when --embeddings flag is set', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({
+      updated: 1,
+      unchanged: 0,
+      errors: 0,
+    } as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-test',
+          type: 'decision',
+          title: 'Test',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'permanent/decision-test.md',
+        },
+      ],
+    } as any);
+
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({
+      generateEmbedding: vi.fn().mockResolvedValue([0.1, 0.2]),
+    } as any);
+
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({
+      status: 'success',
+      memory: {
+        frontmatter: { type: 'decision', title: 'Test', tags: [], created: '', updated: '' },
+        content: 'Test content',
+        filePath: '/test/path.md',
+      },
+    } as any);
+
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([
+      { id: 'decision-test', fromCache: false },
+    ] as any);
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalled();
+    expect((result.data as any).embeddingsGenerated).toBe(1);
+    expect((result.data as any).embeddingsCached).toBe(0);
+    expect((result.data as any).embeddingsTotal).toBe(1);
+  });
+
+  it('skips temporary memories when generating embeddings', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'thought-temp',
+          type: 'thought',
+          title: 'Temp thought',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'temporary/thought-temp.md',
+        },
+        {
+          id: 'decision-test',
+          type: 'decision',
+          title: 'Test',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'permanent/decision-test.md',
+        },
+      ],
+    } as any);
+
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({
+      generateEmbedding: vi.fn().mockResolvedValue([0.1, 0.2]),
+    } as any);
+
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({
+      status: 'success',
+      memory: {
+        frontmatter: { type: 'decision', title: 'Test', tags: [], created: '', updated: '' },
+        content: 'Test content',
+        filePath: '/test/path.md',
+      },
+    } as any);
+
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([
+      { id: 'decision-test', fromCache: false },
+    ] as any);
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true } };
+    await cmdRefresh(args);
+
+    // Should only process the decision, not the thought
+    expect(readModule.readMemory).toHaveBeenCalledTimes(1);
+    expect(readModule.readMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 'decision-test' })
+    );
+  });
+
+  it('skips memories with failed read when generating embeddings', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-test',
+          type: 'decision',
+          title: 'Test',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'permanent/decision-test.md',
+        },
+      ],
+    } as any);
+
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({} as any);
+
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({
+      status: 'error',
+      error: 'File not found',
+    } as any);
+
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([] as any);
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    // Empty array passed to batchGenerateEmbeddings since read failed
+    expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalledWith(
+      [],
+      expect.any(String),
+      expect.any(Object)
+    );
+  });
+
+  it('filters by id when generating embeddings', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1.0.0',
+      lastUpdated: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-one',
+          type: 'decision',
+          title: 'One',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'permanent/decision-one.md',
+        },
+        {
+          id: 'decision-two',
+          type: 'decision',
+          title: 'Two',
+          tags: [],
+          created: '2026-01-01T00:00:00.000Z',
+          updated: '2026-01-01T00:00:00.000Z',
+          scope: 'project',
+          relativePath: 'permanent/decision-two.md',
+        },
+      ],
+    } as any);
+
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({} as any);
+
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({
+      status: 'success',
+      memory: {
+        frontmatter: { type: 'decision', title: 'One', tags: [], created: '', updated: '' },
+        content: 'Content one',
+        filePath: '/test/path.md',
+      },
+    } as any);
+
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([
+      { id: 'decision-one', fromCache: false },
+    ] as any);
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true, id: 'decision-one' } };
+    await cmdRefresh(args);
+
+    // Should only read the specified memory
+    expect(readModule.readMemory).toHaveBeenCalledTimes(1);
+    expect(readModule.readMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 'decision-one' })
+    );
+  });
+
+  it('does not generate embeddings in dry-run mode', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    const loadIndexSpy = vi.spyOn(indexModule, 'loadIndex');
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true, 'dry-run': true } };
+    await cmdRefresh(args);
+
+    // Should not load index since dry-run skips embedding generation
+    expect(loadIndexSpy).not.toHaveBeenCalled();
   });
 });

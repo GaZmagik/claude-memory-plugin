@@ -382,6 +382,38 @@ describe('importMemories', () => {
     expect(result.failures).toEqual([{ id: 'decision-foo', reason: 'Disk full' }]);
   });
 
+  it('should report write failures with fallback error message', async () => {
+    vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+    vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
+      status: 'error',
+      // No error message provided - should fall back to 'Unknown error'
+    });
+
+    const result = await importMemories({
+      data: {
+        version: '1.0.0',
+        exportedAt: '2026-01-01T00:00:00.000Z',
+        memories: [
+          {
+            id: 'decision-foo',
+            frontmatter: {
+              type: MemoryType.Decision,
+              title: 'Foo',
+              created: '2026-01-01T00:00:00.000Z',
+              updated: '2026-01-01T00:00:00.000Z',
+              tags: [],
+            },
+            content: 'Test content',
+          },
+        ],
+      },
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.importedCount).toBe(0);
+    expect(result.failures).toEqual([{ id: 'decision-foo', reason: 'Unknown error' }]);
+  });
+
   it('should handle import failure', async () => {
     vi.spyOn(indexModule, 'findInIndex').mockRejectedValue(new Error('Database corrupted'));
 
@@ -452,5 +484,37 @@ memories:
 
     expect(result.status).toBe('error');
     expect(result.error).toContain('Invalid YAML');
+  });
+
+  it('should sanitise null values in import data', async () => {
+    vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+    vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
+      status: 'success',
+    });
+
+    // JSON with null value to cover sanitiseObject null branch
+    const jsonData = JSON.stringify({
+      version: '1.0.0',
+      exportedAt: '2026-01-01T00:00:00.000Z',
+      memories: [
+        {
+          id: 'decision-foo',
+          frontmatter: {
+            type: 'decision',
+            title: 'Foo',
+            created: '2026-01-01T00:00:00.000Z',
+            updated: '2026-01-01T00:00:00.000Z',
+            tags: [],
+            optionalField: null,
+          },
+          content: 'Test content',
+        },
+      ],
+    });
+
+    const result = await importMemories({ raw: jsonData });
+
+    expect(result.status).toBe('success');
+    expect(result.importedCount).toBe(1);
   });
 });

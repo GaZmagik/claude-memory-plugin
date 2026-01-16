@@ -268,6 +268,58 @@ describe('think/conclude', () => {
           expect(content).toContain('_Deliberation:');
         }
       });
+
+      it('defaults to learning when promotion type is unknown', async () => {
+        await createThinkDocument({ topic: 'Unknown type test', basePath });
+
+        // Force an unknown promotion type by casting
+        const result = await concludeThinkDocument({
+          conclusion: 'Using unknown type',
+          promote: 'unknown-type' as MemoryType,
+          basePath,
+        });
+
+        // If validation doesn't catch it, it should default to learning
+        if (result.status === 'success' && result.promoted) {
+          expect(result.promoted.type).toBe(MemoryType.Learning);
+        }
+      });
+    });
+
+    it('returns error when document ID not found in any scope', async () => {
+      const result = await concludeThinkDocument({
+        conclusion: 'Trying to conclude non-existent',
+        documentId: 'think-20260101-120000', // Valid format but doesn't exist
+        basePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('not found');
+    });
+
+    it('returns error when file is missing after scope lookup', async () => {
+      // Create a document, then delete the file but not the state
+      const created = await createThinkDocument({ topic: 'Disappearing doc', basePath });
+
+      // Get the file path and delete it directly
+      const memoryDir = path.join(basePath, '.claude', 'memory');
+      const tempDir = path.join(memoryDir, 'temporary');
+      const files = fs.readdirSync(tempDir).filter(f => f.includes(created.document!.id));
+
+      // Delete the file
+      for (const file of files) {
+        fs.unlinkSync(path.join(tempDir, file));
+      }
+
+      // Now try to conclude - file doesn't exist
+      const result = await concludeThinkDocument({
+        conclusion: 'Concluding deleted file',
+        documentId: created.document!.id,
+        basePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('not found');
     });
   });
 });

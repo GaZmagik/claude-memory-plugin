@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T08:14:31.992Z",
+  "lastUpdated": "2026-01-16T09:46:13.255Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1537,6 +1537,107 @@
       "updated": "2026-01-16T08:14:31.988Z",
       "scope": "project",
       "relativePath": "permanent/learning-test-isolation-failure-filtering-requires-environment-awareness.md"
+    },
+    {
+      "id": "thought-20260114-200851835",
+      "title": "Think: Testing memory-curator agent attribution",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "active"
+      ],
+      "created": "2026-01-14T20:08:51.838Z",
+      "updated": "2026-01-14T20:09:14.615Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260114-200851835.md"
+    },
+    {
+      "id": "thought-20260114-081601968",
+      "title": "Think: TDD Parity Gap Investigation: Is 97.4% Good Enough?",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-14T08:16:01.971Z",
+      "updated": "2026-01-14T08:24:08.928Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260114-081601968.md"
+    },
+    {
+      "id": "thought-20260115-232204899",
+      "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-15T23:22:04.903Z",
+      "updated": "2026-01-16T06:59:27.434Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260115-232204899.md"
+    },
+    {
+      "id": "thought-20260116-070440686",
+      "title": "Think: Testing output styles",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "active"
+      ],
+      "created": "2026-01-16T07:04:40.690Z",
+      "updated": "2026-01-16T07:08:19.585Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260116-070440686.md"
+    },
+    {
+      "id": "thought-20260115-194159327",
+      "title": "Think: Memory Hook Enhancement Plan Review",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-15T19:41:59.331Z",
+      "updated": "2026-01-15T19:44:49.350Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260115-194159327.md"
+    },
+    {
+      "id": "retro-subprocess-security-audit",
+      "title": "Subprocess Security Needs Dedicated Audit Step",
+      "type": "gotcha",
+      "tags": [
+        "retrospective",
+        "process",
+        "security",
+        "code-review",
+        "subprocess",
+        "shell-injection"
+      ],
+      "created": "2026-01-16T09:25:00Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-subprocess-security-audit.md",
+      "severity": "high",
+      "updated": "2026-01-16T09:45:54.040Z"
+    },
+    {
+      "id": "retro-parallel-expert-review",
+      "title": "Parallel Expert Review Orchestration",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "methodology",
+        "code-review",
+        "parallel-agents",
+        "orchestration"
+      ],
+      "created": "2026-01-16T09:25:00Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-parallel-expert-review.md",
+      "severity": "medium",
+      "updated": "2026-01-16T09:46:13.252Z"
     }
   ]
 }

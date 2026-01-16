@@ -407,71 +407,123 @@
     },
     {
       "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD Parity Gap Investigation: Is 97.4% Good Enough?"
     },
     {
       "id": "learning-tool-defaults-need-project-aware-discovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Tool defaults need project-aware discovery"
     },
     {
       "id": "learning-typescript-overload-detection-bias-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "TypeScript overload detection bias tests"
     },
     {
       "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Feature automation should verify existing capability before implementing"
     },
     {
       "id": "learning-test-setup-validation-prevents-false-failures",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test setup validation prevents false failures"
     },
     {
       "id": "learning-spec-documents-can-drift-from-implementation-state",
-      "type": "learning"
+      "type": "learning",
+      "title": "Spec documents can drift from implementation state"
     },
     {
       "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
-      "type": "learning"
+      "type": "learning",
+      "title": "Systematic find-replace with testing prevents reference chaos"
     },
     {
       "id": "learning-tdd-caught-hook-integration-pattern-mismatch",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD caught hook integration pattern mismatch"
     },
     {
       "id": "learning-performance-constraints-should-be-documented-upfront",
-      "type": "learning"
+      "type": "learning",
+      "title": "Performance constraints should be documented upfront"
     },
     {
       "id": "decision-memory-hook-enhancement-plan-review",
-      "type": "decision"
+      "type": "decision",
+      "title": "Memory Hook Enhancement Plan Review"
     },
     {
       "id": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
-      "type": "learning"
+      "type": "learning",
+      "title": "Scope reduction for system hooks through expert consultation prevents coupling"
     },
     {
       "id": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "TDD test files must exist before editing hooks - catches integration mismatches"
     },
     {
       "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
-      "type": "decision"
+      "type": "decision",
+      "title": "Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
     },
     {
       "id": "learning-expert-consultation-effectiveness",
-      "type": "learning"
+      "type": "learning",
+      "title": "Expert consultation with 7 agent perspectives produced high-quality deliberation"
     },
     {
       "id": "learning-plugin-schema-discovery-pattern",
-      "type": "learning"
+      "type": "learning",
+      "title": "Plugin schema uncertainty wasted time—validate against official spec early"
     },
     {
       "id": "learning-hook-naming-consistency-prevents-state-deadlock",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hook naming consistency prevents session state deadlocks"
     },
     {
       "id": "learning-test-isolation-failure-filtering-requires-environment-awareness",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test isolation failures can mask real issues - use environment-aware discovery"
+    },
+    {
+      "id": "retro-subprocess-security-audit",
+      "type": "gotcha",
+      "title": "Subprocess Security Needs Dedicated Audit Step"
+    },
+    {
+      "id": "retro-parallel-expert-review",
+      "type": "learning",
+      "title": "Parallel Expert Review Orchestration"
+    },
+    {
+      "id": "thought-20260114-200851835",
+      "type": "breadcrumb",
+      "title": "Think: Testing memory-curator agent attribution"
+    },
+    {
+      "id": "thought-20260114-081601968",
+      "type": "breadcrumb",
+      "title": "Think: TDD Parity Gap Investigation: Is 97.4% Good Enough?"
+    },
+    {
+      "id": "thought-20260115-232204899",
+      "type": "breadcrumb",
+      "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
+    },
+    {
+      "id": "thought-20260116-070440686",
+      "type": "breadcrumb",
+      "title": "Think: Testing output styles"
+    },
+    {
+      "id": "thought-20260115-194159327",
+      "type": "breadcrumb",
+      "title": "Think: Memory Hook Enhancement Plan Review"
     }
   ],
   "edges": [
@@ -1328,6 +1380,21 @@
     {
       "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
       "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "retro-test-first-verification-accelerated-security-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
       "label": "relates-to"
     }
   ]

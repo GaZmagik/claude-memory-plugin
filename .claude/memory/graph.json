@@ -464,6 +464,14 @@
     {
       "id": "learning-plugin-schema-discovery-pattern",
       "type": "learning"
+    },
+    {
+      "id": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1260,6 +1268,66 @@
     {
       "source": "learning-plugin-schema-discovery-pattern",
       "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "target": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-performance-constraints-should-be-documented-upfront",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-performance-constraints-should-be-documented-upfront",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "target": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "target": "learning-test-isolation-bun-mock-module",
       "label": "relates-to"
     }
   ]

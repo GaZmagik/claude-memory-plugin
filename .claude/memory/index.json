@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T07:46:45.797Z",
+  "lastUpdated": "2026-01-16T08:14:31.992Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1505,6 +1505,38 @@
       "updated": "2026-01-16T07:46:45.793Z",
       "scope": "project",
       "relativePath": "permanent/learning-plugin-schema-discovery-pattern.md"
+    },
+    {
+      "id": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "type": "learning",
+      "title": "Hook naming consistency prevents session state deadlocks",
+      "tags": [
+        "retrospective",
+        "process",
+        "hooks",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-01-16T08:14:26.905Z",
+      "updated": "2026-01-16T08:14:26.905Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hook-naming-consistency-prevents-state-deadlock.md"
+    },
+    {
+      "id": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "type": "learning",
+      "title": "Test isolation failures can mask real issues - use environment-aware discovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "discovery",
+        "project"
+      ],
+      "created": "2026-01-16T08:14:31.988Z",
+      "updated": "2026-01-16T08:14:31.988Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-failure-filtering-requires-environment-awareness.md"
     }
   ]
 }

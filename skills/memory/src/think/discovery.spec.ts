@@ -98,6 +98,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agents).toHaveLength(1);
@@ -113,6 +114,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agents).toHaveLength(1);
@@ -132,6 +134,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       const shared = agents.find(a => a.name === 'shared');
@@ -146,6 +149,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agents).toHaveLength(2);
@@ -156,6 +160,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agents).toHaveLength(0);
@@ -170,6 +175,7 @@ title: Test
       const agents = discoverAgents({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agents[0].description).toBe('My helpful description');
@@ -183,6 +189,7 @@ title: Test
       const styles = discoverStyles({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(styles).toHaveLength(1);
@@ -197,6 +204,7 @@ title: Test
       const styles = discoverStyles({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       const shared = styles.find(s => s.name === 'shared');
@@ -211,6 +219,7 @@ title: Test
       const agent = findAgent('target', {
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agent).not.toBeNull();
@@ -221,6 +230,7 @@ title: Test
       const agent = findAgent('nonexistent', {
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agent).toBeNull();
@@ -234,6 +244,7 @@ title: Test
       const agent = findAgent('nested', {
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(agent).not.toBeNull();
@@ -248,6 +259,7 @@ title: Test
       const style = findStyle('casual', {
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(style).not.toBeNull();
@@ -258,6 +270,7 @@ title: Test
       const style = findStyle('nonexistent', {
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(style).toBeNull();
@@ -303,6 +316,7 @@ title: Test
       const names = listAgentNames({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(names.sort()).toEqual(['alpha', 'beta']);
@@ -317,6 +331,7 @@ title: Test
       const names = listStyleNames({
         basePath: path.join(tempDir, 'local'),
         homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
       });
 
       expect(names.sort()).toEqual(['casual', 'formal']);

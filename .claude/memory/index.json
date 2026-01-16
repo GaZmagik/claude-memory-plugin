@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T16:38:19.695Z",
+  "lastUpdated": "2026-01-16T17:06:28.739Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1792,6 +1792,57 @@
       "updated": "2026-01-16T16:38:19.691Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "type": "learning",
+      "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-restoration",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-16T17:06:02.325Z",
+      "updated": "2026-01-16T17:06:02.325Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "type": "gotcha",
+      "title": "Retro - Pragmatic >perfect when debugging test infrastructure issues",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "pragmatism",
+        "project"
+      ],
+      "created": "2026-01-16T17:06:20.387Z",
+      "updated": "2026-01-16T17:06:20.387Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues.md",
+      "severity": "high"
+    },
+    {
+      "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "type": "artifact",
+      "title": "Artifact - CLI test pattern: JSON stdin/stdout with log line filtering",
+      "tags": [
+        "retrospective",
+        "artifact",
+        "testing",
+        "cli",
+        "project"
+      ],
+      "created": "2026-01-16T17:06:28.731Z",
+      "updated": "2026-01-16T17:06:28.731Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering.md",
       "severity": "medium"
     }
   ]

@@ -559,6 +559,18 @@
     {
       "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -1525,6 +1537,36 @@
     {
       "source": "learning-retro-dry-extraction-patterns-reduce-duplication-pressure",
       "target": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260114-200851835",
+      "target": "decision-review-findings-verification-consulting-specialist-agents",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-070440686",
+      "target": "decision-memory-hook-enhancement-plan-review",
       "label": "relates-to"
     }
   ]

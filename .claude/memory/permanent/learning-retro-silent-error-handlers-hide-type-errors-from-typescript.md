@@ -3,8 +3,9 @@ id: learning-retro-silent-error-handlers-hide-type-errors-from-typescript
 title: "retro: Silent error handlers hide type errors from TypeScript"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T22:26:46.311Z"
-updated: "2026-01-13T22:26:46.311Z"
+updated: "2026-01-16T13:44:26.637Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-hook-naming-consistency-prevents-state-deadlock
 title: Hook naming consistency prevents session state deadlocks
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T08:14:26.905Z"
-updated: "2026-01-16T08:14:26.905Z"
+updated: "2026-01-16T13:44:26.669Z"
 tags:
   - retrospective
   - process

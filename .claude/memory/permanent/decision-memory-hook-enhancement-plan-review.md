@@ -3,8 +3,9 @@ id: decision-memory-hook-enhancement-plan-review
 title: Memory Hook Enhancement Plan Review
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T19:44:49.357Z"
-updated: "2026-01-15T19:44:49.357Z"
+updated: "2026-01-16T13:44:26.667Z"
 tags:
   - promoted-from-think
   - project
@@ -71,4 +72,3 @@ The opt-in config flag sounds elegant but creates a configuration landmine. User
 ### Thought
 
 REFINED PLAN: (1) Phase 1 - Retrospective log reading in session-restore, include link suggestions from memory-commit output in retrospective context. (2) Phase 2 - PreCompact sync only (essential for data integrity), with clear error handling: log and continue, never block compaction. (3) Defer suggest-links hook entirely - surface suggestions in retrospective instead. (4) Defer archive/cleanup - prune already handles expiry. (5) Keep start-memory-index.ts focused - add think list display but NOT health checks there. (6) Add simple .last-commit-status file for memory-capture feedback. (7) Document error handling semantics for all hooks: log failures, never block critical operations.
-

@@ -3,8 +3,9 @@ id: learning-feature-automation-should-verify-existing-capability-before-impleme
 title: Feature automation should verify existing capability before implementing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T08:03:39.063Z"
-updated: "2026-01-15T08:03:39.063Z"
+updated: "2026-01-16T13:44:26.663Z"
 tags:
   - retrospective
   - process

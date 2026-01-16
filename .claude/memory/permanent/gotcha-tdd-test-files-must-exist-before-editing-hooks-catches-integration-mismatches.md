@@ -3,8 +3,9 @@ id: gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mi
 title: TDD test files must exist before editing hooks - catches integration mismatches
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T23:04:02.442Z"
-updated: "2026-01-15T23:04:02.442Z"
+updated: "2026-01-16T13:44:26.647Z"
 tags:
   - retrospective
   - process

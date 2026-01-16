@@ -3,8 +3,9 @@ id: learning-retro-self-referential-tool-testing-creates-productive-loops
 title: "retro: Self-referential tool testing creates productive loops"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T22:26:46.163Z"
-updated: "2026-01-13T22:26:46.163Z"
+updated: "2026-01-16T13:44:26.666Z"
 tags:
   - retrospective
   - process

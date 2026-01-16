@@ -3,8 +3,9 @@ id: decision-memory-hook-enhancement-multi-expert-deliberation-round-2
 title: Memory Hook Enhancement - Multi-Expert Deliberation Round 2
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T06:59:27.441Z"
-updated: "2026-01-16T06:59:27.441Z"
+updated: "2026-01-16T13:44:26.626Z"
 tags:
   - promoted-from-think
   - project
@@ -83,4 +84,3 @@ After consulting 7 expert perspectives (typescript, performance, nodejs, securit
 - Full async message queue architecture
 - Comprehensive stress testing under concurrent load
 - API key sanitisation in error logging
-

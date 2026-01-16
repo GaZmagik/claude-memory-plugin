@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T09:46:13.255Z",
+  "lastUpdated": "2026-01-16T11:37:35.176Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1550,19 +1550,6 @@
       "updated": "2026-01-14T20:09:14.615Z",
       "scope": "project",
       "relativePath": "temporary/thought-20260114-200851835.md"
-    },
-    {
-      "id": "thought-20260114-081601968",
-      "title": "Think: TDD Parity Gap Investigation: Is 97.4% Good Enough?",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-14T08:16:01.971Z",
-      "updated": "2026-01-14T08:24:08.928Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260114-081601968.md"
     },
     {
       "id": "thought-20260115-232204899",

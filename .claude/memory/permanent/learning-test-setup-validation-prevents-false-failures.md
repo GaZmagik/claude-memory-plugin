@@ -3,8 +3,9 @@ id: learning-test-setup-validation-prevents-false-failures
 title: Test setup validation prevents false failures
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T18:02:39.051Z"
-updated: "2026-01-15T18:02:39.051Z"
+updated: "2026-01-16T13:44:26.623Z"
 tags:
   - retrospective
   - testing

@@ -1,10 +1,11 @@
 ---
-id: gotcha-feature-review-findings-verification-and-fix-planning
+id: gotcha-call-flag-passed-as-model-name-bug
 title: Feature review findings verification and fix planning
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T21:52:14.200Z"
-updated: "2026-01-13T21:52:29.353Z"
+updated: "2026-01-16T13:44:26.666Z"
 tags:
   - promoted-from-think
   - project

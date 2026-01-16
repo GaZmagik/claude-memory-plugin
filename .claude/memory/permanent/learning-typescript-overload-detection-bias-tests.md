@@ -3,8 +3,9 @@ id: learning-typescript-overload-detection-bias-tests
 title: TypeScript overload detection bias tests
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T08:03:34.531Z"
-updated: "2026-01-15T08:03:34.531Z"
+updated: "2026-01-16T13:44:26.668Z"
 tags:
   - retrospective
   - process

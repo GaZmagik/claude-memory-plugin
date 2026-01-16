@@ -3,8 +3,9 @@ id: learning-expert-consultation-effectiveness
 title: Expert consultation with 7 agent perspectives produced high-quality deliberation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T07:46:39.873Z"
-updated: "2026-01-16T07:46:39.873Z"
+updated: "2026-01-16T13:44:26.667Z"
 tags:
   - retrospective
   - process

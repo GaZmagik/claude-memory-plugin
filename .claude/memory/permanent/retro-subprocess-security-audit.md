@@ -3,8 +3,9 @@ id: retro-subprocess-security-audit
 title: Subprocess Security Needs Dedicated Audit Step
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T09:25:00Z"
-updated: "2026-01-16T09:45:54.040Z"
+updated: "2026-01-16T13:44:26.665Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-systematic-find-replace-with-testing-prevents-reference-chaos
 title: Systematic find-replace with testing prevents reference chaos
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T18:46:11.030Z"
-updated: "2026-01-15T18:46:11.030Z"
+updated: "2026-01-16T13:44:26.666Z"
 tags:
   - process
   - refactoring

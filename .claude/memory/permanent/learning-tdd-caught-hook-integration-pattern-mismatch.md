@@ -3,8 +3,9 @@ id: learning-tdd-caught-hook-integration-pattern-mismatch
 title: TDD caught hook integration pattern mismatch
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T18:46:15.740Z"
-updated: "2026-01-15T18:46:15.740Z"
+updated: "2026-01-16T13:44:26.561Z"
 tags:
   - process
   - tdd

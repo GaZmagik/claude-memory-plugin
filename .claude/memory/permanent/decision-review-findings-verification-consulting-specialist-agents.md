@@ -3,8 +3,9 @@ id: decision-review-findings-verification-consulting-specialist-agents
 title: Review findings verification - consulting specialist agents
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T21:57:02.120Z"
-updated: "2026-01-13T21:57:02.120Z"
+updated: "2026-01-16T13:44:26.667Z"
 tags:
   - promoted-from-think
   - project
@@ -83,4 +84,3 @@ To actually hit the <50ms target, we need:
 ### Remaining from Review:
 - TypeScript type mismatch (provider string) - needs investigation
 - execFileSync blocking (2min timeout) - confirmed, but it's for AI invocation which is intentional
-

@@ -3,8 +3,9 @@ id: learning-spec-documents-can-drift-from-implementation-state
 title: Spec documents can drift from implementation state
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T18:02:43.946Z"
-updated: "2026-01-15T18:02:43.946Z"
+updated: "2026-01-16T13:44:26.608Z"
 tags:
   - retrospective
   - documentation

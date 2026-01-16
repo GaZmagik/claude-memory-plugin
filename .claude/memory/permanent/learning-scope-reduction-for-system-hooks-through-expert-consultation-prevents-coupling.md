@@ -3,8 +3,9 @@ id: learning-scope-reduction-for-system-hooks-through-expert-consultation-preven
 title: Scope reduction for system hooks through expert consultation prevents coupling
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-15T23:03:58.115Z"
-updated: "2026-01-15T23:03:58.115Z"
+updated: "2026-01-16T13:44:26.589Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: retro-parallel-expert-review
 title: Parallel Expert Review Orchestration
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T09:25:00Z"
-updated: "2026-01-16T09:46:13.252Z"
+updated: "2026-01-16T13:44:26.668Z"
 tags:
   - retrospective
   - process

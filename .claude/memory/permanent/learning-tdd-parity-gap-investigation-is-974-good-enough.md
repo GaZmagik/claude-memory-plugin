@@ -3,8 +3,9 @@ id: learning-tdd-parity-gap-investigation-is-974-good-enough
 title: "TDD Parity Gap Investigation: Is 97.4% Good Enough?"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-14T08:24:08.934Z"
-updated: "2026-01-14T08:24:08.934Z"
+updated: "2026-01-16T13:44:26.664Z"
 tags:
   - promoted-from-think
   - project
@@ -55,4 +56,3 @@ The 97.4% figure masks a fundamental asymmetry: the parity tool is measuring *fu
 ### Thought
 
 The 97.4% gap warrants brief investigation (30 min max) to identify the 2 phantom functions. If they're parser limitations, document them; if real gaps, add tests. The TDD parity tool is useful as a signal, not gospel - understanding what we're measuring matters more than hitting 100%.
-

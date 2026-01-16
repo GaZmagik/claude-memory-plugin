@@ -3,8 +3,9 @@ id: learning-retro-consensus-theatre-produces-louder-echoes-not-more-accuracy
 title: "retro: Consensus theatre produces louder echoes, not more accuracy"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-13T22:26:46.240Z"
-updated: "2026-01-13T22:26:46.240Z"
+updated: "2026-01-16T13:44:26.640Z"
 tags:
   - retrospective
   - process

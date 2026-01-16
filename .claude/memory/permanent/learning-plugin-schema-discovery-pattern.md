@@ -3,8 +3,9 @@ id: learning-plugin-schema-discovery-pattern
 title: Plugin schema uncertainty wasted time—validate against official spec early
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T07:46:45.793Z"
-updated: "2026-01-16T07:46:45.793Z"
+updated: "2026-01-16T13:44:26.654Z"
 tags:
   - retrospective
   - process

@@ -506,11 +506,6 @@
       "title": "Think: Testing memory-curator agent attribution"
     },
     {
-      "id": "thought-20260114-081601968",
-      "type": "breadcrumb",
-      "title": "Think: TDD Parity Gap Investigation: Is 97.4% Good Enough?"
-    },
-    {
       "id": "thought-20260115-232204899",
       "type": "breadcrumb",
       "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
@@ -1395,6 +1390,16 @@
     {
       "source": "retro-parallel-expert-review",
       "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260115-232204899",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260115-194159327",
+      "target": "decision-memory-hook-enhancement-plan-review",
       "label": "relates-to"
     }
   ]

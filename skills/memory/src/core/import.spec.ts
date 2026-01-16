@@ -349,4 +349,108 @@ describe('importMemories', () => {
       })
     );
   });
+
+  it('should report write failures', async () => {
+    vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+    vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
+      status: 'error',
+      error: 'Disk full',
+    });
+
+    const result = await importMemories({
+      data: {
+        version: '1.0.0',
+        exportedAt: '2026-01-01T00:00:00.000Z',
+        memories: [
+          {
+            id: 'decision-foo',
+            frontmatter: {
+              type: MemoryType.Decision,
+              title: 'Foo',
+              created: '2026-01-01T00:00:00.000Z',
+              updated: '2026-01-01T00:00:00.000Z',
+              tags: [],
+            },
+            content: 'Test content',
+          },
+        ],
+      },
+    });
+
+    expect(result.status).toBe('success');
+    expect(result.importedCount).toBe(0);
+    expect(result.failures).toEqual([{ id: 'decision-foo', reason: 'Disk full' }]);
+  });
+
+  it('should handle import failure', async () => {
+    vi.spyOn(indexModule, 'findInIndex').mockRejectedValue(new Error('Database corrupted'));
+
+    const result = await importMemories({
+      data: {
+        version: '1.0.0',
+        exportedAt: '2026-01-01T00:00:00.000Z',
+        memories: [
+          {
+            id: 'decision-foo',
+            frontmatter: {
+              type: MemoryType.Decision,
+              title: 'Foo',
+              created: '2026-01-01T00:00:00.000Z',
+              updated: '2026-01-01T00:00:00.000Z',
+              tags: [],
+            },
+            content: 'Test content',
+          },
+        ],
+      },
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Import failed');
+    expect(result.error).toContain('Database corrupted');
+  });
+
+  it('should handle invalid JSON string', async () => {
+    const result = await importMemories({
+      raw: '{ invalid json }',
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Invalid JSON');
+  });
+
+  it('should parse YAML string', async () => {
+    vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
+    vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
+      status: 'success',
+    });
+
+    const yamlData = `
+version: "1.0.0"
+exportedAt: "2026-01-01T00:00:00.000Z"
+memories:
+  - id: decision-foo
+    frontmatter:
+      type: decision
+      title: Foo
+      created: "2026-01-01T00:00:00.000Z"
+      updated: "2026-01-01T00:00:00.000Z"
+      tags: []
+    content: Test content
+`;
+
+    const result = await importMemories({ raw: yamlData });
+
+    expect(result.status).toBe('success');
+    expect(result.importedCount).toBe(1);
+  });
+
+  it('should handle invalid YAML string', async () => {
+    const result = await importMemories({
+      raw: 'version: [\ninvalid yaml',
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Invalid YAML');
+  });
 });

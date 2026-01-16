@@ -328,3 +328,20 @@ describe('listMemories', () => {
     });
   });
 });
+
+import { vi } from 'vitest';
+import * as indexModule from './index.js';
+
+describe('listMemories error handling', () => {
+  it('should handle thrown exceptions during index load', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockRejectedValue(new Error('Index corrupted'));
+
+    const result = await listMemories({ basePath: '/test' });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Failed to list memories');
+    expect(result.error).toContain('Index corrupted');
+
+    vi.restoreAllMocks();
+  });
+});

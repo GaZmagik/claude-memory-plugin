@@ -91,7 +91,7 @@ export const OLLAMA_MODELS = {
   /** Model for chat/classification tasks */
   CHAT: 'gemma3:4b',
   /** Model for embedding generation */
-  EMBEDDING: 'embeddinggemma:latest-cpu',
+  EMBEDDING: 'embeddinggemma:latest',
 } as const;
 
 /**

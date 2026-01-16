@@ -32,6 +32,9 @@ const MEMORY_BASH_PATTERNS = [
   />\s*.*\.claude\/memory\//,
   /\bmkdir\s+.*\.claude\/memory\//,
   /\btouch\s+.*\.claude\/memory\//,
+  /\bsed\s+(-i|--in-place)?\s*.*\.claude\/memory\//,  // sed in-place edits
+  /\bawk\s+.*\.claude\/memory\//,                      // awk operations
+  /\btee\s+.*\.claude\/memory\//,                      // tee writes
 ];
 
 // Whitelist patterns - these are allowed

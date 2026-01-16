@@ -17,16 +17,28 @@ export interface ParseResult {
 
 /**
  * Parse YAML string into frontmatter object
- * Validates required fields
+ * Validates required fields unless lenient mode is enabled
  *
  * Security: Uses JSON_SCHEMA for defence-in-depth - only allows
  * safe JSON-compatible types (strings, numbers, booleans, null, arrays, objects)
+ *
+ * @param yamlContent - The YAML content to parse
+ * @param options - Parse options
+ * @param options.lenient - Skip validation (for repair/migration use cases)
  */
-export function parseFrontmatter(yamlContent: string): MemoryFrontmatter {
+export function parseFrontmatter(
+  yamlContent: string,
+  options?: { lenient?: boolean }
+): MemoryFrontmatter {
   const parsed = yaml.load(yamlContent, { schema: yaml.JSON_SCHEMA }) as MemoryFrontmatter;
 
   if (!parsed || typeof parsed !== 'object') {
     throw new Error('Invalid frontmatter: must be a YAML object');
+  }
+
+  // Skip validation in lenient mode (for repair/migration)
+  if (options?.lenient) {
+    return parsed;
   }
 
   // Validate required fields
@@ -85,7 +97,10 @@ export function serialiseFrontmatter(frontmatter: MemoryFrontmatter): string {
 /**
  * Parse a complete memory file into frontmatter and content
  */
-export function parseMemoryFile(fileContent: string): ParseResult {
+export function parseMemoryFile(
+  fileContent: string,
+  options?: { lenient?: boolean }
+): ParseResult {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
   const match = fileContent.match(frontmatterRegex);
 
@@ -95,7 +110,7 @@ export function parseMemoryFile(fileContent: string): ParseResult {
 
   const [, yamlContent, bodyContent] = match;
 
-  const frontmatter = parseFrontmatter(yamlContent);
+  const frontmatter = parseFrontmatter(yamlContent, options);
 
   return {
     frontmatter,

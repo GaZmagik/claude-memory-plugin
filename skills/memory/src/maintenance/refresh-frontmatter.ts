@@ -310,9 +310,9 @@ export async function refreshFrontmatter(
         thinkToThoughtMigrated++;
       }
 
-      // Read current file
+      // Read current file (lenient mode to allow fixing malformed files)
       const content = fs.readFileSync(filePath, 'utf8');
-      const parsed = parseMemoryFile(content);
+      const parsed = parseMemoryFile(content, { lenient: true });
 
       if (!parsed.frontmatter) {
         errors.push(`${id}: Failed to parse frontmatter`);
@@ -329,6 +329,11 @@ export async function refreshFrontmatter(
 
       // Check if project needs adding (only for project-scoped memories)
       if (project && !fm.project) {
+        needsUpdate = true;
+      }
+
+      // Check if title needs extracting from content heading
+      if (!fm.title && parsed.content) {
         needsUpdate = true;
       }
 
@@ -363,6 +368,13 @@ export async function refreshFrontmatter(
       }
       if (project && !fm.project) {
         updates.project = project;
+      }
+      // Extract title from first markdown heading if missing
+      if (!fm.title && parsed.content) {
+        const headingMatch = parsed.content.match(/^#\s+(.+?)$/m);
+        if (headingMatch) {
+          updates.title = headingMatch[1].trim();
+        }
       }
 
       if (dryRun) {

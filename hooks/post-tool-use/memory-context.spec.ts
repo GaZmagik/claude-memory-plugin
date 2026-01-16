@@ -48,11 +48,11 @@ describe('memory-context hook', () => {
     });
 
     it('should exit with code 0 for PostToolUse with disabled tool', async () => {
-      // Task tool is not in the default enabled list
+      // LSP tool is explicitly disabled in the config
       const result = await spawn(['bun', HOOK_PATH], {
         stdin: JSON.stringify({
           hook_event_name: 'PostToolUse',
-          tool_name: 'Task',
+          tool_name: 'LSP',
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
@@ -96,7 +96,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 15000, // Longer timeout if Ollama is called
+        timeout: 30000, // Longer timeout if Ollama is called (CPU mode can take 15s+)
       });
 
       expect(result.success).toBe(true);
@@ -152,7 +152,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);
@@ -172,7 +172,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);
@@ -191,7 +191,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);
@@ -212,7 +212,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: '/tmp',
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);
@@ -233,7 +233,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session-logging',
           cwd: process.cwd(),
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);
@@ -260,7 +260,7 @@ describe('memory-context hook', () => {
             session_id: `test-ext-${ext}`,
             cwd: process.cwd(),
           }),
-          timeout: 15000,
+          timeout: 30000,
         });
 
         expect(result.success).toBe(true);
@@ -306,7 +306,7 @@ describe('memory-context hook', () => {
           session_id: 'test-output-structure',
           cwd: process.cwd(),
         }),
-        timeout: 15000,
+        timeout: 30000,
       });
 
       expect(result.success).toBe(true);

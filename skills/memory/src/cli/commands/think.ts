@@ -160,7 +160,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   const resume = getFlagString(args.flags, 'resume');
   const model = getFlagString(args.flags, 'model');
 
-  return wrapOperation(
+  const response = await wrapOperation(
     async () => {
       const result = await addThought({
         thought,
@@ -181,6 +181,15 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
     },
     `Added ${type} to thinking document`
   );
+
+  // Add hint about AI-assisted deliberation if --call wasn't used
+  if (response.status === 'success' && !callAgent) {
+    response.hint = 'Tip: Use --call claude for AI-assisted deliberation. ' +
+      'Add --style <name> for perspective (e.g., Devils-Advocate, Architect) ' +
+      'or --agent <name> for domain expertise (e.g., typescript-expert).';
+  }
+
+  return response;
 }
 
 /**

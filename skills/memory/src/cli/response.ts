@@ -13,6 +13,8 @@ export interface CliResponse<T = unknown> {
   message?: string;
   data?: T;
   error?: string;
+  /** Optional hint/suggestion for the user */
+  hint?: string;
 }
 
 /**

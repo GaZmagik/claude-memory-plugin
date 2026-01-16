@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T21:10:28.948Z",
+  "lastUpdated": "2026-01-16T21:44:27.963Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2338,6 +2338,56 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent test pollution at coverage ceiling",
+      "tags": [
+        "retrospective",
+        "testing",
+        "coverage",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-16T21:44:17.576Z",
+      "updated": "2026-01-16T21:44:17.576Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
+      "type": "gotcha",
+      "title": "Retro - Coverage plateau gotcha: final 1-2% requires 3x effort, focus on meaningful gaps",
+      "tags": [
+        "retrospective",
+        "coverage",
+        "effort-estimation",
+        "project"
+      ],
+      "created": "2026-01-16T21:44:23.584Z",
+      "updated": "2026-01-16T21:44:23.584Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "type": "gotcha",
+      "title": "Retro - Test quality audit post-coverage risks releasing cheating tests",
+      "tags": [
+        "retrospective",
+        "testing",
+        "quality-assurance",
+        "security",
+        "project"
+      ],
+      "created": "2026-01-16T21:44:27.959Z",
+      "updated": "2026-01-16T21:44:27.959Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests.md",
+      "severity": "critical"
     }
   ]
 }

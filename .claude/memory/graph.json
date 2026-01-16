@@ -729,6 +729,18 @@
     {
       "id": "gotcha-gotcha-coverage-plateau-at-95-99-signals-asymptotic-returns-not-missed-work",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-coverage-plateau-gotcha-final-1-2-requires-3x-effort-focus-on-meaningful-gaps",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "type": "gotcha"
     }
   ],
   "edges": [

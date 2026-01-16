@@ -349,4 +349,132 @@ describe('cmdWrite', () => {
       })
     );
   });
+
+  it('accepts user scope', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { scope: 'user' } };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts global scope as alias for user', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { scope: 'global' } };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts explicit project scope', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { scope: 'project' } };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts enterprise scope', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { scope: 'enterprise' } };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts learning type', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+      type: 'learning',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'learning' })
+    );
+  });
+
+  it('accepts artifact type', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+      type: 'artifact',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'artifact' })
+    );
+  });
+
+  it('accepts gotcha type', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+      type: 'gotcha',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'gotcha' })
+    );
+  });
+
+  it('accepts breadcrumb type', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+      type: 'breadcrumb',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'breadcrumb' })
+    );
+  });
+
+  it('accepts hub type', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+      type: 'hub',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdWrite(args);
+
+    expect(result.status).toBe('success');
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'hub' })
+    );
+  });
 });

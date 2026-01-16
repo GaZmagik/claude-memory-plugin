@@ -69,6 +69,17 @@ describe('searchMemories', () => {
       expect(result.results).toBeDefined();
       expect(result.results!.length).toBeGreaterThan(0);
     });
+
+    it('should return error when query exceeds max length', async () => {
+      const longQuery = 'a'.repeat(10001);
+      const result = await searchMemories({
+        query: longQuery,
+        basePath: testBasePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Query too long');
+    });
   });
 
   describe('matching', () => {

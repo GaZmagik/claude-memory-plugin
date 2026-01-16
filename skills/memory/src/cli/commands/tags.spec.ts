@@ -76,6 +76,42 @@ describe('cmdTag', () => {
       })
     );
   });
+
+  it('accepts user scope', async () => {
+    vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success' });
+
+    const args: ParsedArgs = {
+      positional: ['my-id', 'test'],
+      flags: { scope: 'user' },
+    };
+    const result = await cmdTag(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts global scope as alias for user', async () => {
+    vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success' });
+
+    const args: ParsedArgs = {
+      positional: ['my-id', 'test'],
+      flags: { scope: 'global' },
+    };
+    const result = await cmdTag(args);
+
+    expect(result.status).toBe('success');
+  });
+
+  it('accepts explicit project scope', async () => {
+    vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success' });
+
+    const args: ParsedArgs = {
+      positional: ['my-id', 'test'],
+      flags: { scope: 'project' },
+    };
+    const result = await cmdTag(args);
+
+    expect(result.status).toBe('success');
+  });
 });
 
 describe('cmdUntag', () => {

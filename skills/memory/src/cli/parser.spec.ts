@@ -2,12 +2,15 @@
  * Tests for CLI Argument Parser
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { EventEmitter } from 'node:events';
 import {
   parseArgs,
   getFlagString,
   getFlagBool,
   getFlagNumber,
+  readStdinJson,
+  readStdinRaw,
 } from './parser.js';
 
 describe('parseArgs', () => {
@@ -236,4 +239,184 @@ describe('getFlagNumber', () => {
   it('returns default for missing flag', () => {
     expect(getFlagNumber(flags, 'missing', 100)).toBe(100);
   });
+});
+
+describe('readStdinJson', () => {
+  const originalStdin = process.stdin;
+  let mockStdin: EventEmitter & { isTTY?: boolean };
+
+  beforeEach(() => {
+    mockStdin = new EventEmitter() as EventEmitter & { isTTY?: boolean };
+    // @ts-expect-error - replacing stdin for testing
+    process.stdin = mockStdin;
+  });
+
+  afterEach(() => {
+    process.stdin = originalStdin;
+  });
+
+  it('returns undefined when stdin is TTY', async () => {
+    mockStdin.isTTY = true;
+    const result = await readStdinJson();
+    expect(result).toBeUndefined();
+  });
+
+  it('parses valid JSON from stdin', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson<{ name: string }>();
+
+    // Simulate stdin data
+    mockStdin.emit('data', Buffer.from('{"name": "test"}'));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toEqual({ name: 'test' });
+  });
+
+  it('handles chunked JSON data', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson<{ items: number[] }>();
+
+    // Simulate chunked data
+    mockStdin.emit('data', Buffer.from('{"items":'));
+    mockStdin.emit('data', Buffer.from('[1,2,3]}'));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toEqual({ items: [1, 2, 3] });
+  });
+
+  it('returns undefined when no data received before end', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson();
+
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBeUndefined();
+  });
+
+  it('returns undefined when only whitespace received', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson();
+
+    mockStdin.emit('data', Buffer.from('   \n  '));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBeUndefined();
+  });
+
+  it('rejects on invalid JSON', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson();
+
+    mockStdin.emit('data', Buffer.from('not valid json'));
+    mockStdin.emit('end');
+
+    await expect(promise).rejects.toThrow('Invalid JSON input');
+  });
+
+  it('rejects on stdin error', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinJson();
+
+    mockStdin.emit('error', new Error('stdin broke'));
+
+    await expect(promise).rejects.toThrow('stdin broke');
+  });
+
+  it('returns undefined on timeout with no data', async () => {
+    mockStdin.isTTY = false;
+
+    const promise = readStdinJson();
+
+    // Wait for the 100ms timeout to trigger (no data sent)
+    const result = await promise;
+    expect(result).toBeUndefined();
+  }, 500); // Allow up to 500ms for the test
+});
+
+describe('readStdinRaw', () => {
+  const originalStdin = process.stdin;
+  let mockStdin: EventEmitter & { isTTY?: boolean };
+
+  beforeEach(() => {
+    mockStdin = new EventEmitter() as EventEmitter & { isTTY?: boolean };
+    // @ts-expect-error - replacing stdin for testing
+    process.stdin = mockStdin;
+  });
+
+  afterEach(() => {
+    process.stdin = originalStdin;
+  });
+
+  it('returns undefined when stdin is TTY', async () => {
+    mockStdin.isTTY = true;
+    const result = await readStdinRaw();
+    expect(result).toBeUndefined();
+  });
+
+  it('reads raw text from stdin', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinRaw();
+
+    mockStdin.emit('data', Buffer.from('hello world'));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBe('hello world');
+  });
+
+  it('handles chunked raw data', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinRaw();
+
+    mockStdin.emit('data', Buffer.from('hello '));
+    mockStdin.emit('data', Buffer.from('world'));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBe('hello world');
+  });
+
+  it('preserves whitespace and newlines', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinRaw();
+
+    mockStdin.emit('data', Buffer.from('line1\nline2\n  indented'));
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBe('line1\nline2\n  indented');
+  });
+
+  it('returns undefined when no data received before end', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinRaw();
+
+    mockStdin.emit('end');
+
+    const result = await promise;
+    expect(result).toBeUndefined();
+  });
+
+  it('rejects on stdin error', async () => {
+    mockStdin.isTTY = false;
+    const promise = readStdinRaw();
+
+    mockStdin.emit('error', new Error('pipe broken'));
+
+    await expect(promise).rejects.toThrow('pipe broken');
+  });
+
+  it('returns undefined on timeout with no data', async () => {
+    mockStdin.isTTY = false;
+
+    const promise = readStdinRaw();
+
+    // Wait for the 100ms timeout to trigger (no data sent)
+    const result = await promise;
+    expect(result).toBeUndefined();
+  }, 500); // Allow up to 500ms for the test
 });

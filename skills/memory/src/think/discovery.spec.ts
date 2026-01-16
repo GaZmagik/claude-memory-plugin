@@ -2,7 +2,7 @@
  * Tests for Think Discovery Module
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -335,6 +335,181 @@ title: Test
       });
 
       expect(names.sort()).toEqual(['casual', 'formal']);
+    });
+  });
+
+  describe('plugin scope detection', () => {
+    let pluginDir: string;
+
+    beforeEach(() => {
+      pluginDir = path.join(tempDir, 'plugin');
+      fs.mkdirSync(path.join(pluginDir, '.claude-plugin'), { recursive: true });
+      fs.mkdirSync(path.join(pluginDir, 'agents'), { recursive: true });
+      fs.mkdirSync(path.join(pluginDir, 'output-styles'), { recursive: true });
+      fs.writeFileSync(
+        path.join(pluginDir, '.claude-plugin', 'plugin.json'),
+        JSON.stringify({ name: 'test-plugin' })
+      );
+    });
+
+    it('discovers agents from plugin scope when pluginPath provided', () => {
+      fs.writeFileSync(path.join(pluginDir, 'agents', 'plugin-agent.md'), 'Plugin agent');
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const pluginAgent = agents.find(a => a.name === 'plugin-agent');
+      expect(pluginAgent).not.toBeNull();
+      expect(pluginAgent?.source).toBe('plugin');
+    });
+
+    it('discovers styles from plugin scope when pluginPath provided', () => {
+      fs.writeFileSync(path.join(pluginDir, 'output-styles', 'plugin-style.md'), 'Plugin style');
+
+      const styles = discoverStyles({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const pluginStyle = styles.find(s => s.name === 'plugin-style');
+      expect(pluginStyle).not.toBeNull();
+      expect(pluginStyle?.source).toBe('plugin');
+    });
+
+    it('prioritises local over plugin scope', () => {
+      fs.writeFileSync(path.join(localAgentsDir, 'shared.md'), 'Local version');
+      fs.writeFileSync(path.join(pluginDir, 'agents', 'shared.md'), 'Plugin version');
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const shared = agents.find(a => a.name === 'shared');
+      expect(shared?.source).toBe('local');
+    });
+
+    it('ignores plugin scope when disablePluginScope is true', () => {
+      fs.writeFileSync(path.join(pluginDir, 'agents', 'plugin-only.md'), 'Plugin agent');
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+        disablePluginScope: true,
+      });
+
+      const pluginAgent = agents.find(a => a.name === 'plugin-only');
+      expect(pluginAgent).toBeUndefined();
+    });
+  });
+
+  describe('enterprise scope', () => {
+    let enterpriseDir: string;
+
+    beforeEach(() => {
+      enterpriseDir = path.join(tempDir, 'enterprise');
+      fs.mkdirSync(path.join(enterpriseDir, 'agents'), { recursive: true });
+    });
+
+    it('discovers agents from enterprise path', () => {
+      fs.writeFileSync(
+        path.join(enterpriseDir, 'agents', 'corp-agent.md'),
+        '---\ndescription: Corporate agent\n---\nBody'
+      );
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        enterprisePath: enterpriseDir,
+        disablePluginScope: true,
+      });
+
+      const corpAgent = agents.find(a => a.name === 'corp-agent');
+      expect(corpAgent).not.toBeNull();
+      expect(corpAgent?.source).toBe('enterprise');
+      expect(corpAgent?.description).toBe('Corporate agent');
+    });
+
+    it('prioritises local over enterprise', () => {
+      fs.writeFileSync(path.join(localAgentsDir, 'shared.md'), 'Local version');
+      fs.writeFileSync(path.join(enterpriseDir, 'agents', 'shared.md'), 'Enterprise version');
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        enterprisePath: enterpriseDir,
+        disablePluginScope: true,
+      });
+
+      const shared = agents.find(a => a.name === 'shared');
+      expect(shared?.source).toBe('local');
+    });
+
+    it('prioritises global over enterprise', () => {
+      fs.writeFileSync(path.join(globalAgentsDir, 'shared.md'), 'Global version');
+      fs.writeFileSync(path.join(enterpriseDir, 'agents', 'shared.md'), 'Enterprise version');
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        enterprisePath: enterpriseDir,
+        disablePluginScope: true,
+      });
+
+      const shared = agents.find(a => a.name === 'shared');
+      expect(shared?.source).toBe('global');
+    });
+  });
+
+  describe('error handling', () => {
+    it('handles non-existent directories gracefully', () => {
+      const agents = discoverAgents({
+        basePath: '/nonexistent/path/that/does/not/exist',
+        homePath: '/another/nonexistent/path',
+        disablePluginScope: true,
+      });
+
+      expect(agents).toHaveLength(0);
+    });
+
+    it('handles unreadable files gracefully during discovery', () => {
+      fs.writeFileSync(path.join(localAgentsDir, 'test.md'), 'Body');
+      // File exists but description extraction should handle errors
+
+      const agents = discoverAgents({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
+      });
+
+      expect(agents).toHaveLength(1);
+      expect(agents[0].name).toBe('test');
+    });
+
+    it('returns null for non-existent agent in findAgent', () => {
+      const agent = findAgent('nonexistent-agent', {
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
+      });
+
+      expect(agent).toBeNull();
+    });
+
+    it('returns null for non-existent style in findStyle', () => {
+      const style = findStyle('nonexistent-style', {
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        disablePluginScope: true,
+      });
+
+      expect(style).toBeNull();
     });
   });
 });

@@ -4,7 +4,7 @@ title: Retro - GPU vs CPU embedding model selection matters
 type: gotcha
 scope: project
 created: "2026-01-16T16:38:19.691Z"
-updated: "2026-01-16T16:38:19.691Z"
+updated: "2026-01-16T18:04:44.474Z"
 tags:
   - retrospective
   - embeddings

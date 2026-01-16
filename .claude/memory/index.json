@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T17:06:28.739Z",
+  "lastUpdated": "2026-01-16T18:24:45.234Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1644,40 +1644,6 @@
       "severity": "high"
     },
     {
-      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
-      "type": "gotcha",
-      "title": "Retro - Refresh --embeddings flag incomplete, needs debugging",
-      "tags": [
-        "retrospective",
-        "process",
-        "incomplete-feature",
-        "memory-system",
-        "project"
-      ],
-      "created": "2026-01-16T14:41:56.058Z",
-      "updated": "2026-01-16T14:41:56.058Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging.md",
-      "severity": "medium"
-    },
-    {
-      "id": "gotcha-retro-help-system-broken-for-subcommands",
-      "type": "gotcha",
-      "title": "Retro - Help system broken for subcommands",
-      "tags": [
-        "retrospective",
-        "process",
-        "usability",
-        "memory-cli",
-        "project"
-      ],
-      "created": "2026-01-16T14:42:00.372Z",
-      "updated": "2026-01-16T14:42:00.372Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-help-system-broken-for-subcommands.md",
-      "severity": "low"
-    },
-    {
       "id": "retro-parallel-expert-review-effective",
       "title": "Retrospective: Parallel Expert Review Orchestration",
       "type": "learning",
@@ -1779,22 +1745,6 @@
       "severity": "medium"
     },
     {
-      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
-      "type": "gotcha",
-      "title": "Retro - GPU vs CPU embedding model selection matters",
-      "tags": [
-        "retrospective",
-        "embeddings",
-        "gotcha",
-        "project"
-      ],
-      "created": "2026-01-16T16:38:19.691Z",
-      "updated": "2026-01-16T16:38:19.691Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
       "type": "learning",
       "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall",
@@ -1844,6 +1794,156 @@
       "scope": "project",
       "relativePath": "permanent/artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "type": "learning",
+      "title": "Retro - Trust gotcha memory before investigating duplicates",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-01-16T17:45:54.596Z",
+      "updated": "2026-01-16T17:45:54.596Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-trust-gotcha-memory-before-investigating-duplicates.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "type": "learning",
+      "title": "Retro - Parallel agent context restoration accelerates handover",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-continuity",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-16T17:45:59.995Z",
+      "updated": "2026-01-16T17:45:59.995Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-agent-context-restoration-accelerates-handover.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "type": "gotcha",
+      "title": "Retro - Spec review discovered 59 TypeScript compilation errors at end-of-phase",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "compilation",
+        "project"
+      ],
+      "created": "2026-01-16T17:46:04.250Z",
+      "updated": "2026-01-16T17:46:04.250Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "type": "gotcha",
+      "title": "Retro - GPU vs CPU embedding model selection matters",
+      "tags": [
+        "retrospective",
+        "embeddings",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-16T16:38:19.691Z",
+      "updated": "2026-01-16T18:04:44.474Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-help-system-broken-for-subcommands",
+      "type": "gotcha",
+      "title": "Retro - Help system broken for subcommands",
+      "tags": [
+        "retrospective",
+        "process",
+        "usability",
+        "memory-cli",
+        "project",
+        "gotcha"
+      ],
+      "created": "2026-01-16T14:42:00.372Z",
+      "updated": "2026-01-16T18:04:44.533Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-help-system-broken-for-subcommands.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "type": "gotcha",
+      "title": "Retro - Refresh --embeddings flag incomplete, needs debugging",
+      "tags": [
+        "retrospective",
+        "process",
+        "incomplete-feature",
+        "memory-system",
+        "project",
+        "gotcha"
+      ],
+      "created": "2026-01-16T14:41:56.058Z",
+      "updated": "2026-01-16T18:04:44.594Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "type": "learning",
+      "title": "Strip deliberation trail from promoted think memories",
+      "tags": [
+        "think",
+        "promotion",
+        "embeddings",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-01-16T18:17:09.180Z",
+      "updated": "2026-01-16T18:17:09.180Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-strip-deliberation-trail-from-promoted-think-memories.md"
+    },
+    {
+      "id": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "type": "decision",
+      "title": "Embedding context limit solution for memory refresh --embeddings",
+      "tags": [
+        "promoted-from-think",
+        "embeddings",
+        "batch-refresh",
+        "project"
+      ],
+      "created": "2026-01-16T18:18:23.348Z",
+      "updated": "2026-01-16T18:18:23.348Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-embedding-context-limit-solution-for-memory-refresh-embeddings.md"
+    },
+    {
+      "id": "learning-exclude-thoughts-from-embedding-generation",
+      "type": "learning",
+      "title": "Exclude thoughts from embedding generation",
+      "tags": [
+        "think",
+        "embeddings",
+        "memory-system",
+        "performance",
+        "project"
+      ],
+      "created": "2026-01-16T18:24:45.230Z",
+      "updated": "2026-01-16T18:24:45.230Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-exclude-thoughts-from-embedding-generation.md"
     }
   ]
 }

@@ -5,13 +5,14 @@ type: gotcha
 scope: project
 project: claude-memory-plugin
 created: "2026-01-16T14:42:00.372Z"
-updated: "2026-01-16T14:51:40.653Z"
+updated: "2026-01-16T18:04:44.533Z"
 tags:
   - retrospective
   - process
   - usability
   - memory-cli
   - project
+  - gotcha
 severity: low
 ---
 

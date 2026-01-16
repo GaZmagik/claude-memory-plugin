@@ -571,6 +571,30 @@
     {
       "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "type": "learning"
+    },
+    {
+      "id": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "type": "decision"
+    },
+    {
+      "id": "learning-exclude-thoughts-from-embedding-generation",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1567,6 +1591,36 @@
     {
       "source": "thought-20260116-070440686",
       "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "target": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "target": "gotcha-retro-pragmatic-perfect-when-debugging-test-infrastructure-issues",
       "label": "relates-to"
     }
   ]

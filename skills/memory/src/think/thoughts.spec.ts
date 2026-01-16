@@ -99,6 +99,30 @@ describe('think/thoughts', () => {
       expect(result.error).toContain('not found');
     });
 
+    it('returns error when file deleted after scope detection', async () => {
+      // Create a document - this sets it as current in state
+      const created = await createThinkDocument({ topic: 'Will be deleted', basePath });
+      const docId = created.document!.id;
+
+      // Delete the file but it's still registered in state as current
+      const memoryPath = path.join(basePath, '.claude', 'memory');
+      const filePath = path.join(memoryPath, 'temporary', `${docId}.md`);
+      fs.unlinkSync(filePath);
+
+      // Don't pass documentId - let it find from state
+      // This means documentScope is set from state lookup (lines 65-76)
+      // but then fileExists fails (lines 100-105)
+      const result = await addThought({
+        thought: 'Too late',
+        type: ThoughtType.Thought,
+        // NO documentId - uses current from state
+        basePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('not found');
+    });
+
     it('validates thought content', async () => {
       await createThinkDocument({ topic: 'Test', basePath });
 
@@ -123,6 +147,50 @@ describe('think/thoughts', () => {
 
       expect(result.status).toBe('error');
       expect(result.error).toContain('type');
+    });
+
+    it('handles parse errors gracefully', async () => {
+      // Create a document
+      const created = await createThinkDocument({ topic: 'Will be corrupted', basePath });
+      const docId = created.document!.id;
+
+      // Corrupt the file with invalid YAML that will cause parse to throw
+      const memoryPath = path.join(basePath, '.claude', 'memory');
+      const filePath = path.join(memoryPath, 'temporary', `${docId}.md`);
+      // Write content that looks like frontmatter but has invalid structure
+      fs.writeFileSync(filePath, '---\ntitle: [[[invalid yaml\n---\ncontent');
+
+      const result = await addThought({
+        thought: 'This will fail',
+        type: ThoughtType.Thought,
+        basePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('Failed to add thought');
+    });
+
+    it('returns error when adding to concluded document', async () => {
+      const created = await createThinkDocument({ topic: 'To conclude', basePath });
+      const docId = created.document!.id;
+
+      // Manually update the document to concluded status
+      const { concludeThinkDocument } = await import('./conclude.js');
+      await concludeThinkDocument({
+        conclusion: 'Done',
+        documentId: docId,
+        basePath,
+      });
+
+      const result = await addThought({
+        thought: 'Too late',
+        type: ThoughtType.Thought,
+        documentId: docId,
+        basePath,
+      });
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('concluded');
     });
   });
 
@@ -219,6 +287,36 @@ describe('think/thoughts', () => {
       expect(result?.topic).toBe('Current topic');
       expect(result?.documentId).toMatch(/^thought-\d{8}-\d{6,9}$/);
       expect(result?.scope).toBe(Scope.Project);
+    });
+
+    it('returns null when current document file is malformed', async () => {
+      // Create a valid document first to get the state set
+      const created = await createThinkDocument({ topic: 'Will be corrupted', basePath });
+      const docId = created.document!.id;
+
+      // Corrupt the file (invalid YAML)
+      const memoryPath = path.join(basePath, '.claude', 'memory');
+      const filePath = path.join(memoryPath, 'temporary', `${docId}.md`);
+      fs.writeFileSync(filePath, 'invalid: yaml: content: [[[');
+
+      // Should return null due to parse error, not throw
+      const result = getCurrentThinkContext(basePath, globalPath);
+      expect(result).toBeNull();
+    });
+
+    it('returns null when current document file is deleted', async () => {
+      // Create a valid document first
+      const created = await createThinkDocument({ topic: 'Will be deleted', basePath });
+      const docId = created.document!.id;
+
+      // Delete the file but leave state pointing to it
+      const memoryPath = path.join(basePath, '.claude', 'memory');
+      const filePath = path.join(memoryPath, 'temporary', `${docId}.md`);
+      fs.unlinkSync(filePath);
+
+      // Should return null because file doesn't exist
+      const result = getCurrentThinkContext(basePath, globalPath);
+      expect(result).toBeNull();
     });
   });
 });

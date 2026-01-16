@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T18:39:23.328Z",
+  "lastUpdated": "2026-01-16T19:01:52.834Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2005,6 +2005,57 @@
       "updated": "2026-01-16T18:39:23.326Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-system-analysis-session-linking-quality-audit.md"
+    },
+    {
+      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-16T19:01:36.516Z",
+      "updated": "2026-01-16T19:01:36.516Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "type": "learning",
+      "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "coverage",
+        "project"
+      ],
+      "created": "2026-01-16T19:01:46.765Z",
+      "updated": "2026-01-16T19:01:46.765Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "type": "learning",
+      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-16T19:01:52.830Z",
+      "updated": "2026-01-16T19:01:52.830Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact.md",
+      "severity": "medium"
     }
   ]
 }

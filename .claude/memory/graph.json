@@ -611,6 +611,18 @@
     {
       "id": "learning-memory-system-analysis-session-linking-quality-audit",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -1692,6 +1704,21 @@
     {
       "source": "learning-memory-system-analysis-session-linking-quality-audit",
       "target": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "target": "learning-test-isolation-bun-mock-module",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "target": "decision-session-continuity-strategy",
       "label": "relates-to"
     }
   ]

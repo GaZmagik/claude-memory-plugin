@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T11:37:35.176Z",
+  "lastUpdated": "2026-01-16T14:57:37.485Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1625,6 +1625,109 @@
       "relativePath": "permanent/retro-parallel-expert-review.md",
       "severity": "medium",
       "updated": "2026-01-16T09:46:13.252Z"
+    },
+    {
+      "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "type": "learning",
+      "title": "Retro - Plugin installation solved forked session hook inheritance",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "plugin-system",
+        "project"
+      ],
+      "created": "2026-01-16T14:41:51.767Z",
+      "updated": "2026-01-16T14:41:51.767Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plugin-installation-solved-forked-session-hook-inheritance.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "type": "gotcha",
+      "title": "Retro - Refresh --embeddings flag incomplete, needs debugging",
+      "tags": [
+        "retrospective",
+        "process",
+        "incomplete-feature",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-01-16T14:41:56.058Z",
+      "updated": "2026-01-16T14:41:56.058Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-help-system-broken-for-subcommands",
+      "type": "gotcha",
+      "title": "Retro - Help system broken for subcommands",
+      "tags": [
+        "retrospective",
+        "process",
+        "usability",
+        "memory-cli",
+        "project"
+      ],
+      "created": "2026-01-16T14:42:00.372Z",
+      "updated": "2026-01-16T14:42:00.372Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-help-system-broken-for-subcommands.md",
+      "severity": "low"
+    },
+    {
+      "id": "retro-parallel-expert-review-effective",
+      "title": "Retrospective: Parallel Expert Review Orchestration",
+      "type": "learning",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "orchestration",
+        "agents"
+      ],
+      "created": "2026-01-16",
+      "updated": "2026-01-16T13:52:25.791Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-parallel-expert-review-effective.md",
+      "severity": "medium"
+    },
+    {
+      "id": "retro-test-subprocess-hanging",
+      "title": "Retrospective: Full Test Suite Runs Hang Indefinitely",
+      "type": "gotcha",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "subprocess",
+        "bun",
+        "dangling-process"
+      ],
+      "created": "2026-01-16",
+      "updated": "2026-01-16T13:52:25.786Z",
+      "scope": "project",
+      "relativePath": "permanent/retro-test-subprocess-hanging.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-embedding-context-length-causes-500-error",
+      "type": "gotcha",
+      "title": "Embedding Context Length Causes 500 Error",
+      "tags": [
+        "embedding",
+        "ollama",
+        "debugging",
+        "fix",
+        "project"
+      ],
+      "created": "2026-01-16T14:57:37.482Z",
+      "updated": "2026-01-16T14:57:37.482Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-embedding-context-length-causes-500-error.md",
+      "severity": "medium"
     }
   ]
 }

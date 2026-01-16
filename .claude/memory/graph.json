@@ -519,6 +519,30 @@
       "id": "thought-20260115-194159327",
       "type": "breadcrumb",
       "title": "Think: Memory Hook Enhancement Plan Review"
+    },
+    {
+      "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-help-system-broken-for-subcommands",
+      "type": "gotcha"
+    },
+    {
+      "id": "retro-parallel-expert-review-effective",
+      "type": "learning"
+    },
+    {
+      "id": "retro-test-subprocess-hanging",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-embedding-context-length-causes-500-error",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -1400,6 +1424,71 @@
     {
       "source": "thought-20260115-194159327",
       "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-help-system-broken-for-subcommands",
+      "target": "hub-cli-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-help-system-broken-for-subcommands",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "target": "hub-search-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-refresh-embeddings-flag-incomplete-needs-debugging",
+      "target": "gotcha-embeddings-cache-schema-must-match-code",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
       "label": "relates-to"
     }
   ]

@@ -259,9 +259,13 @@ describe('think/conclude', () => {
 
         if (result.promoted?.filePath) {
           const content = fs.readFileSync(result.promoted.filePath, 'utf-8');
-          expect(content).toContain('Deliberation Trail');
-          expect(content).toContain('First thought');
-          expect(content).toContain('Counter point');
+          // Deliberation trail stripped for embedding compatibility
+          expect(content).not.toContain('Deliberation Trail');
+          expect(content).not.toContain('First thought');
+          expect(content).not.toContain('Counter point');
+          // Only conclusion and reference to think document
+          expect(content).toContain('Final answer');
+          expect(content).toContain('_Deliberation:');
         }
       });
     });

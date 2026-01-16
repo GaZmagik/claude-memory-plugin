@@ -93,7 +93,8 @@ export async function suggestLinks(
     };
   }
 
-  const memoryIds = Object.keys(cache.memories);
+  // Filter out temporary memories (thoughts) - they're ephemeral and shouldn't be linked
+  const memoryIds = Object.keys(cache.memories).filter(id => !id.startsWith('thought-'));
   if (memoryIds.length < 2) {
     return {
       status: 'success',
@@ -118,9 +119,10 @@ export async function suggestLinks(
     existingLinks.add(`${edge.target}:${edge.source}`); // Bidirectional check
   }
 
-  // Build embeddings map
+  // Build embeddings map (excluding thoughts)
   const embeddings: Record<string, number[]> = {};
   for (const [id, entry] of Object.entries(cache.memories)) {
+    if (id.startsWith('thought-')) continue; // Skip temporary
     embeddings[id] = entry.embedding;
   }
 

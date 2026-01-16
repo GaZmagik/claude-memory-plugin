@@ -250,6 +250,9 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
           // Skip if filtering by IDs and this one isn't included
           if (ids && !ids.includes(entry.id)) continue;
 
+          // Skip temporary memories (thoughts) - they're ephemeral and often too large
+          if (entry.id.startsWith('thought-') || entry.relativePath?.includes('temporary/')) continue;
+
           const memoryResult = await readMemory({ id: entry.id, basePath });
           if (memoryResult.status === 'success' && memoryResult.memory?.content) {
             memoriesToEmbed.push({

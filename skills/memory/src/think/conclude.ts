@@ -39,6 +39,10 @@ function resolveScopePath(scope: Scope, basePath: string, globalPath: string): s
 
 /**
  * Build promoted memory content from think document
+ *
+ * Only includes the conclusion - deliberation trail is stripped to keep
+ * promoted memories concise and embeddable. The original think document
+ * is preserved in temporary/ as a reference for the full deliberation.
  */
 function buildPromotedContent(params: {
   topic: string;
@@ -46,37 +50,15 @@ function buildPromotedContent(params: {
   thoughts: ThoughtEntry[];
   documentId: string;
 }): string {
-  const { topic, conclusion, thoughts, documentId } = params;
+  const { topic, conclusion, documentId } = params;
   const parts: string[] = [];
 
-  // Main conclusion
+  // Conclusion only - deliberation stripped for embedding compatibility
   parts.push(`# ${topic}`);
   parts.push('');
-  parts.push('## Conclusion');
-  parts.push('');
   parts.push(conclusion);
-
-  // Deliberation trail (for audit)
-  if (thoughts.length > 0) {
-    parts.push('');
-    parts.push('## Deliberation Trail');
-    parts.push('');
-    parts.push(`_Promoted from think document: \`${documentId}\`_`);
-    parts.push('');
-
-    for (const thought of thoughts) {
-      const typeLabel = thought.type === ThoughtType.CounterArgument
-        ? 'Counter-argument'
-        : thought.type === ThoughtType.Branch
-          ? 'Alternative'
-          : 'Thought';
-      const attribution = thought.by ? ` (${thought.by})` : '';
-      parts.push(`### ${typeLabel}${attribution}`);
-      parts.push('');
-      parts.push(thought.content);
-      parts.push('');
-    }
-  }
+  parts.push('');
+  parts.push(`_Deliberation: \`${documentId}\`_`);
 
   return parts.join('\n');
 }

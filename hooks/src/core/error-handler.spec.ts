@@ -14,6 +14,10 @@ import {
   withTimeout,
   safeOperation,
   parallel,
+  registerTempFile,
+  unregisterTempFile,
+  registerCleanup,
+  unregisterCleanup,
   type HookResult,
 } from './error-handler.js';
 import { EXIT_ALLOW, EXIT_BLOCK, type HookInput } from './types.js';
@@ -444,6 +448,72 @@ describe('Error Handler', () => {
       } else {
         expect.fail('Forked session not detected');
       }
+    });
+  });
+
+  describe('Cleanup registry', () => {
+    describe('registerTempFile / unregisterTempFile', () => {
+      it('should register and unregister temp files', () => {
+        const testPath = '/tmp/test-hook-file.txt';
+
+        // Register
+        registerTempFile(testPath);
+        // Unregister (shouldn't throw)
+        unregisterTempFile(testPath);
+        // Unregister again (shouldn't throw even if not present)
+        unregisterTempFile(testPath);
+      });
+
+      it('should handle multiple temp files', () => {
+        const paths = ['/tmp/file1.txt', '/tmp/file2.txt', '/tmp/file3.txt'];
+
+        for (const p of paths) {
+          registerTempFile(p);
+        }
+
+        for (const p of paths) {
+          unregisterTempFile(p);
+        }
+      });
+
+      it('should handle duplicate registrations', () => {
+        const path = '/tmp/duplicate.txt';
+
+        registerTempFile(path);
+        registerTempFile(path); // Should not throw
+        unregisterTempFile(path);
+      });
+    });
+
+    describe('registerCleanup / unregisterCleanup', () => {
+      it('should register and unregister cleanup functions', () => {
+        const cleanupFn = vi.fn();
+
+        registerCleanup(cleanupFn);
+        unregisterCleanup(cleanupFn);
+        // Unregister again (shouldn't throw)
+        unregisterCleanup(cleanupFn);
+      });
+
+      it('should handle multiple cleanup functions', () => {
+        const fns = [vi.fn(), vi.fn(), vi.fn()];
+
+        for (const fn of fns) {
+          registerCleanup(fn);
+        }
+
+        for (const fn of fns) {
+          unregisterCleanup(fn);
+        }
+      });
+
+      it('should handle duplicate cleanup registrations', () => {
+        const fn = vi.fn();
+
+        registerCleanup(fn);
+        registerCleanup(fn); // Should not throw (Set ignores duplicates)
+        unregisterCleanup(fn);
+      });
     });
   });
 });

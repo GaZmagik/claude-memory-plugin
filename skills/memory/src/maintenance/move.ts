@@ -16,6 +16,7 @@ import {
   serialiseMemoryFile,
   updateFrontmatter,
 } from '../core/frontmatter.js';
+import { isInsideDir } from '../core/fs-utils.js';
 import { addToIndex, removeFromIndex } from '../core/index.js';
 import { loadGraph, saveGraph, addNode, removeNode } from '../graph/structure.js';
 import type { IndexEntry } from '../types/memory.js';
@@ -120,6 +121,17 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
   const subdir = isTemp ? 'temporary' : 'permanent';
   const targetDir = path.join(targetBasePath, subdir);
   const targetPath = path.join(targetDir, `${id}.md`);
+
+  // Validate target path stays within targetBasePath (prevent path traversal)
+  if (!isInsideDir(targetBasePath, targetPath)) {
+    return {
+      status: 'error',
+      id,
+      sourcePath,
+      changes,
+      error: 'Invalid ID: path traversal not allowed',
+    };
+  }
 
   // Check if target exists
   if (fs.existsSync(targetPath)) {

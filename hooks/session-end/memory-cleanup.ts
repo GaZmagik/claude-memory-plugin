@@ -66,12 +66,12 @@ runHook(async (input) => {
   const result = await spawnSessionWithContext({
     sessionId,
     cwd,
-    prompt: `/memory:commit session-end-trigger=${reason}`,
+    prompt: `/claude-memory-plugin:commit session-end-trigger=${reason}`,
     contextPrompt,
     logPrefix: 'session-end-memory',
     timeoutSecs: 300,
     trigger: reason,
-    tools: 'Read,Skill',
+    tools: 'Read,Skill,Bash',
   });
 
   if (result.started) {

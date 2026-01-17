@@ -4,13 +4,11 @@
  * Handlers for the think subcommand hierarchy.
  */
 
-import * as os from 'node:os';
-import * as path from 'node:path';
 import type { ParsedArgs } from '../parser.js';
 import { parseArgs, getFlagString } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope, ThoughtType, MemoryType } from '../../types/enums.js';
+import { ThoughtType, MemoryType } from '../../types/enums.js';
 import {
   createThinkDocument,
   listThinkDocuments,
@@ -20,42 +18,7 @@ import {
 import { addThought } from '../../think/thoughts.js';
 import { useThinkDocument } from '../../think/thoughts.js';
 import { concludeThinkDocument } from '../../think/conclude.js';
-import { getScopePath } from '../../scope/resolver.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project;
-  }
-}
+import { getResolvedScopePath, parseScope } from '../helpers.js';
 
 /**
  * Parse memory type string for promotion

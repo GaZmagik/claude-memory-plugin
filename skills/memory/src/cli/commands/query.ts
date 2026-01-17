@@ -4,53 +4,15 @@
  * Handlers for query, stats, impact commands.
  */
 
-import * as os from 'node:os';
-import * as path from 'node:path';
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope } from '../../types/enums.js';
 import { loadGraph } from '../../graph/structure.js';
 import { findOrphanedNodes, getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { calculateImpact } from '../../graph/traversal.js';
-import { getScopePath } from '../../scope/resolver.js';
 import { loadIndex } from '../../core/index.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project;
-  }
-}
+import { getResolvedScopePath, parseScope } from '../helpers.js';
 
 /**
  * query - Query memories with complex filters

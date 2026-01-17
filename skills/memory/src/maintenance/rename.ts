@@ -97,6 +97,17 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   const dir = path.dirname(oldPath);
   const newPath = path.join(dir, `${newId}.md`);
 
+  // Validate new path stays within basePath (prevent path traversal)
+  if (!isInsideDir(basePath, newPath)) {
+    return {
+      status: 'error',
+      oldId,
+      newId,
+      changes,
+      error: 'Invalid new ID: path traversal not allowed',
+    };
+  }
+
   // Check if target already exists
   if (fs.existsSync(newPath)) {
     return {

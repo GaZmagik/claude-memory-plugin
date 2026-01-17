@@ -4,14 +4,11 @@
  * Handlers for bulk-link, bulk-delete, export, import commands.
  */
 
-import * as os from 'node:os';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
 import type { ParsedArgs } from '../parser.js';
 import { readStdinJson, getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope, MemoryType } from '../../types/enums.js';
 import {
   bulkLink,
   bulkDelete,
@@ -22,64 +19,7 @@ import {
 } from '../../bulk/index.js';
 import { exportMemories } from '../../core/export.js';
 import { importMemories } from '../../core/import.js';
-import { getScopePath } from '../../scope/resolver.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project;
-  }
-}
-
-/**
- * Parse memory type string to MemoryType enum
- */
-function parseMemoryType(typeStr: string | undefined): MemoryType | undefined {
-  switch (typeStr?.toLowerCase()) {
-    case 'decision':
-      return MemoryType.Decision;
-    case 'learning':
-      return MemoryType.Learning;
-    case 'artifact':
-      return MemoryType.Artifact;
-    case 'gotcha':
-      return MemoryType.Gotcha;
-    case 'breadcrumb':
-      return MemoryType.Breadcrumb;
-    case 'hub':
-      return MemoryType.Hub;
-    default:
-      return undefined;
-  }
-}
+import { getResolvedScopePath, parseScope, parseMemoryType } from '../helpers.js';
 
 /**
  * bulk-link - Create multiple links to a target

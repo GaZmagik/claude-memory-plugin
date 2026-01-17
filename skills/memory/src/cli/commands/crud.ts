@@ -4,13 +4,10 @@
  * Handlers for write, read, list, delete, search, semantic commands.
  */
 
-import * as os from 'node:os';
-import * as path from 'node:path';
 import type { ParsedArgs } from '../parser.js';
 import { readStdinJson, getFlagString, getFlagBool, getFlagNumber } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope, MemoryType } from '../../types/enums.js';
 import type { WriteMemoryRequest } from '../../types/api.js';
 import { writeMemory } from '../../core/write.js';
 import { readMemory } from '../../core/read.js';
@@ -19,64 +16,8 @@ import { deleteMemory } from '../../core/delete.js';
 import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProvider } from '../../search/embedding.js';
-import { getScopePath } from '../../scope/resolver.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project; // Default to project scope
-  }
-}
-
-/**
- * Parse memory type string to MemoryType enum
- */
-function parseMemoryType(typeStr: string | undefined): MemoryType | undefined {
-  switch (typeStr?.toLowerCase()) {
-    case 'decision':
-      return MemoryType.Decision;
-    case 'learning':
-      return MemoryType.Learning;
-    case 'artifact':
-      return MemoryType.Artifact;
-    case 'gotcha':
-      return MemoryType.Gotcha;
-    case 'breadcrumb':
-      return MemoryType.Breadcrumb;
-    case 'hub':
-      return MemoryType.Hub;
-    default:
-      return undefined;
-  }
-}
+import { MemoryType } from '../../types/enums.js';
+import { getResolvedScopePath, parseScope, parseMemoryType } from '../helpers.js';
 
 /**
  * write - Create or update a memory from stdin JSON

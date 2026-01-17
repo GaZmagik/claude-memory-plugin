@@ -5,50 +5,12 @@
  * Note: These are stubs pending Phase 6 implementation.
  */
 
-import * as os from 'node:os';
-import * as path from 'node:path';
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { success, wrapOperation } from '../response.js';
-import { Scope } from '../../types/enums.js';
-import { getScopePath } from '../../scope/resolver.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project;
-  }
-}
+import { getResolvedScopePath, parseScope } from '../helpers.js';
 
 /**
  * suggest-links - Suggest potential relationships using embeddings

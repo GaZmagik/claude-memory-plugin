@@ -5,36 +5,20 @@
  * Note: Most of these are stubs pending Phase 4 implementation.
  */
 
-import * as os from 'node:os';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { Scope, MemoryType } from '../../types/enums.js';
+import { Scope } from '../../types/enums.js';
 import { loadGraph } from '../../graph/structure.js';
-import { getScopePath } from '../../scope/resolver.js';
 import { renameMemory } from '../../maintenance/rename.js';
 import { moveMemory } from '../../maintenance/move.js';
 import { promoteMemory } from '../../maintenance/promote.js';
 import { archiveMemory } from '../../maintenance/archive.js';
-
-/**
- * Get global memory path
- */
-function getGlobalMemoryPath(): string {
-  return path.join(os.homedir(), '.claude', 'memory');
-}
-
-/**
- * Get resolved scope path
- */
-function getResolvedScopePath(scope: Scope): string {
-  const cwd = process.cwd();
-  const globalPath = getGlobalMemoryPath();
-  return getScopePath(scope, cwd, globalPath);
-}
+import { MemoryType } from '../../types/enums.js';
+import { getResolvedScopePath, getGlobalMemoryPath, parseScope } from '../helpers.js';
 
 /**
  * Find which scope a memory exists in
@@ -54,25 +38,6 @@ function findMemoryScope(id: string): { scope: Scope; basePath: string } | null 
   }
 
   return null;
-}
-
-/**
- * Parse scope string to Scope enum
- */
-function parseScope(scopeStr: string | undefined): Scope {
-  switch (scopeStr?.toLowerCase()) {
-    case 'user':
-    case 'global':
-      return Scope.Global;
-    case 'project':
-      return Scope.Project;
-    case 'local':
-      return Scope.Local;
-    case 'enterprise':
-      return Scope.Enterprise;
-    default:
-      return Scope.Project;
-  }
 }
 
 /**

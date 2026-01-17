@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T01:13:29.766Z",
+  "lastUpdated": "2026-01-17T05:38:18.251Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3062,6 +3062,55 @@
       "updated": "2026-01-17T01:13:29.762Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-system-analysis-session-linking-quality-complete.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "type": "learning",
+      "title": "Retro - Parallel expert agents for code review scales efficiently",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-17T05:32:13.899Z",
+      "updated": "2026-01-17T05:32:13.899Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agents-for-code-review-scales-efficiently.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix",
+      "type": "learning",
+      "title": "Retro - Fixing critical issues systematically with test verification between each fix",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-01-17T05:32:24.094Z",
+      "updated": "2026-01-17T05:32:24.094Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug",
+      "type": "gotcha",
+      "title": "Gotcha - Permission bypass was a design constraint, not a bug",
+      "tags": [
+        "retrospective",
+        "process",
+        "requirements",
+        "project"
+      ],
+      "created": "2026-01-17T05:32:29.319Z",
+      "updated": "2026-01-17T05:32:29.319Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug.md",
+      "severity": "medium"
     }
   ]
 }

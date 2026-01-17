@@ -45,7 +45,7 @@ describe('ollama service', () => {
       expect(mockGenerate).toHaveBeenCalledWith({
         model: 'gemma3:4b',
         prompt: 'Test prompt',
-        options: { num_ctx: 32768 },
+        options: { num_ctx: 49152 },
         stream: false,
       });
     });
@@ -312,7 +312,7 @@ describe('ollama service', () => {
       expect(CONFIG.HOST).toBe('http://localhost:11434');
       expect(CONFIG.TIMEOUT_MS).toBe(10000);
       expect(CONFIG.MAX_RETRIES).toBe(2);
-      expect(CONFIG.NUM_CTX).toBe(32768);
+      expect(CONFIG.NUM_CTX).toBe(49152);
     });
   });
 });

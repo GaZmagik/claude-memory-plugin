@@ -100,7 +100,7 @@ runHook(async (input) => {
   const result = await spawnSessionWithContext({
     sessionId,
     cwd,
-    prompt: `/memory:commit precompact-trigger=${trigger}`,
+    prompt: `/claude-memory-plugin:commit precompact-trigger=${trigger}`,
     contextPrompt,
     logPrefix: 'memory-capture',
     timeoutSecs: 600,

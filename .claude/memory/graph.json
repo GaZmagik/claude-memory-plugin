@@ -1022,6 +1022,22 @@
     {
       "id": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -2438,6 +2454,26 @@
     {
       "source": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
       "target": "learning-bun-link-cli-exposure-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
+      "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     }
   ]

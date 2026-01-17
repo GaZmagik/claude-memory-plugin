@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T12:37:35.915Z",
+  "lastUpdated": "2026-01-17T13:19:03.906Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3271,6 +3271,72 @@
       "updated": "2026-01-17T12:37:35.911Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-tdd-approach-for-settings-parser-accelerated-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "type": "learning",
+      "title": "Retro - Forked agent orchestration for multi-expert review effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-17T13:18:52.496Z",
+      "updated": "2026-01-17T13:18:52.496Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-forked-agent-orchestration-for-multi-expert-review-effective.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "type": "learning",
+      "title": "Retro - Stricter TDD (touch-only stub creation) improved discipline",
+      "tags": [
+        "retrospective",
+        "tdd",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-17T13:18:56.220Z",
+      "updated": "2026-01-17T13:18:56.220Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget",
+      "type": "gotcha",
+      "title": "Gotcha - Sync file I/O in hooks blocks event loop, breaks 50ms budget",
+      "tags": [
+        "retrospective",
+        "performance",
+        "hooks",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-17T13:19:00.225Z",
+      "updated": "2026-01-17T13:19:00.225Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget.md",
+      "severity": "critical"
+    },
+    {
+      "id": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
+      "type": "gotcha",
+      "title": "Gotcha - Enforcement hook that wasn't tested violated its own rules (meta)",
+      "tags": [
+        "retrospective",
+        "tdd",
+        "gotcha",
+        "meta",
+        "project"
+      ],
+      "created": "2026-01-17T13:19:03.901Z",
+      "updated": "2026-01-17T13:19:03.901Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta.md",
       "severity": "medium"
     }
   ]

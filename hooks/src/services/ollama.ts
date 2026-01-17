@@ -66,9 +66,13 @@ async function withTimeout<T>(
     const result = await Promise.race([
       promise,
       new Promise<never>((_, reject) => {
-        controller.signal.addEventListener('abort', () => {
-          reject(new Error(`${operation} timed out after ${timeoutMs}ms`));
-        });
+        controller.signal.addEventListener(
+          'abort',
+          () => {
+            reject(new Error(`${operation} timed out after ${timeoutMs}ms`));
+          },
+          { once: true }
+        );
       }),
     ]);
     return result;

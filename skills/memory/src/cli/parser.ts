@@ -105,13 +105,22 @@ export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
     let hasData = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    process.stdin.on('data', (chunk: Buffer) => {
+    const cleanup = () => {
+      clearTimeout(timeoutId);
+      process.stdin.off('data', onData);
+      process.stdin.off('end', onEnd);
+      process.stdin.off('error', onError);
+    };
+
+    const onData = (chunk: Buffer) => {
       hasData = true;
       chunks.push(chunk);
-    });
+    };
 
-    process.stdin.on('end', () => {
+    const onEnd = () => {
+      cleanup();
       if (!hasData) {
         resolve(undefined);
         return;
@@ -128,13 +137,21 @@ export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
       } catch (error) {
         reject(new Error(`Invalid JSON input: ${error}`));
       }
-    });
+    };
 
-    process.stdin.on('error', reject);
+    const onError = (error: Error) => {
+      cleanup();
+      reject(error);
+    };
+
+    process.stdin.on('data', onData);
+    process.stdin.on('end', onEnd);
+    process.stdin.on('error', onError);
 
     // Set a timeout for reading stdin
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       if (!hasData) {
+        cleanup();
         resolve(undefined);
       }
     }, 100);
@@ -154,24 +171,41 @@ export async function readStdinRaw(): Promise<string | undefined> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
     let hasData = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    process.stdin.on('data', (chunk: Buffer) => {
+    const cleanup = () => {
+      clearTimeout(timeoutId);
+      process.stdin.off('data', onData);
+      process.stdin.off('end', onEnd);
+      process.stdin.off('error', onError);
+    };
+
+    const onData = (chunk: Buffer) => {
       hasData = true;
       chunks.push(chunk);
-    });
+    };
 
-    process.stdin.on('end', () => {
+    const onEnd = () => {
+      cleanup();
       if (!hasData) {
         resolve(undefined);
         return;
       }
       resolve(Buffer.concat(chunks).toString('utf8'));
-    });
+    };
 
-    process.stdin.on('error', reject);
+    const onError = (error: Error) => {
+      cleanup();
+      reject(error);
+    };
 
-    setTimeout(() => {
+    process.stdin.on('data', onData);
+    process.stdin.on('end', onEnd);
+    process.stdin.on('error', onError);
+
+    timeoutId = setTimeout(() => {
       if (!hasData) {
+        cleanup();
         resolve(undefined);
       }
     }, 100);

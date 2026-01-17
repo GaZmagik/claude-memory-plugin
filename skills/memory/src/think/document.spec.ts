@@ -20,7 +20,6 @@ import {
   thinkDocumentExists,
   readThinkDocumentRaw,
 } from './document.js';
-import { Scope, ThinkStatus } from '../types/enums.js';
 
 describe('think/document', () => {
   let tempDir: string;

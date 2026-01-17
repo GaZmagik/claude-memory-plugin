@@ -8,6 +8,49 @@ import type { MemoryGraph } from './structure.js';
 import { getOutboundEdges, getInboundEdges } from './edges.js';
 
 /**
+ * Adjacency list for bidirectional graph traversal
+ */
+export interface AdjacencyList {
+  /** Map from node ID to set of connected node IDs (undirected) */
+  neighbours: Map<string, Set<string>>;
+  /** Map from node ID to set of outbound target IDs */
+  outbound: Map<string, Set<string>>;
+  /** Map from node ID to set of inbound source IDs */
+  inbound: Map<string, Set<string>>;
+}
+
+/**
+ * Build adjacency list from graph edges (O(e) where e = edge count)
+ *
+ * Use this for repeated lookups to avoid O(e) scans per lookup.
+ */
+export function buildAdjacencyList(graph: MemoryGraph): AdjacencyList {
+  const neighbours = new Map<string, Set<string>>();
+  const outbound = new Map<string, Set<string>>();
+  const inbound = new Map<string, Set<string>>();
+
+  // Initialise empty sets for all nodes
+  for (const node of graph.nodes) {
+    neighbours.set(node.id, new Set());
+    outbound.set(node.id, new Set());
+    inbound.set(node.id, new Set());
+  }
+
+  // Populate from edges (single pass - O(e))
+  for (const edge of graph.edges) {
+    // Undirected neighbours (both directions)
+    neighbours.get(edge.source)?.add(edge.target);
+    neighbours.get(edge.target)?.add(edge.source);
+
+    // Directed edges
+    outbound.get(edge.source)?.add(edge.target);
+    inbound.get(edge.target)?.add(edge.source);
+  }
+
+  return { neighbours, outbound, inbound };
+}
+
+/**
  * Traversal result
  */
 export interface TraversalResult {
@@ -182,8 +225,12 @@ export function getSubgraph(
 
 /**
  * Find connected components in the graph
+ *
+ * Uses adjacency list for O(n + e) complexity instead of O(n * e).
  */
 export function findConnectedComponents(graph: MemoryGraph): string[][] {
+  // Build adjacency list once - O(n + e)
+  const adjacency = buildAdjacencyList(graph);
   const visited = new Set<string>();
   const components: string[][] = [];
 
@@ -195,9 +242,10 @@ export function findConnectedComponents(graph: MemoryGraph): string[][] {
     // BFS to find all connected nodes (treating edges as undirected)
     const component: string[] = [];
     const queue: string[] = [node.id];
+    let queueIndex = 0; // Use index instead of shift() for O(1) dequeue
 
-    while (queue.length > 0) {
-      const id = queue.shift()!;
+    while (queueIndex < queue.length) {
+      const id = queue[queueIndex++];
 
       if (visited.has(id)) {
         continue;
@@ -206,13 +254,13 @@ export function findConnectedComponents(graph: MemoryGraph): string[][] {
       visited.add(id);
       component.push(id);
 
-      // Get all connected nodes (both directions)
-      for (const edge of graph.edges) {
-        if (edge.source === id && !visited.has(edge.target)) {
-          queue.push(edge.target);
-        }
-        if (edge.target === id && !visited.has(edge.source)) {
-          queue.push(edge.source);
+      // Get all connected nodes using O(1) adjacency lookup
+      const neighbours = adjacency.neighbours.get(id);
+      if (neighbours) {
+        for (const neighbourId of neighbours) {
+          if (!visited.has(neighbourId)) {
+            queue.push(neighbourId);
+          }
         }
       }
     }

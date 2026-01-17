@@ -12,7 +12,7 @@ import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { Scope } from '../../types/enums.js';
 import { linkMemories, unlinkMemories } from '../../graph/link.js';
-import { loadGraph, removeNode } from '../../graph/structure.js';
+import { loadGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
 import { getScopePath } from '../../scope/resolver.js';
@@ -243,8 +243,7 @@ export async function cmdRemoveNode(args: ParsedArgs): Promise<CliResponse> {
     async () => {
       const graph = await loadGraph(basePath);
       const updatedGraph = removeNode(graph, id);
-      // Note: This doesn't persist - would need saveGraph
-      // For now just return success to show it worked
+      await saveGraph(basePath, updatedGraph);
       return {
         removed: id,
         remainingNodes: updatedGraph.nodes.length,

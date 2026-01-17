@@ -8,14 +8,13 @@ import * as stateModule from './state.js';
 import * as fsUtilsModule from '../core/fs-utils.js';
 import * as writeModule from '../core/write.js';
 import * as frontmatterModule from './frontmatter.js';
-import { ThinkStatus, MemoryType, Scope } from '../types/enums.js';
+import { ThinkStatus, MemoryType, Scope, ThoughtType } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { concludeThinkDocument } from './conclude.js';
 import { createThinkDocument, showThinkDocument } from './document.js';
 import { addThought } from './thoughts.js';
-import { ThinkStatus, ThoughtType, MemoryType } from '../types/enums.js';
 
 describe('think/conclude', () => {
   let tempDir: string;

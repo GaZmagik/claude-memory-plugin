@@ -62,6 +62,7 @@ runHook(async (input) => {
   }
 
   // Spawn Claude with extracted context
+  // Security: Restrict tools to only what's needed for memory capture
   const result = await spawnSessionWithContext({
     sessionId,
     cwd,
@@ -70,7 +71,7 @@ runHook(async (input) => {
     logPrefix: 'session-end-memory',
     timeoutSecs: 300,
     trigger: reason,
-    tools: 'Bash,Read,Grep,Glob,TodoWrite',
+    tools: 'Read,Skill',
   });
 
   if (result.started) {

@@ -11,7 +11,7 @@ import { Ollama } from 'ollama';
 const DEFAULT_HOST = 'http://localhost:11434';
 const DEFAULT_CHAT_MODEL = 'gemma3:4b';
 const DEFAULT_EMBEDDING_MODEL = 'embeddinggemma:latest';
-const DEFAULT_NUM_CTX = 49152;
+const DEFAULT_NUM_CTX = 32768;
 const DEFAULT_TIMEOUT_MS = 30000; // 30 seconds for hooks
 const DEFAULT_MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 100;

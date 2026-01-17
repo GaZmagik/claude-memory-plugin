@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T23:53:40.345Z",
+  "lastUpdated": "2026-01-17T00:31:55.380Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2947,6 +2947,54 @@
       "updated": "2026-01-16T23:53:40.342Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-plan-mode-agent-exploration-effective-architecture-review.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
+      "type": "learning",
+      "title": "Retro - Plan mode upfront design prevents implementation ambiguity",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "project"
+      ],
+      "created": "2026-01-17T00:31:46.158Z",
+      "updated": "2026-01-17T00:31:46.158Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "type": "gotcha",
+      "title": "Retro - Test suite shouldn't write to .claude/memory without cleanup",
+      "tags": [
+        "retrospective",
+        "testing",
+        "isolation",
+        "project"
+      ],
+      "created": "2026-01-17T00:31:50.690Z",
+      "updated": "2026-01-17T00:31:50.690Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
+      "type": "learning",
+      "title": "Retro - Test-driven spec updates ensure implementation matches expectations",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-17T00:31:55.376Z",
+      "updated": "2026-01-17T00:31:55.376Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations.md",
       "severity": "medium"
     }
   ]

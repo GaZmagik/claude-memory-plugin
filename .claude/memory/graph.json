@@ -875,6 +875,18 @@
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -2167,6 +2179,51 @@
       "source": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
       "target": "artifact-memory-system-architecture-reference",
       "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-180811237",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-183846962",
+      "target": "learning-memory-system-analysis-session-linking-quality-audit",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-190617",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
     }
   ]
 }

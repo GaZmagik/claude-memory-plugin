@@ -1,165 +1,214 @@
 {
-  "version": 1,
   "nodes": [
     {
-      "id": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
-      "type": "learning",
-      "title": "Retro - Parallel memory restoration agents unblock context efficiently"
+      "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "title": "Specification audit caught architectural gaps before planning",
+      "type": "learning"
     },
     {
-      "id": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
-      "type": "gotcha",
-      "title": "Gotcha - Plugin skill namespace mismatch caused hook failures"
-    },
-    {
-      "id": "learning-learning-duplicated-cli-helpers-hidden-in-10-command-files",
-      "type": "learning",
-      "title": "Learning - Duplicated CLI helpers hidden in 10 command files"
-    },
-    {
-      "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
-      "type": "learning",
-      "title": "Retro - Plan mode + agent exploration = effective architecture review"
-    },
-    {
-      "id": "learning-scope-isolation-architecture-design",
-      "type": "learning",
-      "title": "scope-isolation-architecture-design"
-    },
-    {
-      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
-      "type": "decision",
-      "title": "TDD enforcement hooks: TypeScript-for-all vs native per-language"
-    },
-    {
-      "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
-      "type": "learning",
-      "title": "retro: Graceful Degradation by Default Prevents Coupling"
-    },
-    {
-      "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
-      "type": "learning",
-      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement"
-    },
-    {
-      "id": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
-      "type": "learning",
-      "title": "Index Migration Layer Handles Bash-to-TypeScript Format Transition"
-    },
-    {
-      "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
-      "type": "learning",
-      "title": "retro-tmpdir-cleanup-permissions-fragile"
+      "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "title": "Hook protection can block legitimate git operations - requires careful pattern matching",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-scope-resolution-module-structure",
-      "type": "learning",
-      "title": "tdd-scope-resolution-module-structure"
+      "title": "tdd-scope-resolution-module-structure",
+      "type": "learning"
     },
     {
-      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
-      "type": "decision",
-      "title": "SubagentStop hook receives insufficient context - use PostToolUse instead"
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "title": "scope-field-frontmatter-serialisation-gotcha",
+      "type": "learning"
     },
     {
-      "id": "learning-memory-context-hook-graceful-search-degradation",
-      "type": "learning",
-      "title": "Memory context hook graceful search degradation pattern"
+      "id": "learning-gitignore-comment-formatting-two-phase-fix",
+      "title": "gitignore-comment-formatting-two-phase-fix",
+      "type": "learning"
     },
     {
-      "id": "learning-tdd-caught-hook-integration-pattern-mismatch",
-      "type": "learning",
-      "title": "TDD caught hook integration pattern mismatch"
+      "id": "learning-scope-isolation-architecture-design",
+      "title": "scope-isolation-architecture-design",
+      "type": "learning"
     },
     {
-      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
-      "type": "learning",
-      "title": "CLI parser now supports --flag=value syntax in addition to --flag value"
-    },
-    {
-      "id": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
-      "type": "gotcha",
-      "title": "Retro - Spec review discovered 59 TypeScript compilation errors at end-of-phase"
-    },
-    {
-      "id": "gotcha-agents-should-be-copies-not-rewrites",
-      "type": "gotcha",
-      "title": "Plugin agents must copy user-level versions, not simplified rewrites"
-    },
-    {
-      "id": "learning-tdd-parity-vitest-limitation",
-      "type": "learning",
-      "title": "tdd-parity-vitest-limitation"
-    },
-    {
-      "id": "decision-hook-separation-clarified-enforcement-boundaries",
-      "type": "decision",
-      "title": "Hook separation clarified enforcement boundaries"
-    },
-    {
-      "id": "learning-test-agent-generates-aspirational-tests",
-      "type": "learning",
-      "title": "test-agent-generates-aspirational-tests"
-    },
-    {
-      "id": "gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug",
-      "type": "gotcha",
-      "title": "Gotcha - Permission bypass was a design constraint, not a bug"
-    },
-    {
-      "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
-      "type": "learning",
-      "title": "scope-field-frontmatter-serialisation-gotcha-two"
-    },
-    {
-      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
-      "type": "learning",
-      "title": "Namespace enforcement for plugin slash commands critical for routing"
-    },
-    {
-      "id": "learning-retro-agent-verification-for-exclusions",
-      "type": "learning",
-      "title": "retro-agent-verification-for-exclusions"
-    },
-    {
-      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent test pollution at coverage ceiling"
-    },
-    {
-      "id": "retro-mock-syntax-friction-bun",
-      "type": "learning",
-      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests"
-    },
-    {
-      "id": "gotcha-bash-vs-typescript-index-format-mismatch",
-      "type": "gotcha",
-      "title": "Bash vs TypeScript Index Format Mismatch"
-    },
-    {
-      "id": "learning-learning-inspect-implementation-before-fixing-promotions",
-      "type": "learning",
-      "title": "Learning - Inspect implementation before fixing promotions"
-    },
-    {
-      "id": "learning-semantic-search-embedding-caching-success",
-      "type": "learning",
-      "title": "semantic-search-embedding-caching-success"
+      "id": "learning-tdd-phase-completion-pattern",
+      "title": "tdd-phase-completion-pattern",
+      "type": "learning"
     },
     {
       "id": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
-      "type": "learning",
-      "title": "TDD discipline across multi-phase session maintains test coverage"
+      "title": "TDD discipline across multi-phase session maintains test coverage",
+      "type": "learning"
     },
     {
-      "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
-      "type": "learning",
-      "title": "retro: Session Restore with Memory Linking Works - Keeps Context Fresh"
+      "id": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "title": "scope-field-frontmatter-serialisation-gotcha-two",
+      "type": "learning"
     },
     {
-      "id": "hub-scope-module-hub",
-      "type": "hub",
-      "title": "Scope Module Hub"
+      "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "title": "Post-compaction memory restoration prevented duplicate work",
+      "type": "learning"
+    },
+    {
+      "id": "learning-immutable-graph-operations-pattern",
+      "title": "immutable-graph-operations-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-semantic-search-embedding-caching-success",
+      "title": "semantic-search-embedding-caching-success",
+      "type": "learning"
+    },
+    {
+      "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
+      "title": "TypeScript import path consistency prevents batch compilation failures",
+      "type": "learning"
+    },
+    {
+      "id": "decision-4tier-scope-hierarchy",
+      "title": "4-Tier Scope Hierarchy for Memory Storage",
+      "type": "decision"
+    },
+    {
+      "id": "learning-retro-tdd-test-expectations-guide-implementation",
+      "title": "retro-tdd-test-expectations-guide-implementation",
+      "type": "learning"
+    },
+    {
+      "id": "retro-test-first-verification-accelerated-security-review",
+      "title": "Test-First Verification: Security Review Acceleration Pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-context-hook-graceful-search-degradation",
+      "title": "Memory context hook graceful search degradation pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-naming-convention-spec-ts",
+      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "title": "TDD TypeScript hook: bidirectional stub-test-implementation enforcement",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-agents-should-be-copies-not-rewrites",
+      "title": "Plugin agents must copy user-level versions, not simplified rewrites",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-spawn-session-refactor",
+      "title": "spawn-session-refactor",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-test-coverage-expansion-pattern",
+      "title": "tdd-test-coverage-expansion-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-typescript-tdd-hook-naming-enforcement",
+      "title": "typescript-tdd-hook-naming-enforcement",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-parity-typescript-support",
+      "title": "tdd-parity-typescript-support",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-typescript-tooling-parity",
+      "title": "retro-typescript-tooling-parity",
+      "type": "learning"
+    },
+    {
+      "id": "learning-regex-based-language-parsing-tradeoff",
+      "title": "regex-based-language-parsing-tradeoff",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-test-coverage-asymptotic-returns",
+      "title": "retro-test-coverage-asymptotic-returns",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-coverage-achieved-99-percent-functions",
+      "title": "test-coverage-achieved-99-percent-functions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-memory-linking-post-compaction",
+      "title": "retro-memory-linking-post-compaction",
+      "type": "learning"
+    },
+    {
+      "id": "retro-hook-pattern-non-python-projects",
+      "title": "Hook detection pattern for non-Python projects",
+      "type": "learning"
+    },
+    {
+      "id": "retro-mock-syntax-friction-bun",
+      "title": "Bun vi.mock requires factory functions - causes friction with auto-generated tests",
+      "type": "learning"
+    },
+    {
+      "id": "retro-duplicate-test-discovery",
+      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-agent-generated-tests-need-api-validation",
+      "title": "retro-agent-generated-tests-need-api-validation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "title": "retro-tmpdir-cleanup-permissions-fragile",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "title": "retro-memory-graph-linking-batch-approach-efficient",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-parity-vitest-limitation",
+      "title": "tdd-parity-vitest-limitation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cargo-cult-tdd-compliance",
+      "title": "cargo-cult-tdd-compliance",
+      "type": "learning"
+    },
+    {
+      "id": "decision-colocate-unit-tests",
+      "title": "colocate-unit-tests",
+      "type": "decision"
+    },
+    {
+      "id": "learning-test-agent-generates-aspirational-tests",
+      "title": "test-agent-generates-aspirational-tests",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-agent-verification-for-exclusions",
+      "title": "retro-agent-verification-for-exclusions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "title": "retro-tdd-parity-typescript-matching-accuracy",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-test-isolation-pattern-worth-documenting",
+      "title": "retro-test-isolation-pattern-worth-documenting",
+      "type": "learning"
     },
     {
       "id": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
@@ -167,709 +216,19 @@
       "title": "Bulk Operations: TDD Caught Interface Mismatches Early"
     },
     {
-      "id": "learning-scope-field-frontmatter-serialisation-gotcha",
-      "type": "learning",
-      "title": "scope-field-frontmatter-serialisation-gotcha"
-    },
-    {
-      "id": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
-      "type": "learning",
-      "title": "Retro - Error handling test pattern with call-counting mocks for race conditions"
-    },
-    {
-      "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
-      "type": "learning",
-      "title": "Retro - Error handling test pattern replication reduced per-file time"
-    },
-    {
-      "id": "learning-immutable-graph-operations-pattern",
-      "type": "learning",
-      "title": "immutable-graph-operations-pattern"
-    },
-    {
-      "id": "learning-retro-embedding-truncation-solved-silent-failures",
-      "type": "learning",
-      "title": "Retro - Embedding truncation solved silent failures"
-    },
-    {
-      "id": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
-      "type": "learning",
-      "title": "Semantic linking with Ollama effective for recovering orphaned memories"
-    },
-    {
-      "id": "decision-think-temporary-breadcrumb-type",
-      "type": "decision",
-      "title": "Think documents stored as Breadcrumb type in temporary/ directory"
-    },
-    {
-      "id": "hub-think-module-hub",
-      "type": "hub",
-      "title": "Think Module Hub"
-    },
-    {
-      "id": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
-      "type": "learning",
-      "title": "Retro - Test-driven spec updates ensure implementation matches expectations"
-    },
-    {
-      "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
-      "type": "gotcha",
-      "title": "Retro - Test quality audit post-coverage risks releasing cheating tests"
-    },
-    {
-      "id": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
-      "type": "learning",
-      "title": "Scope reduction for system hooks through expert consultation prevents coupling"
-    },
-    {
-      "id": "gotcha-scope-resolver-params",
-      "type": "permanent",
-      "title": "getScopePath() Requires (scope, cwd, globalPath) Not Just Scope"
-    },
-    {
-      "id": "learning-performance-constraints-should-be-documented-upfront",
-      "type": "learning",
-      "title": "Performance constraints should be documented upfront"
-    },
-    {
-      "id": "learning-typescript-tdd-hook-naming-enforcement",
-      "type": "learning",
-      "title": "typescript-tdd-hook-naming-enforcement"
-    },
-    {
-      "id": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
-      "type": "learning",
-      "title": "TypeScript import path consistency prevents batch compilation failures"
-    },
-    {
-      "id": "hub-cli-module-hub",
-      "type": "hub",
-      "title": "CLI Module Hub"
-    },
-    {
-      "id": "learning-review-findings-verification-multi-perspective-analysis",
-      "type": "learning",
-      "title": "Review findings verification - multi-perspective analysis"
-    },
-    {
-      "id": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
-      "type": "learning",
-      "title": "Feature Already Implemented - Pivot to Testing Instead of Re-implementing"
-    },
-    {
-      "id": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
-      "type": "learning",
-      "title": "Memory curator agent identified 5 thematic clusters in orphaned nodes"
-    },
-    {
-      "id": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "type": "decision",
-      "title": "Embedding context limit solution for memory refresh --embeddings"
-    },
-    {
-      "id": "learning-memory-system-analysis-session-linking-quality-complete",
-      "type": "learning",
-      "title": "Memory System Analysis Session - Linking & Quality Complete"
-    },
-    {
-      "id": "retro-duplicate-test-discovery",
-      "type": "learning",
-      "title": "Duplicate test file detected: relevance.spec.ts mirrors relevance-scorer.spec.ts"
-    },
-    {
-      "id": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
-      "type": "learning",
-      "title": "Hook Enforcement Strategy - Selective Blocking with Whitelists"
-    },
-    {
-      "id": "learning-retro-tdd-parity-typescript-matching-accuracy",
-      "type": "learning",
-      "title": "retro-tdd-parity-typescript-matching-accuracy"
-    },
-    {
-      "id": "retro-frontend-type-field-indicates-git-files-stale",
-      "type": "learning",
-      "title": "Frontend type field values indicate when git-tracked files are stale"
-    },
-    {
-      "id": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
-      "type": "learning",
-      "title": "Retro - Parallel expert agents for code review scales efficiently"
-    },
-    {
-      "id": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
-      "type": "learning",
-      "title": "Retro - Batch memory scope moves with atomic verification"
-    },
-    {
-      "id": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
-      "type": "learning",
-      "title": "Hook protection can block legitimate git operations - requires careful pattern matching"
-    },
-    {
-      "id": "learning-test-naming-convention-spec-ts",
-      "type": "learning",
-      "title": "Test file naming convention: <name>.spec.ts (drop test- prefix)"
-    },
-    {
-      "id": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
-      "type": "gotcha",
-      "title": "Retro - Memory scope moves orphan existing cross-scope links"
-    },
-    {
-      "id": "learning-test-coverage-achieved-99-percent-functions",
-      "type": "learning",
-      "title": "test-coverage-achieved-99-percent-functions"
-    },
-    {
-      "id": "learning-retro-test-isolation-pattern-worth-documenting",
-      "type": "learning",
-      "title": "retro-test-isolation-pattern-worth-documenting"
-    },
-    {
-      "id": "learning-retro-structured-investigation-prevents-premature-design-decisions",
-      "type": "learning",
-      "title": "Retro - Structured investigation prevents premature design decisions"
-    },
-    {
-      "id": "learning-tdd-parity-typescript-support",
-      "type": "learning",
-      "title": "tdd-parity-typescript-support"
-    },
-    {
-      "id": "gotcha-retro-help-system-broken-for-subcommands",
-      "type": "gotcha",
-      "title": "Retro - Help system broken for subcommands"
-    },
-    {
-      "id": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
-      "type": "learning",
-      "title": "Retro - Parallel agent refactoring for file merges scales well"
-    },
-    {
-      "id": "learning-tdd-phase-completion-pattern",
-      "type": "learning",
-      "title": "tdd-phase-completion-pattern"
-    },
-    {
-      "id": "retro-session-restore-with-parallel-agents-restored-85percent-context",
-      "type": "learning",
-      "title": "Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents"
-    },
-    {
-      "id": "learning-stale-context-summary-after-compaction-can-mislead",
-      "type": "learning",
-      "title": "Stale Context Summary After Compaction Can Mislead"
-    },
-    {
-      "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "type": "gotcha",
-      "title": "Gotcha - vi.mock() causes test pollution in coverage mode"
-    },
-    {
       "id": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
       "type": "gotcha",
       "title": "Bulk Move Loses Graph Edges (Design - Cross-Scope Edges Don't Survive)"
     },
     {
-      "id": "learning-tdd-test-coverage-expansion-pattern",
+      "id": "learning-retro-graceful-degradation-by-default-prevents-coupling",
       "type": "learning",
-      "title": "tdd-test-coverage-expansion-pattern"
+      "title": "retro: Graceful Degradation by Default Prevents Coupling"
     },
     {
-      "id": "artifact-tdd-testing-patterns-catalogue",
-      "type": "artifact",
-      "title": "TDD Testing Patterns Catalogue"
-    },
-    {
-      "id": "learning-cargo-cult-tdd-compliance",
-      "type": "learning",
-      "title": "cargo-cult-tdd-compliance"
-    },
-    {
-      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling"
-    },
-    {
-      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
-      "type": "learning",
-      "title": "Retro - Parallel restoration agents post-compaction proved efficient"
-    },
-    {
-      "id": "gotcha-embedding-context-length-causes-500-error",
-      "type": "gotcha",
-      "title": "Embedding Context Length Causes 500 Error"
-    },
-    {
-      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
-      "type": "gotcha",
-      "title": "Retro - Old bash mermaid had critical filtering features missing from TypeScript"
-    },
-    {
-      "id": "learning-recursive-agent-discovery",
-      "type": "learning",
-      "title": "Recursive agent and style discovery beats hardcoded paths"
-    },
-    {
-      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
-      "type": "learning",
-      "title": "TDD enforcement requires test files before source edits - creates friction with simple fixes"
-    },
-    {
-      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
-      "type": "gotcha",
-      "title": "Think document ID collisions with second-precision timestamps"
-    },
-    {
-      "id": "learning-memory-system-analysis-session-linking-quality-audit",
-      "type": "learning",
-      "title": "Memory System Analysis Session - Linking & Quality Audit"
-    },
-    {
-      "id": "artifact-gotcha-prevention-checklist",
-      "type": "artifact",
-      "title": "Gotcha Prevention Checklist"
-    },
-    {
-      "id": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
-      "type": "learning",
-      "title": "Post-compaction memory restoration prevented duplicate work"
-    },
-    {
-      "id": "learning-test-setup-validation-prevents-false-failures",
-      "type": "learning",
-      "title": "Test setup validation prevents false failures"
-    },
-    {
-      "id": "artifact-memory-system-architecture-reference",
-      "type": "artifact",
-      "title": "Memory System Architecture Reference"
-    },
-    {
-      "id": "retro-type-consistency-required-triple-sync",
-      "type": "learning",
-      "title": "Type consistency requires triple sync: frontmatter, index, graph"
-    },
-    {
-      "id": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
-      "type": "learning",
-      "title": "Retro - Plan mode upfront design prevents implementation ambiguity"
-    },
-    {
-      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
-      "type": "learning",
-      "title": "Memory System Analysis - Linking & Quality Audit Complete"
-    },
-    {
-      "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
-      "type": "decision",
-      "title": "Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
-    },
-    {
-      "id": "gotcha-think-frontmatter-field-tracing",
-      "type": "gotcha",
-      "title": "Think frontmatter fields must be traced through full serialisation stack"
-    },
-    {
-      "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
-      "type": "learning",
-      "title": "retro: Silent error handlers hide type errors from TypeScript"
-    },
-    {
-      "id": "learning-tool-defaults-need-project-aware-discovery",
-      "type": "learning",
-      "title": "Tool defaults need project-aware discovery"
-    },
-    {
-      "id": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
-      "type": "learning",
-      "title": "Promoting learnings to decisions revealed 12 misclassified memories"
-    },
-    {
-      "id": "gotcha-embeddings-cache-schema-must-match-code",
-      "type": "gotcha",
-      "title": "Embeddings Cache Schema Must Match Code"
-    },
-    {
-      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
-      "type": "learning",
-      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact"
-    },
-    {
-      "id": "learning-retro-typescript-tooling-parity",
-      "type": "learning",
-      "title": "retro-typescript-tooling-parity"
-    },
-    {
-      "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
-      "type": "learning",
-      "title": "Retro - Systematic coverage patterns accelerate edge case discovery"
-    },
-    {
-      "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
-      "type": "learning",
-      "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall"
-    },
-    {
-      "id": "retro-test-quality-audit-2026-01-13",
-      "type": "learning",
-      "title": "Test Quality Audit Retrospective - Property Tests Expose Contract Violations"
-    },
-    {
-      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
-      "type": "artifact",
-      "title": "TypeScript CLI Testing - Infrastructure-First Approach"
-    },
-    {
-      "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
-      "type": "gotcha",
-      "title": "Retro - Coverage tool continuation threshold unclear"
-    },
-    {
-      "id": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
-      "type": "gotcha",
-      "title": "TDD test files must exist before editing hooks - catches integration mismatches"
-    },
-    {
-      "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
-      "type": "artifact",
-      "title": "Artifact - CLI test pattern: JSON stdin/stdout with log line filtering"
-    },
-    {
-      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
-      "type": "decision",
-      "title": "Plan mode prevented premature coding of TDD hook enhancements"
-    },
-    {
-      "id": "decision-index-format-migration-prevented-silent-failures",
-      "type": "decision",
-      "title": "Index format migration prevented silent failures"
-    },
-    {
-      "id": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
-      "type": "gotcha",
-      "title": "Gotcha - Speckit.review on massive codebases hits context limits mid-aggregation"
-    },
-    {
-      "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
-      "type": "learning",
-      "title": "Retro - Plugin installation solved forked session hook inheritance"
-    },
-    {
-      "id": "learning-retro-agent-generated-tests-need-api-validation",
-      "type": "learning",
-      "title": "retro-agent-generated-tests-need-api-validation"
-    },
-    {
-      "id": "learning-test-isolation-failure-filtering-requires-environment-awareness",
-      "type": "learning",
-      "title": "Test isolation failures can mask real issues - use environment-aware discovery"
-    },
-    {
-      "id": "artifact-hook-system-patterns-catalogue",
-      "type": "artifact",
-      "title": "Hook System Patterns Catalogue"
-    },
-    {
-      "id": "learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix",
-      "type": "learning",
-      "title": "Retro - Fixing critical issues systematically with test verification between each fix"
-    },
-    {
-      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
-      "type": "learning",
-      "title": "Lean SKILL.md enables quick reference - moved bulk content to README for deep dives"
-    },
-    {
-      "id": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
-      "type": "learning",
-      "title": "Retro - Pattern replication across test suites dramatically accelerates coverage completion"
-    },
-    {
-      "id": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
-      "type": "learning",
-      "title": "Retro - Iterative orphan linking with semantic validation is effective"
-    },
-    {
-      "id": "learning-regex-based-language-parsing-tradeoff",
-      "type": "learning",
-      "title": "regex-based-language-parsing-tradeoff"
-    },
-    {
-      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
-      "type": "artifact",
-      "title": "Per-command help system: registry pattern with command-specific documentation"
-    },
-    {
-      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
-      "type": "gotcha",
-      "title": "CLI doubled prefix bug: type prefix already added by ID generator"
-    },
-    {
-      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
-      "type": "decision",
-      "title": "Gotcha: execFileSync loses PATH when spawning child processes from Bun"
-    },
-    {
-      "id": "hub-search-module-hub",
-      "type": "hub",
-      "title": "Search Module Hub"
-    },
-    {
-      "id": "decision-cli-dispatcher-pattern",
-      "type": "permanent",
-      "title": "CLI Dispatcher Architecture Pattern"
-    },
-    {
-      "id": "decision-4tier-scope-hierarchy",
-      "type": "decision",
-      "title": "4-Tier Scope Hierarchy for Memory Storage"
-    },
-    {
-      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
-      "type": "learning",
-      "title": "Bug fix approach: minimal surface area + comprehensive tests = rapid delivery"
-    },
-    {
-      "id": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
-      "type": "learning",
-      "title": "Retro - Coverage achievement on core modules enables rapid progress on secondary modules"
-    },
-    {
-      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
-      "type": "learning",
-      "title": "Retro: TDD hook enforcement caught gaps early"
-    },
-    {
-      "id": "learning-plugin-schema-discovery-pattern",
-      "type": "learning",
-      "title": "Plugin schema uncertainty wasted time—validate against official spec early"
-    },
-    {
-      "id": "learning-retro-memory-graph-linking-batch-approach-efficient",
-      "type": "learning",
-      "title": "retro-memory-graph-linking-batch-approach-efficient"
-    },
-    {
-      "id": "learning-retrospective-memory-refactor-session",
-      "type": "learning",
-      "title": "Retrospective: Memory refactor session"
-    },
-    {
-      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly"
-    },
-    {
-      "id": "retro-hook-pattern-non-python-projects",
-      "type": "learning",
-      "title": "Hook detection pattern for non-Python projects"
-    },
-    {
-      "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
-      "type": "learning",
-      "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking"
-    },
-    {
-      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
-      "type": "learning",
-      "title": "CLI Layer Testing Pattern - Thin Wrappers"
-    },
-    {
-      "id": "learning-retro-tdd-test-expectations-guide-implementation",
-      "type": "learning",
-      "title": "retro-tdd-test-expectations-guide-implementation"
-    },
-    {
-      "id": "learning-think-scope-project-vs-local-split",
-      "type": "learning",
-      "title": "Think scope - Project vs Local split"
-    },
-    {
-      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly"
-    },
-    {
-      "id": "decision-session-continuity-strategy",
-      "type": "decision",
-      "title": "Session Continuity Strategy"
-    },
-    {
-      "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
-      "type": "learning",
-      "title": "Feature automation should verify existing capability before implementing"
-    },
-    {
-      "id": "learning-retro-test-coverage-asymptotic-returns",
-      "type": "learning",
-      "title": "retro-test-coverage-asymptotic-returns"
-    },
-    {
-      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
-      "type": "gotcha",
-      "title": "Retro - GPU vs CPU embedding model selection matters"
-    },
-    {
-      "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
-      "type": "learning",
-      "title": "TDD Parity Gap Investigation: Is 97.4% Good Enough?"
-    },
-    {
-      "id": "retro-batch-operations-pattern",
-      "type": "learning",
-      "title": "Batch Operations Pattern for Performance"
-    },
-    {
-      "id": "learning-spawn-session-refactor",
-      "type": "learning",
-      "title": "spawn-session-refactor"
-    },
-    {
-      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
-      "type": "learning",
-      "title": "Help system design: centralized registry more maintainable than scattered help strings"
-    },
-    {
-      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
-      "type": "gotcha",
-      "title": "vitest Mocking - Reference Binding Gotcha"
-    },
-    {
-      "id": "learning-cli-gap",
-      "type": "learning",
-      "title": "Memory Skill TypeScript Library Has No CLI Entry Point"
-    },
-    {
-      "id": "hub-core-module-hub",
-      "type": "hub",
-      "title": "Core Module Hub"
-    },
-    {
-      "id": "retro-test-subprocess-hanging",
-      "type": "gotcha",
-      "title": "Retrospective: Full Test Suite Runs Hang Indefinitely"
-    },
-    {
-      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
-      "type": "learning",
-      "title": "Help output reorganization: alphabetical commands with prominent think section"
-    },
-    {
-      "id": "retro-subprocess-security-audit",
-      "type": "gotcha",
-      "title": "Subprocess Security Needs Dedicated Audit Step"
-    },
-    {
-      "id": "learning-specification-audit-caught-architectural-gaps-before-planning",
-      "type": "learning",
-      "title": "Specification audit caught architectural gaps before planning"
-    },
-    {
-      "id": "learning-exclude-thoughts-from-embedding-generation",
-      "type": "learning",
-      "title": "Exclude thoughts from embedding generation"
-    },
-    {
-      "id": "learning-retro-self-referential-tool-testing-creates-productive-loops",
-      "type": "learning",
-      "title": "retro: Self-referential tool testing creates productive loops"
-    },
-    {
-      "id": "retro-test-first-verification-accelerated-security-review",
-      "type": "learning",
-      "title": "Test-First Verification: Security Review Acceleration Pattern"
-    },
-    {
-      "id": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
-      "type": "gotcha",
-      "title": "Retro - Test suite shouldn't write to .claude/memory without cleanup"
-    },
-    {
-      "id": "retro-multi-agent-review-effectiveness",
-      "type": "learning",
-      "title": "Multi-Agent Pre-Ship Review Effectiveness"
-    },
-    {
-      "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
-      "type": "learning",
-      "title": "Retro - TDD parity audit forced complete test coverage"
-    },
-    {
-      "id": "gotcha-call-flag-passed-as-model-name-bug",
-      "type": "gotcha",
-      "title": "Feature review findings verification and fix planning"
-    },
-    {
-      "id": "hub-graph-module-hub",
-      "type": "hub",
-      "title": "Graph Module Hub"
-    },
-    {
-      "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
-      "type": "learning",
-      "title": "Systematic find-replace with testing prevents reference chaos"
-    },
-    {
-      "id": "learning-expert-consultation-effectiveness",
-      "type": "learning",
-      "title": "Expert consultation with 7 agent perspectives produced high-quality deliberation"
-    },
-    {
-      "id": "learning-bun-link-cli-exposure-pattern",
-      "type": "learning",
-      "title": "bun link CLI Exposure Pattern"
-    },
-    {
-      "id": "learning-two-hook-enforcement-pattern-for-memory-operations",
-      "type": "learning",
-      "title": "Two-Hook Enforcement Pattern for Memory Operations"
-    },
-    {
-      "id": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
-      "type": "decision",
-      "title": "TDD enforcement caught hook pattern edge cases early"
-    },
-    {
-      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
-      "type": "learning",
-      "title": "Retro: Explore agent accelerates pattern synthesis"
-    },
-    {
-      "id": "learning-strip-deliberation-trail-from-promoted-think-memories",
-      "type": "learning",
-      "title": "Strip deliberation trail from promoted think memories"
-    },
-    {
-      "id": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
-      "type": "learning",
-      "title": "Learning - Mock file organisation: vi.spyOn() safe to inline, mock.module() requires isolation"
-    },
-    {
-      "id": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
-      "type": "gotcha",
-      "title": "Retro - Session-restore agent type mismatch almost went undetected"
-    },
-    {
-      "id": "decision-memory-hook-enhancement-plan-review",
-      "type": "decision",
-      "title": "Memory Hook Enhancement Plan Review"
-    },
-    {
-      "id": "decision-review-findings-verification-consulting-specialist-agents",
-      "type": "decision",
-      "title": "Review findings verification - consulting specialist agents"
-    },
-    {
-      "id": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
-      "type": "learning",
-      "title": "Retro - Trust gotcha memory before investigating duplicates"
-    },
-    {
-      "id": "learning-typescript-overload-detection-bias-tests",
+      "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
       "type": "learning",
-      "title": "TypeScript overload detection bias tests"
+      "title": "retro: Session Restore with Memory Linking Works - Keeps Context Fresh"
     },
     {
       "id": "learning-retro-hook-created-memories-need-linking",
@@ -877,59 +236,74 @@
       "title": "retro: Hook-Created Memories Not Auto-Linked Into Graph"
     },
     {
-      "id": "learning-gitignore-comment-formatting-two-phase-fix",
+      "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
       "type": "learning",
-      "title": "gitignore-comment-formatting-two-phase-fix"
+      "title": "retro: Orphaned Nodes Accumulate Post-Compaction Without Linking Step"
     },
     {
-      "id": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
-      "type": "learning",
-      "title": "Retro - Parallel agent context restoration accelerates handover"
+      "id": "artifact-tdd-testing-patterns-catalogue",
+      "type": "artifact",
+      "title": "TDD Testing Patterns Catalogue"
     },
     {
-      "id": "retro-parallel-expert-review",
-      "type": "learning",
-      "title": "Parallel Expert Review Orchestration"
+      "id": "artifact-gotcha-prevention-checklist",
+      "type": "artifact",
+      "title": "Gotcha Prevention Checklist"
     },
     {
-      "id": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
-      "type": "learning",
-      "title": "Retro - Session restore workflow reduced context loss and context reorientation time significantly"
+      "id": "artifact-memory-system-architecture-reference",
+      "type": "artifact",
+      "title": "Memory System Architecture Reference"
     },
     {
-      "id": "retro-validation-before-parsing",
-      "type": "learning",
-      "title": "Define Validation Before Touching Parser Logic"
-    },
-    {
-      "id": "decision-colocate-unit-tests",
+      "id": "decision-session-continuity-strategy",
       "type": "decision",
-      "title": "colocate-unit-tests"
+      "title": "Session Continuity Strategy"
     },
     {
-      "id": "learning-think-ai-invocation-flow",
-      "type": "learning",
-      "title": "Think AI invocation - context passing pattern"
+      "id": "artifact-hook-system-patterns-catalogue",
+      "type": "artifact",
+      "title": "Hook System Patterns Catalogue"
     },
     {
-      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
-      "type": "learning",
-      "title": "Millisecond precision required for rapid timestamp-based ID generation"
+      "id": "hub-cli-module-hub",
+      "type": "hub",
+      "title": "CLI Module Hub"
     },
     {
-      "id": "learning-hook-naming-consistency-prevents-state-deadlock",
-      "type": "learning",
-      "title": "Hook naming consistency prevents session state deadlocks"
+      "id": "hub-core-module-hub",
+      "type": "hub",
+      "title": "Core Module Hub"
     },
     {
-      "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly"
+      "id": "hub-graph-module-hub",
+      "type": "hub",
+      "title": "Graph Module Hub"
     },
     {
-      "id": "learning-retro-memory-linking-post-compaction",
+      "id": "hub-think-module-hub",
+      "type": "hub",
+      "title": "Think Module Hub"
+    },
+    {
+      "id": "hub-search-module-hub",
+      "type": "hub",
+      "title": "Search Module Hub"
+    },
+    {
+      "id": "hub-scope-module-hub",
+      "type": "hub",
+      "title": "Scope Module Hub"
+    },
+    {
+      "id": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
       "type": "learning",
-      "title": "retro-memory-linking-post-compaction"
+      "title": "Semantic linking with Ollama effective for recovering orphaned memories"
+    },
+    {
+      "id": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
+      "type": "learning",
+      "title": "Promoting learnings to decisions revealed 12 misclassified memories"
     },
     {
       "id": "learning-hub-documents-improved-en-ratio-36-with-just-5-nodes",
@@ -937,14 +311,34 @@
       "title": "Hub documents improved E:N ratio 36% with just 5 nodes"
     },
     {
-      "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "id": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
       "type": "learning",
-      "title": "Retro - Mock.module isolation in separate spec files prevents test pollution while enabling comprehensive AI path coverage"
+      "title": "Memory curator agent identified 5 thematic clusters in orphaned nodes"
     },
     {
-      "id": "retro-parallel-expert-review-effective",
+      "id": "retro-type-consistency-required-triple-sync",
       "type": "learning",
-      "title": "Retrospective: Parallel Expert Review Orchestration"
+      "title": "Type consistency requires triple sync: frontmatter, index, graph"
+    },
+    {
+      "id": "retro-frontend-type-field-indicates-git-files-stale",
+      "type": "learning",
+      "title": "Frontend type field values indicate when git-tracked files are stale"
+    },
+    {
+      "id": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "type": "learning",
+      "title": "Session restore with parallel agents (memory-recall, curator, check-gotchas) restored 85% context in 3 agents"
+    },
+    {
+      "id": "retro-test-quality-audit-2026-01-13",
+      "type": "learning",
+      "title": "Test Quality Audit Retrospective - Property Tests Expose Contract Violations"
+    },
+    {
+      "id": "gotcha-embeddings-cache-schema-must-match-code",
+      "type": "gotcha",
+      "title": "Embeddings Cache Schema Must Match Code"
     },
     {
       "id": "learning-post-compaction-parallel-agent-restoration-effective",
@@ -952,9 +346,129 @@
       "title": "Post-Compaction Parallel Agent Restoration Effective"
     },
     {
-      "id": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "id": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
       "type": "learning",
-      "title": "retro: Orphaned Nodes Accumulate Post-Compaction Without Linking Step"
+      "title": "Feature Already Implemented - Pivot to Testing Instead of Re-implementing"
+    },
+    {
+      "id": "learning-stale-context-summary-after-compaction-can-mislead",
+      "type": "learning",
+      "title": "Stale Context Summary After Compaction Can Mislead"
+    },
+    {
+      "id": "gotcha-call-flag-passed-as-model-name-bug",
+      "type": "gotcha",
+      "title": "Feature review findings verification and fix planning"
+    },
+    {
+      "id": "decision-review-findings-verification-consulting-specialist-agents",
+      "type": "decision",
+      "title": "Review findings verification - consulting specialist agents"
+    },
+    {
+      "id": "learning-review-findings-verification-multi-perspective-analysis",
+      "type": "learning",
+      "title": "Review findings verification - multi-perspective analysis"
+    },
+    {
+      "id": "learning-retro-self-referential-tool-testing-creates-productive-loops",
+      "type": "learning",
+      "title": "retro: Self-referential tool testing creates productive loops"
+    },
+    {
+      "id": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
+      "type": "learning",
+      "title": "retro: Silent error handlers hide type errors from TypeScript"
+    },
+    {
+      "id": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "type": "learning",
+      "title": "TDD Parity Gap Investigation: Is 97.4% Good Enough?"
+    },
+    {
+      "id": "learning-tool-defaults-need-project-aware-discovery",
+      "type": "learning",
+      "title": "Tool defaults need project-aware discovery"
+    },
+    {
+      "id": "learning-typescript-overload-detection-bias-tests",
+      "type": "learning",
+      "title": "TypeScript overload detection bias tests"
+    },
+    {
+      "id": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "type": "learning",
+      "title": "Feature automation should verify existing capability before implementing"
+    },
+    {
+      "id": "learning-test-setup-validation-prevents-false-failures",
+      "type": "learning",
+      "title": "Test setup validation prevents false failures"
+    },
+    {
+      "id": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "type": "learning",
+      "title": "Systematic find-replace with testing prevents reference chaos"
+    },
+    {
+      "id": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "type": "learning",
+      "title": "TDD caught hook integration pattern mismatch"
+    },
+    {
+      "id": "learning-performance-constraints-should-be-documented-upfront",
+      "type": "learning",
+      "title": "Performance constraints should be documented upfront"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-plan-review",
+      "type": "decision",
+      "title": "Memory Hook Enhancement Plan Review"
+    },
+    {
+      "id": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "type": "learning",
+      "title": "Scope reduction for system hooks through expert consultation prevents coupling"
+    },
+    {
+      "id": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "type": "gotcha",
+      "title": "TDD test files must exist before editing hooks - catches integration mismatches"
+    },
+    {
+      "id": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "type": "decision",
+      "title": "Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
+    },
+    {
+      "id": "learning-expert-consultation-effectiveness",
+      "type": "learning",
+      "title": "Expert consultation with 7 agent perspectives produced high-quality deliberation"
+    },
+    {
+      "id": "learning-plugin-schema-discovery-pattern",
+      "type": "learning",
+      "title": "Plugin schema uncertainty wasted time—validate against official spec early"
+    },
+    {
+      "id": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "type": "learning",
+      "title": "Hook naming consistency prevents session state deadlocks"
+    },
+    {
+      "id": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "type": "learning",
+      "title": "Test isolation failures can mask real issues - use environment-aware discovery"
+    },
+    {
+      "id": "retro-subprocess-security-audit",
+      "type": "gotcha",
+      "title": "Subprocess Security Needs Dedicated Audit Step"
+    },
+    {
+      "id": "retro-parallel-expert-review",
+      "type": "learning",
+      "title": "Parallel Expert Review Orchestration"
     },
     {
       "id": "thought-20260114-200851835",
@@ -962,19 +476,9 @@
       "title": "Think: Testing memory-curator agent attribution"
     },
     {
-      "id": "thought-20260116-180811237",
-      "type": "breadcrumb",
-      "title": "Think: Embedding context limit solution for memory refresh --embeddings"
-    },
-    {
       "id": "thought-20260115-232204899",
       "type": "breadcrumb",
       "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
-    },
-    {
-      "id": "thought-20260116-183846962",
-      "type": "breadcrumb",
-      "title": "Think: Memory System Analysis Session - Linking & Quality Audit"
     },
     {
       "id": "thought-20260116-070440686",
@@ -982,20 +486,1928 @@
       "title": "Think: Testing output styles"
     },
     {
-      "id": "thought-20260112-190617",
-      "type": "breadcrumb",
-      "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages"
-    },
-    {
       "id": "thought-20260115-194159327",
       "type": "breadcrumb",
       "title": "Think: Memory Hook Enhancement Plan Review"
     },
     {
+      "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "type": "learning",
+      "title": "Retro - Plugin installation solved forked session hook inheritance"
+    },
+    {
+      "id": "gotcha-retro-help-system-broken-for-subcommands",
+      "type": "gotcha",
+      "title": "Retro - Help system broken for subcommands"
+    },
+    {
+      "id": "retro-parallel-expert-review-effective",
+      "type": "learning",
+      "title": "Retrospective: Parallel Expert Review Orchestration"
+    },
+    {
+      "id": "retro-test-subprocess-hanging",
+      "type": "gotcha",
+      "title": "Retrospective: Full Test Suite Runs Hang Indefinitely"
+    },
+    {
+      "id": "gotcha-embedding-context-length-causes-500-error",
+      "type": "gotcha",
+      "title": "Embedding Context Length Causes 500 Error"
+    },
+    {
+      "id": "learning-retro-embedding-truncation-solved-silent-failures",
+      "type": "learning",
+      "title": "Retro - Embedding truncation solved silent failures"
+    },
+    {
+      "id": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "type": "learning",
+      "title": "Retro - TDD parity audit forced complete test coverage"
+    },
+    {
+      "id": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "type": "gotcha",
+      "title": "Retro - GPU vs CPU embedding model selection matters"
+    },
+    {
+      "id": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "type": "learning",
+      "title": "Retro - Post-compaction memory restoration (agents) outperforms manual recall"
+    },
+    {
+      "id": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "type": "artifact",
+      "title": "Artifact - CLI test pattern: JSON stdin/stdout with log line filtering"
+    },
+    {
+      "id": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "type": "learning",
+      "title": "Retro - Trust gotcha memory before investigating duplicates"
+    },
+    {
+      "id": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "type": "learning",
+      "title": "Retro - Parallel agent context restoration accelerates handover"
+    },
+    {
+      "id": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "type": "gotcha",
+      "title": "Retro - Spec review discovered 59 TypeScript compilation errors at end-of-phase"
+    },
+    {
+      "id": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "type": "learning",
+      "title": "Strip deliberation trail from promoted think memories"
+    },
+    {
+      "id": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "type": "decision",
+      "title": "Embedding context limit solution for memory refresh --embeddings"
+    },
+    {
+      "id": "learning-exclude-thoughts-from-embedding-generation",
+      "type": "learning",
+      "title": "Exclude thoughts from embedding generation"
+    },
+    {
+      "id": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "type": "gotcha",
+      "title": "Gotcha - vi.mock() causes test pollution in coverage mode"
+    },
+    {
+      "id": "learning-learning-inspect-implementation-before-fixing-promotions",
+      "type": "learning",
+      "title": "Learning - Inspect implementation before fixing promotions"
+    },
+    {
+      "id": "learning-memory-system-analysis-session-linking-quality-audit",
+      "type": "learning",
+      "title": "Memory System Analysis Session - Linking & Quality Audit"
+    },
+    {
+      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly"
+    },
+    {
+      "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "type": "learning",
+      "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking"
+    },
+    {
+      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "type": "learning",
+      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact"
+    },
+    {
+      "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly"
+    },
+    {
+      "id": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "type": "learning",
+      "title": "Retro - Mock.module isolation in separate spec files prevents test pollution while enabling comprehensive AI path coverage"
+    },
+    {
+      "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "type": "learning",
+      "title": "Retro - Systematic coverage patterns accelerate edge case discovery"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents post-compaction proved efficient"
+    },
+    {
+      "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "type": "gotcha",
+      "title": "Retro - Coverage tool continuation threshold unclear"
+    },
+    {
+      "id": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "type": "learning",
+      "title": "Retro - Pattern replication across test suites dramatically accelerates coverage completion"
+    },
+    {
+      "id": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "type": "learning",
+      "title": "Retro - Session restore workflow reduced context loss and context reorientation time significantly"
+    },
+    {
+      "id": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
+      "type": "learning",
+      "title": "Retro - Coverage achievement on core modules enables rapid progress on secondary modules"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "type": "learning",
+      "title": "Retro - Error handling test pattern replication reduced per-file time"
+    },
+    {
+      "id": "thought-20260116-180811237",
+      "type": "breadcrumb",
+      "title": "Think: Embedding context limit solution for memory refresh --embeddings"
+    },
+    {
+      "id": "thought-20260116-183846962",
+      "type": "breadcrumb",
+      "title": "Think: Memory System Analysis Session - Linking & Quality Audit"
+    },
+    {
+      "id": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
+      "type": "learning",
+      "title": "Retro - Error handling test pattern with call-counting mocks for race conditions"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling"
+    },
+    {
+      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "type": "learning",
+      "title": "Retro - Separate mock spec files prevent test pollution at coverage ceiling"
+    },
+    {
+      "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "type": "gotcha",
+      "title": "Retro - Test quality audit post-coverage risks releasing cheating tests"
+    },
+    {
+      "id": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "type": "learning",
+      "title": "Memory System Analysis - Linking & Quality Audit Complete"
+    },
+    {
+      "id": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "type": "learning",
+      "title": "Retro: TDD hook enforcement caught gaps early"
+    },
+    {
+      "id": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "type": "learning",
+      "title": "Retro: Explore agent accelerates pattern synthesis"
+    },
+    {
+      "id": "learning-retrospective-memory-refactor-session",
+      "type": "learning",
+      "title": "Retrospective: Memory refactor session"
+    },
+    {
       "id": "thought-20260112-221004029",
       "type": "breadcrumb",
       "title": "Think: Retrospective: Memory refactor session"
+    },
+    {
+      "id": "learning-think-scope-project-vs-local-split",
+      "type": "learning",
+      "title": "Think scope - Project vs Local split"
+    },
+    {
+      "id": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "type": "learning",
+      "title": "Lean SKILL.md enables quick reference - moved bulk content to README for deep dives"
+    },
+    {
+      "id": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "type": "learning",
+      "title": "TDD enforcement requires test files before source edits - creates friction with simple fixes"
+    },
+    {
+      "id": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "type": "learning",
+      "title": "Namespace enforcement for plugin slash commands critical for routing"
+    },
+    {
+      "id": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "type": "learning",
+      "title": "Hook Enforcement Strategy - Selective Blocking with Whitelists"
+    },
+    {
+      "id": "gotcha-bash-vs-typescript-index-format-mismatch",
+      "type": "gotcha",
+      "title": "Bash vs TypeScript Index Format Mismatch"
+    },
+    {
+      "id": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "type": "decision",
+      "title": "TDD enforcement caught hook pattern edge cases early"
+    },
+    {
+      "id": "learning-two-hook-enforcement-pattern-for-memory-operations",
+      "type": "learning",
+      "title": "Two-Hook Enforcement Pattern for Memory Operations"
+    },
+    {
+      "id": "decision-hook-separation-clarified-enforcement-boundaries",
+      "type": "decision",
+      "title": "Hook separation clarified enforcement boundaries"
+    },
+    {
+      "id": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "type": "learning",
+      "title": "Index Migration Layer Handles Bash-to-TypeScript Format Transition"
+    },
+    {
+      "id": "decision-index-format-migration-prevented-silent-failures",
+      "type": "decision",
+      "title": "Index format migration prevented silent failures"
+    },
+    {
+      "id": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "type": "decision",
+      "title": "SubagentStop hook receives insufficient context - use PostToolUse instead"
+    },
+    {
+      "id": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "type": "decision",
+      "title": "TDD enforcement hooks: TypeScript-for-all vs native per-language"
+    },
+    {
+      "id": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "type": "decision",
+      "title": "Gotcha: execFileSync loses PATH when spawning child processes from Bun"
+    },
+    {
+      "id": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "type": "decision",
+      "title": "Plan mode prevented premature coding of TDD hook enhancements"
+    },
+    {
+      "id": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "type": "learning",
+      "title": "Help output reorganization: alphabetical commands with prominent think section"
+    },
+    {
+      "id": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "type": "artifact",
+      "title": "Per-command help system: registry pattern with command-specific documentation"
+    },
+    {
+      "id": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "type": "learning",
+      "title": "CLI parser now supports --flag=value syntax in addition to --flag value"
+    },
+    {
+      "id": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "type": "gotcha",
+      "title": "Think document ID collisions with second-precision timestamps"
+    },
+    {
+      "id": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "type": "learning",
+      "title": "Bug fix approach: minimal surface area + comprehensive tests = rapid delivery"
+    },
+    {
+      "id": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "type": "learning",
+      "title": "Help system design: centralized registry more maintainable than scattered help strings"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "type": "gotcha",
+      "title": "CLI doubled prefix bug: type prefix already added by ID generator"
+    },
+    {
+      "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "type": "learning",
+      "title": "Millisecond precision required for rapid timestamp-based ID generation"
+    },
+    {
+      "id": "thought-20260112-190617",
+      "type": "breadcrumb",
+      "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages"
+    },
+    {
+      "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "type": "artifact",
+      "title": "TypeScript CLI Testing - Infrastructure-First Approach"
+    },
+    {
+      "id": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "type": "gotcha",
+      "title": "vitest Mocking - Reference Binding Gotcha"
+    },
+    {
+      "id": "learning-bun-link-cli-exposure-pattern",
+      "type": "learning",
+      "title": "bun link CLI Exposure Pattern"
+    },
+    {
+      "id": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "type": "learning",
+      "title": "CLI Layer Testing Pattern - Thin Wrappers"
+    },
+    {
+      "id": "retro-batch-operations-pattern",
+      "type": "learning",
+      "title": "Batch Operations Pattern for Performance"
+    },
+    {
+      "id": "retro-multi-agent-review-effectiveness",
+      "type": "learning",
+      "title": "Multi-Agent Pre-Ship Review Effectiveness"
+    },
+    {
+      "id": "retro-validation-before-parsing",
+      "type": "learning",
+      "title": "Define Validation Before Touching Parser Logic"
+    },
+    {
+      "id": "gotcha-scope-resolver-params",
+      "type": "permanent",
+      "title": "getScopePath() Requires (scope, cwd, globalPath) Not Just Scope"
+    },
+    {
+      "id": "learning-cli-gap",
+      "type": "learning",
+      "title": "Memory Skill TypeScript Library Has No CLI Entry Point"
+    },
+    {
+      "id": "decision-think-temporary-breadcrumb-type",
+      "type": "decision",
+      "title": "Think documents stored as Breadcrumb type in temporary/ directory"
+    },
+    {
+      "id": "learning-recursive-agent-discovery",
+      "type": "learning",
+      "title": "Recursive agent and style discovery beats hardcoded paths"
+    },
+    {
+      "id": "gotcha-think-frontmatter-field-tracing",
+      "type": "gotcha",
+      "title": "Think frontmatter fields must be traced through full serialisation stack"
+    },
+    {
+      "id": "learning-think-ai-invocation-flow",
+      "type": "learning",
+      "title": "Think AI invocation - context passing pattern"
+    },
+    {
+      "id": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "type": "learning",
+      "title": "Retro - Structured investigation prevents premature design decisions"
+    },
+    {
+      "id": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
+      "type": "gotcha",
+      "title": "Retro - Session-restore agent type mismatch almost went undetected"
+    },
+    {
+      "id": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "type": "learning",
+      "title": "Retro - Batch memory scope moves with atomic verification"
+    },
+    {
+      "id": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "type": "gotcha",
+      "title": "Retro - Memory scope moves orphan existing cross-scope links"
+    },
+    {
+      "id": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "type": "learning",
+      "title": "Retro - Iterative orphan linking with semantic validation is effective"
+    },
+    {
+      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
+      "type": "gotcha",
+      "title": "Retro - Old bash mermaid had critical filtering features missing from TypeScript"
+    },
+    {
+      "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "type": "learning",
+      "title": "Retro - Plan mode + agent exploration = effective architecture review"
+    },
+    {
+      "id": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
+      "type": "learning",
+      "title": "Retro - Plan mode upfront design prevents implementation ambiguity"
+    },
+    {
+      "id": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "type": "gotcha",
+      "title": "Retro - Test suite shouldn't write to .claude/memory without cleanup"
+    },
+    {
+      "id": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
+      "type": "learning",
+      "title": "Retro - Test-driven spec updates ensure implementation matches expectations"
+    },
+    {
+      "id": "gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug",
+      "type": "gotcha",
+      "title": "Gotcha - Permission bypass was a design constraint, not a bug"
+    },
+    {
+      "id": "gotcha-retro-vitest-mockinstance-type-casting-requires-unknown-intermediate",
+      "type": "gotcha",
+      "title": "Retro - Vitest MockInstance type casting requires unknown intermediate"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "type": "learning",
+      "title": "Retro - Parallel expert agents for code review scales efficiently"
+    },
+    {
+      "id": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "type": "learning",
+      "title": "Retro - Parallel memory restoration agents unblock context efficiently"
+    },
+    {
+      "id": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "type": "learning",
+      "title": "Retro - Parallel agent refactoring for file merges scales well"
+    },
+    {
+      "id": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
+      "type": "gotcha",
+      "title": "Gotcha - Speckit.review on massive codebases hits context limits mid-aggregation"
+    },
+    {
+      "id": "learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix",
+      "type": "learning",
+      "title": "Retro - Fixing critical issues systematically with test verification between each fix"
+    },
+    {
+      "id": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
+      "type": "gotcha",
+      "title": "Gotcha - Plugin skill namespace mismatch caused hook failures"
+    },
+    {
+      "id": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "type": "learning",
+      "title": "Learning - Mock file organisation: vi.spyOn() safe to inline, mock.module() requires isolation"
+    },
+    {
+      "id": "learning-learning-duplicated-cli-helpers-hidden-in-10-command-files",
+      "type": "learning",
+      "title": "Learning - Duplicated CLI helpers hidden in 10 command files"
+    },
+    {
+      "id": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "type": "learning",
+      "title": "Retro - TypeScript error fixing in batches prevents fatigue and catches regressions"
+    },
+    {
+      "id": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-dependency-injection-for-stream-parameters-enables-better-testability-than-global-mocking",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation",
+      "type": "gotcha"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "relation": "same-feature-different-layer"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-isolation-architecture-design",
+      "relation": "decision-enables"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "learning-tdd-phase-completion-pattern",
+      "relation": "same-methodology"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "enabled-by"
+    },
+    {
+      "source": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "target": "learning-gitignore-comment-formatting-two-phase-fix",
+      "relation": "same-phase-hook-protection"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-gitignore-comment-formatting-two-phase-fix",
+      "relation": "decision-implementation-detail"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "learning-scope-isolation-architecture-design",
+      "relation": "related-implementation"
+    },
+    {
+      "source": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "target": "decision-4tier-scope-hierarchy",
+      "relation": "informed-by"
+    },
+    {
+      "source": "retro-test-first-verification-accelerated-security-review",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "relation": "applied-same-pattern"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "relation": "enables"
+    },
+    {
+      "source": "learning-test-naming-convention-spec-ts",
+      "target": "learning-typescript-import-path-consistency-prevents-batch-compilation-failures",
+      "relation": "related-build-quality"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "demonstrates-correct-pattern"
+    },
+    {
+      "source": "learning-immutable-graph-operations-pattern",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "implementation-pattern"
+    },
+    {
+      "source": "learning-retro-tdd-test-expectations-guide-implementation",
+      "target": "learning-tdd-phase-completion-pattern",
+      "relation": "tdd-workflow"
+    },
+    {
+      "source": "learning-typescript-tdd-hook-naming-enforcement",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "related-naming-patterns"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "enforces-convention"
+    },
+    {
+      "source": "learning-spawn-session-refactor",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "relation": "related-session-continuity"
+    },
+    {
+      "source": "learning-typescript-tdd-hook-naming-enforcement",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "related-hook-enforcement"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "relation": "enables"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "learning-retro-typescript-tooling-parity",
+      "relation": "same-implementation"
+    },
+    {
+      "source": "learning-regex-based-language-parsing-tradeoff",
+      "target": "learning-retro-typescript-tooling-parity",
+      "relation": "motivates"
+    },
+    {
+      "source": "retro-duplicate-test-discovery",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "prevents"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "retro-duplicate-test-discovery",
+      "relation": "related-quality-improvements"
+    },
+    {
+      "source": "learning-test-coverage-achieved-99-percent-functions",
+      "target": "learning-retro-test-coverage-asymptotic-returns",
+      "relation": "demonstrates"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "relation": "related-hook-patterns"
+    },
+    {
+      "source": "retro-hook-pattern-non-python-projects",
+      "target": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "relation": "generalises"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "relation": "decision-creates"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "relation": "decision-creates"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "same-implementation"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "relation": "part-of-same-work"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "relation": "enables"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-test-naming-convention-spec-ts",
+      "relation": "implements-naming-convention"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "relation": "enables-scope-resolution"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "enables-expansion-pattern"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "same-pattern"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "learning-test-agent-generates-aspirational-tests",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "decision-colocate-unit-tests",
+      "relation": "motivated-decision"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "relation": "same-gotcha-family"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "relation": "related-gotcha"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "detailed-analysis"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "relation": "manual-coverage-required"
+    },
+    {
+      "source": "learning-retro-agent-verification-for-exclusions",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "relation": "related-retrospective-pattern"
+    },
+    {
+      "source": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "relation": "same-process"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "relation": "session-continuity"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "relation": "tooling-limitation"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "relation": "demonstrates-correct-pattern"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "decision-colocate-unit-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-naming-convention-spec-ts",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-test-coverage-expansion-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-coverage-achieved-99-percent-functions",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-phase-completion-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cargo-cult-tdd-compliance",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-scope-resolution-module-structure",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-semantic-search-embedding-caching-success",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-immutable-graph-operations-pattern",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-protection-can-block-legitimate-git-operations---requires-careful-pattern-matching",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-hook-created-memories-need-linking",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-hook-pattern-non-python-projects",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-memory-system-architecture-reference",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-hook-system-patterns-catalogue",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-hook-system-patterns-catalogue",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "hub-cli-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-cli-module-hub",
+      "target": "hub-core-module-hub",
+      "label": "related-module"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "label": "documents"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "decision-colocate-unit-tests",
+      "label": "implements"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-immutable-graph-operations-pattern",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "documents"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "learning-hub-documents-improved-en-ratio-36-with-just-5-nodes",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories",
+      "label": "documents"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "documents"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "documents"
+    },
+    {
+      "source": "hub-think-module-hub",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "part-of"
+    },
+    {
+      "source": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
+      "target": "hub-graph-module-hub",
+      "label": "documents"
+    },
+    {
+      "source": "learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "retro-type-consistency-required-triple-sync",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-frontend-type-field-indicates-git-files-stale",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-quality-audit-2026-01-13",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-embeddings-cache-schema-must-match-code",
+      "target": "hub-search-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-parallel-agent-restoration-effective",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-stale-context-summary-after-compaction-can-mislead",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-call-flag-passed-as-model-name-bug",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-review-findings-verification-consulting-specialist-agents",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-review-findings-verification-multi-perspective-analysis",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-self-referential-tool-testing-creates-productive-loops",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-silent-error-handlers-hide-type-errors-from-typescript",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-typescript-overload-detection-bias-tests",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-typescript-overload-detection-bias-tests",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "target": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-schema-discovery-pattern",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-scope-reduction-for-system-hooks-through-expert-consultation-prevents-coupling",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-schema-discovery-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "target": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-performance-constraints-should-be-documented-upfront",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-performance-constraints-should-be-documented-upfront",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-systematic-find-replace-with-testing-prevents-reference-chaos",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "target": "learning-tdd-caught-hook-integration-pattern-mismatch",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "retro-test-first-verification-accelerated-security-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260115-232204899",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260115-194159327",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-help-system-broken-for-subcommands",
+      "target": "hub-cli-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-help-system-broken-for-subcommands",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-expert-consultation-effectiveness",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "learning-spawn-session-refactor",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-embedding-truncation-solved-silent-failures",
+      "target": "gotcha-embedding-context-length-causes-500-error",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters",
+      "target": "learning-retro-embedding-truncation-solved-silent-failures",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260114-200851835",
+      "target": "decision-review-findings-verification-consulting-specialist-agents",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-070440686",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "target": "learning-exclude-thoughts-from-embedding-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-exclude-thoughts-from-embedding-generation",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "target": "gotcha-embedding-context-length-causes-500-error",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "target": "learning-retro-embedding-truncation-solved-silent-failures",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-learning-inspect-implementation-before-fixing-promotions",
+      "target": "learning-strip-deliberation-trail-from-promoted-think-memories",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "target": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "target": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-on-secondary-modules",
+      "target": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-batch-operations-pattern",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-batch-operations-pattern",
+      "target": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "decision-review-findings-verification-consulting-specialist-agents",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-two-hook-enforcement-pattern-for-memory-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-validation-before-parsing",
+      "target": "gotcha-bash-vs-typescript-index-format-mismatch",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-221004029",
+      "target": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "related-to"
+    },
+    {
+      "source": "decision-review-findings-verification-consulting-specialist-agents",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "related-to"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "extends"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "related-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "related-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "supersedes"
+    },
+    {
+      "source": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "extends"
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "resolves"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "resolves"
+    },
+    {
+      "source": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tmpdir-cleanup-permissions-fragile",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-think-scope-project-vs-local-split",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retrospective-memory-refactor-session",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-lean-skillmd-enables-quick-reference-moved-bulk-content-to-readme-for-deep-dives",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-namespace-enforcement-for-plugin-slash-commands-critical-for-routing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-hook-separation-clarified-enforcement-boundaries",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "decision-index-format-migration-prevented-silent-failures",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-help-output-reorganization-alphabetical-commands-with-prominent-think-section",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "artifact-per-command-help-system-registry-pattern-with-command-specific-documentation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-parser-now-supports-flagvalue-syntax-in-addition-to-flag-value",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-think-document-id-collisions-with-second-precision-timestamps",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "artifact-typescript-cli-testing-infrastructure-first-approach",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-layer-testing-pattern-thin-wrappers",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "documents"
+    },
+    {
+      "source": "learning-bun-link-cli-exposure-pattern",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-scope-resolver-params",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-cli-gap",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "decision-think-temporary-breadcrumb-type",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "related-to"
+    },
+    {
+      "source": "learning-think-ai-invocation-flow",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-think-frontmatter-field-tracing",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "learning-recursive-agent-discovery",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-session-restore-agent-type-mismatch-almost-went-undetected",
+      "target": "decision-session-continuity-strategy",
+      "label": "documents"
+    },
+    {
+      "source": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "documents"
+    },
+    {
+      "source": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-180811237",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260116-183846962",
+      "target": "learning-memory-system-analysis-session-linking-quality-audit",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "thought-20260112-190617",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-dependency-injection-for-stream-parameters-enables-better-testability-than-global-mocking",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "target": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-memory-curator-agent-identified-5-thematic-clusters-in-orphaned-nodes",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
+      "target": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-learning-duplicated-cli-helpers-hidden-in-10-command-files",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
+      "target": "learning-performance-constraints-should-be-documented-upfront",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-vitest-mockinstance-type-casting-requires-unknown-intermediate",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    }
+  ]
 }

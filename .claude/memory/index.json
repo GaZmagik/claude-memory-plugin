@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T06:16:16.755Z",
+  "lastUpdated": "2026-01-17T10:26:56.805Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2718,21 +2718,6 @@
       "severity": "medium"
     },
     {
-      "id": "decision-cli-dispatcher-pattern",
-      "title": "CLI Dispatcher Architecture Pattern",
-      "type": "permanent",
-      "tags": [
-        "architecture",
-        "decision",
-        "cli",
-        "design"
-      ],
-      "created": "2026-01-12T15:46:00Z",
-      "updated": "2026-01-16T23:10:44.609Z",
-      "scope": "project",
-      "relativePath": "permanent/decision-cli-dispatcher-pattern.md"
-    },
-    {
       "id": "learning-cli-gap",
       "title": "Memory Skill TypeScript Library Has No CLI Entry Point",
       "type": "learning",
@@ -3048,22 +3033,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-memory-system-analysis-session-linking-quality-complete",
-      "type": "learning",
-      "title": "Memory System Analysis Session - Linking & Quality Complete",
-      "tags": [
-        "memory-system",
-        "analysis",
-        "quality",
-        "linking",
-        "project"
-      ],
-      "created": "2026-01-17T01:13:29.762Z",
-      "updated": "2026-01-17T01:13:29.762Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-memory-system-analysis-session-linking-quality-complete.md"
-    },
-    {
       "id": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
       "type": "learning",
       "title": "Retro - Parallel expert agents for code review scales efficiently",
@@ -3159,6 +3128,89 @@
       "scope": "project",
       "relativePath": "permanent/learning-learning-duplicated-cli-helpers-hidden-in-10-command-files.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "type": "learning",
+      "title": "Retro - TypeScript error fixing in batches prevents fatigue and catches regressions",
+      "tags": [
+        "retrospective",
+        "typescript",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-17T06:54:08.166Z",
+      "updated": "2026-01-17T06:54:08.166Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-vitest-mockinstance-type-casting-requires-unknown-intermediate",
+      "type": "gotcha",
+      "title": "Retro - Vitest MockInstance type casting requires unknown intermediate",
+      "tags": [
+        "retrospective",
+        "typescript",
+        "vitest",
+        "test-patterns",
+        "project"
+      ],
+      "created": "2026-01-17T06:54:14.248Z",
+      "updated": "2026-01-17T06:54:14.248Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-vitest-mockinstance-type-casting-requires-unknown-intermediate.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "type": "learning",
+      "title": "Retro - TypeScript batch fixing by category prevents fatigue and catches regressions",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-17T10:26:44.002Z",
+      "updated": "2026-01-17T10:26:44.002Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-dependency-injection-for-stream-parameters-enables-better-testability-than-global-mocking",
+      "type": "learning",
+      "title": "Retro - Dependency injection for stream parameters enables better testability than global mocking",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-17T10:26:50.501Z",
+      "updated": "2026-01-17T10:26:50.501Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-dependency-injection-for-stream-parameters-enables-better-testability-than-global-mocking.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation",
+      "type": "gotcha",
+      "title": "Gotcha - Graph edge loss silently corrupts state without validation",
+      "tags": [
+        "retrospective",
+        "process",
+        "data-integrity",
+        "project"
+      ],
+      "created": "2026-01-17T10:26:56.793Z",
+      "updated": "2026-01-17T10:26:56.793Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation.md",
+      "severity": "high"
     }
   ]
 }

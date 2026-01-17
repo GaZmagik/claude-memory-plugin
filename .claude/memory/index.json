@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T05:38:18.251Z",
+  "lastUpdated": "2026-01-17T06:16:16.755Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3110,6 +3110,54 @@
       "updated": "2026-01-17T05:32:29.319Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "type": "learning",
+      "title": "Retro - Parallel memory restoration agents unblock context efficiently",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-01-17T06:11:51.985Z",
+      "updated": "2026-01-17T06:11:51.985Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
+      "type": "gotcha",
+      "title": "Gotcha - Plugin skill namespace mismatch caused hook failures",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "plugin-system",
+        "project"
+      ],
+      "created": "2026-01-17T06:11:57.861Z",
+      "updated": "2026-01-17T06:11:57.861Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-learning-duplicated-cli-helpers-hidden-in-10-command-files",
+      "type": "learning",
+      "title": "Learning - Duplicated CLI helpers hidden in 10 command files",
+      "tags": [
+        "retrospective",
+        "refactoring",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-01-17T06:12:03.362Z",
+      "updated": "2026-01-17T06:12:03.362Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-learning-duplicated-cli-helpers-hidden-in-10-command-files.md",
       "severity": "medium"
     }
   ]

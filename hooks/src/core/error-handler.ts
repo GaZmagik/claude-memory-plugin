@@ -126,6 +126,8 @@ function getHookInfo(): { name: string; type: string } {
     'post-tool-use': 'PostToolUse',
     'user-prompt-submit': 'UserPromptSubmit',
     'session': 'Session',
+    'session-start': 'SessionStart',
+    'session-end': 'SessionEnd',
     'subagent-stop': 'SubagentStop',
   };
 

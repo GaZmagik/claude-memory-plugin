@@ -10,7 +10,7 @@
  * - Auto-prune: silently removes expired temporary memories
  */
 
-import { runHook, allow } from '../src/core/error-handler.ts';
+import { runHook, allow, block } from '../src/core/error-handler.ts';
 import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
@@ -363,10 +363,10 @@ runHook(async (input) => {
     logFile = join(logDir, 'memory-context.log');
   }
 
-  // Check if memory CLI is available - show setup message if not
+  // Check if memory CLI is available - block with setup message if not
   const memoryCliAvailable = await isMemoryCliAvailable();
   if (!memoryCliAvailable) {
-    // Use allow() with message - SessionStart hooks output plain text to stdout
+    // Use block() (exit code 2) to make the message impossible to ignore
     let message = MEMORY_CLI_SETUP_MESSAGE.trim();
 
     // Add basic index info if available
@@ -374,7 +374,7 @@ runHook(async (input) => {
       message += '\n\n📚 Memory indexes exist but CLI features (health, think, prune) are unavailable.';
     }
 
-    return allow(message);
+    return block(message);
   }
 
   // Check if any index exists

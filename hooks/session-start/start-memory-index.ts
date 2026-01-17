@@ -15,6 +15,7 @@ import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 import { spawn } from '../src/core/subprocess.ts';
+import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
 
 interface MemoryEntry {
   id: string;
@@ -197,7 +198,8 @@ function buildSummary(indexFile: string, scope: string): string {
 async function checkMemoryHealth(
   projectDir: string,
   logFile: string | null,
-  sessionId: string
+  sessionId: string,
+  healthThreshold: number = DEFAULT_SETTINGS.health_threshold
 ): Promise<string> {
   try {
     const result = await spawn(['memory', 'health', '--json'], {
@@ -219,8 +221,8 @@ async function checkMemoryHealth(
       `[HEALTH] Score: ${(score * 100).toFixed(0)}% | Issues: ${issues.length}`
     );
 
-    // Warn if health is below 70%
-    if (score < 0.7) {
+    // Warn if health is below threshold (default 70%)
+    if (score < healthThreshold) {
       const issueList = issues.slice(0, 3).map((i: string) => `    - ${i}`).join('\n');
       return `\n⚠️ Memory health: ${(score * 100).toFixed(0)}% - consider running 'memory repair'\n${issueList ? `  Issues:\n${issueList}` : ''}`;
     }
@@ -323,6 +325,9 @@ runHook(async (input) => {
   const sessionId = input?.session_id || '';
   const home = homedir();
 
+  // Load plugin settings (with fallbacks to defaults)
+  const settings = loadSettings(projectDir);
+
   const localIndex = join(projectDir, '.claude', 'memory', 'index.json');
   const globalIndex = join(home, '.claude', 'memory', 'index.json');
 
@@ -367,7 +372,7 @@ runHook(async (input) => {
   }
 
   // Run health check and add warning if degraded
-  const healthWarning = await checkMemoryHealth(projectDir, logFile, sessionId);
+  const healthWarning = await checkMemoryHealth(projectDir, logFile, sessionId, settings.health_threshold);
   if (healthWarning) {
     summary += healthWarning;
   }

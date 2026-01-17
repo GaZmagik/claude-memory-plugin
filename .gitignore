@@ -37,7 +37,10 @@ yarn-error.log*
 .claude/flags/
 .claude/logs/
 .claude/memory/local/
+.claude/plans/
 .claude/projects/
+.claude/*.local.md
+.claude/*.local.json
 
 # SDD Framework
 .specify

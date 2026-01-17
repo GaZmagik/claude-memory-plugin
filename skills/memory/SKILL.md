@@ -90,6 +90,39 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `think conclude <text>` | Conclude (--promote type to save) |
 | | `think delete <id>` | Delete thinking document |
 
+## Configuration
+
+The plugin works out-of-the-box with sensible defaults. Power users can customise behaviour via `.claude/memory.local.md`.
+
+**Quick Start:**
+1. Copy `.claude/memory.example.md` to `.claude/memory.local.md`
+2. Edit settings as needed
+3. Add `.claude/*.local.md` to `.gitignore`
+
+**Available Settings:**
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `enabled` | boolean | `true` | Master switch for plugin |
+| `ollama_host` | string | `http://localhost:11434` | Ollama API endpoint |
+| `chat_model` | string | `gemma3:4b` | Model for summaries/chat |
+| `embedding_model` | string | `embeddinggemma:latest` | Model for semantic search |
+| `context_window` | number | `16384` | Max tokens for context |
+| `health_threshold` | number | `0.7` | Graph health warning threshold |
+| `semantic_threshold` | number | `0.45` | Semantic search similarity cutoff |
+| `auto_sync` | boolean | `false` | Run memory sync on session start |
+
+**Example Configuration:**
+```yaml
+---
+ollama_host: http://192.168.1.100:11434
+chat_model: llama3.2
+embedding_model: nomic-embed-text
+---
+```
+
+See `.claude/memory.example.md` for full documentation.
+
 ## Requirements
 
 - **Bun** - TypeScript runtime (install via `bun link` from plugin root)
@@ -102,6 +135,7 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
   Install: `ollama pull embeddinggemma` (see [Ollama docs](https://ollama.ai/))
 
   Without Ollama, semantic features gracefully fall back to keyword search.
+  The plugin continues to function for core operations (memory storage, graph management, keyword search).
 
 ## Full Documentation
 

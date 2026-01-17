@@ -18,9 +18,18 @@ import { searchMemories } from '../../skills/memory/src/core/search.js';
 import { semanticSearch, type SemanticSearchResult } from '../../skills/memory/src/search/semantic.js';
 import { createOllamaProvider } from '../../skills/memory/src/search/embedding.js';
 
-const OLLAMA_MODEL = 'gemma3:4b';
+// Import plugin settings
+import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
+
+// Settings loaded at hook startup (with fallbacks)
+let OLLAMA_MODEL = DEFAULT_SETTINGS.chat_model;
+let OLLAMA_HOST = DEFAULT_SETTINGS.ollama_host;
+let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
 const OLLAMA_TIMEOUT = 30000;
-const OLLAMA_API = 'http://localhost:11434/api/generate';
+
+function getOllamaApi(): string {
+  return `${OLLAMA_HOST}/api/generate`;
+}
 
 interface SearchResultCommon {
   id: string;
@@ -32,13 +41,13 @@ interface SearchResultCommon {
 
 async function ollamaGenerate(prompt: string, fallback: string): Promise<string> {
   try {
-    const response = await fetch(OLLAMA_API, {
+    const response = await fetch(getOllamaApi(), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: OLLAMA_MODEL,
         prompt,
-        options: { num_ctx: 16384 },
+        options: { num_ctx: CONTEXT_WINDOW },
         stream: false,
       }),
       signal: AbortSignal.timeout(OLLAMA_TIMEOUT),
@@ -55,6 +64,16 @@ async function ollamaGenerate(prompt: string, fallback: string): Promise<string>
   } catch {
     return fallback;
   }
+}
+
+/**
+ * Load settings from project directory (called once at hook init)
+ */
+function initSettings(projectDir: string): void {
+  const settings = loadSettings(projectDir);
+  OLLAMA_MODEL = settings.chat_model;
+  OLLAMA_HOST = settings.ollama_host;
+  CONTEXT_WINDOW = settings.context_window;
 }
 
 /**
@@ -185,6 +204,9 @@ runHook(async (input) => {
   const userPrompt = input?.prompt || '';
   const sessionId = input?.session_id || '';
   const projectDir = input?.cwd || process.cwd();
+
+  // Load plugin settings (with fallbacks to defaults)
+  initSettings(projectDir);
 
   // Setup logging
   let logFile = '';

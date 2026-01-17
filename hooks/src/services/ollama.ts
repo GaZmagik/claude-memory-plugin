@@ -7,7 +7,7 @@
 
 import { Ollama } from 'ollama';
 
-// Default Ollama configuration
+// Default Ollama configuration (fallbacks if no settings file)
 const DEFAULT_HOST = 'http://localhost:11434';
 const DEFAULT_CHAT_MODEL = 'gemma3:4b';
 const DEFAULT_EMBEDDING_MODEL = 'embeddinggemma:latest';
@@ -16,15 +16,29 @@ const DEFAULT_TIMEOUT_MS = 30000; // 30 seconds for hooks
 const DEFAULT_MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 100;
 
-// Singleton client instance
+// Client instance with configurable host
 let client: Ollama | null = null;
+let currentHost: string = DEFAULT_HOST;
+
+/**
+ * Configure the Ollama client with a custom host.
+ * Call this before using generate/embed if you need a non-default host.
+ *
+ * @param host - Ollama API host URL
+ */
+export function configureClient(host: string): void {
+  if (host && host !== currentHost) {
+    currentHost = host;
+    client = new Ollama({ host });
+  }
+}
 
 /**
  * Get or create the Ollama client instance.
  */
 function getClient(): Ollama {
   if (!client) {
-    client = new Ollama({ host: DEFAULT_HOST });
+    client = new Ollama({ host: currentHost });
   }
   return client;
 }

@@ -444,11 +444,31 @@ The system caches embeddings. If slow:
 rm -rf ~/.claude/memory/.embedding-cache
 ```
 
+## Updating / Reinstalling
+
+After modifying plugin code (hooks, skills, etc.), Claude Code needs a full reinstall to pick up changes:
+
+```bash
+# 1. Uninstall the plugin (from terminal, not Claude Code session)
+claude plugin uninstall claude-memory-plugin@local-memory-plugin
+
+# 2. Re-link the bun package (from plugin directory)
+cd /path/to/claude-memory-plugin
+bun unlink && bun link
+
+# 3. Reinstall the plugin
+claude plugin install claude-memory-plugin@local-memory-plugin
+
+# 4. Restart Claude Code
+```
+
+> **Note**: Simply restarting Claude Code is not sufficient for hook changes - the full uninstall/reinstall cycle is required.
+
 ## Uninstallation
 
 ```bash
-# From Claude Code session
-/plugin uninstall claude-memory-plugin
+# From terminal
+claude plugin uninstall claude-memory-plugin@local-memory-plugin
 ```
 
 This removes all plugin components. Memory data in `.claude/memory/` is preserved (delete manually if needed).

@@ -14,7 +14,10 @@ import { join } from 'path';
 import { homedir } from 'os';
 
 const bunBin = join(homedir(), '.bun', 'bin');
-const cliPath = join(process.cwd(), 'skills', 'memory', 'src', 'cli.ts');
+// Use import.meta.dir to get this script's location, not cwd
+// This works regardless of where the script is invoked from
+const scriptDir = import.meta.dir;
+const cliPath = join(scriptDir, 'cli.ts');
 const linkPath = join(bunBin, 'memory');
 
 // Ensure bun bin directory exists

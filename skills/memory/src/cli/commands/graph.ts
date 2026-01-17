@@ -157,21 +157,70 @@ export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
 /**
  * mermaid - Generate Mermaid diagram of memory graph
  *
- * Usage: memory mermaid [--direction <TB|LR>] [--include-orphans] [--scope <scope>]
+ * Usage: memory mermaid [scope] [--all] [--hub <id>] [--depth <n>] [--direction <TB|LR>] [--output <path>]
+ *
+ * Options:
+ *   --all            Show full graph (default: hub-focused view)
+ *   --hub <id>       Filter to specific hub and its connections
+ *   --depth <n>      Connection depth for hub views (default: 1)
+ *   --direction      Layout direction: TB, TD, LR, RL (default: TB)
+ *   --output <path>  Output file path (default: .claude/memory/graph.md)
+ *   --show-type      Include node type in labels
  */
 export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const scopeArg = args.positional[0];
+  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
-  const direction = (getFlagString(args.flags, 'direction') ?? 'TB') as 'TB' | 'LR';
+
+  // Parse flags
+  const directionRaw = getFlagString(args.flags, 'direction') ?? 'TB';
+  const direction = directionRaw.toUpperCase().replace('TD', 'TB') as 'TB' | 'BT' | 'LR' | 'RL';
   const showType = getFlagBool(args.flags, 'show-type');
+  const showAll = getFlagBool(args.flags, 'all');
+  const hubId = getFlagString(args.flags, 'hub');
+  const depthStr = getFlagString(args.flags, 'depth');
+  const depth = depthStr ? parseInt(depthStr, 10) : 1;
+  const outputPath = getFlagString(args.flags, 'output');
+
+  // Validate direction
+  if (!['TB', 'BT', 'LR', 'RL'].includes(direction)) {
+    return { status: 'error', error: 'Invalid direction. Use TB, TD, BT, LR, or RL' };
+  }
 
   return wrapOperation(
     async () => {
       const graph = await loadGraph(basePath);
-      const mermaid = generateMermaid(graph, { direction, showType });
-      return { mermaid };
+
+      // Generate mermaid with new options
+      const mermaidContent = generateMermaid(graph, {
+        direction,
+        showType,
+        showAll,
+        fromNode: hubId,
+        depth,
+        abbreviateLabels: true,
+      });
+
+      // Wrap in markdown code fence
+      const markdownOutput = `\`\`\`mermaid\n${mermaidContent}\n\`\`\`\n`;
+
+      // Determine output path
+      const finalPath = outputPath
+        ? (outputPath.endsWith('.md') ? outputPath : `${outputPath}.md`)
+        : path.join(basePath, 'graph.md');
+
+      // Write to file
+      const fs = await import('node:fs');
+      fs.writeFileSync(finalPath, markdownOutput);
+
+      return {
+        saved: finalPath,
+        nodes: graph.nodes.length,
+        edges: graph.edges.length,
+        filtered: !showAll,
+      };
     },
-    'Mermaid diagram generated'
+    `Mermaid diagram saved`
   );
 }
 

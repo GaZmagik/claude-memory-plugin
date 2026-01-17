@@ -148,12 +148,18 @@ describe('generateMermaid', () => {
   });
 
   describe('edges', () => {
-    it('should include edge labels', () => {
+    it('should abbreviate edge labels by default', () => {
       const result = generateMermaid(simpleGraph);
+      // "leads to" -> "lea" (truncated to 3 chars as it's not in abbreviation map)
+      expect(result).toContain('|lea|');
+    });
+
+    it('should use full labels when abbreviateLabels is false', () => {
+      const result = generateMermaid(simpleGraph, { abbreviateLabels: false, showAll: true });
       expect(result).toContain('leads to');
     });
 
-    it('should handle edges without labels', () => {
+    it('should use "rel" as default for edges without labels', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
@@ -167,8 +173,8 @@ describe('generateMermaid', () => {
 
       const result = generateMermaid(graph);
 
-      // Should have arrow without label
-      expect(result).toContain('a --> b');
+      // Empty label becomes "rel" (default)
+      expect(result).toContain('|rel|');
     });
   });
 

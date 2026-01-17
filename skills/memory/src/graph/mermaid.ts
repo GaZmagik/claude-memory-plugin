@@ -5,7 +5,6 @@
  */
 
 import type { MemoryGraph, GraphNode } from './structure.js';
-import { getSubgraph } from './traversal.js';
 
 /**
  * Mermaid generation options
@@ -13,7 +12,7 @@ import { getSubgraph } from './traversal.js';
 export interface MermaidOptions {
   /** Graph direction: TB (top-bottom), LR (left-right), etc. */
   direction?: 'TB' | 'BT' | 'LR' | 'RL';
-  /** Starting node for subgraph extraction */
+  /** Starting node for subgraph extraction (hub mode) */
   fromNode?: string;
   /** Maximum depth from starting node */
   depth?: number;
@@ -23,6 +22,10 @@ export interface MermaidOptions {
   filterTag?: string;
   /** Include node type in label */
   showType?: boolean;
+  /** Show all nodes (default: hub-focused view) */
+  showAll?: boolean;
+  /** Abbreviate edge labels for compact output (default: true) */
+  abbreviateLabels?: boolean;
 }
 
 /**
@@ -47,6 +50,76 @@ const NODE_STYLES: Record<string, string> = {
   hub: 'fill:#e8f5e9,stroke:#388e3c,stroke-width:3px',
   session: 'fill:#fce4ec,stroke:#c2185b',
 };
+
+/**
+ * Edge label abbreviations for compact mermaid output
+ */
+const EDGE_LABEL_ABBREVIATIONS: Record<string, string> = {
+  'documents': 'doc',
+  'relates-to': 'rel',
+  'supersedes': 'sup',
+  'depends-on': 'dep',
+  'extends': 'ext',
+  'implements': 'impl',
+  'references': 'ref',
+  'blocks': 'blk',
+  'enables': 'enb',
+  'validates': 'val',
+  'contradicts': 'con',
+  'derives-from': 'der',
+  'parent-of': 'par',
+  'child-of': 'chi',
+  'informs': 'inf',
+  'motivated-by': 'mot',
+};
+
+/**
+ * Abbreviate edge label for compact output
+ */
+function abbreviateLabel(label: string | undefined): string {
+  if (!label) return 'rel';
+  return EDGE_LABEL_ABBREVIATIONS[label] || label.slice(0, 3);
+}
+
+/**
+ * BFS traversal in both directions (bidirectional) from a starting node
+ * Returns all node IDs reachable within maxDepth steps
+ */
+function getNodesAtDepth(
+  graph: MemoryGraph,
+  startId: string,
+  maxDepth: number
+): Set<string> {
+  const visited = new Set<string>([startId]);
+  let frontier = [startId];
+
+  for (let depth = 0; depth < maxDepth && frontier.length > 0; depth++) {
+    const nextFrontier: string[] = [];
+    for (const nodeId of frontier) {
+      for (const edge of graph.edges) {
+        // Follow edges in both directions
+        if (edge.source === nodeId && !visited.has(edge.target)) {
+          visited.add(edge.target);
+          nextFrontier.push(edge.target);
+        }
+        if (edge.target === nodeId && !visited.has(edge.source)) {
+          visited.add(edge.source);
+          nextFrontier.push(edge.source);
+        }
+      }
+    }
+    frontier = nextFrontier;
+  }
+
+  return visited;
+}
+
+/**
+ * Get all hub nodes (nodes tagged with 'hub' type)
+ */
+function getHubNodes(graph: MemoryGraph): GraphNode[] {
+  return graph.nodes.filter(n => n.type === 'hub');
+}
 
 /**
  * Escape text for Mermaid labels
@@ -147,12 +220,44 @@ export function generateMermaid(
   graph: MemoryGraph,
   options: MermaidOptions = {}
 ): string {
-  const { direction = 'TB', fromNode, depth, filterType, showType = false } = options;
+  const {
+    direction = 'TB',
+    fromNode,
+    depth = 1,
+    filterType,
+    showType = false,
+    showAll = false,
+    abbreviateLabels = true,
+  } = options;
 
-  // Extract subgraph if starting node specified
   let workingGraph = graph;
-  if (fromNode && depth !== undefined) {
-    workingGraph = getSubgraph(graph, fromNode, depth);
+
+  // Filtering logic: hub-focused by default
+  if (fromNode) {
+    // Single hub mode: show hub + connections at specified depth (bidirectional)
+    const reachable = getNodesAtDepth(graph, fromNode, depth);
+    workingGraph = {
+      ...graph,
+      nodes: graph.nodes.filter(n => reachable.has(n.id)),
+      edges: graph.edges.filter(e => reachable.has(e.source) && reachable.has(e.target)),
+    };
+  } else if (!showAll) {
+    // Default: hub-focused view (all hubs + depth-1 connections)
+    const hubs = getHubNodes(graph);
+    if (hubs.length > 0) {
+      const reachable = new Set<string>(hubs.map(h => h.id));
+      for (const hub of hubs) {
+        for (const nodeId of getNodesAtDepth(graph, hub.id, 1)) {
+          reachable.add(nodeId);
+        }
+      }
+      workingGraph = {
+        ...graph,
+        nodes: graph.nodes.filter(n => reachable.has(n.id)),
+        edges: graph.edges.filter(e => reachable.has(e.source) && reachable.has(e.target)),
+      };
+    }
+    // If no hubs, fall through to show all (showAll behaviour)
   }
 
   // Filter by type if specified
@@ -180,7 +285,8 @@ export function generateMermaid(
 
   // Edges
   for (const edge of workingGraph.edges) {
-    lines.push(generateEdge(edge.source, edge.target, edge.label));
+    const label = abbreviateLabels ? abbreviateLabel(edge.label) : edge.label;
+    lines.push(generateEdge(edge.source, edge.target, label));
   }
 
   // Styles

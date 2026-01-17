@@ -148,29 +148,36 @@ describe('cmdMermaid', () => {
     vi.restoreAllMocks();
   });
 
-  it('generates mermaid diagram', async () => {
-    const mockGraph = { version: 1, nodes: [], edges: [] };
+  it('generates mermaid diagram and saves to file', async () => {
+    const mockGraph = { version: 1, nodes: [{ id: 'test', type: 'learning' }], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
-    vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('graph TD\n  A --> B');
+    vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart TB\n  A --> B');
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdMermaid(args);
 
     expect(result.status).toBe('success');
-    expect((result.data as { mermaid: string }).mermaid).toContain('graph');
+    expect((result.data as { saved: string }).saved).toContain('graph.md');
+    expect((result.data as { filtered: boolean }).filtered).toBe(true);
   });
 
-  it('passes direction flag', async () => {
+  it('passes direction and new flags', async () => {
     const mockGraph = { version: 1, nodes: [], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
-    vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('graph LR');
+    vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart LR');
 
-    const args: ParsedArgs = { positional: [], flags: { direction: 'LR' } };
+    const args: ParsedArgs = { positional: [], flags: { direction: 'LR', all: true, hub: 'test-hub', depth: '2' } };
     await cmdMermaid(args);
 
     expect(mermaidModule.generateMermaid).toHaveBeenCalledWith(
       mockGraph,
-      expect.objectContaining({ direction: 'LR' })
+      expect.objectContaining({
+        direction: 'LR',
+        showAll: true,
+        fromNode: 'test-hub',
+        depth: 2,
+        abbreviateLabels: true,
+      })
     );
   });
 });

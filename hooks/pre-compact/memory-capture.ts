@@ -105,7 +105,7 @@ runHook(async (input) => {
     logPrefix: 'memory-capture',
     timeoutSecs: 600,
     trigger,
-    tools: 'Read,Skill',
+    tools: 'Read,Skill,Bash',
   });
 
   if (result.started) {

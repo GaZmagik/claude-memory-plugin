@@ -16,6 +16,7 @@ import {
   serialiseMemoryFile,
   updateFrontmatter,
 } from '../core/frontmatter.js';
+import { isInsideDir } from '../core/fs-utils.js';
 import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph, type MemoryGraph } from '../graph/structure.js';
 

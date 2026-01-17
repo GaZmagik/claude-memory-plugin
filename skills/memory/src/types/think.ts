@@ -43,7 +43,7 @@ export interface ThoughtEntry {
   type: ThoughtType;
   /** The thought content */
   content: string;
-  /** Attribution (e.g., "Claude", "Codex", "User") */
+  /** Attribution (e.g., "Claude", "User") */
   by?: string;
   /** AI session ID for --resume support */
   sessionId?: string;

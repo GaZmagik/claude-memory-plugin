@@ -23,8 +23,18 @@ import {
   hasNoGotchas,
   cleanGotchaSummary,
 } from '../src/memory/topic-classifier.ts';
-import { existsSync, readFileSync, mkdirSync, appendFileSync, readdirSync } from 'fs';
+import { stat, readFile, mkdir, appendFile, readdir } from 'fs/promises';
 import { join, basename, dirname } from 'path';
+
+/** Check if a path exists (async alternative to existsSync) */
+async function pathExists(p: string): Promise<boolean> {
+  try {
+    await stat(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
 import { homedir } from 'os';
 import type { HookInput } from '../src/core/types.ts';
 
@@ -49,7 +59,7 @@ interface HookConfig {
   bashCommands?: BashCommandsConfig;
 }
 
-function loadConfig(): HookConfig {
+async function loadConfig(): Promise<HookConfig> {
   const configPath = join(dirname(import.meta.path), 'memory-context-config.json');
   const defaultConfig: HookConfig = {
     enabledTools: {
@@ -60,12 +70,12 @@ function loadConfig(): HookConfig {
     },
   };
 
-  if (!existsSync(configPath)) {
+  if (!(await pathExists(configPath))) {
     return defaultConfig;
   }
 
   try {
-    const content = readFileSync(configPath, 'utf-8');
+    const content = await readFile(configPath, 'utf-8');
     return JSON.parse(content) as HookConfig;
   } catch {
     return defaultConfig;
@@ -163,12 +173,12 @@ interface LogContext {
 /**
  * Setup logging to project's memory-context.log
  */
-function setupLogging(projectDir: string, sessionId: string, toolName: string): LogContext {
+async function setupLogging(projectDir: string, sessionId: string, toolName: string): Promise<LogContext> {
   let logFile: string | null = null;
 
-  if (projectDir && existsSync(join(projectDir, '.claude'))) {
+  if (projectDir && (await pathExists(join(projectDir, '.claude')))) {
     const logDir = join(projectDir, '.claude', 'logs');
-    mkdirSync(logDir, { recursive: true });
+    await mkdir(logDir, { recursive: true });
     logFile = join(logDir, 'memory-context.log');
   }
 
@@ -176,9 +186,9 @@ function setupLogging(projectDir: string, sessionId: string, toolName: string): 
 }
 
 /**
- * Log message in the same format as the bash script
+ * Log message in the same format as the bash script (fire-and-forget)
  */
-function log(ctx: LogContext, message: string): void {
+async function log(ctx: LogContext, message: string): Promise<void> {
   if (!ctx.logFile) return;
 
   const timestamp = new Date().toISOString();
@@ -187,11 +197,7 @@ function log(ctx: LogContext, message: string): void {
 ${message}
 
 `;
-  try {
-    appendFileSync(ctx.logFile, entry);
-  } catch {
-    // Ignore logging errors
-  }
+  await appendFile(ctx.logFile, entry).catch(() => {}); // Fire-and-forget
 }
 
 /**
@@ -324,13 +330,13 @@ function validateTopic(topic: string): boolean {
 /**
  * Search for gotcha-named files in a memory directory
  */
-function findGotchaNamedFiles(memDir: string, topic: string): string[] {
-  if (!existsSync(memDir)) return [];
+async function findGotchaNamedFiles(memDir: string, topic: string): Promise<string[]> {
+  if (!(await pathExists(memDir))) return [];
 
   const results: string[] = [];
 
   try {
-    const files = readdirSync(memDir, { recursive: true }) as string[];
+    const files = await readdir(memDir, { recursive: true }) as string[];
     for (const file of files) {
       if (typeof file !== 'string') continue;
       if (file.includes('/archive/')) continue;
@@ -345,7 +351,7 @@ function findGotchaNamedFiles(memDir: string, topic: string): string[] {
         } else {
           // Check content for topic mention
           try {
-            const content = readFileSync(fullPath, 'utf-8');
+            const content = await readFile(fullPath, 'utf-8');
             if (content.toLowerCase().includes(topic)) {
               results.push(fullPath);
             }
@@ -365,14 +371,14 @@ function findGotchaNamedFiles(memDir: string, topic: string): string[] {
 /**
  * Check graph.json for linked memories
  */
-function findLinkedMemories(memDir: string, foundIds: string[]): string[] {
+async function findLinkedMemories(memDir: string, foundIds: string[]): Promise<string[]> {
   const graphFile = join(memDir, 'graph.json');
-  if (!existsSync(graphFile)) return [];
+  if (!(await pathExists(graphFile))) return [];
 
   const linked: string[] = [];
 
   try {
-    const graph = JSON.parse(readFileSync(graphFile, 'utf-8'));
+    const graph = JSON.parse(await readFile(graphFile, 'utf-8'));
     const edges = graph.edges || [];
 
     for (const id of foundIds) {
@@ -383,7 +389,7 @@ function findLinkedMemories(memDir: string, foundIds: string[]): string[] {
 
         if (linkedId && (linkedId.includes('learning') || linkedId.includes('decision'))) {
           // Find the file
-          const files = readdirSync(memDir, { recursive: true }) as string[];
+          const files = await readdir(memDir, { recursive: true }) as string[];
           for (const file of files) {
             if (typeof file === 'string' && file.endsWith(`${linkedId}.md`)) {
               linked.push(join(memDir, file));
@@ -403,7 +409,7 @@ function findLinkedMemories(memDir: string, foundIds: string[]): string[] {
 /**
  * Filter files by warning keywords
  */
-function filterByWarningKeywords(files: string[]): string[] {
+async function filterByWarningKeywords(files: string[]): Promise<string[]> {
   const gotchaFiles: string[] = [];
   const otherFiles: string[] = [];
 
@@ -416,7 +422,7 @@ function filterByWarningKeywords(files: string[]): string[] {
     } else {
       // Priority 2: Check content for warning keywords
       try {
-        const content = readFileSync(f, 'utf-8');
+        const content = await readFile(f, 'utf-8');
         if (WARNING_KEYWORDS.test(content)) {
           otherFiles.push(f);
         }
@@ -457,7 +463,7 @@ async function handleReadMode(
   }
 
   if (parsed.action === 'skip') {
-    log(ctx, `ℹ️ Memory check skipped: ${parsed.value}`);
+    await log(ctx, `ℹ️ Memory check skipped: ${parsed.value}`);
     return null;
   }
 
@@ -465,7 +471,7 @@ async function handleReadMode(
 
   // Validate topic
   if (!validateTopic(topic)) {
-    log(ctx, `ℹ️ Memory check skipped: invalid topic extracted (raw: ${topic})`);
+    await log(ctx, `ℹ️ Memory check skipped: invalid topic extracted (raw: ${topic})`);
     return null;
   }
 
@@ -492,7 +498,7 @@ async function handleReadMode(
 
   const semanticFiles = searchResult.memories.map((m) => m.file).filter(Boolean) as string[];
 
-  log(
+  await log(
     ctx,
     `[SEMANTIC] Search for: ${fileName} (${topic})
   Query: ${fileName} ${topic} gotcha warning
@@ -504,30 +510,30 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
   allFiles.push(...semanticFiles);
 
   // 2. Gotcha-named files
-  if (existsSync(projectMemDir)) {
-    allFiles.push(...findGotchaNamedFiles(projectMemDir, topic));
+  if (await pathExists(projectMemDir)) {
+    allFiles.push(...(await findGotchaNamedFiles(projectMemDir, topic)));
   }
-  if (searchUserMem && existsSync(userMemDir)) {
-    allFiles.push(...findGotchaNamedFiles(userMemDir, topic));
+  if (searchUserMem && (await pathExists(userMemDir))) {
+    allFiles.push(...(await findGotchaNamedFiles(userMemDir, topic)));
   }
 
   // 3. Graph links
   const foundIds = searchResult.memories.map((m) => m.id);
-  if (existsSync(projectMemDir)) {
-    allFiles.push(...findLinkedMemories(projectMemDir, foundIds));
+  if (await pathExists(projectMemDir)) {
+    allFiles.push(...(await findLinkedMemories(projectMemDir, foundIds)));
   }
-  if (searchUserMem && existsSync(userMemDir)) {
-    allFiles.push(...findLinkedMemories(userMemDir, foundIds));
+  if (searchUserMem && (await pathExists(userMemDir))) {
+    allFiles.push(...(await findLinkedMemories(userMemDir, foundIds)));
   }
 
   // Deduplicate and filter
   allFiles = [...new Set(allFiles)];
-  const relevantFiles = filterByWarningKeywords(allFiles);
+  const relevantFiles = await filterByWarningKeywords(allFiles);
 
   const scopeIndicator = searchUserMem ? ' (+user)' : '';
 
   if (relevantFiles.length === 0) {
-    log(ctx, `ℹ️ Topic: ${topic}${scopeIndicator} - no relevant gotchas in memory`);
+    await log(ctx, `ℹ️ Topic: ${topic}${scopeIndicator} - no relevant gotchas in memory`);
     return null;
   }
 
@@ -537,7 +543,7 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
 
   for (const f of relevantFiles) {
     try {
-      const content = readFileSync(f, 'utf-8');
+      const content = await readFile(f, 'utf-8');
       const lines = content.split('\n').slice(0, 50).join('\n');
       memoryContent += `--- ${basename(f)} ---\n${lines}\n\n`;
       sourceIds.push(basename(f, '.md'));
@@ -555,7 +561,7 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
   const cleanedSummary = cleanGotchaSummary(gotchaSummary).slice(0, 500);
 
   if (hasNoGotchas(cleanedSummary)) {
-    log(
+    await log(
       ctx,
       `ℹ️ Topic: ${topic}${scopeIndicator} - checked memory, no specific gotchas found
 Sources checked:
@@ -565,19 +571,19 @@ ${relevantFiles.map((f) => `  - ${basename(f)}`).join('\n')}`
   }
 
   // Check session cache for deduplication
-  const cache = createGotchaCache(projectDir, sessionId);
+  const cache = await createGotchaCache(projectDir, sessionId);
   const cacheKey = gotchaCacheKey(topic, cleanedSummary);
 
   if (cache.has(cacheKey)) {
-    log(ctx, `ℹ️ Topic: ${topic}${scopeIndicator} - gotcha already shown this session`);
+    await log(ctx, `ℹ️ Topic: ${topic}${scopeIndicator} - gotcha already shown this session`);
     return null;
   }
 
-  cache.add(cacheKey);
+  await cache.add(cacheKey);
 
   const reminder = `⚠️ GOTCHAS for ${topic}${scopeIndicator}: ${cleanedSummary}\n📄 Sources: ${sourceIds.join(', ')}`;
 
-  log(
+  await log(
     ctx,
     `${reminder}
 Sources:
@@ -620,7 +626,7 @@ async function handleWriteMode(
   const skipMatch = response.match(/SKIP:\s*(.+)/i);
   if (skipMatch) {
     const reason = skipMatch[1].trim();
-    log(ctx, `ℹ️ Memory capture skipped: ${reason}`);
+    await log(ctx, `ℹ️ Memory capture skipped: ${reason}`);
     return null;
   }
 
@@ -635,7 +641,7 @@ async function handleWriteMode(
   const memoryType = typeMatch ? typeMatch[1] : 'learning';
 
   const reminder = `⚠️ SYSTEM NOTICE: Evaluate memory capture (${memoryType}) before next action. ${suggestion}`;
-  log(ctx, reminder);
+  await log(ctx, reminder);
 
   return { reminder };
 }
@@ -652,12 +658,12 @@ runHook(async (input) => {
   const sessionId = input.session_id || 'unknown';
 
   // Load config and check if tool is enabled
-  const config = loadConfig();
+  const config = await loadConfig();
   if (!isToolEnabled(toolName, config, input.tool_input as Record<string, unknown>)) {
     return allow();
   }
 
-  const ctx = setupLogging(projectDir, sessionId, toolName);
+  const ctx = await setupLogging(projectDir, sessionId, toolName);
 
   // READ mode
   if (toolName === 'Read') {

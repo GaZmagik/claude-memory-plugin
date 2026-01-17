@@ -18,7 +18,7 @@ describe('Memory Skill Reminder Hook', () => {
       expect(expectedPattern.test(incorrectText)).toBe(false);
     });
 
-    it('should reference memory CLI via bun link', () => {
+    it('should reference memory CLI command directly', () => {
       // Should reference `memory` command directly, not the full path
       const correctReference = 'memory write';
       const oldReference = '~/.claude/skills/memory/memory write';

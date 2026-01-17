@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T19:14:43.253Z",
+  "lastUpdated": "2026-01-17T22:11:47.086Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3430,6 +3430,68 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
+      "type": "learning",
+      "title": "Retro - Async conversion file-by-file with test validation catches integration issues early",
+      "tags": [
+        "retrospective",
+        "process",
+        "async-conversion",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-17T21:30:48.439Z",
+      "updated": "2026-01-17T21:30:48.439Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-verify-task-completion-status-before-committing-to-work-items",
+      "type": "gotcha",
+      "title": "Retro - Verify task completion status before committing to work items",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-planning",
+        "project"
+      ],
+      "created": "2026-01-17T21:30:54.129Z",
+      "updated": "2026-01-17T21:30:54.129Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-verify-task-completion-status-before-committing-to-work-items.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-interpreters",
+      "type": "gotcha",
+      "title": "Retro - Parenthetical context can be misread as syntax by literal interpreters",
+      "tags": [
+        "retrospective",
+        "documentation",
+        "communication",
+        "project"
+      ],
+      "created": "2026-01-17T21:31:00.066Z",
+      "updated": "2026-01-17T21:31:00.066Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-interpreters.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-intent-storage-types-for-memory-system-beyond-revisitremind",
+      "type": "learning",
+      "title": "Intent Storage Types for Memory System - Beyond Revisit/Remind",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-17T22:11:47.074Z",
+      "updated": "2026-01-17T22:11:47.074Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-intent-storage-types-for-memory-system-beyond-revisitremind.md"
     }
   ]
 }

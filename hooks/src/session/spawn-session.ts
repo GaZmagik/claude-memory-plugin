@@ -158,6 +158,10 @@ Context size: ${options.contextPrompt.length} bytes
   const contextFile = join(tempDir, `claude-context-${options.sessionId}.txt`);
   writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
 
+  // Write prompt to temp file to avoid shell injection via eval
+  const promptFile = join(tempDir, `claude-prompt-${options.sessionId}.txt`);
+  writeFileSync(promptFile, options.prompt, { mode: 0o600 });
+
   // Build plugin-dir flags if provided
   const pluginDirFlags = pluginDirs.map((dir) => `--plugin-dir "${dir}"`).join(' ');
 
@@ -172,14 +176,14 @@ CONTEXT_FILE="$2"
 TIMEOUT="$3"
 MODEL="$4"
 TOOLS="$5"
-PROMPT="$6"
+PROMPT_FILE="$6"
 CWD="$7"
 WRAPPER_SCRIPT="$8"
 PLUGIN_DIR_FLAGS="$9"
 
 # Cleanup function - ensures temp files are removed even on signals
 cleanup() {
-  rm -f "$CONTEXT_FILE" "$WRAPPER_SCRIPT"
+  rm -f "$CONTEXT_FILE" "$PROMPT_FILE" "$WRAPPER_SCRIPT"
 }
 trap cleanup EXIT INT TERM
 
@@ -188,22 +192,33 @@ echo "[$(date -u +%Y%m%dT%H%M%SZ)] Plugin dirs: $PLUGIN_DIR_FLAGS" >> "$LOG_FILE
 
 cd "$CWD"
 
-# Read context file safely into variable (avoids command substitution vulnerabilities)
+# Read context and prompt files safely into variables (avoids command substitution vulnerabilities)
 # shellcheck disable=SC2155
 export CLAUDE_CONTEXT_PROMPT
 CLAUDE_CONTEXT_PROMPT=$(<"$CONTEXT_FILE")
+CLAUDE_PROMPT=$(<"$PROMPT_FILE")
 
-# Build command with optional plugin-dir flags
-CLAUDE_CMD="timeout \${TIMEOUT}s claude --model $MODEL --permission-mode bypassPermissions --dangerously-skip-permissions --output-format stream-json --verbose --additional-system-prompt \\"\$CLAUDE_CONTEXT_PROMPT\\" --tools $TOOLS"
+# Build command as array to avoid eval and shell injection
+# Using array prevents any shell metacharacter interpretation
+CLAUDE_ARGS=(
+  --model "$MODEL"
+  --permission-mode bypassPermissions
+  --dangerously-skip-permissions
+  --output-format stream-json
+  --verbose
+  --additional-system-prompt "$CLAUDE_CONTEXT_PROMPT"
+  --tools "$TOOLS"
+)
 
-# Add plugin-dir flags if provided
+# Add plugin-dir flags if provided (split on space for multiple dirs)
 if [ -n "$PLUGIN_DIR_FLAGS" ]; then
-  CLAUDE_CMD="$CLAUDE_CMD $PLUGIN_DIR_FLAGS"
+  # shellcheck disable=SC2206
+  CLAUDE_ARGS+=($PLUGIN_DIR_FLAGS)
 fi
 
-CLAUDE_CMD="$CLAUDE_CMD --print \\"$PROMPT\\""
+CLAUDE_ARGS+=(--print "$CLAUDE_PROMPT")
 
-eval "$CLAUDE_CMD" 2>&1 | tee -a "$LOG_FILE"
+timeout "\${TIMEOUT}s" claude "\${CLAUDE_ARGS[@]}" 2>&1 | tee -a "$LOG_FILE"
 
 EXIT_CODE=\${PIPESTATUS[0]}
 echo "---" >> "$LOG_FILE"
@@ -223,7 +238,7 @@ echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
       String(timeoutSecs),
       model,
       tools,
-      options.prompt,
+      promptFile,
       options.cwd,
       wrapperScript,
       pluginDirFlags,

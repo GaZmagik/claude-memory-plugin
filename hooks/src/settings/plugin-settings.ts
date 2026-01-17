@@ -8,8 +8,18 @@
  * Error handling: invalid values fallback to defaults
  */
 
-import { existsSync, readFileSync } from 'fs';
+import { stat, readFile } from 'fs/promises';
 import { join } from 'path';
+
+/** Check if a path exists (async alternative to existsSync) */
+async function pathExists(p: string): Promise<boolean> {
+  try {
+    await stat(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Memory plugin settings interface
@@ -186,16 +196,16 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
  * @param projectDir - Project root directory
  * @returns Complete settings (user overrides merged with defaults)
  */
-export function loadSettings(projectDir: string): MemoryPluginSettings {
+export async function loadSettings(projectDir: string): Promise<MemoryPluginSettings> {
   const settingsPath = join(projectDir, '.claude', SETTINGS_FILENAME);
 
   // Return defaults if file doesn't exist
-  if (!existsSync(settingsPath)) {
+  if (!(await pathExists(settingsPath))) {
     return { ...DEFAULT_SETTINGS };
   }
 
   try {
-    const content = readFileSync(settingsPath, 'utf-8');
+    const content = await readFile(settingsPath, 'utf-8');
     const raw = parseYamlFrontmatter(content);
     const validated = validateSettings(raw);
 

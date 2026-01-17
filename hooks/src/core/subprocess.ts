@@ -13,6 +13,10 @@ import {
   type ChildProcess,
 } from 'node:child_process';
 
+// Buffer limit to prevent memory exhaustion from malicious/runaway processes
+const MAX_OUTPUT_BYTES = 10 * 1024 * 1024; // 10MB
+const TRUNCATION_NOTICE = '\n... [output truncated at 10MB limit]';
+
 export interface SubprocessOptions {
   /** Timeout in milliseconds (default: 30000) */
   timeout?: number;
@@ -120,16 +124,46 @@ export async function spawn(
 
       let stdout = '';
       let stderr = '';
+      let stdoutBytes = 0;
+      let stderrBytes = 0;
+      let stdoutTruncated = false;
+      let stderrTruncated = false;
       let timedOut = false;
 
-      // Collect stdout
+      // Collect stdout with buffer limit
       proc.stdout?.on('data', (data: Buffer) => {
-        stdout += data.toString();
+        if (stdoutTruncated) return;
+        const remaining = MAX_OUTPUT_BYTES - stdoutBytes;
+        if (remaining <= 0) {
+          stdoutTruncated = true;
+          stdout += TRUNCATION_NOTICE;
+          return;
+        }
+        const chunk = data.length <= remaining ? data : data.subarray(0, remaining);
+        stdout += chunk.toString();
+        stdoutBytes += chunk.length;
+        if (data.length > remaining) {
+          stdoutTruncated = true;
+          stdout += TRUNCATION_NOTICE;
+        }
       });
 
-      // Collect stderr
+      // Collect stderr with buffer limit
       proc.stderr?.on('data', (data: Buffer) => {
-        stderr += data.toString();
+        if (stderrTruncated) return;
+        const remaining = MAX_OUTPUT_BYTES - stderrBytes;
+        if (remaining <= 0) {
+          stderrTruncated = true;
+          stderr += TRUNCATION_NOTICE;
+          return;
+        }
+        const chunk = data.length <= remaining ? data : data.subarray(0, remaining);
+        stderr += chunk.toString();
+        stderrBytes += chunk.length;
+        if (data.length > remaining) {
+          stderrTruncated = true;
+          stderr += TRUNCATION_NOTICE;
+        }
       });
 
       // Write stdin if provided

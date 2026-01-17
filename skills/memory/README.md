@@ -382,8 +382,8 @@ memory think create "Should we refactor the CLI module?"
 
 # Add thoughts with attribution (--by is optional)
 memory think add "Current implementation is 800 lines" --by Claude
-memory think counter "But extraction increases indirection" --by Codex
-memory think branch "Alternative: reorganise sections only" --by Gemini
+memory think counter "But extraction increases indirection" --by Claude
+memory think branch "Alternative: reorganise sections only" --by Claude
 
 # Review
 memory think list              # List all thinking documents

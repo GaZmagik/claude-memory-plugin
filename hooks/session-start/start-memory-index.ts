@@ -406,7 +406,7 @@ runHook(async (input) => {
   const home = homedir();
 
   // Load plugin settings (with fallbacks to defaults)
-  const settings = loadSettings(projectDir);
+  const settings = await loadSettings(projectDir);
 
   const localIndex = join(projectDir, '.claude', 'memory', 'index.json');
   const globalIndex = join(home, '.claude', 'memory', 'index.json');

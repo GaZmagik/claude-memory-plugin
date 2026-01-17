@@ -150,13 +150,13 @@ describe('Semantic Search Service', () => {
   });
 
   describe('loadEmbeddingCache', () => {
-    it('should return null when cache file does not exist', () => {
-      const embedding = loadEmbeddingCache(testCacheDir, 'nonexistent-key');
+    it('should return null when cache file does not exist', async () => {
+      const embedding = await loadEmbeddingCache(testCacheDir, 'nonexistent-key');
 
       expect(embedding).toBeNull();
     });
 
-    it('should load embedding from valid cache file', () => {
+    it('should load embedding from valid cache file', async () => {
       const cacheKey = 'test-embedding';
       const embeddingData = [1.0, 2.0, 3.0, 4.0];
 
@@ -164,53 +164,53 @@ describe('Semantic Search Service', () => {
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
       writeFileSync(cacheFile, JSON.stringify(embeddingData));
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
 
       expect(loaded).toEqual(embeddingData);
     });
 
-    it('should return null for corrupted cache file', () => {
+    it('should return null for corrupted cache file', async () => {
       const cacheKey = 'corrupted';
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
 
       // Write invalid JSON
       writeFileSync(cacheFile, 'not valid json{]');
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
 
       expect(loaded).toBeNull();
     });
 
-    it('should return null for empty array', () => {
+    it('should return null for empty array', async () => {
       const cacheKey = 'empty-array';
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
 
       writeFileSync(cacheFile, JSON.stringify([]));
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
 
       expect(loaded).toBeNull();
     });
 
-    it('should return null for non-array data', () => {
+    it('should return null for non-array data', async () => {
       const cacheKey = 'non-array';
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
 
       writeFileSync(cacheFile, JSON.stringify({ data: [1, 2, 3] }));
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
 
       expect(loaded).toBeNull();
     });
 
-    it('should handle high-dimensional embeddings', () => {
+    it('should handle high-dimensional embeddings', async () => {
       const cacheKey = 'high-dim';
       const embeddingData = Array(768).fill(0).map((_unused, i) => i / 768);
 
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
       writeFileSync(cacheFile, JSON.stringify(embeddingData));
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
 
       expect(loaded).toEqual(embeddingData);
       expect(loaded?.length).toBe(768);
@@ -218,59 +218,59 @@ describe('Semantic Search Service', () => {
   });
 
   describe('saveEmbeddingCache', () => {
-    it('should save embedding to cache file', () => {
+    it('should save embedding to cache file', async () => {
       const cacheKey = 'test-save';
       const embedding = [1.5, 2.5, 3.5];
 
-      saveEmbeddingCache(testCacheDir, cacheKey, embedding);
+      await saveEmbeddingCache(testCacheDir, cacheKey, embedding);
 
       const cacheFile = join(testCacheDir, `${cacheKey}.json`);
       expect(existsSync(cacheFile)).toBe(true);
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
       expect(loaded).toEqual(embedding);
     });
 
-    it('should create cache directory if it does not exist', () => {
+    it('should create cache directory if it does not exist', async () => {
       const newCacheDir = join(testCacheDir, 'new-cache');
       const cacheKey = 'test-new-dir';
       const embedding = [1, 2, 3];
 
-      saveEmbeddingCache(newCacheDir, cacheKey, embedding);
+      await saveEmbeddingCache(newCacheDir, cacheKey, embedding);
 
       expect(existsSync(newCacheDir)).toBe(true);
 
-      const loaded = loadEmbeddingCache(newCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(newCacheDir, cacheKey);
       expect(loaded).toEqual(embedding);
     });
 
-    it('should overwrite existing cache file', () => {
+    it('should overwrite existing cache file', async () => {
       const cacheKey = 'overwrite-test';
       const embedding1 = [1, 2, 3];
       const embedding2 = [4, 5, 6];
 
-      saveEmbeddingCache(testCacheDir, cacheKey, embedding1);
-      saveEmbeddingCache(testCacheDir, cacheKey, embedding2);
+      await saveEmbeddingCache(testCacheDir, cacheKey, embedding1);
+      await saveEmbeddingCache(testCacheDir, cacheKey, embedding2);
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
       expect(loaded).toEqual(embedding2);
     });
 
-    it('should handle write failures gracefully', () => {
+    it('should handle write failures gracefully', async () => {
       const invalidDir = '/invalid/path/that/does/not/exist';
       const embedding = [1, 2, 3];
 
-      // Should not throw
-      expect(() => saveEmbeddingCache(invalidDir, 'test', embedding)).not.toThrow();
+      // Should not throw - function catches errors internally
+      await expect(saveEmbeddingCache(invalidDir, 'test', embedding)).resolves.toBeUndefined();
     });
 
-    it('should save high-dimensional embeddings', () => {
+    it('should save high-dimensional embeddings', async () => {
       const cacheKey = 'high-dim-save';
       const embedding = Array(768).fill(0).map(() => Math.random());
 
-      saveEmbeddingCache(testCacheDir, cacheKey, embedding);
+      await saveEmbeddingCache(testCacheDir, cacheKey, embedding);
 
-      const loaded = loadEmbeddingCache(testCacheDir, cacheKey);
+      const loaded = await loadEmbeddingCache(testCacheDir, cacheKey);
       expect(loaded).toEqual(embedding);
     });
   });
@@ -285,19 +285,19 @@ describe('Semantic Search Service', () => {
       mkdirSync(memoryDir, { recursive: true });
     });
 
-    it('should return true when index file does not exist', () => {
-      const isStale = isIndexStale(testProjectDir, 'local');
+    it('should return true when index file does not exist', async () => {
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       expect(isStale).toBe(true);
     });
 
-    it('should return false when index exists and no memory files exist', () => {
+    it('should return false when index exists and no memory files exist', async () => {
       const indexFile = join(indexDir, 'local-index.json');
       writeFileSync(indexFile, JSON.stringify({ embeddings: [], memory_ids: [] }));
 
       rmSync(memoryDir, { recursive: true });
 
-      const isStale = isIndexStale(testProjectDir, 'local');
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       expect(isStale).toBe(false);
     });
@@ -319,7 +319,7 @@ describe('Semantic Search Service', () => {
       const olderTime = new Date(indexStat.mtimeMs - 1000);
       require('fs').utimesSync(memoryFile, olderTime, olderTime);
 
-      const isStale = isIndexStale(testProjectDir, 'local');
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       expect(isStale).toBe(false);
     });
@@ -336,7 +336,7 @@ describe('Semantic Search Service', () => {
       const memoryFile = join(memoryDir, 'learning-new.md');
       writeFileSync(memoryFile, '# New Memory');
 
-      const isStale = isIndexStale(testProjectDir, 'local');
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       expect(isStale).toBe(true);
     });
@@ -351,7 +351,7 @@ describe('Semantic Search Service', () => {
       const nonMdFile = join(memoryDir, 'index.json');
       writeFileSync(nonMdFile, '{}');
 
-      const isStale = isIndexStale(testProjectDir, 'local');
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       // Should not consider non-.md files
       expect(isStale).toBe(false);
@@ -369,7 +369,7 @@ describe('Semantic Search Service', () => {
       const memoryFile = join(subDir, 'learning-nested.md');
       writeFileSync(memoryFile, '# Nested Memory');
 
-      const isStale = isIndexStale(testProjectDir, 'local');
+      const isStale = await isIndexStale(testProjectDir, 'local');
 
       expect(isStale).toBe(true);
     });
@@ -383,13 +383,13 @@ describe('Semantic Search Service', () => {
       mkdirSync(join(testProjectDir, '.claude', 'memory'), { recursive: true });
     });
 
-    it('should return empty array when graph file does not exist', () => {
-      const links = loadGraphLinks(testProjectDir, 'some-memory-id');
+    it('should return empty array when graph file does not exist', async () => {
+      const links = await loadGraphLinks(testProjectDir, 'some-memory-id');
 
       expect(links).toEqual([]);
     });
 
-    it('should return links for a memory that exists', () => {
+    it('should return links for a memory that exists', async () => {
       const graphData = {
         nodes: {
           'learning-test': {
@@ -401,12 +401,12 @@ describe('Semantic Search Service', () => {
 
       writeFileSync(graphFile, JSON.stringify(graphData));
 
-      const links = loadGraphLinks(testProjectDir, 'learning-test');
+      const links = await loadGraphLinks(testProjectDir, 'learning-test');
 
       expect(links).toEqual(['gotcha-related', 'artifact-example']);
     });
 
-    it('should return empty array for memory with no links', () => {
+    it('should return empty array for memory with no links', async () => {
       const graphData = {
         nodes: {
           'learning-no-links': {
@@ -417,12 +417,12 @@ describe('Semantic Search Service', () => {
 
       writeFileSync(graphFile, JSON.stringify(graphData));
 
-      const links = loadGraphLinks(testProjectDir, 'learning-no-links');
+      const links = await loadGraphLinks(testProjectDir, 'learning-no-links');
 
       expect(links).toEqual([]);
     });
 
-    it('should return empty array for non-existent memory', () => {
+    it('should return empty array for non-existent memory', async () => {
       const graphData = {
         nodes: {
           'learning-exists': {
@@ -434,32 +434,32 @@ describe('Semantic Search Service', () => {
 
       writeFileSync(graphFile, JSON.stringify(graphData));
 
-      const links = loadGraphLinks(testProjectDir, 'learning-does-not-exist');
+      const links = await loadGraphLinks(testProjectDir, 'learning-does-not-exist');
 
       expect(links).toEqual([]);
     });
 
-    it('should handle corrupted graph file', () => {
+    it('should handle corrupted graph file', async () => {
       writeFileSync(graphFile, 'not valid json');
 
-      const links = loadGraphLinks(testProjectDir, 'any-id');
+      const links = await loadGraphLinks(testProjectDir, 'any-id');
 
       expect(links).toEqual([]);
     });
 
-    it('should handle graph file with missing nodes', () => {
+    it('should handle graph file with missing nodes', async () => {
       const graphData = {
         // Missing nodes property
       };
 
       writeFileSync(graphFile, JSON.stringify(graphData));
 
-      const links = loadGraphLinks(testProjectDir, 'any-id');
+      const links = await loadGraphLinks(testProjectDir, 'any-id');
 
       expect(links).toEqual([]);
     });
 
-    it('should handle multiple memories in graph', () => {
+    it('should handle multiple memories in graph', async () => {
       const graphData = {
         nodes: {
           'learning-1': { type: 'learning', links: ['link-1'] },
@@ -470,9 +470,9 @@ describe('Semantic Search Service', () => {
 
       writeFileSync(graphFile, JSON.stringify(graphData));
 
-      const links1 = loadGraphLinks(testProjectDir, 'learning-1');
-      const links2 = loadGraphLinks(testProjectDir, 'learning-2');
-      const links3 = loadGraphLinks(testProjectDir, 'gotcha-1');
+      const links1 = await loadGraphLinks(testProjectDir, 'learning-1');
+      const links2 = await loadGraphLinks(testProjectDir, 'learning-2');
+      const links3 = await loadGraphLinks(testProjectDir, 'gotcha-1');
 
       expect(links1).toEqual(['link-1']);
       expect(links2).toEqual(['link-2', 'link-3']);

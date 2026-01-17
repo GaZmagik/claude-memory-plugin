@@ -174,7 +174,7 @@ describe('spawn-session', () => {
           '300', // timeout
           'claude-haiku-4-5-20251001', // model
           'Bash,Read,Grep,Glob,TodoWrite', // tools
-          '/claude-memory-plugin:commit', // prompt
+          expect.stringContaining('claude-prompt-'), // promptFile (in /tmp/)
           '/project', // cwd
         ]),
         expect.objectContaining({
@@ -332,10 +332,10 @@ describe('spawn-session', () => {
       }
     });
 
-    it('should pass special characters in prompt without shell escaping', async () => {
+    it('should write prompt to temp file to prevent shell injection', async () => {
       mockExistsSync.mockReturnValue(true);
 
-      const prompt = "/claude-memory-plugin:commit msg='test with quotes'";
+      const prompt = "/claude-memory-plugin:commit msg='test with quotes'; rm -rf /";
       await spawnSessionWithContext({
         sessionId: 'test',
         cwd: '/project',
@@ -344,13 +344,29 @@ describe('spawn-session', () => {
         logPrefix: 'test',
       });
 
+      // Verify prompt is written to temp file, not passed as arg directly
+      type WriteFileCall = [path: string, content: string, options?: { mode: number }];
+      const writeFileCalls = mockWriteFileSync.mock.calls as unknown as WriteFileCall[];
+      const promptFileCall = writeFileCalls.find(
+        (call) => call[0].includes('claude-prompt-')
+      );
+      expect(promptFileCall).toBeTruthy();
+      if (promptFileCall) {
+        // Prompt content written to file (including shell metacharacters - safe when read from file)
+        expect(promptFileCall[1]).toBe(prompt);
+        // File has secure permissions
+        expect(promptFileCall[2]).toEqual({ mode: 0o600 });
+      }
+
+      // Verify spawn args contain file path, not raw prompt
       type SpawnCall = [script: string, args: string[], options: unknown];
       const spawnCalls = mockSpawn.mock.calls as unknown as SpawnCall[];
       const spawnCall = spawnCalls[0];
       expect(spawnCall).toBeTruthy();
       if (spawnCall) {
-        // Args are passed directly, no shell escaping needed
-        expect(spawnCall[1]).toContain(prompt);
+        // Args should contain prompt FILE path, not prompt string
+        expect(spawnCall[1]).toContainEqual(expect.stringContaining('claude-prompt-'));
+        expect(spawnCall[1]).not.toContain(prompt);
       }
     });
   });

@@ -49,6 +49,10 @@ export function serialiseThinkFrontmatter(frontmatter: ThinkFrontmatter): string
 
 /**
  * Parse YAML string into think frontmatter
+ *
+ * Handles backwards compatibility for older think documents:
+ * - 'topic' derived from 'title' by removing "Think: " prefix if missing
+ * - 'status' derived from 'tags' array ('active'/'concluded') if missing
  */
 export function parseThinkFrontmatter(yamlContent: string): ThinkFrontmatter {
   const parsed = yaml.load(yamlContent, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>;
@@ -57,12 +61,27 @@ export function parseThinkFrontmatter(yamlContent: string): ThinkFrontmatter {
     throw new Error('Invalid think frontmatter: must be a YAML object');
   }
 
+  // Derive topic from title if missing (backwards compatibility)
+  if (!parsed.topic && parsed.title && typeof parsed.title === 'string') {
+    const title = parsed.title;
+    // Remove "Think: " prefix if present
+    parsed.topic = title.startsWith('Think: ') ? title.slice(7) : title;
+  }
+
+  // Derive status from tags if missing (backwards compatibility)
+  if (!parsed.status && Array.isArray(parsed.tags)) {
+    const tags = parsed.tags as string[];
+    if (tags.includes('concluded')) {
+      parsed.status = 'concluded';
+    } else if (tags.includes('active')) {
+      parsed.status = 'active';
+    }
+  }
+
   if (!parsed.topic) {
-    throw new Error('Invalid think frontmatter: topic is required');
+    throw new Error('Invalid think frontmatter: topic is required (and could not be derived from title)');
   }
-  if (!parsed.status) {
-    throw new Error('Invalid think frontmatter: status is required');
-  }
+  // Note: status may still be undefined here - parseThinkDocument will derive from thoughts
 
   return parsed as unknown as ThinkFrontmatter;
 }
@@ -126,6 +145,12 @@ export function parseThoughts(content: string): ThoughtEntry[] {
 
 /**
  * Parse a complete think document file
+ *
+ * Status derivation (backwards compatibility):
+ * 1. Use explicit status from frontmatter if present
+ * 2. Otherwise derive from tags ('active'/'concluded')
+ * 3. Otherwise derive from last thought (Conclusion type → 'concluded')
+ * 4. Default to 'active' if no other indicator
  */
 export function parseThinkDocument(fileContent: string): ThinkParseResult {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
@@ -138,6 +163,16 @@ export function parseThinkDocument(fileContent: string): ThinkParseResult {
   const [, yamlContent, bodyContent] = match;
   const frontmatter = parseThinkFrontmatter(yamlContent);
   const thoughts = parseThoughts(bodyContent);
+
+  // Derive status from last thought if still missing
+  if (!frontmatter.status) {
+    const lastThought = thoughts[thoughts.length - 1];
+    if (lastThought?.type === ThoughtType.Conclusion) {
+      frontmatter.status = ThinkStatus.Concluded;
+    } else {
+      frontmatter.status = ThinkStatus.Active;
+    }
+  }
 
   return {
     frontmatter,

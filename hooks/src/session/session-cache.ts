@@ -5,7 +5,7 @@
  * Used to prevent showing the same gotcha/warning multiple times per session.
  */
 
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { access, readFile, writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 
 /**
@@ -38,6 +38,7 @@ const DEFAULT_TTL_MS = 60 * 60 * 1000; // 1 hour
  * Session-scoped cache with TTL support.
  *
  * Provides deduplication of items within a session with automatic expiry.
+ * Use the static `create()` method to instantiate.
  */
 export class SessionCache {
   private readonly cacheFile: string;
@@ -45,56 +46,82 @@ export class SessionCache {
   private readonly ttlMs: number;
   private entries: Map<string, number>;
 
-  constructor(
-    cacheDir: string,
+  private constructor(
+    cacheFile: string,
     sessionId: string,
-    options: SessionCacheOptions = {}
+    ttlMs: number,
+    entries: Map<string, number>
   ) {
+    this.cacheFile = cacheFile;
     this.sessionId = sessionId;
-    this.ttlMs = options.ttlMs ?? DEFAULT_TTL_MS;
-    this.entries = new Map();
-
-    // Ensure cache directory exists
-    mkdirSync(cacheDir, { recursive: true });
-    this.cacheFile = join(cacheDir, `session-cache-${sessionId}.json`);
-
-    // Load existing cache
-    this.load();
+    this.ttlMs = ttlMs;
+    this.entries = entries;
   }
 
   /**
-   * Load cache from disk
+   * Create a new SessionCache instance (async factory)
    */
-  private load(): void {
-    if (!existsSync(this.cacheFile)) {
-      return;
+  static async create(
+    cacheDir: string,
+    sessionId: string,
+    options: SessionCacheOptions = {}
+  ): Promise<SessionCache> {
+    const ttlMs = options.ttlMs ?? DEFAULT_TTL_MS;
+    const cacheFile = join(cacheDir, `session-cache-${sessionId}.json`);
+
+    // Ensure cache directory exists
+    await mkdir(cacheDir, { recursive: true });
+
+    // Load existing cache
+    const entries = await SessionCache.loadEntries(cacheFile, sessionId, ttlMs);
+
+    return new SessionCache(cacheFile, sessionId, ttlMs, entries);
+  }
+
+  /**
+   * Load cache entries from disk
+   */
+  private static async loadEntries(
+    cacheFile: string,
+    sessionId: string,
+    ttlMs: number
+  ): Promise<Map<string, number>> {
+    const entries = new Map<string, number>();
+
+    try {
+      await access(cacheFile);
+    } catch {
+      // File doesn't exist
+      return entries;
     }
 
     try {
-      const data: CacheData = JSON.parse(readFileSync(this.cacheFile, 'utf-8'));
+      const content = await readFile(cacheFile, 'utf-8');
+      const data: CacheData = JSON.parse(content);
 
       // Verify session ID matches
-      if (data.sessionId !== this.sessionId) {
-        return;
+      if (data.sessionId !== sessionId) {
+        return entries;
       }
 
       const now = Date.now();
       for (const entry of data.entries || []) {
         // Skip expired entries
-        if (now - entry.addedAt < this.ttlMs) {
-          this.entries.set(entry.hash, entry.addedAt);
+        if (now - entry.addedAt < ttlMs) {
+          entries.set(entry.hash, entry.addedAt);
         }
       }
     } catch {
       // Corrupted cache, start fresh
-      this.entries.clear();
     }
+
+    return entries;
   }
 
   /**
    * Save cache to disk
    */
-  private save(): void {
+  private async save(): Promise<void> {
     try {
       const data: CacheData = {
         sessionId: this.sessionId,
@@ -103,7 +130,7 @@ export class SessionCache {
           addedAt,
         })),
       };
-      writeFileSync(this.cacheFile, JSON.stringify(data, null, 2));
+      await writeFile(this.cacheFile, JSON.stringify(data, null, 2));
     } catch {
       // Cache write failed, continue anyway
     }
@@ -130,30 +157,30 @@ export class SessionCache {
   /**
    * Add a hash to the cache
    */
-  add(hash: string): void {
+  async add(hash: string): Promise<void> {
     this.entries.set(hash, Date.now());
-    this.save();
+    await this.save();
   }
 
   /**
    * Remove expired entries
    */
-  cleanup(): void {
+  async cleanup(): Promise<void> {
     const now = Date.now();
     for (const [hash, addedAt] of this.entries) {
       if (now - addedAt >= this.ttlMs) {
         this.entries.delete(hash);
       }
     }
-    this.save();
+    await this.save();
   }
 
   /**
    * Clear all entries
    */
-  clear(): void {
+  async clear(): Promise<void> {
     this.entries.clear();
-    this.save();
+    await this.save();
   }
 
   /**
@@ -167,10 +194,10 @@ export class SessionCache {
 /**
  * Create a session cache for gotcha deduplication
  */
-export function createGotchaCache(
+export async function createGotchaCache(
   projectDir: string,
   sessionId: string
-): SessionCache {
+): Promise<SessionCache> {
   const cacheDir = join(projectDir, '.claude', 'cache', 'memory-context');
-  return new SessionCache(cacheDir, sessionId);
+  return SessionCache.create(cacheDir, sessionId);
 }

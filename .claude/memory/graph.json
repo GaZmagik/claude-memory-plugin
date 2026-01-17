@@ -1056,6 +1056,22 @@
     {
       "id": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-verify-task-completion-status-before-committing-to-work-items",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-interpreters",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-intent-storage-types-for-memory-system-beyond-revisitremind",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -2507,6 +2523,66 @@
     {
       "source": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
       "target": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
+      "target": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "target": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "target": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "target": "decision-hook-separation-clarified-enforcement-boundaries",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "target": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-verify-task-completion-status-before-committing-to-work-items",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-interpreters",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
+      "target": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
       "label": "relates-to"
     }
   ]

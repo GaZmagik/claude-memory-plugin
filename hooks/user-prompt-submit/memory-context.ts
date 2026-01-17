@@ -9,9 +9,19 @@
  */
 
 import { runHook, allowWithOutput } from '../src/core/error-handler.ts';
-import { existsSync, mkdirSync, appendFileSync, readFileSync } from 'fs';
+import { stat, mkdir, appendFile, readFile } from 'fs/promises';
 import { homedir } from 'os';
 import { join } from 'path';
+
+/** Check if a path exists (async alternative to existsSync) */
+async function pathExists(p: string): Promise<boolean> {
+  try {
+    await stat(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // Import plugin's search modules
 import { searchMemories } from '../../skills/memory/src/core/search.js';
@@ -69,8 +79,8 @@ async function ollamaGenerate(prompt: string, fallback: string): Promise<string>
 /**
  * Load settings from project directory (called once at hook init)
  */
-function initSettings(projectDir: string): void {
-  const settings = loadSettings(projectDir);
+async function initSettings(projectDir: string): Promise<void> {
+  const settings = await loadSettings(projectDir);
   OLLAMA_MODEL = settings.chat_model;
   OLLAMA_HOST = settings.ollama_host;
   CONTEXT_WINDOW = settings.context_window;
@@ -117,7 +127,7 @@ async function trySemanticSearch(
   try {
     // Check if embeddings cache exists
     const embeddingsPath = join(basePath, 'embeddings.json');
-    if (!existsSync(embeddingsPath)) {
+    if (!(await pathExists(embeddingsPath))) {
       return null;
     }
 
@@ -189,13 +199,13 @@ async function keywordSearch(
 /**
  * Get memory file path from ID
  */
-function getMemoryFilePath(basePath: string, id: string): string {
+async function getMemoryFilePath(basePath: string, id: string): Promise<string> {
   // Check permanent first, then temporary
   const permanentPath = join(basePath, 'permanent', `${id}.md`);
-  if (existsSync(permanentPath)) return permanentPath;
+  if (await pathExists(permanentPath)) return permanentPath;
 
   const temporaryPath = join(basePath, 'temporary', `${id}.md`);
-  if (existsSync(temporaryPath)) return temporaryPath;
+  if (await pathExists(temporaryPath)) return temporaryPath;
 
   return permanentPath; // Default
 }
@@ -206,23 +216,23 @@ runHook(async (input) => {
   const projectDir = input?.cwd || process.cwd();
 
   // Load plugin settings (with fallbacks to defaults)
-  initSettings(projectDir);
+  await initSettings(projectDir);
 
   // Setup logging
   let logFile = '';
-  if (projectDir && existsSync(join(projectDir, '.claude'))) {
+  if (projectDir && (await pathExists(join(projectDir, '.claude')))) {
     const logDir = join(projectDir, '.claude', 'logs');
-    mkdirSync(logDir, { recursive: true });
+    await mkdir(logDir, { recursive: true });
     logFile = join(logDir, 'memory-context.log');
   }
 
-  const log = (message: string) => {
+  const log = async (message: string) => {
     if (!logFile) return;
     const timestamp = new Date().toISOString();
-    appendFileSync(
+    await appendFile(
       logFile,
       `────────────────────────────────────────\n[${timestamp}] [${sessionId}]\n${message}\n\n`
-    );
+    ).catch(() => {}); // Fire-and-forget logging
   };
 
   // Skip conditions
@@ -237,8 +247,8 @@ runHook(async (input) => {
   const localMemoryPath = join(projectDir, '.claude', 'memory');
   const globalMemoryPath = join(homedir(), '.claude', 'memory');
 
-  const hasLocalMemory = existsSync(localMemoryPath);
-  const hasGlobalMemory = existsSync(globalMemoryPath);
+  const hasLocalMemory = await pathExists(localMemoryPath);
+  const hasGlobalMemory = await pathExists(globalMemoryPath);
 
   if (!hasLocalMemory && !hasGlobalMemory) {
     return allowWithOutput();
@@ -297,14 +307,16 @@ runHook(async (input) => {
   const memoryPaths: string[] = [];
 
   for (const memory of results.slice(0, 5)) {
-    const filePath =
-      getMemoryFilePath(localMemoryPath, memory.id) ||
-      getMemoryFilePath(globalMemoryPath, memory.id);
+    // Try local path first, then global
+    let filePath = await getMemoryFilePath(localMemoryPath, memory.id);
+    if (!(await pathExists(filePath))) {
+      filePath = await getMemoryFilePath(globalMemoryPath, memory.id);
+    }
 
-    if (existsSync(filePath)) {
+    if (await pathExists(filePath)) {
       memoryPaths.push(filePath);
       try {
-        const content = readFileSync(filePath, 'utf-8');
+        const content = await readFile(filePath, 'utf-8');
         const lines = content.split('\n').slice(0, 40).join('\n');
         memoryContent += `--- ${memory.id} ---\n${lines}\n\n`;
       } catch {

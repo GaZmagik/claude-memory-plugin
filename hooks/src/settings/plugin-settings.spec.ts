@@ -191,12 +191,12 @@ enabled: true
   });
 
   describe('loadSettings', () => {
-    it('should return defaults when file does not exist', () => {
-      const settings = loadSettings(testDir);
+    it('should return defaults when file does not exist', async () => {
+      const settings = await loadSettings(testDir);
       expect(settings).toEqual(DEFAULT_SETTINGS);
     });
 
-    it('should merge user settings with defaults', () => {
+    it('should merge user settings with defaults', async () => {
       writeFileSync(
         settingsPath,
         `---
@@ -205,7 +205,7 @@ health_threshold: 0.8
 ---
 `
       );
-      const settings = loadSettings(testDir);
+      const settings = await loadSettings(testDir);
       expect(settings.chat_model).toBe('llama3.2');
       expect(settings.health_threshold).toBe(0.8);
       // Defaults preserved
@@ -213,7 +213,7 @@ health_threshold: 0.8
       expect(settings.ollama_host).toBe('http://localhost:11434');
     });
 
-    it('should use defaults for invalid values', () => {
+    it('should use defaults for invalid values', async () => {
       writeFileSync(
         settingsPath,
         `---
@@ -222,18 +222,18 @@ context_window: not-a-number
 ---
 `
       );
-      const settings = loadSettings(testDir);
+      const settings = await loadSettings(testDir);
       expect(settings.chat_model).toBe('valid-model');
       expect(settings.context_window).toBe(DEFAULT_SETTINGS.context_window);
     });
 
-    it('should handle parse errors gracefully', () => {
+    it('should handle parse errors gracefully', async () => {
       writeFileSync(settingsPath, 'invalid: yaml: [unclosed');
-      const settings = loadSettings(testDir);
+      const settings = await loadSettings(testDir);
       expect(settings).toEqual(DEFAULT_SETTINGS);
     });
 
-    it('should handle complete settings file', () => {
+    it('should handle complete settings file', async () => {
       writeFileSync(
         settingsPath,
         `---
@@ -250,7 +250,7 @@ auto_sync: true
 # Custom configuration
 `
       );
-      const settings = loadSettings(testDir);
+      const settings = await loadSettings(testDir);
       expect(settings).toEqual({
         enabled: false,
         ollama_host: 'http://remote:11434',
@@ -263,7 +263,7 @@ auto_sync: true
       });
     });
 
-    it('should respect enabled: false', () => {
+    it('should respect enabled: false', async () => {
       writeFileSync(
         settingsPath,
         `---
@@ -271,7 +271,7 @@ enabled: false
 ---
 `
       );
-      const settings = loadSettings(testDir);
+      const settings = await loadSettings(testDir);
       expect(settings.enabled).toBe(false);
     });
   });

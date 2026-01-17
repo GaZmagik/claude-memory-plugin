@@ -5,14 +5,7 @@
  * Uses ollama-js for embeddings and pure TypeScript for cosine similarity.
  */
 
-import {
-  existsSync,
-  readFileSync,
-  writeFileSync,
-  mkdirSync,
-  statSync,
-  readdirSync,
-} from 'fs';
+import { readFile, writeFile, mkdir, stat, readdir, unlink, utimes } from 'fs/promises';
 import { createHash } from 'crypto';
 import { join } from 'path';
 import { homedir } from 'os';
@@ -33,6 +26,9 @@ const THRESHOLDS: Record<string, number> = {
 // Cache directories
 const SEMANTIC_INDEX_DIR = join(homedir(), '.claude', 'cache', 'semantic-index');
 const QUERY_CACHE_DIR = join(homedir(), '.claude', 'cache', 'embeddings');
+
+// LRU cache eviction settings
+const MAX_QUERY_CACHE_ENTRIES = 1000;
 
 /**
  * Result from a memory search
@@ -118,24 +114,25 @@ export function cosineSimilarity(a: number[], b: number[]): number {
 
 /**
  * Load embedding from cache.
+ * Touches the file on hit to update mtime for LRU eviction.
  */
-export function loadEmbeddingCache(
+export async function loadEmbeddingCache(
   cacheDir: string,
   cacheKey: string
-): number[] | null {
+): Promise<number[] | null> {
   const cacheFile = join(cacheDir, `${cacheKey}.json`);
 
-  if (!existsSync(cacheFile)) {
-    return null;
-  }
-
   try {
-    const cached = JSON.parse(readFileSync(cacheFile, 'utf-8'));
+    const content = await readFile(cacheFile, 'utf-8');
+    const cached = JSON.parse(content);
     if (Array.isArray(cached) && cached.length > 0) {
+      // Touch file to update mtime (LRU tracking)
+      const now = new Date();
+      await utimes(cacheFile, now, now).catch(() => {});
       return cached;
     }
   } catch {
-    // Cache corrupted
+    // File doesn't exist or cache corrupted
   }
 
   return null;
@@ -144,17 +141,68 @@ export function loadEmbeddingCache(
 /**
  * Save embedding to cache.
  */
-export function saveEmbeddingCache(
+export async function saveEmbeddingCache(
   cacheDir: string,
   cacheKey: string,
   embedding: number[]
-): void {
+): Promise<void> {
   try {
-    mkdirSync(cacheDir, { recursive: true });
+    await mkdir(cacheDir, { recursive: true });
     const cacheFile = join(cacheDir, `${cacheKey}.json`);
-    writeFileSync(cacheFile, JSON.stringify(embedding));
+    await writeFile(cacheFile, JSON.stringify(embedding));
   } catch {
     // Cache write failed
+  }
+}
+
+/**
+ * Evict oldest cache entries when limit exceeded (LRU policy).
+ * Uses file mtime as access proxy - files are rewritten on cache hit.
+ */
+export async function evictOldCacheEntries(
+  cacheDir: string,
+  maxEntries: number = MAX_QUERY_CACHE_ENTRIES
+): Promise<number> {
+  try {
+    const files = await readdir(cacheDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+
+    if (jsonFiles.length <= maxEntries) {
+      return 0; // No eviction needed
+    }
+
+    // Get file stats for sorting by mtime
+    const fileStats = await Promise.all(
+      jsonFiles.map(async (file) => {
+        const filePath = join(cacheDir, file);
+        try {
+          const stats = await stat(filePath);
+          return { file, filePath, mtime: stats.mtimeMs };
+        } catch {
+          return { file, filePath, mtime: 0 }; // Treat errors as oldest
+        }
+      })
+    );
+
+    // Sort by mtime ascending (oldest first)
+    fileStats.sort((a, b) => a.mtime - b.mtime);
+
+    // Evict oldest entries to get under limit
+    const toEvict = fileStats.slice(0, jsonFiles.length - maxEntries);
+    let evicted = 0;
+
+    for (const { filePath } of toEvict) {
+      try {
+        await unlink(filePath);
+        evicted++;
+      } catch {
+        // File already deleted or inaccessible
+      }
+    }
+
+    return evicted;
+  } catch {
+    return 0; // Cache dir doesn't exist or inaccessible
   }
 }
 
@@ -165,7 +213,7 @@ export async function getQueryEmbedding(query: string): Promise<number[] | null>
   const cacheKey = createHash('sha256').update(query).digest('hex');
 
   // Check cache first
-  const cached = loadEmbeddingCache(QUERY_CACHE_DIR, cacheKey);
+  const cached = await loadEmbeddingCache(QUERY_CACHE_DIR, cacheKey);
   if (cached) {
     return cached;
   }
@@ -174,7 +222,9 @@ export async function getQueryEmbedding(query: string): Promise<number[] | null>
   const embedding = await embed(query, EMBEDDING_MODEL);
 
   if (embedding.length > 0) {
-    saveEmbeddingCache(QUERY_CACHE_DIR, cacheKey, embedding);
+    await saveEmbeddingCache(QUERY_CACHE_DIR, cacheKey, embedding);
+    // Fire-and-forget eviction to avoid blocking
+    evictOldCacheEntries(QUERY_CACHE_DIR).catch(() => {});
     return embedding;
   }
 
@@ -184,15 +234,12 @@ export async function getQueryEmbedding(query: string): Promise<number[] | null>
 /**
  * Load links for a memory from graph.json.
  */
-export function loadGraphLinks(projectDir: string, memoryId: string): string[] {
+export async function loadGraphLinks(projectDir: string, memoryId: string): Promise<string[]> {
   const graphFile = join(projectDir, '.claude', 'memory', 'graph.json');
 
-  if (!existsSync(graphFile)) {
-    return [];
-  }
-
   try {
-    const graph: GraphData = JSON.parse(readFileSync(graphFile, 'utf-8'));
+    const content = await readFile(graphFile, 'utf-8');
+    const graph: GraphData = JSON.parse(content);
     const node = graph.nodes?.[memoryId];
     return node?.links || [];
   } catch {
@@ -203,7 +250,7 @@ export function loadGraphLinks(projectDir: string, memoryId: string): string[] {
 /**
  * Check if the semantic index is stale (memories newer than index).
  */
-export function isIndexStale(projectDir: string, scope: string): boolean {
+export async function isIndexStale(projectDir: string, scope: string): Promise<boolean> {
   const indexDir =
     scope === 'local'
       ? join(projectDir, '.claude', 'cache', 'semantic-index')
@@ -215,28 +262,27 @@ export function isIndexStale(projectDir: string, scope: string): boolean {
       ? join(projectDir, '.claude', 'memory')
       : join(homedir(), '.claude', 'memory');
 
-  // If no index exists, consider it stale
-  if (!existsSync(indexFile)) {
-    return true;
-  }
-
-  // If no memory directory, index is fine
-  if (!existsSync(memoryDir)) {
-    return false;
-  }
-
   try {
-    const indexStat = statSync(indexFile);
+    // If no index exists, consider it stale
+    const indexStat = await stat(indexFile);
     const indexMtime = indexStat.mtimeMs;
 
+    // Check if memory directory exists
+    try {
+      await stat(memoryDir);
+    } catch {
+      // No memory directory, index is fine
+      return false;
+    }
+
     // Check if any memory file is newer than the index
-    const files = readdirSync(memoryDir, { recursive: true });
+    const files = await readdir(memoryDir, { recursive: true });
     for (const file of files) {
       if (typeof file !== 'string' || !file.endsWith('.md')) continue;
 
       const filePath = join(memoryDir, file);
       try {
-        const fileStat = statSync(filePath);
+        const fileStat = await stat(filePath);
         if (fileStat.mtimeMs > indexMtime) {
           return true; // Found a newer memory
         }
@@ -247,17 +293,17 @@ export function isIndexStale(projectDir: string, scope: string): boolean {
 
     return false; // All memories are older than index
   } catch {
-    return true; // Error checking, assume stale
+    return true; // No index or error checking, assume stale
   }
 }
 
 /**
  * Load pre-computed index for a scope.
  */
-function loadIndex(
+async function loadIndex(
   scope: string,
   projectDir?: string
-): { embeddings: number[][]; ids: string[]; manifest: ManifestData } | null {
+): Promise<{ embeddings: number[][]; ids: string[]; manifest: ManifestData } | null> {
   const indexDir =
     scope === 'local' && projectDir
       ? join(projectDir, '.claude', 'cache', 'semantic-index')
@@ -266,13 +312,14 @@ function loadIndex(
   const indexFile = join(indexDir, `${scope}-index.json`);
   const manifestFile = join(indexDir, `${scope}-manifest.json`);
 
-  if (!existsSync(indexFile) || !existsSync(manifestFile)) {
-    return null;
-  }
-
   try {
-    const indexData: IndexData = JSON.parse(readFileSync(indexFile, 'utf-8'));
-    const manifest: ManifestData = JSON.parse(readFileSync(manifestFile, 'utf-8'));
+    const [indexContent, manifestContent] = await Promise.all([
+      readFile(indexFile, 'utf-8'),
+      readFile(manifestFile, 'utf-8'),
+    ]);
+
+    const indexData: IndexData = JSON.parse(indexContent);
+    const manifest: ManifestData = JSON.parse(manifestContent);
 
     return {
       embeddings: indexData.embeddings || [],
@@ -330,21 +377,19 @@ async function searchFallback(
   threshold: number,
   limit: number
 ): Promise<MemoryResult[]> {
-  if (!existsSync(memoryDir)) {
-    return [];
-  }
-
   const results: MemoryResult[] = [];
 
   try {
-    const files = readdirSync(memoryDir, { recursive: true });
+    // Check if directory exists
+    await stat(memoryDir);
+    const files = await readdir(memoryDir, { recursive: true });
 
     for (const file of files) {
       if (typeof file !== 'string' || !file.endsWith('.md')) continue;
 
       const filePath = join(memoryDir, file);
       try {
-        const content = readFileSync(filePath, 'utf-8');
+        const content = await readFile(filePath, 'utf-8');
 
         // Extract title from first heading
         const titleMatch = content.match(/^#\s+(.+)$/m);
@@ -376,7 +421,7 @@ async function searchFallback(
       }
     }
   } catch {
-    // Ignore directory errors
+    // Directory doesn't exist or read error
   }
 
   // Sort by score descending
@@ -446,11 +491,11 @@ export async function searchMemories(
         : join(homedir(), '.claude', 'memory');
 
     // Check for index staleness
-    const stale = isIndexStale(projectDir || homedir(), s);
+    const stale = await isIndexStale(projectDir || homedir(), s);
 
     if (!stale) {
       // Try indexed search
-      const index = loadIndex(s, s === 'local' ? projectDir : undefined);
+      const index = await loadIndex(s, s === 'local' ? projectDir : undefined);
 
       if (index && index.embeddings.length > 0) {
         indexStatus = 'indexed';

@@ -17,6 +17,30 @@ import { homedir } from 'os';
 import { spawn } from '../src/core/subprocess.ts';
 import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
 
+/**
+ * Check if the memory CLI is available in PATH
+ */
+async function isMemoryCliAvailable(): Promise<boolean> {
+  const result = await spawn(['which', 'memory'], { timeout: 2000 });
+  return result.success && result.stdout.trim().length > 0;
+}
+
+/**
+ * Message to display when memory CLI is not found
+ */
+const MEMORY_CLI_SETUP_MESSAGE = `
+⚠️ Memory CLI not found. To enable full functionality:
+
+1. Install Bun: https://bun.sh/docs/installation
+   curl -fsSL https://bun.sh/install | bash
+
+2. Link the memory CLI (from plugin directory):
+   cd ~/.claude/plugins/cache/local-memory-plugin/claude-memory-plugin/1.0.0
+   bun link
+
+Then restart Claude Code.
+`;
+
 interface MemoryEntry {
   id: string;
   title?: string;
@@ -337,6 +361,20 @@ runHook(async (input) => {
   if (existsSync(join(projectDir, '.claude'))) {
     mkdirSync(logDir, { recursive: true });
     logFile = join(logDir, 'memory-context.log');
+  }
+
+  // Check if memory CLI is available - show setup message if not
+  const memoryCliAvailable = await isMemoryCliAvailable();
+  if (!memoryCliAvailable) {
+    // Use allow() with message - SessionStart hooks output plain text to stdout
+    let message = MEMORY_CLI_SETUP_MESSAGE.trim();
+
+    // Add basic index info if available
+    if (existsSync(localIndex) || existsSync(globalIndex)) {
+      message += '\n\n📚 Memory indexes exist but CLI features (health, think, prune) are unavailable.';
+    }
+
+    return allow(message);
   }
 
   // Check if any index exists

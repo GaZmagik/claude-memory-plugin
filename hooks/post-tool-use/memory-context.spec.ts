@@ -18,16 +18,18 @@ import { spawn } from '../src/core/subprocess.ts';
 const HOOK_PATH = join(import.meta.dir, 'memory-context.ts');
 
 // Check if Ollama is available for integration tests
-let ollamaAvailable = false;
+let _ollamaAvailable = false;
 beforeAll(async () => {
   try {
     const result = await spawn(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', 'http://localhost:11434/api/tags'], {
       timeout: 2000,
     });
-    ollamaAvailable = result.stdout.trim() === '200';
+    _ollamaAvailable = result.stdout.trim() === '200';
   } catch {
-    ollamaAvailable = false;
+    _ollamaAvailable = false;
   }
+  // Suppress unused variable warning - reserved for future skipIf() integration tests
+  void _ollamaAvailable;
 });
 
 describe('memory-context hook', () => {

@@ -310,7 +310,7 @@ describe('Embedding Generation', () => {
       };
 
       const progressCalls: number[] = [];
-      const onProgress = (current: number, total: number) => {
+      const onProgress = (current: number, _total: number) => {
         progressCalls.push(current);
       };
 

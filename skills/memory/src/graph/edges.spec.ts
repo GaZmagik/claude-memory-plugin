@@ -19,7 +19,6 @@ import {
   findOrphanedNodes,
   bulkAddEdges,
   type MemoryGraph,
-  type GraphEdge,
 } from './edges.js';
 import { createGraph } from './structure.js';
 

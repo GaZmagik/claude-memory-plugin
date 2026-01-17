@@ -14,7 +14,7 @@ import {
   isValidTitle,
   isValidTags,
 } from '../core/validation.js';
-import { MemoryType, Scope, Severity } from './enums.js';
+import { MemoryType, Severity } from './enums.js';
 import type { MemoryFrontmatter } from './memory.js';
 
 describe('isValidMemoryType', () => {

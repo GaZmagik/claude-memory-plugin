@@ -4,7 +4,7 @@
  * Tests the error handling utilities for Claude Code hooks.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   allow,
   allowWithOutput,

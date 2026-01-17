@@ -7,11 +7,13 @@ import type { HookInput, HookOutput } from './types.ts';
 /**
  * Read all data from stdin as a string.
  * Handles the async iterator pattern for stdin.
+ * @param input - Optional readable stream (defaults to process.stdin). Used for testing.
  */
-export async function readStdin(): Promise<string> {
+export async function readStdin(input?: AsyncIterable<Buffer | string>): Promise<string> {
   const chunks: Buffer[] = [];
+  const source = input ?? process.stdin;
 
-  for await (const chunk of process.stdin) {
+  for await (const chunk of source) {
     chunks.push(Buffer.from(chunk));
   }
 
@@ -21,10 +23,11 @@ export async function readStdin(): Promise<string> {
 /**
  * Parse stdin as JSON hook input.
  * Returns null if stdin is empty or invalid JSON.
+ * @param input - Optional readable stream (defaults to process.stdin). Used for testing.
  */
-export async function parseHookInput(): Promise<HookInput | null> {
+export async function parseHookInput(input?: AsyncIterable<Buffer | string>): Promise<HookInput | null> {
   try {
-    const raw = await readStdin();
+    const raw = await readStdin(input);
     const trimmed = raw.trim();
 
     if (!trimmed) {
@@ -42,7 +45,7 @@ export async function parseHookInput(): Promise<HookInput | null> {
  * Accepts either a full HookOutput object or separate parameters.
  */
 export function outputHookResponse(output: HookOutput): void;
-export function outputHookResponse(hookEventName: string, additionalContext: string): void;
+export function outputHookResponse(hookEventName: string, additionalContext?: string): void;
 export function outputHookResponse(
   outputOrEventName: HookOutput | string,
   additionalContext?: string

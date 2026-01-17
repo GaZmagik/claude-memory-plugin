@@ -9,7 +9,6 @@ import { tmpdir } from 'os';
 import {
   SessionCache,
   createGotchaCache,
-  type SessionCacheOptions,
 } from './session-cache.js';
 
 describe('SessionCache', () => {

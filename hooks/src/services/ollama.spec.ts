@@ -6,7 +6,6 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import type { Ollama } from 'ollama';
 
 // Mock the ollama module before any imports
 const mockGenerate = vi.fn();

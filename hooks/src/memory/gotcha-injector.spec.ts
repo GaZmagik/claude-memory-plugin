@@ -4,7 +4,7 @@
  * Tests the gotcha injection utilities for contextual warning display.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach, afterAll, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import {
   getRelevantGotchas,
   filterUnshownGotchas,

@@ -5,7 +5,7 @@
  * memories have been shown to avoid duplicate warnings.
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   SessionState,
   createSessionState,

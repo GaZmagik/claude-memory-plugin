@@ -11,7 +11,6 @@ import {
   calculateHealthScore,
   formatHealthReport,
   type HealthReport,
-  type HealthStatus,
 } from './health.js';
 
 describe('Health Check', () => {

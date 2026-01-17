@@ -7,7 +7,6 @@ import {
   HookError,
   isHookError,
   toHookError,
-  type HookErrorCategory,
 } from './errors.js';
 import { EXIT_CODES } from './constants.js';
 

@@ -8,7 +8,7 @@
  * isolated tests that mock node modules.
  */
 
-import { describe, it, expect, mock, beforeEach, afterEach, afterAll } from 'bun:test';
+import { describe, it, expect, mock, beforeEach, afterAll } from 'bun:test';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
 import * as originalFs from 'fs';

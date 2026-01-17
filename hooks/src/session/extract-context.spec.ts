@@ -5,7 +5,7 @@
  * used for extracting conversation context from Claude Code sessions.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach, afterAll, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { homedir } from 'os';
 import { join } from 'path';
 

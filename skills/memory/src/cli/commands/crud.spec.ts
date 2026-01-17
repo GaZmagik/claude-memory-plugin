@@ -12,20 +12,23 @@ import * as searchModule from '../../core/search.js';
 import * as semanticModule from '../../core/semantic-search.js';
 import * as parserModule from '../parser.js';
 import type { ParsedArgs } from '../parser.js';
+import { MemoryType, Scope } from '../../types/enums.js';
 
 describe('cmdRead', () => {
   beforeEach(() => {
     vi.spyOn(readModule, 'readMemory').mockResolvedValue({
       status: 'success',
-      id: 'test-id',
-      frontmatter: {
-        type: 'decision',
-        title: 'Test',
-        tags: [],
-        created: '2026-01-01',
-        updated: '2026-01-01',
+      memory: {
+        frontmatter: {
+          type: MemoryType.Decision,
+          title: 'Test',
+          tags: [],
+          created: '2026-01-01',
+          updated: '2026-01-01',
+        },
+        content: 'Test content',
+        filePath: '/test/path/test-id.md',
       },
-      content: 'Test content',
     });
   });
 
@@ -69,7 +72,7 @@ describe('cmdList', () => {
     vi.spyOn(listModule, 'listMemories').mockResolvedValue({
       status: 'success',
       memories: [],
-      total: 0,
+      count: 0,
     });
   });
 
@@ -148,7 +151,6 @@ describe('cmdSearch', () => {
     vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({
       status: 'success',
       results: [],
-      total: 0,
     });
   });
 
@@ -253,8 +255,18 @@ describe('cmdWrite', () => {
   beforeEach(() => {
     vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
       status: 'success',
-      id: 'new-memory-id',
-      path: '/test/path',
+      memory: {
+        id: 'new-memory-id',
+        filePath: '/test/path/new-memory-id.md',
+        frontmatter: {
+          type: MemoryType.Decision,
+          title: 'New Memory',
+          tags: [],
+          created: '2026-01-01',
+          updated: '2026-01-01',
+        },
+        scope: Scope.Project,
+      },
     });
   });
 

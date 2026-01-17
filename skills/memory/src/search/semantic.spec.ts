@@ -13,8 +13,6 @@ import {
 import {
   semanticSearch,
   findSimilarToMemory,
-  type SemanticSearchOptions,
-  type SemanticSearchResult,
 } from './semantic.js';
 
 describe('Semantic Search', () => {

@@ -2,7 +2,7 @@
  * Tests for T049: Default scope selection logic
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
   selectDefaultScope,
   getRecommendedScope,

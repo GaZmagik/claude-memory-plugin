@@ -291,7 +291,7 @@ describe('Fork Detection', () => {
 
       await spawnForkSession('test');
 
-      const lastCall = mockExecFileSync.mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1] as unknown[];
       const options = lastCall[2] as { env: Record<string, string | undefined> };
 
       expect(options.env).toHaveProperty('PATH');
@@ -307,7 +307,7 @@ describe('Fork Detection', () => {
 
       await spawnForkSession('test', { timeout: 30000 });
 
-      const lastCall = mockExecFileSync.mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1] as unknown[];
       const options = lastCall[2] as { timeout: number };
 
       expect(options.timeout).toBe(30000);
@@ -320,7 +320,7 @@ describe('Fork Detection', () => {
 
       await spawnForkSession('test');
 
-      const lastCall = mockExecFileSync.mock.calls[1];
+      const lastCall = mockExecFileSync.mock.calls[1] as unknown[];
       const options = lastCall[2] as { timeout: number };
 
       expect(options.timeout).toBe(60000);
@@ -394,7 +394,7 @@ describe('Fork Detection', () => {
 
       writeForkLog('/path/to/log.log', 'Test content');
 
-      const call = mockWriteFileSync.mock.calls[0];
+      const call = mockWriteFileSync.mock.calls[0] as unknown[];
       const content = call[1] as string;
 
       // Should have ISO timestamp format [2026-01-10T...]

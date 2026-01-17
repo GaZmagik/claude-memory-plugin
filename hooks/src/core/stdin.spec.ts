@@ -12,16 +12,14 @@ import {
 import type { HookInput, HookOutput } from './types.js';
 
 describe('stdin utilities', () => {
-  let originalStdin: NodeJS.ReadStream;
-  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let consoleLogSpy: any;
 
   beforeEach(() => {
-    originalStdin = process.stdin;
     consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    process.stdin = originalStdin;
     consoleLogSpy.mockRestore();
     vi.restoreAllMocks();
   });
@@ -29,36 +27,32 @@ describe('stdin utilities', () => {
   describe('readStdin', () => {
     it('should read simple string from stdin', async () => {
       const mockStream = Readable.from(['Hello, World!']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe('Hello, World!');
     });
 
     it('should concatenate multiple chunks', async () => {
       const mockStream = Readable.from(['Hello, ', 'World', '!']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe('Hello, World!');
     });
 
     it('should handle empty stdin', async () => {
       const mockStream = Readable.from([]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe('');
     });
 
     it('should handle UTF-8 encoded content', async () => {
       const mockStream = Readable.from(['{"key": "value 日本語"}']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe('{"key": "value 日本語"}');
     });
@@ -66,9 +60,8 @@ describe('stdin utilities', () => {
     it('should handle large input', async () => {
       const largeInput = 'x'.repeat(100000);
       const mockStream = Readable.from([largeInput]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe(largeInput);
       expect(result.length).toBe(100000);
@@ -77,9 +70,8 @@ describe('stdin utilities', () => {
     it('should handle binary data as UTF-8', async () => {
       const buffer = Buffer.from([0x48, 0x65, 0x6c, 0x6c, 0x6f]); // "Hello"
       const mockStream = Readable.from([buffer]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await readStdin();
+      const result = await readStdin(mockStream);
 
       expect(result).toBe('Hello');
     });
@@ -89,51 +81,46 @@ describe('stdin utilities', () => {
     it('should parse valid JSON input', async () => {
       const input: HookInput = {
         hook_event_name: 'PostToolUse:Read',
-        bashCommand: 'cat file.txt',
-        toolName: 'Read',
-        sessionId: 'test-session',
+        tool_name: 'Read',
+        tool_input: { command: 'cat file.txt' },
+        session_id: 'test-session',
         cwd: '/home/user',
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toEqual(input);
     });
 
     it('should return null for empty stdin', async () => {
       const mockStream = Readable.from([]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toBeNull();
     });
 
     it('should return null for whitespace-only input', async () => {
       const mockStream = Readable.from(['   \n\t  ']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toBeNull();
     });
 
     it('should return null for invalid JSON', async () => {
       const mockStream = Readable.from(['{ invalid json }']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toBeNull();
     });
 
     it('should return null for malformed JSON', async () => {
       const mockStream = Readable.from(['{"key": "value"']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toBeNull();
     });
@@ -141,13 +128,12 @@ describe('stdin utilities', () => {
     it('should trim whitespace before parsing', async () => {
       const input: HookInput = {
         hook_event_name: 'PostToolUse:Read',
-        sessionId: 'test',
+        session_id: 'test',
         cwd: '/home',
       };
       const mockStream = Readable.from([`\n  ${JSON.stringify(input)}  \n`]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toEqual(input);
     });
@@ -155,9 +141,9 @@ describe('stdin utilities', () => {
     it('should handle complex nested JSON', async () => {
       const input: HookInput = {
         hook_event_name: 'PostToolUse:Read',
-        sessionId: 'test',
+        session_id: 'test',
         cwd: '/home',
-        toolInputParameters: {
+        tool_input: {
           nested: {
             deep: {
               value: [1, 2, 3],
@@ -166,18 +152,16 @@ describe('stdin utilities', () => {
         },
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toEqual(input);
     });
 
     it('should return null for non-object JSON', async () => {
       const mockStream = Readable.from(['"just a string"']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       // Should parse successfully even if not the expected shape
       expect(result).toBe('just a string');
@@ -186,13 +170,12 @@ describe('stdin utilities', () => {
     it('should handle JSON with special characters', async () => {
       const input: HookInput = {
         hook_event_name: 'PostToolUse:Read',
-        sessionId: 'test',
+        session_id: 'test',
         cwd: '/path/with/"quotes"/and\\backslashes',
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
 
-      const result = await parseHookInput();
+      const result = await parseHookInput(mockStream);
 
       expect(result).toEqual(input);
     });

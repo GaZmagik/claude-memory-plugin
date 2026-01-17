@@ -9,9 +9,42 @@
  * - Log to timestamped files
  */
 
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
+
+/**
+ * Find the installed plugin directory for a given plugin name
+ * Reads from ~/.claude/plugins/installed_plugins.json
+ */
+export function findPluginDir(pluginName: string): string | null {
+  const home = homedir();
+  const installedPluginsPath = join(home, '.claude', 'plugins', 'installed_plugins.json');
+
+  if (!existsSync(installedPluginsPath)) {
+    return null;
+  }
+
+  try {
+    const content = readFileSync(installedPluginsPath, 'utf-8');
+    const data = JSON.parse(content);
+    const plugins = data.plugins || {};
+
+    // Look for the plugin by name (handles partial matches)
+    for (const [key, entries] of Object.entries(plugins)) {
+      if (key.includes(pluginName)) {
+        const entryList = entries as Array<{ installPath?: string }>;
+        if (entryList.length > 0 && entryList[0].installPath) {
+          return entryList[0].installPath;
+        }
+      }
+    }
+  } catch {
+    // JSON parse error or file read error
+  }
+
+  return null;
+}
 
 export interface SpawnSessionOptions {
   /** Session ID (for logging and file naming) */
@@ -32,6 +65,8 @@ export interface SpawnSessionOptions {
   trigger?: string;
   /** Tools to allow (comma-separated) */
   tools?: string;
+  /** Plugin directories to load (for skill/command access) */
+  pluginDirs?: string[];
 }
 
 export interface SpawnSessionResult {
@@ -111,6 +146,7 @@ Context size: ${options.contextPrompt.length} bytes
   const timeoutSecs = Math.max(1, Math.min(3600, Math.floor(options.timeoutSecs ?? 300)));
   const model = options.model ?? 'claude-haiku-4-5-20251001';
   const tools = options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite';
+  const pluginDirs = options.pluginDirs ?? [];
 
   // Write ephemeral files to /tmp/ instead of .claude/logs/
   // These are only needed during execution and self-clean on completion
@@ -121,6 +157,9 @@ Context size: ${options.contextPrompt.length} bytes
   // Use mode 0600 for security (owner read/write only)
   const contextFile = join(tempDir, `claude-context-${options.sessionId}.txt`);
   writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
+
+  // Build plugin-dir flags if provided
+  const pluginDirFlags = pluginDirs.map((dir) => `--plugin-dir "${dir}"`).join(' ');
 
   // Write a wrapper script that reads all values from files/args
   // This avoids shell interpolation vulnerabilities
@@ -136,6 +175,7 @@ TOOLS="$5"
 PROMPT="$6"
 CWD="$7"
 WRAPPER_SCRIPT="$8"
+PLUGIN_DIR_FLAGS="$9"
 
 # Cleanup function - ensures temp files are removed even on signals
 cleanup() {
@@ -144,6 +184,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
+echo "[$(date -u +%Y%m%dT%H%M%SZ)] Plugin dirs: $PLUGIN_DIR_FLAGS" >> "$LOG_FILE"
 
 cd "$CWD"
 
@@ -152,15 +193,17 @@ cd "$CWD"
 export CLAUDE_CONTEXT_PROMPT
 CLAUDE_CONTEXT_PROMPT=$(<"$CONTEXT_FILE")
 
-timeout "\${TIMEOUT}s" claude \\
-  --model "$MODEL" \\
-  --permission-mode bypassPermissions \\
-  --dangerously-skip-permissions \\
-  --output-format "stream-json" \\
-  --verbose \\
-  --additional-system-prompt "$CLAUDE_CONTEXT_PROMPT" \\
-  --tools "$TOOLS" \\
-  --print "$PROMPT" 2>&1 | tee -a "$LOG_FILE"
+# Build command with optional plugin-dir flags
+CLAUDE_CMD="timeout \${TIMEOUT}s claude --model $MODEL --permission-mode bypassPermissions --dangerously-skip-permissions --output-format stream-json --verbose --additional-system-prompt \\"\$CLAUDE_CONTEXT_PROMPT\\" --tools $TOOLS"
+
+# Add plugin-dir flags if provided
+if [ -n "$PLUGIN_DIR_FLAGS" ]; then
+  CLAUDE_CMD="$CLAUDE_CMD $PLUGIN_DIR_FLAGS"
+fi
+
+CLAUDE_CMD="$CLAUDE_CMD --print \\"$PROMPT\\""
+
+eval "$CLAUDE_CMD" 2>&1 | tee -a "$LOG_FILE"
 
 EXIT_CODE=\${PIPESTATUS[0]}
 echo "---" >> "$LOG_FILE"
@@ -183,6 +226,7 @@ echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
       options.prompt,
       options.cwd,
       wrapperScript,
+      pluginDirFlags,
     ],
     {
       cwd: options.cwd,

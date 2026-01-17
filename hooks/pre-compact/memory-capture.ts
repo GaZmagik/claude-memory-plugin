@@ -16,7 +16,12 @@ import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from
 import { join } from 'path';
 import { homedir } from 'os';
 import { execFileSync } from 'child_process';
-import { isForkedSession, getLogDir, spawnSessionWithContext } from '../src/session/spawn-session.ts';
+import {
+  isForkedSession,
+  getLogDir,
+  spawnSessionWithContext,
+  findPluginDir,
+} from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
 
 runHook(async (input) => {

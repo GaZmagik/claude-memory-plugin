@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T00:31:55.380Z",
+  "lastUpdated": "2026-01-17T01:13:29.766Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2996,6 +2996,72 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "type": "learning",
+      "title": "Retro - Parallel agent refactoring for file merges scales well",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-01-17T01:07:39.102Z",
+      "updated": "2026-01-17T01:07:39.102Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-agent-refactoring-for-file-merges-scales-well.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
+      "type": "gotcha",
+      "title": "Gotcha - Speckit.review on massive codebases hits context limits mid-aggregation",
+      "tags": [
+        "retrospective",
+        "process",
+        "speckit",
+        "context-limits",
+        "project"
+      ],
+      "created": "2026-01-17T01:07:44.551Z",
+      "updated": "2026-01-17T01:07:44.551Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "type": "learning",
+      "title": "Learning - Mock file organisation: vi.spyOn() safe to inline, mock.module() requires isolation",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-17T01:07:49.230Z",
+      "updated": "2026-01-17T01:07:49.230Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-memory-system-analysis-session-linking-quality-complete",
+      "type": "learning",
+      "title": "Memory System Analysis Session - Linking & Quality Complete",
+      "tags": [
+        "memory-system",
+        "analysis",
+        "quality",
+        "linking",
+        "project"
+      ],
+      "created": "2026-01-17T01:13:29.762Z",
+      "updated": "2026-01-17T01:13:29.762Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-system-analysis-session-linking-quality-complete.md"
     }
   ]
 }

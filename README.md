@@ -37,7 +37,7 @@ git clone https://github.com/GaZmagik/claude-memory-plugin
 cd claude-memory-plugin
 
 # Using Bun (recommended)
-bun install    # This also runs 'bun link' to expose the 'memory' CLI command
+bun install    # Postinstall creates symlink for 'memory' CLI in ~/.bun/bin/
 
 # Then from Claude Code session
 /plugin install .
@@ -446,20 +446,22 @@ rm -rf ~/.claude/memory/.embedding-cache
 
 ## Updating / Reinstalling
 
+### Version Upgrades
+
+When the plugin is updated to a new version, the `memory` CLI is automatically re-linked via `postinstall`. No manual intervention required.
+
+### Development Changes
+
 After modifying plugin code (hooks, skills, etc.), Claude Code needs a full reinstall to pick up changes:
 
 ```bash
 # 1. Uninstall the plugin (from terminal, not Claude Code session)
 claude plugin uninstall claude-memory-plugin@local-memory-plugin
 
-# 2. Re-link the bun package (from plugin directory)
-cd /path/to/claude-memory-plugin
-bun unlink && bun link
-
-# 3. Reinstall the plugin
+# 2. Reinstall the plugin
 claude plugin install claude-memory-plugin@local-memory-plugin
 
-# 4. Restart Claude Code
+# 3. Restart Claude Code
 ```
 
 > **Note**: Simply restarting Claude Code is not sufficient for hook changes - the full uninstall/reinstall cycle is required.

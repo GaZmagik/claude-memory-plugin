@@ -1010,6 +1010,18 @@
     {
       "id": "decision-plugin-settings-design-for-memory-plugin",
       "type": "decision"
+    },
+    {
+      "id": "gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -2411,6 +2423,21 @@
     {
       "source": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
       "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-plugin-settings-design-for-memory-plugin",
+      "target": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
+      "target": "learning-bun-link-cli-exposure-pattern",
       "label": "relates-to"
     }
   ]

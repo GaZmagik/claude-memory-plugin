@@ -9,7 +9,7 @@
     "memory": "./skills/memory/src/cli.ts"
   },
   "scripts": {
-    "postinstall": "bun link",
+    "postinstall": "bun ./skills/memory/src/postinstall.ts",
     "dev": "tsx watch skills/memory/src/index.ts",
     "build": "tsc --noEmit -p tsconfig.build.json",
     "build:dist": "bun build skills/memory/src/cli.ts --outdir=./lib --target=node",

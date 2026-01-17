@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T11:16:54.575Z",
+  "lastUpdated": "2026-01-17T12:37:35.915Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3224,6 +3224,54 @@
       "updated": "2026-01-17T11:16:54.573Z",
       "scope": "project",
       "relativePath": "permanent/decision-plugin-settings-design-for-memory-plugin.md"
+    },
+    {
+      "id": "gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler",
+      "type": "gotcha",
+      "title": "Retro - Hook type mapping case sensitivity in error-handler",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-01-17T12:37:27.513Z",
+      "updated": "2026-01-17T12:37:27.513Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
+      "type": "learning",
+      "title": "Retro - Plugin postinstall script automates bun link for version upgrades",
+      "tags": [
+        "retrospective",
+        "process",
+        "plugin-distribution",
+        "project"
+      ],
+      "created": "2026-01-17T12:37:32.812Z",
+      "updated": "2026-01-17T12:37:32.812Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
+      "type": "learning",
+      "title": "Retro - TDD approach for settings parser accelerated implementation",
+      "tags": [
+        "retrospective",
+        "tdd",
+        "development-process",
+        "project"
+      ],
+      "created": "2026-01-17T12:37:35.911Z",
+      "updated": "2026-01-17T12:37:35.911Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-approach-for-settings-parser-accelerated-implementation.md",
+      "severity": "medium"
     }
   ]
 }

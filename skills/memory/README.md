@@ -250,6 +250,96 @@ JSON input for `memory write` (via stdin):
 
 Each scope contains: `permanent/`, `temporary/`, `graph.json`, `index.json`, `summary/`
 
+### Internal File Structures
+
+#### index.json
+
+Fast lookup index for all memories in a scope. Updated on every write operation.
+
+```json
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-17T22:11:47.086Z",
+  "memories": [
+    {
+      "id": "learning-example-topic",
+      "type": "learning",
+      "title": "Example Topic Title",
+      "tags": ["learning", "tip", "high"],
+      "created": "2026-01-10T18:12:29Z",
+      "updated": "2026-01-13T18:49:49.814Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-example-topic.md"
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `version` | string | Schema version for migrations |
+| `lastUpdated` | ISO 8601 | Last modification timestamp |
+| `memories[].id` | string | Unique memory identifier (slug) |
+| `memories[].type` | string | Memory type: decision, learning, gotcha, artifact, breadcrumb |
+| `memories[].title` | string | Human-readable title |
+| `memories[].tags` | string[] | Classification tags |
+| `memories[].created` | ISO 8601 | Creation timestamp |
+| `memories[].updated` | ISO 8601 | Last update timestamp |
+| `memories[].scope` | string | Scope where memory resides |
+| `memories[].relativePath` | string | Path relative to scope root |
+
+#### graph.json
+
+Knowledge graph storing relationships between memories.
+
+```json
+{
+  "nodes": [
+    {
+      "id": "learning-example-topic",
+      "title": "Example Topic Title",
+      "type": "learning"
+    }
+  ],
+  "edges": [
+    {
+      "source": "decision-api-design",
+      "target": "learning-example-topic",
+      "relation": "decision-enables"
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `nodes[].id` | string | Memory ID (matches index.json) |
+| `nodes[].title` | string | Display title |
+| `nodes[].type` | string | Memory type |
+| `edges[].source` | string | Source memory ID |
+| `edges[].target` | string | Target memory ID |
+| `edges[].relation` | string | Relationship type (see below) |
+
+**Relation types**: `related-to`, `derived-from`, `supersedes`, `contradicts`, `implements`, `documents`, `decision-enables`, `same-feature-different-layer`
+
+#### thought.json
+
+Tracks active thinking document state for `memory think` commands.
+
+```json
+{
+  "currentDocumentId": "thought-20260117-212103009",
+  "currentScope": "project",
+  "lastUpdated": "2026-01-17T22:11:47.058Z"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `currentDocumentId` | string \| null | Active thinking document ID |
+| `currentScope` | string \| null | Scope of current document |
+| `lastUpdated` | ISO 8601 | Last state change |
+
 ## Quality Assessment
 
 Detect stale, contradictory, and low-value memories using a 3-tier check system.

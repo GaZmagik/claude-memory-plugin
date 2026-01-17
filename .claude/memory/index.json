@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T13:36:44.339Z",
+  "lastUpdated": "2026-01-17T19:13:04.556Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2043,32 +2043,6 @@
       "severity": "medium"
     },
     {
-      "id": "thought-20260116-180811237",
-      "title": "Think: Embedding context limit solution for memory refresh --embeddings",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-16T18:08:11.240Z",
-      "updated": "2026-01-16T18:10:42.185Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260116-180811237.md"
-    },
-    {
-      "id": "thought-20260116-183846962",
-      "title": "Think: Memory System Analysis Session - Linking & Quality Audit",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-16T18:38:46.965Z",
-      "updated": "2026-01-16T18:39:23.317Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260116-183846962.md"
-    },
-    {
       "id": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
       "type": "learning",
       "title": "Retro - Separate mock spec files prevent vitest global pollution cleanly",
@@ -3372,6 +3346,40 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "type": "learning",
+      "title": "Retro - Root cause analysis through git and settings reveals hook overrides",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "project",
+        "global-settings"
+      ],
+      "created": "2026-01-17T17:17:21.349Z",
+      "updated": "2026-01-17T17:22:14.120Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
+      "type": "gotcha",
+      "title": "Retro - SessionStart hook message visibility requires exit code 2, not 0 or 1",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "ux",
+        "project",
+        "message-visibility"
+      ],
+      "created": "2026-01-17T17:17:27.255Z",
+      "updated": "2026-01-17T17:22:17.096Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1.md",
+      "severity": "high"
     }
   ]
 }

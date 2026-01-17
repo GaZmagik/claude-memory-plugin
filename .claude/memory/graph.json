@@ -651,16 +651,6 @@
       "title": "Retro - Error handling test pattern replication reduced per-file time"
     },
     {
-      "id": "thought-20260116-180811237",
-      "type": "breadcrumb",
-      "title": "Think: Embedding context limit solution for memory refresh --embeddings"
-    },
-    {
-      "id": "thought-20260116-183846962",
-      "type": "breadcrumb",
-      "title": "Think: Memory System Analysis Session - Linking & Quality Audit"
-    },
-    {
       "id": "learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race-conditions",
       "type": "learning",
       "title": "Retro - Error handling test pattern with call-counting mocks for race conditions"
@@ -1046,6 +1036,14 @@
     {
       "id": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -2345,16 +2343,6 @@
       "label": "relates-to"
     },
     {
-      "source": "thought-20260116-180811237",
-      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260116-183846962",
-      "target": "learning-memory-system-analysis-session-linking-quality-audit",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
       "target": "artifact-gotcha-prevention-checklist",
       "label": "relates-to"
@@ -2497,6 +2485,16 @@
     {
       "source": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
       "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
+      "target": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
       "label": "relates-to"
     }
   ]

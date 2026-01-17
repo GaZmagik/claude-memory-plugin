@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-16T23:22:19.875Z",
+  "lastUpdated": "2026-01-16T23:53:40.345Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2896,6 +2896,58 @@
       "updated": "2026-01-16T23:19:01.035Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-system-analysis-linking-quality-audit-complete.md"
+    },
+    {
+      "id": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "type": "learning",
+      "title": "Retro - Iterative orphan linking with semantic validation is effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-operations",
+        "graph-health",
+        "project"
+      ],
+      "created": "2026-01-16T23:53:30.501Z",
+      "updated": "2026-01-16T23:53:30.501Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
+      "type": "gotcha",
+      "title": "Retro - Old bash mermaid had critical filtering features missing from TypeScript",
+      "tags": [
+        "retrospective",
+        "process",
+        "tooling",
+        "mermaid-command",
+        "feature-regression",
+        "project"
+      ],
+      "created": "2026-01-16T23:53:35.400Z",
+      "updated": "2026-01-16T23:53:35.400Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "type": "learning",
+      "title": "Retro - Plan mode + agent exploration = effective architecture review",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-01-16T23:53:40.342Z",
+      "updated": "2026-01-16T23:53:40.342Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plan-mode-agent-exploration-effective-architecture-review.md",
+      "severity": "medium"
     }
   ]
 }

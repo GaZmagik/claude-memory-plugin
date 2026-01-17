@@ -863,6 +863,18 @@
     {
       "id": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "type": "learning"
     }
   ],
   "edges": [

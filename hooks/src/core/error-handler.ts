@@ -150,6 +150,24 @@ export interface HookResult {
 export type HookHandler = (input: HookInput) => Promise<HookResult>;
 
 /**
+ * Options for runHook
+ */
+export interface RunHookOptions {
+  /**
+   * Timeout in milliseconds for the entire handler.
+   * Default: 25000ms (25 seconds) - leaves buffer before Claude Code's external kill.
+   * Set to 0 to disable internal timeout enforcement.
+   */
+  timeoutMs?: number;
+}
+
+/**
+ * Default hook timeout (25 seconds)
+ * Leaves 5s buffer before Claude Code's typical 30s external timeout.
+ */
+const DEFAULT_HOOK_TIMEOUT_MS = 25000;
+
+/**
  * Create a successful allow result
  */
 export function allow(additionalContext?: string): HookResult {
@@ -236,21 +254,32 @@ export function isForkedSession(input: HookInput): boolean {
  * ```typescript
  * import { runHook, allow, block } from './lib/error-handler.js';
  *
+ * // Basic usage with default 25s timeout
  * runHook(async (input) => {
  *   if (input.tool_input.file_path?.includes('.claude/memory/')) {
  *     return block('Cannot write to memory directory');
  *   }
  *   return allow();
  * });
+ *
+ * // Custom timeout for long-running hooks
+ * runHook(async (input) => {
+ *   // ... long operation ...
+ *   return allow();
+ * }, { timeoutMs: 60000 }); // 60 second timeout
+ *
+ * // Disable timeout (not recommended)
+ * runHook(handler, { timeoutMs: 0 });
  * ```
  */
-export async function runHook(handler: HookHandler): Promise<never> {
+export async function runHook(handler: HookHandler, options?: RunHookOptions): Promise<never> {
   // Install signal handlers for graceful shutdown
   installSignalHandlers();
 
   let exitCode: ExitCode = EXIT_ALLOW;
   const { name, type } = getHookInfo();
   const logger = createHookLogger(name, type);
+  const timeoutMs = options?.timeoutMs ?? DEFAULT_HOOK_TIMEOUT_MS;
 
   try {
     // Parse input from stdin
@@ -272,8 +301,12 @@ export async function runHook(handler: HookHandler): Promise<never> {
       process.exit(EXIT_ALLOW);
     }
 
-    // Run the handler
-    const result = await handler(input);
+    // Run the handler with timeout enforcement
+    // This provides graceful timeout handling before Claude Code's external kill
+    const handlerPromise = handler(input);
+    const result = timeoutMs > 0
+      ? await withTimeout(handlerPromise, timeoutMs, `Hook '${name}' timed out after ${timeoutMs}ms`)
+      : await handlerPromise;
     exitCode = result.exitCode;
 
     // Output any hook-specific response

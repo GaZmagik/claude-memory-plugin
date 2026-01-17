@@ -20,7 +20,6 @@ import {
   isForkedSession,
   getLogDir,
   spawnSessionWithContext,
-  findPluginDir,
 } from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
 
@@ -53,25 +52,20 @@ runHook(async (input) => {
   }
 
   // Create compact flag for session blocking
-  const home = homedir();
-  const flagDir = join(home, '.claude', 'flags');
-  mkdirSync(flagDir, { recursive: true });
-  const flagFile = join(flagDir, `compact-${sessionId}`);
+  // Prefer project-local flag (cleaned up by session-continue), fall back to global
+  const flagContent = `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\ntrigger=${trigger}\n`;
 
-  // Also create project-local flag
-  const projectFlagDir = join(cwd, '.claude', 'flags');
   if (existsSync(join(cwd, '.claude'))) {
+    // Project has .claude directory - use project-local flag only
+    const projectFlagDir = join(cwd, '.claude', 'flags');
     mkdirSync(projectFlagDir, { recursive: true });
-    const projectFlagFile = join(projectFlagDir, `compact-${sessionId}`);
-    writeFileSync(
-      projectFlagFile,
-      `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\ntrigger=${trigger}\n`
-    );
+    writeFileSync(join(projectFlagDir, `compact-${sessionId}`), flagContent);
+  } else {
+    // No project .claude - fall back to global flag
+    const globalFlagDir = join(homedir(), '.claude', 'flags');
+    mkdirSync(globalFlagDir, { recursive: true });
+    writeFileSync(join(globalFlagDir, `compact-${sessionId}`), flagContent);
   }
-  writeFileSync(
-    flagFile,
-    `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\ntrigger=${trigger}\n`
-  );
 
   // Sync memory graph/index before capture (ensures consistency)
   // Log result but NEVER block compaction on failure

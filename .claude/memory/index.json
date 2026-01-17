@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T13:19:03.906Z",
+  "lastUpdated": "2026-01-17T13:36:44.339Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3337,6 +3337,40 @@
       "updated": "2026-01-17T13:19:03.901Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "type": "gotcha",
+      "title": "Retro - Global hooks override project hooks block plugin control",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "architecture",
+        "plugin-design",
+        "project"
+      ],
+      "created": "2026-01-17T13:36:40.529Z",
+      "updated": "2026-01-17T13:36:40.529Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-global-hooks-override-project-hooks-block-plugin-control.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "type": "learning",
+      "title": "Retro - Plugin discovery in spawned sessions requires plugin-dir flags",
+      "tags": [
+        "retrospective",
+        "plugins",
+        "spawned-sessions",
+        "infrastructure",
+        "project"
+      ],
+      "created": "2026-01-17T13:36:44.335Z",
+      "updated": "2026-01-17T13:36:44.335Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags.md",
       "severity": "medium"
     }
   ]

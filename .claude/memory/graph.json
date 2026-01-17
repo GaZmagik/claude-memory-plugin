@@ -1038,6 +1038,14 @@
     {
       "id": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
       "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -2474,6 +2482,21 @@
     {
       "source": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
       "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "target": "decision-gotcha-execfilesync-loses-path-when-spawning-child-processes-from-bun",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "target": "decision-plugin-settings-design-for-memory-plugin",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
       "label": "relates-to"
     }
   ]

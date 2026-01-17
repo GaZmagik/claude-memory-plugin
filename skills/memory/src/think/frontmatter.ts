@@ -51,7 +51,7 @@ export function serialiseThinkFrontmatter(frontmatter: ThinkFrontmatter): string
  * Parse YAML string into think frontmatter
  */
 export function parseThinkFrontmatter(yamlContent: string): ThinkFrontmatter {
-  const parsed = yaml.load(yamlContent) as Record<string, unknown>;
+  const parsed = yaml.load(yamlContent, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>;
 
   if (!parsed || typeof parsed !== 'object') {
     throw new Error('Invalid think frontmatter: must be a YAML object');

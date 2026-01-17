@@ -350,25 +350,18 @@ memory audit-quick local  # Deterministic checks only
 
 ## Configuration
 
-### Enable Hooks
+### Hooks
 
-Add to `~/.claude/settings.json`:
+Hooks are installed automatically when the plugin is installed via the Claude Code marketplace. No manual configuration is required.
 
-```json
-{
-  "hooks": {
-    "ts": {
-      "pre-tool-use": ["path/to/hooks/ts/pre-tool-use/*.ts"],
-      "post-tool-use": ["path/to/hooks/ts/post-tool-use/*.ts"],
-      "session-start": ["path/to/hooks/ts/session-start/*.ts"],
-      "session-end": ["path/to/hooks/ts/session-end/*.ts"],
-      "pre-compact": ["path/to/hooks/ts/pre-compact/*.ts"]
-    }
-  }
-}
-```
+The plugin registers hooks for:
+- **PreToolUse**: Gotcha injection when reading files with known pitfalls
+- **PostToolUse**: Memory context suggestions after bash/read operations
+- **UserPromptSubmit**: Memory skill reminders and context loading
+- **PreCompact**: Memory capture before context compaction
+- **SessionStart/SessionEnd**: Session state management
 
-See `hooks/hooks.json` for the full configuration.
+See `hooks/hooks.json` for the full hook configuration.
 
 ## Development
 

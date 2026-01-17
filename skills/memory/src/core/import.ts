@@ -207,7 +207,7 @@ function parseImportData(raw: string): ExportPackage {
   } else {
     // Parse YAML using js-yaml library
     try {
-      parsed = yaml.load(trimmed);
+      parsed = yaml.load(trimmed, { schema: yaml.JSON_SCHEMA });
       parsed = sanitiseObject(parsed);
     } catch (error) {
       throw new Error(`Invalid YAML: ${error instanceof Error ? error.message : String(error)}`);

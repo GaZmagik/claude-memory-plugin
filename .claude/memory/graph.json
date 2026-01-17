@@ -1006,6 +1006,10 @@
     {
       "id": "gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation",
       "type": "gotcha"
+    },
+    {
+      "id": "decision-plugin-settings-design-for-memory-plugin",
+      "type": "decision"
     }
   ],
   "edges": [

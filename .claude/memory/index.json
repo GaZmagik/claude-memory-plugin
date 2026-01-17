@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T10:26:56.805Z",
+  "lastUpdated": "2026-01-17T11:16:54.575Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3211,6 +3211,19 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation.md",
       "severity": "high"
+    },
+    {
+      "id": "decision-plugin-settings-design-for-memory-plugin",
+      "type": "decision",
+      "title": "Plugin Settings Design for Memory Plugin",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-17T11:16:54.573Z",
+      "updated": "2026-01-17T11:16:54.573Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-plugin-settings-design-for-memory-plugin.md"
     }
   ]
 }

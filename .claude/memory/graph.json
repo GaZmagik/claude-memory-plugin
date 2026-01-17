@@ -1044,6 +1044,18 @@
     {
       "id": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
+      "type": "gotcha"
     }
   ],
   "edges": [

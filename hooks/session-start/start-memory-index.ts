@@ -39,7 +39,8 @@ function findPluginRoot(): string | null {
   // This script is in hooks/session-start/, plugin root is ../..
   const scriptDir = import.meta.dir;
   const pluginRoot = join(scriptDir, '..', '..');
-  if (existsSync(join(pluginRoot, 'skills', 'memory', 'package.json'))) {
+  // Check for package.json with bin field (where bun link needs to run)
+  if (existsSync(join(pluginRoot, 'package.json'))) {
     return pluginRoot;
   }
 
@@ -78,15 +79,15 @@ Then restart Claude Code.`,
     return { success: false, message: '' };
   }
 
-  const memoryDir = join(pluginRoot, 'skills', 'memory');
-  if (!existsSync(join(memoryDir, 'package.json'))) {
+  // Verify package.json exists at plugin root (contains bin field for memory CLI)
+  if (!existsSync(join(pluginRoot, 'package.json'))) {
     return { success: false, message: '' };
   }
 
-  // Run bun link to set up the memory CLI globally
+  // Run bun link from plugin root to set up the memory CLI globally
   const result = await spawn(['bun', 'link'], {
     timeout: 30000,
-    cwd: memoryDir,
+    cwd: pluginRoot,
   });
 
   if (result.success) {

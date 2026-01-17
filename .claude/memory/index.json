@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T19:13:04.556Z",
+  "lastUpdated": "2026-01-17T19:14:43.253Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3380,6 +3380,56 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
+      "type": "learning",
+      "title": "Retro - Claude Code SessionStart hooks cannot display custom stderr content to users",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "claude-code",
+        "limitations",
+        "project"
+      ],
+      "created": "2026-01-17T19:14:35.588Z",
+      "updated": "2026-01-17T19:14:35.588Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
+      "type": "learning",
+      "title": "Retro - Single responsibility principle prevented scope creep in hook design",
+      "tags": [
+        "retrospective",
+        "process",
+        "design",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-17T19:14:39.406Z",
+      "updated": "2026-01-17T19:14:39.406Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
+      "type": "gotcha",
+      "title": "Retro - Documentation should be consulted proactively before trial-and-error debugging",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-01-17T19:14:43.249Z",
+      "updated": "2026-01-17T19:14:43.249Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging.md",
+      "severity": "medium"
     }
   ]
 }

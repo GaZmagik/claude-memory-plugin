@@ -14,8 +14,7 @@ The Claude Memory Plugin extends Claude Code with a sophisticated memory system 
 
 ## Requirements
 
-- **Node.js** >= 18.0.0
-- **Package manager**: Bun >= 1.0.0 or npm/yarn
+- **[Bun](https://bun.sh/docs/installation)** >= 1.0.0 (required - used for hooks, CLI, and package management)
 - **Claude Code** >= 2.0.0
 - **Ollama** (optional but recommended, for semantic search with local embeddings)
 

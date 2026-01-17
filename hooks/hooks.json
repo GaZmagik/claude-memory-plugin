@@ -60,8 +60,13 @@
         "hooks": [
           {
             "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/session-start/check-bun-installed.mjs",
+            "timeout": 3
+          },
+          {
+            "type": "command",
             "command": "bun ${CLAUDE_PLUGIN_ROOT}/hooks/session-start/start-memory-index.ts",
-            "timeout": 5
+            "timeout": 10
           }
         ]
       }

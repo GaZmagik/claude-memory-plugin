@@ -10,7 +10,7 @@
  * - Auto-prune: silently removes expired temporary memories
  */
 
-import { runHook, allow, block } from '../src/core/error-handler.ts';
+import { runHook, allow } from '../src/core/error-handler.ts';
 import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
@@ -26,20 +26,75 @@ async function isMemoryCliAvailable(): Promise<boolean> {
 }
 
 /**
- * Message to display when memory CLI is not found
+ * Find the plugin root directory
+ * Uses CLAUDE_PLUGIN_ROOT env var or falls back to script location
  */
-const MEMORY_CLI_SETUP_MESSAGE = `
-⚠️ Memory CLI not found. To enable full functionality:
+function findPluginRoot(): string | null {
+  // Try env var first (set by Claude Code when running plugin hooks)
+  if (process.env.CLAUDE_PLUGIN_ROOT) {
+    return process.env.CLAUDE_PLUGIN_ROOT;
+  }
 
-1. Install Bun: https://bun.sh/docs/installation
-   curl -fsSL https://bun.sh/install | bash
+  // Fall back to relative path from this script's location
+  // This script is in hooks/session-start/, plugin root is ../..
+  const scriptDir = import.meta.dir;
+  const pluginRoot = join(scriptDir, '..', '..');
+  if (existsSync(join(pluginRoot, 'skills', 'memory', 'package.json'))) {
+    return pluginRoot;
+  }
 
-2. Link the memory CLI (from plugin directory):
-   cd ~/.claude/plugins/cache/local-memory-plugin/claude-memory-plugin/1.0.0
-   bun link
+  return null;
+}
 
-Then restart Claude Code.
-`;
+/**
+ * Check if Bun is installed
+ */
+async function isBunInstalled(): Promise<boolean> {
+  const result = await spawn(['which', 'bun'], { timeout: 2000 });
+  return result.success && result.stdout.trim().length > 0;
+}
+
+/**
+ * Auto-setup memory CLI by running bun link
+ * Returns object with success flag and message
+ */
+async function autoSetupMemoryCli(): Promise<{ success: boolean; message: string }> {
+  // First check if Bun is installed
+  const bunInstalled = await isBunInstalled();
+  if (!bunInstalled) {
+    return {
+      success: false,
+      message: `⚠️ Bun not installed - memory plugin requires Bun
+
+Install Bun: https://bun.sh/docs/installation
+  curl -fsSL https://bun.sh/install | bash
+
+Then restart Claude Code.`,
+    };
+  }
+
+  const pluginRoot = findPluginRoot();
+  if (!pluginRoot) {
+    return { success: false, message: '' };
+  }
+
+  const memoryDir = join(pluginRoot, 'skills', 'memory');
+  if (!existsSync(join(memoryDir, 'package.json'))) {
+    return { success: false, message: '' };
+  }
+
+  // Run bun link to set up the memory CLI globally
+  const result = await spawn(['bun', 'link'], {
+    timeout: 30000,
+    cwd: memoryDir,
+  });
+
+  if (result.success) {
+    return { success: true, message: '🔗 Memory CLI auto-linked successfully' };
+  }
+
+  return { success: false, message: '' };
+}
 
 interface MemoryEntry {
   id: string;
@@ -363,26 +418,28 @@ runHook(async (input) => {
     logFile = join(logDir, 'memory-context.log');
   }
 
-  // Check if memory CLI is available - block with setup message if not
-  const memoryCliAvailable = await isMemoryCliAvailable();
+  // Check if memory CLI is available - auto-setup if not
+  let memoryCliAvailable = await isMemoryCliAvailable();
+  let setupMessage = '';
+
   if (!memoryCliAvailable) {
-    // Use block() (exit code 2) to make the message impossible to ignore
-    let message = MEMORY_CLI_SETUP_MESSAGE.trim();
-
-    // Add basic index info if available
-    if (existsSync(localIndex) || existsSync(globalIndex)) {
-      message += '\n\n📚 Memory indexes exist but CLI features (health, think, prune) are unavailable.';
+    // Try to auto-setup by running bun link
+    const setupResult = await autoSetupMemoryCli();
+    if (setupResult.message) {
+      setupMessage = setupResult.message + '\n';
     }
-
-    return block(message);
+    if (setupResult.success) {
+      memoryCliAvailable = true; // Now it should be available
+    }
+    // If setup failed, message explains why (e.g., Bun not installed)
   }
 
   // Check if any index exists
   if (!existsSync(localIndex) && !existsSync(globalIndex)) {
-    return allow();
+    return allow(setupMessage || undefined);
   }
 
-  let summary = '📚 Memory Index Available:\n';
+  let summary = setupMessage + '📚 Memory Index Available:\n';
 
   // Build local summary
   if (existsSync(localIndex)) {

@@ -21,13 +21,29 @@ Persist project knowledge across sessions. Record decisions, capture learnings, 
 
 ## Usage
 
-The memory skill is a TypeScript CLI that runs on Bun. After installation via `bun link`, invoke it directly as `memory`:
+The memory skill is a TypeScript CLI that runs on Bun.
+
+### Prerequisites
+
+**Install Bun** (if not already installed):
+Visit https://bun.sh/docs/installation or run:
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+### Setup
+
+From the plugin installation directory, run:
+```bash
+bun link
+```
+
+This creates a global `memory` command. The plugin directory is typically:
+`~/.claude/plugins/cache/local-memory-plugin/claude-memory-plugin/1.0.0/`
+
+### Invocation
 
 ```bash
-# Installation (from plugin root)
-bun link
-
-# Invocation
 memory <command> [options]
 memory help                    # Quick reference
 memory help --full             # Detailed documentation

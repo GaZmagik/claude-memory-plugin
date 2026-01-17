@@ -37,6 +37,10 @@ src/cli/parser.ts:readStdinRaw
 src/think/ai-invoke.ts:invokeAI
 src/think/ai-invoke.ts:getClaudeCliVersion
 
+# AI invocation tests use mock.module() requiring process isolation
+# thoughts.ts is already tested in thoughts.spec.ts - this file tests AI path specifically
+src/think/thoughts-ai.spec.ts
+
 # =============================================================================
 # For --src hooks/src: Constants, types, and mock-tested functions
 # =============================================================================

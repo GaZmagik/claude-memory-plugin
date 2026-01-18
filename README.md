@@ -445,27 +445,11 @@ rm -rf ~/.claude/memory/.embedding-cache
 
 When the plugin is updated to a new version, the `memory` CLI is automatically re-linked via `postinstall`. No manual intervention required.
 
-### Development Changes
-
-After modifying plugin code (hooks, skills, etc.), Claude Code needs a full reinstall to pick up changes:
-
-```bash
-# 1. Uninstall the plugin (from terminal, not Claude Code session)
-claude plugin uninstall claude-memory-plugin@local-memory-plugin
-
-# 2. Reinstall the plugin
-claude plugin install claude-memory-plugin@local-memory-plugin
-
-# 3. Restart Claude Code
-```
-
-> **Note**: Simply restarting Claude Code is not sufficient for hook changes - the full uninstall/reinstall cycle is required.
-
 ## Uninstallation
 
 ```bash
 # From terminal
-claude plugin uninstall claude-memory-plugin@local-memory-plugin
+claude plugin uninstall claude-memory-plugin
 ```
 
 This removes all plugin components. Memory data in `.claude/memory/` is preserved (delete manually if needed).
@@ -481,4 +465,4 @@ This plugin is developed following:
 - **Test-Driven Development** (TDD) - see `.specify/test-driven.md`
 - **British English** throughout
 
-All contributions should maintain 100% test coverage and follow the specification first.
+All contributions should maintain 100% test coverage where possible and follow the specification first.

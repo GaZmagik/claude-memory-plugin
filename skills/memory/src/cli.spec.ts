@@ -79,6 +79,7 @@ describe('CLI Entry Point E2E', () => {
       expect(exitCode).toBe(0);
       const result = JSON.parse(stdout);
       expect(result.status).toBe('success');
+      expect(result.data).toBeDefined();
     });
 
     it('routes to health command', async () => {

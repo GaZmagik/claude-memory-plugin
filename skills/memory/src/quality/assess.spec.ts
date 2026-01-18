@@ -294,6 +294,8 @@ And another one: \`./also-missing.js\`
     });
 
     expect(result.status).toBe('success');
+    expect(result.score).toBeDefined();
+    expect(result.rating).toBeDefined();
   });
 });
 

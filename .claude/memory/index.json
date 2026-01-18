@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T11:41:09.870Z",
+  "lastUpdated": "2026-01-18T12:15:45.036Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3967,6 +3967,57 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns",
+      "type": "learning",
+      "title": "Retro - Test assertion weaknesses revealed by grep patterns",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-01-18T12:15:30.270Z",
+      "updated": "2026-01-18T12:15:30.270Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
+      "type": "learning",
+      "title": "Retro - Security fix required proper architectural change, not quick patch",
+      "tags": [
+        "retrospective",
+        "process",
+        "security",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-18T12:15:37.310Z",
+      "updated": "2026-01-18T12:15:37.310Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-security-fix-required-proper-architectural-change-not-quick-patch.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
+      "type": "gotcha",
+      "title": "Retro - Response type mismatches caught during test assertion fixes",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "types",
+        "project"
+      ],
+      "created": "2026-01-18T12:15:45.018Z",
+      "updated": "2026-01-18T12:15:45.018Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes.md",
+      "severity": "medium"
     }
   ]
 }

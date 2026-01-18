@@ -372,6 +372,7 @@ describe('cmdWrite', () => {
     const result = await cmdWrite(args);
 
     expect(result.status).toBe('success');
+    expect(result.data).toBeDefined();
   });
 
   it('accepts global scope as alias for user', async () => {
@@ -384,6 +385,7 @@ describe('cmdWrite', () => {
     const result = await cmdWrite(args);
 
     expect(result.status).toBe('success');
+    expect(result.data).toBeDefined();
   });
 
   it('accepts explicit project scope', async () => {
@@ -396,6 +398,7 @@ describe('cmdWrite', () => {
     const result = await cmdWrite(args);
 
     expect(result.status).toBe('success');
+    expect(result.data).toBeDefined();
   });
 
   it('accepts enterprise scope', async () => {
@@ -408,6 +411,7 @@ describe('cmdWrite', () => {
     const result = await cmdWrite(args);
 
     expect(result.status).toBe('success');
+    expect(result.data).toBeDefined();
   });
 
   it('accepts learning type', async () => {

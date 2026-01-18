@@ -506,6 +506,7 @@ Content`
 
       // Should create new graph
       expect(result.status).toBe('success');
+      expect(result.changes).toBeDefined();
     });
   });
 

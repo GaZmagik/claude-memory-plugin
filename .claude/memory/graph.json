@@ -1228,6 +1228,18 @@
     {
       "id": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -2775,6 +2787,106 @@
       "source": "gotcha-global-hooks-override-plugin-hooks",
       "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-tooling-parity",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "hub-search-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "hub-scope-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-think-module-hub",
+      "target": "hub-search-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "hub-think-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-tool-defaults-need-project-aware-discovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "hub-graph-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-tooling-parity",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "learning-tool-defaults-need-project-aware-discovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-scope-module-hub",
+      "target": "hub-graph-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-search-module-hub",
+      "target": "hub-core-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-agent-generates-aspirational-tests",
+      "target": "learning-retro-agent-verification-for-exclusions",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-agent-verification-for-exclusions",
+      "target": "learning-test-agent-generates-aspirational-tests",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-regex-based-language-parsing-tradeoff",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "auto-linked-by-similarity"
     }
   ]
 }

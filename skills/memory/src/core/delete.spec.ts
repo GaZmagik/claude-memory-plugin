@@ -267,5 +267,6 @@ describe('deleteMemory embeddings cleanup', () => {
 
     // Should still succeed - embeddings cleanup is best-effort
     expect(result.status).toBe('success');
+    expect(result.deletedId).toBe(mockId);
   });
 });

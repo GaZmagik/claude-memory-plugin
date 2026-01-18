@@ -198,6 +198,7 @@ describe('CRUD Command Boundary Conditions', () => {
       const result = await cmdList(args);
       // Should return empty or all, not crash
       expect(result.status).toBe('success');
+      expect(result.data).toBeDefined();
     });
   });
 });
@@ -226,6 +227,7 @@ describe('Graph Command Boundary Conditions', () => {
       const result = await cmdLink(args);
       // CLI doesn't block this - core layer handles validation
       expect(result.status).toBe('success');
+      expect(result.data).toBeDefined();
     });
   });
 

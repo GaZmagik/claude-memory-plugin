@@ -170,6 +170,7 @@ describe('Semantic Search API', () => {
       });
 
       expect(result.status).toBe('success');
+      expect(result.results).toBeDefined();
     });
 
     it('should handle search errors gracefully', async () => {
@@ -239,6 +240,7 @@ describe('Semantic Search API', () => {
       });
 
       expect(result.status).toBe('success');
+      expect(result.results).toBeDefined();
     });
 
     it('should respect limit parameter', async () => {

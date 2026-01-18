@@ -97,6 +97,8 @@ describe('writeMemory', () => {
       const result = await writeMemory(validRequest);
 
       expect(result.status).toBe('success');
+      expect(result.memory).toBeDefined();
+      expect(result.memory!.id).toBe('learning-test-learning');
     });
 
     it('should reject custom ID with mismatched type prefix', async () => {
@@ -148,6 +150,8 @@ describe('writeMemory', () => {
       const result = await writeMemory(matchingRequest);
 
       expect(result.status).toBe('success');
+      expect(result.memory).toBeDefined();
+      expect(result.memory!.id).toBe('gotcha-test-issue');
     });
   });
 
@@ -623,6 +627,7 @@ describe('writeMemory', () => {
       const result = await writeMemory(request);
 
       expect(result.status).toBe('success');
+      expect(result.memory?.id).toBe('learning-test-topic');
     });
 
     it('should check all scopes for duplicate IDs', async () => {

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T19:11:00.716Z",
+  "lastUpdated": "2026-01-18T19:42:06.121Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4181,6 +4181,23 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess.md",
       "severity": "low"
+    },
+    {
+      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "type": "gotcha",
+      "title": "Tests with dynamic imports need vi.mock not vi.spyOn",
+      "tags": [
+        "testing",
+        "vitest",
+        "dynamic-import",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-18T19:42:06.114Z",
+      "updated": "2026-01-18T19:42:06.114Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md",
+      "severity": "high"
     }
   ]
 }

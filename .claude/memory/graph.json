@@ -1302,6 +1302,10 @@
     {
       "id": "learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "type": "gotcha"
     }
   ],
   "edges": [

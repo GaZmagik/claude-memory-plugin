@@ -32,24 +32,6 @@ Using the [Enhance marketplace](https://github.com/GaZmagik/enhance):
 /plugin install claude-memory-plugin
 ```
 
-Or clone and install manually:
-
-```bash
-git clone https://github.com/GaZmagik/claude-memory-plugin
-cd claude-memory-plugin
-
-# Using Bun (recommended)
-bun install    # Postinstall creates symlink for 'memory' CLI in ~/.bun/bin/
-
-# Then from Claude Code session
-/plugin install .
-```
-
-> **Note**: The `memory` CLI command requires `~/.bun/bin` in your PATH. Add this to your shell profile if not already present:
-> ```bash
-> export PATH="$HOME/.bun/bin:$PATH"
-> ```
-
 This installs:
 - The memory skill for knowledge storage
 - Contextual hooks for automatic gotcha injection

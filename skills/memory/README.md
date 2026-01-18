@@ -320,7 +320,20 @@ Knowledge graph storing relationships between memories.
 | `edges[].target` | string | Target memory ID |
 | `edges[].relation` | string | Relationship type (see below) |
 
-**Relation types**: `related-to`, `derived-from`, `supersedes`, `contradicts`, `implements`, `documents`, `decision-enables`, `same-feature-different-layer`
+**Relation types**: `relates-to`, `informed-by`, `implements`, `supersedes`, `warns`, `documents`, `extends`, `depends-on`, `contradicts`, `auto-linked-by-similarity`
+
+| Type | Meaning |
+|------|---------|
+| `relates-to` | Default - conceptually related but no specific relationship |
+| `informed-by` | Memory A was informed or influenced by Memory B |
+| `implements` | Memory A implements the approach described in Memory B |
+| `supersedes` | Memory A replaces or obsoletes Memory B |
+| `warns` | Memory A contains a warning relevant to Memory B |
+| `documents` | Memory A documents or explains Memory B |
+| `extends` | Memory A extends or builds upon Memory B |
+| `depends-on` | Memory A depends on Memory B being true/done first |
+| `contradicts` | Memory A contradicts or conflicts with Memory B |
+| `auto-linked-by-similarity` | Automatically created by semantic search (similarity > threshold) |
 
 #### thought.json
 

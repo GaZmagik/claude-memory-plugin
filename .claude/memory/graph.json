@@ -1221,6 +1221,10 @@
     {
       "id": "gotcha-global-hooks-override-plugin-hooks",
       "type": "gotcha"
+    },
+    {
+      "id": "decision-async-fs-conversion-required",
+      "type": "decision"
     }
   ],
   "edges": [

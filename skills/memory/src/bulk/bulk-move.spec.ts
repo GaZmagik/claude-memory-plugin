@@ -20,6 +20,7 @@ const mockMoveSuccess = (id: string): MoveResponse => ({
     targetGraphUpdated: true,
     sourceIndexUpdated: true,
     targetIndexUpdated: true,
+    embeddingsTransferred: true,
   },
 });
 
@@ -34,6 +35,7 @@ const mockMoveError = (id: string, error: string): MoveResponse => ({
     targetGraphUpdated: false,
     sourceIndexUpdated: false,
     targetIndexUpdated: false,
+    embeddingsTransferred: false,
   },
 });
 
@@ -125,6 +127,7 @@ describe('bulkMove', () => {
         targetGraphUpdated: true,
         sourceIndexUpdated: true,
         targetIndexUpdated: true,
+        embeddingsTransferred: true,
       },
     });
 

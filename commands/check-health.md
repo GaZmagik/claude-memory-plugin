@@ -273,14 +273,14 @@ fi
 
 | Scope | Flag | Storage Path | Description |
 |-------|------|--------------|-------------|
-| User | `--user` | `~/.claude/memory/` | Personal cross-project memories |
-| Project | `--project` | `.claude/memory/` | Shared project memories (in git) |
-| Local | `--local` | `.claude/memory/local/` | Personal project memories (gitignored) |
 | Enterprise | `--enterprise` | `CLAUDE_MEMORY_ENTERPRISE_PATH` | Organisation-wide (managed environments) |
+| Local | `--local` | `.claude/memory/local/` | Personal project memories (gitignored) |
+| Project | `--project` | `.claude/memory/` | Shared project memories (in git) |
+| Global | `--global` | `~/.claude/memory/` | Personal cross-project memories |
 
-**Precedence order**: User > Project > Local > Enterprise
+**Precedence order**: Enterprise > Local > Project > Global (earlier scopes override later ones)
 
-**Legacy alias**: `--global` is accepted as an alias for `--user`.
+**Legacy alias**: `--user` is accepted as an alias for `--global`.
 
 ## Notes
 

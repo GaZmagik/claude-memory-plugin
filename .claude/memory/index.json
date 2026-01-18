@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T11:05:42.357Z",
+  "lastUpdated": "2026-01-18T11:35:37.047Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -651,22 +651,6 @@
       "updated": "2026-01-13T18:49:49.830Z",
       "scope": "global",
       "relativePath": "permanent/learning-post-compaction-memory-restoration-prevented-duplicate-work.md"
-    },
-    {
-      "id": "artifact-memory-system-architecture-reference",
-      "type": "artifact",
-      "title": "Memory System Architecture Reference",
-      "tags": [
-        "architecture",
-        "memory",
-        "reference",
-        "hub",
-        "project"
-      ],
-      "created": "2026-01-13T08:05:56.873Z",
-      "updated": "2026-01-13T19:02:56.187Z",
-      "scope": "global",
-      "relativePath": "permanent/artifact-memory-system-architecture-reference.md"
     },
     {
       "id": "retro-type-consistency-required-triple-sync",
@@ -3928,6 +3912,39 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-global-hooks-override-plugin-hooks.md",
       "severity": "high"
+    },
+    {
+      "id": "artifact-memory-system-architecture-reference",
+      "type": "artifact",
+      "title": "Memory System Architecture Reference",
+      "tags": [
+        "architecture",
+        "memory",
+        "reference",
+        "hub",
+        "project"
+      ],
+      "created": "2026-01-18T11:31:30.029Z",
+      "updated": "2026-01-18T11:31:30.029Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-memory-system-architecture-reference.md"
+    },
+    {
+      "id": "decision-async-fs-conversion-required",
+      "type": "decision",
+      "title": "Async FS Conversion Required for Performance",
+      "tags": [
+        "performance",
+        "async",
+        "fs-utils",
+        "hooks",
+        "follow-up",
+        "project"
+      ],
+      "created": "2026-01-18T11:35:37.043Z",
+      "updated": "2026-01-18T11:35:37.043Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-async-fs-conversion-required.md"
     }
   ]
 }

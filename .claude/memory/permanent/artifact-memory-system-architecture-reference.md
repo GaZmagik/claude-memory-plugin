@@ -3,9 +3,8 @@ id: artifact-memory-system-architecture-reference
 title: Memory System Architecture Reference
 type: artifact
 scope: project
-project: claude-memory-plugin
-created: "2026-01-13T08:05:56.873Z"
-updated: "2026-01-13T22:47:30.338Z"
+created: "2026-01-18T11:31:30.029Z"
+updated: "2026-01-18T11:31:30.029Z"
 tags:
   - architecture
   - memory
@@ -22,7 +21,7 @@ Comprehensive reference for the claude-memory-plugin architecture.
 
 ## Scope Hierarchy (4-Tier)
 
-Precedence: User > Project > Local > Enterprise
+Precedence: Enterprise > Local > Project > Global (earlier scopes override later ones)
 
 ## Key Subsystems
 

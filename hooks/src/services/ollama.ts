@@ -166,8 +166,11 @@ export async function generate(
     );
 
     return result;
-  } catch {
-    // Fail silently - hooks should be resilient
+  } catch (error) {
+    // Log error for debugging while maintaining resilience
+    console.error(
+      `[Ollama] Generate failed: ${error instanceof Error ? error.message : String(error)}`
+    );
     return '';
   }
 }
@@ -211,8 +214,11 @@ export async function embed(
     );
 
     return result;
-  } catch {
-    // Fail silently - hooks should be resilient
+  } catch (error) {
+    // Log error for debugging while maintaining resilience
+    console.error(
+      `[Ollama] Embed failed: ${error instanceof Error ? error.message : String(error)}`
+    );
     return [];
   }
 }
@@ -237,7 +243,11 @@ export async function isAvailable(model?: string): Promise<boolean> {
     }
 
     return models.length > 0;
-  } catch {
+  } catch (error) {
+    // Log error for debugging while maintaining resilience
+    console.error(
+      `[Ollama] Availability check failed: ${error instanceof Error ? error.message : String(error)}`
+    );
     return false;
   }
 }

@@ -472,14 +472,14 @@ As you work, document gotchas using:
 
 | Scope | Flag | Hub Path | Description |
 |-------|------|----------|-------------|
-| User | `--scope user` | `~/.claude/memory/permanent/` | Personal cross-project |
-| Project | `--scope project` | `.claude/memory/permanent/` | Shared project (in git) |
-| Local | `--scope local` | `.claude/memory/local/permanent/` | Personal project (gitignored) |
 | Enterprise | `--scope enterprise` | `$CLAUDE_MEMORY_ENTERPRISE_PATH/permanent/` | Organisation-wide (managed environments) |
+| Local | `--scope local` | `.claude/memory/local/permanent/` | Personal project (gitignored) |
+| Project | `--scope project` | `.claude/memory/permanent/` | Shared project (in git) |
+| Global | `--scope global` | `~/.claude/memory/permanent/` | Personal cross-project |
 
-**Precedence order**: User > Project > Local > Enterprise
+**Precedence order**: Enterprise > Local > Project > Global (earlier scopes override later ones)
 
-**Legacy alias**: `--scope global` is accepted as an alias for `--scope user`.
+**Legacy alias**: `--scope user` is accepted as an alias for `--scope global`.
 
 **Default behaviour**: Search all accessible scopes, merge and deduplicate results.
 

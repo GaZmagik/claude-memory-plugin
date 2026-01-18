@@ -210,6 +210,37 @@ describe('Health Check', () => {
       const lowConnIssue = report.issues.find(i => i.type === 'low_connectivity');
       expect(lowConnIssue).toBeUndefined();
     });
+
+    it('should exclude breadcrumb-type memories from orphan count', async () => {
+      // Breadcrumbs are ephemeral working documents - being orphaned is expected
+      const index = {
+        version: 1,
+        memories: [
+          { id: 'decision-1', type: 'decision', title: 'A Decision', tags: [], relativePath: 'permanent/decision-1.md', created: '', updated: '', scope: 'project' },
+          { id: 'thought-123', type: 'breadcrumb', title: 'A Thought', tags: [], relativePath: 'temporary/thought-123.md', created: '', updated: '', scope: 'project' },
+          { id: 'learning-1', type: 'learning', title: 'A Learning', tags: [], relativePath: 'permanent/learning-1.md', created: '', updated: '', scope: 'project' },
+        ],
+      };
+      const graph = {
+        version: 1,
+        nodes: [
+          { id: 'decision-1', type: 'decision' },
+          { id: 'thought-123', type: 'breadcrumb' },
+          { id: 'learning-1', type: 'learning' },
+        ],
+        edges: [], // All orphaned
+      };
+      fs.writeFileSync(path.join(testDir, 'index.json'), JSON.stringify(index));
+      fs.writeFileSync(path.join(testDir, 'graph.json'), JSON.stringify(graph));
+
+      const report = await checkHealth({ basePath: testDir });
+
+      // Should only count decision-1 and learning-1 as orphans, not the breadcrumb
+      expect(report.stats.orphanedNodes).toBe(2);
+      const orphanIssue = report.issues.find(i => i.type === 'orphaned_nodes');
+      expect(orphanIssue?.count).toBe(2);
+      expect(orphanIssue?.details).not.toContain('thought-123');
+    });
   });
 
   describe('calculateHealthScore', () => {

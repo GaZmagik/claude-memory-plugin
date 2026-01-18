@@ -1240,6 +1240,18 @@
     {
       "id": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
       "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -2887,6 +2899,136 @@
       "source": "learning-regex-based-language-parsing-tradeoff",
       "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
       "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "target": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "target": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-intent-storage-types-for-memory-system-beyond-revisitremind",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
+      "target": "learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
+      "target": "learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95",
+      "target": "learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-mock-return-type-mismatches-missed-in-first-pass",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-pre-existing-test-failures-are-better-fixed-during-mock-reduction",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-dead-code-parsememoryfile-null-checks-are-unreachable",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-batch-sed-replacement-vastly-more-efficient-than-incremental-editing",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-multi-agent-review-caught-documentation-drift-before-shipping",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged",
+      "target": "learning-retro-settingscli-setup-should-exist-from-project-start",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-backwards-compatibility-via-field-derivation-prevents-cascade-breakage",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
+      "target": "learning-retro-review-reports-need-built-in-task-tracking-tables",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
+      "target": "gotcha-global-hooks-override-plugin-hooks",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
+      "target": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-async-fs-conversion-required",
+      "target": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "label": "relates-to"
     }
   ]
 }

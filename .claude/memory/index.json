@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T12:15:45.036Z",
+  "lastUpdated": "2026-01-18T13:56:22.967Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4017,6 +4017,55 @@
       "updated": "2026-01-18T12:15:45.018Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "type": "gotcha",
+      "title": "Retro - Review estimation drift on type checker strictness flags",
+      "tags": [
+        "retrospective",
+        "estimation",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-18T13:56:10.029Z",
+      "updated": "2026-01-18T13:56:10.029Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "type": "learning",
+      "title": "Retro - Date.prototype mocking enables pure function testing without fakes",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mocking",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-01-18T13:56:16.826Z",
+      "updated": "2026-01-18T13:56:16.826Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "type": "learning",
+      "title": "Retro - Review items completed efficiently through strategic prioritization",
+      "tags": [
+        "retrospective",
+        "prioritization",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-18T13:56:22.944Z",
+      "updated": "2026-01-18T13:56:22.944Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-review-items-completed-efficiently-through-strategic-prioritization.md",
       "severity": "medium"
     }
   ]

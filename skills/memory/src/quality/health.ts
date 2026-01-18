@@ -10,6 +10,7 @@ import { loadGraph, type MemoryGraph } from '../graph/structure.js';
 import { findOrphanedNodes } from '../graph/edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';
+import { MemoryType } from '../types/enums.js';
 
 const log = createLogger('health');
 
@@ -150,8 +151,22 @@ export async function checkHealth(request: CheckHealthRequest): Promise<HealthRe
     indexEntries = index.memories;
   }
 
-  // Check for orphaned nodes
-  const orphanedNodes = findOrphanedNodes(graph);
+  // Check for orphaned nodes (excluding ephemeral breadcrumb types)
+  const allOrphanedNodes = findOrphanedNodes(graph);
+
+  // Build a map of id -> type from index for filtering
+  const indexTypeMap = new Map<string, string>();
+  for (const entry of indexEntries) {
+    indexTypeMap.set(entry.id, (entry as { type?: string }).type ?? '');
+  }
+
+  // Filter out breadcrumb types - they're ephemeral working documents
+  // where being orphaned is expected behavior
+  const orphanedNodes = allOrphanedNodes.filter(id => {
+    const memType = indexTypeMap.get(id);
+    return memType !== MemoryType.Breadcrumb;
+  });
+
   if (orphanedNodes.length > 0) {
     issues.push({
       type: 'orphaned_nodes',

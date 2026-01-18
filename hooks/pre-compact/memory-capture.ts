@@ -20,6 +20,7 @@ import {
   isForkedSession,
   getLogDir,
   spawnSessionWithContext,
+  findPluginDir,
 } from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
 
@@ -94,6 +95,13 @@ runHook(async (input) => {
     return allow('No session context found - skipping memory capture');
   }
 
+  // Find memory plugin directory for spawned session to access skills
+  const pluginDirs: string[] = [];
+  const memoryPluginDir = findPluginDir('claude-memory-plugin');
+  if (memoryPluginDir) {
+    pluginDirs.push(memoryPluginDir);
+  }
+
   // Spawn Claude with extracted context
   // Security: Restrict tools to only what's needed for memory capture
   const result = await spawnSessionWithContext({
@@ -105,6 +113,7 @@ runHook(async (input) => {
     timeoutSecs: 600,
     trigger,
     tools: 'Read,Skill,Bash',
+    pluginDirs,
   });
 
   if (result.started) {

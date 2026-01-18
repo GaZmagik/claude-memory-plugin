@@ -1186,11 +1186,6 @@
       "title": "Think: Intent Storage Types for Memory System - Beyond Revisit/Remind"
     },
     {
-      "id": "thought-20260117-110940893",
-      "type": "breadcrumb",
-      "title": "Think: Plugin Settings Design for Memory Plugin"
-    },
-    {
       "id": "learning-retro-review-reports-need-built-in-task-tracking-tables",
       "type": "learning"
     },
@@ -1225,6 +1220,14 @@
     {
       "id": "decision-async-fs-conversion-required",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-multi-agent-review-caught-documentation-drift-before-shipping",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
+      "type": "gotcha"
     }
   ],
   "edges": [

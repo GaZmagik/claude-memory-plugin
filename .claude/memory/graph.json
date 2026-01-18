@@ -1161,11 +1161,6 @@
       "title": "Retro - Mock removal categorizes into two distinct types"
     },
     {
-      "id": "thought-20260117-212103009",
-      "type": "breadcrumb",
-      "title": "Think: Intent Storage Types for Memory System - Beyond Revisit/Remind"
-    },
-    {
       "id": "learning-retro-review-reports-need-built-in-task-tracking-tables",
       "type": "learning",
       "title": "Retro - Review reports need built-in task tracking tables"
@@ -1310,6 +1305,18 @@
     {
       "id": "decision-claude-code-marketplace-naming-and-plugin-ideas",
       "type": "decision"
+    },
+    {
+      "id": "gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools",
+      "type": "learning"
     }
   ],
   "edges": [

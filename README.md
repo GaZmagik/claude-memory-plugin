@@ -356,10 +356,10 @@ The plugin uses [Ollama](https://ollama.ai) for local AI features. Both models g
 | **Embedding** | `embeddinggemma:latest` | Semantic search, similarity matching, link suggestions |
 | **Chat** | `gemma3:4b` | Topic extraction, gotcha summarisation, context prompts |
 
-Configure models in `.claude/memory.local.md` (gitignored). Copy from the example:
+Configure models in `.claude/memory.local.md` (gitignored). Create the settings file:
 
 ```bash
-cp .claude/memory.example.md .claude/memory.local.md
+memory setup
 ```
 
 Then edit to customise:

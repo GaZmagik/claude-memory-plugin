@@ -10,6 +10,8 @@ import { tmpdir } from 'os';
 
 // Import the core parsing function directly
 import { parseMemoryFile } from '../../skills/memory/src/core/frontmatter.ts';
+import { memoryId } from '../../skills/memory/src/test-utils/branded-helpers.ts';
+import { MemoryType, Scope } from '../../skills/memory/src/types/enums.ts';
 
 describe('Backward Compatibility', () => {
   let testDir: string;
@@ -37,9 +39,9 @@ This is a legacy decision with minimal frontmatter.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('legacy-decision');
+      expect(result.frontmatter.id).toBe(memoryId('legacy-decision'));
       expect(result.frontmatter.title).toBe('Legacy Decision');
-      expect(result.frontmatter.type).toBe('decision');
+      expect(result.frontmatter.type).toBe(MemoryType.Decision);
       expect(result.content).toContain('legacy decision');
     });
 
@@ -58,7 +60,7 @@ Learning with comma-separated tags.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('legacy-learning');
+      expect(result.frontmatter.id).toBe(memoryId('legacy-learning'));
       // Tags may be string or array depending on parser
       expect(result.frontmatter.tags).toBeDefined();
     });
@@ -77,7 +79,7 @@ This gotcha has no timestamps.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('no-timestamps');
+      expect(result.frontmatter.id).toBe(memoryId('no-timestamps'));
       expect(result.frontmatter.title).toBe('Memory Without Timestamps');
       // Should not throw even without timestamps
     });
@@ -106,10 +108,10 @@ This is a modern memory with all fields.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('modern-memory');
-      expect(result.frontmatter.scope).toBe('project');
+      expect(result.frontmatter.id).toBe(memoryId('modern-memory'));
+      expect(result.frontmatter.scope).toBe(Scope.Project);
       expect(result.frontmatter.tags).toContain('test');
-      expect(result.frontmatter.links).toContain('related-memory');
+      expect(result.frontmatter.links).toContain(memoryId('related-memory'));
     });
   });
 
@@ -155,7 +157,7 @@ type: decision
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('empty-content');
+      expect(result.frontmatter.id).toBe(memoryId('empty-content'));
       expect(result.content.trim()).toBe('');
     });
   });
@@ -175,7 +177,7 @@ Content with special chars.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('special-chars');
+      expect(result.frontmatter.id).toBe(memoryId('special-chars'));
       expect(result.frontmatter.title).toContain('colons');
     });
 
@@ -195,7 +197,7 @@ Content here.
 
       const result = parseMemoryFile(readFileSync(filePath, 'utf-8'));
 
-      expect(result.frontmatter.id).toBe('multiline-title');
+      expect(result.frontmatter.id).toBe(memoryId('multiline-title'));
       expect(result.frontmatter.title).toContain('very long title');
     });
   });

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T19:54:04.492Z",
+  "lastUpdated": "2026-01-18T22:46:50.609Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3443,19 +3443,6 @@
       "severity": "medium"
     },
     {
-      "id": "thought-20260117-212103009",
-      "title": "Think: Intent Storage Types for Memory System - Beyond Revisit/Remind",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-17T21:21:03.013Z",
-      "updated": "2026-01-17T22:11:47.047Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260117-212103009.md"
-    },
-    {
       "id": "gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios",
       "type": "gotcha",
       "title": "Retro - Dead code detection: phantom tests mock impossible scenarios",
@@ -4211,6 +4198,55 @@
       "updated": "2026-01-18T19:54:04.479Z",
       "scope": "project",
       "relativePath": "permanent/decision-claude-code-marketplace-naming-and-plugin-ideas.md"
+    },
+    {
+      "id": "gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking",
+      "type": "gotcha",
+      "title": "Retro - Dynamic imports require vi.mock not vi.spyOn for mocking",
+      "tags": [
+        "retrospective",
+        "testing",
+        "vitest",
+        "test-isolation",
+        "project"
+      ],
+      "created": "2026-01-18T22:46:20.041Z",
+      "updated": "2026-01-18T22:46:20.041Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
+      "type": "learning",
+      "title": "Retro - Documentation accuracy prevents user confusion at install time",
+      "tags": [
+        "retrospective",
+        "documentation",
+        "user-experience",
+        "project"
+      ],
+      "created": "2026-01-18T22:46:25.274Z",
+      "updated": "2026-01-18T22:46:25.274Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools",
+      "type": "learning",
+      "title": "Retro - Embedded templates are better than file-based ones for CLI tools",
+      "tags": [
+        "retrospective",
+        "cli-design",
+        "configuration",
+        "project"
+      ],
+      "created": "2026-01-18T22:46:30.645Z",
+      "updated": "2026-01-18T22:46:30.645Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools.md",
+      "severity": "medium"
     }
   ]
 }

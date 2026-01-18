@@ -28,7 +28,7 @@ export interface ExtractionResult {
 
 /**
  * Convert cwd to project path format used by Claude Code
- * e.g., /home/gareth/.vs/project -> -home-gareth--vs-project
+ * e.g., /home/user/.vs/project -> -home-user--vs-project
  * Both / and . are converted to -
  */
 export function cwdToProjectPath(cwd: string): string {

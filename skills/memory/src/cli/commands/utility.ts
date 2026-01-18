@@ -188,19 +188,78 @@ export async function cmdArchive(args: ParsedArgs): Promise<CliResponse> {
   );
 }
 
+// Embedded settings template - works anywhere without needing example file
+const SETTINGS_TEMPLATE = `---
+# Memory Plugin Settings
+# =======================
+# This file customises the memory plugin behaviour for this project.
+# All settings are optional - the plugin works without this file.
+# Without Ollama, the plugin still functions (just without semantic search).
+
+enabled: true
+
+# Ollama Configuration
+# --------------------
+# The plugin uses Ollama for semantic search and AI-assisted features.
+# If Ollama is not available, the plugin degrades gracefully.
+
+ollama_host: http://localhost:11434
+chat_model: gemma3:4b
+embedding_model: embeddinggemma:latest
+context_window: 16384
+
+# Advanced Settings (optional)
+# ----------------------------
+# Uncomment to override defaults:
+
+# health_threshold: 0.7
+# semantic_threshold: 0.45
+# auto_sync: false
+
+# Duplicate Detection (LSH)
+# -------------------------
+# Settings for finding similar/duplicate memories.
+
+# duplicate_threshold: 0.92
+# lsh_collection_threshold: 200
+# lsh_hash_bits: 10
+# lsh_tables: 6
+---
+
+# Memory Plugin Configuration
+
+Settings reference: https://github.com/GaZmagik/claude-memory-plugin#ollama-integration
+
+## Model Selection
+
+Chat models (for summaries, topic extraction):
+- \`gemma3:4b\` - Fast, good quality (default)
+- \`gemma3:12b\` - Higher quality, slower
+- \`llama3.2\` - Meta's Llama model
+
+Embedding models (for semantic search):
+- \`embeddinggemma:latest\` - Google's embedding model (default)
+- \`nomic-embed-text\` - Nomic AI's embedding model
+
+## Without Ollama
+
+The plugin works without Ollama. Semantic search and AI summaries will be
+disabled, but core functionality (memory storage, graph, keyword search)
+remains available.
+`;
+
 /**
- * setup - Create local settings file from example
+ * setup - Create local settings file from embedded template
  *
  * Usage: memory setup [--force]
  *
- * Creates .claude/memory.local.md from memory.example.md template.
+ * Creates .claude/memory.local.md with default settings.
  * Also ensures .claude/*.local.md is in .gitignore.
  */
 export async function cmdSetup(args: ParsedArgs): Promise<CliResponse> {
   const force = args.flags.force === true;
   const cwd = process.cwd();
   const claudeDir = path.join(cwd, '.claude');
-  const examplePath = path.join(claudeDir, 'memory.example.md');
   const localPath = path.join(claudeDir, 'memory.local.md');
   const gitignorePath = path.join(cwd, '.gitignore');
 
@@ -211,14 +270,6 @@ export async function cmdSetup(args: ParsedArgs): Promise<CliResponse> {
         fs.mkdirSync(claudeDir, { recursive: true });
       }
 
-      // Check if example file exists
-      if (!fs.existsSync(examplePath)) {
-        return {
-          status: 'error' as const,
-          error: `Example file not found: ${examplePath}\nRun this command from a project with the memory plugin installed.`,
-        };
-      }
-
       // Check if local file already exists
       if (fs.existsSync(localPath) && !force) {
         return {
@@ -227,9 +278,8 @@ export async function cmdSetup(args: ParsedArgs): Promise<CliResponse> {
         };
       }
 
-      // Copy example to local
-      const exampleContent = fs.readFileSync(examplePath, 'utf-8');
-      fs.writeFileSync(localPath, exampleContent, 'utf-8');
+      // Write embedded template to local
+      fs.writeFileSync(localPath, SETTINGS_TEMPLATE, 'utf-8');
 
       // Ensure .gitignore has the pattern
       let gitignoreUpdated = false;

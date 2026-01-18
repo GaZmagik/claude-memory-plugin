@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T06:05:05.201Z",
+  "lastUpdated": "2026-01-18T10:34:40.621Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3850,6 +3850,67 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-settingscli-setup-should-exist-from-project-start.md",
       "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
+      "type": "gotcha",
+      "title": "Retro - Embeddings generation is not implemented in semantic search API",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-01-18T09:20:18.527Z",
+      "updated": "2026-01-18T09:20:18.527Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-systematic-file-level-mutation-audits-uncover-architectural-gaps",
+      "type": "learning",
+      "title": "Retro - Systematic file-level mutation audits uncover architectural gaps",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-01-18T09:20:24.044Z",
+      "updated": "2026-01-18T09:20:24.044Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-file-level-mutation-audits-uncover-architectural-gaps.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-systematic-investigation-methodology-for-complex-issues",
+      "type": "learning",
+      "title": "Retro - Systematic investigation methodology for complex issues",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "memory-skill",
+        "project"
+      ],
+      "created": "2026-01-18T10:34:33.781Z",
+      "updated": "2026-01-18T10:34:33.781Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-investigation-methodology-for-complex-issues.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
+      "type": "gotcha",
+      "title": "Retro - Embeddings generation design not obviously documented",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "embeddings",
+        "memory-skill",
+        "project"
+      ],
+      "created": "2026-01-18T10:34:40.588Z",
+      "updated": "2026-01-18T10:34:40.588Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-embeddings-generation-design-not-obviously-documented.md",
+      "severity": "medium"
     }
   ]
 }

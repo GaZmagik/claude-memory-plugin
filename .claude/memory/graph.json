@@ -1201,6 +1201,22 @@
     {
       "id": "learning-retro-settingscli-setup-should-exist-from-project-start",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-systematic-file-level-mutation-audits-uncover-architectural-gaps",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-systematic-investigation-methodology-for-complex-issues",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
+      "type": "gotcha"
     }
   ],
   "edges": [

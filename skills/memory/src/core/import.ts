@@ -34,7 +34,7 @@ function sanitiseObject<T>(obj: T): T {
     return obj.map(item => sanitiseObject(item)) as T;
   }
 
-  const result: Record<string, unknown> = {};
+  const result: Record<string, unknown> = Object.create(null);
   for (const key of Object.keys(obj as object)) {
     if (!dangerous.includes(key)) {
       result[key] = sanitiseObject((obj as Record<string, unknown>)[key]);

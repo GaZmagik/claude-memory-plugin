@@ -132,4 +132,47 @@ describe('subprocess', () => {
       expect(result.stdout.trim()).toBe('/tmp');
     });
   });
+
+  describe('output truncation at MAX_OUTPUT_BYTES boundary', () => {
+    // MAX_OUTPUT_BYTES is 10MB (10 * 1024 * 1024 = 10485760 bytes)
+    const MAX_OUTPUT_BYTES = 10 * 1024 * 1024;
+
+    it('should truncate stdout exceeding 10MB limit', async () => {
+      // Generate 11MB of output (slightly over limit)
+      // Using dd is faster than yes for large output
+      const result = await spawn(
+        ['sh', '-c', 'dd if=/dev/zero bs=1M count=11 2>/dev/null | tr "\\0" "a"'],
+        { timeout: 30000 }
+      );
+
+      expect(result.success).toBe(true);
+      expect(result.stdout).toContain('... [output truncated at 10MB limit]');
+      // Should be capped at ~10MB + truncation notice
+      expect(result.stdout.length).toBeLessThanOrEqual(MAX_OUTPUT_BYTES + 100);
+    }, 60000); // 60s timeout for slow CI
+
+    it('should truncate stderr exceeding 10MB limit', async () => {
+      // Redirect large output to stderr
+      const result = await spawn(
+        ['sh', '-c', 'dd if=/dev/zero bs=1M count=11 2>/dev/null | tr "\\0" "a" >&2'],
+        { timeout: 30000 }
+      );
+
+      expect(result.success).toBe(true);
+      expect(result.stderr).toContain('... [output truncated at 10MB limit]');
+      expect(result.stderr.length).toBeLessThanOrEqual(MAX_OUTPUT_BYTES + 100);
+    }, 60000);
+
+    it('should not truncate output under 10MB limit', async () => {
+      // Generate 1MB of output (well under limit)
+      const result = await spawn(
+        ['sh', '-c', 'dd if=/dev/zero bs=1M count=1 2>/dev/null | tr "\\0" "b"'],
+        { timeout: 10000 }
+      );
+
+      expect(result.success).toBe(true);
+      expect(result.stdout).not.toContain('... [output truncated');
+      expect(result.stdout.length).toBe(1024 * 1024); // Exactly 1MB
+    }, 30000);
+  });
 });

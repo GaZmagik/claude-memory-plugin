@@ -219,8 +219,10 @@ Context size: ${options.contextPrompt.length} bytes
   const promptFile = join(tempDir, `claude-prompt-${options.sessionId}.txt`);
   writeFileSync(promptFile, options.prompt, { mode: 0o600 });
 
-  // Build plugin-dir flags if provided
-  const pluginDirFlags = pluginDirs.map((dir) => `--plugin-dir "${dir}"`).join(' ');
+  // Write plugin dirs to temp file (one per line) to avoid word-splitting issues
+  // This prevents paths with spaces from being incorrectly split
+  const pluginDirsFile = join(tempDir, `claude-plugindirs-${options.sessionId}.txt`);
+  writeFileSync(pluginDirsFile, pluginDirs.join('\n'), { mode: 0o600 });
 
   // Write a wrapper script that reads all values from files/args
   // This avoids shell interpolation vulnerabilities
@@ -236,16 +238,16 @@ TOOLS="$5"
 PROMPT_FILE="$6"
 CWD="$7"
 WRAPPER_SCRIPT="$8"
-PLUGIN_DIR_FLAGS="$9"
+PLUGIN_DIRS_FILE="$9"
 
 # Cleanup function - ensures temp files are removed even on signals
 cleanup() {
-  rm -f "$CONTEXT_FILE" "$PROMPT_FILE" "$WRAPPER_SCRIPT"
+  rm -f "$CONTEXT_FILE" "$PROMPT_FILE" "$WRAPPER_SCRIPT" "$PLUGIN_DIRS_FILE"
 }
 trap cleanup EXIT INT TERM
 
 echo "[$(date -u +%Y%m%dT%H%M%SZ)] Starting memory capture with context..." >> "$LOG_FILE"
-echo "[$(date -u +%Y%m%dT%H%M%SZ)] Plugin dirs: $PLUGIN_DIR_FLAGS" >> "$LOG_FILE"
+echo "[$(date -u +%Y%m%dT%H%M%SZ)] Plugin dirs file: $PLUGIN_DIRS_FILE" >> "$LOG_FILE"
 
 cd "$CWD"
 
@@ -267,10 +269,11 @@ CLAUDE_ARGS=(
   --tools "$TOOLS"
 )
 
-# Add plugin-dir flags if provided (split on space for multiple dirs)
-if [ -n "$PLUGIN_DIR_FLAGS" ]; then
-  # shellcheck disable=SC2206
-  CLAUDE_ARGS+=($PLUGIN_DIR_FLAGS)
+# Add plugin-dir flags by reading from file (one path per line, handles spaces safely)
+if [ -s "$PLUGIN_DIRS_FILE" ]; then
+  while IFS= read -r plugin_dir || [ -n "$plugin_dir" ]; do
+    [ -n "$plugin_dir" ] && CLAUDE_ARGS+=(--plugin-dir "$plugin_dir")
+  done < "$PLUGIN_DIRS_FILE"
 fi
 
 CLAUDE_ARGS+=(--print "$CLAUDE_PROMPT")
@@ -298,7 +301,7 @@ echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
       promptFile,
       cwd,
       wrapperScript,
-      pluginDirFlags,
+      pluginDirsFile,
     ],
     {
       cwd: cwd,

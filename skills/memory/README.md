@@ -237,6 +237,21 @@ JSON input for `memory write` (via stdin):
 - `links`, `source`, `autoLink`, `autoLinkThreshold` optional
 - Default scope depends on configuration (typically `global`)
 
+### Memory Types
+
+| Type | Storage | Purpose | Promotion Target |
+|------|---------|---------|------------------|
+| `decision` | permanent/ | Architectural choices, technology selections, design decisions | Yes |
+| `learning` | permanent/ | Lessons learned, patterns discovered, best practices | Yes |
+| `artifact` | permanent/ | Reusable templates, reference documents, code patterns | Yes |
+| `gotcha` | permanent/ | Warnings, pitfalls, things that can go wrong | Yes |
+| `breadcrumb` | temporary/ | Ephemeral markers for session continuity, work-in-progress notes | No |
+| `hub` | permanent/ | High-connectivity nodes that organise related memories (e.g., "Decisions Hub") | No |
+
+**Breadcrumb**: Temporary memories stored in `temporary/` subdirectory. Used by the `think` subsystem for deliberation documents. Breadcrumbs are personal markers that help maintain context during a session but are not meant for long-term storage. They can be promoted to permanent types via `memory think conclude --promote <type>`.
+
+**Hub**: Organisational nodes with high inbound link counts. Hubs serve as central connection points in the knowledge graph, making it easier to navigate related memories. Examples: "Architecture Decisions Hub", "Testing Patterns Hub". Hubs cannot be created via promotion - use `memory write` with `type: hub`.
+
 ## Storage Layout
 
 4-tier scope hierarchy (precedence: enterprise → local → project → global):

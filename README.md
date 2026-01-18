@@ -443,7 +443,7 @@ rm -rf ~/.claude/memory/.embedding-cache
 
 ### Version Upgrades
 
-When the plugin is updated to a new version, the `memory` CLI is automatically re-linked via `postinstall`. No manual intervention required.
+When the plugin is updated to a new version, the `memory` CLI is automatically re-linked via `postinstall` on SessionStart. No manual intervention required.
 
 ## Uninstallation
 
@@ -456,7 +456,7 @@ This removes all plugin components. Memory data in `.claude/memory/` is preserve
 
 ## License
 
-MIT - See LICENSE file for details
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 

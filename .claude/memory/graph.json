@@ -1217,6 +1217,10 @@
     {
       "id": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
       "type": "gotcha"
+    },
+    {
+      "id": "gotcha-global-hooks-override-plugin-hooks",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -2758,6 +2762,11 @@
     {
       "source": "learning-retro-systematic-investigation-methodology-for-complex-issues",
       "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-global-hooks-override-plugin-hooks",
+      "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
       "label": "relates-to"
     }
   ]

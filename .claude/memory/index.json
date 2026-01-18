@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T10:34:40.621Z",
+  "lastUpdated": "2026-01-18T11:05:42.357Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3911,6 +3911,23 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-embeddings-generation-design-not-obviously-documented.md",
       "severity": "medium"
+    },
+    {
+      "id": "gotcha-global-hooks-override-plugin-hooks",
+      "type": "gotcha",
+      "title": "Global hooks in ~/.claude/hooks/ can override or conflict with plugin hooks",
+      "tags": [
+        "hooks",
+        "plugin",
+        "session-end",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-01-18T11:05:42.352Z",
+      "updated": "2026-01-18T11:05:42.352Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-global-hooks-override-plugin-hooks.md",
+      "severity": "high"
     }
   ]
 }

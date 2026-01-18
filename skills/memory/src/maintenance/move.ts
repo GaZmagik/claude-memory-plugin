@@ -22,6 +22,7 @@ import { loadGraph, saveGraph, addNode, removeNode } from '../graph/structure.js
 import { unsafeAsMemoryId } from '../types/branded.js';
 import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
+import type { EmbeddingCache } from '../search/embedding.js';
 
 /**
  * Move request options
@@ -54,6 +55,7 @@ export interface MoveResponse {
     targetGraphUpdated: boolean;
     sourceIndexUpdated: boolean;
     targetIndexUpdated: boolean;
+    embeddingsTransferred: boolean;
   };
   error?: string;
 }
@@ -94,6 +96,7 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
     targetGraphUpdated: false,
     sourceIndexUpdated: false,
     targetIndexUpdated: false,
+    embeddingsTransferred: false,
   };
 
   // Don't move to same location
@@ -217,6 +220,40 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
     changes.targetIndexUpdated = true;
   } catch {
     // Index update failed
+  }
+
+  // Transfer embedding from source to target scope
+  try {
+    const sourceEmbeddingsPath = path.join(sourceBasePath, 'embeddings.json');
+    if (fs.existsSync(sourceEmbeddingsPath)) {
+      const sourceContent = fs.readFileSync(sourceEmbeddingsPath, 'utf-8');
+      const sourceCache = JSON.parse(sourceContent) as EmbeddingCache;
+
+      if (sourceCache.memories && sourceCache.memories[id]) {
+        const embedding = sourceCache.memories[id];
+
+        // Add to target embeddings
+        const targetEmbeddingsPath = path.join(targetBasePath, 'embeddings.json');
+        let targetCache: EmbeddingCache = { version: 1, memories: {} };
+        if (fs.existsSync(targetEmbeddingsPath)) {
+          const targetContent = fs.readFileSync(targetEmbeddingsPath, 'utf-8');
+          targetCache = JSON.parse(targetContent) as EmbeddingCache;
+        }
+        if (!targetCache.memories) {
+          targetCache.memories = {};
+        }
+        targetCache.memories[id] = embedding;
+        fs.writeFileSync(targetEmbeddingsPath, JSON.stringify(targetCache, null, 2));
+
+        // Remove from source embeddings
+        delete sourceCache.memories[id];
+        fs.writeFileSync(sourceEmbeddingsPath, JSON.stringify(sourceCache, null, 2));
+
+        changes.embeddingsTransferred = true;
+      }
+    }
+  } catch {
+    // Embeddings transfer is best-effort
   }
 
   return {

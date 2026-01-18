@@ -13,6 +13,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { removeFromIndex } from '../core/index.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
+import type { EmbeddingCache } from '../search/embedding.js';
 
 /**
  * Archive request options
@@ -39,6 +40,7 @@ export interface ArchiveResponse {
     fileMoved: boolean;
     removedFromGraph: boolean;
     removedFromIndex: boolean;
+    removedFromEmbeddings: boolean;
   };
   error?: string;
 }
@@ -70,6 +72,7 @@ export async function archiveMemory(request: ArchiveRequest): Promise<ArchiveRes
     fileMoved: false,
     removedFromGraph: false,
     removedFromIndex: false,
+    removedFromEmbeddings: false,
   };
 
   // Find the file
@@ -123,6 +126,22 @@ export async function archiveMemory(request: ArchiveRequest): Promise<ArchiveRes
     changes.removedFromIndex = removed;
   } catch {
     // Index may not exist
+  }
+
+  // Remove from embeddings cache (archived memories shouldn't be searchable)
+  try {
+    const embeddingsPath = path.join(basePath, 'embeddings.json');
+    if (fs.existsSync(embeddingsPath)) {
+      const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      const cache = JSON.parse(content) as EmbeddingCache;
+      if (cache.memories && cache.memories[id]) {
+        delete cache.memories[id];
+        fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+        changes.removedFromEmbeddings = true;
+      }
+    }
+  } catch {
+    // Embeddings cleanup is best-effort
   }
 
   return {

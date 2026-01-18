@@ -20,6 +20,7 @@ import { isInsideDir } from '../core/fs-utils.js';
 import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph, type MemoryGraph } from '../graph/structure.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
+import type { EmbeddingCache } from '../search/embedding.js';
 
 /**
  * Rename request options
@@ -48,6 +49,7 @@ export interface RenameResponse {
     graphNodeUpdated: boolean;
     edgesUpdated: number;
     indexUpdated: boolean;
+    embeddingsUpdated: boolean;
   };
   error?: string;
 }
@@ -80,6 +82,7 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
     graphNodeUpdated: false,
     edgesUpdated: 0,
     indexUpdated: false,
+    embeddingsUpdated: false,
   };
 
   // Find the source file
@@ -187,6 +190,24 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
     };
     saveIndex(basePath, index);
     changes.indexUpdated = true;
+  }
+
+  // Update embeddings cache key
+  try {
+    const embeddingsPath = path.join(basePath, 'embeddings.json');
+    if (fs.existsSync(embeddingsPath)) {
+      const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      const cache = JSON.parse(content) as EmbeddingCache;
+      if (cache.memories && cache.memories[oldId]) {
+        // Move embedding to new key
+        cache.memories[newId] = cache.memories[oldId];
+        delete cache.memories[oldId];
+        fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+        changes.embeddingsUpdated = true;
+      }
+    }
+  } catch {
+    // Embeddings update is best-effort
   }
 
   return {

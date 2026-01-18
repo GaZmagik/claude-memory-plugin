@@ -381,23 +381,45 @@ async function findLinkedMemories(memDir: string, foundIds: string[]): Promise<s
     const graph = JSON.parse(await readFile(graphFile, 'utf-8'));
     const edges = graph.edges || [];
 
-    for (const id of foundIds) {
-      for (const edge of edges) {
-        let linkedId: string | null = null;
-        if (edge.source === id) linkedId = edge.target;
-        else if (edge.target === id) linkedId = edge.source;
+    // Build adjacency map for O(1) edge lookups (was O(n×m) nested loop)
+    const adjacencyMap = new Map<string, Set<string>>();
+    for (const edge of edges) {
+      if (!adjacencyMap.has(edge.source)) adjacencyMap.set(edge.source, new Set());
+      if (!adjacencyMap.has(edge.target)) adjacencyMap.set(edge.target, new Set());
+      adjacencyMap.get(edge.source)!.add(edge.target);
+      adjacencyMap.get(edge.target)!.add(edge.source);
+    }
 
-        if (linkedId && (linkedId.includes('learning') || linkedId.includes('decision'))) {
-          // Find the file
-          const files = await readdir(memDir, { recursive: true }) as string[];
-          for (const file of files) {
-            if (typeof file === 'string' && file.endsWith(`${linkedId}.md`)) {
-              linked.push(join(memDir, file));
-              break;
-            }
-          }
+    // Read directory once (was called inside nested loop!)
+    const files = await readdir(memDir, { recursive: true }) as string[];
+
+    // Build file map for O(1) path lookups (was O(k) per lookup)
+    const fileMap = new Map<string, string>();
+    for (const file of files) {
+      if (typeof file === 'string' && file.endsWith('.md')) {
+        const id = basename(file, '.md');
+        fileMap.set(id, join(memDir, file));
+      }
+    }
+
+    // Find linked memories efficiently - O(n + m + k) total
+    const seen = new Set<string>();
+    for (const id of foundIds) {
+      const neighbours = adjacencyMap.get(id);
+      if (!neighbours) continue;
+
+      for (const linkedId of neighbours) {
+        if (seen.has(linkedId)) continue;
+        if (!(linkedId.includes('learning') || linkedId.includes('decision'))) continue;
+
+        const filePath = fileMap.get(linkedId);
+        if (filePath) {
+          linked.push(filePath);
+          seen.add(linkedId);
+          if (linked.length >= 3) break;
         }
       }
+      if (linked.length >= 3) break;
     }
   } catch {
     // Ignore errors

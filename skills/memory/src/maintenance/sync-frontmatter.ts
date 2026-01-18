@@ -81,12 +81,12 @@ export async function syncFrontmatter(
   const graph = await loadGraph(basePath);
 
   // Get IDs to process
-  const idsToProcess = ids ?? getAllMemoryIds(basePath);
+  const idsToProcess = ids ?? (await getAllMemoryIds(basePath));
 
   for (const id of idsToProcess) {
     try {
       // Find file
-      const filePath = findMemoryFile(basePath, id);
+      const filePath = await findMemoryFile(basePath, id);
       if (!filePath) {
         // File doesn't exist, skip silently
         continue;

@@ -89,7 +89,7 @@ export async function createThinkDocument(
 
   try {
     const temporaryDir = getTemporaryDir(scopePath);
-    ensureDir(temporaryDir);
+    await ensureDir(temporaryDir);
 
     const id = generateThinkId();
     const frontmatter = createThinkFrontmatter({
@@ -100,10 +100,10 @@ export async function createThinkDocument(
     const fileContent = serialiseThinkDocument(frontmatter, content);
 
     const filePath = path.join(temporaryDir, `${id}.md`);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     // Set as current document
-    setCurrentDocument(scopePath, id, scope);
+    await setCurrentDocument(scopePath, id, scope);
 
     log.info('Created think document', { id, topic: request.topic, scope });
 
@@ -145,12 +145,12 @@ export async function listThinkDocuments(
     const scopePath = resolveScopePath(scope, basePath, globalPath);
     const temporaryDir = getTemporaryDir(scopePath);
 
-    if (!fileExists(temporaryDir)) {
+    if (!(await fileExists(temporaryDir))) {
       continue;
     }
 
-    const files = listMarkdownFiles(temporaryDir);
-    const state = loadState(scopePath);
+    const files = await listMarkdownFiles(temporaryDir);
+    const state = await loadState(scopePath);
 
     for (const filePath of files) {
       const filename = path.basename(filePath, '.md');
@@ -161,7 +161,7 @@ export async function listThinkDocuments(
       }
 
       try {
-        const content = readFile(filePath);
+        const content = await readFile(filePath);
         const parsed = parseThinkDocument(content);
 
         // Filter by status if requested
@@ -192,7 +192,7 @@ export async function listThinkDocuments(
   let currentId: string | null = null;
   for (const scope of scopesToSearch) {
     const scopePath = resolveScopePath(scope, basePath, globalPath);
-    const id = getCurrentDocumentId(scopePath);
+    const id = await getCurrentDocumentId(scopePath);
     if (id) {
       currentId = id;
       break;
@@ -223,7 +223,7 @@ export async function showThinkDocument(
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
       const scopePath = resolveScopePath(scope, basePath, globalPath);
-      const currentId = getCurrentDocumentId(scopePath);
+      const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
         documentScope = scope;
@@ -245,7 +245,7 @@ export async function showThinkDocument(
     for (const scope of [Scope.Project, Scope.Local]) {
       const scopePath = resolveScopePath(scope, basePath, globalPath);
       const filePath = getThinkFilePath(scopePath, documentId);
-      if (fileExists(filePath)) {
+      if (await fileExists(filePath)) {
         documentScope = scope;
         break;
       }
@@ -263,7 +263,7 @@ export async function showThinkDocument(
   const filePath = getThinkFilePath(scopePath, documentId);
 
   try {
-    const content = readFile(filePath);
+    const content = await readFile(filePath);
     const parsed = parseThinkDocument(content);
 
     const document: ThinkDocument = {
@@ -311,7 +311,7 @@ export async function deleteThinkDocument(
   for (const scope of [Scope.Project, Scope.Local]) {
     const scopePath = resolveScopePath(scope, basePath, globalPath);
     const filePath = getThinkFilePath(scopePath, documentId);
-    if (fileExists(filePath)) {
+    if (await fileExists(filePath)) {
       documentScope = scope;
       break;
     }
@@ -328,12 +328,12 @@ export async function deleteThinkDocument(
   const filePath = getThinkFilePath(scopePath, documentId);
 
   try {
-    deleteFile(filePath);
+    await deleteFile(filePath);
 
     // Clear current if this was the current document
-    const currentId = getCurrentDocumentId(scopePath);
+    const currentId = await getCurrentDocumentId(scopePath);
     if (currentId === documentId) {
-      clearCurrentDocument(scopePath);
+      await clearCurrentDocument(scopePath);
     }
 
     log.info('Deleted think document', { documentId });
@@ -354,15 +354,15 @@ export async function deleteThinkDocument(
 /**
  * Check if a think document exists
  */
-export function thinkDocumentExists(
+export async function thinkDocumentExists(
   documentId: string,
   basePath: string,
   globalPath: string
-): { exists: boolean; scope?: Scope; filePath?: string } {
+): Promise<{ exists: boolean; scope?: Scope; filePath?: string }> {
   for (const scope of [Scope.Project, Scope.Local]) {
     const scopePath = resolveScopePath(scope, basePath, globalPath);
     const filePath = getThinkFilePath(scopePath, documentId);
-    if (fileExists(filePath)) {
+    if (await fileExists(filePath)) {
       return { exists: true, scope, filePath };
     }
   }
@@ -372,17 +372,17 @@ export function thinkDocumentExists(
 /**
  * Get the raw content of a think document
  */
-export function readThinkDocumentRaw(
+export async function readThinkDocumentRaw(
   documentId: string,
   basePath: string,
   globalPath: string
-): { content: string; scope: Scope; filePath: string } | null {
-  const result = thinkDocumentExists(documentId, basePath, globalPath);
+): Promise<{ content: string; scope: Scope; filePath: string } | null> {
+  const result = await thinkDocumentExists(documentId, basePath, globalPath);
   if (!result.exists || !result.scope || !result.filePath) {
     return null;
   }
 
-  const content = readFile(result.filePath);
+  const content = await readFile(result.filePath);
   return {
     content,
     scope: result.scope,

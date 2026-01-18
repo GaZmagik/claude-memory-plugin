@@ -38,14 +38,14 @@ describe('think/state', () => {
   });
 
   describe('loadState', () => {
-    it('returns empty state when file does not exist', () => {
-      const state = loadState(tempDir);
+    it('returns empty state when file does not exist', async () => {
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBeNull();
       expect(state.currentScope).toBeNull();
       expect(state.lastUpdated).toBeDefined();
     });
 
-    it('loads existing state from file', () => {
+    it('loads existing state from file', async () => {
       const stateFile = path.join(tempDir, 'thought.json');
       fs.writeFileSync(stateFile, JSON.stringify({
         currentDocumentId: thinkId('think-20260112-100000'),
@@ -53,23 +53,23 @@ describe('think/state', () => {
         lastUpdated: '2026-01-12T10:00:00Z',
       }));
 
-      const state = loadState(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBe(thinkId('think-20260112-100000'));
       expect(state.currentScope).toBe(Scope.Project);
     });
 
-    it('returns empty state on invalid JSON', () => {
+    it('returns empty state on invalid JSON', async () => {
       const stateFile = path.join(tempDir, 'thought.json');
       fs.writeFileSync(stateFile, 'not valid json');
 
-      const state = loadState(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBeNull();
     });
   });
 
   describe('saveState', () => {
-    it('creates state file', () => {
-      saveState(tempDir, {
+    it('creates state file', async () => {
+      await saveState(tempDir, {
         currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Local,
         lastUpdated: '2026-01-12T10:00:00Z',
@@ -83,9 +83,9 @@ describe('think/state', () => {
       expect(content.currentScope).toBe(Scope.Local);
     });
 
-    it('creates directory if needed', () => {
+    it('creates directory if needed', async () => {
       const nestedDir = path.join(tempDir, 'nested', 'path');
-      saveState(nestedDir, {
+      await saveState(nestedDir, {
         currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: '2026-01-12T10:00:00Z',
@@ -94,9 +94,9 @@ describe('think/state', () => {
       expect(fs.existsSync(path.join(nestedDir, 'thought.json'))).toBe(true);
     });
 
-    it('updates lastUpdated timestamp', () => {
+    it('updates lastUpdated timestamp', async () => {
       const before = new Date().toISOString();
-      saveState(tempDir, {
+      await saveState(tempDir, {
         currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: '2020-01-01T00:00:00Z', // Old timestamp
@@ -113,86 +113,86 @@ describe('think/state', () => {
   });
 
   describe('getCurrentDocumentId', () => {
-    it('returns null when no state', () => {
-      expect(getCurrentDocumentId(tempDir)).toBeNull();
+    it('returns null when no state', async () => {
+      expect(await getCurrentDocumentId(tempDir)).toBeNull();
     });
 
-    it('returns current document ID', () => {
-      saveState(tempDir, {
+    it('returns current document ID', async () => {
+      await saveState(tempDir, {
         currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: new Date().toISOString(),
       });
 
-      expect(getCurrentDocumentId(tempDir)).toBe(thinkId('think-20260112-100000'));
+      expect(await getCurrentDocumentId(tempDir)).toBe(thinkId('think-20260112-100000'));
     });
   });
 
   describe('getCurrentScope', () => {
-    it('returns null when no state', () => {
-      expect(getCurrentScope(tempDir)).toBeNull();
+    it('returns null when no state', async () => {
+      expect(await getCurrentScope(tempDir)).toBeNull();
     });
 
-    it('returns current scope', () => {
-      saveState(tempDir, {
+    it('returns current scope', async () => {
+      await saveState(tempDir, {
         currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Local,
         lastUpdated: new Date().toISOString(),
       });
 
-      expect(getCurrentScope(tempDir)).toBe(Scope.Local);
+      expect(await getCurrentScope(tempDir)).toBe(Scope.Local);
     });
   });
 
   describe('setCurrentDocument', () => {
-    it('sets current document and scope', () => {
-      setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
+    it('sets current document and scope', async () => {
+      await setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
 
-      const state = loadState(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBe(thinkId('think-20260112-100000'));
       expect(state.currentScope).toBe(Scope.Project);
     });
 
-    it('overwrites previous current document', () => {
-      setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
-      setCurrentDocument(tempDir, 'think-20260112-110000', Scope.Local);
+    it('overwrites previous current document', async () => {
+      await setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
+      await setCurrentDocument(tempDir, 'think-20260112-110000', Scope.Local);
 
-      const state = loadState(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBe(thinkId('think-20260112-110000'));
       expect(state.currentScope).toBe(Scope.Local);
     });
   });
 
   describe('clearCurrentDocument', () => {
-    it('clears current document', () => {
-      setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
-      clearCurrentDocument(tempDir);
+    it('clears current document', async () => {
+      await setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
+      await clearCurrentDocument(tempDir);
 
-      const state = loadState(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBeNull();
       expect(state.currentScope).toBeNull();
     });
 
-    it('handles clearing when already empty', () => {
-      clearCurrentDocument(tempDir);
-      const state = loadState(tempDir);
+    it('handles clearing when already empty', async () => {
+      await clearCurrentDocument(tempDir);
+      const state = await loadState(tempDir);
       expect(state.currentDocumentId).toBeNull();
     });
   });
 
   describe('isCurrentDocument', () => {
-    it('returns false when no current document', () => {
-      expect(isCurrentDocument(tempDir, 'think-20260112-100000')).toBe(false);
+    it('returns false when no current document', async () => {
+      expect(await isCurrentDocument(tempDir, 'think-20260112-100000')).toBe(false);
     });
 
-    it('returns true for current document', () => {
-      setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
-      expect(isCurrentDocument(tempDir, 'think-20260112-100000')).toBe(true);
+    it('returns true for current document', async () => {
+      await setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
+      expect(await isCurrentDocument(tempDir, 'think-20260112-100000')).toBe(true);
     });
 
-    it('returns false for different document', () => {
-      setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
-      expect(isCurrentDocument(tempDir, 'think-20260112-110000')).toBe(false);
+    it('returns false for different document', async () => {
+      await setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
+      expect(await isCurrentDocument(tempDir, 'think-20260112-110000')).toBe(false);
     });
   });
 });

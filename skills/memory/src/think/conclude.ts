@@ -123,7 +123,7 @@ export async function concludeThinkDocument(
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
       const scopePath = resolveScopePath(scope, basePath, globalPath);
-      const currentId = getCurrentDocumentId(scopePath);
+      const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
         documentScope = scope;
@@ -141,7 +141,7 @@ export async function concludeThinkDocument(
 
   // Find the document if scope not determined
   if (!documentScope) {
-    const result = thinkDocumentExists(documentId, basePath, globalPath);
+    const result = await thinkDocumentExists(documentId, basePath, globalPath);
     if (!result.exists || !result.scope) {
       return {
         status: 'error',
@@ -154,7 +154,7 @@ export async function concludeThinkDocument(
   const scopePath = resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
-  if (!fileExists(filePath)) {
+  if (!(await fileExists(filePath))) {
     return {
       status: 'error',
       error: `Think document not found: ${documentId}`,
@@ -163,7 +163,7 @@ export async function concludeThinkDocument(
 
   try {
     // Read and parse existing document
-    const content = readFile(filePath);
+    const content = await readFile(filePath);
     const parsed = parseThinkDocument(content);
 
     // Check if already concluded
@@ -202,10 +202,10 @@ export async function concludeThinkDocument(
 
     // Write updated think document
     const fileContent = serialiseThinkDocument(updatedFrontmatter, updatedContent);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     // Clear as current document
-    clearCurrentDocument(scopePath);
+    await clearCurrentDocument(scopePath);
 
     log.info('Concluded think document', { documentId, promoted: !!request.promote });
 

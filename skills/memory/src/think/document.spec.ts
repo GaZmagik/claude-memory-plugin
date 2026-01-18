@@ -275,7 +275,7 @@ describe('think/document', () => {
         basePath: path.join(tempDir, 'project'),
       });
 
-      const result = thinkDocumentExists(
+      const result = await thinkDocumentExists(
         created.document!.id,
         path.join(tempDir, 'project'),
         globalMemoryDir
@@ -286,8 +286,8 @@ describe('think/document', () => {
       expect(result.filePath).toBeDefined();
     });
 
-    it('returns exists: false for non-existent document', () => {
-      const result = thinkDocumentExists(
+    it('returns exists: false for non-existent document', async () => {
+      const result = await thinkDocumentExists(
         'think-00000000-000000',
         path.join(tempDir, 'project'),
         globalMemoryDir
@@ -305,7 +305,7 @@ describe('think/document', () => {
         basePath: path.join(tempDir, 'project'),
       });
 
-      const result = readThinkDocumentRaw(
+      const result = await readThinkDocumentRaw(
         created.document!.id,
         path.join(tempDir, 'project'),
         globalMemoryDir
@@ -316,8 +316,8 @@ describe('think/document', () => {
       expect(result?.scope).toBeDefined();
     });
 
-    it('returns null for non-existent document', () => {
-      const result = readThinkDocumentRaw(
+    it('returns null for non-existent document', async () => {
+      const result = await readThinkDocumentRaw(
         'think-00000000-000000',
         path.join(tempDir, 'project'),
         globalMemoryDir
@@ -339,9 +339,9 @@ describe('document.ts mocked edge cases', () => {
 
   describe('createThinkDocument', () => {
     it('should return error when writeFileAtomic throws', async () => {
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(false);
-      vi.spyOn(fsUtilsModule, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockImplementation(() => {
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(false);
+      vi.spyOn(fsUtilsModule, 'ensureDir').mockResolvedValue(undefined);
+      vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockImplementation(async () => {
         throw new Error('Disk full');
       });
 
@@ -359,13 +359,13 @@ describe('document.ts mocked edge cases', () => {
   describe('listThinkDocuments', () => {
     it('should skip files that fail to parse', async () => {
       // Mock directory listing with one valid file
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtilsModule, 'listMarkdownFiles').mockReturnValue(['think-20260101-120000.md']);
-      vi.spyOn(fsUtilsModule, 'readFile').mockReturnValue('invalid content');
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtilsModule, 'listMarkdownFiles').mockResolvedValue(['think-20260101-120000.md']);
+      vi.spyOn(fsUtilsModule, 'readFile').mockResolvedValue('invalid content');
       vi.spyOn(frontmatterModule, 'parseThinkDocument').mockImplementation(() => {
         throw new Error('Invalid frontmatter');
       });
-      vi.spyOn(stateModule, 'loadState').mockReturnValue({
+      vi.spyOn(stateModule, 'loadState').mockResolvedValue({
         currentDocumentId: null,
         currentScope: Scope.Project,
         lastUpdated: new Date().toISOString(),
@@ -382,9 +382,9 @@ describe('document.ts mocked edge cases', () => {
 
   describe('showThinkDocument', () => {
     it('should return error when readFile throws', async () => {
-      vi.spyOn(stateModule, 'getCurrentDocumentId').mockReturnValue('think-20260101-120000');
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtilsModule, 'readFile').mockImplementation(() => {
+      vi.spyOn(stateModule, 'getCurrentDocumentId').mockResolvedValue('think-20260101-120000');
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtilsModule, 'readFile').mockImplementation(async () => {
         throw new Error('Permission denied');
       });
 
@@ -400,9 +400,9 @@ describe('document.ts mocked edge cases', () => {
 
   describe('deleteThinkDocument', () => {
     it('should return error when deleteFile throws', async () => {
-      vi.spyOn(stateModule, 'getCurrentDocumentId').mockReturnValue('think-20260101-120000');
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtilsModule, 'readFile').mockReturnValue(`---
+      vi.spyOn(stateModule, 'getCurrentDocumentId').mockResolvedValue('think-20260101-120000');
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtilsModule, 'readFile').mockResolvedValue(`---
 topic: Test
 status: active
 created: 2026-01-01T12:00:00.000Z
@@ -413,7 +413,7 @@ tags: []
 ## Thoughts
 `);
       // Note: No parseThinkDocument mock needed - real parser handles valid YAML
-      vi.spyOn(fsUtilsModule, 'deleteFile').mockImplementation(() => {
+      vi.spyOn(fsUtilsModule, 'deleteFile').mockImplementation(async () => {
         throw new Error('File locked');
       });
 

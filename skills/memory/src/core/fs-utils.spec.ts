@@ -41,58 +41,59 @@ describe('File System Utilities', () => {
   });
 
   describe('ensureDir', () => {
-    it('should create directory if it does not exist', () => {
+    it('should create directory if it does not exist', async () => {
       const newDir = path.join(testDir, 'new-dir');
 
-      ensureDir(newDir);
+      await ensureDir(newDir);
 
       expect(fs.existsSync(newDir)).toBe(true);
     });
 
-    it('should create nested directories', () => {
+    it('should create nested directories', async () => {
       const nestedDir = path.join(testDir, 'a', 'b', 'c');
 
-      ensureDir(nestedDir);
+      await ensureDir(nestedDir);
 
       expect(fs.existsSync(nestedDir)).toBe(true);
     });
 
-    it('should not fail if directory already exists', () => {
+    it('should not fail if directory already exists', async () => {
       const existingDir = path.join(testDir, 'existing');
       fs.mkdirSync(existingDir);
 
-      expect(() => ensureDir(existingDir)).not.toThrow();
+      await ensureDir(existingDir); // Should not throw
+      expect(fs.existsSync(existingDir)).toBe(true);
     });
   });
 
   describe('writeFileAtomic', () => {
-    it('should write content to file', () => {
+    it('should write content to file', async () => {
       const filePath = path.join(testDir, 'test.txt');
 
-      writeFileAtomic(filePath, 'hello world');
+      await writeFileAtomic(filePath, 'hello world');
 
       expect(fs.readFileSync(filePath, 'utf-8')).toBe('hello world');
     });
 
-    it('should create parent directories if needed', () => {
+    it('should create parent directories if needed', async () => {
       const filePath = path.join(testDir, 'nested', 'dir', 'test.txt');
 
-      writeFileAtomic(filePath, 'content');
+      await writeFileAtomic(filePath, 'content');
 
       expect(fs.existsSync(filePath)).toBe(true);
       expect(fs.readFileSync(filePath, 'utf-8')).toBe('content');
     });
 
-    it('should overwrite existing file', () => {
+    it('should overwrite existing file', async () => {
       const filePath = path.join(testDir, 'overwrite.txt');
       fs.writeFileSync(filePath, 'old content');
 
-      writeFileAtomic(filePath, 'new content');
+      await writeFileAtomic(filePath, 'new content');
 
       expect(fs.readFileSync(filePath, 'utf-8')).toBe('new content');
     });
 
-    it('should clean up temp file on error', () => {
+    it('should clean up temp file on error', async () => {
       const filePath = path.join(testDir, 'readonly-dir', 'test.txt');
       const readonlyDir = path.join(testDir, 'readonly-dir');
       fs.mkdirSync(readonlyDir);
@@ -107,7 +108,7 @@ describe('File System Utilities', () => {
           return;
         }
 
-        expect(() => writeFileAtomic(filePath, 'content')).toThrow();
+        await expect(writeFileAtomic(filePath, 'content')).rejects.toThrow();
 
         // Verify no temp files left behind
         fs.chmodSync(readonlyDir, 0o755);
@@ -121,145 +122,145 @@ describe('File System Utilities', () => {
   });
 
   describe('readFile', () => {
-    it('should read file contents', () => {
+    it('should read file contents', async () => {
       const filePath = path.join(testDir, 'read.txt');
       fs.writeFileSync(filePath, 'file content');
 
-      const content = readFile(filePath);
+      const content = await readFile(filePath);
 
       expect(content).toBe('file content');
     });
 
-    it('should throw on non-existent file', () => {
-      expect(() => readFile(path.join(testDir, 'missing.txt'))).toThrow();
+    it('should throw on non-existent file', async () => {
+      await expect(readFile(path.join(testDir, 'missing.txt'))).rejects.toThrow();
     });
   });
 
   describe('fileExists', () => {
-    it('should return true for existing file', () => {
+    it('should return true for existing file', async () => {
       const filePath = path.join(testDir, 'exists.txt');
       fs.writeFileSync(filePath, 'content');
 
-      expect(fileExists(filePath)).toBe(true);
+      expect(await fileExists(filePath)).toBe(true);
     });
 
-    it('should return false for non-existent file', () => {
-      expect(fileExists(path.join(testDir, 'missing.txt'))).toBe(false);
+    it('should return false for non-existent file', async () => {
+      expect(await fileExists(path.join(testDir, 'missing.txt'))).toBe(false);
     });
   });
 
   describe('deleteFile', () => {
-    it('should delete existing file', () => {
+    it('should delete existing file', async () => {
       const filePath = path.join(testDir, 'delete-me.txt');
       fs.writeFileSync(filePath, 'content');
 
-      deleteFile(filePath);
+      await deleteFile(filePath);
 
       expect(fs.existsSync(filePath)).toBe(false);
     });
 
-    it('should not throw on non-existent file', () => {
-      expect(() => deleteFile(path.join(testDir, 'missing.txt'))).not.toThrow();
+    it('should not throw on non-existent file', async () => {
+      await deleteFile(path.join(testDir, 'missing.txt')); // Should not throw
     });
   });
 
   describe('listMarkdownFiles', () => {
-    it('should list markdown files in directory', () => {
+    it('should list markdown files in directory', async () => {
       fs.writeFileSync(path.join(testDir, 'file1.md'), 'content');
       fs.writeFileSync(path.join(testDir, 'file2.md'), 'content');
       fs.writeFileSync(path.join(testDir, 'file3.txt'), 'content');
 
-      const files = listMarkdownFiles(testDir);
+      const files = await listMarkdownFiles(testDir);
 
       expect(files).toHaveLength(2);
       expect(files).toContain(path.join(testDir, 'file1.md'));
       expect(files).toContain(path.join(testDir, 'file2.md'));
     });
 
-    it('should return empty array for non-existent directory', () => {
-      const files = listMarkdownFiles(path.join(testDir, 'missing'));
+    it('should return empty array for non-existent directory', async () => {
+      const files = await listMarkdownFiles(path.join(testDir, 'missing'));
 
       expect(files).toEqual([]);
     });
 
-    it('should ignore directories with .md in name', () => {
+    it('should ignore directories with .md in name', async () => {
       fs.mkdirSync(path.join(testDir, 'subdir.md'));
       fs.writeFileSync(path.join(testDir, 'real.md'), 'content');
 
-      const files = listMarkdownFiles(testDir);
+      const files = await listMarkdownFiles(testDir);
 
       expect(files).toHaveLength(1);
       expect(files[0]).toContain('real.md');
     });
 
-    it('should return empty array for empty directory', () => {
+    it('should return empty array for empty directory', async () => {
       const emptyDir = path.join(testDir, 'empty');
       fs.mkdirSync(emptyDir);
 
-      const files = listMarkdownFiles(emptyDir);
+      const files = await listMarkdownFiles(emptyDir);
 
       expect(files).toEqual([]);
     });
   });
 
   describe('getFileStats', () => {
-    it('should return stats for existing file', () => {
+    it('should return stats for existing file', async () => {
       const filePath = path.join(testDir, 'stats.txt');
       fs.writeFileSync(filePath, 'content');
 
-      const stats = getFileStats(filePath);
+      const stats = await getFileStats(filePath);
 
       expect(stats).not.toBeNull();
       expect(stats?.isFile()).toBe(true);
     });
 
-    it('should return null for non-existent file', () => {
-      const stats = getFileStats(path.join(testDir, 'missing.txt'));
+    it('should return null for non-existent file', async () => {
+      const stats = await getFileStats(path.join(testDir, 'missing.txt'));
 
       expect(stats).toBeNull();
     });
   });
 
   describe('readJsonFile', () => {
-    it('should parse JSON file contents', () => {
+    it('should parse JSON file contents', async () => {
       const filePath = path.join(testDir, 'data.json');
       fs.writeFileSync(filePath, JSON.stringify({ key: 'value' }));
 
-      const data = readJsonFile<{ key: string }>(filePath);
+      const data = await readJsonFile<{ key: string }>(filePath);
 
       expect(data).toEqual({ key: 'value' });
     });
 
-    it('should return null for non-existent file', () => {
-      const data = readJsonFile(path.join(testDir, 'missing.json'));
+    it('should return null for non-existent file', async () => {
+      const data = await readJsonFile(path.join(testDir, 'missing.json'));
 
       expect(data).toBeNull();
     });
 
-    it('should return null for invalid JSON', () => {
+    it('should return null for invalid JSON', async () => {
       const filePath = path.join(testDir, 'invalid.json');
       fs.writeFileSync(filePath, 'not valid json {');
 
-      const data = readJsonFile(filePath);
+      const data = await readJsonFile(filePath);
 
       expect(data).toBeNull();
     });
   });
 
   describe('writeJsonFile', () => {
-    it('should write JSON to file', () => {
+    it('should write JSON to file', async () => {
       const filePath = path.join(testDir, 'write.json');
 
-      writeJsonFile(filePath, { foo: 'bar' });
+      await writeJsonFile(filePath, { foo: 'bar' });
 
       const content = fs.readFileSync(filePath, 'utf-8');
       expect(JSON.parse(content)).toEqual({ foo: 'bar' });
     });
 
-    it('should format JSON with indentation', () => {
+    it('should format JSON with indentation', async () => {
       const filePath = path.join(testDir, 'formatted.json');
 
-      writeJsonFile(filePath, { a: 1, b: 2 });
+      await writeJsonFile(filePath, { a: 1, b: 2 });
 
       const content = fs.readFileSync(filePath, 'utf-8');
       expect(content).toContain('\n');
@@ -351,56 +352,56 @@ describe('File System Utilities', () => {
   });
 
   describe('isSymlink', () => {
-    it('should return true for symlink', () => {
+    it('should return true for symlink', async () => {
       const targetFile = path.join(testDir, 'target.txt');
       const symlinkPath = path.join(testDir, 'link.txt');
       fs.writeFileSync(targetFile, 'content');
       fs.symlinkSync(targetFile, symlinkPath);
 
-      expect(isSymlink(symlinkPath)).toBe(true);
+      expect(await isSymlink(symlinkPath)).toBe(true);
     });
 
-    it('should return false for regular file', () => {
+    it('should return false for regular file', async () => {
       const filePath = path.join(testDir, 'regular.txt');
       fs.writeFileSync(filePath, 'content');
 
-      expect(isSymlink(filePath)).toBe(false);
+      expect(await isSymlink(filePath)).toBe(false);
     });
 
-    it('should return false for directory', () => {
+    it('should return false for directory', async () => {
       const dirPath = path.join(testDir, 'subdir');
       fs.mkdirSync(dirPath);
 
-      expect(isSymlink(dirPath)).toBe(false);
+      expect(await isSymlink(dirPath)).toBe(false);
     });
 
-    it('should return false for non-existent path', () => {
-      expect(isSymlink(path.join(testDir, 'missing'))).toBe(false);
+    it('should return false for non-existent path', async () => {
+      expect(await isSymlink(path.join(testDir, 'missing'))).toBe(false);
     });
   });
 
   describe('validateSymlinkTarget', () => {
-    it('should return path as-is for regular file', () => {
+    it('should return path as-is for regular file', async () => {
       const filePath = path.join(testDir, 'regular.txt');
       fs.writeFileSync(filePath, 'content');
 
-      const result = validateSymlinkTarget(filePath, testDir);
+      const result = await validateSymlinkTarget(filePath, testDir);
 
       expect(result).toBe(filePath);
     });
 
-    it('should return resolved path for symlink within allowed dir', () => {
+    it('should return resolved path for symlink within allowed dir', async () => {
       const targetFile = path.join(testDir, 'target.txt');
       const symlinkPath = path.join(testDir, 'link.txt');
       fs.writeFileSync(targetFile, 'content');
       fs.symlinkSync(targetFile, symlinkPath);
 
-      const result = validateSymlinkTarget(symlinkPath, testDir);
+      const result = await validateSymlinkTarget(symlinkPath, testDir);
 
       expect(result).toBe(fs.realpathSync(targetFile));
     });
 
-    it('should throw for symlink pointing outside allowed dir', () => {
+    it('should throw for symlink pointing outside allowed dir', async () => {
       // Create a file outside testDir
       const outsideDir = fs.mkdtempSync(path.join(os.tmpdir(), 'outside-'));
       const outsideFile = path.join(outsideDir, 'external.txt');
@@ -411,7 +412,7 @@ describe('File System Utilities', () => {
       fs.symlinkSync(outsideFile, symlinkPath);
 
       try {
-        expect(() => validateSymlinkTarget(symlinkPath, testDir)).toThrow(
+        await expect(validateSymlinkTarget(symlinkPath, testDir)).rejects.toThrow(
           /Symlink target outside allowed directory/
         );
       } finally {
@@ -419,7 +420,7 @@ describe('File System Utilities', () => {
       }
     });
 
-    it('should handle nested symlinks within allowed dir', () => {
+    it('should handle nested symlinks within allowed dir', async () => {
       const subdir = path.join(testDir, 'subdir');
       fs.mkdirSync(subdir);
       const targetFile = path.join(subdir, 'nested.txt');
@@ -428,7 +429,7 @@ describe('File System Utilities', () => {
       const symlinkPath = path.join(testDir, 'nested-link.txt');
       fs.symlinkSync(targetFile, symlinkPath);
 
-      const result = validateSymlinkTarget(symlinkPath, testDir);
+      const result = await validateSymlinkTarget(symlinkPath, testDir);
 
       expect(result).toBe(fs.realpathSync(targetFile));
     });
@@ -441,36 +442,36 @@ describe('File System Utilities', () => {
   });
 
   describe('getAllMemoryIds', () => {
-    it('should return empty array for empty directory', () => {
-      const ids = getAllMemoryIds(testDir);
+    it('should return empty array for empty directory', async () => {
+      const ids = await getAllMemoryIds(testDir);
       expect(ids).toEqual([]);
     });
 
-    it('should find memories in permanent directory', () => {
+    it('should find memories in permanent directory', async () => {
       const permanentDir = path.join(testDir, 'permanent');
       fs.mkdirSync(permanentDir);
       fs.writeFileSync(path.join(permanentDir, 'decision-auth.md'), '# Auth');
       fs.writeFileSync(path.join(permanentDir, 'learning-tdd.md'), '# TDD');
 
-      const ids = getAllMemoryIds(testDir);
+      const ids = await getAllMemoryIds(testDir);
 
       expect(ids).toHaveLength(2);
       expect(ids).toContain('decision-auth');
       expect(ids).toContain('learning-tdd');
     });
 
-    it('should find memories in temporary directory', () => {
+    it('should find memories in temporary directory', async () => {
       const temporaryDir = path.join(testDir, 'temporary');
       fs.mkdirSync(temporaryDir);
       fs.writeFileSync(path.join(temporaryDir, 'thought-123.md'), '# Think');
 
-      const ids = getAllMemoryIds(testDir);
+      const ids = await getAllMemoryIds(testDir);
 
       expect(ids).toHaveLength(1);
       expect(ids).toContain('thought-123');
     });
 
-    it('should combine memories from both directories', () => {
+    it('should combine memories from both directories', async () => {
       const permanentDir = path.join(testDir, 'permanent');
       const temporaryDir = path.join(testDir, 'temporary');
       fs.mkdirSync(permanentDir);
@@ -478,21 +479,21 @@ describe('File System Utilities', () => {
       fs.writeFileSync(path.join(permanentDir, 'decision-api.md'), '# API');
       fs.writeFileSync(path.join(temporaryDir, 'thought-456.md'), '# Thought');
 
-      const ids = getAllMemoryIds(testDir);
+      const ids = await getAllMemoryIds(testDir);
 
       expect(ids).toHaveLength(2);
       expect(ids).toContain('decision-api');
       expect(ids).toContain('thought-456');
     });
 
-    it('should ignore non-markdown files', () => {
+    it('should ignore non-markdown files', async () => {
       const permanentDir = path.join(testDir, 'permanent');
       fs.mkdirSync(permanentDir);
       fs.writeFileSync(path.join(permanentDir, 'decision-auth.md'), '# Auth');
       fs.writeFileSync(path.join(permanentDir, 'config.json'), '{}');
       fs.writeFileSync(path.join(permanentDir, 'notes.txt'), 'notes');
 
-      const ids = getAllMemoryIds(testDir);
+      const ids = await getAllMemoryIds(testDir);
 
       expect(ids).toHaveLength(1);
       expect(ids).toContain('decision-auth');
@@ -500,34 +501,34 @@ describe('File System Utilities', () => {
   });
 
   describe('findMemoryFile', () => {
-    it('should return null for non-existent memory', () => {
-      const result = findMemoryFile(testDir, 'non-existent');
+    it('should return null for non-existent memory', async () => {
+      const result = await findMemoryFile(testDir, 'non-existent');
       expect(result).toBeNull();
     });
 
-    it('should find memory in permanent directory', () => {
+    it('should find memory in permanent directory', async () => {
       const permanentDir = path.join(testDir, 'permanent');
       fs.mkdirSync(permanentDir);
       const filePath = path.join(permanentDir, 'decision-auth.md');
       fs.writeFileSync(filePath, '# Auth');
 
-      const result = findMemoryFile(testDir, 'decision-auth');
+      const result = await findMemoryFile(testDir, 'decision-auth');
 
       expect(result).toBe(filePath);
     });
 
-    it('should find memory in temporary directory', () => {
+    it('should find memory in temporary directory', async () => {
       const temporaryDir = path.join(testDir, 'temporary');
       fs.mkdirSync(temporaryDir);
       const filePath = path.join(temporaryDir, 'thought-123.md');
       fs.writeFileSync(filePath, '# Thought');
 
-      const result = findMemoryFile(testDir, 'thought-123');
+      const result = await findMemoryFile(testDir, 'thought-123');
 
       expect(result).toBe(filePath);
     });
 
-    it('should prefer permanent over temporary if both exist', () => {
+    it('should prefer permanent over temporary if both exist', async () => {
       const permanentDir = path.join(testDir, 'permanent');
       const temporaryDir = path.join(testDir, 'temporary');
       fs.mkdirSync(permanentDir);
@@ -537,7 +538,7 @@ describe('File System Utilities', () => {
       fs.writeFileSync(permanentFile, '# Permanent');
       fs.writeFileSync(temporaryFile, '# Temporary');
 
-      const result = findMemoryFile(testDir, 'learning-dup');
+      const result = await findMemoryFile(testDir, 'learning-dup');
 
       expect(result).toBe(permanentFile);
     });

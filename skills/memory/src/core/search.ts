@@ -136,9 +136,9 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
       const filePath = path.join(basePath, entry.relativePath);
       let content = '';
 
-      if (fileExists(filePath)) {
+      if (await fileExists(filePath)) {
         try {
-          const fileContent = readFile(filePath);
+          const fileContent = await readFile(filePath);
           const parsed = parseMemoryFile(fileContent);
           content = parsed.content;
         } catch {

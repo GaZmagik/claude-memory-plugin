@@ -58,7 +58,7 @@ describe('tagMemory', () => {
       },
     });
 
-    vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
+    vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
       id: memoryId('test-id'),
@@ -101,7 +101,7 @@ describe('tagMemory', () => {
       },
     });
 
-    vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
+    vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
@@ -163,7 +163,7 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
+    vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
       id: memoryId('test-id'),
@@ -207,7 +207,7 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
+    vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
@@ -237,7 +237,7 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
+    vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 

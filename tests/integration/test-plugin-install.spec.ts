@@ -77,9 +77,9 @@ describe('Plugin Installation', () => {
       for (const [eventType, configs] of Object.entries(hooksJson.hooks)) {
         for (const config of configs as Array<{ hooks: Array<{ command: string }> }>) {
           for (const hook of config.hooks) {
-            // Extract path from command (removes 'bun ${CLAUDE_PLUGIN_ROOT}/')
+            // Extract path from command (removes 'bun/node ${CLAUDE_PLUGIN_ROOT}/')
             const hookPath = hook.command
-              .replace('bun ${CLAUDE_PLUGIN_ROOT}/', '')
+              .replace(/^(bun|node) \${CLAUDE_PLUGIN_ROOT}\//, '')
               .replace(/\s+$/, '');
             expect(existsSync(join(pluginRoot, hookPath))).toBe(true);
           }

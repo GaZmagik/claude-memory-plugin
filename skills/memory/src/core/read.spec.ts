@@ -81,8 +81,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -99,8 +99,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -118,8 +118,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(mockFileContent);
 
       await readMemory(request);
 
@@ -134,8 +134,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -156,8 +156,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -178,7 +178,7 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
 
       const result = await readMemory(request);
 
@@ -193,8 +193,8 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockImplementation(() => {
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockImplementation(async () => {
         throw new Error('EACCES: Permission denied');
       });
 
@@ -212,9 +212,9 @@ ${mockContent}
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
       // Use invalid content - parseMemoryFile runs naturally and throws
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('invalid file content without frontmatter');
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('invalid file content without frontmatter');
 
       const result = await readMemory(request);
 

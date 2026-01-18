@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T13:56:22.967Z",
+  "lastUpdated": "2026-01-18T16:41:49.893Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2676,22 +2676,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-cli-gap",
-      "title": "Memory Skill TypeScript Library Has No CLI Entry Point",
-      "type": "learning",
-      "tags": [
-        "cli",
-        "architecture",
-        "discovery",
-        "critical"
-      ],
-      "created": "2026-01-12T15:45:00Z",
-      "updated": "2026-01-16T23:10:44.674Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-cli-gap.md",
-      "severity": "high"
-    },
-    {
       "id": "decision-think-temporary-breadcrumb-type",
       "title": "Think documents stored as Breadcrumb type in temporary/ directory",
       "type": "decision",
@@ -2856,24 +2840,6 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective.md",
       "severity": "medium"
-    },
-    {
-      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
-      "type": "gotcha",
-      "title": "Retro - Old bash mermaid had critical filtering features missing from TypeScript",
-      "tags": [
-        "retrospective",
-        "process",
-        "tooling",
-        "mermaid-command",
-        "feature-regression",
-        "project"
-      ],
-      "created": "2026-01-16T23:53:35.400Z",
-      "updated": "2026-01-16T23:53:35.400Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript.md",
-      "severity": "high"
     },
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -4067,6 +4033,88 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-review-items-completed-efficiently-through-strategic-prioritization.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-refactoring",
+      "type": "learning",
+      "title": "Retro - Comprehensive callsite exploration prevents scope creep in refactoring",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "project"
+      ],
+      "created": "2026-01-18T15:16:02.354Z",
+      "updated": "2026-01-18T15:16:02.354Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-refactoring.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "type": "learning",
+      "title": "Retro - Batch test edits more efficient than sequential Edit tool calls",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-18T15:16:06.290Z",
+      "updated": "2026-01-18T15:16:06.290Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
+      "type": "gotcha",
+      "title": "Retro - Plugin reinstall requires proper sequence: uninstall → install from marketplace",
+      "tags": [
+        "retrospective",
+        "plugin",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-18T15:16:10.398Z",
+      "updated": "2026-01-18T15:16:10.398Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
+      "type": "learning",
+      "title": "Retro - TDD with async cascades: test-first approach clarifies scope",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "async-refactoring",
+        "project"
+      ],
+      "created": "2026-01-18T16:20:27.005Z",
+      "updated": "2026-01-18T16:20:27.005Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
+      "type": "gotcha",
+      "title": "Retro - Gotcha: Promise truthiness masks test failures in async refactoring",
+      "tags": [
+        "retrospective",
+        "process",
+        "async-refactoring",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-18T16:20:31.792Z",
+      "updated": "2026-01-18T16:20:31.792Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring.md",
+      "severity": "high"
     }
   ]
 }

@@ -856,11 +856,6 @@
       "title": "getScopePath() Requires (scope, cwd, globalPath) Not Just Scope"
     },
     {
-      "id": "learning-cli-gap",
-      "type": "learning",
-      "title": "Memory Skill TypeScript Library Has No CLI Entry Point"
-    },
-    {
       "id": "decision-think-temporary-breadcrumb-type",
       "type": "decision",
       "title": "Think documents stored as Breadcrumb type in temporary/ directory"
@@ -904,11 +899,6 @@
       "id": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
       "type": "learning",
       "title": "Retro - Iterative orphan linking with semantic validation is effective"
-    },
-    {
-      "id": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
-      "type": "gotcha",
-      "title": "Retro - Old bash mermaid had critical filtering features missing from TypeScript"
     },
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -1252,6 +1242,26 @@
     {
       "id": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-refactoring",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -2501,11 +2511,6 @@
       "label": "documents"
     },
     {
-      "source": "learning-cli-gap",
-      "target": "artifact-memory-system-architecture-reference",
-      "label": "documents"
-    },
-    {
       "source": "decision-think-temporary-breadcrumb-type",
       "target": "artifact-memory-system-architecture-reference",
       "label": "documents"
@@ -2539,11 +2544,6 @@
       "source": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
       "target": "artifact-memory-system-architecture-reference",
       "label": "documents"
-    },
-    {
-      "source": "gotcha-retro-old-bash-mermaid-had-critical-filtering-features-missing-from-typescript",
-      "target": "artifact-gotcha-prevention-checklist",
-      "label": "relates-to"
     },
     {
       "source": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
@@ -3028,6 +3028,41 @@
     {
       "source": "decision-async-fs-conversion-required",
       "target": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-refactoring",
+      "target": "decision-async-fs-conversion-required",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
+      "target": "gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
+      "target": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
+      "target": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
+      "target": "decision-async-fs-conversion-required",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
+      "target": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
       "label": "relates-to"
     }
   ]

@@ -201,7 +201,7 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
         type: targetType,
         relativePath: needsMove ? `permanent/${id}.md` : index.memories[entryIndex].relativePath,
       };
-      saveIndex(basePath, index);
+      await saveIndex(basePath, index);
       changes.indexUpdated = true;
     }
   } catch {

@@ -61,11 +61,11 @@ function mergeTagsWithScope(userTags: string[] | undefined, scope: Scope): strin
  * Check if a memory ID already exists in any scope
  * Returns the path where it was found, or null if not found
  */
-function checkCrossScopeDuplicate(
+async function checkCrossScopeDuplicate(
   id: string,
   basePath: string,
   projectRoot?: string
-): string | null {
+): Promise<string | null> {
   const homedir = process.env.HOME || process.env.USERPROFILE || '';
 
   // Paths to check for duplicates
@@ -90,7 +90,7 @@ function checkCrossScopeDuplicate(
 
   for (const checkPath of pathsToCheck) {
     if (checkPath !== currentPermanent && checkPath !== currentTemporary) {
-      if (fileExists(checkPath)) {
+      if (await fileExists(checkPath)) {
         return checkPath;
       }
     }
@@ -261,7 +261,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     }
 
     // Check for cross-scope duplicates
-    const duplicatePath = checkCrossScopeDuplicate(id, basePath, request.projectRoot);
+    const duplicatePath = await checkCrossScopeDuplicate(id, basePath, request.projectRoot);
     if (duplicatePath) {
       log.error('Duplicate ID in another scope', { id, path: duplicatePath });
       return {
@@ -297,11 +297,11 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Breadcrumb = temporary, everything else = permanent
     const subdir = request.type === MemoryType.Breadcrumb ? 'temporary' : 'permanent';
     const memoryDir = path.join(basePath, subdir);
-    ensureDir(memoryDir);
+    await ensureDir(memoryDir);
 
     // Write file
     const filePath = path.join(memoryDir, `${id}.md`);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     // Update index
     const relativePath = path.join(subdir, `${id}.md`);

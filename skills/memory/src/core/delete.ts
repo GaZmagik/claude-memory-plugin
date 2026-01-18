@@ -52,7 +52,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     }
 
     // Check if file exists
-    if (!fileExists(filePath)) {
+    if (!(await fileExists(filePath))) {
       return {
         status: 'error',
         error: `Memory not found: ${request.id}`,
@@ -60,7 +60,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     }
 
     // Delete the file
-    deleteFile(filePath);
+    await deleteFile(filePath);
 
     // Remove from index
     await removeFromIndex(basePath, request.id);

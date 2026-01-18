@@ -66,8 +66,8 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
       vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
 
       const result = await deleteMemory(request);
@@ -90,8 +90,8 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
       vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(false);
 
       const result = await deleteMemory(request);
@@ -115,8 +115,8 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
       vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
 
       await deleteMemory(request);
@@ -136,7 +136,7 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
 
       const result = await deleteMemory(request);
 
@@ -151,8 +151,8 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {
         throw new Error('EACCES: Permission denied');
       });
 
@@ -170,8 +170,8 @@ describe('deleteMemory', () => {
       };
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
       vi.spyOn(indexModule, 'removeFromIndex').mockRejectedValue(new Error('Index corrupted'));
 
       const result = await deleteMemory(request);
@@ -223,8 +223,8 @@ describe('deleteMemory embeddings cleanup', () => {
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
-    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+    vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
     vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'removeNode').mockReturnValue({ version: 1, nodes: [], edges: [] });
@@ -250,8 +250,8 @@ describe('deleteMemory embeddings cleanup', () => {
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
-    vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(() => {});
+    vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
     vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'removeNode').mockReturnValue({ version: 1, nodes: [], edges: [] });

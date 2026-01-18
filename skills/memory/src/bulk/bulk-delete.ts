@@ -95,8 +95,8 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
           continue;
         }
 
-        if (fileExists(filePath)) {
-          deleteFile(filePath);
+        if (await fileExists(filePath)) {
+          await deleteFile(filePath);
           deletedIds.push(memory.id);
         } else {
           failedIds.push({ id: memory.id, reason: 'File not found' });

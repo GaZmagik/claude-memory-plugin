@@ -273,15 +273,15 @@ describe('think/thoughts', () => {
   });
 
   describe('getCurrentThinkContext', () => {
-    it('returns null when no current document', () => {
-      const result = getCurrentThinkContext(basePath, globalPath);
+    it('returns null when no current document', async () => {
+      const result = await getCurrentThinkContext(basePath, globalPath);
       expect(result).toBeNull();
     });
 
     it('returns current document context', async () => {
       await createThinkDocument({ topic: 'Current topic', basePath });
 
-      const result = getCurrentThinkContext(basePath, globalPath);
+      const result = await getCurrentThinkContext(basePath, globalPath);
 
       expect(result).not.toBeNull();
       expect(result?.topic).toBe('Current topic');
@@ -300,7 +300,7 @@ describe('think/thoughts', () => {
       fs.writeFileSync(filePath, 'invalid: yaml: content: [[[');
 
       // Should return null due to parse error, not throw
-      const result = getCurrentThinkContext(basePath, globalPath);
+      const result = await getCurrentThinkContext(basePath, globalPath);
       expect(result).toBeNull();
     });
 
@@ -315,7 +315,7 @@ describe('think/thoughts', () => {
       fs.unlinkSync(filePath);
 
       // Should return null because file doesn't exist
-      const result = getCurrentThinkContext(basePath, globalPath);
+      const result = await getCurrentThinkContext(basePath, globalPath);
       expect(result).toBeNull();
     });
   });

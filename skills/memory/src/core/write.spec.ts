@@ -90,9 +90,9 @@ describe('writeMemory', () => {
       };
 
       // Only mock I/O operations - let pure functions (createFrontmatter, serialiseMemoryFile) run naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-learning'));
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
       const result = await writeMemory(validRequest);
@@ -114,7 +114,7 @@ describe('writeMemory', () => {
       };
 
       // Real validation passes for valid input
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
 
       const result = await writeMemory(mismatchedRequest);
 
@@ -136,8 +136,8 @@ describe('writeMemory', () => {
       };
 
       // Only mock I/O - let createFrontmatter run naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
       const result = await writeMemory(matchingRequest);
@@ -163,8 +163,8 @@ describe('writeMemory', () => {
       };
 
       // Real validation passes for valid input
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
     });
 
@@ -384,7 +384,7 @@ describe('writeMemory', () => {
   describe('gitignore automation', () => {
     beforeEach(() => {
       // Real validation passes for valid input
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
@@ -394,7 +394,7 @@ describe('writeMemory', () => {
         tags: [],
       });
       // serialiseMemoryFile runs for real
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(gitignore, 'ensureLocalScopeGitignored').mockReturnValue({
         created: false,
@@ -464,9 +464,9 @@ describe('writeMemory', () => {
       };
 
       // Only mock I/O - createFrontmatter runs naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
       await writeMemory(request);
@@ -478,7 +478,7 @@ describe('writeMemory', () => {
   describe('error handling', () => {
     beforeEach(() => {
       // Only mock I/O - createFrontmatter runs naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
     });
 
@@ -492,7 +492,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(async () => {
         throw new Error('EACCES: Permission denied');
       });
 
@@ -513,7 +513,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockRejectedValue(new Error('Index corrupted'));
 
       const result = await writeMemory(request);
@@ -534,7 +534,7 @@ describe('writeMemory', () => {
       };
 
       const errorMessage = 'Disk full';
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(async () => {
         throw new Error(errorMessage);
       });
 
@@ -550,15 +550,15 @@ describe('writeMemory', () => {
   describe('cross-scope duplicate detection', () => {
     beforeEach(() => {
       // Only mock I/O - createFrontmatter runs naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
     });
 
     it('should reject if memory ID already exists in another scope', async () => {
       // Mock file existence check - memory exists in a different scope
-      vi.spyOn(fsUtils, 'fileExists').mockImplementation((path: string) => {
+      vi.spyOn(fsUtils, 'fileExists').mockImplementation(async (path: string) => {
         // Exists in project scope, but we're trying to write to local scope
         return path.includes('/.claude/memory/permanent/learning-test-topic.md');
       });
@@ -579,7 +579,7 @@ describe('writeMemory', () => {
     });
 
     it('should allow write if memory ID does not exist in any scope', async () => {
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
 
       const request: WriteMemoryRequest = {
         type: MemoryType.Learning,
@@ -597,7 +597,7 @@ describe('writeMemory', () => {
     });
 
     it('should check all scopes for duplicate IDs', async () => {
-      const fileExistsSpy = vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+      const fileExistsSpy = vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
 
       const request: WriteMemoryRequest = {
         type: MemoryType.Learning,
@@ -623,11 +623,11 @@ describe('writeMemory', () => {
         memories: [],
       });
       // Only mock I/O - createFrontmatter runs naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
-      vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
     });
 
     it('should include warning if similar title exists', async () => {
@@ -697,9 +697,9 @@ describe('writeMemory', () => {
   describe('auto-link functionality', () => {
     beforeEach(() => {
       // Only mock I/O - createFrontmatter runs naturally
-      vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
-      vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
+      vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(graph, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
       vi.spyOn(graph, 'hasNode').mockReturnValue(false);

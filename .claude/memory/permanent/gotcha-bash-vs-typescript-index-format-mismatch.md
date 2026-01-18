@@ -16,4 +16,4 @@ tags:
 severity: high
 ---
 
-Bash memory.sh uses absolute file paths in index.json; TypeScript expects relativePath. This caused TypeError [ERR_INVALID_ARG_TYPE] in search command when path.join() received undefined. Fixed with migration layer in loadIndex() that converts file→relativePath on load.
+Bash memory uses absolute file paths in index.json; TypeScript expects relativePath. This caused TypeError [ERR_INVALID_ARG_TYPE] in search command when path.join() received undefined. Fixed with migration layer in loadIndex() that converts file→relativePath on load.

@@ -38,14 +38,14 @@ function createEmptyState(): ThinkState {
  * @param basePath - Base path where state file is stored
  * @returns ThinkState object
  */
-export function loadState(basePath: string): ThinkState {
+export async function loadState(basePath: string): Promise<ThinkState> {
   const statePath = getStatePath(basePath);
 
-  if (!fileExists(statePath)) {
+  if (!(await fileExists(statePath))) {
     return createEmptyState();
   }
 
-  const state = readJsonFile<ThinkState>(statePath);
+  const state = await readJsonFile<ThinkState>(statePath);
   if (!state) {
     log.warn('Failed to parse state file, returning empty state', { path: statePath });
     return createEmptyState();
@@ -59,14 +59,14 @@ export function loadState(basePath: string): ThinkState {
  * @param basePath - Base path where state file is stored
  * @param state - State to save
  */
-export function saveState(basePath: string, state: ThinkState): void {
-  ensureDir(basePath);
+export async function saveState(basePath: string, state: ThinkState): Promise<void> {
+  await ensureDir(basePath);
   const statePath = getStatePath(basePath);
   const updatedState: ThinkState = {
     ...state,
     lastUpdated: new Date().toISOString(),
   };
-  writeJsonFile(statePath, updatedState);
+  await writeJsonFile(statePath, updatedState);
   log.debug('Saved think state', { current: state.currentDocumentId, scope: state.currentScope });
 }
 
@@ -75,8 +75,8 @@ export function saveState(basePath: string, state: ThinkState): void {
  * @param basePath - Base path where state file is stored
  * @returns Current document ID or null
  */
-export function getCurrentDocumentId(basePath: string): string | null {
-  const state = loadState(basePath);
+export async function getCurrentDocumentId(basePath: string): Promise<string | null> {
+  const state = await loadState(basePath);
   return state.currentDocumentId;
 }
 
@@ -85,8 +85,8 @@ export function getCurrentDocumentId(basePath: string): string | null {
  * @param basePath - Base path where state file is stored
  * @returns Current document scope or null
  */
-export function getCurrentScope(basePath: string): Scope | null {
-  const state = loadState(basePath);
+export async function getCurrentScope(basePath: string): Promise<Scope | null> {
+  const state = await loadState(basePath);
   return state.currentScope;
 }
 
@@ -96,11 +96,11 @@ export function getCurrentScope(basePath: string): Scope | null {
  * @param documentId - Document ID to set as current
  * @param scope - Scope of the document
  */
-export function setCurrentDocument(basePath: string, documentId: string, scope: Scope): void {
-  const state = loadState(basePath);
+export async function setCurrentDocument(basePath: string, documentId: string, scope: Scope): Promise<void> {
+  const state = await loadState(basePath);
   state.currentDocumentId = unsafeAsThinkId(documentId);
   state.currentScope = scope;
-  saveState(basePath, state);
+  await saveState(basePath, state);
   log.info('Set current document', { documentId, scope });
 }
 
@@ -108,12 +108,12 @@ export function setCurrentDocument(basePath: string, documentId: string, scope: 
  * Clear the current document
  * @param basePath - Base path where state file is stored
  */
-export function clearCurrentDocument(basePath: string): void {
-  const state = loadState(basePath);
+export async function clearCurrentDocument(basePath: string): Promise<void> {
+  const state = await loadState(basePath);
   const previousId = state.currentDocumentId;
   state.currentDocumentId = null;
   state.currentScope = null;
-  saveState(basePath, state);
+  await saveState(basePath, state);
   log.info('Cleared current document', { previousId });
 }
 
@@ -123,7 +123,7 @@ export function clearCurrentDocument(basePath: string): void {
  * @param documentId - Document ID to check
  * @returns true if this document is current
  */
-export function isCurrentDocument(basePath: string, documentId: string): boolean {
-  const state = loadState(basePath);
+export async function isCurrentDocument(basePath: string, documentId: string): Promise<boolean> {
+  const state = await loadState(basePath);
   return state.currentDocumentId === documentId;
 }

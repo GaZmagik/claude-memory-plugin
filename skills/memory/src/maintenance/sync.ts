@@ -288,7 +288,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     }
 
     try {
-      saveIndex(basePath, index);
+      await saveIndex(basePath, index);
     } catch (err) {
       errors.push(`Failed to save index: ${err}`);
     }

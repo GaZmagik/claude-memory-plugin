@@ -191,10 +191,10 @@ describe('Index operations', () => {
   });
 
   describe('saveIndex', () => {
-    it('should save index to file', () => {
+    it('should save index to file', async () => {
       const index = createEmptyIndex();
 
-      saveIndex(testDir, index);
+      await saveIndex(testDir, index);
 
       const indexPath = path.join(testDir, 'index.json');
       expect(fs.existsSync(indexPath)).toBe(true);
@@ -208,7 +208,7 @@ describe('Index operations', () => {
 
       // Small delay to ensure timestamp changes
       await new Promise(resolve => setTimeout(resolve, 10));
-      saveIndex(testDir, index);
+      await saveIndex(testDir, index);
 
       const indexPath = path.join(testDir, 'index.json');
       const content = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));

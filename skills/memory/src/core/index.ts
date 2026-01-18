@@ -67,11 +67,11 @@ export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex>
   const basePath = request.basePath ?? process.cwd();
   const indexPath = getIndexPath(basePath);
 
-  if (!fileExists(indexPath)) {
+  if (!(await fileExists(indexPath))) {
     return createEmptyIndex();
   }
 
-  const index = readJsonFile<MemoryIndex>(indexPath);
+  const index = await readJsonFile<MemoryIndex>(indexPath);
 
   if (!index) {
     log.warn('Failed to parse index, returning empty', { path: indexPath });
@@ -96,10 +96,10 @@ export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex>
 /**
  * Save the index to disk
  */
-export function saveIndex(basePath: string, index: MemoryIndex): void {
+export async function saveIndex(basePath: string, index: MemoryIndex): Promise<void> {
   const indexPath = getIndexPath(basePath);
   index.lastUpdated = new Date().toISOString();
-  writeJsonFile(indexPath, index);
+  await writeJsonFile(indexPath, index);
   log.debug('Saved index', { path: indexPath, memories: index.memories.length });
 }
 
@@ -115,7 +115,7 @@ export async function addToIndex(basePath: string, entry: IndexEntry): Promise<v
   // Add new entry
   index.memories.push(entry);
 
-  saveIndex(basePath, index);
+  await saveIndex(basePath, index);
   log.debug('Added to index', { id: entry.id });
 }
 
@@ -129,7 +129,7 @@ export async function removeFromIndex(basePath: string, id: string): Promise<boo
   index.memories = index.memories.filter(e => e.id !== id);
 
   if (index.memories.length < initialLength) {
-    saveIndex(basePath, index);
+    await saveIndex(basePath, index);
     log.debug('Removed from index', { id });
     return true;
   }
@@ -160,7 +160,7 @@ export async function batchRemoveFromIndex(basePath: string, ids: string[]): Pro
 
   const removedCount = initialLength - index.memories.length;
   if (removedCount > 0) {
-    saveIndex(basePath, index);
+    await saveIndex(basePath, index);
     log.debug('Batch removed from index', { count: removedCount });
   }
 
@@ -215,8 +215,8 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
     const permanentDir = path.join(basePath, 'permanent');
     const temporaryDir = path.join(basePath, 'temporary');
     const files = [
-      ...listMarkdownFiles(permanentDir),
-      ...listMarkdownFiles(temporaryDir),
+      ...(await listMarkdownFiles(permanentDir)),
+      ...(await listMarkdownFiles(temporaryDir)),
     ];
     const newEntries: IndexEntry[] = [];
     const foundIds = new Set<MemoryId>();
@@ -225,7 +225,7 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
 
     for (const filePath of files) {
       try {
-        const content = readFile(filePath);
+        const content = await readFile(filePath);
         const { frontmatter } = parseMemoryFile(content);
 
         // Extract ID from filename and cast to MemoryId
@@ -263,7 +263,7 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
       memories: newEntries,
     };
 
-    saveIndex(basePath, newIndex);
+    await saveIndex(basePath, newIndex);
 
     log.info('Rebuilt index', {
       memories: newEntries.length,

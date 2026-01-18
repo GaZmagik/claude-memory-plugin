@@ -339,12 +339,12 @@ describe('concludeThinkDocument mocked edge cases', () => {
 
   it('returns error when file is missing after scope lookup', async () => {
     // Document exists check returns true, but actual file read fails
-    vi.spyOn(stateModule, 'getCurrentDocumentId').mockReturnValue(null);
-    vi.spyOn(documentModule, 'thinkDocumentExists').mockReturnValue({
+    vi.spyOn(stateModule, 'getCurrentDocumentId').mockResolvedValue(null);
+    vi.spyOn(documentModule, 'thinkDocumentExists').mockResolvedValue({
       exists: true,
       scope: Scope.Project,
     });
-    vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(false);
+    vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(false);
 
     const result = await concludeThinkDocument({
       conclusion: 'Test conclusion',
@@ -358,9 +358,9 @@ describe('concludeThinkDocument mocked edge cases', () => {
 
   it('handles promotion failure gracefully', async () => {
     // Setup: document exists and can be read
-    vi.spyOn(stateModule, 'getCurrentDocumentId').mockReturnValue('think-20260101-120000');
-    vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-    vi.spyOn(fsUtilsModule, 'readFile').mockReturnValue(`---
+    vi.spyOn(stateModule, 'getCurrentDocumentId').mockResolvedValue('think-20260101-120000');
+    vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+    vi.spyOn(fsUtilsModule, 'readFile').mockResolvedValue(`---
 topic: Test Topic
 status: active
 created: 2026-01-01T12:00:00.000Z
@@ -373,8 +373,8 @@ tags: []
 Initial thought`);
     // Note: No parseThinkDocument mock needed - real parser handles valid YAML
 
-    vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockImplementation(() => {});
-    vi.spyOn(stateModule, 'clearCurrentDocument').mockImplementation(() => {});
+    vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockResolvedValue(undefined);
+    vi.spyOn(stateModule, 'clearCurrentDocument').mockResolvedValue(undefined);
 
     // Make promotion fail
     vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({
@@ -397,9 +397,9 @@ Initial thought`);
   });
 
   it('handles general errors in try block', async () => {
-    vi.spyOn(stateModule, 'getCurrentDocumentId').mockReturnValue('think-20260101-120000');
-    vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-    vi.spyOn(fsUtilsModule, 'readFile').mockImplementation(() => {
+    vi.spyOn(stateModule, 'getCurrentDocumentId').mockResolvedValue('think-20260101-120000');
+    vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+    vi.spyOn(fsUtilsModule, 'readFile').mockImplementation(async () => {
       throw new Error('Disk read error');
     });
 

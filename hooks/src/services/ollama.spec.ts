@@ -309,7 +309,7 @@ describe('ollama service', () => {
 
     it('should export CONFIG constant', () => {
       expect(CONFIG.HOST).toBe('http://localhost:11434');
-      expect(CONFIG.TIMEOUT_MS).toBe(10000);
+      expect(CONFIG.TIMEOUT_MS).toBe(30000);
       expect(CONFIG.MAX_RETRIES).toBe(2);
       expect(CONFIG.NUM_CTX).toBe(32768);
     });

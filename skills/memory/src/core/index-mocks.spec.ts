@@ -17,8 +17,8 @@ describe('index.ts mocked edge cases', () => {
 
   describe('loadIndex', () => {
     it('should return empty index when memories array is missing', async () => {
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtilsModule, 'readJsonFile').mockReturnValue({
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtilsModule, 'readJsonFile').mockResolvedValue({
         version: '1.0',
         lastUpdated: new Date().toISOString(),
         // memories array intentionally missing - NOT an array
@@ -33,7 +33,7 @@ describe('index.ts mocked edge cases', () => {
 
   describe('rebuildIndex', () => {
     it('should return error when rebuild throws', async () => {
-      vi.spyOn(fsUtilsModule, 'fileExists').mockReturnValue(true);
+      vi.spyOn(fsUtilsModule, 'fileExists').mockResolvedValue(true);
       vi.spyOn(fsUtilsModule, 'listMarkdownFiles').mockImplementation(() => {
         throw new Error('Permission denied');
       });

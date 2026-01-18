@@ -305,7 +305,7 @@ export interface AuditResponse {
 export async function auditMemories(request: AuditRequest): Promise<AuditResponse> {
   const { basePath, threshold = 100, deep = false } = request;
 
-  const ids = getAllMemoryIds(basePath);
+  const ids = await getAllMemoryIds(basePath);
   const results: AuditResult[] = [];
   const summary = {
     excellent: 0,

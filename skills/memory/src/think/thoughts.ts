@@ -66,7 +66,7 @@ export async function addThought(
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
       const scopePath = resolveScopePath(scope, basePath, globalPath);
-      const currentId = getCurrentDocumentId(scopePath);
+      const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
         documentScope = scope;
@@ -84,7 +84,7 @@ export async function addThought(
 
   // Find the document if scope not determined
   if (!documentScope) {
-    const result = thinkDocumentExists(documentId, basePath, globalPath);
+    const result = await thinkDocumentExists(documentId, basePath, globalPath);
     if (!result.exists || !result.scope) {
       return {
         status: 'error',
@@ -97,7 +97,7 @@ export async function addThought(
   const scopePath = resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
-  if (!fileExists(filePath)) {
+  if (!(await fileExists(filePath))) {
     return {
       status: 'error',
       error: `Think document not found: ${documentId}`,
@@ -106,7 +106,7 @@ export async function addThought(
 
   try {
     // Read and parse existing document
-    const content = readFile(filePath);
+    const content = await readFile(filePath);
     const parsed = parseThinkDocument(content);
 
     // Check if document is still active
@@ -195,7 +195,7 @@ export async function addThought(
 
     // Write back
     const fileContent = serialiseThinkDocument(updatedFrontmatter, updatedContent);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     log.info('Added thought', { documentId, type: request.type });
 
@@ -257,7 +257,7 @@ export async function useThinkDocument(
   const documentId = request.documentId;
 
   // Find the document
-  const result = thinkDocumentExists(documentId, basePath, globalPath);
+  const result = await thinkDocumentExists(documentId, basePath, globalPath);
   if (!result.exists || !result.scope || !result.filePath) {
     return {
       status: 'error',
@@ -268,14 +268,14 @@ export async function useThinkDocument(
   const scopePath = resolveScopePath(result.scope, basePath, globalPath);
 
   // Get previous current
-  const previousId = getCurrentDocumentId(scopePath);
+  const previousId = await getCurrentDocumentId(scopePath);
 
   // Read document to get topic
-  const content = readFile(result.filePath);
+  const content = await readFile(result.filePath);
   const parsed = parseThinkDocument(content);
 
   // Set as current
-  setCurrentDocument(scopePath, documentId, result.scope);
+  await setCurrentDocument(scopePath, documentId, result.scope);
 
   log.info('Switched current document', { documentId, previousId });
 
@@ -290,19 +290,19 @@ export async function useThinkDocument(
 /**
  * Get the current document's topic and ID
  */
-export function getCurrentThinkContext(
+export async function getCurrentThinkContext(
   basePath: string,
   globalPath: string
-): { documentId: string; scope: Scope; topic: string } | null {
+): Promise<{ documentId: string; scope: Scope; topic: string } | null> {
   for (const scope of [Scope.Project, Scope.Local]) {
     const scopePath = resolveScopePath(scope, basePath, globalPath);
-    const state = loadState(scopePath);
+    const state = await loadState(scopePath);
 
     if (state.currentDocumentId) {
       const filePath = getThinkFilePath(scopePath, state.currentDocumentId);
-      if (fileExists(filePath)) {
+      if (await fileExists(filePath)) {
         try {
-          const content = readFile(filePath);
+          const content = await readFile(filePath);
           const parsed = parseThinkDocument(content);
           return {
             documentId: state.currentDocumentId,

@@ -5,6 +5,7 @@
  */
 
 import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import { createLogger } from './logger.js';
 
@@ -13,9 +14,11 @@ const log = createLogger('fs-utils');
 /**
  * Ensure a directory exists, creating it if necessary
  */
-export function ensureDir(dirPath: string): void {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
+export async function ensureDir(dirPath: string): Promise<void> {
+  try {
+    await fsp.access(dirPath);
+  } catch {
+    await fsp.mkdir(dirPath, { recursive: true });
     log.debug('Created directory', { path: dirPath });
   }
 }
@@ -23,20 +26,22 @@ export function ensureDir(dirPath: string): void {
 /**
  * Write a file atomically by writing to a temp file first
  */
-export function writeFileAtomic(filePath: string, content: string): void {
+export async function writeFileAtomic(filePath: string, content: string): Promise<void> {
   const dir = path.dirname(filePath);
-  ensureDir(dir);
+  await ensureDir(dir);
 
   const tempPath = `${filePath}.tmp.${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
   try {
-    fs.writeFileSync(tempPath, content, 'utf-8');
-    fs.renameSync(tempPath, filePath);
+    await fsp.writeFile(tempPath, content, 'utf-8');
+    await fsp.rename(tempPath, filePath);
     log.debug('Wrote file atomically', { path: filePath });
   } catch (error) {
     // Clean up temp file if it exists
-    if (fs.existsSync(tempPath)) {
-      fs.unlinkSync(tempPath);
+    try {
+      await fsp.unlink(tempPath);
+    } catch {
+      // Ignore cleanup errors
     }
     throw error;
   }
@@ -45,36 +50,46 @@ export function writeFileAtomic(filePath: string, content: string): void {
 /**
  * Read a file's contents
  */
-export function readFile(filePath: string): string {
-  return fs.readFileSync(filePath, 'utf-8');
+export async function readFile(filePath: string): Promise<string> {
+  return fsp.readFile(filePath, 'utf-8');
 }
 
 /**
  * Check if a file exists
  */
-export function fileExists(filePath: string): boolean {
-  return fs.existsSync(filePath);
+export async function fileExists(filePath: string): Promise<boolean> {
+  try {
+    await fsp.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /**
  * Delete a file
  */
-export function deleteFile(filePath: string): void {
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
+export async function deleteFile(filePath: string): Promise<void> {
+  try {
+    await fsp.access(filePath);
+    await fsp.unlink(filePath);
     log.debug('Deleted file', { path: filePath });
+  } catch {
+    // File doesn't exist, nothing to delete
   }
 }
 
 /**
  * List all markdown files in a directory
  */
-export function listMarkdownFiles(dirPath: string): string[] {
-  if (!fs.existsSync(dirPath)) {
+export async function listMarkdownFiles(dirPath: string): Promise<string[]> {
+  try {
+    await fsp.access(dirPath);
+  } catch {
     return [];
   }
 
-  const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+  const entries = await fsp.readdir(dirPath, { withFileTypes: true });
 
   return entries
     .filter(entry => entry.isFile() && entry.name.endsWith('.md'))
@@ -84,9 +99,9 @@ export function listMarkdownFiles(dirPath: string): string[] {
 /**
  * Get file stats
  */
-export function getFileStats(filePath: string): fs.Stats | null {
+export async function getFileStats(filePath: string): Promise<fs.Stats | null> {
   try {
-    return fs.statSync(filePath);
+    return await fsp.stat(filePath);
   } catch {
     return null;
   }
@@ -95,9 +110,9 @@ export function getFileStats(filePath: string): fs.Stats | null {
 /**
  * Read JSON file with error handling
  */
-export function readJsonFile<T>(filePath: string): T | null {
+export async function readJsonFile<T>(filePath: string): Promise<T | null> {
   try {
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = await fsp.readFile(filePath, 'utf-8');
     return JSON.parse(content) as T;
   } catch {
     return null;
@@ -107,9 +122,9 @@ export function readJsonFile<T>(filePath: string): T | null {
 /**
  * Write JSON file atomically
  */
-export function writeJsonFile(filePath: string, data: unknown): void {
+export async function writeJsonFile(filePath: string, data: unknown): Promise<void> {
   const content = JSON.stringify(data, null, 2);
-  writeFileAtomic(filePath, content);
+  await writeFileAtomic(filePath, content);
 }
 
 /**
@@ -144,9 +159,9 @@ export function isInsideDir(dirPath: string, targetPath: string): boolean {
 /**
  * Check if a path is a symlink
  */
-export function isSymlink(filePath: string): boolean {
+export async function isSymlink(filePath: string): Promise<boolean> {
   try {
-    const stats = fs.lstatSync(filePath);
+    const stats = await fsp.lstat(filePath);
     return stats.isSymbolicLink();
   } catch {
     return false;
@@ -157,12 +172,12 @@ export function isSymlink(filePath: string): boolean {
  * Validate that a symlink target is within allowed directory
  * Returns the resolved path if valid, throws if invalid
  */
-export function validateSymlinkTarget(filePath: string, allowedBaseDir: string): string {
-  if (!isSymlink(filePath)) {
+export async function validateSymlinkTarget(filePath: string, allowedBaseDir: string): Promise<string> {
+  if (!(await isSymlink(filePath))) {
     return filePath; // Not a symlink, return as-is
   }
 
-  const resolvedPath = fs.realpathSync(filePath);
+  const resolvedPath = await fsp.realpath(filePath);
   if (!isInsideDir(allowedBaseDir, resolvedPath)) {
     throw new Error(`Symlink target outside allowed directory: ${resolvedPath}`);
   }
@@ -181,16 +196,22 @@ export const MEMORY_SUBDIRS = ['permanent', 'temporary'] as const;
  * @param basePath - Base memory storage path (e.g., .claude/memory)
  * @returns Array of memory IDs (filenames without .md extension)
  */
-export function getAllMemoryIds(basePath: string): string[] {
+export async function getAllMemoryIds(basePath: string): Promise<string[]> {
   const ids: string[] = [];
 
   for (const subdir of MEMORY_SUBDIRS) {
     const dir = path.join(basePath, subdir);
-    if (!fs.existsSync(dir)) continue;
+    try {
+      await fsp.access(dir);
+    } catch {
+      continue;
+    }
 
-    const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+    const files = await fsp.readdir(dir);
     for (const file of files) {
-      ids.push(file.replace('.md', ''));
+      if (file.endsWith('.md')) {
+        ids.push(file.replace('.md', ''));
+      }
     }
   }
 
@@ -204,11 +225,14 @@ export function getAllMemoryIds(basePath: string): string[] {
  * @param id - Memory ID
  * @returns Full path to the memory file, or null if not found
  */
-export function findMemoryFile(basePath: string, id: string): string | null {
+export async function findMemoryFile(basePath: string, id: string): Promise<string | null> {
   for (const subdir of MEMORY_SUBDIRS) {
     const filePath = path.join(basePath, subdir, `${id}.md`);
-    if (fs.existsSync(filePath)) {
+    try {
+      await fsp.access(filePath);
       return filePath;
+    } catch {
+      continue;
     }
   }
   return null;

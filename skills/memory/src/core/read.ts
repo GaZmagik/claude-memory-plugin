@@ -49,7 +49,7 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
       };
     }
 
-    if (!fileExists(filePath)) {
+    if (!(await fileExists(filePath))) {
       return {
         status: 'error',
         error: `Memory not found: ${request.id}`,
@@ -57,7 +57,7 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     }
 
     // Read and parse file
-    const fileContent = readFile(filePath);
+    const fileContent = await readFile(filePath);
     const { frontmatter, content } = parseMemoryFile(fileContent);
 
     log.debug('Read memory', { id: request.id, path: filePath });

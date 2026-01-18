@@ -188,7 +188,7 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
       id: unsafeAsMemoryId(newId),
       relativePath: index.memories[entryIndex].relativePath.replace(oldId, newId),
     };
-    saveIndex(basePath, index);
+    await saveIndex(basePath, index);
     changes.indexUpdated = true;
   }
 

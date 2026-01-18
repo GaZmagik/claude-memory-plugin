@@ -244,12 +244,12 @@ export async function refreshFrontmatter(
   let embeddingsCacheModified = false;
 
   // Get IDs to process
-  const idsToProcess = ids ?? getAllMemoryIds(basePath);
+  const idsToProcess = ids ?? (await getAllMemoryIds(basePath));
 
   for (const id of idsToProcess) {
     try {
       // Find file
-      let filePath = findMemoryFile(basePath, id);
+      let filePath = await findMemoryFile(basePath, id);
       if (!filePath) {
         continue;
       }
@@ -374,7 +374,7 @@ export async function refreshFrontmatter(
         let graphModified = false;
 
         for (const id of idsToProcess) {
-          const filePath = findMemoryFile(basePath, id);
+          const filePath = await findMemoryFile(basePath, id);
           if (!filePath) continue;
 
           const content = fs.readFileSync(filePath, 'utf8');

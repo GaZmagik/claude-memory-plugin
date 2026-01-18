@@ -1,0 +1,6 @@
+{
+  "src": "hooks/src",
+  "tests": "hooks/src",
+  "exclude": "hooks/.tddignore",
+  "language": "typescript"
+}

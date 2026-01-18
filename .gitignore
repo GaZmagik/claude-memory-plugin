@@ -32,11 +32,15 @@ yarn-error.log*
 
 # Claude Code
 .claude/settings.local.json
+.claude/approvals/
 .claude/cache/
+.claude/flags/
 .claude/logs/
-
-# SDD Framework (local symlink)
-.specify
+.claude/memory/local/
+.claude/plans/
+.claude/projects/
+.claude/*.local.md
+.claude/*.local.json
 
 # Testing
 .coverage
@@ -48,3 +52,22 @@ htmlcov/
 *.log
 tmp/
 temp/
+/lib/
+/dist/
+
+# Embedding cache
+.embedding-cache/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock
+
+# SDD Framework (symlinks to global ~/.specify/ are ignored, project content tracked)
+# project-specific content in memory/ and specs/ are tracked
+.specify/docs
+.specify/scripts
+.specify/templates
+.specify/spec-driven.md
+.specify/test-driven.md

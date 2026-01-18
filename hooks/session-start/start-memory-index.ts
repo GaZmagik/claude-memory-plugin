@@ -1,0 +1,496 @@
+#!/usr/bin/env bun
+/**
+ * SessionStart: Inject memory index summary as context
+ *
+ * Provides agent with a "table of contents" of available memories
+ * plus semantic search results based on git branch context.
+ *
+ * Also performs automatic maintenance:
+ * - Health check: warns if graph health is degraded
+ * - Auto-prune: silently removes expired temporary memories
+ */
+
+import { runHook, allow } from '../src/core/error-handler.ts';
+import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
+import { join } from 'path';
+import { homedir } from 'os';
+import { spawn } from '../src/core/subprocess.ts';
+import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
+
+/**
+ * Check if the memory CLI is available in PATH
+ */
+async function isMemoryCliAvailable(): Promise<boolean> {
+  const result = await spawn(['which', 'memory'], { timeout: 2000 });
+  return result.success && result.stdout.trim().length > 0;
+}
+
+/**
+ * Find the plugin root directory
+ * Uses CLAUDE_PLUGIN_ROOT env var or falls back to script location
+ */
+function findPluginRoot(): string | null {
+  // Try env var first (set by Claude Code when running plugin hooks)
+  if (process.env.CLAUDE_PLUGIN_ROOT) {
+    return process.env.CLAUDE_PLUGIN_ROOT;
+  }
+
+  // Fall back to relative path from this script's location
+  // This script is in hooks/session-start/, plugin root is ../..
+  const scriptDir = import.meta.dir;
+  const pluginRoot = join(scriptDir, '..', '..');
+  // Check for package.json with bin field (where bun link needs to run)
+  if (existsSync(join(pluginRoot, 'package.json'))) {
+    return pluginRoot;
+  }
+
+  return null;
+}
+
+/**
+ * Check if Bun is installed
+ */
+async function isBunInstalled(): Promise<boolean> {
+  const result = await spawn(['which', 'bun'], { timeout: 2000 });
+  return result.success && result.stdout.trim().length > 0;
+}
+
+/**
+ * Auto-setup memory CLI by running bun link
+ * Returns object with success flag and message
+ */
+async function autoSetupMemoryCli(): Promise<{ success: boolean; message: string }> {
+  // First check if Bun is installed
+  const bunInstalled = await isBunInstalled();
+  if (!bunInstalled) {
+    return {
+      success: false,
+      message: `⚠️ Bun not installed - memory plugin requires Bun
+
+Install Bun: https://bun.sh/docs/installation
+  curl -fsSL https://bun.sh/install | bash
+
+Then restart Claude Code.`,
+    };
+  }
+
+  const pluginRoot = findPluginRoot();
+  if (!pluginRoot) {
+    return { success: false, message: '' };
+  }
+
+  // Verify package.json exists at plugin root (contains bin field for memory CLI)
+  if (!existsSync(join(pluginRoot, 'package.json'))) {
+    return { success: false, message: '' };
+  }
+
+  // Run bun link from plugin root to set up the memory CLI globally
+  const result = await spawn(['bun', 'link'], {
+    timeout: 30000,
+    cwd: pluginRoot,
+  });
+
+  if (result.success) {
+    return { success: true, message: '🔗 Memory CLI auto-linked successfully' };
+  }
+
+  return { success: false, message: '' };
+}
+
+interface MemoryEntry {
+  id: string;
+  title?: string;
+  type?: string;
+  tags?: string[];
+  updated?: string;
+  score?: number;
+}
+
+interface IndexData {
+  memories: MemoryEntry[];
+}
+
+function logOutput(logFile: string | null, sessionId: string, message: string): void {
+  if (!logFile) return;
+  try {
+    const timestamp = new Date().toISOString();
+    appendFileSync(
+      logFile,
+      `────────────────────────────────────────\n[${timestamp}] [${sessionId}] Hook: SessionStart (semantic)\n${message}\n\n`
+    );
+  } catch {
+    // Ignore logging errors
+  }
+}
+
+async function getBranchContext(projectDir: string): Promise<string> {
+  if (!existsSync(join(projectDir, '.git'))) {
+    return '';
+  }
+
+  const result = await spawn(['git', '-C', projectDir, 'branch', '--show-current'], {
+    timeout: 5000,
+  });
+
+  if (!result.success || !result.stdout.trim()) {
+    return '';
+  }
+
+  // Convert branch name to search terms (feature/008-outstanding-orders -> "outstanding orders")
+  return result.stdout
+    .trim()
+    .replace(/^[a-z]*\//, '')
+    .replace(/-/g, ' ')
+    .replace(/[0-9]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function semanticSearch(
+  query: string,
+  sessionId: string,
+  projectDir: string,
+  logFile: string | null
+): Promise<string> {
+  if (!query || query.length < 5) {
+    return '';
+  }
+
+  const searchScript = join(homedir(), '.claude', 'hooks', 'semantic-memory-search.py');
+  if (!existsSync(searchScript)) {
+    return '';
+  }
+
+  try {
+    const result = await spawn(
+      [
+        'python3',
+        searchScript,
+        '--query',
+        query,
+        '--scope',
+        'both',
+        '--hook-type',
+        'session_start',
+        '--session-id',
+        sessionId,
+        '--project-dir',
+        projectDir,
+        '--limit',
+        '5',
+      ],
+      {
+        timeout: 10000,
+      }
+    );
+
+    if (!result.success) {
+      return '';
+    }
+
+    const data = JSON.parse(result.stdout);
+    const memories = data.memories || [];
+
+    if (memories.length === 0) {
+      return '';
+    }
+
+    // Log search results
+    const memList = memories
+      .map((m: MemoryEntry) => `    - ${m.id} (score: ${String(m.score || 0).slice(0, 5)})`)
+      .join('\n');
+
+    logOutput(
+      logFile,
+      sessionId,
+      `[SEMANTIC] SessionStart search
+  Query: ${query}
+  Threshold: ${data.threshold_used || 0} | Mode: ${data.index_status || 'unknown'} | Time: ${data.search_time_ms || 0}ms
+  Results (${memories.length}):
+${memList}`
+    );
+
+    // Format for output
+    const formatted = memories
+      .map((m: MemoryEntry) => `    - ${m.id} (${m.type || 'unknown'}, ${String(m.score || 0).slice(0, 4)})`)
+      .join('\n');
+
+    return `  🔍 Relevant to current work:\n${formatted}`;
+  } catch {
+    return '';
+  }
+}
+
+function buildSummary(indexFile: string, scope: string): string {
+  if (!existsSync(indexFile)) {
+    return '';
+  }
+
+  try {
+    const data: IndexData = JSON.parse(readFileSync(indexFile, 'utf-8'));
+    const memories = data.memories || [];
+
+    // Count by type prefix
+    const decisions = memories.filter(m => m.id.startsWith('decision-')).length;
+    const learnings = memories.filter(m => m.id.startsWith('learning-')).length;
+    const artifacts = memories.filter(m => m.id.startsWith('artifact-')).length;
+    const other = memories.filter(
+      m => !m.id.startsWith('decision-') && !m.id.startsWith('learning-') && !m.id.startsWith('artifact-')
+    ).length;
+
+    // Get critical/gotcha items
+    const criticalGotchas = memories
+      .filter(m => m.tags?.includes('critical') || m.tags?.includes('gotcha'))
+      .slice(0, 10)
+      .map(m => `    - ${m.id}: ${m.title || '---'}`)
+      .join('\n');
+
+    // Get recent memories (last 7 days)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const recentDate = sevenDaysAgo.toISOString().slice(0, 11);
+
+    const recent = memories
+      .filter(m => m.updated && m.updated > recentDate)
+      .slice(0, 5)
+      .map(m => m.id)
+      .join(',');
+
+    let summary = `[${scope}] Decisions: ${decisions} | Learnings: ${learnings} | Artifacts: ${artifacts} | Other: ${other}`;
+
+    if (criticalGotchas) {
+      summary += `\n  ⚠️ Critical/Gotchas:\n${criticalGotchas}`;
+    }
+
+    if (recent) {
+      summary += `\n  📅 Recent (7d): ${recent}`;
+    }
+
+    return summary;
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Run memory health check and return warning if score is below threshold
+ */
+async function checkMemoryHealth(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string,
+  healthThreshold: number = DEFAULT_SETTINGS.health_threshold
+): Promise<string> {
+  try {
+    const result = await spawn(['memory', 'health', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (!result.success) {
+      return '';
+    }
+
+    const health = JSON.parse(result.stdout);
+    const score = health.score ?? health.health_score ?? 1.0;
+    const issues = health.issues || [];
+
+    logOutput(
+      logFile,
+      sessionId,
+      `[HEALTH] Score: ${(score * 100).toFixed(0)}% | Issues: ${issues.length}`
+    );
+
+    // Warn if health is below threshold (default 70%)
+    if (score < healthThreshold) {
+      const issueList = issues.slice(0, 3).map((i: string) => `    - ${i}`).join('\n');
+      return `\n⚠️ Memory health: ${(score * 100).toFixed(0)}% - consider running 'memory repair'\n${issueList ? `  Issues:\n${issueList}` : ''}`;
+    }
+
+    return '';
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * List active thinking documents and warn about stale ones
+ */
+async function listThinkDocuments(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string
+): Promise<string> {
+  try {
+    const result = await spawn(['memory', 'think', 'list', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (!result.success) {
+      return '';
+    }
+
+    const data = JSON.parse(result.stdout);
+    const documents = data.data?.documents || data.documents || [];
+
+    if (documents.length === 0) {
+      return '';
+    }
+
+    logOutput(logFile, sessionId, `[THINK] Found ${documents.length} active deliberation(s)`);
+
+    // Check for stale documents (older than 30 days)
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const staleDate = thirtyDaysAgo.toISOString();
+
+    const staleCount = documents.filter(
+      (d: { created?: string }) => d.created && d.created < staleDate
+    ).length;
+
+    let output = `\n💭 Active deliberations (${documents.length}):\n`;
+    for (const doc of documents.slice(0, 5)) {
+      const topic = doc.topic || doc.id || 'untitled';
+      const created = doc.created ? doc.created.slice(0, 10) : 'unknown';
+      output += `    - ${topic} (${created})\n`;
+    }
+
+    if (documents.length > 5) {
+      output += `    ... and ${documents.length - 5} more\n`;
+    }
+
+    if (staleCount > 0) {
+      output += `  ⚠️ ${staleCount} doc(s) older than 30 days - consider concluding or deleting\n`;
+    }
+
+    return output;
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Auto-prune expired temporary memories (runs silently)
+ */
+async function autoPruneTemporaries(
+  projectDir: string,
+  logFile: string | null,
+  sessionId: string
+): Promise<void> {
+  try {
+    const result = await spawn(['memory', 'prune', '--json'], {
+      timeout: 10000,
+      cwd: projectDir,
+    });
+
+    if (result.success) {
+      try {
+        const pruneResult = JSON.parse(result.stdout);
+        const pruned = pruneResult.pruned || pruneResult.deleted || 0;
+        if (pruned > 0) {
+          logOutput(logFile, sessionId, `[PRUNE] Removed ${pruned} expired temporary memories`);
+        }
+      } catch {
+        // Ignore parse errors
+      }
+    }
+  } catch {
+    // Silently ignore prune errors
+  }
+}
+
+runHook(async (input) => {
+  const projectDir = input?.cwd || process.cwd();
+  const sessionId = input?.session_id || '';
+  const home = homedir();
+
+  // Load plugin settings (with fallbacks to defaults)
+  const settings = await loadSettings(projectDir);
+
+  const localIndex = join(projectDir, '.claude', 'memory', 'index.json');
+  const globalIndex = join(home, '.claude', 'memory', 'index.json');
+
+  // Set up logging
+  let logFile: string | null = null;
+  const logDir = join(projectDir, '.claude', 'logs');
+  if (existsSync(join(projectDir, '.claude'))) {
+    mkdirSync(logDir, { recursive: true });
+    logFile = join(logDir, 'memory-context.log');
+  }
+
+  // Check if memory CLI is available - auto-setup if not
+  let memoryCliAvailable = await isMemoryCliAvailable();
+  let setupMessage = '';
+
+  if (!memoryCliAvailable) {
+    // Try to auto-setup by running bun link
+    const setupResult = await autoSetupMemoryCli();
+    if (setupResult.message) {
+      setupMessage = setupResult.message + '\n';
+    }
+    if (setupResult.success) {
+      memoryCliAvailable = true; // Now it should be available
+    }
+    // If setup failed, message explains why (e.g., Bun not installed)
+  }
+
+  // Check if any index exists
+  if (!existsSync(localIndex) && !existsSync(globalIndex)) {
+    return allow(setupMessage || undefined);
+  }
+
+  let summary = setupMessage + '📚 Memory Index Available:\n';
+
+  // Build local summary
+  if (existsSync(localIndex)) {
+    const localSummary = buildSummary(localIndex, 'Local');
+    if (localSummary) {
+      summary += localSummary + '\n';
+    }
+  }
+
+  // Build global summary
+  if (existsSync(globalIndex)) {
+    const globalSummary = buildSummary(globalIndex, 'Global');
+    if (globalSummary) {
+      summary += globalSummary + '\n';
+    }
+  }
+
+  // Add semantic search based on branch context
+  const branchContext = await getBranchContext(projectDir);
+  if (branchContext) {
+    const semanticResults = await semanticSearch(branchContext, sessionId, projectDir, logFile);
+    if (semanticResults) {
+      summary += '\n' + semanticResults + '\n';
+    }
+  }
+
+  // Run health check and add warning if degraded
+  const healthWarning = await checkMemoryHealth(projectDir, logFile, sessionId, settings.health_threshold);
+  if (healthWarning) {
+    summary += healthWarning;
+  }
+
+  // List active thinking documents
+  const thinkList = await listThinkDocuments(projectDir, logFile, sessionId);
+  if (thinkList) {
+    summary += thinkList;
+  }
+
+  // Auto-prune expired temporaries (silent, logs only)
+  await autoPruneTemporaries(projectDir, logFile, sessionId);
+
+  summary += "\n💡 Use 'memory search <topic>' to find relevant memories before starting work.";
+
+  return {
+    exitCode: 0,
+    output: {
+      hookSpecificOutput: {
+        hookEventName: 'SessionStart',
+        additionalContext: summary,
+      },
+    },
+  };
+});

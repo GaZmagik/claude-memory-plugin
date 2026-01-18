@@ -1,0 +1,21 @@
+{
+  "$comment": "Production type-checking config. Actual builds use 'bun build' (see package.json build:dist).",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "skills/memory/src/**/*.ts",
+    "hooks/src/**/*.ts",
+    "hooks/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "tests/**"
+  ]
+}

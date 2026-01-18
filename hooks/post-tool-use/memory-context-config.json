@@ -1,0 +1,111 @@
+{
+  "description": "Configuration for PostToolUse memory-context hook",
+  "enabledTools": {
+    "Read": {
+      "enabled": true,
+      "description": "Inject gotchas when reading files"
+    },
+    "Write": {
+      "enabled": true,
+      "description": "Suggest memory capture after writes"
+    },
+    "Edit": {
+      "enabled": true,
+      "description": "Suggest memory capture after edits"
+    },
+    "MultiEdit": {
+      "enabled": true,
+      "description": "Suggest memory capture after multi-edits"
+    },
+    "Bash": {
+      "enabled": true,
+      "description": "Check for gotchas after command execution (filtered by bashCommands below)"
+    },
+    "Task": {
+      "enabled": true,
+      "description": "Check for gotchas after agent tasks"
+    },
+    "LSP": {
+      "enabled": false,
+      "description": "Check for gotchas on code navigation (very high frequency, not recommended)"
+    },
+    "TodoWrite": {
+      "enabled": false,
+      "description": "Check for gotchas when updating task lists"
+    },
+    "Glob": {
+      "enabled": false,
+      "description": "Check for gotchas on file searches"
+    },
+    "Grep": {
+      "enabled": false,
+      "description": "Check for gotchas on content searches"
+    }
+  },
+  "bashCommands": {
+    "description": "Filter which Bash commands trigger memory checks. Commands not listed default to disabled.",
+    "mode": "allowlist",
+    "commands": {
+      "git": {
+        "enabled": true,
+        "description": "Git operations - check for version control gotchas"
+      },
+      "npm": {
+        "enabled": true,
+        "description": "npm commands - check for dependency gotchas"
+      },
+      "bun": {
+        "enabled": true,
+        "description": "Bun commands - check for runtime gotchas"
+      },
+      "docker": {
+        "enabled": true,
+        "description": "Docker commands - check for container gotchas"
+      },
+      "kubectl": {
+        "enabled": false,
+        "description": "Kubernetes commands - enable if using k8s"
+      },
+      "pytest": {
+        "enabled": true,
+        "description": "Python test runner - check for test gotchas"
+      },
+      "cargo": {
+        "enabled": false,
+        "description": "Rust package manager - enable for Rust projects"
+      },
+      "make": {
+        "enabled": false,
+        "description": "Make builds - enable if using Makefiles"
+      },
+      "curl": {
+        "enabled": false,
+        "description": "HTTP requests - enable for API debugging"
+      },
+      "psql": {
+        "enabled": false,
+        "description": "PostgreSQL CLI - enable for database work"
+      },
+      "mysql": {
+        "enabled": false,
+        "description": "MySQL CLI - enable for database work"
+      },
+      "redis-cli": {
+        "enabled": false,
+        "description": "Redis CLI - enable for cache work"
+      },
+      "aws": {
+        "enabled": false,
+        "description": "AWS CLI - enable for cloud work"
+      },
+      "gcloud": {
+        "enabled": false,
+        "description": "Google Cloud CLI - enable for cloud work"
+      },
+      "terraform": {
+        "enabled": false,
+        "description": "Terraform - enable for infrastructure as code"
+      }
+    }
+  }
+}

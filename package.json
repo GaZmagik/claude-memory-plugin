@@ -1,0 +1,75 @@
+{
+  "name": "claude-memory-plugin",
+  "version": "1.0.0",
+  "description": "Claude Code plugin for memory skill system - persistent knowledge storage with semantic search, contextual gotcha injection, and graph-based knowledge management",
+  "type": "module",
+  "main": "skills/memory/src/index.ts",
+  "types": "skills/memory/src/index.d.ts",
+  "bin": {
+    "memory": "./skills/memory/src/cli.ts"
+  },
+  "scripts": {
+    "postinstall": "bun ./skills/memory/src/postinstall.ts",
+    "dev": "tsx watch skills/memory/src/index.ts",
+    "build": "tsc --noEmit -p tsconfig.build.json",
+    "build:dist": "bun build skills/memory/src/cli.ts --outdir=./lib --target=node",
+    "test": "bun run test:clean && bun run test:isolated",
+    "test:clean": "bun test skills/memory/src/ hooks/src/core/ hooks/src/services/semantic-search.spec.ts hooks/src/utils/ hooks/src/memory/directory-protection.spec.ts hooks/src/memory/pattern-matcher.spec.ts hooks/src/memory/relevance-scorer.spec.ts hooks/src/memory/topic-classifier.spec.ts hooks/src/session/session-cache.spec.ts hooks/src/session/session-state.spec.ts tests/integration/",
+    "test:isolated": "bunx vitest run hooks/src/memory/gotcha-injector.spec.ts hooks/src/session/extract-context.spec.ts hooks/src/services/ollama.spec.ts && bun test hooks/src/session/fork-detection.spec.ts && bun test hooks/src/session/spawn-session.spec.ts",
+    "test:hooks": "bun test hooks/src",
+    "test:memory": "bun test skills/memory/src",
+    "test:integration": "bun test tests/integration",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun run test:clean --coverage && bunx vitest run hooks/src/memory/gotcha-injector.spec.ts hooks/src/session/extract-context.spec.ts hooks/src/services/ollama.spec.ts && bun test hooks/src/session/fork-detection.spec.ts && bun test hooks/src/session/spawn-session.spec.ts",
+    "lint": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "typecheck:src": "tsc --noEmit",
+    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json"
+  },
+  "files": [
+    "skills/",
+    "hooks/",
+    "agents/",
+    "commands/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "memory",
+    "knowledge-management",
+    "semantic-search",
+    "gotcha-injection",
+    "hooks",
+    "context-awareness"
+  ],
+  "author": "GaZmagik",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaZmagik/claude-memory-plugin"
+  },
+  "homepage": "https://github.com/GaZmagik/claude-memory-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/GaZmagik/claude-memory-plugin/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "@types/minimatch": "^5.1.2",
+    "js-yaml": "^4.1.0",
+    "minimatch": "^10.1.1",
+    "ollama": "^0.6.3"
+  }
+}

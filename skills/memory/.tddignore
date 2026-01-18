@@ -1,0 +1,30 @@
+# TDD Parity Exclusions
+# Functions intentionally not unit tested
+
+# CLI execution functions - require actual Claude CLI installation
+# These are integration points that shell out to external processes
+src/think/ai-invoke.ts:invokeAI
+src/think/ai-invoke.ts:getClaudeCliVersion
+
+# Stdin functions - tested indirectly via CLI command integration tests
+# Require mocking process.stdin events which is integration-level testing
+src/cli/parser.ts:readStdinJson
+src/cli/parser.ts:readStdinRaw
+
+# Index/barrel files - re-exports only, no logic to test
+src/index.ts
+src/think/index.ts
+src/types/index.ts
+src/bulk/index.ts
+src/maintenance/index.ts
+src/suggest/index.ts
+
+# Known "orphaned" test files (false positives - they test real code):
+# - maintenance.spec.ts: Integration tests for rename/move/promote/archive modules
+# - similarity.property.spec.ts: Property-based tests for similarity.ts
+# These don't follow 1:1 naming but are legitimate test files.
+
+# Pure type definition files - no runtime code
+src/types/api.ts
+src/types/think.ts
+src/types/operations.ts

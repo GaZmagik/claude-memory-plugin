@@ -117,7 +117,7 @@ describe('bulkTag', () => {
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
       version: '1.0.0',
       lastUpdated: '2026-01-01T00:00:00.000Z',
-      memories: [testMemories[0]],
+      memories: [testMemories[0]!],
     });
     vi.spyOn(tagModule, 'tagMemory').mockResolvedValue(mockTagSuccess('test', ['new']));
     vi.spyOn(tagModule, 'untagMemory').mockResolvedValue(mockUntagSuccess('test', []));
@@ -180,9 +180,9 @@ describe('bulkTag', () => {
       onProgress: (p: { phase: string }) => progressCalls.push(p),
     });
 
-    expect(progressCalls[0].phase).toBe('scanning');
+    expect(progressCalls[0]!.phase).toBe('scanning');
     expect(progressCalls.some((p) => p.phase === 'processing')).toBe(true);
-    expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
+    expect(progressCalls[progressCalls.length - 1]!.phase).toBe('complete');
   });
 
   it('should filter by explicit IDs when provided', async () => {
@@ -209,7 +209,7 @@ describe('bulkTag', () => {
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
       version: '1.0.0',
       lastUpdated: '2026-01-01T00:00:00.000Z',
-      memories: [testMemories[0]],
+      memories: [testMemories[0]!],
     });
     vi.spyOn(tagModule, 'tagMemory').mockResolvedValue(mockTagSuccess('decision-foo', ['new']));
     vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({

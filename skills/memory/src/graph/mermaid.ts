@@ -139,7 +139,11 @@ function escapeLabel(text: string): string {
  * Get node shape for type
  */
 function getNodeShape(type: string): { open: string; close: string } {
-  return NODE_SHAPES[type] || NODE_SHAPES.default;
+  const shape = NODE_SHAPES[type];
+  if (shape) {
+    return shape;
+  }
+  return NODE_SHAPES.default!;
 }
 
 /**

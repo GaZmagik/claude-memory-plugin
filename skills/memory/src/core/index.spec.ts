@@ -73,7 +73,7 @@ describe('Index operations', () => {
 
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toHaveLength(1);
-      expect(loaded.memories[0].id).toBe('test-memory');
+      expect(loaded.memories[0]!.id).toBe('test-memory');
     });
 
     it('should return empty index if file does not exist', async () => {
@@ -111,7 +111,7 @@ describe('Index operations', () => {
 
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toHaveLength(1);
-      expect(loaded.memories[0].relativePath).toBe('permanent/learning-test-memory.md');
+      expect(loaded.memories[0]!.relativePath).toBe('permanent/learning-test-memory.md');
       // Legacy 'file' field should be removed
       expect((loaded.memories[0] as unknown as { file?: string }).file).toBeUndefined();
     });
@@ -137,7 +137,7 @@ describe('Index operations', () => {
       fs.writeFileSync(indexPath, JSON.stringify(modernIndex, null, 2));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.memories[0].relativePath).toBe('permanent/decision-modern.md');
+      expect(loaded.memories[0]!.relativePath).toBe('permanent/decision-modern.md');
     });
 
     it('should fallback to constructed path when neither file nor relativePath exists', async () => {
@@ -162,7 +162,7 @@ describe('Index operations', () => {
       fs.writeFileSync(indexPath, JSON.stringify(brokenIndex, null, 2));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.memories[0].relativePath).toBe('permanent/decision-broken.md');
+      expect(loaded.memories[0]!.relativePath).toBe('permanent/decision-broken.md');
     });
 
     it('should detect think documents as temporary in fallback', async () => {
@@ -186,7 +186,7 @@ describe('Index operations', () => {
       fs.writeFileSync(indexPath, JSON.stringify(thinkIndex, null, 2));
 
       const loaded = await loadIndex({ basePath: testDir });
-      expect(loaded.memories[0].relativePath).toBe('temporary/think-20260110-120000.md');
+      expect(loaded.memories[0]!.relativePath).toBe('temporary/think-20260110-120000.md');
     });
   });
 
@@ -233,7 +233,7 @@ describe('Index operations', () => {
 
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toHaveLength(1);
-      expect(loaded.memories[0].id).toBe('new-memory');
+      expect(loaded.memories[0]!.id).toBe('new-memory');
     });
 
     it('should replace existing entry with same id', async () => {
@@ -258,7 +258,7 @@ describe('Index operations', () => {
 
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toHaveLength(1);
-      expect(loaded.memories[0].title).toBe('Updated');
+      expect(loaded.memories[0]!.title).toBe('Updated');
     });
   });
 
@@ -303,7 +303,7 @@ describe('Index operations', () => {
       expect(removed).toBe(2);
       const loaded = await loadIndex({ basePath: testDir });
       expect(loaded.memories).toHaveLength(1);
-      expect(loaded.memories[0].id).toBe('batch-2');
+      expect(loaded.memories[0]!.id).toBe('batch-2');
     });
 
     it('should return 0 for empty ids array', async () => {
@@ -408,7 +408,7 @@ describe('Index operations', () => {
       const decisions = index.memories.filter(e => e.type === MemoryType.Decision);
 
       expect(decisions).toHaveLength(1);
-      expect(decisions[0].id).toBe('decision-1');
+      expect(decisions[0]!.id).toBe('decision-1');
     });
 
     it('should filter by tag using loadIndex and manual filter', async () => {
@@ -454,7 +454,7 @@ links: []
       // Verify index was saved
       const index = await loadIndex({ basePath: testDir });
       expect(index.memories).toHaveLength(1);
-      expect(index.memories[0].id).toBe('decision-test-rebuild');
+      expect(index.memories[0]!.id).toBe('decision-test-rebuild');
     });
 
     it('should detect and remove orphans from index', async () => {

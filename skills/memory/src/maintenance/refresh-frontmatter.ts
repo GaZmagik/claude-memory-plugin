@@ -160,7 +160,7 @@ function detectProjectName(basePath: string): string | undefined {
   // Find the project root from .claude/memory path
   let projectRoot = basePath;
   if (basePath.includes('.claude/memory')) {
-    projectRoot = basePath.split('.claude/memory')[0].replace(/\/$/, '');
+    projectRoot = basePath.split('.claude/memory')[0]!.replace(/\/$/, '');
   }
 
   // Try to get git repo name (using execFileSync for security)
@@ -333,7 +333,7 @@ export async function refreshFrontmatter(
       // Extract title from first markdown heading if missing
       if (!fm.title && parsed.content) {
         const headingMatch = parsed.content.match(/^#\s+(.+?)$/m);
-        if (headingMatch) {
+        if (headingMatch && headingMatch[1]) {
           updates.title = headingMatch[1].trim();
         }
       }

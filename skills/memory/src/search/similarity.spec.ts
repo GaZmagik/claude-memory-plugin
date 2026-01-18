@@ -118,8 +118,8 @@ describe('Cosine Similarity', () => {
       );
 
       for (let i = 1; i < results.length; i++) {
-        expect(results[i - 1].similarity).toBeGreaterThanOrEqual(
-          results[i].similarity
+        expect(results[i - 1]!.similarity).toBeGreaterThanOrEqual(
+          results[i]!.similarity
         );
       }
     });
@@ -197,8 +197,8 @@ describe('Cosine Similarity', () => {
 
       const ranked = rankBySimilarity(queryEmbedding, candidates);
 
-      expect(ranked[0].id).toBe('mem-2'); // Most similar to [1,0,0]
-      expect(ranked[2].id).toBe('mem-3'); // Least similar
+      expect(ranked[0]!.id).toBe('mem-2'); // Most similar to [1,0,0]
+      expect(ranked[2]!.id).toBe('mem-3'); // Least similar
     });
 
     it('should include similarity scores in results', () => {
@@ -207,7 +207,7 @@ describe('Cosine Similarity', () => {
 
       const ranked = rankBySimilarity(queryEmbedding, candidates);
 
-      expect(ranked[0].similarity).toBeCloseTo(1.0, 5);
+      expect(ranked[0]!.similarity).toBeCloseTo(1.0, 5);
     });
 
     it('should handle empty candidates list', () => {
@@ -226,7 +226,7 @@ describe('Cosine Similarity', () => {
 
       const ranked = rankBySimilarity(queryEmbedding, candidates);
 
-      expect(ranked[0].id).toBe('mem-1');
+      expect(ranked[0]!.id).toBe('mem-1');
       // Original properties should be preserved
     });
   });
@@ -313,9 +313,9 @@ describe('Cosine Similarity', () => {
       const duplicates = findPotentialDuplicates(embeddings, 0.9);
 
       expect(duplicates.length).toBe(1);
-      expect(duplicates[0].id1).toBe('memory-1');
-      expect(duplicates[0].id2).toBe('memory-2');
-      expect(duplicates[0].similarity).toBeGreaterThan(0.9);
+      expect(duplicates[0]!.id1).toBe('memory-1');
+      expect(duplicates[0]!.id2).toBe('memory-2');
+      expect(duplicates[0]!.similarity).toBeGreaterThan(0.9);
     });
 
     it('should return empty array when no duplicates found', () => {
@@ -342,8 +342,8 @@ describe('Cosine Similarity', () => {
       expect(duplicates.length).toBeGreaterThan(0);
       // Should be sorted by similarity, highest first
       for (let i = 1; i < duplicates.length; i++) {
-        expect(duplicates[i - 1].similarity).toBeGreaterThanOrEqual(
-          duplicates[i].similarity
+        expect(duplicates[i - 1]!.similarity).toBeGreaterThanOrEqual(
+          duplicates[i]!.similarity
         );
       }
     });
@@ -398,9 +398,9 @@ describe('Cosine Similarity', () => {
 
       const duplicates = findPotentialDuplicates(embeddings, 0.9);
 
-      expect(duplicates[0]).toHaveProperty('id1');
-      expect(duplicates[0]).toHaveProperty('id2');
-      expect(duplicates[0]).toHaveProperty('similarity');
+      expect(duplicates[0]!).toHaveProperty('id1');
+      expect(duplicates[0]!).toHaveProperty('id2');
+      expect(duplicates[0]!).toHaveProperty('similarity');
     });
   });
 
@@ -485,7 +485,7 @@ describe('Cosine Similarity', () => {
 
       // Should only find perfect match
       expect(results.length).toBe(1);
-      expect(results[0].id).toBe('perfect');
+      expect(results[0]!.id).toBe('perfect');
     });
 
     it('should handle threshold of -1.0 (return all)', () => {
@@ -536,8 +536,8 @@ describe('Cosine Similarity', () => {
         ];
 
         for (const [vec1, vec2] of testCases) {
-          const sim1 = cosineSimilarity(vec1, vec2);
-          const sim2 = cosineSimilarity(vec2, vec1);
+          const sim1 = cosineSimilarity(vec1!, vec2!);
+          const sim2 = cosineSimilarity(vec2!, vec1!);
           expect(sim1).toBeCloseTo(sim2, 10);
         }
       });
@@ -565,7 +565,7 @@ describe('Cosine Similarity', () => {
         ];
 
         for (const [vec1, vec2] of testCases) {
-          const similarity = cosineSimilarity(vec1, vec2);
+          const similarity = cosineSimilarity(vec1!, vec2!);
           expect(similarity).toBeGreaterThanOrEqual(-1);
           expect(similarity).toBeLessThanOrEqual(1);
         }
@@ -579,7 +579,7 @@ describe('Cosine Similarity', () => {
         ];
 
         for (const [vec1, vec2] of orthogonalPairs) {
-          const similarity = cosineSimilarity(vec1, vec2);
+          const similarity = cosineSimilarity(vec1!, vec2!);
           expect(Math.abs(similarity)).toBeLessThan(0.0001);
         }
       });
@@ -606,7 +606,7 @@ describe('Cosine Similarity', () => {
         ];
 
         for (const [vec1, vec2] of testCases) {
-          const similarity = cosineSimilarity(vec1, vec2);
+          const similarity = cosineSimilarity(vec1!, vec2!);
           expect(similarity).toBeCloseTo(-1, 10);
         }
       });
@@ -619,7 +619,7 @@ describe('Cosine Similarity', () => {
         ];
 
         for (const [vec1, vec2] of testCases) {
-          const similarity = cosineSimilarity(vec1, vec2);
+          const similarity = cosineSimilarity(vec1!, vec2!);
           expect(similarity).toBeGreaterThanOrEqual(-1);
           expect(similarity).toBeLessThanOrEqual(1);
         }
@@ -669,8 +669,8 @@ describe('Cosine Similarity', () => {
         const results = findSimilarMemories(queryEmbedding, embeddings, 0);
 
         for (const result of results) {
-          expect(result.similarity).toBeGreaterThanOrEqual(-1);
-          expect(result.similarity).toBeLessThanOrEqual(1);
+          expect(result!.similarity).toBeGreaterThanOrEqual(-1);
+          expect(result!.similarity).toBeLessThanOrEqual(1);
         }
       });
     });
@@ -687,12 +687,12 @@ describe('Cosine Similarity', () => {
       for (let i = 0; i < dims; i++) {
         // Simple LCG for reproducible random
         s = (s * 1664525 + 1013904223) >>> 0;
-        vec[i] = (s / 0xffffffff) * 2 - 1;
-        mag += vec[i] * vec[i];
+        vec[i]! = (s / 0xffffffff) * 2 - 1;
+        mag += vec[i]! * vec[i]!;
       }
       mag = Math.sqrt(mag);
       for (let i = 0; i < dims; i++) {
-        vec[i] /= mag;
+        vec[i]! /= mag;
       }
       return vec;
     }

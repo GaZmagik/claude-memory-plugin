@@ -99,7 +99,7 @@ export async function bulkPromote(request: BulkPromoteRequest): Promise<BulkProm
     const failedIds: Array<{ id: string; reason: string }> = [];
 
     for (let i = 0; i < matches.length; i++) {
-      const memory = matches[i];
+      const memory = matches[i]!; // Index is guaranteed valid by loop condition
 
       // Report progress
       request.onProgress?.({

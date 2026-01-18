@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T16:41:49.893Z",
+  "lastUpdated": "2026-01-18T18:12:20.257Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4115,6 +4115,72 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "type": "learning",
+      "title": "Retro - Agent swarm parallelization for mass TypeScript fixes highly effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-18T18:12:07.877Z",
+      "updated": "2026-01-18T18:12:07.877Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project-content-early",
+      "type": "learning",
+      "title": "Retro - .specify symlink-to-hybrid-structure catches misplaced project content early",
+      "tags": [
+        "retrospective",
+        "process",
+        "structure",
+        "project"
+      ],
+      "created": "2026-01-18T18:12:12.589Z",
+      "updated": "2026-01-18T18:12:12.589Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project-content-early.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep",
+      "type": "gotcha",
+      "title": "Retro - Packing multiple feature review items into one session created scope creep",
+      "tags": [
+        "retrospective",
+        "process",
+        "scope-creep",
+        "project"
+      ],
+      "created": "2026-01-18T18:12:16.796Z",
+      "updated": "2026-01-18T18:12:16.796Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally",
+      "type": "learning",
+      "title": "Retro - TDD red-green-refactor catches async-await errors naturally",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "async",
+        "project"
+      ],
+      "created": "2026-01-18T18:12:20.225Z",
+      "updated": "2026-01-18T18:12:20.225Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally.md",
+      "severity": "medium"
     }
   ]
 }

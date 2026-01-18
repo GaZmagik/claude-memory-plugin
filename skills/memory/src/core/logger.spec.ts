@@ -47,8 +47,8 @@ describe('Logger', () => {
       debug('test message');
 
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0]).toContain('DEBUG');
-      expect(spy.mock.calls[0][0]).toContain('test message');
+      expect(spy.mock.calls[0]![0]).toContain('DEBUG');
+      expect(spy.mock.calls[0]![0]).toContain('test message');
     });
 
     it('should not log when level is higher than DEBUG', () => {
@@ -66,7 +66,7 @@ describe('Logger', () => {
 
       debug('test message', { key: 'value' });
 
-      expect(spy.mock.calls[0][0]).toContain('"key":"value"');
+      expect(spy.mock.calls[0]![0]).toContain('"key":"value"');
     });
   });
 
@@ -78,7 +78,7 @@ describe('Logger', () => {
       info('info message');
 
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0]).toContain('INFO');
+      expect(spy.mock.calls[0]![0]).toContain('INFO');
     });
 
     it('should not log when level is WARN or higher', () => {
@@ -99,7 +99,7 @@ describe('Logger', () => {
       warn('warn message');
 
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0]).toContain('WARN');
+      expect(spy.mock.calls[0]![0]).toContain('WARN');
     });
 
     it('should not log when level is ERROR or higher', () => {
@@ -120,7 +120,7 @@ describe('Logger', () => {
       error('error message');
 
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy.mock.calls[0][0]).toContain('ERROR');
+      expect(spy.mock.calls[0]![0]).toContain('ERROR');
     });
 
     it('should not log when level is SILENT', () => {
@@ -141,8 +141,8 @@ describe('Logger', () => {
       const logger = createLogger('TestModule');
       logger.debug('child message');
 
-      expect(spy.mock.calls[0][0]).toContain('[TestModule]');
-      expect(spy.mock.calls[0][0]).toContain('child message');
+      expect(spy.mock.calls[0]![0]).toContain('[TestModule]');
+      expect(spy.mock.calls[0]![0]).toContain('child message');
     });
 
     it('should support all log methods', () => {

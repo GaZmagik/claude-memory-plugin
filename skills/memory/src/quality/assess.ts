@@ -191,6 +191,7 @@ async function tier1Checks(
 
   for (const match of matches) {
     const refPath = match[1];
+    if (!refPath) continue;
     // Only check absolute-ish paths or src/ paths
     if (refPath.startsWith('src/') || refPath.startsWith('./')) {
       const fullPath = path.resolve(process.cwd(), refPath);

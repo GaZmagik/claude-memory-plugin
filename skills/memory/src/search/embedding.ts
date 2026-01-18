@@ -175,6 +175,7 @@ export async function batchGenerateEmbeddings(
 
   for (let i = 0; i < memories.length; i++) {
     const memory = memories[i];
+    if (!memory) continue;
     const hash = memory.hash ?? generateContentHash(memory.content);
 
     // Check cache
@@ -229,7 +230,9 @@ export function createMockProvider(dimension: number = 384): EmbeddingProvider {
       const hash = crypto.createHash('sha256').update(text).digest();
       const embedding: number[] = [];
       for (let i = 0; i < dimension; i++) {
-        embedding.push((hash[i % hash.length] - 128) / 128);
+        const hashValue = hash[i % hash.length];
+        if (hashValue === undefined) continue;
+        embedding.push((hashValue - 128) / 128);
       }
       return embedding;
     },

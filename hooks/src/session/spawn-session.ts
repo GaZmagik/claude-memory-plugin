@@ -34,8 +34,9 @@ export function findPluginDir(pluginName: string): string | null {
     for (const [key, entries] of Object.entries(plugins)) {
       if (key.includes(pluginName)) {
         const entryList = entries as Array<{ installPath?: string }>;
-        if (entryList.length > 0 && entryList[0].installPath) {
-          return entryList[0].installPath;
+        const firstEntry = entryList[0];
+        if (firstEntry && firstEntry.installPath) {
+          return firstEntry.installPath;
         }
       }
     }

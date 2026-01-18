@@ -141,7 +141,7 @@ describe('addNode', () => {
     const updatedNode: GraphNode = { id: 'node-1', type: 'artifact' };
     const result = addNode(graph, updatedNode);
     expect(result.nodes).toHaveLength(1);
-    expect(result.nodes[0].type).toBe('artifact');
+    expect(result.nodes[0]!.type).toBe('artifact');
   });
 
   it('should be immutable (not modify original graph)', () => {
@@ -167,7 +167,7 @@ describe('removeNode', () => {
   it('should remove node by ID', () => {
     const result = removeNode(graph, 'node-1');
     expect(result.nodes).toHaveLength(1);
-    expect(result.nodes[0].id).toBe('node-2');
+    expect(result.nodes[0]!.id).toBe('node-2');
   });
 
   it('should remove edges connected to the node', () => {

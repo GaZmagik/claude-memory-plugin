@@ -95,7 +95,7 @@ describe('bulkUnlink', () => {
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
       version: '1.0.0',
       lastUpdated: '2026-01-01T00:00:00.000Z',
-      memories: [testMemories[0]],
+      memories: [testMemories[0]!],
     });
     vi.spyOn(linkModule, 'unlinkMemories').mockResolvedValue(mockUnlinkSuccess());
 
@@ -161,9 +161,9 @@ describe('bulkUnlink', () => {
       onProgress: (p: { phase: string }) => progressCalls.push(p),
     });
 
-    expect(progressCalls[0].phase).toBe('scanning');
+    expect(progressCalls[0]!.phase).toBe('scanning');
     expect(progressCalls.some((p) => p.phase === 'processing')).toBe(true);
-    expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
+    expect(progressCalls[progressCalls.length - 1]!.phase).toBe('complete');
   });
 
   it('should filter by explicit IDs when provided', async () => {

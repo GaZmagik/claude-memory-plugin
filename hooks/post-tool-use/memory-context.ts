@@ -99,7 +99,7 @@ function extractBashCommand(commandStr: string): string | null {
 
   // Get the first word (the command)
   const match = cleaned.match(/^([\w.-]+)/);
-  return match ? match[1] : null;
+  return match && match[1] ? match[1] : null;
 }
 
 /**
@@ -302,12 +302,12 @@ YOUR OUTPUT:`;
  */
 function parseTopicResponse(response: string): { action: 'check' | 'skip'; value: string } | null {
   const checkMatch = response.match(/CHECK:\s*(\S+)/i);
-  if (checkMatch) {
+  if (checkMatch && checkMatch[1]) {
     return { action: 'check', value: checkMatch[1].toLowerCase().replace(/[^a-z]/g, '') };
   }
 
   const skipMatch = response.match(/SKIP:\s*(.+)/i);
-  if (skipMatch) {
+  if (skipMatch && skipMatch[1]) {
     return { action: 'skip', value: skipMatch[1].trim() };
   }
 
@@ -646,7 +646,7 @@ async function handleWriteMode(
 
   // Check for SKIP
   const skipMatch = response.match(/SKIP:\s*(.+)/i);
-  if (skipMatch) {
+  if (skipMatch && skipMatch[1]) {
     const reason = skipMatch[1].trim();
     await log(ctx, `ℹ️ Memory capture skipped: ${reason}`);
     return null;
@@ -654,13 +654,13 @@ async function handleWriteMode(
 
   // Extract suggestion
   const suggestMatch = response.match(/SUGGEST:\s*(.+)/i);
-  if (!suggestMatch) {
+  if (!suggestMatch || !suggestMatch[1]) {
     return null;
   }
 
   const suggestion = suggestMatch[1].trim();
   const typeMatch = response.match(/TYPE:\s*(\w+)/i);
-  const memoryType = typeMatch ? typeMatch[1] : 'learning';
+  const memoryType = typeMatch && typeMatch[1] ? typeMatch[1] : 'learning';
 
   const reminder = `⚠️ SYSTEM NOTICE: Evaluate memory capture (${memoryType}) before next action. ${suggestion}`;
   await log(ctx, reminder);

@@ -44,8 +44,8 @@ export function parseArgs(args: string[]): ParsedArgs {
     }
 
     // Handle long flags (--flag, --flag value, or --flag=value)
-    if (arg.startsWith('--')) {
-      const flagPart = arg.slice(2);
+    if (arg!.startsWith('--')) {
+      const flagPart = arg!.slice(2);
 
       // Check for --flag=value syntax
       const equalsIndex = flagPart.indexOf('=');
@@ -71,8 +71,8 @@ export function parseArgs(args: string[]): ParsedArgs {
     }
 
     // Handle short flags with values (-k value)
-    if (arg.startsWith('-') && arg.length === 2) {
-      const key = arg.slice(1);
+    if (arg!.startsWith('-') && arg!.length === 2) {
+      const key = arg!.slice(1);
       const next = args[i + 1];
 
       if (next !== undefined && !next.startsWith('-')) {
@@ -85,7 +85,7 @@ export function parseArgs(args: string[]): ParsedArgs {
     }
 
     // Everything else is a positional argument
-    result.positional.push(arg);
+    result.positional.push(arg!);
   }
 
   return result;

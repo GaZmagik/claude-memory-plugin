@@ -111,7 +111,7 @@ describe('Embedding Generation', () => {
       const cache = await loadEmbeddingCache(cachePath);
 
       expect(cache.memories['memory-1']).toBeDefined();
-      expect(cache.memories['memory-1'].embedding).toEqual([0.1, 0.2, 0.3]);
+      expect(cache.memories['memory-1']!.embedding).toEqual([0.1, 0.2, 0.3]);
     });
 
     it('should save cache to file', async () => {
@@ -150,7 +150,7 @@ describe('Embedding Generation', () => {
       const cache = await loadEmbeddingCache(cachePath);
 
       // Entry exists but hash doesn't match current content
-      expect(cache.memories['memory-1'].hash).toBe('old-hash');
+      expect(cache.memories['memory-1']!.hash).toBe('old-hash');
     });
   });
 

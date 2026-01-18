@@ -65,7 +65,7 @@ describe('Graph Data Structure', () => {
       const graph = await loadGraph(testDir);
 
       expect(graph.nodes).toHaveLength(1);
-      expect(graph.nodes[0].id).toBe('node-1');
+      expect(graph.nodes[0]!.id).toBe('node-1');
     });
 
     it('should return empty graph if file does not exist', async () => {
@@ -98,7 +98,7 @@ describe('Graph Data Structure', () => {
       const saved = JSON.parse(
         fs.readFileSync(path.join(testDir, 'graph.json'), 'utf-8')
       );
-      expect(saved.nodes[0].id).toBe('test-node');
+      expect(saved.nodes[0]!.id).toBe('test-node');
     });
 
     it('should create directory if it does not exist', async () => {
@@ -134,7 +134,7 @@ describe('Graph Data Structure', () => {
       const updated = addNode(graph, node);
 
       expect(updated.nodes).toHaveLength(1);
-      expect(updated.nodes[0].id).toBe('new-node');
+      expect(updated.nodes[0]!.id).toBe('new-node');
     });
 
     it('should not duplicate existing node', () => {
@@ -158,7 +158,7 @@ describe('Graph Data Structure', () => {
 
       const updated = addNode(graph, { id: 'node-1', type: 'learning' });
 
-      expect(updated.nodes[0].type).toBe('learning');
+      expect(updated.nodes[0]!.type).toBe('learning');
     });
 
     it('should return new graph object (immutable)', () => {
@@ -186,7 +186,7 @@ describe('Graph Data Structure', () => {
       const updated = removeNode(graph, 'node-1');
 
       expect(updated.nodes).toHaveLength(1);
-      expect(updated.nodes[0].id).toBe('node-2');
+      expect(updated.nodes[0]!.id).toBe('node-2');
     });
 
     it('should remove associated edges when removing node', () => {

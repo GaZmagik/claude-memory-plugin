@@ -102,8 +102,8 @@ title: Test
       });
 
       expect(agents).toHaveLength(1);
-      expect(agents[0].name).toBe('test-agent');
-      expect(agents[0].source).toBe('local');
+      expect(agents[0]!.name).toBe('test-agent');
+      expect(agents[0]!.source).toBe('local');
     });
 
     it('discovers agents in subdirectories recursively', () => {
@@ -118,7 +118,7 @@ title: Test
       });
 
       expect(agents).toHaveLength(1);
-      expect(agents[0].name).toBe('deep-agent');
+      expect(agents[0]!.name).toBe('deep-agent');
     });
 
     it('prioritises local over global (first match wins)', () => {
@@ -178,7 +178,7 @@ title: Test
         disablePluginScope: true,
       });
 
-      expect(agents[0].description).toBe('My helpful description');
+      expect(agents[0]!.description).toBe('My helpful description');
     });
   });
 
@@ -193,8 +193,8 @@ title: Test
       });
 
       expect(styles).toHaveLength(1);
-      expect(styles[0].name).toBe('formal');
-      expect(styles[0].source).toBe('local');
+      expect(styles[0]!.name).toBe('formal');
+      expect(styles[0]!.source).toBe('local');
     });
 
     it('prioritises local styles over global', () => {
@@ -489,7 +489,7 @@ title: Test
       });
 
       expect(agents).toHaveLength(1);
-      expect(agents[0].name).toBe('test');
+      expect(agents[0]!.name).toBe('test');
     });
 
     it('returns null for non-existent agent in findAgent', () => {

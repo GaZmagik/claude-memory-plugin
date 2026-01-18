@@ -102,7 +102,8 @@ export async function bulkMove(request: BulkMoveRequest): Promise<BulkMoveRespon
     const failedIds: Array<{ id: string; reason: string }> = [];
 
     for (let i = 0; i < matches.length; i++) {
-      const memory = matches[i];
+      // Index is guaranteed valid within loop bounds
+      const memory = matches[i]!;
 
       // Report progress
       request.onProgress?.({

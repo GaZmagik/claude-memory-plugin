@@ -77,7 +77,7 @@ describe('Bulk Operations Integration', () => {
       // Verify only learning remains
       index = await loadIndex({ basePath: testDir });
       expect(index.memories).toHaveLength(1);
-      expect(index.memories[0].type).toBe(MemoryType.Learning);
+      expect(index.memories[0]!.type).toBe(MemoryType.Learning);
     });
 
     it('should support dry run mode', async () => {

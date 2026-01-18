@@ -183,9 +183,12 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
     const graph = await loadGraph(basePath);
     const nodeIndex = graph.nodes.findIndex(n => n.id === id);
     if (nodeIndex >= 0) {
-      graph.nodes[nodeIndex] = { ...graph.nodes[nodeIndex], type: targetType };
-      await saveGraph(basePath, graph);
-      changes.graphUpdated = true;
+      const existingNode = graph.nodes[nodeIndex];
+      if (existingNode) {
+        graph.nodes[nodeIndex] = { ...existingNode, type: targetType };
+        await saveGraph(basePath, graph);
+        changes.graphUpdated = true;
+      }
     }
   } catch {
     // Graph may not exist
@@ -196,13 +199,16 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
     const index = await loadIndex({ basePath });
     const entryIndex = index.memories.findIndex(e => e.id === id);
     if (entryIndex >= 0) {
-      index.memories[entryIndex] = {
-        ...index.memories[entryIndex],
-        type: targetType,
-        relativePath: needsMove ? `permanent/${id}.md` : index.memories[entryIndex].relativePath,
-      };
-      await saveIndex(basePath, index);
-      changes.indexUpdated = true;
+      const existingEntry = index.memories[entryIndex];
+      if (existingEntry) {
+        index.memories[entryIndex] = {
+          ...existingEntry,
+          type: targetType,
+          relativePath: needsMove ? `permanent/${id}.md` : existingEntry.relativePath,
+        };
+        await saveIndex(basePath, index);
+        changes.indexUpdated = true;
+      }
     }
   } catch {
     // Index may not exist

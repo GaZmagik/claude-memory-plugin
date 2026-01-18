@@ -152,8 +152,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('user');
-      expect(result!.content[0].content).toBe('Hello, Claude!');
+      expect(result!.content[0]!.type).toBe('user');
+      expect(result!.content[0]!.content).toBe('Hello, Claude!');
     });
 
     it('should extract thinking content', async () => {
@@ -174,8 +174,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('thinking');
-      expect(result!.content[0].content).toBe('Let me consider this...');
+      expect(result!.content[0]!.type).toBe('thinking');
+      expect(result!.content[0]!.content).toBe('Let me consider this...');
     });
 
     it('should extract text content', async () => {
@@ -196,8 +196,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('text');
-      expect(result!.content[0].content).toBe('Here is my response.');
+      expect(result!.content[0]!.type).toBe('text');
+      expect(result!.content[0]!.content).toBe('Here is my response.');
     });
 
     it('should extract tool_use content with name', async () => {
@@ -224,9 +224,9 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('tool_use');
-      expect(result!.content[0].toolName).toBe('Read');
-      expect(result!.content[0].content).toBe('{"file_path":"/test/file.ts"}');
+      expect(result!.content[0]!.type).toBe('tool_use');
+      expect(result!.content[0]!.toolName).toBe('Read');
+      expect(result!.content[0]!.content).toBe('{"file_path":"/test/file.ts"}');
     });
 
     it('should extract tool_use with empty input', async () => {
@@ -247,8 +247,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('tool_use');
-      expect(result!.content[0].content).toBe('{}');
+      expect(result!.content[0]!.type).toBe('tool_use');
+      expect(result!.content[0]!.content).toBe('{}');
     });
 
     it('should extract tool_result with string content', async () => {
@@ -267,8 +267,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('tool_result');
-      expect(result!.content[0].content).toBe('File contents here');
+      expect(result!.content[0]!.type).toBe('tool_result');
+      expect(result!.content[0]!.content).toBe('File contents here');
     });
 
     it('should extract tool_result with object content', async () => {
@@ -287,8 +287,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('tool_result');
-      expect(result!.content[0].content).toBe('{"status":"success","lines":42}');
+      expect(result!.content[0]!.type).toBe('tool_result');
+      expect(result!.content[0]!.content).toBe('{"status":"success","lines":42}');
     });
 
     it('should truncate long tool_result content to 500 chars', async () => {
@@ -307,8 +307,8 @@ describe('extract-context', () => {
       const result = extractSessionContext('test-session', '/home/user/project');
 
       expect(result).not.toBeNull();
-      expect(result!.content[0].content).toHaveLength(500);
-      expect(result!.content[0].content).toBe('A'.repeat(500));
+      expect(result!.content[0]!.content).toHaveLength(500);
+      expect(result!.content[0]!.content).toBe('A'.repeat(500));
     });
 
     it('should handle tool_result with null content', async () => {
@@ -327,8 +327,8 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].type).toBe('tool_result');
-      expect(result!.content[0].content).toBe('""');
+      expect(result!.content[0]!.type).toBe('tool_result');
+      expect(result!.content[0]!.content).toBe('""');
     });
 
     it('should find and respect compaction boundary', async () => {
@@ -352,7 +352,7 @@ describe('extract-context', () => {
       expect(result!.linesExtracted).toBe(1);
       expect(result!.totalLines).toBe(3);
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].content).toBe('New message after compaction');
+      expect(result!.content[0]!.content).toBe('New message after compaction');
     });
 
     it('should extract all lines when no compaction boundary', async () => {
@@ -400,7 +400,7 @@ describe('extract-context', () => {
       expect(result!.compactionLine).toBe(4); // Last boundary at index 3 + 1
       expect(result!.linesExtracted).toBe(1);
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].content).toBe('Current');
+      expect(result!.content[0]!.content).toBe('Current');
     });
 
     it('should skip invalid JSON lines', async () => {
@@ -461,7 +461,7 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].content).toBe('Root level content');
+      expect(result!.content[0]!.content).toBe('Root level content');
     });
 
     it('should handle mixed content types in single message', async () => {
@@ -486,9 +486,9 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(3);
-      expect(result!.content[0].type).toBe('thinking');
-      expect(result!.content[1].type).toBe('text');
-      expect(result!.content[2].type).toBe('tool_use');
+      expect(result!.content[0]!.type).toBe('thinking');
+      expect(result!.content[1]!.type).toBe('text');
+      expect(result!.content[2]!.type).toBe('tool_use');
     });
 
     it('should skip content items without required fields', async () => {
@@ -514,7 +514,7 @@ describe('extract-context', () => {
 
       expect(result).not.toBeNull();
       expect(result!.content).toHaveLength(1);
-      expect(result!.content[0].content).toBe('Valid text');
+      expect(result!.content[0]!.content).toBe('Valid text');
     });
 
     it('should calculate correct byteSize', async () => {
@@ -793,7 +793,7 @@ describe('extract-context', () => {
       const result = extractSessionContext('test', '/project');
 
       expect(result).not.toBeNull();
-      expect(result!.content[0].content).toBe(unicodeMessage);
+      expect(result!.content[0]!.content).toBe(unicodeMessage);
       // byteSize should account for multi-byte characters
       expect(result!.byteSize).toBeGreaterThan(result!.formattedText.length);
     });

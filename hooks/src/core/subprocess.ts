@@ -62,7 +62,11 @@ export async function spawnSync(
   const start = Date.now();
 
   try {
-    const [command, ...cmdArgs] = args;
+    const command = args[0];
+    if (!command) {
+      throw new Error('Command is required');
+    }
+    const cmdArgs = args.slice(1);
     const proc = nodeSpawnSync(command, cmdArgs, {
       cwd,
       env: env ? { ...process.env, ...env } : process.env,
@@ -115,7 +119,19 @@ export async function spawn(
 
   return new Promise((resolve) => {
     try {
-      const [command, ...cmdArgs] = args;
+      const command = args[0];
+      if (!command) {
+        resolve({
+          exitCode: null,
+          stdout: '',
+          stderr: 'Command is required',
+          success: false,
+          timedOut: false,
+          durationMs: 0,
+        });
+        return;
+      }
+      const cmdArgs = args.slice(1);
       const proc: ChildProcess = nodeSpawn(command, cmdArgs, {
         cwd,
         env: env ? { ...process.env, ...env } : process.env,

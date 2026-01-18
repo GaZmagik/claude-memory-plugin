@@ -111,11 +111,11 @@ export function parseMemoryFile(
 
   const [, yamlContent, bodyContent] = match;
 
-  const frontmatter = parseFrontmatter(yamlContent, options);
+  const frontmatter = parseFrontmatter(yamlContent!, options);
 
   return {
     frontmatter,
-    content: bodyContent.trim(),
+    content: bodyContent!.trim(),
   };
 }
 

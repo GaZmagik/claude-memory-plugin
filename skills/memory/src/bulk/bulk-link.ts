@@ -112,7 +112,8 @@ export async function bulkLink(request: BulkLinkRequest): Promise<BulkLinkRespon
     let existingCount = 0;
 
     for (let i = 0; i < sourceIds.length; i++) {
-      const sourceId = sourceIds[i];
+      // Index is guaranteed valid within loop bounds
+      const sourceId = sourceIds[i]!;
 
       // Report progress
       request.onProgress?.({

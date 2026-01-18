@@ -1262,6 +1262,22 @@
     {
       "id": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project-content-early",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -3063,6 +3079,26 @@
     {
       "source": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
       "target": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project-content-early",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep",
+      "target": "artifact-gotcha-prevention-checklist",
       "label": "relates-to"
     }
   ]

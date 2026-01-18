@@ -100,7 +100,7 @@ describe('searchMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.results).toHaveLength(1);
-      expect(result.results![0].title).toBe('TypeScript Guide');
+      expect(result.results![0]!.title).toBe('TypeScript Guide');
     });
 
     it('should match query in tags', async () => {
@@ -188,7 +188,7 @@ describe('searchMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.results).toHaveLength(2);
-      expect(result.results![0].title).toBe('parser guide');
+      expect(result.results![0]!.title).toBe('parser guide');
     });
 
     it('should score exact title matches highest', async () => {
@@ -216,7 +216,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].title).toBe('parser');
+      expect(result.results![0]!.title).toBe('parser');
     });
 
     it('should score tag matches higher than content', async () => {
@@ -244,7 +244,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].title).toBe('guide a');
+      expect(result.results![0]!.title).toBe('guide a');
     });
 
     it('should increase score for multiple content occurrences', async () => {
@@ -272,7 +272,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].score).toBeGreaterThan(result.results![1].score);
+      expect(result.results![0]!.score).toBeGreaterThan(result.results![1]!.score);
     });
 
     it('should cap score at 1.0', async () => {
@@ -291,7 +291,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].score).toBeLessThanOrEqual(1.0);
+      expect(result.results![0]!.score).toBeLessThanOrEqual(1.0);
     });
   });
 
@@ -312,8 +312,8 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].snippet).toBeDefined();
-      expect(result.results![0].snippet).toContain('parser');
+      expect(result.results![0]!.snippet).toBeDefined();
+      expect(result.results![0]!.snippet).toContain('parser');
     });
 
     it('should add leading ellipsis when match not at start', async () => {
@@ -333,7 +333,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].snippet).toMatch(/^\.\.\./);
+      expect(result.results![0]!.snippet).toMatch(/^\.\.\./);
     });
 
     it('should add trailing ellipsis when match not at end', async () => {
@@ -353,7 +353,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].snippet).toMatch(/\.\.\.$/);
+      expect(result.results![0]!.snippet).toMatch(/\.\.\.$/);
     });
 
     it('should truncate snippet to max length', async () => {
@@ -373,7 +373,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].snippet!.length).toBeLessThanOrEqual(153); // 150 + "..."
+      expect(result.results![0]!.snippet!.length).toBeLessThanOrEqual(153); // 150 + "..."
     });
 
     it('should return undefined snippet when no content match', async () => {
@@ -392,7 +392,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].snippet).toBeUndefined();
+      expect(result.results![0]!.snippet).toBeUndefined();
     });
   });
 
@@ -424,7 +424,7 @@ describe('searchMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.results).toHaveLength(1);
-      expect(result.results![0].type).toBe(MemoryType.Learning);
+      expect(result.results![0]!.type).toBe(MemoryType.Learning);
     });
 
     it('should filter by scope', async () => {
@@ -495,7 +495,7 @@ describe('searchMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.results![0].score).toBeGreaterThanOrEqual(result.results![1].score);
+      expect(result.results![0]!.score).toBeGreaterThanOrEqual(result.results![1]!.score);
     });
 
     it('should apply default limit of 20', async () => {

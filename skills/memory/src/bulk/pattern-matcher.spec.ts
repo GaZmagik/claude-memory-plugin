@@ -133,7 +133,7 @@ describe('filterMemories', () => {
   it('should filter by multiple tags (AND logic)', () => {
     const result = filterMemories(testMemories, { tags: ['auth', 'security'] });
     expect(result).toHaveLength(1);
-    expect(result[0].id).toBe('decision-auth-flow');
+    expect(result[0]!.id).toBe('decision-auth-flow');
   });
 
   it('should filter by type', () => {
@@ -145,7 +145,7 @@ describe('filterMemories', () => {
   it('should filter by scope', () => {
     const result = filterMemories(testMemories, { scope: Scope.Project });
     expect(result).toHaveLength(1);
-    expect(result[0].id).toBe('learning-test-patterns');
+    expect(result[0]!.id).toBe('learning-test-patterns');
   });
 
   it('should combine multiple filters (AND logic)', () => {
@@ -154,7 +154,7 @@ describe('filterMemories', () => {
       type: MemoryType.Decision,
     });
     expect(result).toHaveLength(1);
-    expect(result[0].id).toBe('decision-auth-flow');
+    expect(result[0]!.id).toBe('decision-auth-flow');
   });
 
   it('should return all when no criteria specified', () => {

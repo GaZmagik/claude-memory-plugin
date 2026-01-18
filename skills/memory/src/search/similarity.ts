@@ -33,9 +33,9 @@ export function cosineSimilarity(vec1: number[], vec2: number[]): number {
   let magnitude2 = 0;
 
   for (let i = 0; i < vec1.length; i++) {
-    dotProduct += vec1[i] * vec2[i];
-    magnitude1 += vec1[i] * vec1[i];
-    magnitude2 += vec2[i] * vec2[i];
+    dotProduct += vec1[i]! * vec2[i]!;
+    magnitude1 += vec1[i]! * vec1[i]!;
+    magnitude2 += vec2[i]! * vec2[i]!;
   }
 
   magnitude1 = Math.sqrt(magnitude1);
@@ -178,7 +178,7 @@ export function averageKNearestSimilarity(
 function dotProduct(vec1: number[], vec2: number[]): number {
   let sum = 0;
   for (let i = 0; i < vec1.length; i++) {
-    sum += vec1[i] * vec2[i];
+    sum += vec1[i]! * vec2[i]!;
   }
   return sum;
 }
@@ -213,13 +213,13 @@ function randomHyperplane(dimensions: number, rng: () => number): number[] {
     const u1 = rng();
     const u2 = rng();
     vec[i] = Math.sqrt(-2 * Math.log(u1 || 1e-10)) * Math.cos(2 * Math.PI * u2);
-    magnitude += vec[i] * vec[i];
+    magnitude += vec[i]! * vec[i]!;
   }
 
   // Normalise to unit vector
   magnitude = Math.sqrt(magnitude);
   for (let i = 0; i < dimensions; i++) {
-    vec[i] /= magnitude;
+    vec[i] = vec[i]! / magnitude;
   }
 
   return vec;
@@ -232,7 +232,9 @@ function randomHyperplane(dimensions: number, rng: () => number): number[] {
 function computeLSHHash(vec: number[], hyperplanes: number[][]): number {
   let hash = 0;
   for (let i = 0; i < hyperplanes.length; i++) {
-    const dot = dotProduct(vec, hyperplanes[i]);
+    const hyperplane = hyperplanes[i];
+    if (!hyperplane) continue;
+    const dot = dotProduct(vec, hyperplane);
     if (dot >= 0) {
       hash |= 1 << i;
     }
@@ -265,7 +267,11 @@ function buildLSHIndex(
   const ids = Object.keys(embeddings);
   if (ids.length === 0) return [];
 
-  const dimensions = embeddings[ids[0]].length;
+  const firstId = ids[0];
+  if (!firstId) return [];
+  const firstEmbedding = embeddings[firstId];
+  if (!firstEmbedding) return [];
+  const dimensions = firstEmbedding.length;
   const tables: LSHTable[] = [];
 
   for (let t = 0; t < numTables; t++) {
@@ -281,7 +287,9 @@ function buildLSHIndex(
     // Build buckets by hashing each embedding
     const buckets = new Map<number, string[]>();
     for (const id of ids) {
-      const hash = computeLSHHash(embeddings[id], hyperplanes);
+      const embedding = embeddings[id];
+      if (!embedding) continue;
+      const hash = computeLSHHash(embedding, hyperplanes);
       const bucket = buckets.get(hash);
       if (bucket) {
         bucket.push(id);
@@ -323,17 +331,23 @@ function findDuplicatesBruteForce(
   const n = ids.length;
 
   // Cache embeddings in array for faster access
-  const embeddingArrays: number[][] = ids.map(id => embeddings[id]);
+  const embeddingArrays: number[][] = ids.map(id => embeddings[id]!);
   const duplicates: Array<{ id1: string; id2: string; similarity: number }> = [];
 
   for (let i = 0; i < n; i++) {
     const emb1 = embeddingArrays[i];
+    if (!emb1) continue;
 
     for (let j = i + 1; j < n; j++) {
-      const similarity = dotProduct(emb1, embeddingArrays[j]);
+      const emb2 = embeddingArrays[j];
+      if (!emb2) continue;
+      const similarity = dotProduct(emb1, emb2);
 
       if (similarity >= threshold) {
-        duplicates.push({ id1: ids[i], id2: ids[j], similarity });
+        const id1 = ids[i];
+        const id2 = ids[j];
+        if (!id1 || !id2) continue;
+        duplicates.push({ id1, id2, similarity });
 
         // Early termination if collecting extra candidates
         if (limit !== undefined && duplicates.length >= limit * 2) {
@@ -377,11 +391,15 @@ function findDuplicatesLSH(
 
       // All pairs within a bucket are candidates
       for (let i = 0; i < bucket.length; i++) {
+        const bucketI = bucket[i];
+        if (!bucketI) continue;
         for (let j = i + 1; j < bucket.length; j++) {
+          const bucketJ = bucket[j];
+          if (!bucketJ) continue;
           // Canonical ordering for deduplication
-          const [a, b] = bucket[i] < bucket[j]
-            ? [bucket[i], bucket[j]]
-            : [bucket[j], bucket[i]];
+          const [a, b] = bucketI < bucketJ
+            ? [bucketI, bucketJ]
+            : [bucketJ, bucketI];
           candidatePairs.add(`${a}\0${b}`);
         }
       }
@@ -393,7 +411,11 @@ function findDuplicatesLSH(
 
   for (const pair of candidatePairs) {
     const [id1, id2] = pair.split('\0');
-    const similarity = dotProduct(embeddings[id1], embeddings[id2]);
+    if (!id1 || !id2) continue;
+    const emb1 = embeddings[id1];
+    const emb2 = embeddings[id2];
+    if (!emb1 || !emb2) continue;
+    const similarity = dotProduct(emb1, emb2);
 
     if (similarity >= threshold) {
       duplicates.push({ id1, id2, similarity });

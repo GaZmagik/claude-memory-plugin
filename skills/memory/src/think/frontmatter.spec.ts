@@ -190,10 +190,10 @@ Counter point
 
       const thoughts = parseThoughts(content);
       expect(thoughts).toHaveLength(2);
-      expect(thoughts[0].type).toBe(ThoughtType.Thought);
-      expect(thoughts[0].content).toBe('First thought');
-      expect(thoughts[1].type).toBe(ThoughtType.CounterArgument);
-      expect(thoughts[1].by).toBe('Claude');
+      expect(thoughts[0]!.type).toBe(ThoughtType.Thought);
+      expect(thoughts[0]!.content).toBe('First thought');
+      expect(thoughts[1]!.type).toBe(ThoughtType.CounterArgument);
+      expect(thoughts[1]!.by).toBe('Claude');
     });
 
     it('parses attribution with session ID', () => {
@@ -204,8 +204,8 @@ Content here
 
       const thoughts = parseThoughts(content);
       expect(thoughts).toHaveLength(1);
-      expect(thoughts[0].by).toBe('Claude');
-      expect(thoughts[0].sessionId).toBe(sessionId('abc-123'));
+      expect(thoughts[0]!.by).toBe('Claude');
+      expect(thoughts[0]!.sessionId).toBe(sessionId('abc-123'));
     });
 
     it('returns empty array for no thoughts', () => {

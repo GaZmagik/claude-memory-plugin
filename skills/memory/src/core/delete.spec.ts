@@ -239,7 +239,7 @@ describe('deleteMemory embeddings cleanup', () => {
 
     expect(result.status).toBe('success');
     expect(writeFileSpy).toHaveBeenCalled();
-    const writtenContent = JSON.parse(writeFileSpy.mock.calls[0][1] as string);
+    const writtenContent = JSON.parse(writeFileSpy.mock.calls[0]![1] as string);
     expect(writtenContent.memories['learning-test']).toBeUndefined();
     expect(writtenContent.memories['other-memory']).toBeDefined();
   });

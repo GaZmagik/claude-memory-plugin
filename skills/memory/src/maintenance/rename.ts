@@ -150,8 +150,11 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   // Update node ID
   const nodeIndex = graph.nodes.findIndex(n => n.id === oldId);
   if (nodeIndex >= 0) {
-    graph.nodes[nodeIndex] = { ...graph.nodes[nodeIndex], id: newId };
-    changes.graphNodeUpdated = true;
+    const existingNode = graph.nodes[nodeIndex];
+    if (existingNode) {
+      graph.nodes[nodeIndex] = { ...existingNode, id: newId };
+      changes.graphNodeUpdated = true;
+    }
   }
 
   // Update edge references
@@ -183,13 +186,16 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   const index = await loadIndex({ basePath });
   const entryIndex = index.memories.findIndex(e => e.id === oldId);
   if (entryIndex >= 0) {
-    index.memories[entryIndex] = {
-      ...index.memories[entryIndex],
-      id: unsafeAsMemoryId(newId),
-      relativePath: index.memories[entryIndex].relativePath.replace(oldId, newId),
-    };
-    await saveIndex(basePath, index);
-    changes.indexUpdated = true;
+    const existingEntry = index.memories[entryIndex];
+    if (existingEntry) {
+      index.memories[entryIndex] = {
+        ...existingEntry,
+        id: unsafeAsMemoryId(newId),
+        relativePath: existingEntry.relativePath.replace(oldId, newId),
+      };
+      await saveIndex(basePath, index);
+      changes.indexUpdated = true;
+    }
   }
 
   // Update embeddings cache key

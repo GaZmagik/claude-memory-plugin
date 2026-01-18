@@ -418,7 +418,7 @@ describe('auditMemories', () => {
     expect(result.summary.critical).toBe(1);
     const malformedResult = result.results.find(r => r.id === 'malformed');
     expect(malformedResult).toBeDefined();
-    expect(malformedResult?.issues[0].type).toBe('parse_error');
+    expect(malformedResult?.issues[0]!.type).toBe('parse_error');
   });
 
 });

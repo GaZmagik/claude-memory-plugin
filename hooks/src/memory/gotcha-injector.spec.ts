@@ -183,7 +183,7 @@ describe('Gotcha Injector', () => {
       const result = filterUnshownGotchas(gotchas, sessionState);
 
       expect(result).toHaveLength(1);
-      expect(result[0].id).toBe('gotcha-2');
+      expect(result[0]!.id).toBe('gotcha-2');
     });
 
     it('should return empty array when all gotchas have been shown', () => {
@@ -438,12 +438,12 @@ describe('Gotcha Injector', () => {
 
       // Verify sorted by score descending
       expect(result).toHaveLength(3);
-      expect(result[0].id).toBe('gotcha-2'); // 0.9 - highest
-      expect(result[0].score).toBe(0.9);
-      expect(result[1].id).toBe('gotcha-3'); // 0.6
-      expect(result[1].score).toBe(0.6);
-      expect(result[2].id).toBe('gotcha-1'); // 0.3 - lowest
-      expect(result[2].score).toBe(0.3);
+      expect(result[0]!.id).toBe('gotcha-2'); // 0.9 - highest
+      expect(result[0]!.score).toBe(0.9);
+      expect(result[1]!.id).toBe('gotcha-3'); // 0.6
+      expect(result[1]!.score).toBe(0.6);
+      expect(result[2]!.id).toBe('gotcha-1'); // 0.3 - lowest
+      expect(result[2]!.score).toBe(0.3);
     });
 
     it('should include memory content in results', async () => {
@@ -462,7 +462,7 @@ describe('Gotcha Injector', () => {
         basePath: '/path',
       });
 
-      expect(result[0].content).toBe('Detailed gotcha content here');
+      expect(result[0]!.content).toBe('Detailed gotcha content here');
     });
 
     it('should match by file patterns', async () => {

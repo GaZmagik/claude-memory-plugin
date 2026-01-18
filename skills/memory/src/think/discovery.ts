@@ -84,6 +84,7 @@ function extractDescription(content: string): string | undefined {
   }
 
   const frontmatter = frontmatterMatch[1];
+  if (!frontmatter) return undefined;
   const descMatch = frontmatter.match(/^description:\s*["']?(.+?)["']?\s*$/m);
   return descMatch?.[1];
 }
@@ -93,7 +94,7 @@ function extractDescription(content: string): string | undefined {
  */
 export function extractBody(content: string): string {
   const frontmatterMatch = content.match(/^---\n[\s\S]*?\n---\n([\s\S]*)$/);
-  if (frontmatterMatch) {
+  if (frontmatterMatch && frontmatterMatch[1] !== undefined) {
     return frontmatterMatch[1].trim();
   }
   // No frontmatter, return entire content

@@ -305,9 +305,9 @@ describe('Relevance Scorer', () => {
 
       const sorted = sortByRelevance(memories, context);
 
-      expect(sorted[0].id).toBe('high');
-      expect(sorted[1].id).toBe('low');
-      expect(sorted[0].relevanceScore).toBeGreaterThan(sorted[1].relevanceScore);
+      expect(sorted[0]!.id).toBe('high');
+      expect(sorted[1]!.id).toBe('low');
+      expect(sorted[0]!.relevanceScore).toBeGreaterThan(sorted[1]!.relevanceScore);
     });
 
     it('should include relevanceScore in results', () => {
@@ -322,8 +322,8 @@ describe('Relevance Scorer', () => {
       const context = { filePath: 'test.ts' };
       const sorted = sortByRelevance(memories, context);
 
-      expect(sorted[0]).toHaveProperty('relevanceScore');
-      expect(typeof sorted[0].relevanceScore).toBe('number');
+      expect(sorted[0]!).toHaveProperty('relevanceScore');
+      expect(typeof sorted[0]!.relevanceScore).toBe('number');
     });
   });
 
@@ -353,7 +353,7 @@ describe('Relevance Scorer', () => {
       const filtered = filterByRelevance(memories, context, 0.5);
 
       expect(filtered.length).toBe(1);
-      expect(filtered[0].id).toBe('relevant');
+      expect(filtered[0]!.id).toBe('relevant');
     });
 
     it('should use default threshold of 0.3', () => {

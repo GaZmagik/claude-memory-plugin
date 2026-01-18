@@ -100,9 +100,9 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   let magB = 0;
 
   for (let i = 0; i < a.length; i++) {
-    dotProduct += a[i] * b[i];
-    magA += a[i] * a[i];
-    magB += b[i] * b[i];
+    dotProduct += a[i]! * b[i]!;
+    magA += a[i]! * a[i]!;
+    magB += b[i]! * b[i]!;
   }
 
   magA = Math.sqrt(magA);
@@ -345,17 +345,23 @@ function searchWithIndex(
   const results: MemoryResult[] = [];
 
   for (let i = 0; i < embeddings.length; i++) {
-    const score = cosineSimilarity(queryEmbedding, embeddings[i]);
+    const embedding = embeddings[i];
+    if (!embedding) continue;
+    const score = cosineSimilarity(queryEmbedding, embedding);
 
     if (score >= threshold) {
       const memId = memoryIds[i];
+      if (!memId) continue;
       const memInfo = manifest.memories?.[memId] || {};
+
+      const memIdParts = memId.split('-');
+      const type = memIdParts[0] || 'unknown';
 
       results.push({
         id: memId,
         title: memInfo.title || memId,
         score: Math.round(score * 10000) / 10000,
-        type: memId.includes('-') ? memId.split('-')[0] : 'unknown',
+        type,
         file: memInfo.file || '',
       });
     }
@@ -407,12 +413,14 @@ async function searchFallback(
 
         if (score >= threshold) {
           const memId = file.replace(/\.md$/, '').replace(/\//g, '-');
+          const memIdParts = memId.split('-');
+          const type = memIdParts[0] || 'unknown';
 
           results.push({
             id: memId,
             title,
             score: Math.round(score * 10000) / 10000,
-            type: memId.includes('-') ? memId.split('-')[0] : 'unknown',
+            type,
             file: filePath,
           });
         }
@@ -438,7 +446,7 @@ function selectThreshold(hookType: string, explicitThreshold?: number): number {
     return explicitThreshold;
   }
 
-  return THRESHOLDS[hookType] || THRESHOLDS.post_tool_use;
+  return THRESHOLDS[hookType] ?? THRESHOLDS.post_tool_use ?? 0.5;
 }
 
 /**

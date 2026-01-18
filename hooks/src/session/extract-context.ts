@@ -160,7 +160,8 @@ export function extractSessionContext(sessionId: string, cwd: string): Extractio
   // Find the last compaction boundary
   let compactionLine = 0;
   for (let i = lines.length - 1; i >= 0; i--) {
-    if (lines[i].includes('"subtype":"compact_boundary"')) {
+    const line = lines[i];
+    if (line && line.includes('"subtype":"compact_boundary"')) {
       compactionLine = i + 1; // 1-indexed for reporting
       break;
     }

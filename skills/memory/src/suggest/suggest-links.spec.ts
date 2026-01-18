@@ -81,9 +81,9 @@ describe('suggestLinks', () => {
 
     expect(result.status).toBe('success');
     expect(result.suggestions).toHaveLength(1);
-    expect(result.suggestions[0].source).toBe('mem-1');
-    expect(result.suggestions[0].target).toBe('mem-2');
-    expect(result.suggestions[0].similarity).toBe(0.95);
+    expect(result.suggestions[0]!.source).toBe('mem-1');
+    expect(result.suggestions[0]!.target).toBe('mem-2');
+    expect(result.suggestions[0]!.similarity).toBe(0.95);
   });
 
   it('skips already linked memories', async () => {

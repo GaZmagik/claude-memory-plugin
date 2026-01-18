@@ -129,7 +129,9 @@ export async function suggestLinks(
 
   // Find similar pairs
   for (const sourceId of memoryIds) {
-    const sourceEmbedding = cache.memories[sourceId].embedding;
+    const sourceEntry = cache.memories[sourceId];
+    if (!sourceEntry) continue;
+    const sourceEmbedding = sourceEntry.embedding;
 
     // Find similar memories
     const similar = findSimilarMemories(sourceEmbedding, embeddings, threshold, limit);

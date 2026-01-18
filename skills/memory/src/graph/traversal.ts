@@ -245,7 +245,7 @@ export function findConnectedComponents(graph: MemoryGraph): string[][] {
     let queueIndex = 0; // Use index instead of shift() for O(1) dequeue
 
     while (queueIndex < queue.length) {
-      const id = queue[queueIndex++];
+      const id = queue[queueIndex++]!;
 
       if (visited.has(id)) {
         continue;

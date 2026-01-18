@@ -58,12 +58,12 @@ export function parseThinkIdTimestamp(id: ThinkId | string): Date | null {
 
   const [, year, month, day, hours, minutes, seconds, millis] = match;
   const date = new Date(
-    parseInt(year, 10),
-    parseInt(month, 10) - 1, // Month is 0-indexed
-    parseInt(day, 10),
-    parseInt(hours, 10),
-    parseInt(minutes, 10),
-    parseInt(seconds, 10)
+    parseInt(year!, 10),
+    parseInt(month!, 10) - 1, // Month is 0-indexed
+    parseInt(day!, 10),
+    parseInt(hours!, 10),
+    parseInt(minutes!, 10),
+    parseInt(seconds!, 10)
   );
 
   // Add milliseconds if present

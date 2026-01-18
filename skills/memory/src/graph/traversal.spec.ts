@@ -446,8 +446,8 @@ describe('getSubgraph', () => {
 
     expect(result.nodes.length).toBe(2); // a, b
     expect(result.edges.length).toBe(1); // a -> b
-    expect(result.edges[0].source).toBe('a');
-    expect(result.edges[0].target).toBe('b');
+    expect(result.edges[0]!.source).toBe('a');
+    expect(result.edges[0]!.target).toBe('b');
   });
 
   it('should preserve graph version', () => {
@@ -652,7 +652,7 @@ describe('Graph Traversal Properties', () => {
       const result = bfsTraversal(graph, 'a');
       expect(result.depths.get('a')).toBe(0);
       for (let i = 1; i < result.visited.length; i++) {
-        expect(result.depths.get(result.visited[i])!).toBeGreaterThan(0);
+        expect(result.depths.get(result.visited[i]!)!).toBeGreaterThan(0);
       }
     });
   });

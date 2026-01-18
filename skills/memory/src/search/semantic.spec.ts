@@ -106,7 +106,7 @@ describe('Semantic Search', () => {
 
       expect(results.length).toBeGreaterThan(0);
       // Database-related memories should rank higher
-      expect(results[0].id).toMatch(/database|orm/);
+      expect(results[0]!.id).toMatch(/database|orm/);
     });
 
     it('should return results sorted by relevance', async () => {
@@ -123,7 +123,7 @@ describe('Semantic Search', () => {
       });
 
       for (let i = 1; i < results.length; i++) {
-        expect(results[i - 1].score).toBeGreaterThanOrEqual(results[i].score);
+        expect(results[i - 1]!.score).toBeGreaterThanOrEqual(results[i]!.score);
       }
     });
 
@@ -180,7 +180,7 @@ describe('Semantic Search', () => {
       // All results should be from global scope
       expect(results.length).toBe(1); // learning-orm only
       expect(results.every(r => r.scope === Scope.Global)).toBe(true);
-      expect(results[0].id).toBe('learning-orm');
+      expect(results[0]!.id).toBe('learning-orm');
     });
 
     it('should respect result limit', async () => {
@@ -247,11 +247,11 @@ describe('Semantic Search', () => {
         threshold: 0.5,
       });
 
-      expect(results[0]).toHaveProperty('id');
-      expect(results[0]).toHaveProperty('title');
-      expect(results[0]).toHaveProperty('type');
-      expect(results[0]).toHaveProperty('tags');
-      expect(results[0]).toHaveProperty('score');
+      expect(results[0]!).toHaveProperty('id');
+      expect(results[0]!).toHaveProperty('title');
+      expect(results[0]!).toHaveProperty('type');
+      expect(results[0]!).toHaveProperty('tags');
+      expect(results[0]!).toHaveProperty('score');
     });
 
     it('should handle missing embeddings gracefully', async () => {

@@ -176,7 +176,7 @@ describe('think/document', () => {
         basePath: path.join(tempDir, 'project'),
       });
 
-      expect(result.documents?.[0].thoughtCount).toBeDefined();
+      expect(result.documents?.[0]!.thoughtCount).toBeDefined();
     });
   });
 

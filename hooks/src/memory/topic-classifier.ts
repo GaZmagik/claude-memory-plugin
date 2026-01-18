@@ -65,7 +65,7 @@ export function extractTopicFromResponse(response: string): string | null {
 
   // Extract topic from CHECK response
   const checkMatch = response.match(/CHECK:\s*(\w+)/);
-  if (!checkMatch) {
+  if (!checkMatch || !checkMatch[1]) {
     return null;
   }
 

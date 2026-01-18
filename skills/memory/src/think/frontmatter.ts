@@ -105,7 +105,7 @@ export function parseThoughts(content: string): ThoughtEntry[] {
     const [, timestamp, typeStr, attribution, thoughtContent] = match;
 
     let type: ThoughtType;
-    switch (typeStr.toLowerCase()) {
+    switch (typeStr!.toLowerCase()) {
       case 'counter-argument':
         type = ThoughtType.CounterArgument;
         break;
@@ -121,9 +121,9 @@ export function parseThoughts(content: string): ThoughtEntry[] {
     }
 
     const entry: ThoughtEntry = {
-      timestamp,
+      timestamp: timestamp!,
       type,
-      content: thoughtContent.trim(),
+      content: thoughtContent!.trim(),
     };
 
     if (attribution) {
@@ -162,8 +162,8 @@ export function parseThinkDocument(fileContent: string): ThinkParseResult {
   }
 
   const [, yamlContent, bodyContent] = match;
-  const frontmatter = parseThinkFrontmatter(yamlContent);
-  const thoughts = parseThoughts(bodyContent);
+  const frontmatter = parseThinkFrontmatter(yamlContent!);
+  const thoughts = parseThoughts(bodyContent!);
 
   // Derive status from last thought if still missing
   if (!frontmatter.status) {
@@ -178,7 +178,7 @@ export function parseThinkDocument(fileContent: string): ThinkParseResult {
   return {
     frontmatter,
     thoughts,
-    rawContent: bodyContent.trim(),
+    rawContent: bodyContent!.trim(),
   };
 }
 

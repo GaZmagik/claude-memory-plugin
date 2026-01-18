@@ -335,7 +335,7 @@ describe('slug property-based tests', () => {
 
   describe('unicode handling', () => {
     it('should normalize diacritics consistently', () => {
-      const testPairs = [
+      const testPairs: Array<[string, string]> = [
         ['café', 'cafe'],
         ['naïve', 'naive'],
         ['Ñoño', 'nono'],

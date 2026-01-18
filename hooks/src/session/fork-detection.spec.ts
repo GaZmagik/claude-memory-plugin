@@ -291,7 +291,7 @@ describe('Fork Detection', () => {
 
       await spawnForkSession('test');
 
-      const lastCall = mockExecFileSync.mock.calls[1] as unknown[];
+      const lastCall = mockExecFileSync.mock.calls[1]! as unknown[];
       const options = lastCall[2] as { env: Record<string, string | undefined> };
 
       expect(options.env).toHaveProperty('PATH');
@@ -487,7 +487,7 @@ describe('Fork Detection', () => {
       const id = getSessionId();
       const after = Date.now();
 
-      const timestampPart = parseInt(id.split('-')[0], 10);
+      const timestampPart = parseInt(id.split('-')[0]!, 10);
       expect(timestampPart).toBeGreaterThanOrEqual(before);
       expect(timestampPart).toBeLessThanOrEqual(after);
     });

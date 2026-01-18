@@ -410,8 +410,8 @@ describe('bulkLink', () => {
     });
 
     expect(onProgress).toHaveBeenCalled();
-    expect(progressCalls[0].phase).toBe('scanning');
+    expect(progressCalls[0]!.phase).toBe('scanning');
     expect(progressCalls.some(p => p.phase === 'processing')).toBe(true);
-    expect(progressCalls[progressCalls.length - 1].phase).toBe('complete');
+    expect(progressCalls[progressCalls.length - 1]!.phase).toBe('complete');
   });
 });

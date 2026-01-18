@@ -66,7 +66,7 @@ describe('Graph Edges', () => {
 
       const updated = addEdge(graph, 'node-1', 'node-2');
 
-      expect(updated.edges[0].label).toBe('relates-to');
+      expect(updated.edges[0]!.label).toBe('relates-to');
     });
 
     it('should not add duplicate edge', () => {
@@ -168,7 +168,7 @@ describe('Graph Edges', () => {
       const updated = removeEdge(graph, 'node-1', 'node-2', 'relates-to');
 
       expect(updated.edges).toHaveLength(1);
-      expect(updated.edges[0].label).toBe('informed-by');
+      expect(updated.edges[0]!.label).toBe('informed-by');
     });
 
     it('should remove all edges between nodes if no label specified', () => {
@@ -499,7 +499,7 @@ describe('Graph Edges', () => {
       ]);
 
       expect(updated.edges).toHaveLength(1);
-      expect(updated.edges[0].label).toBe('valid');
+      expect(updated.edges[0]!.label).toBe('valid');
     });
 
     it('should handle empty edges array', () => {

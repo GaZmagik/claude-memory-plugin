@@ -109,11 +109,11 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].type).toBe('learning');
-      expect(result.memories![0].title).toBe('Global Learning');
-      expect(result.memories![0].scope).toBe(Scope.Global);
-      expect(result.memories![0].tags).toContain('typescript');
-      expect(result.memories![0].tags).toContain('testing');
+      expect(result.memories![0]!.type).toBe('learning');
+      expect(result.memories![0]!.title).toBe('Global Learning');
+      expect(result.memories![0]!.scope).toBe(Scope.Global);
+      expect(result.memories![0]!.tags).toContain('typescript');
+      expect(result.memories![0]!.tags).toContain('testing');
     });
 
     it('should filter by type - gotcha', async () => {
@@ -121,8 +121,8 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].type).toBe('gotcha');
-      expect(result.memories![0].title).toBe('Project Gotcha');
+      expect(result.memories![0]!.type).toBe('gotcha');
+      expect(result.memories![0]!.title).toBe('Project Gotcha');
     });
 
     it('should filter by type - decision', async () => {
@@ -130,8 +130,8 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].type).toBe('decision');
-      expect(result.memories![0].title).toBe('Local Decision');
+      expect(result.memories![0]!.type).toBe('decision');
+      expect(result.memories![0]!.title).toBe('Local Decision');
     });
 
     it('should return empty array when type has no matches', async () => {
@@ -147,9 +147,9 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].scope).toBe(Scope.Project);
-      expect(result.memories![0].type).toBe('gotcha');
-      expect(result.memories![0].title).toBe('Project Gotcha');
+      expect(result.memories![0]!.scope).toBe(Scope.Project);
+      expect(result.memories![0]!.type).toBe('gotcha');
+      expect(result.memories![0]!.title).toBe('Project Gotcha');
     });
 
     it('should filter by single tag', async () => {
@@ -168,9 +168,9 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].title).toBe('Global Learning');
-      expect(result.memories![0].tags).toContain('typescript');
-      expect(result.memories![0].tags).toContain('testing');
+      expect(result.memories![0]!.title).toBe('Global Learning');
+      expect(result.memories![0]!.tags).toContain('typescript');
+      expect(result.memories![0]!.tags).toContain('testing');
     });
 
     it('should combine multiple filters', async () => {
@@ -183,9 +183,9 @@ describe('listMemories', () => {
 
       expect(result.status).toBe('success');
       expect(result.memories!.length).toBe(1);
-      expect(result.memories![0].type).toBe('gotcha');
-      expect(result.memories![0].scope).toBe(Scope.Project);
-      expect(result.memories![0].tags).toContain('typescript');
+      expect(result.memories![0]!.type).toBe('gotcha');
+      expect(result.memories![0]!.scope).toBe(Scope.Project);
+      expect(result.memories![0]!.tags).toContain('typescript');
     });
   });
 
@@ -229,8 +229,8 @@ describe('listMemories', () => {
       const result = await listMemories({ basePath: testDir });
 
       expect(result.status).toBe('success');
-      expect(result.memories![0].title).toBe('Beta'); // Most recent
-      expect(result.memories![2].title).toBe('Alpha'); // Oldest
+      expect(result.memories![0]!.title).toBe('Beta'); // Most recent
+      expect(result.memories![2]!.title).toBe('Alpha'); // Oldest
     });
 
     it('should sort by created date ascending when specified', async () => {
@@ -241,8 +241,8 @@ describe('listMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.memories![0].title).toBe('Alpha'); // Oldest
-      expect(result.memories![2].title).toBe('Beta'); // Most recent
+      expect(result.memories![0]!.title).toBe('Alpha'); // Oldest
+      expect(result.memories![2]!.title).toBe('Beta'); // Most recent
     });
 
     it('should sort by updated date', async () => {
@@ -256,8 +256,8 @@ describe('listMemories', () => {
       expect(result.memories!.length).toBe(3);
       // Verify dates are in descending order
       const dates = result.memories!.map(m => new Date(m.updated).getTime());
-      expect(dates[0]).toBeGreaterThanOrEqual(dates[1]);
-      expect(dates[1]).toBeGreaterThanOrEqual(dates[2]);
+      expect(dates[0]!).toBeGreaterThanOrEqual(dates[1]!);
+      expect(dates[1]!).toBeGreaterThanOrEqual(dates[2]!);
     });
 
     it('should sort by title alphabetically', async () => {
@@ -268,9 +268,9 @@ describe('listMemories', () => {
       });
 
       expect(result.status).toBe('success');
-      expect(result.memories![0].title).toBe('Alpha');
-      expect(result.memories![1].title).toBe('Beta');
-      expect(result.memories![2].title).toBe('Zulu');
+      expect(result.memories![0]!.title).toBe('Alpha');
+      expect(result.memories![1]!.title).toBe('Beta');
+      expect(result.memories![2]!.title).toBe('Zulu');
     });
   });
 

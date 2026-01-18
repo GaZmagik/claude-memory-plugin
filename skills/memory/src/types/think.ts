@@ -5,6 +5,7 @@
  * brainstorming and deliberation.
  */
 
+import type { MemoryId, SessionId, ThinkId } from './branded.js';
 import type { MemoryType, Scope, ThinkStatus, ThoughtType } from './enums.js';
 
 /**
@@ -30,7 +31,7 @@ export interface ThinkFrontmatter {
   /** Conclusion text (set when concluded) */
   conclusion?: string;
   /** ID of the promoted memory (if promoted) */
-  promotedTo?: string;
+  promotedTo?: MemoryId;
 }
 
 /**
@@ -46,7 +47,7 @@ export interface ThoughtEntry {
   /** Attribution (e.g., "Claude", "User") */
   by?: string;
   /** AI session ID for --resume support */
-  sessionId?: string;
+  sessionId?: SessionId;
   /** Output style used (if AI-generated) */
   outputStyle?: string;
   /** Agent used (if AI-generated) */
@@ -57,8 +58,8 @@ export interface ThoughtEntry {
  * Complete think document
  */
 export interface ThinkDocument {
-  /** Document ID (think-YYYYMMDD-HHMMSS format) */
-  id: string;
+  /** Document ID (thought-YYYYMMDD-HHMMSSmmm format) */
+  id: ThinkId;
   /** Frontmatter metadata */
   frontmatter: ThinkFrontmatter;
   /** Parsed thought entries */
@@ -74,7 +75,7 @@ export interface ThinkDocument {
  */
 export interface ThinkState {
   /** Current document ID (null if none selected) */
-  currentDocumentId: string | null;
+  currentDocumentId: ThinkId | null;
   /** Scope of the current document */
   currentScope: Scope | null;
   /** ISO 8601 timestamp of last state update */
@@ -86,7 +87,7 @@ export interface ThinkState {
  */
 export interface ThinkDocumentSummary {
   /** Document ID */
-  id: string;
+  id: ThinkId;
   /** Topic being deliberated */
   topic: string;
   /** Current status */
@@ -130,7 +131,7 @@ export interface AICallResult {
   /** Generated thought content (if successful) */
   content?: string;
   /** Session ID for future --resume */
-  sessionId?: string;
+  sessionId?: SessionId;
   /** Error message (if failed) */
   error?: string;
 }

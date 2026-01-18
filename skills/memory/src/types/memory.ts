@@ -4,6 +4,7 @@
  * Core type definitions for the Memory entity and related structures.
  */
 
+import type { MemoryId } from './branded.js';
 import { MemoryType, Scope, Severity } from './enums.js';
 
 /**
@@ -11,7 +12,7 @@ import { MemoryType, Scope, Severity } from './enums.js';
  */
 export interface MemoryFrontmatter {
   /** Unique identifier (matches filename without .md extension) */
-  id?: string;
+  id?: MemoryId;
   /** Memory type from taxonomy */
   type: MemoryType;
   /** Human-readable title */
@@ -29,7 +30,7 @@ export interface MemoryFrontmatter {
   /** Severity level (optional, primarily for gotchas/learnings) */
   severity?: Severity;
   /** Linked memory IDs */
-  links?: string[];
+  links?: MemoryId[];
   /** Source file or context that prompted this memory */
   source?: string;
   /** Additional metadata */
@@ -41,7 +42,7 @@ export interface MemoryFrontmatter {
  */
 export interface Memory {
   /** Unique identifier (slug derived from title) */
-  id: string;
+  id: MemoryId;
   /** Frontmatter metadata */
   frontmatter: MemoryFrontmatter;
   /** Markdown content body */
@@ -57,7 +58,7 @@ export interface Memory {
  */
 export interface IndexEntry {
   /** Memory ID (slug) */
-  id: string;
+  id: MemoryId;
   /** Memory type */
   type: MemoryType;
   /** Title for display */
@@ -93,7 +94,7 @@ export interface MemoryIndex {
  */
 export interface GraphNode {
   /** Memory ID */
-  id: string;
+  id: MemoryId;
   /** Display title */
   title: string;
 }
@@ -104,9 +105,9 @@ export interface GraphNode {
  */
 export interface GraphEdge {
   /** Source memory ID */
-  source: string;
+  source: MemoryId;
   /** Target memory ID */
-  target: string;
+  target: MemoryId;
   /** Relationship label */
   label: string;
 }

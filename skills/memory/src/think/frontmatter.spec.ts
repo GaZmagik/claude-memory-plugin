@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect } from 'bun:test';
+import { memoryId, sessionId } from '../test-utils/branded-helpers.js';
 import {
   parseThinkDocument,
   parseThinkFrontmatter,
@@ -66,7 +67,7 @@ describe('think/frontmatter', () => {
     it('includes promotedTo when present', () => {
       const fm: ThinkFrontmatter = {
         ...createThinkFrontmatter({ topic: 'Test' }),
-        promotedTo: 'decision-test-topic',
+        promotedTo: memoryId('decision-test-topic'),
       };
       const yaml = serialiseThinkFrontmatter(fm);
       expect(yaml).toContain('promotedTo:');
@@ -99,12 +100,16 @@ status: active
       expect(() => parseThinkFrontmatter(yaml)).toThrow('topic is required');
     });
 
-    it('throws on missing status', () => {
+    it('allows missing status (derived later by parseThinkDocument)', () => {
       const yaml = `
 topic: Test
 `.trim();
 
-      expect(() => parseThinkFrontmatter(yaml)).toThrow('status is required');
+      // parseThinkFrontmatter allows missing status for backwards compatibility
+      // Status is derived from tags or last thought in parseThinkDocument
+      const fm = parseThinkFrontmatter(yaml);
+      expect(fm.topic).toBe('Test');
+      expect(fm.status).toBeUndefined();
     });
   });
 
@@ -161,7 +166,7 @@ topic: Test
         type: ThoughtType.Thought,
         content: 'Content',
         by: 'Claude',
-        sessionId: 'abc-123',
+        sessionId: sessionId('abc-123'),
       };
 
       const md = formatThought(entry);
@@ -200,7 +205,7 @@ Content here
       const thoughts = parseThoughts(content);
       expect(thoughts).toHaveLength(1);
       expect(thoughts[0].by).toBe('Claude');
-      expect(thoughts[0].sessionId).toBe('abc-123');
+      expect(thoughts[0].sessionId).toBe(sessionId('abc-123'));
     });
 
     it('returns empty array for no thoughts', () => {
@@ -275,7 +280,7 @@ My thought
       const fm = createThinkFrontmatter({ topic: 'Test' });
       const concluded = concludeFrontmatter(fm, 'Decision', 'decision-test');
 
-      expect(concluded.promotedTo).toBe('decision-test');
+      expect(concluded.promotedTo).toBe(memoryId('decision-test'));
     });
   });
 });

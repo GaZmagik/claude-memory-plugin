@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { writeMemory } from './write.js';
 import type { WriteMemoryRequest } from '../types/api.js';
 import { Scope, MemoryType, Severity } from '../types/enums.js';
@@ -81,7 +82,7 @@ describe('writeMemory', () => {
 
       // Only mock I/O operations, not pure functions
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-learning');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-learning'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test Learning',
@@ -89,7 +90,7 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: ['test'],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('---\ntype: learning\n---\nTest content\n');
+      // Let serialiseMemoryFile run for real - it's a pure function
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -100,7 +101,7 @@ describe('writeMemory', () => {
 
     it('should reject custom ID with mismatched type prefix', async () => {
       const mismatchedRequest: WriteMemoryRequest = {
-        id: 'learning-some-topic',  // ID says "learning"
+        id: memoryId('learning-some-topic'),  // ID says "learning"
         type: MemoryType.Decision,   // but type is "decision"
         title: 'Some Topic',
         content: 'Test content',
@@ -122,7 +123,7 @@ describe('writeMemory', () => {
 
     it('should accept custom ID with matching type prefix', async () => {
       const matchingRequest: WriteMemoryRequest = {
-        id: 'gotcha-test-issue',
+        id: memoryId('gotcha-test-issue'),
         type: MemoryType.Gotcha,
         title: 'Test Issue',
         content: 'Test content',
@@ -140,7 +141,7 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: ['test'],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('---\ntype: gotcha\n---\nTest content\n');
+      // serialiseMemoryFile runs for real - pure function
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -171,7 +172,7 @@ describe('writeMemory', () => {
     });
 
     it('should generate unique ID', async () => {
-      const mockId = 'learning-test-memory';
+      const mockId = memoryId('learning-test-memory');
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(mockId);
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
@@ -180,7 +181,6 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: ['test', 'learning'],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(validRequest);
 
@@ -192,7 +192,7 @@ describe('writeMemory', () => {
     });
 
     it('should create frontmatter with all fields', async () => {
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       const mockFrontmatter = {
         type: MemoryType.Learning,
         title: 'Test Memory',
@@ -202,12 +202,11 @@ describe('writeMemory', () => {
         severity: Severity.Medium,
       };
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue(mockFrontmatter);
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(validRequest);
 
       expect(frontmatter.createFrontmatter).toHaveBeenCalledWith({
-        id: 'learning-test',
+        id: memoryId('learning-test'),
         type: MemoryType.Learning,
         title: 'Test Memory',
         tags: ['test', 'learning', 'local'],  // 'local' auto-added from scope
@@ -221,7 +220,7 @@ describe('writeMemory', () => {
     });
 
     it('should serialise memory file', async () => {
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       const mockFrontmatter = {
         type: MemoryType.Learning,
         title: 'Test Memory',
@@ -230,7 +229,8 @@ describe('writeMemory', () => {
         tags: ['test'],
       };
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue(mockFrontmatter);
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('serialised content');
+      // Spy on serialiseMemoryFile to verify it's called, but let it run for real
+      vi.spyOn(frontmatter, 'serialiseMemoryFile');
 
       await writeMemory(validRequest);
 
@@ -241,28 +241,27 @@ describe('writeMemory', () => {
     });
 
     it('should write file atomically', async () => {
-      const mockId = 'learning-test-memory';
+      const mockId = memoryId('learning-test-memory');
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(mockId);
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
+      const mockFrontmatter = {
         type: MemoryType.Learning,
         title: 'Test',
         created: '2026-01-11T00:00:00.000Z',
         updated: '2026-01-11T00:00:00.000Z',
         tags: [],
-      });
-      const serialisedContent = '---\ntype: learning\n---\nTest content\n';
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue(serialisedContent);
-
+      };
+      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue(mockFrontmatter);
+      // Let serialiseMemoryFile run for real - check content flexibly
       await writeMemory(validRequest);
 
       expect(fsUtils.writeFileAtomic).toHaveBeenCalledWith(
         `${mockBasePath}/permanent/${mockId}.md`,
-        serialisedContent
+        expect.stringContaining('type: learning')
       );
     });
 
     it('should update index with correct entry', async () => {
-      const mockId = 'learning-test-memory';
+      const mockId = memoryId('learning-test-memory');
       const mockFrontmatter = {
         type: MemoryType.Learning,
         title: 'Test Memory',
@@ -274,7 +273,6 @@ describe('writeMemory', () => {
 
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(mockId);
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue(mockFrontmatter);
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(validRequest);
 
@@ -292,7 +290,7 @@ describe('writeMemory', () => {
     });
 
     it('should return success with memory details', async () => {
-      const mockId = 'learning-test-memory';
+      const mockId = memoryId('learning-test-memory');
       const mockFrontmatter = {
         type: MemoryType.Learning,
         title: 'Test Memory',
@@ -303,7 +301,6 @@ describe('writeMemory', () => {
 
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(mockId);
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue(mockFrontmatter);
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       const result = await writeMemory(validRequest);
 
@@ -323,7 +320,7 @@ describe('writeMemory', () => {
         basePath: customBasePath,
       };
 
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -331,7 +328,6 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(requestWithCustomPath);
 
@@ -349,7 +345,7 @@ describe('writeMemory', () => {
         scope: Scope.Enterprise,
       };
 
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -357,7 +353,6 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: ['test', 'learning', 'enterprise'],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(enterpriseRequest);
 
@@ -375,7 +370,7 @@ describe('writeMemory', () => {
         scope: Scope.Global,
       };
 
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -383,7 +378,6 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: ['test', 'learning', 'user'],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
 
       await writeMemory(globalRequest);
 
@@ -400,7 +394,7 @@ describe('writeMemory', () => {
     beforeEach(() => {
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -408,7 +402,7 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(gitignore, 'ensureLocalScopeGitignored').mockReturnValue({
@@ -480,7 +474,7 @@ describe('writeMemory', () => {
 
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -488,7 +482,7 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -502,7 +496,7 @@ describe('writeMemory', () => {
     beforeEach(() => {
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning,
         title: 'Test',
@@ -510,7 +504,7 @@ describe('writeMemory', () => {
         updated: '2026-01-11T00:00:00.000Z',
         tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
     });
 
     it('should handle file write errors', async () => {
@@ -582,12 +576,12 @@ describe('writeMemory', () => {
     beforeEach(() => {
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
         updated: '2026-01-13T00:00:00.000Z', tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
     });
@@ -659,12 +653,12 @@ describe('writeMemory', () => {
       });
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
         updated: '2026-01-13T00:00:00.000Z', tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
@@ -675,7 +669,7 @@ describe('writeMemory', () => {
         version: '1',
         lastUpdated: '2026-01-01T00:00:00.000Z',
         memories: [{
-          id: 'learning-existing-topic',
+          id: memoryId('learning-existing-topic'),
           type: MemoryType.Learning,
           title: 'Test Topic Already Exists',  // Similar title
           tags: [],
@@ -707,7 +701,7 @@ describe('writeMemory', () => {
         version: '1',
         lastUpdated: '2026-01-01T00:00:00.000Z',
         memories: [{
-          id: 'learning-unrelated',
+          id: memoryId('learning-unrelated'),
           type: MemoryType.Learning,
           title: 'Completely Different Title',
           tags: [],
@@ -738,17 +732,17 @@ describe('writeMemory', () => {
     beforeEach(() => {
       // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
+      vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Learning, title: 'Test', created: '2026-01-11T00:00:00.000Z',
         updated: '2026-01-11T00:00:00.000Z', tags: [],
       });
-      vi.spyOn(frontmatter, 'serialiseMemoryFile').mockReturnValue('content');
+      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(graph, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
       vi.spyOn(graph, 'hasNode').mockReturnValue(false);
-      vi.spyOn(graph, 'addNode').mockReturnValue({ version: 1, nodes: [{ id: 'learning-test', type: MemoryType.Learning }], edges: [] });
+      vi.spyOn(graph, 'addNode').mockReturnValue({ version: 1, nodes: [{ id: memoryId('learning-test'), type: MemoryType.Learning }], edges: [] });
       vi.spyOn(graph, 'saveGraph').mockResolvedValue();
     });
 
@@ -758,7 +752,7 @@ describe('writeMemory', () => {
       vi.spyOn(embedding, 'loadEmbeddingCache').mockResolvedValue({ version: 1, memories: {} });
       vi.spyOn(embedding, 'saveEmbeddingCache').mockResolvedValue();
       vi.spyOn(embedding, 'generateContentHash').mockReturnValue('abc123');
-      vi.spyOn(semantic, 'findSimilarToMemory').mockResolvedValue([{ id: 'learning-similar', score: 0.9, type: MemoryType.Learning, title: 'Similar', tags: [] }]);
+      vi.spyOn(semantic, 'findSimilarToMemory').mockResolvedValue([{ id: memoryId('learning-similar'), score: 0.9, type: MemoryType.Learning, title: 'Similar', tags: [] }]);
       vi.spyOn(link, 'linkMemories').mockResolvedValue({ status: 'success', alreadyExists: false });
 
       const result = await writeMemory({

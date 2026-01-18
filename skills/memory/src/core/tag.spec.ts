@@ -3,10 +3,10 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { tagMemory, untagMemory } from './tag.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as readModule from './read.js';
-import * as frontmatterModule from './frontmatter.js';
 import * as indexModule from './index.js';
 import * as fsUtils from './fs-utils.js';
 
@@ -20,13 +20,13 @@ describe('tagMemory', () => {
   });
 
   it('should return error when id is missing', async () => {
-    const result = await tagMemory({ id: '', tags: ['tag1'] });
+    const result = await tagMemory({ id: memoryId(''), tags: ['tag1'] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('id is required');
   });
 
   it('should return error when tags are empty', async () => {
-    const result = await tagMemory({ id: 'test-id', tags: [] });
+    const result = await tagMemory({ id: memoryId('test-id'), tags: [] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('tags are required');
   });
@@ -37,7 +37,7 @@ describe('tagMemory', () => {
       error: 'Memory not found: test-id',
     });
 
-    const result = await tagMemory({ id: 'test-id', tags: ['new-tag'] });
+    const result = await tagMemory({ id: memoryId('test-id'), tags: ['new-tag'] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('Memory not found');
   });
@@ -58,19 +58,10 @@ describe('tagMemory', () => {
       },
     });
 
-    vi.spyOn(frontmatterModule, 'updateFrontmatter').mockReturnValue({
-      type: MemoryType.Decision,
-      title: 'Test',
-      created: '2026-01-01T00:00:00.000Z',
-      updated: '2026-01-12T00:00:00.000Z',
-      tags: ['existing', 'new-tag', 'another'],
-    });
-
-    vi.spyOn(frontmatterModule, 'serialiseMemoryFile').mockReturnValue('---\nmocked\n---\n\nTest content\n');
     vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'test-id',
+      id: memoryId('test-id'),
       type: MemoryType.Decision,
       title: 'Test',
       tags: ['existing'],
@@ -83,7 +74,7 @@ describe('tagMemory', () => {
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
     const result = await tagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['new-tag', 'another'],
     });
 
@@ -110,19 +101,12 @@ describe('tagMemory', () => {
       },
     });
 
-    vi.spyOn(frontmatterModule, 'updateFrontmatter').mockImplementation((existing, updates) => ({
-      ...existing,
-      ...updates,
-      updated: '2026-01-12T00:00:00.000Z',
-    }));
-
-    vi.spyOn(frontmatterModule, 'serialiseMemoryFile').mockReturnValue('---\nmocked\n---\n\nTest content\n');
     vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
     const result = await tagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['duplicate', 'new-tag'],
     });
 
@@ -141,13 +125,13 @@ describe('untagMemory', () => {
   });
 
   it('should return error when id is missing', async () => {
-    const result = await untagMemory({ id: '', tags: ['tag1'] });
+    const result = await untagMemory({ id: memoryId(''), tags: ['tag1'] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('id is required');
   });
 
   it('should return error when tags are empty', async () => {
-    const result = await untagMemory({ id: 'test-id', tags: [] });
+    const result = await untagMemory({ id: memoryId('test-id'), tags: [] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('tags are required');
   });
@@ -158,7 +142,7 @@ describe('untagMemory', () => {
       error: 'Memory not found: test-id',
     });
 
-    const result = await untagMemory({ id: 'test-id', tags: ['tag-to-remove'] });
+    const result = await untagMemory({ id: memoryId('test-id'), tags: ['tag-to-remove'] });
     expect(result.status).toBe('error');
     expect(result.error).toContain('Memory not found');
   });
@@ -179,17 +163,10 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(frontmatterModule, 'updateFrontmatter').mockImplementation((existing, updates) => ({
-      ...existing,
-      ...updates,
-      updated: '2026-01-12T00:00:00.000Z',
-    }));
-
-    vi.spyOn(frontmatterModule, 'serialiseMemoryFile').mockReturnValue('---\nmocked\n---\n\nTest content\n');
     vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
 
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'test-id',
+      id: memoryId('test-id'),
       type: MemoryType.Decision,
       title: 'Test',
       tags: ['keep', 'remove-me', 'also-keep'],
@@ -202,7 +179,7 @@ describe('untagMemory', () => {
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
     const result = await untagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['remove-me'],
     });
 
@@ -230,19 +207,12 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(frontmatterModule, 'updateFrontmatter').mockImplementation((existing, updates) => ({
-      ...existing,
-      ...updates,
-      updated: '2026-01-12T00:00:00.000Z',
-    }));
-
-    vi.spyOn(frontmatterModule, 'serialiseMemoryFile').mockReturnValue('---\nmocked\n---\n\nTest content\n');
     vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
     const result = await untagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['nonexistent', 'also-nonexistent'],
     });
 
@@ -267,19 +237,12 @@ describe('untagMemory', () => {
       },
     });
 
-    vi.spyOn(frontmatterModule, 'updateFrontmatter').mockImplementation((existing, updates) => ({
-      ...existing,
-      ...updates,
-      updated: '2026-01-12T00:00:00.000Z',
-    }));
-
-    vi.spyOn(frontmatterModule, 'serialiseMemoryFile').mockReturnValue('---\nmocked\n---\n\nTest content\n');
     vi.spyOn(fsUtils, 'writeFileAtomic').mockReturnValue(undefined);
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(indexModule, 'addToIndex').mockResolvedValue(undefined);
 
     const result = await untagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['b', 'd'],
     });
 
@@ -291,7 +254,7 @@ describe('untagMemory', () => {
     vi.spyOn(readModule, 'readMemory').mockRejectedValue(new Error('Read failed'));
 
     const result = await tagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['new-tag'],
     });
 
@@ -304,7 +267,7 @@ describe('untagMemory', () => {
     vi.spyOn(readModule, 'readMemory').mockRejectedValue(new Error('Read failed'));
 
     const result = await untagMemory({
-      id: 'test-id',
+      id: memoryId('test-id'),
       tags: ['some-tag'],
     });
 

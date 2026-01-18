@@ -8,6 +8,7 @@ import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
 import * as moveModule from '../maintenance/move.js';
 import type { MoveResponse } from '../maintenance/move.js';
+import { memoryId } from '../test-utils/branded-helpers.js';
 
 /** Helper to create successful move response */
 const mockMoveSuccess = (id: string): MoveResponse => ({
@@ -83,7 +84,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -93,7 +94,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -103,7 +104,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-bar.md',
         },
         {
-          id: 'learning-baz',
+          id: memoryId('learning-baz'),
           type: MemoryType.Learning,
           title: 'Baz Learning',
           tags: [],
@@ -117,7 +118,7 @@ describe('bulkMove', () => {
 
     vi.spyOn(moveModule, 'moveMemory').mockResolvedValue({
       status: 'success',
-      id: 'decision-foo',
+      id: memoryId('decision-foo'),
       changes: {
         fileMoved: true,
         sourceGraphUpdated: true,
@@ -144,7 +145,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth Decision',
           tags: ['auth', 'security'],
@@ -154,7 +155,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'decision-api',
+          id: memoryId('decision-api'),
           type: MemoryType.Decision,
           title: 'API Decision',
           tags: ['api'],
@@ -184,7 +185,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -194,7 +195,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar Learning',
           tags: [],
@@ -224,7 +225,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-global',
+          id: memoryId('decision-global'),
           type: MemoryType.Decision,
           title: 'Global Decision',
           tags: [],
@@ -234,7 +235,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-global.md',
         },
         {
-          id: 'decision-project',
+          id: memoryId('decision-project'),
           type: MemoryType.Decision,
           title: 'Project Decision',
           tags: [],
@@ -264,7 +265,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-already-local',
+          id: memoryId('decision-already-local'),
           type: MemoryType.Decision,
           title: 'Already Local',
           tags: [],
@@ -274,7 +275,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-already-local.md',
         },
         {
-          id: 'decision-project',
+          id: memoryId('decision-project'),
           type: MemoryType.Decision,
           title: 'Project Decision',
           tags: [],
@@ -305,7 +306,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -315,7 +316,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -348,7 +349,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -358,7 +359,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -383,7 +384,7 @@ describe('bulkMove', () => {
     expect(result.movedCount).toBe(1);
     expect(result.movedIds).toEqual(['decision-foo']);
     expect(result.failedIds).toEqual([
-      { id: 'decision-bar', reason: 'Target file already exists' },
+      { id: memoryId('decision-bar'), reason: 'Target file already exists' },
     ]);
   });
 
@@ -393,7 +394,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -403,7 +404,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar',
           tags: [],
@@ -438,7 +439,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth-v1',
+          id: memoryId('decision-auth-v1'),
           type: MemoryType.Decision,
           title: 'Auth V1',
           tags: ['auth', 'deprecated'],
@@ -448,7 +449,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-auth-v1.md',
         },
         {
-          id: 'decision-auth-v2',
+          id: memoryId('decision-auth-v2'),
           type: MemoryType.Decision,
           title: 'Auth V2',
           tags: ['auth'],
@@ -458,7 +459,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-auth-v2.md',
         },
         {
-          id: 'learning-deprecated',
+          id: memoryId('learning-deprecated'),
           type: MemoryType.Learning,
           title: 'Deprecated Thing',
           tags: ['deprecated'],
@@ -489,7 +490,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -499,7 +500,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -509,7 +510,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-bar.md',
         },
         {
-          id: 'decision-baz',
+          id: memoryId('decision-baz'),
           type: MemoryType.Decision,
           title: 'Baz Decision',
           tags: [],
@@ -540,7 +541,7 @@ describe('bulkMove', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -550,7 +551,7 @@ describe('bulkMove', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar',
           tags: [],
@@ -573,7 +574,7 @@ describe('bulkMove', () => {
 
     expect(result.status).toBe('success');
     expect(result.movedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Network failure' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-bar'), reason: 'Error: Network failure' }]);
   });
 
   it('should handle general errors in outer try block', async () => {

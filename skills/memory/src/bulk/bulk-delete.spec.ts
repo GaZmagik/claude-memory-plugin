@@ -5,6 +5,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { bulkDelete } from './bulk-delete.js';
 import { MemoryType, Scope } from '../types/enums.js';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import * as indexModule from '../core/index.js';
 import * as fsUtils from '../core/fs-utils.js';
 
@@ -42,7 +43,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -52,7 +53,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -62,7 +63,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-bar.md',
         },
         {
-          id: 'learning-baz',
+          id: memoryId('learning-baz'),
           type: MemoryType.Learning,
           title: 'Baz Learning',
           tags: [],
@@ -93,7 +94,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth Decision',
           tags: ['auth', 'security'],
@@ -103,7 +104,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'decision-api',
+          id: memoryId('decision-api'),
           type: MemoryType.Decision,
           title: 'API Decision',
           tags: ['api'],
@@ -133,7 +134,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -143,7 +144,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar Learning',
           tags: [],
@@ -173,7 +174,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-global',
+          id: memoryId('decision-global'),
           type: MemoryType.Decision,
           title: 'Global Decision',
           tags: [],
@@ -183,7 +184,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-global.md',
         },
         {
-          id: 'decision-project',
+          id: memoryId('decision-project'),
           type: MemoryType.Decision,
           title: 'Project Decision',
           tags: [],
@@ -213,7 +214,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -223,7 +224,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -252,7 +253,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo Decision',
           tags: [],
@@ -262,7 +263,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar Decision',
           tags: [],
@@ -286,7 +287,7 @@ describe('bulkDelete', () => {
     expect(result.status).toBe('success');
     expect(result.deletedCount).toBe(1);
     expect(result.deletedIds).toEqual(['decision-foo']);
-    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'File not found' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-bar'), reason: 'File not found' }]);
   });
 
   it('should call progress callback', async () => {
@@ -295,7 +296,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -305,7 +306,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar',
           tags: [],
@@ -339,7 +340,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth-v1',
+          id: memoryId('decision-auth-v1'),
           type: MemoryType.Decision,
           title: 'Auth V1',
           tags: ['auth', 'deprecated'],
@@ -349,7 +350,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-auth-v1.md',
         },
         {
-          id: 'decision-auth-v2',
+          id: memoryId('decision-auth-v2'),
           type: MemoryType.Decision,
           title: 'Auth V2',
           tags: ['auth'],
@@ -359,7 +360,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-auth-v2.md',
         },
         {
-          id: 'learning-deprecated',
+          id: memoryId('learning-deprecated'),
           type: MemoryType.Learning,
           title: 'Deprecated Thing',
           tags: ['deprecated'],
@@ -392,7 +393,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-malicious',
+          id: memoryId('decision-malicious'),
           type: MemoryType.Decision,
           title: 'Malicious',
           tags: [],
@@ -410,7 +411,7 @@ describe('bulkDelete', () => {
 
     expect(result.status).toBe('success');
     expect(result.deletedCount).toBe(0);
-    expect(result.failedIds).toEqual([{ id: 'decision-malicious', reason: 'Path traversal not allowed' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-malicious'), reason: 'Path traversal not allowed' }]);
   });
 
   it('should handle thrown exceptions during file deletion', async () => {
@@ -419,7 +420,7 @@ describe('bulkDelete', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -429,7 +430,7 @@ describe('bulkDelete', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
           title: 'Bar',
           tags: [],
@@ -452,7 +453,7 @@ describe('bulkDelete', () => {
 
     expect(result.status).toBe('success');
     expect(result.deletedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Permission denied' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-bar'), reason: 'Error: Permission denied' }]);
   });
 
   it('should handle general errors in outer try block', async () => {

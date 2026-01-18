@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import {
   matchGlobPattern,
   matchTags,
@@ -75,7 +76,7 @@ describe('matchTags', () => {
 describe('filterMemories', () => {
   const testMemories: IndexEntry[] = [
     {
-      id: 'decision-auth-flow',
+      id: memoryId('decision-auth-flow'),
       type: MemoryType.Decision,
       title: 'Auth Flow Decision',
       tags: ['auth', 'security'],
@@ -85,7 +86,7 @@ describe('filterMemories', () => {
       relativePath: 'permanent/decision-auth-flow.md',
     },
     {
-      id: 'decision-api-design',
+      id: memoryId('decision-api-design'),
       type: MemoryType.Decision,
       title: 'API Design Decision',
       tags: ['api', 'design'],
@@ -95,7 +96,7 @@ describe('filterMemories', () => {
       relativePath: 'permanent/decision-api-design.md',
     },
     {
-      id: 'learning-test-patterns',
+      id: memoryId('learning-test-patterns'),
       type: MemoryType.Learning,
       title: 'Test Patterns',
       tags: ['testing', 'patterns'],
@@ -105,7 +106,7 @@ describe('filterMemories', () => {
       relativePath: 'permanent/learning-test-patterns.md',
     },
     {
-      id: 'gotcha-auth-edge-case',
+      id: memoryId('gotcha-auth-edge-case'),
       type: MemoryType.Gotcha,
       title: 'Auth Edge Case',
       tags: ['auth', 'gotcha'],
@@ -170,7 +171,7 @@ describe('filterMemories', () => {
 describe('countMatches', () => {
   const testMemories: IndexEntry[] = [
     {
-      id: 'decision-a',
+      id: memoryId('decision-a'),
       type: MemoryType.Decision,
       title: 'A',
       tags: [],
@@ -180,7 +181,7 @@ describe('countMatches', () => {
       relativePath: 'permanent/decision-a.md',
     },
     {
-      id: 'decision-b',
+      id: memoryId('decision-b'),
       type: MemoryType.Decision,
       title: 'B',
       tags: [],
@@ -190,7 +191,7 @@ describe('countMatches', () => {
       relativePath: 'permanent/decision-b.md',
     },
     {
-      id: 'learning-c',
+      id: memoryId('learning-c'),
       type: MemoryType.Learning,
       title: 'C',
       tags: [],

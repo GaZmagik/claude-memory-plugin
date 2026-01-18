@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { bulkUnlink } from './bulk-unlink.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
@@ -18,7 +19,7 @@ const mockUnlinkSuccess = (): UnlinkMemoriesResponse => ({
 /** Standard test memories */
 const testMemories = [
   {
-    id: 'decision-foo',
+    id: memoryId('decision-foo'),
     type: MemoryType.Decision,
     title: 'Foo',
     tags: [],
@@ -28,7 +29,7 @@ const testMemories = [
     relativePath: 'permanent/decision-foo.md',
   },
   {
-    id: 'decision-bar',
+    id: memoryId('decision-bar'),
     type: MemoryType.Decision,
     title: 'Bar',
     tags: [],
@@ -142,7 +143,7 @@ describe('bulkUnlink', () => {
     const result = await bulkUnlink({ pattern: 'decision-*', target: 'hub-main' });
 
     expect(result.unlinkedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Edge not found' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-bar'), reason: 'Edge not found' }]);
   });
 
   it('should call progress callback', async () => {
@@ -201,7 +202,7 @@ describe('bulkUnlink', () => {
 
     expect(result.status).toBe('success');
     expect(result.unlinkedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'decision-bar', reason: 'Error: Network failure' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('decision-bar'), reason: 'Error: Network failure' }]);
   });
 
   it('should handle general errors in outer try block', async () => {

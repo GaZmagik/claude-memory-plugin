@@ -3,9 +3,10 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { readMemory } from './read.js';
 import type { ReadMemoryRequest } from '../types/api.js';
-import type { IndexEntry, MemoryFrontmatter } from '../types/memory.js';
+import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from './index.js';
 import * as fsUtils from './fs-utils.js';
@@ -25,7 +26,7 @@ describe('readMemory', () => {
   describe('validation', () => {
     it('should return error when id is empty', async () => {
       const request: ReadMemoryRequest = {
-        id: '',
+        id: memoryId(''),
       };
 
       const result = await readMemory(request);
@@ -36,7 +37,7 @@ describe('readMemory', () => {
 
     it('should return error when id is whitespace only', async () => {
       const request: ReadMemoryRequest = {
-        id: '   ',
+        id: memoryId('   '),
       };
 
       const result = await readMemory(request);
@@ -47,7 +48,7 @@ describe('readMemory', () => {
   });
 
   describe('successful read', () => {
-    const mockId = 'learning-test-memory';
+    const mockId = memoryId('learning-test-memory');
     const mockIndexEntry: IndexEntry = {
       id: mockId,
       type: MemoryType.Learning,
@@ -58,15 +59,20 @@ describe('readMemory', () => {
       scope: Scope.Local,
       relativePath: `${mockId}.md`,
     };
-    const mockFrontmatter: MemoryFrontmatter = {
-      type: MemoryType.Learning,
-      title: 'Test Memory',
-      created: '2026-01-11T00:00:00.000Z',
-      updated: '2026-01-11T00:00:00.000Z',
-      tags: ['test'],
-      scope: Scope.Local,
-    };
     const mockContent = 'This is test content';
+    // Valid YAML file content that parseMemoryFile can parse
+    const mockFileContent = `---
+type: learning
+title: Test Memory
+created: 2026-01-11T00:00:00.000Z
+updated: 2026-01-11T00:00:00.000Z
+tags:
+  - test
+scope: local
+---
+
+${mockContent}
+`;
 
     it('should read memory found in index', async () => {
       const request: ReadMemoryRequest = {
@@ -76,11 +82,7 @@ describe('readMemory', () => {
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
-        frontmatter: mockFrontmatter,
-        content: mockContent,
-      });
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -98,11 +100,7 @@ describe('readMemory', () => {
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
-        frontmatter: mockFrontmatter,
-        content: mockContent,
-      });
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -121,11 +119,7 @@ describe('readMemory', () => {
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
-        frontmatter: mockFrontmatter,
-        content: mockContent,
-      });
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
 
       await readMemory(request);
 
@@ -141,11 +135,7 @@ describe('readMemory', () => {
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
-        frontmatter: mockFrontmatter,
-        content: mockContent,
-      });
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
 
       const result = await readMemory(request);
 
@@ -167,11 +157,7 @@ describe('readMemory', () => {
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(mockIndexEntry);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockReturnValue({
-        frontmatter: mockFrontmatter,
-        content: mockContent,
-      });
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue(mockFileContent);
 
       const result = await readMemory(request);
 

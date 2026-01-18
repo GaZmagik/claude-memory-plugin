@@ -17,6 +17,7 @@ import {
   isCurrentDocument,
 } from './state.js';
 import { Scope } from '../types/enums.js';
+import { thinkId } from '../test-utils/branded-helpers.js';
 
 describe('think/state', () => {
   let tempDir: string;
@@ -47,13 +48,13 @@ describe('think/state', () => {
     it('loads existing state from file', () => {
       const stateFile = path.join(tempDir, 'thought.json');
       fs.writeFileSync(stateFile, JSON.stringify({
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: '2026-01-12T10:00:00Z',
       }));
 
       const state = loadState(tempDir);
-      expect(state.currentDocumentId).toBe('think-20260112-100000');
+      expect(state.currentDocumentId).toBe(thinkId('think-20260112-100000'));
       expect(state.currentScope).toBe(Scope.Project);
     });
 
@@ -69,7 +70,7 @@ describe('think/state', () => {
   describe('saveState', () => {
     it('creates state file', () => {
       saveState(tempDir, {
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Local,
         lastUpdated: '2026-01-12T10:00:00Z',
       });
@@ -78,14 +79,14 @@ describe('think/state', () => {
       expect(fs.existsSync(stateFile)).toBe(true);
 
       const content = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
-      expect(content.currentDocumentId).toBe('think-20260112-100000');
+      expect(content.currentDocumentId).toBe(thinkId('think-20260112-100000'));
       expect(content.currentScope).toBe(Scope.Local);
     });
 
     it('creates directory if needed', () => {
       const nestedDir = path.join(tempDir, 'nested', 'path');
       saveState(nestedDir, {
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: '2026-01-12T10:00:00Z',
       });
@@ -96,7 +97,7 @@ describe('think/state', () => {
     it('updates lastUpdated timestamp', () => {
       const before = new Date().toISOString();
       saveState(tempDir, {
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: '2020-01-01T00:00:00Z', // Old timestamp
       });
@@ -118,12 +119,12 @@ describe('think/state', () => {
 
     it('returns current document ID', () => {
       saveState(tempDir, {
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Project,
         lastUpdated: new Date().toISOString(),
       });
 
-      expect(getCurrentDocumentId(tempDir)).toBe('think-20260112-100000');
+      expect(getCurrentDocumentId(tempDir)).toBe(thinkId('think-20260112-100000'));
     });
   });
 
@@ -134,7 +135,7 @@ describe('think/state', () => {
 
     it('returns current scope', () => {
       saveState(tempDir, {
-        currentDocumentId: 'think-20260112-100000',
+        currentDocumentId: thinkId('think-20260112-100000'),
         currentScope: Scope.Local,
         lastUpdated: new Date().toISOString(),
       });
@@ -148,7 +149,7 @@ describe('think/state', () => {
       setCurrentDocument(tempDir, 'think-20260112-100000', Scope.Project);
 
       const state = loadState(tempDir);
-      expect(state.currentDocumentId).toBe('think-20260112-100000');
+      expect(state.currentDocumentId).toBe(thinkId('think-20260112-100000'));
       expect(state.currentScope).toBe(Scope.Project);
     });
 
@@ -157,7 +158,7 @@ describe('think/state', () => {
       setCurrentDocument(tempDir, 'think-20260112-110000', Scope.Local);
 
       const state = loadState(tempDir);
-      expect(state.currentDocumentId).toBe('think-20260112-110000');
+      expect(state.currentDocumentId).toBe(thinkId('think-20260112-110000'));
       expect(state.currentScope).toBe(Scope.Local);
     });
   });

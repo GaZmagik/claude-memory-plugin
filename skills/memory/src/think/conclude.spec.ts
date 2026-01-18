@@ -7,7 +7,6 @@ import * as documentModule from './document.js';
 import * as stateModule from './state.js';
 import * as fsUtilsModule from '../core/fs-utils.js';
 import * as writeModule from '../core/write.js';
-import * as frontmatterModule from './frontmatter.js';
 import { ThinkStatus, MemoryType, Scope, ThoughtType } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -372,18 +371,7 @@ tags: []
 ## Thoughts
 
 Initial thought`);
-
-    vi.spyOn(frontmatterModule, 'parseThinkDocument').mockReturnValue({
-      frontmatter: {
-        topic: 'Test Topic',
-        status: ThinkStatus.Active,
-        created: '2026-01-01T12:00:00.000Z',
-        updated: '2026-01-01T12:00:00.000Z',
-        tags: [],
-      } as any,
-      thoughts: [],
-      rawContent: '## Thoughts\n\nInitial thought',
-    });
+    // Note: No parseThinkDocument mock needed - real parser handles valid YAML
 
     vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockImplementation(() => {});
     vi.spyOn(stateModule, 'clearCurrentDocument').mockImplementation(() => {});

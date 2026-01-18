@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { memoryId, memoryIds } from '../test-utils/branded-helpers.js';
 import {
   parseFrontmatter,
   serialiseFrontmatter,
@@ -94,7 +95,7 @@ describe('serialiseFrontmatter', () => {
       updated: '2026-01-10T12:00:00Z',
       tags: ['warning'],
       severity: Severity.High,
-      links: ['related-memory'],
+      links: memoryIds(['related-memory']),
     };
 
     const yaml = serialiseFrontmatter(frontmatter);
@@ -302,7 +303,7 @@ describe('serialiseFrontmatter with all optional fields', () => {
       created: '2026-01-10T12:00:00Z',
       updated: '2026-01-10T12:00:00Z',
       tags: ['test'],
-      meta: { id: 'custom-id', custom: 'value' },
+      meta: { id: memoryId('custom-id'), custom: 'value' },
     };
 
     const yaml = serialiseFrontmatter(frontmatter);
@@ -326,7 +327,7 @@ describe('serialiseFrontmatter with all optional fields', () => {
 
   it('should include id when present', () => {
     const frontmatter: MemoryFrontmatter = {
-      id: 'learning-custom-id',
+      id: memoryId('learning-custom-id'),
       type: MemoryType.Learning,
       title: 'Test with ID',
       created: '2026-01-10T12:00:00Z',
@@ -430,7 +431,7 @@ describe('createFrontmatter', () => {
 
   it('should include id when provided', () => {
     const result = createFrontmatter({
-      id: 'learning-custom-id',
+      id: memoryId('learning-custom-id'),
       type: MemoryType.Learning,
       title: 'Test',
       tags: [],
@@ -455,7 +456,7 @@ describe('createFrontmatter', () => {
       type: MemoryType.Decision,
       title: 'Test',
       tags: [],
-      links: ['related-memory'],
+      links: memoryIds(['related-memory']),
     });
 
     expect(result.links).toEqual(['related-memory']);
@@ -514,7 +515,7 @@ describe('extractId', () => {
       created: '2026-01-01T00:00:00Z',
       updated: '2026-01-01T00:00:00Z',
       tags: [],
-      meta: { id: 'custom-memory-id' },
+      meta: { id: memoryId('custom-memory-id') },
     };
 
     expect(extractId(frontmatter)).toBe('custom-memory-id');

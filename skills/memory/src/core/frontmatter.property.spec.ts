@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { memoryId, memoryIds } from '../test-utils/branded-helpers.js';
 import { parseMemoryFile, serialiseMemoryFile, createFrontmatter, updateFrontmatter } from './frontmatter.js';
 import { MemoryType, Scope, Severity } from '../types/enums.js';
 import type { MemoryFrontmatter } from '../types/memory.js';
@@ -37,7 +38,7 @@ describe('frontmatter property-based tests', () => {
           updated: '2026-01-13T00:00:00.000Z',
           tags: ['architecture', 'decision'],
           scope: Scope.Local,
-          links: ['learning-related', 'gotcha-watch-out'],
+          links: memoryIds(['learning-related', 'gotcha-watch-out']),
         },
       ];
 
@@ -91,7 +92,7 @@ describe('frontmatter property-based tests', () => {
         tags: ['test'],
         scope: Scope.Project,
         severity: Severity.Medium,
-        links: ['other-memory'],
+        links: memoryIds(['other-memory']),
         source: 'some-source',
       };
 
@@ -117,7 +118,7 @@ describe('frontmatter property-based tests', () => {
   describe('createFrontmatter properties', () => {
     it('should always include required fields', () => {
       const created = createFrontmatter({
-        id: 'test-id',
+        id: memoryId('test-id'),
         type: MemoryType.Learning,
         title: 'Test',
         tags: [],
@@ -133,7 +134,7 @@ describe('frontmatter property-based tests', () => {
 
     it('should set created and updated to same value initially', () => {
       const fm = createFrontmatter({
-        id: 'test-id',
+        id: memoryId('test-id'),
         type: MemoryType.Learning,
         title: 'Test',
         tags: [],
@@ -145,7 +146,7 @@ describe('frontmatter property-based tests', () => {
 
     it('should use valid ISO 8601 timestamps', () => {
       const fm = createFrontmatter({
-        id: 'test-id',
+        id: memoryId('test-id'),
         type: MemoryType.Learning,
         title: 'Test',
         tags: [],
@@ -161,13 +162,13 @@ describe('frontmatter property-based tests', () => {
 
     it('should preserve all provided optional fields', () => {
       const input = {
-        id: 'test-id',
+        id: memoryId('test-id'),
         type: MemoryType.Gotcha,
         title: 'Test',
         tags: ['tag1', 'tag2'],
         scope: Scope.Global,
         severity: Severity.High,
-        links: ['link1'],
+        links: memoryIds(['link1']),
         source: 'source-value',
         meta: { custom: 'field' },
       };
@@ -345,7 +346,7 @@ Content`;
         created: '2026-01-13T00:00:00.000Z',
         updated: '2026-01-13T00:00:00.000Z',
         tags: ['tag1', 'tag2', 'tag3'],
-        links: ['link1', 'link2'],
+        links: memoryIds(['link1', 'link2']),
       };
 
       const serialised = serialiseMemoryFile(fm, 'content');

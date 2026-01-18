@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { linkMemories, unlinkMemories } from './link.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as structureModule from './structure.js';
@@ -42,7 +43,7 @@ describe('linkMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'target-id',
+          id: memoryId('target-id'),
           type: MemoryType.Decision,
           title: 'Target',
           tags: [],
@@ -65,7 +66,7 @@ describe('linkMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'source-id',
+          id: memoryId('source-id'),
           type: MemoryType.Decision,
           title: 'Source',
           tags: [],
@@ -88,7 +89,7 @@ describe('linkMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'source-id',
+          id: memoryId('source-id'),
           type: MemoryType.Decision,
           title: 'Source',
           tags: [],
@@ -98,7 +99,7 @@ describe('linkMemories', () => {
           relativePath: 'permanent/source-id.md',
         },
         {
-          id: 'target-id',
+          id: memoryId('target-id'),
           type: MemoryType.Artifact,
           title: 'Target',
           tags: [],
@@ -152,7 +153,7 @@ describe('linkMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'source-id',
+          id: memoryId('source-id'),
           type: MemoryType.Decision,
           title: 'Source',
           tags: [],
@@ -162,7 +163,7 @@ describe('linkMemories', () => {
           relativePath: 'permanent/source-id.md',
         },
         {
-          id: 'target-id',
+          id: memoryId('target-id'),
           type: MemoryType.Artifact,
           title: 'Target',
           tags: [],
@@ -177,8 +178,8 @@ describe('linkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'source-id', type: 'decision' },
-        { id: 'target-id', type: 'artifact' },
+        { id: memoryId('source-id'), type: 'decision' },
+        { id: memoryId('target-id'), type: 'artifact' },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });
@@ -203,7 +204,7 @@ describe('linkMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'source-id',
+          id: memoryId('source-id'),
           type: MemoryType.Decision,
           title: 'Source',
           tags: [],
@@ -213,7 +214,7 @@ describe('linkMemories', () => {
           relativePath: 'permanent/source-id.md',
         },
         {
-          id: 'target-id',
+          id: memoryId('target-id'),
           type: MemoryType.Artifact,
           title: 'Target',
           tags: [],
@@ -293,8 +294,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'source-id', type: 'decision' },
-        { id: 'target-id', type: 'artifact' },
+        { id: memoryId('source-id'), type: 'decision' },
+        { id: memoryId('target-id'), type: 'artifact' },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });
@@ -302,8 +303,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(edgesModule, 'removeEdge').mockReturnValue({
       version: 1,
       nodes: [
-        { id: 'source-id', type: 'decision' },
-        { id: 'target-id', type: 'artifact' },
+        { id: memoryId('source-id'), type: 'decision' },
+        { id: memoryId('target-id'), type: 'artifact' },
       ],
       edges: [],
     });
@@ -349,8 +350,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'source-id', type: 'decision' },
-        { id: 'target-id', type: 'artifact' },
+        { id: memoryId('source-id'), type: 'decision' },
+        { id: memoryId('target-id'), type: 'artifact' },
       ],
       edges: [
         { source: 'source-id', target: 'target-id', label: 'implements' },
@@ -361,8 +362,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(edgesModule, 'removeEdge').mockReturnValue({
       version: 1,
       nodes: [
-        { id: 'source-id', type: 'decision' },
-        { id: 'target-id', type: 'artifact' },
+        { id: memoryId('source-id'), type: 'decision' },
+        { id: memoryId('target-id'), type: 'artifact' },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });

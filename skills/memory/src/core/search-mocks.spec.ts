@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { searchMemories } from './search.js';
 import * as indexModule from './index.js';
 import * as fsUtilsModule from './fs-utils.js';
@@ -24,7 +25,7 @@ describe('searchMemories mocked edge cases', () => {
       lastUpdated: new Date().toISOString(),
       memories: [
         {
-          id: 'learning-unrelated',
+          id: memoryId('learning-unrelated'),
           title: 'Unrelated Title',
           type: MemoryType.Learning,
           tags: ['other'],

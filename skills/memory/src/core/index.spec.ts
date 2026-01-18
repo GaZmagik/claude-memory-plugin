@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import {
   createEmptyIndex,
   loadIndex,
@@ -57,7 +58,7 @@ describe('Index operations', () => {
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [
           {
-            id: 'test-memory',
+            id: memoryId('test-memory'),
             type: MemoryType.Decision,
             title: 'Test Memory',
             tags: ['test'],
@@ -96,7 +97,7 @@ describe('Index operations', () => {
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [
           {
-            id: 'learning-test-memory',
+            id: memoryId('learning-test-memory'),
             file: path.join(testDir, 'permanent', 'learning-test-memory.md'),
             title: 'Test Memory',
             type: 'permanent', // bash used storage type, not memory type
@@ -122,7 +123,7 @@ describe('Index operations', () => {
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [
           {
-            id: 'decision-modern',
+            id: memoryId('decision-modern'),
             type: MemoryType.Decision,
             title: 'Modern Memory',
             tags: ['test'],
@@ -147,7 +148,7 @@ describe('Index operations', () => {
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [
           {
-            id: 'decision-broken',
+            id: memoryId('decision-broken'),
             type: MemoryType.Decision,
             title: 'Broken Memory',
             tags: [],
@@ -171,7 +172,7 @@ describe('Index operations', () => {
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [
           {
-            id: 'think-20260110-120000',
+            id: memoryId('think-20260110-120000'),
             type: MemoryType.Breadcrumb,
             title: 'Think Document',
             tags: [],
@@ -218,7 +219,7 @@ describe('Index operations', () => {
   describe('addToIndex', () => {
     it('should add new entry to index', async () => {
       const entry: IndexEntry = {
-        id: 'new-memory',
+        id: memoryId('new-memory'),
         type: MemoryType.Learning,
         title: 'New Memory',
         tags: ['new'],
@@ -237,7 +238,7 @@ describe('Index operations', () => {
 
     it('should replace existing entry with same id', async () => {
       const entry1: IndexEntry = {
-        id: 'duplicate',
+        id: memoryId('duplicate'),
         type: MemoryType.Artifact,
         title: 'Original',
         tags: [],
@@ -264,7 +265,7 @@ describe('Index operations', () => {
   describe('removeFromIndex', () => {
     it('should remove entry by id', async () => {
       const entry: IndexEntry = {
-        id: 'to-remove',
+        id: memoryId('to-remove'),
         type: MemoryType.Gotcha,
         title: 'To Remove',
         tags: [],
@@ -291,9 +292,9 @@ describe('Index operations', () => {
   describe('batchRemoveFromIndex', () => {
     it('should remove multiple entries in single operation', async () => {
       const entries: IndexEntry[] = [
-        { id: 'batch-1', type: MemoryType.Learning, title: 'Batch 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-1.md' },
-        { id: 'batch-2', type: MemoryType.Learning, title: 'Batch 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-2.md' },
-        { id: 'batch-3', type: MemoryType.Learning, title: 'Batch 3', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-3.md' },
+        { id: memoryId('batch-1'), type: MemoryType.Learning, title: 'Batch 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-1.md' },
+        { id: memoryId('batch-2'), type: MemoryType.Learning, title: 'Batch 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-2.md' },
+        { id: memoryId('batch-3'), type: MemoryType.Learning, title: 'Batch 3', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'learning-batch-3.md' },
       ];
       for (const entry of entries) await addToIndex(testDir, entry);
 
@@ -311,7 +312,7 @@ describe('Index operations', () => {
     });
 
     it('should return 0 when no ids match', async () => {
-      const entry: IndexEntry = { id: 'existing', type: MemoryType.Decision, title: 'Existing', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'decision-existing.md' };
+      const entry: IndexEntry = { id: memoryId('existing'), type: MemoryType.Decision, title: 'Existing', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'decision-existing.md' };
       await addToIndex(testDir, entry);
 
       const removed = await batchRemoveFromIndex(testDir, ['nonexistent-1', 'nonexistent-2']);
@@ -323,8 +324,8 @@ describe('Index operations', () => {
 
     it('should handle partial matches', async () => {
       const entries: IndexEntry[] = [
-        { id: 'exists-1', type: MemoryType.Gotcha, title: 'Exists 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-1.md' },
-        { id: 'exists-2', type: MemoryType.Gotcha, title: 'Exists 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-2.md' },
+        { id: memoryId('exists-1'), type: MemoryType.Gotcha, title: 'Exists 1', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-1.md' },
+        { id: memoryId('exists-2'), type: MemoryType.Gotcha, title: 'Exists 2', tags: [], created: '2026-01-10T12:00:00Z', updated: '2026-01-10T12:00:00Z', scope: Scope.Global, relativePath: 'gotcha-exists-2.md' },
       ];
       for (const entry of entries) await addToIndex(testDir, entry);
 
@@ -339,7 +340,7 @@ describe('Index operations', () => {
   describe('findInIndex', () => {
     it('should return entry by id', async () => {
       const entry: IndexEntry = {
-        id: 'find-me',
+        id: memoryId('find-me'),
         type: MemoryType.Hub,
         title: 'Find Me',
         tags: [],
@@ -366,7 +367,7 @@ describe('Index operations', () => {
     beforeEach(async () => {
       const memories: IndexEntry[] = [
         {
-          id: 'decision-1',
+          id: memoryId('decision-1'),
           type: MemoryType.Decision,
           title: 'Decision 1',
           tags: ['typescript'],
@@ -376,7 +377,7 @@ describe('Index operations', () => {
           relativePath: 'decision-1.md',
         },
         {
-          id: 'learning-1',
+          id: memoryId('learning-1'),
           type: MemoryType.Learning,
           title: 'Learning 1',
           tags: ['typescript', 'pattern'],
@@ -386,7 +387,7 @@ describe('Index operations', () => {
           relativePath: 'learning-1.md',
         },
         {
-          id: 'artifact-1',
+          id: memoryId('artifact-1'),
           type: MemoryType.Artifact,
           title: 'Artifact 1',
           tags: ['javascript'],
@@ -459,7 +460,7 @@ links: []
     it('should detect and remove orphans from index', async () => {
       // Create an index with an entry that has no corresponding file
       const orphanEntry: IndexEntry = {
-        id: 'orphan-memory',
+        id: memoryId('orphan-memory'),
         type: MemoryType.Learning,
         title: 'Orphan Memory',
         tags: [],
@@ -561,7 +562,7 @@ title: [[[invalid yaml
     it('should count only truly new entries', async () => {
       // Add an existing entry to the index
       const existingEntry: IndexEntry = {
-        id: 'existing-memory',
+        id: memoryId('existing-memory'),
         type: MemoryType.Decision,
         title: 'Existing Memory',
         tags: [],

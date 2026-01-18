@@ -8,6 +8,7 @@ import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from './index.js';
 import * as readModule from './read.js';
 import * as graphModule from '../graph/structure.js';
+import { memoryId } from '../test-utils/branded-helpers.js';
 
 describe('exportMemories', () => {
   beforeEach(() => {
@@ -38,7 +39,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -48,7 +49,7 @@ describe('exportMemories', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar',
           tags: [],
@@ -88,7 +89,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -98,7 +99,7 @@ describe('exportMemories', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar',
           tags: [],
@@ -137,7 +138,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-global',
+          id: memoryId('decision-global'),
           type: MemoryType.Decision,
           title: 'Global',
           tags: [],
@@ -147,7 +148,7 @@ describe('exportMemories', () => {
           relativePath: 'permanent/decision-global.md',
         },
         {
-          id: 'decision-project',
+          id: memoryId('decision-project'),
           type: MemoryType.Decision,
           title: 'Project',
           tags: [],
@@ -187,7 +188,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -231,7 +232,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: ['tag1'],
@@ -272,7 +273,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -282,7 +283,7 @@ describe('exportMemories', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar',
           tags: [],
@@ -312,9 +313,9 @@ describe('exportMemories', () => {
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'decision-foo', type: 'decision' },
-        { id: 'learning-bar', type: 'learning' },
-        { id: 'external-node', type: 'artifact' },
+        { id: memoryId('decision-foo'), type: 'decision' },
+        { id: memoryId('learning-bar'), type: 'learning' },
+        { id: memoryId('external-node'), type: 'artifact' },
       ],
       edges: [
         { source: 'decision-foo', target: 'learning-bar', label: 'relates-to' },
@@ -350,7 +351,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -390,7 +391,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -430,7 +431,7 @@ describe('exportMemories', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           type: MemoryType.Decision,
           title: 'Foo',
           tags: [],
@@ -440,7 +441,7 @@ describe('exportMemories', () => {
           relativePath: 'permanent/decision-foo.md',
         },
         {
-          id: 'learning-bar',
+          id: memoryId('learning-bar'),
           type: MemoryType.Learning,
           title: 'Bar',
           tags: [],
@@ -470,8 +471,8 @@ describe('exportMemories', () => {
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'decision-foo', type: 'decision' },
-        { id: 'learning-bar', type: 'learning' },
+        { id: memoryId('decision-foo'), type: 'decision' },
+        { id: memoryId('learning-bar'), type: 'learning' },
       ],
       edges: [
         { source: 'decision-foo', target: 'learning-bar', label: 'relates-to' },

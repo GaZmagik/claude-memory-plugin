@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { bulkLink } from './bulk-link.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
@@ -63,7 +64,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -92,7 +93,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth',
           tags: [],
@@ -102,7 +103,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'decision-api',
+          id: memoryId('decision-api'),
           type: MemoryType.Decision,
           title: 'API',
           tags: [],
@@ -112,7 +113,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-api.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -142,7 +143,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth',
           tags: [],
@@ -152,7 +153,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'decision-api',
+          id: memoryId('decision-api'),
           type: MemoryType.Decision,
           title: 'API',
           tags: [],
@@ -162,7 +163,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-api.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -191,7 +192,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth',
           tags: [],
@@ -201,7 +202,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -230,7 +231,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-auth',
+          id: memoryId('decision-auth'),
           type: MemoryType.Decision,
           title: 'Auth',
           tags: [],
@@ -240,7 +241,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-auth.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -269,7 +270,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-new',
+          id: memoryId('decision-new'),
           type: MemoryType.Decision,
           title: 'New',
           tags: [],
@@ -279,7 +280,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-new.md',
         },
         {
-          id: 'decision-existing',
+          id: memoryId('decision-existing'),
           type: MemoryType.Decision,
           title: 'Existing',
           tags: [],
@@ -289,7 +290,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-existing.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -327,7 +328,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-good',
+          id: memoryId('decision-good'),
           type: MemoryType.Decision,
           title: 'Good',
           tags: [],
@@ -337,7 +338,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-good.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],
@@ -366,7 +367,7 @@ describe('bulkLink', () => {
       lastUpdated: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-1',
+          id: memoryId('decision-1'),
           type: MemoryType.Decision,
           title: '1',
           tags: [],
@@ -376,7 +377,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-1.md',
         },
         {
-          id: 'decision-2',
+          id: memoryId('decision-2'),
           type: MemoryType.Decision,
           title: '2',
           tags: [],
@@ -386,7 +387,7 @@ describe('bulkLink', () => {
           relativePath: 'permanent/decision-2.md',
         },
         {
-          id: 'hub-decisions',
+          id: memoryId('hub-decisions'),
           type: MemoryType.Artifact,
           title: 'Decisions Hub',
           tags: [],

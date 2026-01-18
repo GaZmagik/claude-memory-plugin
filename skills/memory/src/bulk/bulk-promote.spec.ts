@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { bulkPromote } from './bulk-promote.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
@@ -27,7 +28,7 @@ const mockPromoteSuccess = (id: string, toType: MemoryType): PromoteResponse => 
 /** Standard test memories */
 const testMemories = [
   {
-    id: 'learning-foo',
+    id: memoryId('learning-foo'),
     type: MemoryType.Learning,
     title: 'Foo',
     tags: [],
@@ -37,7 +38,7 @@ const testMemories = [
     relativePath: 'permanent/learning-foo.md',
   },
   {
-    id: 'learning-bar',
+    id: memoryId('learning-bar'),
     type: MemoryType.Learning,
     title: 'Bar',
     tags: [],
@@ -112,7 +113,7 @@ describe('bulkPromote', () => {
         testMemories[0],
         {
           ...testMemories[1],
-          id: 'decision-bar',
+          id: memoryId('decision-bar'),
           type: MemoryType.Decision,
         },
       ],
@@ -160,7 +161,7 @@ describe('bulkPromote', () => {
       .mockResolvedValueOnce(mockPromoteSuccess('learning-foo', MemoryType.Decision))
       .mockResolvedValueOnce({
         status: 'error',
-        id: 'learning-bar',
+        id: memoryId('learning-bar'),
         toType: MemoryType.Decision,
         changes: {
           frontmatterUpdated: false,
@@ -178,7 +179,7 @@ describe('bulkPromote', () => {
     });
 
     expect(result.promotedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'learning-bar', reason: 'File not found' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('learning-bar'), reason: 'File not found' }]);
   });
 
   it('should call progress callback', async () => {
@@ -242,7 +243,7 @@ describe('bulkPromote', () => {
 
     expect(result.status).toBe('success');
     expect(result.promotedCount).toBe(1);
-    expect(result.failedIds).toEqual([{ id: 'learning-bar', reason: 'Error: Network failure' }]);
+    expect(result.failedIds).toEqual([{ id: memoryId('learning-bar'), reason: 'Error: Network failure' }]);
   });
 
   it('should handle general errors in outer try block', async () => {

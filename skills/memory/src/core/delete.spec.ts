@@ -9,6 +9,7 @@ import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from './index.js';
 import * as fsUtils from './fs-utils.js';
+import { memoryId } from '../test-utils/branded-helpers.js';
 
 describe('deleteMemory', () => {
   const mockBasePath = '/test/base';
@@ -48,7 +49,7 @@ describe('deleteMemory', () => {
 
   describe('successful deletion', () => {
     const mockIndexEntry: IndexEntry = {
-      id: mockId,
+      id: memoryId(mockId),
       type: MemoryType.Learning,
       title: 'Test Memory',
       tags: ['test'],

@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { memoryId } from '../test-utils/branded-helpers.js';
 import { importMemories } from './import.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { ExportPackage } from '../types/api.js';
@@ -58,7 +59,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -79,7 +80,7 @@ describe('importMemories', () => {
 
   it('should skip existing memories with skip strategy', async () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'decision-foo',
+      id: memoryId('decision-foo'),
       type: MemoryType.Decision,
       title: 'Foo',
       tags: [],
@@ -98,7 +99,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo Updated',
@@ -120,7 +121,7 @@ describe('importMemories', () => {
 
   it('should merge newer memories with merge strategy', async () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'decision-foo',
+      id: memoryId('decision-foo'),
       type: MemoryType.Decision,
       title: 'Foo',
       tags: [],
@@ -141,7 +142,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo Updated',
@@ -163,7 +164,7 @@ describe('importMemories', () => {
 
   it('should skip older memories with merge strategy', async () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'decision-foo',
+      id: memoryId('decision-foo'),
       type: MemoryType.Decision,
       title: 'Foo',
       tags: [],
@@ -182,7 +183,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo Old',
@@ -203,7 +204,7 @@ describe('importMemories', () => {
 
   it('should replace existing memories with replace strategy', async () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue({
-      id: 'decision-foo',
+      id: memoryId('decision-foo'),
       type: MemoryType.Decision,
       title: 'Foo',
       tags: [],
@@ -224,7 +225,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo Replaced',
@@ -255,7 +256,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -286,7 +287,7 @@ describe('importMemories', () => {
       exportedAt: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           frontmatter: {
             type: 'decision',
             title: 'Foo',
@@ -322,7 +323,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -334,7 +335,7 @@ describe('importMemories', () => {
           },
         ],
         graph: {
-          nodes: [{ id: 'decision-foo', type: 'decision' }],
+          nodes: [{ id: memoryId('decision-foo'), type: 'decision' }],
           edges: [{ source: 'decision-foo', target: 'hub-decisions', label: 'contributes-to' }],
         },
       },
@@ -363,7 +364,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -379,7 +380,7 @@ describe('importMemories', () => {
 
     expect(result.status).toBe('success');
     expect(result.importedCount).toBe(0);
-    expect(result.failures).toEqual([{ id: 'decision-foo', reason: 'Disk full' }]);
+    expect(result.failures).toEqual([{ id: memoryId('decision-foo'), reason: 'Disk full' }]);
   });
 
   it('should report write failures with fallback error message', async () => {
@@ -395,7 +396,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -411,7 +412,7 @@ describe('importMemories', () => {
 
     expect(result.status).toBe('success');
     expect(result.importedCount).toBe(0);
-    expect(result.failures).toEqual([{ id: 'decision-foo', reason: 'Unknown error' }]);
+    expect(result.failures).toEqual([{ id: memoryId('decision-foo'), reason: 'Unknown error' }]);
   });
 
   it('should handle import failure', async () => {
@@ -423,7 +424,7 @@ describe('importMemories', () => {
         exportedAt: '2026-01-01T00:00:00.000Z',
         memories: [
           {
-            id: 'decision-foo',
+            id: memoryId('decision-foo'),
             frontmatter: {
               type: MemoryType.Decision,
               title: 'Foo',
@@ -498,7 +499,7 @@ memories:
       exportedAt: '2026-01-01T00:00:00.000Z',
       memories: [
         {
-          id: 'decision-foo',
+          id: memoryId('decision-foo'),
           frontmatter: {
             type: 'decision',
             title: 'Foo',

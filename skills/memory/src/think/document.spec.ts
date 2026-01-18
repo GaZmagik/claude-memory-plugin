@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'bun:test';
 import * as fsUtilsModule from '../core/fs-utils.js';
 import * as stateModule from './state.js';
 import * as frontmatterModule from './frontmatter.js';
-import { ThinkStatus, MemoryType, Scope } from '../types/enums.js';
+import { ThinkStatus, Scope } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -412,20 +412,7 @@ tags: []
 
 ## Thoughts
 `);
-      vi.spyOn(frontmatterModule, 'parseThinkDocument').mockReturnValue({
-        frontmatter: {
-          type: MemoryType.Breadcrumb,
-          title: 'Test',
-          topic: 'Test',
-          status: ThinkStatus.Active,
-          created: '2026-01-01T12:00:00.000Z',
-          updated: '2026-01-01T12:00:00.000Z',
-          tags: [],
-          scope: Scope.Project,
-        },
-        thoughts: [],
-        rawContent: '## Thoughts\n',
-      });
+      // Note: No parseThinkDocument mock needed - real parser handles valid YAML
       vi.spyOn(fsUtilsModule, 'deleteFile').mockImplementation(() => {
         throw new Error('File locked');
       });

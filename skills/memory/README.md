@@ -13,15 +13,9 @@ See [SKILL.md](SKILL.md) for:
 
 ## Installation
 
-The memory CLI is a TypeScript application that runs on Bun. Install via `bun link` from the plugin root:
+The memory CLI is automatically linked when the plugin is installed via the [Enhance marketplace](https://github.com/GaZmagik/enhance). The `postinstall` script creates a symlink from `~/.bun/bin/memory` to the CLI.
 
-```bash
-cd /path/to/claude-memory-plugin
-bun install
-bun link
-```
-
-This exposes the `memory` command globally. Verify with:
+Verify with:
 
 ```bash
 memory help

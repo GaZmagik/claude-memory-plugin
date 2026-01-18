@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T18:12:20.257Z",
+  "lastUpdated": "2026-01-18T19:11:00.716Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1825,23 +1825,6 @@
       "relativePath": "permanent/learning-memory-system-analysis-session-linking-quality-audit.md"
     },
     {
-      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "vitest",
-        "project"
-      ],
-      "created": "2026-01-16T19:01:36.516Z",
-      "updated": "2026-01-16T19:01:36.516Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
       "type": "learning",
       "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking",
@@ -2078,23 +2061,6 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling.md",
       "severity": "high"
-    },
-    {
-      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent test pollution at coverage ceiling",
-      "tags": [
-        "retrospective",
-        "testing",
-        "coverage",
-        "mocking",
-        "project"
-      ],
-      "created": "2026-01-16T21:44:17.576Z",
-      "updated": "2026-01-16T21:44:17.576Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling.md",
-      "severity": "medium"
     },
     {
       "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
@@ -4181,6 +4147,40 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally.md",
       "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands",
+      "type": "gotcha",
+      "title": "Retro - stdin pipe inconsistency in memory CLI commands",
+      "tags": [
+        "retrospective",
+        "process",
+        "cli",
+        "stdin",
+        "project"
+      ],
+      "created": "2026-01-18T19:05:09.699Z",
+      "updated": "2026-01-18T19:05:09.699Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess",
+      "type": "learning",
+      "title": "Retro - Empty string falsiness caught by noUncheckedIndexedAccess",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "strictness",
+        "project"
+      ],
+      "created": "2026-01-18T19:05:13.985Z",
+      "updated": "2026-01-18T19:05:13.985Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess.md",
+      "severity": "low"
     }
   ]
 }

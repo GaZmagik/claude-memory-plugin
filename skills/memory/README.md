@@ -98,6 +98,38 @@ memory edges decision-postgres
 memory mermaid project
 ```
 
+### Bulk Operations
+
+```bash
+# Move memories matching pattern to different scope
+memory bulk-move --pattern "temp-*" --to local
+
+# Add tags to memories matching pattern
+memory bulk-tag --pattern "retro-*" --add retrospective,process
+
+# Remove tags from memories
+memory bulk-tag --pattern "old-*" --remove deprecated
+
+# Promote memories to a different type
+memory bulk-promote --pattern "investigation-*" --to learning
+
+# Remove links from memories to a target
+memory bulk-unlink --pattern "draft-*" --from hub-main
+
+# All bulk commands support --dry-run to preview changes
+memory bulk-move --pattern "test-*" --to local --dry-run
+```
+
+### Setup & Refresh
+
+```bash
+# Create local settings file from template
+memory setup
+
+# Backfill missing frontmatter fields (id, project, scope)
+memory refresh project
+```
+
 ### Thinking Sessions
 
 ```bash

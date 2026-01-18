@@ -586,11 +586,6 @@
       "title": "Memory System Analysis Session - Linking & Quality Audit"
     },
     {
-      "id": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "type": "learning",
-      "title": "Retro - Process isolation (vitest→bun) solves mock pollution cleanly"
-    },
-    {
       "id": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
       "type": "learning",
       "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking"
@@ -659,11 +654,6 @@
       "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
       "type": "learning",
       "title": "Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling"
-    },
-    {
-      "id": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "type": "learning",
-      "title": "Retro - Separate mock spec files prevent test pollution at coverage ceiling"
     },
     {
       "id": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
@@ -1177,106 +1167,140 @@
     },
     {
       "id": "learning-retro-review-reports-need-built-in-task-tracking-tables",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Review reports need built-in task tracking tables"
     },
     {
       "id": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Verify code state instead of trusting report dates"
     },
     {
       "id": "learning-retro-settingscli-setup-should-exist-from-project-start",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Settings/CLI setup should exist from project start"
     },
     {
       "id": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Embeddings generation is not implemented in semantic search API"
     },
     {
       "id": "learning-retro-systematic-file-level-mutation-audits-uncover-architectural-gaps",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic file-level mutation audits uncover architectural gaps"
     },
     {
       "id": "learning-retro-systematic-investigation-methodology-for-complex-issues",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic investigation methodology for complex issues"
     },
     {
       "id": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Embeddings generation design not obviously documented"
     },
     {
       "id": "gotcha-global-hooks-override-plugin-hooks",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Global hooks in ~/.claude/hooks/ can override or conflict with plugin hooks"
     },
     {
       "id": "decision-async-fs-conversion-required",
-      "type": "decision"
+      "type": "decision",
+      "title": "Async FS Conversion Required for Performance"
     },
     {
       "id": "learning-retro-multi-agent-review-caught-documentation-drift-before-shipping",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Multi-agent review caught documentation drift before shipping"
     },
     {
       "id": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Global hooks can silently override plugin hooks if not removed from settings"
     },
     {
       "id": "learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test assertion weaknesses revealed by grep patterns"
     },
     {
       "id": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Security fix required proper architectural change, not quick patch"
     },
     {
       "id": "gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Response type mismatches caught during test assertion fixes"
     },
     {
       "id": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Review estimation drift on type checker strictness flags"
     },
     {
       "id": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Date.prototype mocking enables pure function testing without fakes"
     },
     {
       "id": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Review items completed efficiently through strategic prioritization"
     },
     {
       "id": "learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-refactoring",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Comprehensive callsite exploration prevents scope creep in refactoring"
     },
     {
       "id": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Batch test edits more efficient than sequential Edit tool calls"
     },
     {
       "id": "gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-from-marketplace",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Plugin reinstall requires proper sequence: uninstall → install from marketplace"
     },
     {
       "id": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD with async cascades: test-first approach clarifies scope"
     },
     {
       "id": "gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactoring",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Gotcha: Promise truthiness masks test failures in async refactoring"
     },
     {
       "id": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Agent swarm parallelization for mass TypeScript fixes highly effective"
     },
     {
       "id": "learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project-content-early",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - .specify symlink-to-hybrid-structure catches misplaced project content early"
     },
     {
       "id": "gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Packing multiple feature review items into one session created scope creep"
     },
     {
       "id": "learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally",
+      "type": "learning",
+      "title": "Retro - TDD red-green-refactor catches async-await errors naturally"
+    },
+    {
+      "id": "gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess",
       "type": "learning"
     }
   ],
@@ -2242,11 +2266,6 @@
       "label": "relates-to"
     },
     {
-      "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
-      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-at-coverage-ceiling",
-      "label": "relates-to"
-    },
-    {
       "source": "retro-batch-operations-pattern",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
@@ -2360,11 +2379,6 @@
       "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "documents"
-    },
-    {
-      "source": "learning-retro-process-isolation-vitestbun-solves-mock-pollution-cleanly",
-      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "label": "resolves"
     },
     {
       "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
@@ -3099,6 +3113,21 @@
     {
       "source": "gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-scope-creep",
       "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     }
   ]

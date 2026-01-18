@@ -84,6 +84,12 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `rebuild [scope]` | Rebuild from disk (use with caution) |
 | | `reindex <id>` | Re-index an orphan file |
 | | `bulk-delete [options]` | Delete memories by pattern/type/tags (--dry-run) |
+| | `refresh [scope]` | Backfill missing frontmatter fields |
+| | `setup [--force]` | Create local settings file from template |
+| **Bulk** | `bulk-move [options]` | Move memories matching pattern |
+| | `bulk-promote [options]` | Promote memories to type |
+| | `bulk-tag [options]` | Add/remove tags from memories |
+| | `bulk-unlink [options]` | Remove links from memories |
 | **Utility** | `rename <old> <new>` | Rename memory ID (updates refs) |
 | | `move <id> <scope>` | Move between local/global |
 | | `promote <id> <type>` | Convert memory type (preserves edges) |

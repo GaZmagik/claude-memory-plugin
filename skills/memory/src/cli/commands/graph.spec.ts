@@ -10,6 +10,13 @@ import * as edgesModule from '../../graph/edges.js';
 import * as mermaidModule from '../../graph/mermaid.js';
 import type { ParsedArgs } from '../parser.js';
 
+// Mock node:fs to prevent writing to real files during tests
+const mockWriteFileSync = vi.fn();
+vi.mock('node:fs', () => ({
+  default: { writeFileSync: mockWriteFileSync },
+  writeFileSync: mockWriteFileSync,
+}));
+
 describe('cmdLink', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -152,6 +159,7 @@ describe('cmdMermaid', () => {
     const mockGraph = { version: 1, nodes: [{ id: 'test', type: 'learning' }], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart TB\n  A --> B');
+    mockWriteFileSync.mockClear();
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdMermaid(args);
@@ -159,12 +167,14 @@ describe('cmdMermaid', () => {
     expect(result.status).toBe('success');
     expect((result.data as { saved: string }).saved).toContain('graph.md');
     expect((result.data as { filtered: boolean }).filtered).toBe(true);
+    expect(mockWriteFileSync).toHaveBeenCalled();
   });
 
   it('passes direction and new flags', async () => {
     const mockGraph = { version: 1, nodes: [], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart LR');
+    mockWriteFileSync.mockClear();
 
     const args: ParsedArgs = { positional: [], flags: { direction: 'LR', all: true, hub: 'test-hub', depth: '2' } };
     await cmdMermaid(args);

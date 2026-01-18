@@ -26,6 +26,16 @@ context_window: 16384
 # health_threshold: 0.7
 # semantic_threshold: 0.45
 # auto_sync: false
+
+# Duplicate Detection (LSH)
+# -------------------------
+# Settings for finding similar/duplicate memories.
+# Uses Locality-Sensitive Hashing for large collections.
+
+# duplicate_threshold: 0.92
+# lsh_collection_threshold: 200
+# lsh_hash_bits: 10
+# lsh_tables: 6
 ---
 
 # Memory Plugin Configuration
@@ -59,6 +69,18 @@ values you want to override.
 | `health_threshold` | number | `0.7` | Graph health warning threshold (0-1) |
 | `semantic_threshold` | number | `0.45` | Semantic search similarity cutoff (0-1) |
 | `auto_sync` | boolean | `false` | Run memory sync on session start |
+
+### Duplicate Detection (LSH)
+
+Settings for the `suggest-links` and duplicate detection features.
+Uses Locality-Sensitive Hashing for efficient similarity search on large collections.
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `duplicate_threshold` | number | `0.92` | Similarity threshold for duplicate detection (0-1) |
+| `lsh_collection_threshold` | number | `200` | Collection size to switch from brute force to LSH |
+| `lsh_hash_bits` | number | `10` | Hash bits per LSH table (more = faster, may miss duplicates) |
+| `lsh_tables` | number | `6` | Number of LSH hash tables (more = better recall, more memory) |
 
 ## Model Selection
 

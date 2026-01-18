@@ -41,6 +41,14 @@ export interface MemoryPluginSettings {
   semantic_threshold: number;
   /** Run memory sync on startup (default: false) */
   auto_sync: boolean;
+  /** Similarity threshold for duplicate detection 0-1 (default: 0.92) */
+  duplicate_threshold: number;
+  /** Collection size to switch from brute force to LSH (default: 200) */
+  lsh_collection_threshold: number;
+  /** Hash bits per LSH table (default: 10) */
+  lsh_hash_bits: number;
+  /** Number of LSH hash tables (default: 6) */
+  lsh_tables: number;
 }
 
 /**
@@ -55,6 +63,10 @@ export const DEFAULT_SETTINGS: MemoryPluginSettings = {
   health_threshold: 0.7,
   semantic_threshold: 0.45,
   auto_sync: false,
+  duplicate_threshold: 0.92,
+  lsh_collection_threshold: 200,
+  lsh_hash_bits: 10,
+  lsh_tables: 6,
 };
 
 /** Settings file location relative to project root */
@@ -72,6 +84,10 @@ const FIELD_TYPES: Record<keyof MemoryPluginSettings, 'boolean' | 'string' | 'nu
   health_threshold: 'number',
   semantic_threshold: 'number',
   auto_sync: 'boolean',
+  duplicate_threshold: 'number',
+  lsh_collection_threshold: 'number',
+  lsh_hash_bits: 'number',
+  lsh_tables: 'number',
 };
 
 /**
@@ -178,8 +194,13 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
         let numValue = value;
 
         // Clamp threshold values to 0-1 range
-        if (settingKey === 'health_threshold' || settingKey === 'semantic_threshold') {
+        if (settingKey === 'health_threshold' || settingKey === 'semantic_threshold' || settingKey === 'duplicate_threshold') {
           numValue = Math.max(0, Math.min(1, numValue));
+        }
+
+        // Ensure positive integers for LSH settings
+        if (settingKey === 'lsh_collection_threshold' || settingKey === 'lsh_hash_bits' || settingKey === 'lsh_tables') {
+          numValue = Math.max(1, Math.floor(numValue));
         }
 
         (result as Record<string, number>)[settingKey] = numValue;
@@ -228,4 +249,35 @@ export async function loadSettings(projectDir: string): Promise<MemoryPluginSett
  */
 export function getSettingsPath(projectDir: string): string {
   return join(projectDir, '.claude', SETTINGS_FILENAME);
+}
+
+/**
+ * LSH options for duplicate detection (matches similarity.ts LSHOptions interface)
+ */
+export interface DuplicateDetectionOptions {
+  /** Similarity threshold for duplicate detection (0-1) */
+  threshold: number;
+  /** Collection size to switch from brute force to LSH */
+  lshThreshold: number;
+  /** Hash bits per LSH table */
+  numHashBits: number;
+  /** Number of LSH hash tables */
+  numTables: number;
+}
+
+/**
+ * Extract duplicate detection options from settings
+ *
+ * @param settings - Plugin settings (or undefined to use defaults)
+ * @returns Options formatted for findPotentialDuplicates
+ */
+export function getDuplicateDetectionOptions(
+  settings?: Partial<MemoryPluginSettings>
+): DuplicateDetectionOptions {
+  return {
+    threshold: settings?.duplicate_threshold ?? DEFAULT_SETTINGS.duplicate_threshold,
+    lshThreshold: settings?.lsh_collection_threshold ?? DEFAULT_SETTINGS.lsh_collection_threshold,
+    numHashBits: settings?.lsh_hash_bits ?? DEFAULT_SETTINGS.lsh_hash_bits,
+    numTables: settings?.lsh_tables ?? DEFAULT_SETTINGS.lsh_tables,
+  };
 }

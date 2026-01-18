@@ -92,7 +92,7 @@ describe('Graph Concurrency and Race Conditions', () => {
       graph = addNode(graph, node2);
 
       expect(graph.nodes).toHaveLength(1);
-      expect(graph.nodes[0].type).toBe('decision'); // Updated
+      expect(graph.nodes[0]!.type).toBe('decision'); // Updated
     });
   });
 
@@ -164,8 +164,8 @@ describe('Graph Concurrency and Race Conditions', () => {
       // Edges involving node-b should be removed
       expect(graph.nodes).toHaveLength(2);
       expect(graph.edges).toHaveLength(1); // Only a->c remains
-      expect(graph.edges[0].source).toBe('node-a');
-      expect(graph.edges[0].target).toBe('node-c');
+      expect(graph.edges[0]!.source).toBe('node-a');
+      expect(graph.edges[0]!.target).toBe('node-c');
     });
   });
 

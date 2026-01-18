@@ -107,7 +107,7 @@ describe('findSimilarMemories - Properties', () => {
     const results = findSimilarMemories(queryEmbedding, embeddings, 0);
 
     for (let i = 1; i < results.length; i++) {
-      expect(results[i - 1].similarity).toBeGreaterThanOrEqual(results[i].similarity);
+      expect(results[i - 1]!.similarity).toBeGreaterThanOrEqual(results[i]!.similarity);
     }
   });
 
@@ -152,7 +152,7 @@ describe('rankBySimilarity - Properties', () => {
     const ranked = rankBySimilarity(queryEmbedding, candidates);
 
     for (let i = 1; i < ranked.length; i++) {
-      expect(ranked[i - 1].similarity).toBeGreaterThanOrEqual(ranked[i].similarity);
+      expect(ranked[i - 1]!.similarity).toBeGreaterThanOrEqual(ranked[i]!.similarity);
     }
   });
 
@@ -278,7 +278,7 @@ describe('findPotentialDuplicates - Properties', () => {
     const duplicates = findPotentialDuplicates(embeddings, 0.8);
 
     for (let i = 1; i < duplicates.length; i++) {
-      expect(duplicates[i - 1].similarity).toBeGreaterThanOrEqual(duplicates[i].similarity);
+      expect(duplicates[i - 1]!.similarity).toBeGreaterThanOrEqual(duplicates[i]!.similarity);
     }
   });
 });

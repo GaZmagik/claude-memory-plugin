@@ -50,7 +50,7 @@ describe('Gotcha Injection Integration', () => {
       });
 
       expect(gotchas.length).toBeGreaterThanOrEqual(1);
-      expect(gotchas[0].title).toContain('TypeScript Import');
+      expect(gotchas[0]!.title).toContain('TypeScript Import');
     });
 
     it('should find gotchas matching tags', async () => {
@@ -122,7 +122,7 @@ describe('Gotcha Injection Integration', () => {
 
       // Critical should come first
       if (gotchas.length >= 2) {
-        expect(gotchas[0].severity).toBe('critical');
+        expect(gotchas[0]!.severity).toBe('critical');
       }
     });
 

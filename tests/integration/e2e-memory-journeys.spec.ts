@@ -122,7 +122,7 @@ describe('E2E Memory Journeys', () => {
       if (searchResult.status === 'success' && searchResult.results) {
         expect(searchResult.results.length).toBeGreaterThan(0);
 
-        const foundMemory = searchResult.results[0];
+        const foundMemory = searchResult.results[0]!;
         expect(foundMemory.title).toBe('TypeScript Best Practices');
 
         const readRequest: ReadMemoryRequest = {
@@ -341,7 +341,7 @@ describe('E2E Memory Journeys', () => {
         expect(searchResult.results.length).toBe(count);
 
         const randomIndex = Math.floor(Math.random() * count);
-        const randomMemory = searchResult.results[randomIndex];
+        const randomMemory = searchResult.results[randomIndex]!;
 
         const readRequest: ReadMemoryRequest = {
           id: randomMemory.id,

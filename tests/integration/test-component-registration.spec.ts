@@ -55,21 +55,21 @@ describe('Component Registration', () => {
       const hooks = hooksJson.hooks as Record<string, unknown[]>;
       expect(hooks.PreToolUse).toBeDefined();
       expect(Array.isArray(hooks.PreToolUse)).toBe(true);
-      expect(hooks.PreToolUse.length).toBeGreaterThan(0);
+      expect((hooks.PreToolUse ?? []).length).toBeGreaterThan(0);
     });
 
     it('should have PostToolUse hooks', () => {
       const hooks = hooksJson.hooks as Record<string, unknown[]>;
       expect(hooks.PostToolUse).toBeDefined();
       expect(Array.isArray(hooks.PostToolUse)).toBe(true);
-      expect(hooks.PostToolUse.length).toBeGreaterThan(0);
+      expect((hooks.PostToolUse ?? []).length).toBeGreaterThan(0);
     });
 
     it('should have UserPromptSubmit hooks', () => {
       const hooks = hooksJson.hooks as Record<string, unknown[]>;
       expect(hooks.UserPromptSubmit).toBeDefined();
       expect(Array.isArray(hooks.UserPromptSubmit)).toBe(true);
-      expect(hooks.UserPromptSubmit.length).toBeGreaterThan(0);
+      expect((hooks.UserPromptSubmit ?? []).length).toBeGreaterThan(0);
     });
 
     it('should have SessionStart hooks', () => {
@@ -86,7 +86,7 @@ describe('Component Registration', () => {
           for (const hook of config.hooks) {
             const match = hook.command.match(/\$\{CLAUDE_PLUGIN_ROOT\}\/([^\s]+)/);
             if (match) {
-              const hookPath = match[1];
+              const hookPath = match[1]!;
               expect(existsSync(join(pluginRoot, hookPath))).toBe(true);
             }
           }
@@ -121,7 +121,7 @@ describe('Component Registration', () => {
     });
 
     it('should have valid command frontmatter', () => {
-      const files = readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+      const files = readdirSync(commandsDir).filter((f: string) => f.endsWith('.md'));
 
       for (const cmdFile of files) {
         const fullPath = join(commandsDir, cmdFile);

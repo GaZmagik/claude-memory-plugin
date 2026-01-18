@@ -43,7 +43,7 @@ function runCli(args: string[], cwd: string, stdinJson?: object): CliResult {
     const jsonMatch = stdout.match(/^(\{[\s\S]*\})$/m);
     if (jsonMatch) {
       try {
-        json = JSON.parse(jsonMatch[1]);
+        json = JSON.parse(jsonMatch[1]!);
       } catch {
         // Try finding last complete JSON object
         const lines = stdout.split('\n');
@@ -130,11 +130,11 @@ describe('Quickstart Validation', () => {
       });
 
       const writeResponse = writeResult.json as { data?: { memory?: { id: string } } };
-      const memoryId = writeResponse.data?.memory?.id;
+      const memoryId = writeResponse.data?.memory?.id ?? '';
       expect(memoryId).toBeDefined();
 
       // Read it back
-      const readResult = runCli(['read', memoryId!], projectDir);
+      const readResult = runCli(['read', memoryId], projectDir);
       expect(readResult.exitCode).toBe(0);
       expect(readResult.stdout).toContain('Test memory for reading');
     });

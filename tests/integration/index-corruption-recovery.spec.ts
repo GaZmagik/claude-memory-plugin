@@ -59,7 +59,7 @@ describe('Index Corruption Recovery', () => {
       // Verify index is now valid
       const recoveredIndex = await loadIndex({ basePath: testDir });
       expect(recoveredIndex.memories).toHaveLength(1);
-      expect(recoveredIndex.memories[0].title).toBe('Test Memory');
+      expect(recoveredIndex.memories[0]!.title).toBe('Test Memory');
     });
 
     it('should handle truncated JSON files', async () => {
@@ -203,8 +203,8 @@ describe('Index Corruption Recovery', () => {
       // Rebuild fixes it
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(recovered.memories[0].title).toBe('Complete Memory');
-      expect(recovered.memories[0].type).toBe(MemoryType.Gotcha);
+      expect(recovered.memories[0]!.title).toBe('Complete Memory');
+      expect(recovered.memories[0]!.type).toBe(MemoryType.Gotcha);
     });
   });
 
@@ -286,8 +286,8 @@ describe('Index Corruption Recovery', () => {
       // Rebuild recovers correct types
       await rebuildIndex({ basePath: testDir });
       const recovered = await loadIndex({ basePath: testDir });
-      expect(Array.isArray(recovered.memories[0].tags)).toBe(true);
-      expect(typeof recovered.memories[0].created).toBe('string');
+      expect(Array.isArray(recovered.memories[0]!.tags)).toBe(true);
+      expect(typeof recovered.memories[0]!.created).toBe('string');
     });
 
     it('should handle lastUpdated as number instead of string', async () => {

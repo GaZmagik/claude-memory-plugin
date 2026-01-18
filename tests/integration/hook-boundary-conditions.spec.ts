@@ -29,21 +29,26 @@ import {
 } from '../../hooks/src/memory/topic-classifier.js';
 
 describe('Hook Boundary Conditions', () => {
-  let originalStdin: NodeJS.ReadStream;
+  let originalStdin: typeof process.stdin;
+
+  // Helper to set mock stdin - bypasses strict fd: 0 type requirement
+  const setMockStdin = (stream: Readable) => {
+    (process as unknown as { stdin: Readable }).stdin = stream;
+  };
 
   beforeEach(() => {
     originalStdin = process.stdin;
   });
 
   afterEach(() => {
-    process.stdin = originalStdin;
+    (process as unknown as { stdin: typeof originalStdin }).stdin = originalStdin;
     vi.restoreAllMocks();
   });
 
   describe('Malformed JSON Input', () => {
     it('should handle completely invalid JSON', async () => {
       const mockStream = Readable.from(['{ this is not json }']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeNull();
@@ -51,7 +56,7 @@ describe('Hook Boundary Conditions', () => {
 
     it('should handle truncated JSON', async () => {
       const mockStream = Readable.from(['{"hookEventName": "test", "sessionId":']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeNull();
@@ -68,7 +73,7 @@ describe('Hook Boundary Conditions', () => {
 
       for (const input of malformedInputs) {
         const mockStream = Readable.from([input]);
-        process.stdin = mockStream as unknown as NodeJS.ReadStream;
+        setMockStdin(mockStream);
 
         const result = await parseHookInput();
         expect(result).toBeNull();
@@ -78,7 +83,7 @@ describe('Hook Boundary Conditions', () => {
     it('should handle JSON with invalid UTF-8', async () => {
       const buffer = Buffer.from([0x7b, 0x22, 0xff, 0xfe, 0x22, 0x7d]); // Invalid UTF-8
       const mockStream = Readable.from([buffer]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeNull();
@@ -95,7 +100,7 @@ describe('Hook Boundary Conditions', () => {
       }
 
       const mockStream = Readable.from([nested]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       // Should either parse or return null, but not crash
       const result = await parseHookInput();
@@ -106,7 +111,7 @@ describe('Hook Boundary Conditions', () => {
   describe('Empty and Whitespace Input', () => {
     it('should handle completely empty stdin', async () => {
       const mockStream = Readable.from([]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeNull();
@@ -117,7 +122,7 @@ describe('Hook Boundary Conditions', () => {
 
       for (const input of whitespaceInputs) {
         const mockStream = Readable.from([input]);
-        process.stdin = mockStream as unknown as NodeJS.ReadStream;
+        setMockStdin(mockStream);
 
         const result = await parseHookInput();
         expect(result).toBeNull();
@@ -127,7 +132,7 @@ describe('Hook Boundary Conditions', () => {
     it('should handle null bytes', async () => {
       const buffer = Buffer.from([0x00, 0x00, 0x00]);
       const mockStream = Readable.from([buffer]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await readStdin();
       expect(result).toBe('\x00\x00\x00');
@@ -138,7 +143,7 @@ describe('Hook Boundary Conditions', () => {
     it('should handle missing hook_event_name', async () => {
       const input = { sessionId: 'test', cwd: '/home' };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -147,7 +152,7 @@ describe('Hook Boundary Conditions', () => {
 
     it('should handle missing all fields', async () => {
       const mockStream = Readable.from(['{}']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toEqual({});
@@ -160,7 +165,7 @@ describe('Hook Boundary Conditions', () => {
         cwd: null,
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -171,7 +176,7 @@ describe('Hook Boundary Conditions', () => {
     it('should handle numeric hook_event_name', async () => {
       const input = { hook_event_name: 123, sessionId: 'test' };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -179,7 +184,7 @@ describe('Hook Boundary Conditions', () => {
 
     it('should handle arrays where objects expected', async () => {
       const mockStream = Readable.from(['[1, 2, 3]']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -187,7 +192,7 @@ describe('Hook Boundary Conditions', () => {
 
     it('should handle boolean values', async () => {
       const mockStream = Readable.from(['true']);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBe(true);
@@ -199,7 +204,7 @@ describe('Hook Boundary Conditions', () => {
         largeNumber: Number.MAX_SAFE_INTEGER * 2,
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -211,7 +216,7 @@ describe('Hook Boundary Conditions', () => {
       const largeContent = 'x'.repeat(1024 * 1024); // 1MB string
       const input = { hook_event_name: 'test', data: largeContent };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -221,7 +226,7 @@ describe('Hook Boundary Conditions', () => {
       const longArray = Array.from({ length: 10000 }, (_, i) => i);
       const input = { hook_event_name: 'test', items: longArray };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -233,7 +238,7 @@ describe('Hook Boundary Conditions', () => {
         obj = { nested: obj };
       }
       const mockStream = Readable.from([JSON.stringify(obj)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -242,7 +247,7 @@ describe('Hook Boundary Conditions', () => {
     it('should handle many small chunks', async () => {
       const chunks = Array.from({ length: 1000 }, () => 'a');
       const mockStream = Readable.from(chunks);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await readStdin();
       expect(result.length).toBe(1000);
@@ -256,7 +261,7 @@ describe('Hook Boundary Conditions', () => {
         content: '日本語 🎉 emoji ñ ü € ∑',
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -274,7 +279,7 @@ describe('Hook Boundary Conditions', () => {
         newline: 'Line1\nLine2',
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -286,7 +291,7 @@ describe('Hook Boundary Conditions', () => {
         content: 'Text\x00with\x01control\x02chars',
       };
       const mockStream = Readable.from([JSON.stringify(input)]);
-      process.stdin = mockStream as unknown as NodeJS.ReadStream;
+      setMockStdin(mockStream);
 
       const result = await parseHookInput();
       expect(result).toBeDefined();
@@ -399,8 +404,9 @@ describe('Hook Boundary Conditions', () => {
       const specialContext = '🚨 Warning\n- Issue\t1\r\n- Issue 2\x00';
       outputHookResponse('test', specialContext);
 
-      const output = spy.mock.calls[0][0];
-      expect(() => JSON.parse(output)).not.toThrow();
+      const output = spy.mock.calls[0]?.[0];
+      expect(output).toBeDefined();
+      expect(() => JSON.parse(output as string)).not.toThrow();
 
       spy.mockRestore();
     });
@@ -411,12 +417,12 @@ describe('Hook Boundary Conditions', () => {
       const results = await Promise.all([
         (async () => {
           const mockStream = Readable.from(['{"test": 1}']);
-          process.stdin = mockStream as unknown as NodeJS.ReadStream;
+          setMockStdin(mockStream);
           return parseHookInput();
         })(),
         (async () => {
           const mockStream = Readable.from(['{"test": 2}']);
-          process.stdin = mockStream as unknown as NodeJS.ReadStream;
+          setMockStdin(mockStream);
           return parseHookInput();
         })(),
       ]);

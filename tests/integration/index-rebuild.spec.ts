@@ -127,7 +127,7 @@ describe('Index rebuild integration', () => {
     // Verify index only has the valid memory
     const index = await loadIndex({ basePath: testDir });
     expect(index.memories).toHaveLength(1);
-    expect(index.memories[0].id).toBe(result1.memory?.id);
+    expect(index.memories[0]?.id).toBe(result1.memory?.id);
   });
 
   it('should discover unindexed memory files', async () => {
@@ -242,6 +242,8 @@ This was added manually without updating the index.
     const index = await loadIndex({ basePath: testDir });
     const entry = index.memories.find(e => e.id === originalId);
     expect(entry).toBeDefined();
-    expect(new Date(entry!.created).getTime()).toBeLessThan(Date.now());
+    if (entry) {
+      expect(new Date(entry.created).getTime()).toBeLessThan(Date.now());
+    }
   });
 });

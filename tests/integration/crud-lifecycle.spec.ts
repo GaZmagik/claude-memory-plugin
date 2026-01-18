@@ -132,7 +132,7 @@ describe('Full CRUD lifecycle integration', () => {
     expect(index.memories).toHaveLength(3);
 
     // Delete middle memory
-    await deleteMemory({ id: createdIds[1], basePath: testDir });
+    await deleteMemory({ id: createdIds[1]!, basePath: testDir });
 
     // Verify index has 2 entries
     index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));

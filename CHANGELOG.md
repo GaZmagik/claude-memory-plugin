@@ -5,6 +5,26 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-01-18
+
+### Fixed
+
+#### Memory Capture Hook
+- **ARG_MAX Limit**: Fixed silent failure when session context exceeded kernel argument size limit
+  - Root cause: 225KB context passed via `--append-system-prompt` exceeded ARG_MAX
+  - Solution: Skip thinking blocks, truncate tool results, cap total at 80KB
+  - Result: Context reduced from 225KB to ~55KB
+
+#### Setup Command
+- **Embedded Template**: `memory setup` now works from any project directory
+  - Previously required `.claude/memory.example.md` in current directory
+  - Now embeds the settings template directly in the code
+
+### Changed
+- Tool result truncation reduced from 500 to 150 characters (context efficiency)
+- Tool use input truncation added at 200 characters
+- Documentation updated to use `memory setup` instead of manual file copy
+
 ## [1.0.0] - 2026-01-15
 
 ### Added

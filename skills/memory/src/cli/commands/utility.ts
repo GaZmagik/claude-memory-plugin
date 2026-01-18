@@ -189,6 +189,76 @@ export async function cmdArchive(args: ParsedArgs): Promise<CliResponse> {
 }
 
 /**
+ * setup - Create local settings file from example
+ *
+ * Usage: memory setup [--force]
+ *
+ * Creates .claude/memory.local.md from memory.example.md template.
+ * Also ensures .claude/*.local.md is in .gitignore.
+ */
+export async function cmdSetup(args: ParsedArgs): Promise<CliResponse> {
+  const force = args.flags.force === true;
+  const cwd = process.cwd();
+  const claudeDir = path.join(cwd, '.claude');
+  const examplePath = path.join(claudeDir, 'memory.example.md');
+  const localPath = path.join(claudeDir, 'memory.local.md');
+  const gitignorePath = path.join(cwd, '.gitignore');
+
+  return wrapOperation(
+    async () => {
+      // Check if .claude directory exists
+      if (!fs.existsSync(claudeDir)) {
+        fs.mkdirSync(claudeDir, { recursive: true });
+      }
+
+      // Check if example file exists
+      if (!fs.existsSync(examplePath)) {
+        return {
+          status: 'error' as const,
+          error: `Example file not found: ${examplePath}\nRun this command from a project with the memory plugin installed.`,
+        };
+      }
+
+      // Check if local file already exists
+      if (fs.existsSync(localPath) && !force) {
+        return {
+          status: 'error' as const,
+          error: `Settings file already exists: ${localPath}\nUse --force to overwrite.`,
+        };
+      }
+
+      // Copy example to local
+      const exampleContent = fs.readFileSync(examplePath, 'utf-8');
+      fs.writeFileSync(localPath, exampleContent, 'utf-8');
+
+      // Ensure .gitignore has the pattern
+      let gitignoreUpdated = false;
+      const localPattern = '.claude/*.local.md';
+
+      if (fs.existsSync(gitignorePath)) {
+        const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
+        if (!gitignoreContent.includes(localPattern)) {
+          fs.appendFileSync(gitignorePath, `\n# Memory plugin local settings\n${localPattern}\n`);
+          gitignoreUpdated = true;
+        }
+      } else {
+        fs.writeFileSync(gitignorePath, `# Memory plugin local settings\n${localPattern}\n`);
+        gitignoreUpdated = true;
+      }
+
+      return {
+        created: localPath,
+        gitignore_updated: gitignoreUpdated,
+        message: gitignoreUpdated
+          ? `Created ${localPath} and updated .gitignore`
+          : `Created ${localPath} (.gitignore already configured)`,
+      };
+    },
+    'Settings file created'
+  );
+}
+
+/**
  * status - Show memory system status
  *
  * Usage: memory status

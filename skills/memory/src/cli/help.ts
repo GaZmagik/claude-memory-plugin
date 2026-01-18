@@ -46,6 +46,7 @@ COMMANDS:
   repair [scope]      Run sync then validate
   search <query>      Search memories by title or content
   semantic <query>    Search memories by meaning using embeddings
+  setup [--force]     Create local settings file from example template
   stats [scope]       Show graph statistics (ratio, hubs, sinks)
   status              Show memory system status
   suggest-links       Suggest potential relationships

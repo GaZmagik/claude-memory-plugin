@@ -987,106 +987,219 @@
     },
     {
       "id": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TypeScript batch fixing by category prevents fatigue and catches regressions"
     },
     {
       "id": "learning-retro-dependency-injection-for-stream-parameters-enables-better-testability-than-global-mocking",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Dependency injection for stream parameters enables better testability than global mocking"
     },
     {
       "id": "gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Graph edge loss silently corrupts state without validation"
     },
     {
       "id": "decision-plugin-settings-design-for-memory-plugin",
-      "type": "decision"
+      "type": "decision",
+      "title": "Plugin Settings Design for Memory Plugin"
     },
     {
       "id": "gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Hook type mapping case sensitivity in error-handler"
     },
     {
       "id": "learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgrades",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Plugin postinstall script automates bun link for version upgrades"
     },
     {
       "id": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD approach for settings parser accelerated implementation"
     },
     {
       "id": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Forked agent orchestration for multi-expert review effective"
     },
     {
       "id": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Stricter TDD (touch-only stub creation) improved discipline"
     },
     {
       "id": "gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Sync file I/O in hooks blocks event loop, breaks 50ms budget"
     },
     {
       "id": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Enforcement hook that wasn't tested violated its own rules (meta)"
     },
     {
       "id": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Global hooks override project hooks block plugin control"
     },
     {
       "id": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Plugin discovery in spawned sessions requires plugin-dir flags"
     },
     {
       "id": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Root cause analysis through git and settings reveals hook overrides"
     },
     {
       "id": "gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0-or-1",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - SessionStart hook message visibility requires exit code 2, not 0 or 1"
     },
     {
       "id": "learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-content-to-users",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Claude Code SessionStart hooks cannot display custom stderr content to users"
     },
     {
       "id": "learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook-design",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Single responsibility principle prevented scope creep in hook design"
     },
     {
       "id": "gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-error-debugging",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Documentation should be consulted proactively before trial-and-error debugging"
     },
     {
       "id": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Async conversion file-by-file with test validation catches integration issues early"
     },
     {
       "id": "gotcha-retro-verify-task-completion-status-before-committing-to-work-items",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Verify task completion status before committing to work items"
     },
     {
       "id": "gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-interpreters",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Parenthetical context can be misread as syntax by literal interpreters"
     },
     {
       "id": "learning-intent-storage-types-for-memory-system-beyond-revisitremind",
-      "type": "learning"
+      "type": "learning",
+      "title": "Intent Storage Types for Memory System - Beyond Revisit/Remind"
     },
     {
       "id": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Test missing saveGraph mock corrupted production graph"
     },
     {
       "id": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Type-safe branded ID refactor: phase stratification was key"
     },
     {
       "id": "learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test helper factories reduce branded type boilerplate by 95%"
     },
     {
       "id": "learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types",
+      "type": "learning",
+      "title": "Retro - Unsafe casts at JSON boundaries are pragmatic for branded types"
+    },
+    {
+      "id": "learning-retro-batch-sed-replacement-vastly-more-efficient-than-incremental-editing",
+      "type": "learning",
+      "title": "Retro - Batch sed replacement vastly more efficient than incremental editing"
+    },
+    {
+      "id": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "type": "gotcha",
+      "title": "Retro - Agent visibility during restoration incomplete"
+    },
+    {
+      "id": "gotcha-retro-mock-return-type-mismatches-missed-in-first-pass",
+      "type": "gotcha",
+      "title": "Retro - Mock return type mismatches missed in first pass"
+    },
+    {
+      "id": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "type": "learning",
+      "title": "Retro - Session restoration adds valuable context but adds cognitive load"
+    },
+    {
+      "id": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
+      "type": "learning",
+      "title": "Retro - Pure function mock removal pattern is highly effective"
+    },
+    {
+      "id": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "type": "gotcha",
+      "title": "Gotcha - Mock test refactoring needs dedicated sprint, not incremental"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents unblock main session during compaction"
+    },
+    {
+      "id": "learning-retro-pre-existing-test-failures-are-better-fixed-during-mock-reduction",
+      "type": "learning",
+      "title": "Retro - Pre-existing test failures are better fixed during mock reduction"
+    },
+    {
+      "id": "gotcha-dead-code-parsememoryfile-null-checks-are-unreachable",
+      "type": "gotcha",
+      "title": "Dead code - parseMemoryFile null checks are unreachable"
+    },
+    {
+      "id": "learning-retro-backwards-compatibility-via-field-derivation-prevents-cascade-breakage",
+      "type": "learning",
+      "title": "Retro - Backwards compatibility via field derivation prevents cascade breakage"
+    },
+    {
+      "id": "gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios",
+      "type": "gotcha",
+      "title": "Retro - Dead code detection: phantom tests mock impossible scenarios"
+    },
+    {
+      "id": "gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged",
+      "type": "gotcha",
+      "title": "Retro - Plugin code changes require reinstall when version unchanged"
+    },
+    {
+      "id": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "type": "learning",
+      "title": "Retro - Mock removal categorizes into two distinct types"
+    },
+    {
+      "id": "thought-20260117-212103009",
+      "type": "breadcrumb",
+      "title": "Think: Intent Storage Types for Memory System - Beyond Revisit/Remind"
+    },
+    {
+      "id": "thought-20260117-110940893",
+      "type": "breadcrumb",
+      "title": "Think: Plugin Settings Design for Memory Plugin"
+    },
+    {
+      "id": "learning-retro-review-reports-need-built-in-task-tracking-tables",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-settingscli-setup-should-exist-from-project-start",
       "type": "learning"
     }
   ],
@@ -2599,6 +2712,11 @@
     {
       "source": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
       "target": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
       "label": "relates-to"
     }
   ]

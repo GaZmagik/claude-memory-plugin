@@ -200,12 +200,16 @@ describe('cmdRemoveNode', () => {
     const updatedGraph = { version: 1, nodes: ['other'], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(structureModule, 'removeNode').mockReturnValue(updatedGraph as any);
+    // CRITICAL: Must mock saveGraph to prevent writing test data to real graph.json
+    // Missing this mock caused production graph corruption (see gotcha-test-missing-savegraph-mock)
+    vi.spyOn(structureModule, 'saveGraph').mockResolvedValue(undefined);
 
     const args: ParsedArgs = { positional: ['my-node'], flags: {} };
     const result = await cmdRemoveNode(args);
 
     expect(result.status).toBe('success');
     expect(structureModule.removeNode).toHaveBeenCalledWith(mockGraph, 'my-node');
+    expect(structureModule.saveGraph).toHaveBeenCalled();
     expect(result.data).toHaveProperty('removed', 'my-node');
     expect(result.data).toHaveProperty('remainingNodes', 1);
   });

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T04:25:29.954Z",
+  "lastUpdated": "2026-01-18T06:05:05.201Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3635,23 +3635,6 @@
       "severity": "high"
     },
     {
-      "id": "learning-retro-pure-function-mocks-are-redundant-and-obscure-real-behavior",
-      "type": "learning",
-      "title": "Retro - Pure function mocks are redundant and obscure real behavior",
-      "tags": [
-        "retrospective",
-        "testing",
-        "mock-reduction",
-        "learning",
-        "project"
-      ],
-      "created": "2026-01-18T01:29:52.292Z",
-      "updated": "2026-01-18T01:29:52.292Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-pure-function-mocks-are-redundant-and-obscure-real-behavior.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
       "type": "learning",
       "title": "Retro - Pure function mock removal pattern is highly effective",
@@ -3768,6 +3751,105 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-batch-sed-replacement-vastly-more-efficient-than-incremental-editing",
+      "type": "learning",
+      "title": "Retro - Batch sed replacement vastly more efficient than incremental editing",
+      "tags": [
+        "retrospective",
+        "process",
+        "tooling",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-01-18T05:09:24.093Z",
+      "updated": "2026-01-18T05:09:24.093Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-batch-sed-replacement-vastly-more-efficient-than-incremental-editing.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "type": "gotcha",
+      "title": "Retro - Agent visibility during restoration incomplete",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "coordination",
+        "project"
+      ],
+      "created": "2026-01-18T05:09:28.195Z",
+      "updated": "2026-01-18T05:09:28.195Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-agent-visibility-during-restoration-incomplete.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-mock-return-type-mismatches-missed-in-first-pass",
+      "type": "gotcha",
+      "title": "Retro - Mock return type mismatches missed in first pass",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-01-18T05:09:32.148Z",
+      "updated": "2026-01-18T05:09:32.148Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-mock-return-type-mismatches-missed-in-first-pass.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-review-reports-need-built-in-task-tracking-tables",
+      "type": "learning",
+      "title": "Retro - Review reports need built-in task tracking tables",
+      "tags": [
+        "retrospective",
+        "process",
+        "review-reports",
+        "project"
+      ],
+      "created": "2026-01-18T05:43:47.616Z",
+      "updated": "2026-01-18T05:43:47.616Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-review-reports-need-built-in-task-tracking-tables.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
+      "type": "learning",
+      "title": "Retro - Verify code state instead of trusting report dates",
+      "tags": [
+        "retrospective",
+        "process",
+        "verification",
+        "project"
+      ],
+      "created": "2026-01-18T05:43:52.053Z",
+      "updated": "2026-01-18T05:43:52.053Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verify-code-state-instead-of-trusting-report-dates.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-settingscli-setup-should-exist-from-project-start",
+      "type": "learning",
+      "title": "Retro - Settings/CLI setup should exist from project start",
+      "tags": [
+        "retrospective",
+        "process",
+        "devex",
+        "project"
+      ],
+      "created": "2026-01-18T05:43:57.555Z",
+      "updated": "2026-01-18T05:43:57.555Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-settingscli-setup-should-exist-from-project-start.md",
+      "severity": "low"
     }
   ]
 }

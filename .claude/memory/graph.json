@@ -1076,6 +1076,18 @@
     {
       "id": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types",
+      "type": "learning"
     }
   ],
   "edges": [

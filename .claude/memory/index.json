@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T03:07:00.855Z",
+  "lastUpdated": "2026-01-18T04:25:29.954Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3718,6 +3718,56 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-test-missing-savegraph-mock-corrupted-production-graph.md",
       "severity": "critical"
+    },
+    {
+      "id": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
+      "type": "learning",
+      "title": "Retro - Type-safe branded ID refactor: phase stratification was key",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-01-18T04:25:14.672Z",
+      "updated": "2026-01-18T04:25:14.672Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95",
+      "type": "learning",
+      "title": "Retro - Test helper factories reduce branded type boilerplate by 95%",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-18T04:25:19.877Z",
+      "updated": "2026-01-18T04:25:19.877Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types",
+      "type": "learning",
+      "title": "Retro - Unsafe casts at JSON boundaries are pragmatic for branded types",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-18T04:25:29.940Z",
+      "updated": "2026-01-18T04:25:29.940Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-types.md",
+      "severity": "medium"
     }
   ]
 }

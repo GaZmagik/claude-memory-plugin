@@ -83,10 +83,7 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
     try {
       const content = fs.readFileSync(filePath, 'utf8');
       const parsed = parseMemoryFile(content);
-
-      if (!parsed.frontmatter) {
-        continue;
-      }
+      // Note: parseMemoryFile throws on invalid input, caught by outer try
 
       const { frontmatter } = parsed;
       // ID comes from filename (frontmatter may have it in meta)

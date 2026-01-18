@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../types/api.js';
 import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
@@ -242,7 +243,9 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     }
 
     // Use provided ID or generate unique ID
-    const id = request.id ?? generateUniqueId(request.type, request.title, basePath);
+    const id = request.id
+      ? unsafeAsMemoryId(request.id)
+      : generateUniqueId(request.type, request.title, basePath);
 
     // Validate custom ID prefix matches type
     if (request.id) {
@@ -282,7 +285,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       scope: request.scope,
       project: request.project,
       severity: request.severity,
-      links: request.links,
+      links: request.links?.map(unsafeAsMemoryId),
       source: request.source,
       meta: request.meta,
     });

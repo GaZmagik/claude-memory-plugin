@@ -19,6 +19,7 @@ import {
 import { isInsideDir } from '../core/fs-utils.js';
 import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph, type MemoryGraph } from '../graph/structure.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 
 /**
  * Rename request options
@@ -122,16 +123,7 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   // Read and update file content
   const content = fs.readFileSync(oldPath, 'utf8');
   const parsed = parseMemoryFile(content);
-
-  if (!parsed.frontmatter) {
-    return {
-      status: 'error',
-      oldId,
-      newId,
-      changes,
-      error: 'Failed to parse frontmatter',
-    };
-  }
+  // Note: parseMemoryFile throws on invalid input, no null check needed
 
   // Update frontmatter if it contains ID in meta
   const updatedMeta = { ...(parsed.frontmatter.meta ?? {}) };
@@ -190,7 +182,7 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   if (entryIndex >= 0) {
     index.memories[entryIndex] = {
       ...index.memories[entryIndex],
-      id: newId,
+      id: unsafeAsMemoryId(newId),
       relativePath: index.memories[entryIndex].relativePath.replace(oldId, newId),
     };
     saveIndex(basePath, index);

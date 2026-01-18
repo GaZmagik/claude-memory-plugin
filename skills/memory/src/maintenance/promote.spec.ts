@@ -3,7 +3,6 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import * as frontmatterModule from '../core/frontmatter.js';
 import { promoteMemory } from './promote.js';
 import type { PromoteRequest } from './promote.js';
 import { MemoryType } from '../types/enums.js';
@@ -265,34 +264,8 @@ describe('promoteMemory mocked edge cases', () => {
     vi.restoreAllMocks();
   });
 
-  it('should return error when frontmatter is null', async () => {
-    // Mock fs.existsSync to find file in permanent
-    vi.spyOn(fs, 'existsSync').mockImplementation((p: fs.PathLike) => {
-      const pathStr = String(p);
-      if (pathStr.includes('permanent') && pathStr.includes('test-null.md')) {
-        return true;
-      }
-      return false;
-    });
-
-    // Mock fs.readFileSync to return content
-    vi.spyOn(fs, 'readFileSync').mockReturnValue('some content');
-
-    // Mock parseMemoryFile to return null frontmatter
-    vi.spyOn(frontmatterModule, 'parseMemoryFile').mockReturnValue({
-      frontmatter: null as any,
-      content: 'some content',
-    });
-
-    const result = await promoteMemory({
-      id: 'test-null',
-      targetType: MemoryType.Learning,
-      basePath: '/test/path/.claude/memory',
-    });
-
-    expect(result.status).toBe('error');
-    expect(result.error).toContain('Failed to parse frontmatter');
-  });
+  // Note: Removed phantom test 'should return error when frontmatter is null'
+  // parseMemoryFile throws on invalid input, never returns null frontmatter
 
   it('should return error when target already exists in permanent during move', async () => {
     // Track calls to permanent file path
@@ -334,17 +307,7 @@ updated: 2026-01-01T00:00:00.000Z
 tags: []
 ---
 Content`);
-
-    vi.spyOn(frontmatterModule, 'parseMemoryFile').mockReturnValue({
-      frontmatter: {
-        type: MemoryType.Breadcrumb as any,
-        title: 'Test',
-        created: '2026-01-01T00:00:00.000Z',
-        updated: '2026-01-01T00:00:00.000Z',
-        tags: [],
-      } as any,
-      content: 'Content',
-    });
+    // Note: No parseMemoryFile mock needed - real parser handles valid YAML
 
     const result = await promoteMemory({
       id: 'temp-file',

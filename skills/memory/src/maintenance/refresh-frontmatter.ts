@@ -278,11 +278,7 @@ export async function refreshFrontmatter(
       // Read current file (lenient mode to allow fixing malformed files)
       const content = fs.readFileSync(filePath, 'utf8');
       const parsed = parseMemoryFile(content, { lenient: true });
-
-      if (!parsed.frontmatter) {
-        errors.push(`${id}: Failed to parse frontmatter`);
-        continue;
-      }
+      // Note: parseMemoryFile throws on invalid format, no null check needed
 
       const fm = parsed.frontmatter;
       let needsUpdate = false;
@@ -383,7 +379,7 @@ export async function refreshFrontmatter(
 
           const content = fs.readFileSync(filePath, 'utf8');
           const parsed = parseMemoryFile(content);
-          if (!parsed.frontmatter?.type) continue;
+          // Note: parseMemoryFile throws on invalid input, type always present
 
           const nodeIndex = graph.nodes?.findIndex((n: { id: string }) => n.id === id);
           if (nodeIndex >= 0 && graph.nodes[nodeIndex].type !== parsed.frontmatter.type) {

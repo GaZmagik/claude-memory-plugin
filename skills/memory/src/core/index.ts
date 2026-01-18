@@ -5,6 +5,8 @@
  */
 
 import * as path from 'node:path';
+import type { MemoryId } from '../types/branded.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import type { MemoryIndex, IndexEntry } from '../types/memory.js';
 import type { RebuildIndexRequest, RebuildIndexResponse, LoadIndexRequest } from '../types/api.js';
 import { listMarkdownFiles, readJsonFile, writeJsonFile, fileExists, readFile } from './fs-utils.js';
@@ -167,6 +169,7 @@ export async function batchRemoveFromIndex(basePath: string, ids: string[]): Pro
 
 /**
  * Create an index entry from a memory file
+ * @param id - Raw string ID from filename (will be cast to MemoryId)
  */
 function createIndexEntry(
   id: string,
@@ -181,11 +184,12 @@ function createIndexEntry(
     severity?: string;
   }
 ): IndexEntry {
-  const parsed = parseId(id);
+  const memoryId = unsafeAsMemoryId(id);
+  const parsed = parseId(memoryId);
   const scope = Scope.Global; // Default scope, will be determined by resolver in Phase 2
 
   return {
-    id,
+    id: memoryId,
     type: (frontmatter.type || parsed?.type) as IndexEntry['type'],
     title: frontmatter.title,
     tags: frontmatter.tags,
@@ -215,7 +219,7 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
       ...listMarkdownFiles(temporaryDir),
     ];
     const newEntries: IndexEntry[] = [];
-    const foundIds = new Set<string>();
+    const foundIds = new Set<MemoryId>();
 
     let newEntriesAdded = 0;
 
@@ -224,9 +228,9 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
         const content = readFile(filePath);
         const { frontmatter } = parseMemoryFile(content);
 
-        // Extract ID from filename
+        // Extract ID from filename and cast to MemoryId
         const filename = path.basename(filePath, '.md');
-        const id = filename;
+        const id = unsafeAsMemoryId(filename);
 
         foundIds.add(id);
 

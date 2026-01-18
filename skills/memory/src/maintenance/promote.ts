@@ -120,16 +120,7 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
   // Read current file
   const content = fs.readFileSync(currentPath, 'utf8');
   const parsed = parseMemoryFile(content);
-
-  if (!parsed.frontmatter) {
-    return {
-      status: 'error',
-      id,
-      toType: targetType,
-      changes,
-      error: 'Failed to parse frontmatter',
-    };
-  }
+  // Note: parseMemoryFile throws on invalid input, no null check needed
 
   const fromType = parsed.frontmatter.type;
 

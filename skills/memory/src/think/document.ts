@@ -15,6 +15,7 @@ import type {
   ThinkDeleteRequest,
   ThinkDeleteResponse,
 } from '../types/api.js';
+import { unsafeAsThinkId } from '../types/branded.js';
 import type { ThinkDocument, ThinkDocumentSummary } from '../types/think.js';
 import { Scope } from '../types/enums.js';
 import { generateThinkId, isValidThinkId } from './id-generator.js';
@@ -266,7 +267,7 @@ export async function showThinkDocument(
     const parsed = parseThinkDocument(content);
 
     const document: ThinkDocument = {
-      id: documentId,
+      id: unsafeAsThinkId(documentId),
       frontmatter: parsed.frontmatter,
       thoughts: parsed.thoughts,
       rawContent: parsed.rawContent,

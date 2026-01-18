@@ -17,6 +17,7 @@ import {
 import { getAllMemoryIds, findMemoryFile } from '../core/fs-utils.js';
 import { loadGraph } from '../graph/structure.js';
 import { getOutboundEdges } from '../graph/edges.js';
+import type { MemoryId } from '../types/branded.js';
 
 /**
  * Sync frontmatter request options
@@ -93,16 +94,12 @@ export async function syncFrontmatter(
 
       // Get outbound links from graph
       const outboundEdges = getOutboundEdges(graph, id);
-      const graphLinks = outboundEdges.map(e => e.target);
+      const graphLinks = outboundEdges.map(e => e.target) as MemoryId[];
 
       // Read current file
       const content = fs.readFileSync(filePath, 'utf8');
       const parsed = parseMemoryFile(content);
-
-      if (!parsed.frontmatter) {
-        errors.push(`${id}: Failed to parse frontmatter`);
-        continue;
-      }
+      // Note: parseMemoryFile throws on invalid input, no null check needed
 
       // Check if links need updating
       const currentLinks = parsed.frontmatter.links ?? [];

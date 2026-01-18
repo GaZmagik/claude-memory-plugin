@@ -5,6 +5,7 @@
  */
 
 import * as yaml from 'js-yaml';
+import type { MemoryId } from '../types/branded.js';
 import type { MemoryFrontmatter } from '../types/memory.js';
 
 /**
@@ -144,14 +145,14 @@ export function updateFrontmatter(
  * Create new frontmatter from write request data
  */
 export function createFrontmatter(params: {
-  id?: string;
+  id?: MemoryId;
   type: MemoryFrontmatter['type'];
   title: string;
   tags: string[];
   scope?: MemoryFrontmatter['scope'];
   project?: string;
   severity?: MemoryFrontmatter['severity'];
-  links?: string[];
+  links?: MemoryId[];
   source?: string;
   meta?: Record<string, unknown>;
 }): MemoryFrontmatter {

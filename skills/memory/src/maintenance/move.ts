@@ -19,6 +19,7 @@ import {
 import { isInsideDir } from '../core/fs-utils.js';
 import { addToIndex, removeFromIndex } from '../core/index.js';
 import { loadGraph, saveGraph, addNode, removeNode } from '../graph/structure.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 
@@ -147,16 +148,7 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
   // Read source file
   const content = fs.readFileSync(sourcePath, 'utf8');
   const parsed = parseMemoryFile(content);
-
-  if (!parsed.frontmatter) {
-    return {
-      status: 'error',
-      id,
-      sourcePath,
-      changes,
-      error: 'Failed to parse frontmatter',
-    };
-  }
+  // Note: parseMemoryFile throws on invalid input, no null check needed
 
   // Update scope in frontmatter
   const updatedFm = updateFrontmatter(parsed.frontmatter, {
@@ -211,7 +203,7 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
   // Update target index (add)
   try {
     const indexEntry: IndexEntry = {
-      id,
+      id: unsafeAsMemoryId(id),
       title: updatedFm.title,
       type: updatedFm.type as MemoryType,
       tags: updatedFm.tags ?? [],

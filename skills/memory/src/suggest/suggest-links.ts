@@ -11,6 +11,7 @@ import { findSimilarMemories } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { linkMemories } from '../graph/link.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 
 /**
  * Suggested link
@@ -149,8 +150,8 @@ export async function suggestLinks(
         continue;
       }
 
-      const sourceEntry = indexMap.get(sourceId);
-      const targetEntry = indexMap.get(match.id);
+      const sourceEntry = indexMap.get(unsafeAsMemoryId(sourceId));
+      const targetEntry = indexMap.get(unsafeAsMemoryId(match.id));
 
       if (!sourceEntry || !targetEntry) continue;
 

@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import { loadEmbeddingCache, generateEmbedding, type EmbeddingProvider } from './embedding.js';
 import { findSimilarMemories } from './similarity.js';
 import { loadIndex } from '../core/index.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import type { MemoryType, Scope } from '../types/enums.js';
 import { createLogger } from '../core/logger.js';
 
@@ -89,7 +90,7 @@ export async function semanticSearch(
   const results: SemanticSearchResult[] = [];
 
   for (const similar of similarMemories) {
-    const entry = indexMap.get(similar.id);
+    const entry = indexMap.get(unsafeAsMemoryId(similar.id));
     if (!entry) {
       continue;
     }
@@ -173,7 +174,7 @@ export async function findSimilarToMemory(
   const results: SemanticSearchResult[] = [];
 
   for (const similar of similarMemories) {
-    const entry = indexMap.get(similar.id);
+    const entry = indexMap.get(unsafeAsMemoryId(similar.id));
     if (!entry) {
       continue;
     }

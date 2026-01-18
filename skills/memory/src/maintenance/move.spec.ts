@@ -9,7 +9,6 @@ import { Scope } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
-import * as frontmatterModule from '../core/frontmatter.js';
 import * as structureModule from '../graph/structure.js';
 
 describe('moveMemory', () => {
@@ -369,38 +368,8 @@ describe('moveMemory mocked edge cases', () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  it('returns error when frontmatter parse fails', async () => {
-    // Create source file
-    const sourceFile = path.join(projectPath, 'permanent', 'learning-badparse.md');
-    fs.writeFileSync(
-      sourceFile,
-      `---
-type: learning
-title: Test
-created: 2026-01-13T00:00:00.000Z
-updated: 2026-01-13T00:00:00.000Z
-tags: []
-scope: project
----
-Content`
-    );
-
-    // Mock parseMemoryFile to return null frontmatter
-    vi.spyOn(frontmatterModule, 'parseMemoryFile').mockReturnValue({
-      frontmatter: null as any,
-      content: 'Content',
-    });
-
-    const result = await moveMemory({
-      id: 'learning-badparse',
-      sourceBasePath: projectPath,
-      targetBasePath: targetPath,
-      targetScope: Scope.Local,
-    });
-
-    expect(result.status).toBe('error');
-    expect(result.error).toContain('Failed to parse frontmatter');
-  });
+  // Note: Removed phantom test 'returns error when frontmatter parse fails'
+  // parseMemoryFile throws on invalid input, never returns null frontmatter
 
   it('creates new target graph when loadGraph fails', async () => {
     // Create source file

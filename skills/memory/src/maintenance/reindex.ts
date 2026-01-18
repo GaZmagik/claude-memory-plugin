@@ -11,6 +11,7 @@ import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
 import { addToIndex, findInIndex } from '../core/index.js';
 import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 
@@ -105,15 +106,7 @@ export async function reindexMemory(request: ReindexRequest): Promise<ReindexRes
   }
 
   const parsed = parseMemoryFile(content);
-  if (!parsed.frontmatter) {
-    return {
-      status: 'error',
-      id,
-      filePath,
-      actions,
-      error: 'Failed to parse frontmatter from file',
-    };
-  }
+  // Note: parseMemoryFile throws on invalid input, no null check needed
 
   const { frontmatter } = parsed;
   const temporary = isTemporary(filePath);
@@ -123,7 +116,7 @@ export async function reindexMemory(request: ReindexRequest): Promise<ReindexRes
   const existingIndexEntry = await findInIndex(basePath, id);
   if (!existingIndexEntry) {
     const indexEntry: IndexEntry = {
-      id,
+      id: unsafeAsMemoryId(id),
       title: frontmatter.title,
       type: frontmatter.type as MemoryType,
       tags: frontmatter.tags ?? [],

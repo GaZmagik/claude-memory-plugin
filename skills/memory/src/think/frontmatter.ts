@@ -6,6 +6,7 @@
  */
 
 import * as yaml from 'js-yaml';
+import { unsafeAsMemoryId, unsafeAsSessionId } from '../types/branded.js';
 import type { ThinkFrontmatter, ThoughtEntry } from '../types/think.js';
 import { MemoryType, Scope, ThinkStatus, ThoughtType } from '../types/enums.js';
 
@@ -130,7 +131,7 @@ export function parseThoughts(content: string): ThoughtEntry[] {
       if (attrMatch) {
         entry.by = attrMatch[1];
         if (attrMatch[2]) {
-          entry.sessionId = attrMatch[2];
+          entry.sessionId = unsafeAsSessionId(attrMatch[2]);
         }
       } else {
         entry.by = attribution;
@@ -266,7 +267,7 @@ export function concludeFrontmatter(
   };
 
   if (promotedTo) {
-    updated.promotedTo = promotedTo;
+    updated.promotedTo = unsafeAsMemoryId(promotedTo);
   }
 
   return updated;

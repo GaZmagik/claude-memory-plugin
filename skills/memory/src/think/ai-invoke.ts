@@ -7,6 +7,7 @@
 
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+import { unsafeAsSessionId } from '../types/branded.js';
 import type { AICallOptions, AICallResult, ThoughtEntry } from '../types/think.js';
 import { ThoughtType } from '../types/enums.js';
 import { findAgent, findStyle, readAgentBody, readStyleContent, extractBody } from './discovery.js';
@@ -252,7 +253,7 @@ export async function invokeAI(params: {
     return {
       success: true,
       content: result.output,
-      sessionId: result.sessionId,
+      sessionId: unsafeAsSessionId(result.sessionId),
     };
   } catch (error) {
     log.error('AI invocation failed', { error: String(error) });

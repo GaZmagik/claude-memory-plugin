@@ -24,6 +24,7 @@ import {
   type MemoryGraph,
   type GraphNode,
 } from '../graph/structure.js';
+import { unsafeAsMemoryId } from '../types/branded.js';
 import { removeEdge, getEdges } from '../graph/edges.js';
 import { loadIndex, saveIndex } from '../core/index.js';
 import type { IndexEntry, MemoryIndex } from '../types/memory.js';
@@ -92,8 +93,7 @@ function parseFileToNode(id: string, filePath: string): GraphNode | null {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
     const parsed = parseMemoryFile(content);
-
-    if (!parsed.frontmatter) return null;
+    // Note: parseMemoryFile throws on invalid input, caught below
 
     return {
       id,
@@ -112,14 +112,13 @@ function parseFileToIndexEntry(id: string, filePath: string): IndexEntry | null 
   try {
     const content = fs.readFileSync(filePath, 'utf8');
     const parsed = parseMemoryFile(content);
-
-    if (!parsed.frontmatter) return null;
+    // Note: parseMemoryFile throws on invalid input, caught below
 
     const fm = parsed.frontmatter;
     const isTemporary = filePath.includes('/temporary/');
 
     return {
-      id,
+      id: unsafeAsMemoryId(id),
       title: fm.title,
       type: fm.type as MemoryType,
       tags: fm.tags ?? [],
@@ -194,7 +193,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
   // 2. Find files not in index - add them
   for (const [id, filePath] of filesOnDisk) {
-    if (!indexIds.has(id)) {
+    if (!indexIds.has(unsafeAsMemoryId(id))) {
       const entry = parseFileToIndexEntry(id, filePath);
       if (entry) {
         changes.addedToIndex.push(id);

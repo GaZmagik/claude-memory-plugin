@@ -6,6 +6,7 @@
  */
 
 import * as path from 'node:path';
+import { unsafeAsThinkId } from '../types/branded.js';
 import type { ThinkState } from '../types/think.js';
 import { Scope } from '../types/enums.js';
 import { readJsonFile, writeJsonFile, fileExists, ensureDir } from '../core/fs-utils.js';
@@ -97,7 +98,7 @@ export function getCurrentScope(basePath: string): Scope | null {
  */
 export function setCurrentDocument(basePath: string, documentId: string, scope: Scope): void {
   const state = loadState(basePath);
-  state.currentDocumentId = documentId;
+  state.currentDocumentId = unsafeAsThinkId(documentId);
   state.currentScope = scope;
   saveState(basePath, state);
   log.info('Set current document', { documentId, scope });

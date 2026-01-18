@@ -1306,6 +1306,10 @@
     {
       "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
       "type": "gotcha"
+    },
+    {
+      "id": "decision-claude-code-marketplace-naming-and-plugin-ideas",
+      "type": "decision"
     }
   ],
   "edges": [

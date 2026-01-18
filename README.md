@@ -22,11 +22,14 @@ The Claude Memory Plugin extends Claude Code with a sophisticated memory system 
 
 ### Installation
 
-Using the Claude Code plugin interface:
+Using the [Enhance marketplace](https://github.com/GaZmagik/enhance):
 
 ```bash
-# From Claude Code session
-/plugin install /path/to/claude-memory-plugin
+# Add the marketplace (one-time)
+/plugin marketplace add GaZmagik/enhance
+
+# Install the plugin
+/plugin install claude-memory-plugin
 ```
 
 Or clone and install manually:

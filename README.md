@@ -203,7 +203,7 @@ Memories are organized by scope:
 |-------|----------|---------|-----------|
 | **Global** | `~/.claude/memory/` | Personal knowledge across projects | Only you |
 | **Project** | `.claude/memory/` | Project-specific architecture decisions | Your team |
-| **Local** | `${PWD}/.claude/memory/` | Current directory context | Temporary |
+| **Local** | `${PWD}/.claude/memory/local/` | Current directory context (gitignored) | Only you |
 | **Enterprise** | Synced via Git | Shared team patterns | Whole org |
 
 ## Memory Types

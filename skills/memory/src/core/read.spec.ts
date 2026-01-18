@@ -10,7 +10,7 @@ import type { IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import * as indexModule from './index.js';
 import * as fsUtils from './fs-utils.js';
-import * as frontmatter from './frontmatter.js';
+// parseMemoryFile runs naturally - no mock needed
 
 describe('readMemory', () => {
   const mockBasePath = '/test/base';
@@ -213,16 +213,14 @@ ${mockContent}
 
       vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(true);
-      vi.spyOn(fsUtils, 'readFile').mockReturnValue('invalid file content');
-      vi.spyOn(frontmatter, 'parseMemoryFile').mockImplementation(() => {
-        throw new Error('Invalid frontmatter format');
-      });
+      // Use invalid content - parseMemoryFile runs naturally and throws
+      vi.spyOn(fsUtils, 'readFile').mockReturnValue('invalid file content without frontmatter');
 
       const result = await readMemory(request);
 
       expect(result.status).toBe('error');
       expect(result.error).toContain('Failed to read memory');
-      expect(result.error).toContain('Invalid frontmatter format');
+      expect(result.error).toContain('missing frontmatter delimiters');
     });
   });
 });

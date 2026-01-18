@@ -2,7 +2,7 @@
  * Tests for T028: Memory Write Operation
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
 import { memoryId } from '../test-utils/branded-helpers.js';
 import { writeMemory } from './write.js';
 import type { WriteMemoryRequest } from '../types/api.js';
@@ -21,6 +21,15 @@ import * as graph from '../graph/structure.js';
 describe('writeMemory', () => {
   const mockBasePath = '/test/base';
   const mockProjectRoot = '/test/project';
+
+  beforeAll(() => {
+    // Mock toISOString for deterministic timestamps - allows createFrontmatter to run naturally
+    vi.spyOn(Date.prototype, 'toISOString').mockReturnValue('2026-01-11T00:00:00.000Z');
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -80,17 +89,9 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      // Only mock I/O operations, not pure functions
+      // Only mock I/O operations - let pure functions (createFrontmatter, serialiseMemoryFile) run naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-learning'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning,
-        title: 'Test Learning',
-        created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z',
-        tags: ['test'],
-      });
-      // Let serialiseMemoryFile run for real - it's a pure function
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -134,16 +135,8 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      // Real validation passes for valid input
+      // Only mock I/O - let createFrontmatter run naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Gotcha,
-        title: 'Test Issue',
-        created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z',
-        tags: ['test'],
-      });
-      // serialiseMemoryFile runs for real - pure function
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -178,13 +171,7 @@ describe('writeMemory', () => {
     it('should generate unique ID', async () => {
       const mockId = memoryId('learning-test-memory');
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(mockId);
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning,
-        title: 'Test Memory',
-        created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z',
-        tags: ['test', 'learning'],
-      });
+      // createFrontmatter runs naturally with mocked Date.toISOString
 
       await writeMemory(validRequest);
 
@@ -476,17 +463,9 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      // Real validation passes for valid input
+      // Only mock I/O - createFrontmatter runs naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning,
-        title: 'Test',
-        created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z',
-        tags: [],
-      });
-      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
 
@@ -498,17 +477,9 @@ describe('writeMemory', () => {
 
   describe('error handling', () => {
     beforeEach(() => {
-      // Real validation passes for valid input
+      // Only mock I/O - createFrontmatter runs naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning,
-        title: 'Test',
-        created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z',
-        tags: [],
-      });
-      // serialiseMemoryFile runs for real
     });
 
     it('should handle file write errors', async () => {
@@ -578,14 +549,9 @@ describe('writeMemory', () => {
 
   describe('cross-scope duplicate detection', () => {
     beforeEach(() => {
-      // Real validation passes for valid input
+      // Only mock I/O - createFrontmatter runs naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
-        updated: '2026-01-13T00:00:00.000Z', tags: [],
-      });
-      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
     });
@@ -656,14 +622,9 @@ describe('writeMemory', () => {
         lastUpdated: '2026-01-01T00:00:00.000Z',
         memories: [],
       });
-      // Real validation passes for valid input
+      // Only mock I/O - createFrontmatter runs naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test-topic'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning, title: 'Test Topic', created: '2026-01-13T00:00:00.000Z',
-        updated: '2026-01-13T00:00:00.000Z', tags: [],
-      });
-      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(fsUtils, 'fileExists').mockReturnValue(false);
@@ -735,14 +696,9 @@ describe('writeMemory', () => {
 
   describe('auto-link functionality', () => {
     beforeEach(() => {
-      // Real validation passes for valid input
+      // Only mock I/O - createFrontmatter runs naturally
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue(memoryId('learning-test'));
-      vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
-        type: MemoryType.Learning, title: 'Test', created: '2026-01-11T00:00:00.000Z',
-        updated: '2026-01-11T00:00:00.000Z', tags: [],
-      });
-      // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
       vi.spyOn(graph, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });

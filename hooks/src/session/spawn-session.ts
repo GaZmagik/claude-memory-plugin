@@ -113,6 +113,56 @@ export function isMemoryCaptureSession(): boolean {
 export const isForkedSession = isMemoryCaptureSession;
 
 /**
+ * Validate and sanitise a string for safe shell usage
+ *
+ * Rejects strings containing shell metacharacters that could enable injection.
+ * Returns the original string if safe, throws if dangerous characters found.
+ *
+ * @param value - String to validate
+ * @param fieldName - Name of field for error messages
+ * @throws Error if string contains dangerous characters
+ */
+export function validateShellSafe(value: string, fieldName: string): string {
+  // Dangerous shell metacharacters that could enable injection
+  // Includes: backticks, $(), command separators, redirects, pipes, etc.
+  const dangerousPattern = /[`$();&|<>\\'\n\r]/;
+
+  if (dangerousPattern.test(value)) {
+    throw new Error(
+      `Invalid ${fieldName}: contains shell metacharacters. ` +
+        `Value must not contain: \` $ ( ) ; & | < > \\ ' or newlines`
+    );
+  }
+
+  return value;
+}
+
+/**
+ * Validate a file path for safe shell usage
+ *
+ * Allows typical path characters (alphanumeric, /, -, _, ., spaces)
+ * but rejects shell metacharacters.
+ *
+ * @param path - Path to validate
+ * @throws Error if path contains dangerous characters
+ */
+export function validatePathSafe(path: string): string {
+  // Allow typical path characters but reject shell metacharacters
+  // Permitted: alphanumeric, /, -, _, ., space, ~
+  // Rejected: backticks, $, (), ;, &, |, <>, \, ', ", newlines
+  const dangerousPattern = /[`$();&|<>\\'"!\n\r]/;
+
+  if (dangerousPattern.test(path)) {
+    throw new Error(
+      `Invalid path: contains shell metacharacters. ` +
+        `Path must not contain: \` $ ( ) ; & | < > \\ ' " ! or newlines`
+    );
+  }
+
+  return path;
+}
+
+/**
  * Spawn a fresh Claude session with extracted context
  *
  * This creates a fully detached background process that:
@@ -127,7 +177,10 @@ export const isForkedSession = isMemoryCaptureSession;
 export async function spawnSessionWithContext(
   options: SpawnSessionOptions
 ): Promise<SpawnSessionResult> {
-  const logDir = getLogDir(options.cwd);
+  // Validate cwd path before using in shell
+  const cwd = validatePathSafe(options.cwd);
+
+  const logDir = getLogDir(cwd);
   const timestamp = getTimestamp();
   const logFile = join(logDir, `${options.logPrefix}-${timestamp}-${options.sessionId}.log`);
 
@@ -136,7 +189,7 @@ export async function spawnSessionWithContext(
   const header = `=== ${options.logPrefix} Started: ${new Date().toISOString()} ===
 Session ID: ${options.sessionId}
 Trigger: ${trigger}
-Working Directory: ${options.cwd}
+Working Directory: ${cwd}
 Context size: ${options.contextPrompt.length} bytes
 ---
 `;
@@ -144,9 +197,13 @@ Context size: ${options.contextPrompt.length} bytes
 
   // Validate numeric timeout to prevent injection
   const timeoutSecs = Math.max(1, Math.min(3600, Math.floor(options.timeoutSecs ?? 300)));
-  const model = options.model ?? 'claude-haiku-4-5-20251001';
-  const tools = options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite';
-  const pluginDirs = options.pluginDirs ?? [];
+
+  // Validate string arguments that will be passed to shell
+  const model = validateShellSafe(options.model ?? 'claude-haiku-4-5-20251001', 'model');
+  const tools = validateShellSafe(options.tools ?? 'Bash,Read,Grep,Glob,TodoWrite', 'tools');
+
+  // Validate all plugin directory paths
+  const pluginDirs = (options.pluginDirs ?? []).map((dir) => validatePathSafe(dir));
 
   // Write ephemeral files to /tmp/ instead of .claude/logs/
   // These are only needed during execution and self-clean on completion
@@ -239,12 +296,12 @@ echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
       model,
       tools,
       promptFile,
-      options.cwd,
+      cwd,
       wrapperScript,
       pluginDirFlags,
     ],
     {
-      cwd: options.cwd,
+      cwd: cwd,
       detached: true,
       stdio: 'ignore',
     }

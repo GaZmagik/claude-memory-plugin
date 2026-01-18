@@ -41,6 +41,8 @@ const {
   isMemoryCaptureSession,
   isForkedSession,
   spawnSessionWithContext,
+  validateShellSafe,
+  validatePathSafe,
 } = await import('../../../hooks/src/session/spawn-session.js');
 const fs = await import('fs');
 const childProcess = await import('node:child_process');
@@ -368,6 +370,155 @@ describe('spawn-session', () => {
         expect(spawnCall[1]).toContainEqual(expect.stringContaining('claude-prompt-'));
         expect(spawnCall[1]).not.toContain(prompt);
       }
+    });
+
+    it('should reject cwd with shell metacharacters', async () => {
+      mockExistsSync.mockReturnValue(true);
+
+      await expect(
+        spawnSessionWithContext({
+          sessionId: 'test',
+          cwd: '/project; rm -rf /',
+          prompt: '/test',
+          contextPrompt: 'Context',
+          logPrefix: 'test',
+        })
+      ).rejects.toThrow('Invalid path: contains shell metacharacters');
+    });
+
+    it('should reject model with shell metacharacters', async () => {
+      mockExistsSync.mockReturnValue(true);
+
+      await expect(
+        spawnSessionWithContext({
+          sessionId: 'test',
+          cwd: '/project',
+          prompt: '/test',
+          contextPrompt: 'Context',
+          logPrefix: 'test',
+          model: 'claude-sonnet; whoami',
+        })
+      ).rejects.toThrow('Invalid model: contains shell metacharacters');
+    });
+
+    it('should reject tools with shell metacharacters', async () => {
+      mockExistsSync.mockReturnValue(true);
+
+      await expect(
+        spawnSessionWithContext({
+          sessionId: 'test',
+          cwd: '/project',
+          prompt: '/test',
+          contextPrompt: 'Context',
+          logPrefix: 'test',
+          tools: 'Bash$(cat /etc/passwd)',
+        })
+      ).rejects.toThrow('Invalid tools: contains shell metacharacters');
+    });
+
+    it('should reject plugin dirs with shell metacharacters', async () => {
+      mockExistsSync.mockReturnValue(true);
+
+      await expect(
+        spawnSessionWithContext({
+          sessionId: 'test',
+          cwd: '/project',
+          prompt: '/test',
+          contextPrompt: 'Context',
+          logPrefix: 'test',
+          pluginDirs: ['/safe/path', '/unsafe`whoami`/path'],
+        })
+      ).rejects.toThrow('Invalid path: contains shell metacharacters');
+    });
+  });
+
+  describe('validateShellSafe', () => {
+    it('should accept safe strings', () => {
+      expect(validateShellSafe('claude-haiku-4-5-20251001', 'model')).toBe(
+        'claude-haiku-4-5-20251001'
+      );
+      expect(validateShellSafe('Bash,Read,Write,Edit', 'tools')).toBe('Bash,Read,Write,Edit');
+    });
+
+    it('should reject backticks', () => {
+      expect(() => validateShellSafe('test`whoami`', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+
+    it('should reject $() command substitution', () => {
+      expect(() => validateShellSafe('test$(id)', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+
+    it('should reject semicolons', () => {
+      expect(() => validateShellSafe('test; rm -rf /', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+
+    it('should reject pipes', () => {
+      expect(() => validateShellSafe('test | cat', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+
+    it('should reject redirects', () => {
+      expect(() => validateShellSafe('test > /tmp/out', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+      expect(() => validateShellSafe('test < /etc/passwd', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+
+    it('should reject newlines', () => {
+      expect(() => validateShellSafe('test\nrm -rf /', 'field')).toThrow(
+        'Invalid field: contains shell metacharacters'
+      );
+    });
+  });
+
+  describe('validatePathSafe', () => {
+    it('should accept safe paths', () => {
+      expect(validatePathSafe('/home/user/project')).toBe('/home/user/project');
+      expect(validatePathSafe('/tmp/claude-test-123')).toBe('/tmp/claude-test-123');
+      expect(validatePathSafe('~/.claude/plugins')).toBe('~/.claude/plugins');
+      expect(validatePathSafe('/path with spaces/file.txt')).toBe('/path with spaces/file.txt');
+    });
+
+    it('should reject backticks in paths', () => {
+      expect(() => validatePathSafe('/path/`whoami`/file')).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
+    });
+
+    it('should reject $() in paths', () => {
+      expect(() => validatePathSafe('/path/$(id)/file')).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
+    });
+
+    it('should reject semicolons in paths', () => {
+      expect(() => validatePathSafe('/path; rm -rf /')).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
+    });
+
+    it('should reject quotes in paths', () => {
+      expect(() => validatePathSafe("/path'injection")).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
+      expect(() => validatePathSafe('/path"injection')).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
+    });
+
+    it('should reject exclamation marks in paths', () => {
+      expect(() => validatePathSafe('/path/!important')).toThrow(
+        'Invalid path: contains shell metacharacters'
+      );
     });
   });
 });

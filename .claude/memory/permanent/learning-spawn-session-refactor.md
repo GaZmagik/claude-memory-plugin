@@ -33,4 +33,4 @@ Previous --fork-session pattern was complex, required separate HOME directories,
 
 ## Solution
 
-Changed to fresh session spawning using extractContextAsSystemPrompt() to inject conversation context via --additional-system-prompt flag. New spawn-session.ts module handles creation with proper context extraction.
+Changed to fresh session spawning using extractContextAsSystemPrompt() to inject conversation context via --append-system-prompt flag. New spawn-session.ts module handles creation with proper context extraction.

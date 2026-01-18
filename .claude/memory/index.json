@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-17T22:11:47.086Z",
+  "lastUpdated": "2026-01-18T03:07:00.855Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -3492,6 +3492,232 @@
       "updated": "2026-01-17T22:11:47.074Z",
       "scope": "project",
       "relativePath": "permanent/learning-intent-storage-types-for-memory-system-beyond-revisitremind.md"
+    },
+    {
+      "id": "learning-retro-backwards-compatibility-via-field-derivation-prevents-cascade-breakage",
+      "type": "learning",
+      "title": "Retro - Backwards compatibility via field derivation prevents cascade breakage",
+      "tags": [
+        "retrospective",
+        "process",
+        "backwards-compatibility",
+        "project"
+      ],
+      "created": "2026-01-17T23:06:37.742Z",
+      "updated": "2026-01-17T23:06:37.742Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-backwards-compatibility-via-field-derivation-prevents-cascade-breakage.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents unblock main session during compaction",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "performance",
+        "project"
+      ],
+      "created": "2026-01-17T23:06:42.004Z",
+      "updated": "2026-01-17T23:06:42.004Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "thought-20260117-212103009",
+      "title": "Think: Intent Storage Types for Memory System - Beyond Revisit/Remind",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-17T21:21:03.013Z",
+      "updated": "2026-01-17T22:11:47.047Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260117-212103009.md"
+    },
+    {
+      "id": "thought-20260117-110940893",
+      "title": "Think: Plugin Settings Design for Memory Plugin",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-17T11:09:40.904Z",
+      "updated": "2026-01-17T11:16:54.556Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260117-110940893.md"
+    },
+    {
+      "id": "gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios",
+      "type": "gotcha",
+      "title": "Retro - Dead code detection: phantom tests mock impossible scenarios",
+      "tags": [
+        "retrospective",
+        "testing",
+        "dead-code",
+        "project"
+      ],
+      "created": "2026-01-17T23:59:53.738Z",
+      "updated": "2026-01-18T00:07:31.181Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "type": "learning",
+      "title": "Retro - Mock removal categorizes into two distinct types",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mocks",
+        "project"
+      ],
+      "created": "2026-01-17T23:59:59.567Z",
+      "updated": "2026-01-18T00:07:48.955Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-mock-removal-categorizes-into-two-distinct-types.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "type": "gotcha",
+      "title": "Gotcha - Mock test refactoring needs dedicated sprint, not incremental",
+      "tags": [
+        "retrospective",
+        "testing",
+        "technical-debt",
+        "project"
+      ],
+      "created": "2026-01-17T23:06:47.911Z",
+      "updated": "2026-01-18T00:08:06.987Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-dead-code-parsememoryfile-null-checks-are-unreachable",
+      "type": "gotcha",
+      "title": "Dead code - parseMemoryFile null checks are unreachable",
+      "tags": [
+        "dead-code",
+        "testing",
+        "frontmatter",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-17T23:29:04.066Z",
+      "updated": "2026-01-18T00:08:25.230Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-dead-code-parsememoryfile-null-checks-are-unreachable.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged",
+      "type": "gotcha",
+      "title": "Retro - Plugin code changes require reinstall when version unchanged",
+      "tags": [
+        "retrospective",
+        "plugin",
+        "gotcha",
+        "development",
+        "project"
+      ],
+      "created": "2026-01-18T01:29:46.792Z",
+      "updated": "2026-01-18T01:29:46.792Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-pure-function-mocks-are-redundant-and-obscure-real-behavior",
+      "type": "learning",
+      "title": "Retro - Pure function mocks are redundant and obscure real behavior",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mock-reduction",
+        "learning",
+        "project"
+      ],
+      "created": "2026-01-18T01:29:52.292Z",
+      "updated": "2026-01-18T01:29:52.292Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-pure-function-mocks-are-redundant-and-obscure-real-behavior.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
+      "type": "learning",
+      "title": "Retro - Pure function mock removal pattern is highly effective",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mock-reduction",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-18T02:32:19.292Z",
+      "updated": "2026-01-18T02:32:19.292Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-pure-function-mock-removal-pattern-is-highly-effective.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-pre-existing-test-failures-are-better-fixed-during-mock-reduction",
+      "type": "learning",
+      "title": "Retro - Pre-existing test failures are better fixed during mock reduction",
+      "tags": [
+        "retrospective",
+        "testing",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-18T02:32:22.571Z",
+      "updated": "2026-01-18T02:32:22.571Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-pre-existing-test-failures-are-better-fixed-during-mock-reduction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "type": "learning",
+      "title": "Retro - Session restoration adds valuable context but adds cognitive load",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-management",
+        "project"
+      ],
+      "created": "2026-01-18T02:32:25.941Z",
+      "updated": "2026-01-18T02:32:25.941Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
+      "type": "gotcha",
+      "title": "Test missing saveGraph mock corrupted production graph",
+      "tags": [
+        "gotcha",
+        "testing",
+        "mock-isolation",
+        "data-corruption",
+        "cli-tests",
+        "critical",
+        "project"
+      ],
+      "created": "2026-01-18T03:07:00.851Z",
+      "updated": "2026-01-18T03:07:00.851Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-missing-savegraph-mock-corrupted-production-graph.md",
+      "severity": "critical"
     }
   ]
 }

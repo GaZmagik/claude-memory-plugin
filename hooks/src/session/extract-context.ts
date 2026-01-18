@@ -192,7 +192,7 @@ export function extractSessionContext(sessionId: string, cwd: string): Extractio
 }
 
 /**
- * Extract context and return as system prompt suitable for --additional-system-prompt
+ * Extract context and return as system prompt suitable for --append-system-prompt
  */
 export function extractContextAsSystemPrompt(sessionId: string, cwd: string): string | null {
   const result = extractSessionContext(sessionId, cwd);

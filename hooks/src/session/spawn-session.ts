@@ -4,7 +4,7 @@
  *
  * Provides infrastructure for spawning background Claude processes that:
  * - Run completely fresh sessions (no forking)
- * - Receive conversation context via --additional-system-prompt
+ * - Receive conversation context via --append-system-prompt
  * - Fully detach from parent process
  * - Log to timestamped files
  */
@@ -53,7 +53,7 @@ export interface SpawnSessionOptions {
   cwd: string;
   /** Prompt to send (slash command) */
   prompt: string;
-  /** Extracted context to pass as additional system prompt */
+  /** Extracted context to pass as append system prompt */
   contextPrompt: string;
   /** Log file prefix (e.g., 'memory-capture') */
   logPrefix: string;
@@ -117,7 +117,7 @@ export const isForkedSession = isMemoryCaptureSession;
  *
  * This creates a fully detached background process that:
  * 1. Runs a completely fresh Claude session (no forking)
- * 2. Receives conversation context via --additional-system-prompt
+ * 2. Receives conversation context via --append-system-prompt
  * 3. Runs the specified prompt
  * 4. Logs output to timestamped file
  *
@@ -206,7 +206,7 @@ CLAUDE_ARGS=(
   --dangerously-skip-permissions
   --output-format stream-json
   --verbose
-  --additional-system-prompt "$CLAUDE_CONTEXT_PROMPT"
+  --append-system-prompt "$CLAUDE_CONTEXT_PROMPT"
   --tools "$TOOLS"
 )
 

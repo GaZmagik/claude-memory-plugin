@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { writeMemory } from './write.js';
 import type { WriteMemoryRequest } from '../types/api.js';
 import { Scope, MemoryType, Severity } from '../types/enums.js';
-import * as validation from './validation.js';
+// validation module now tested via real calls, not mocks
 import * as slug from './slug.js';
 import * as frontmatter from './frontmatter.js';
 import * as fsUtils from './fs-utils.js';
@@ -31,6 +31,7 @@ describe('writeMemory', () => {
 
   describe('validation', () => {
     it('should return error when validation fails', async () => {
+      // Use actually invalid input - no need to mock validation
       const invalidRequest: WriteMemoryRequest = {
         type: 'invalid-type' as MemoryType,
         title: '',
@@ -39,45 +40,36 @@ describe('writeMemory', () => {
         scope: Scope.Local,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: false,
-        errors: [{ field: 'type', message: 'Invalid type' }],
-      });
-
       const result = await writeMemory(invalidRequest);
 
       expect(result.status).toBe('error');
-      expect(result.error).toContain('type: Invalid type');
-      expect(validation.validateWriteRequest).toHaveBeenCalledWith(invalidRequest);
+      // Real validation catches both invalid type and empty title
+      expect(result.error).toContain('title');
+      expect(result.error).toContain('type');
     });
 
     it('should combine multiple validation errors', async () => {
+      // Use actually invalid input - real validation catches all issues
       const invalidRequest: WriteMemoryRequest = {
         type: 'invalid' as MemoryType,
         title: '',
         content: 'test',
-        tags: [''],
+        tags: [''],  // Empty string in tags is invalid
         scope: 'invalid' as Scope,
       };
-
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: false,
-        errors: [
-          { field: 'type', message: 'Invalid type' },
-          { field: 'title', message: 'Title required' },
-          { field: 'scope', message: 'Invalid scope' },
-        ],
-      });
 
       const result = await writeMemory(invalidRequest);
 
       expect(result.status).toBe('error');
-      expect(result.error).toContain('type: Invalid type');
-      expect(result.error).toContain('title: Title required');
-      expect(result.error).toContain('scope: Invalid scope');
+      // Real validation produces actual error messages
+      expect(result.error).toContain('type');
+      expect(result.error).toContain('title');
+      expect(result.error).toContain('tags');
+      expect(result.error).toContain('scope');
     });
 
     it('should proceed when validation passes', async () => {
+      // Valid input passes real validation - no mock needed
       const validRequest: WriteMemoryRequest = {
         type: MemoryType.Learning,
         title: 'Test Learning',
@@ -87,10 +79,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Only mock I/O operations, not pure functions
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-learning');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -107,7 +96,6 @@ describe('writeMemory', () => {
       const result = await writeMemory(validRequest);
 
       expect(result.status).toBe('success');
-      expect(validation.validateWriteRequest).toHaveBeenCalledWith(validRequest);
     });
 
     it('should reject custom ID with mismatched type prefix', async () => {
@@ -121,10 +109,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
 
       const result = await writeMemory(mismatchedRequest);
@@ -146,10 +131,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
         type: MemoryType.Gotcha,
@@ -182,10 +164,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(fsUtils, 'writeFileAtomic').mockImplementation(() => {});
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
@@ -419,10 +398,7 @@ describe('writeMemory', () => {
 
   describe('gitignore automation', () => {
     beforeEach(() => {
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -502,10 +478,7 @@ describe('writeMemory', () => {
         basePath: mockBasePath,
       };
 
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -527,10 +500,7 @@ describe('writeMemory', () => {
 
   describe('error handling', () => {
     beforeEach(() => {
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({
-        valid: true,
-        errors: [],
-      });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -610,7 +580,7 @@ describe('writeMemory', () => {
 
   describe('cross-scope duplicate detection', () => {
     beforeEach(() => {
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -687,7 +657,7 @@ describe('writeMemory', () => {
         lastUpdated: '2026-01-01T00:00:00.000Z',
         memories: [],
       });
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test-topic');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({
@@ -766,7 +736,7 @@ describe('writeMemory', () => {
 
   describe('auto-link functionality', () => {
     beforeEach(() => {
-      vi.spyOn(validation, 'validateWriteRequest').mockReturnValue({ valid: true, errors: [] });
+      // Real validation passes for valid input
       vi.spyOn(fsUtils, 'ensureDir').mockImplementation(() => {});
       vi.spyOn(slug, 'generateUniqueId').mockReturnValue('learning-test');
       vi.spyOn(frontmatter, 'createFrontmatter').mockReturnValue({

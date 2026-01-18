@@ -13,6 +13,12 @@ enabled: true
 # --------------------
 # The plugin uses Ollama for semantic search and AI-assisted features.
 # If Ollama is not available, the plugin degrades gracefully.
+# The following settings have been tested and work well with the following specs:
+# - CPU: Intel Core i7 4th Gen
+# - RAM: 32GB (16GB will very likely be sufficient)
+# - GPU: NVIDIA GTX 1060 6GB
+# With gemma3:4b at 32k context, both models load onto GPU successfully)
+# Even without the GPU, performance has been tested on the above CPU/RAM specs and is acceptable.
 
 ollama_host: http://localhost:11434
 chat_model: gemma3:4b

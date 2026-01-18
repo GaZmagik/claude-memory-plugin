@@ -375,6 +375,31 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   Useful after bulk graph modifications.`,
   },
 
+  setup: {
+    usage: 'memory setup [--force]',
+    description: 'Create local settings file from example template',
+    flags: `  --force    Overwrite existing settings file`,
+    examples: [
+      'memory setup',
+      'memory setup --force',
+    ],
+    notes: `  Creates .claude/memory.local.md from .claude/memory.example.md.
+  Configure Ollama models and other settings in the local file.
+  The local file is gitignored for per-user customisation.`,
+  },
+
+  refresh: {
+    usage: 'memory refresh [scope]',
+    description: 'Backfill missing frontmatter fields (id, project, scope)',
+    arguments: `  [scope]    Scope to refresh (project, local, user). Default: project`,
+    examples: [
+      'memory refresh',
+      'memory refresh project',
+    ],
+    notes: `  Adds missing frontmatter fields to memory files.
+  Safe to run - only adds fields, never removes.`,
+  },
+
   // Utility Operations
   rename: {
     usage: 'memory rename <old-id> <new-id>',

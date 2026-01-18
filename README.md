@@ -347,6 +347,38 @@ The plugin registers hooks for:
 
 See `hooks/hooks.json` for the full hook configuration.
 
+### Ollama Integration
+
+The plugin uses [Ollama](https://ollama.ai) for local AI features. Both models gracefully degrade if Ollama isn't running.
+
+| Model | Default | Purpose |
+|-------|---------|---------|
+| **Embedding** | `embeddinggemma:latest` | Semantic search, similarity matching, link suggestions |
+| **Chat** | `gemma3:4b` | Topic extraction, gotcha summarisation, context prompts |
+
+Configure models in `.claude/memory.local.md` (gitignored). Copy from the example:
+
+```bash
+cp .claude/memory.example.md .claude/memory.local.md
+```
+
+Then edit to customise:
+
+```yaml
+---
+embedding_model: embeddinggemma:latest
+chat_model: gemma3:4b
+ollama_host: http://localhost:11434
+---
+```
+
+Install the default models:
+
+```bash
+ollama pull embeddinggemma:latest
+ollama pull gemma3:4b
+```
+
 ## Development
 
 ### Running Tests

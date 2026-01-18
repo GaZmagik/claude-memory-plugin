@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T19:42:06.121Z",
+  "lastUpdated": "2026-01-18T19:54:04.492Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4198,6 +4198,19 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md",
       "severity": "high"
+    },
+    {
+      "id": "decision-claude-code-marketplace-naming-and-plugin-ideas",
+      "type": "decision",
+      "title": "Claude Code Marketplace naming and plugin ideas",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-18T19:54:04.479Z",
+      "updated": "2026-01-18T19:54:04.479Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-claude-code-marketplace-naming-and-plugin-ideas.md"
     }
   ]
 }

@@ -1,16 +1,18 @@
 /**
- * Sync - Reconcile graph, index, and disk
+ * Sync - Reconcile graph, index, embeddings, and disk
  *
  * Ensures consistency between:
  * - Files on disk (permanent/ and temporary/ directories)
  * - Graph nodes and edges (graph.json)
  * - Index entries (index.json)
+ * - Embedding entries (embeddings.json)
  *
  * Actions taken:
  * - Add missing files to graph/index
  * - Remove ghost nodes (graph nodes without files)
  * - Remove orphan edges (edges pointing to missing nodes)
- * - Update index for files not indexed
+ * - Remove orphan index entries (entries without files)
+ * - Remove orphan embedding entries (embeddings without files)
  */
 
 import * as fs from 'node:fs';
@@ -29,6 +31,7 @@ import { removeEdge, getEdges } from '../graph/edges.js';
 import { loadIndex, saveIndex } from '../core/index.js';
 import type { IndexEntry, MemoryIndex } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
+import type { EmbeddingCache } from '../search/embedding.js';
 
 /**
  * Sync request options
@@ -56,12 +59,15 @@ export interface SyncResponse {
     removedOrphanEdges: number;
     /** Index entries removed (no file) */
     removedFromIndex: string[];
+    /** Orphan embedding entries removed */
+    removedOrphanEmbeddings: string[];
   };
   /** Summary counts */
   summary: {
     filesOnDisk: number;
     nodesInGraph: number;
     entriesInIndex: number;
+    entriesInEmbeddings: number;
   };
   errors?: string[];
 }
@@ -145,6 +151,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     removedGhostNodes: [] as string[],
     removedOrphanEdges: 0,
     removedFromIndex: [] as string[],
+    removedOrphanEmbeddings: [] as string[],
   };
 
   // Load current state
@@ -240,6 +247,38 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     index.lastUpdated = new Date().toISOString();
   }
 
+  // 6. Find orphan embedding entries (in embeddings.json but no file) - remove them
+  let embeddingsCount = 0;
+  const embeddingsPath = path.join(basePath, 'embeddings.json');
+  if (fs.existsSync(embeddingsPath)) {
+    try {
+      const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      const cache = JSON.parse(content) as EmbeddingCache;
+
+      if (cache.memories) {
+        const embeddingIds = Object.keys(cache.memories);
+        embeddingsCount = embeddingIds.length;
+
+        for (const embeddingId of embeddingIds) {
+          if (!fileIds.has(embeddingId)) {
+            changes.removedOrphanEmbeddings.push(embeddingId);
+            if (!dryRun) {
+              delete cache.memories[embeddingId];
+            }
+          }
+        }
+
+        // Save cleaned embeddings if changes were made
+        if (!dryRun && changes.removedOrphanEmbeddings.length > 0) {
+          fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+          embeddingsCount = Object.keys(cache.memories).length;
+        }
+      }
+    } catch (err) {
+      errors.push(`Failed to clean embeddings: ${err}`);
+    }
+  }
+
   // Save changes if not dry run
   if (!dryRun) {
     try {
@@ -260,8 +299,9 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     changes,
     summary: {
       filesOnDisk: filesOnDisk.size,
-      nodesInGraph: dryRun ? graph.nodes.length : graph.nodes.length,
-      entriesInIndex: dryRun ? index.memories.length : index.memories.length,
+      nodesInGraph: graph.nodes.length,
+      entriesInIndex: index.memories.length,
+      entriesInEmbeddings: embeddingsCount,
     },
     ...(errors.length > 0 && { errors }),
   };

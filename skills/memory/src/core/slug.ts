@@ -6,6 +6,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type { MemoryId } from '../types/branded.js';
 import { MemoryType } from '../types/enums.js';
 
 const MAX_SLUG_LENGTH = 80;
@@ -79,9 +80,9 @@ export function resolveCollision(slug: string, existingSlugs: string[]): string 
 /**
  * Generate a memory ID from type and title
  */
-export function generateId(type: MemoryType, title: string): string {
+export function generateId(type: MemoryType, title: string): MemoryId {
   const slug = slugify(title);
-  return `${type}-${slug}`;
+  return `${type}-${slug}` as MemoryId;
 }
 
 /**
@@ -100,7 +101,7 @@ export function generateUniqueId(
   type: MemoryType,
   title: string,
   basePath: string
-): string {
+): MemoryId {
   const baseId = generateId(type, title);
 
   if (!idExists(baseId, basePath)) {
@@ -109,11 +110,11 @@ export function generateUniqueId(
 
   // Find next available suffix
   let suffix = 1;
-  let uniqueId = `${baseId}-${suffix}`;
+  let uniqueId = `${baseId}-${suffix}` as MemoryId;
 
   while (idExists(uniqueId, basePath)) {
     suffix++;
-    uniqueId = `${baseId}-${suffix}`;
+    uniqueId = `${baseId}-${suffix}` as MemoryId;
 
     // Safety limit to prevent infinite loop
     if (suffix > 1000) {
@@ -153,7 +154,7 @@ export function isValidSlug(slug: string): boolean {
 /**
  * Parse a memory ID into type and slug components
  */
-export function parseId(id: string): { type: MemoryType; slug: string } | null {
+export function parseId(id: MemoryId | string): { type: MemoryType; slug: string } | null {
   const types = Object.values(MemoryType);
 
   for (const type of types) {

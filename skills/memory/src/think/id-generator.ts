@@ -8,11 +8,13 @@
  * for visual consistency with thought.json state file.
  */
 
+import type { ThinkId } from '../types/branded.js';
+
 /**
  * Generate a think document ID with timestamp format
  * Format: thought-YYYYMMDD-HHMMSSmmm (includes milliseconds)
  */
-export function generateThinkId(): string {
+export function generateThinkId(): ThinkId {
   const now = new Date();
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -22,16 +24,16 @@ export function generateThinkId(): string {
   const seconds = String(now.getSeconds()).padStart(2, '0');
   const millis = String(now.getMilliseconds()).padStart(3, '0');
 
-  return `thought-${year}${month}${day}-${hours}${minutes}${seconds}${millis}`;
+  return `thought-${year}${month}${day}-${hours}${minutes}${seconds}${millis}` as ThinkId;
 }
 
 /**
- * Validate a think document ID format
+ * Validate a think document ID format (type guard)
  * @param id - The ID to validate
  * @returns true if the ID matches thought-YYYYMMDD-HHMMSS or thought-YYYYMMDD-HHMMSSmmm format
  *          Also accepts legacy think- prefix for backwards compatibility
  */
-export function isValidThinkId(id: string): boolean {
+export function isValidThinkId(id: string): id is ThinkId {
   // Accept both thought- (new) and think- (legacy) prefixes
   // Accept both old format (6 digits) and new format (9 digits with millis)
   return /^(thought|think)-\d{8}-\d{6,9}$/.test(id);
@@ -42,7 +44,7 @@ export function isValidThinkId(id: string): boolean {
  * @param id - The think document ID
  * @returns Date object or null if invalid
  */
-export function parseThinkIdTimestamp(id: string): Date | null {
+export function parseThinkIdTimestamp(id: ThinkId | string): Date | null {
   if (!isValidThinkId(id)) {
     return null;
   }

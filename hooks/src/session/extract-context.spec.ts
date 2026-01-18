@@ -156,7 +156,7 @@ describe('extract-context', () => {
       expect(result!.content[0]!.content).toBe('Hello, Claude!');
     });
 
-    it('should extract thinking content', async () => {
+    it('should skip thinking content (too verbose for memory capture)', async () => {
       const { extractSessionContext } = await import(
         '../../../hooks/src/session/extract-context.ts'
       );
@@ -173,9 +173,8 @@ describe('extract-context', () => {
       const result = extractSessionContext('test-session', '/home/user/project');
 
       expect(result).not.toBeNull();
-      expect(result!.content).toHaveLength(1);
-      expect(result!.content[0]!.type).toBe('thinking');
-      expect(result!.content[0]!.content).toBe('Let me consider this...');
+      // Thinking blocks are skipped to reduce context bloat
+      expect(result!.content).toHaveLength(0);
     });
 
     it('should extract text content', async () => {
@@ -291,7 +290,7 @@ describe('extract-context', () => {
       expect(result!.content[0]!.content).toBe('{"status":"success","lines":42}');
     });
 
-    it('should truncate long tool_result content to 500 chars', async () => {
+    it('should truncate long tool_result content to 150 chars', async () => {
       const { extractSessionContext } = await import(
         '../../../hooks/src/session/extract-context.ts'
       );
@@ -307,8 +306,9 @@ describe('extract-context', () => {
       const result = extractSessionContext('test-session', '/home/user/project');
 
       expect(result).not.toBeNull();
-      expect(result!.content[0]!.content).toHaveLength(500);
-      expect(result!.content[0]!.content).toBe('A'.repeat(500));
+      // Truncated to 150 chars to reduce context size
+      expect(result!.content[0]!.content).toHaveLength(150);
+      expect(result!.content[0]!.content).toBe('A'.repeat(150));
     });
 
     it('should handle tool_result with null content', async () => {
@@ -485,10 +485,10 @@ describe('extract-context', () => {
       const result = extractSessionContext('test-session', '/home/user/project');
 
       expect(result).not.toBeNull();
-      expect(result!.content).toHaveLength(3);
-      expect(result!.content[0]!.type).toBe('thinking');
-      expect(result!.content[1]!.type).toBe('text');
-      expect(result!.content[2]!.type).toBe('tool_use');
+      // Thinking blocks are now skipped for memory capture (too verbose)
+      expect(result!.content).toHaveLength(2);
+      expect(result!.content[0]!.type).toBe('text');
+      expect(result!.content[1]!.type).toBe('tool_use');
     });
 
     it('should skip content items without required fields', async () => {
@@ -551,14 +551,17 @@ describe('extract-context', () => {
   });
 
   describe('formatContent (via extractSessionContext)', () => {
-    it('should format thinking content with tags', async () => {
+    it('should skip thinking blocks (too verbose for memory capture)', async () => {
       const { extractSessionContext } = await import(
         '../../../hooks/src/session/extract-context.ts'
       );
 
       const jsonlContent = JSON.stringify({
         message: {
-          content: [{ type: 'thinking', thinking: 'Deep thoughts' }],
+          content: [
+            { type: 'thinking', thinking: 'Deep thoughts' },
+            { type: 'text', text: 'Actual response' },
+          ],
         },
       }) + '\n';
 
@@ -567,9 +570,12 @@ describe('extract-context', () => {
 
       const result = extractSessionContext('test', '/project');
 
-      expect(result!.formattedText).toContain('[THINKING]');
-      expect(result!.formattedText).toContain('Deep thoughts');
-      expect(result!.formattedText).toContain('[/THINKING]');
+      // Thinking blocks are skipped to reduce context size
+      expect(result!.formattedText).not.toContain('[THINKING]');
+      expect(result!.formattedText).not.toContain('Deep thoughts');
+      // But text content is preserved
+      expect(result!.formattedText).toContain('[ASSISTANT]');
+      expect(result!.formattedText).toContain('Actual response');
     });
 
     it('should format text content with ASSISTANT tag', async () => {

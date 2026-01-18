@@ -2734,6 +2734,31 @@
       "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
       "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
       "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
+      "target": "learning-retro-systematic-investigation-methodology-for-complex-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-systematic-file-level-mutation-audits-uncover-architectural-gaps",
+      "target": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
+      "target": "learning-retro-systematic-investigation-methodology-for-complex-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api",
+      "target": "hub-search-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-systematic-investigation-methodology-for-complex-issues",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
     }
   ]
 }

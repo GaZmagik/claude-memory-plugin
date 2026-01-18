@@ -183,77 +183,258 @@ function dotProduct(vec1: number[], vec2: number[]): number {
   return sum;
 }
 
+// ============================================================================
+// Locality-Sensitive Hashing (LSH) for O(n log n) duplicate detection
+// ============================================================================
+
 /**
- * Find potential duplicates based on high similarity
- *
- * Optimisations applied:
- * - Uses dot product directly (embeddings are pre-normalised)
- * - Early termination when limit reached
- * - Caches embedding arrays to avoid repeated object lookups
- *
- * Complexity: O(n²) worst case, but typically much faster with limit parameter.
- * For very large collections (>1000), consider sampling or LSH-based approaches.
- *
- * @param embeddings - Map of memory ID to embedding (must be normalised)
- * @param threshold - Minimum similarity to consider duplicate (default: 0.92)
- * @param limit - Maximum duplicates to find (default: unlimited). Use for large collections.
- * @returns Array of potential duplicate pairs, sorted by similarity descending
+ * Seeded random number generator for reproducible hyperplanes
+ * Uses mulberry32 algorithm
  */
-export function findPotentialDuplicates(
+function seededRandom(seed: number): () => number {
+  return function () {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * Generate random unit vector (hyperplane normal) with seeded RNG
+ * Uses Box-Muller transform for normal distribution
+ */
+function randomHyperplane(dimensions: number, rng: () => number): number[] {
+  const vec = new Array<number>(dimensions);
+  let magnitude = 0;
+
+  for (let i = 0; i < dimensions; i++) {
+    // Box-Muller transform for normal distribution
+    const u1 = rng();
+    const u2 = rng();
+    vec[i] = Math.sqrt(-2 * Math.log(u1 || 1e-10)) * Math.cos(2 * Math.PI * u2);
+    magnitude += vec[i] * vec[i];
+  }
+
+  // Normalise to unit vector
+  magnitude = Math.sqrt(magnitude);
+  for (let i = 0; i < dimensions; i++) {
+    vec[i] /= magnitude;
+  }
+
+  return vec;
+}
+
+/**
+ * Compute LSH hash for a vector using random hyperplanes
+ * Each bit represents which side of the hyperplane the vector falls on
+ */
+function computeLSHHash(vec: number[], hyperplanes: number[][]): number {
+  let hash = 0;
+  for (let i = 0; i < hyperplanes.length; i++) {
+    const dot = dotProduct(vec, hyperplanes[i]);
+    if (dot >= 0) {
+      hash |= 1 << i;
+    }
+  }
+  return hash;
+}
+
+/**
+ * LSH index for a single hash table
+ */
+interface LSHTable {
+  hyperplanes: number[][];
+  buckets: Map<number, string[]>;
+}
+
+/**
+ * Build LSH index with multiple hash tables for better recall
+ *
+ * @param embeddings - Map of ID to embedding vector
+ * @param numHashBits - Bits per hash (more = fewer false positives, more false negatives)
+ * @param numTables - Number of hash tables (more = better recall, more memory)
+ * @param seed - Random seed for reproducibility
+ */
+function buildLSHIndex(
   embeddings: Record<string, number[]>,
-  threshold: number = 0.92,
+  numHashBits: number,
+  numTables: number,
+  seed: number = 42
+): LSHTable[] {
+  const ids = Object.keys(embeddings);
+  if (ids.length === 0) return [];
+
+  const dimensions = embeddings[ids[0]].length;
+  const tables: LSHTable[] = [];
+
+  for (let t = 0; t < numTables; t++) {
+    // Each table gets a different seed for different hyperplanes
+    const rng = seededRandom(seed + t * 1000);
+
+    // Generate random hyperplanes for this table
+    const hyperplanes: number[][] = [];
+    for (let h = 0; h < numHashBits; h++) {
+      hyperplanes.push(randomHyperplane(dimensions, rng));
+    }
+
+    // Build buckets by hashing each embedding
+    const buckets = new Map<number, string[]>();
+    for (const id of ids) {
+      const hash = computeLSHHash(embeddings[id], hyperplanes);
+      const bucket = buckets.get(hash);
+      if (bucket) {
+        bucket.push(id);
+      } else {
+        buckets.set(hash, [id]);
+      }
+    }
+
+    tables.push({ hyperplanes, buckets });
+  }
+
+  return tables;
+}
+
+/**
+ * Options for LSH-based duplicate detection
+ */
+export interface LSHOptions {
+  /** Bits per hash (default: 10). More bits = fewer candidates, faster but may miss duplicates */
+  numHashBits?: number;
+  /** Number of hash tables (default: 6). More tables = better recall, more memory */
+  numTables?: number;
+  /** Random seed for reproducibility (default: 42) */
+  seed?: number;
+  /** Collection size threshold to switch from brute force to LSH (default: 200) */
+  lshThreshold?: number;
+}
+
+/**
+ * Find potential duplicates using brute force O(n²) comparison
+ * Used internally for small collections where LSH overhead isn't worth it
+ */
+function findDuplicatesBruteForce(
+  embeddings: Record<string, number[]>,
+  threshold: number,
   limit?: number
 ): Array<{ id1: string; id2: string; similarity: number }> {
   const ids = Object.keys(embeddings);
   const n = ids.length;
 
-  // Early exit for trivial cases
-  if (n < 2) {
-    return [];
-  }
-
-  // Cache embeddings in array for faster access (avoid repeated object lookups)
+  // Cache embeddings in array for faster access
   const embeddingArrays: number[][] = ids.map(id => embeddings[id]);
-
-  // Use a min-heap approach for top-K if limit is set, otherwise collect all
   const duplicates: Array<{ id1: string; id2: string; similarity: number }> = [];
 
   for (let i = 0; i < n; i++) {
     const emb1 = embeddingArrays[i];
 
     for (let j = i + 1; j < n; j++) {
-      // Fast dot product for normalised vectors
       const similarity = dotProduct(emb1, embeddingArrays[j]);
 
       if (similarity >= threshold) {
-        duplicates.push({
-          id1: ids[i],
-          id2: ids[j],
-          similarity,
-        });
+        duplicates.push({ id1: ids[i], id2: ids[j], similarity });
 
-        // Early termination if we've found enough high-similarity pairs
-        // and just need to report that duplicates exist
+        // Early termination if collecting extra candidates
         if (limit !== undefined && duplicates.length >= limit * 2) {
-          // Collect extra candidates then trim to top 'limit'
           break;
         }
       }
     }
 
-    // Break outer loop too if limit reached
     if (limit !== undefined && duplicates.length >= limit * 2) {
       break;
     }
   }
 
-  // Sort by similarity descending
   duplicates.sort((a, b) => b.similarity - a.similarity);
+  return limit !== undefined ? duplicates.slice(0, limit) : duplicates;
+}
 
-  // Apply limit
-  if (limit !== undefined && duplicates.length > limit) {
-    return duplicates.slice(0, limit);
+/**
+ * Find potential duplicates using LSH for O(n × k) average complexity
+ * where k is average bucket size (much smaller than n for sparse duplicates)
+ */
+function findDuplicatesLSH(
+  embeddings: Record<string, number[]>,
+  threshold: number,
+  limit?: number,
+  options?: LSHOptions
+): Array<{ id1: string; id2: string; similarity: number }> {
+  const numHashBits = options?.numHashBits ?? 10;
+  const numTables = options?.numTables ?? 6;
+  const seed = options?.seed ?? 42;
+
+  // Build LSH index - O(n × numTables × numHashBits × dimensions)
+  const tables = buildLSHIndex(embeddings, numHashBits, numTables, seed);
+
+  // Collect candidate pairs from buckets - items in same bucket are candidates
+  const candidatePairs = new Set<string>();
+
+  for (const table of tables) {
+    for (const bucket of table.buckets.values()) {
+      if (bucket.length < 2) continue;
+
+      // All pairs within a bucket are candidates
+      for (let i = 0; i < bucket.length; i++) {
+        for (let j = i + 1; j < bucket.length; j++) {
+          // Canonical ordering for deduplication
+          const [a, b] = bucket[i] < bucket[j]
+            ? [bucket[i], bucket[j]]
+            : [bucket[j], bucket[i]];
+          candidatePairs.add(`${a}\0${b}`);
+        }
+      }
+    }
   }
 
-  return duplicates;
+  // Verify candidates with exact similarity - O(candidates × dimensions)
+  const duplicates: Array<{ id1: string; id2: string; similarity: number }> = [];
+
+  for (const pair of candidatePairs) {
+    const [id1, id2] = pair.split('\0');
+    const similarity = dotProduct(embeddings[id1], embeddings[id2]);
+
+    if (similarity >= threshold) {
+      duplicates.push({ id1, id2, similarity });
+    }
+  }
+
+  duplicates.sort((a, b) => b.similarity - a.similarity);
+  return limit !== undefined ? duplicates.slice(0, limit) : duplicates;
+}
+
+/**
+ * Find potential duplicates based on high similarity
+ *
+ * Automatically chooses between:
+ * - Brute force O(n²) for small collections (< lshThreshold)
+ * - LSH-based O(n × k) for large collections
+ *
+ * @param embeddings - Map of memory ID to embedding (must be normalised)
+ * @param threshold - Minimum similarity to consider duplicate (default: 0.92)
+ * @param limit - Maximum duplicates to find (default: unlimited)
+ * @param options - LSH configuration options
+ * @returns Array of potential duplicate pairs, sorted by similarity descending
+ */
+export function findPotentialDuplicates(
+  embeddings: Record<string, number[]>,
+  threshold: number = 0.92,
+  limit?: number,
+  options?: LSHOptions
+): Array<{ id1: string; id2: string; similarity: number }> {
+  const n = Object.keys(embeddings).length;
+
+  if (n < 2) {
+    return [];
+  }
+
+  // Use brute force for small collections, LSH for large ones
+  const lshThreshold = options?.lshThreshold ?? 200;
+
+  if (n < lshThreshold) {
+    return findDuplicatesBruteForce(embeddings, threshold, limit);
+  }
+
+  return findDuplicatesLSH(embeddings, threshold, limit, options);
 }

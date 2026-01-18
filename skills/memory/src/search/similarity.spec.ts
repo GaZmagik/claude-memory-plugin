@@ -675,4 +675,117 @@ describe('Cosine Similarity', () => {
       });
     });
   });
+
+  describe('LSH-based duplicate detection', () => {
+    /**
+     * Generate a normalised random vector with a seeded RNG
+     */
+    function generateNormalisedVector(dims: number, seed: number): number[] {
+      const vec = new Array<number>(dims);
+      let mag = 0;
+      let s = seed;
+      for (let i = 0; i < dims; i++) {
+        // Simple LCG for reproducible random
+        s = (s * 1664525 + 1013904223) >>> 0;
+        vec[i] = (s / 0xffffffff) * 2 - 1;
+        mag += vec[i] * vec[i];
+      }
+      mag = Math.sqrt(mag);
+      for (let i = 0; i < dims; i++) {
+        vec[i] /= mag;
+      }
+      return vec;
+    }
+
+    it('should use LSH for collections above threshold', () => {
+      // Create 250 random embeddings (above default 200 threshold)
+      const embeddings: Record<string, number[]> = {};
+      for (let i = 0; i < 250; i++) {
+        embeddings[`mem-${i}`] = generateNormalisedVector(128, i * 31337);
+      }
+
+      // Add a known duplicate pair
+      embeddings['dup-1'] = [1, 0, ...new Array(126).fill(0)];
+      embeddings['dup-2'] = [0.99, 0.01, ...new Array(126).fill(0)];
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.95);
+
+      // Should find the known duplicate
+      const foundDup = duplicates.some(
+        d => (d.id1 === 'dup-1' && d.id2 === 'dup-2') ||
+             (d.id1 === 'dup-2' && d.id2 === 'dup-1')
+      );
+      expect(foundDup).toBe(true);
+    });
+
+    it('should use brute force for small collections', () => {
+      // Create 50 embeddings (below 200 threshold)
+      const embeddings: Record<string, number[]> = {};
+      for (let i = 0; i < 50; i++) {
+        embeddings[`mem-${i}`] = generateNormalisedVector(64, i * 12345);
+      }
+
+      // Add duplicates
+      embeddings['dup-a'] = [1, 0, ...new Array(62).fill(0)];
+      embeddings['dup-b'] = [0.98, 0.02, ...new Array(62).fill(0)];
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.95);
+
+      const foundDup = duplicates.some(
+        d => (d.id1 === 'dup-a' && d.id2 === 'dup-b') ||
+             (d.id1 === 'dup-b' && d.id2 === 'dup-a')
+      );
+      expect(foundDup).toBe(true);
+    });
+
+    it('should respect custom lshThreshold option', () => {
+      // Create 100 embeddings
+      const embeddings: Record<string, number[]> = {};
+      for (let i = 0; i < 100; i++) {
+        embeddings[`mem-${i}`] = generateNormalisedVector(64, i * 99999);
+      }
+
+      // Add duplicates
+      embeddings['x'] = [1, 0, ...new Array(62).fill(0)];
+      embeddings['y'] = [0.99, 0.01, ...new Array(62).fill(0)];
+
+      // Force LSH with low threshold
+      const duplicates = findPotentialDuplicates(embeddings, 0.95, undefined, {
+        lshThreshold: 50,
+      });
+
+      const foundDup = duplicates.some(
+        d => (d.id1 === 'x' && d.id2 === 'y') ||
+             (d.id1 === 'y' && d.id2 === 'x')
+      );
+      expect(foundDup).toBe(true);
+    });
+
+    it('should produce reproducible results with same seed', () => {
+      const embeddings: Record<string, number[]> = {};
+      for (let i = 0; i < 250; i++) {
+        embeddings[`mem-${i}`] = generateNormalisedVector(64, i * 77777);
+      }
+
+      const result1 = findPotentialDuplicates(embeddings, 0.8, 10, { seed: 42 });
+      const result2 = findPotentialDuplicates(embeddings, 0.8, 10, { seed: 42 });
+
+      expect(result1).toEqual(result2);
+    });
+
+    it('should handle limit parameter with LSH', () => {
+      const embeddings: Record<string, number[]> = {};
+      for (let i = 0; i < 300; i++) {
+        // Create clusters that will have many duplicates
+        const cluster = Math.floor(i / 10);
+        const base = generateNormalisedVector(64, cluster * 11111);
+        // Add small perturbation
+        embeddings[`mem-${i}`] = base.map((v, idx) => v + (idx === i % 64 ? 0.01 : 0));
+      }
+
+      const duplicates = findPotentialDuplicates(embeddings, 0.9, 5);
+
+      expect(duplicates.length).toBeLessThanOrEqual(5);
+    });
+  });
 });

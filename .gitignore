@@ -42,8 +42,8 @@ yarn-error.log*
 .claude/*.local.md
 .claude/*.local.json
 
-# SDD Framework
-.specify
+# SDD Framework (symlinks to global ~/.specify/ are ignored, project content tracked)
+# See end of file for specific ignores
 
 # Testing
 .coverage
@@ -66,3 +66,10 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 bun.lock
+
+# .specify framework symlinks (project-specific content in memory/ and specs/ is tracked)
+.specify/docs
+.specify/scripts
+.specify/templates
+.specify/spec-driven.md
+.specify/test-driven.md

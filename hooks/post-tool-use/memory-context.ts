@@ -25,6 +25,14 @@ import {
 } from '../src/memory/topic-classifier.ts';
 import { stat, readFile, mkdir, appendFile, readdir } from 'fs/promises';
 import { join, basename, dirname } from 'path';
+import { homedir } from 'os';
+import type { HookInput } from '../src/core/types.ts';
+
+// Import plugin settings
+import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
+
+// Settings loaded at hook startup (with fallbacks)
+let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
 
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {
@@ -35,8 +43,14 @@ async function pathExists(p: string): Promise<boolean> {
     return false;
   }
 }
-import { homedir } from 'os';
-import type { HookInput } from '../src/core/types.ts';
+
+/**
+ * Load settings from project directory (called once at hook init)
+ */
+async function initSettings(projectDir: string): Promise<void> {
+  const settings = await loadSettings(projectDir);
+  CONTEXT_WINDOW = settings.context_window;
+}
 
 // Load tool configuration
 interface ToolConfig {
@@ -477,7 +491,7 @@ async function handleReadMode(
 
   // Ask Ollama for topic extraction
   const prompt = buildReadTopicPrompt(fileName, filePath);
-  const response = await generate(prompt);
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW });
   const parsed = parseTopicResponse(response);
 
   if (!parsed) {
@@ -579,7 +593,7 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
 
   // Ask Ollama for gotcha extraction
   const gotchaPrompt = buildGotchaPrompt(fileName, topic, memoryContent);
-  const gotchaSummary = await generate(gotchaPrompt);
+  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW });
   const cleanedSummary = cleanGotchaSummary(gotchaSummary).slice(0, 500);
 
   if (hasNoGotchas(cleanedSummary)) {
@@ -642,7 +656,7 @@ async function handleWriteMode(
 
   // Ask Ollama
   const prompt = buildWritePrompt(toolName, contextSummary, fileName);
-  const response = await generate(prompt);
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW });
 
   // Check for SKIP
   const skipMatch = response.match(/SKIP:\s*(.+)/i);
@@ -678,6 +692,9 @@ runHook(async (input) => {
   const toolName = input.tool_name || '';
   const projectDir = input.cwd || process.cwd();
   const sessionId = input.session_id || 'unknown';
+
+  // Load plugin settings (with fallbacks to defaults)
+  await initSettings(projectDir);
 
   // Load config and check if tool is enabled
   const config = await loadConfig();

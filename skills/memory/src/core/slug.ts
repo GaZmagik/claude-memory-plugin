@@ -78,10 +78,42 @@ export function resolveCollision(slug: string, existingSlugs: string[]): string 
 }
 
 /**
+ * Strip type prefix from title if present to prevent duplication
+ *
+ * Examples:
+ * - "gotcha-edge-case" + type=gotcha → "edge-case"
+ * - "Gotcha: Edge Case" + type=gotcha → "edge-case"
+ * - "edge-case" + type=gotcha → "edge-case" (unchanged)
+ *
+ * @param title - The title that may contain a type prefix
+ * @param type - The memory type
+ * @returns Title with type prefix stripped if present
+ */
+export function stripTypePrefix(title: string, type: MemoryType): string {
+  const slugified = slugify(title);
+  const expectedPrefix = `${type}-`;
+
+  // Check if slugified title starts with the type prefix
+  if (slugified.startsWith(expectedPrefix)) {
+    const strippedSlug = slugified.slice(expectedPrefix.length);
+
+    // Edge case: if stripping leaves nothing, return original
+    if (!strippedSlug || strippedSlug.trim() === '') {
+      return title;
+    }
+
+    return strippedSlug;
+  }
+
+  return title;
+}
+
+/**
  * Generate a memory ID from type and title
  */
 export function generateId(type: MemoryType, title: string): MemoryId {
-  const slug = slugify(title);
+  const sanitised = stripTypePrefix(title, type);
+  const slug = slugify(sanitised);
   return `${type}-${slug}` as MemoryId;
 }
 

@@ -1317,6 +1317,18 @@
     {
       "id": "learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools",
       "type": "learning"
+    },
+    {
+      "id": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
+      "type": "learning"
+    },
+    {
+      "id": "decision-fix-duplicated-prefix-via-sanitisation-layer",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-duplicated-prefix-fix-plan",
+      "type": "artifact"
     }
   ],
   "edges": [

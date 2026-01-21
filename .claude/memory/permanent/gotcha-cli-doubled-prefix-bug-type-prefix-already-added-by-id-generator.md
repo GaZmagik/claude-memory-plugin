@@ -3,9 +3,8 @@ id: gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator
 title: "CLI doubled prefix bug: type prefix already added by ID generator"
 type: gotcha
 scope: project
-project: claude-memory-plugin
-created: "2026-01-12T20:02:50.449Z"
-updated: "2026-01-16T23:10:43.823Z"
+created: "2026-01-21T20:14:13.550Z"
+updated: "2026-01-21T20:14:13.550Z"
 tags:
   - cli
   - think-promotion
@@ -27,4 +26,14 @@ Remove the type prefix from title - pass just `parsed.frontmatter.topic` directl
 
 ## Files
 
-- `src/think/conclude.ts:250` - Changed from `\'${promote}\': ${topic}\'` to just `topic`
+- `src/think/conclude.ts:250` - Changed from `'${promote}': ${topic}'` to just `topic`
+
+## Status: RESOLVED (v1.0.3)
+
+The original fix addressed the think promotion path but didn't fix the root cause in ID generation. In v1.0.3, we added proper sanitization at the ID generation layer (`stripTypePrefix()`) to handle all code paths.
+
+**Fix locations:**
+- `skills/memory/src/core/slug.ts` - Added `stripTypePrefix()` function and updated `generateId()`
+- `skills/memory/src/think/conclude.ts` - Updated `generateMemoryId()` to use sanitization
+
+The fix now defensively strips any existing type prefix before generating IDs, preventing duplication regardless of input source (CLI, API, or programmatic usage).

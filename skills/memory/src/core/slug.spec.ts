@@ -18,6 +18,7 @@ import {
   generateUniqueId,
   isValidSlug,
   parseId,
+  stripTypePrefix,
 } from './slug.js';
 import { MemoryType } from '../types/enums.js';
 
@@ -88,6 +89,39 @@ describe('slugify', () => {
       const result = slugify(input);
       expect(isValidSlug(result)).toBe(true);
     }
+  });
+});
+
+describe('stripTypePrefix', () => {
+  it('should strip type prefix from already-prefixed slug', () => {
+    expect(stripTypePrefix('gotcha-edge-case', MemoryType.Gotcha)).toBe('edge-case');
+    expect(stripTypePrefix('learning-new-pattern', MemoryType.Learning)).toBe('new-pattern');
+    expect(stripTypePrefix('decision-architecture', MemoryType.Decision)).toBe('architecture');
+  });
+
+  it('should return original title if no prefix present', () => {
+    expect(stripTypePrefix('edge-case', MemoryType.Gotcha)).toBe('edge-case');
+    expect(stripTypePrefix('my-memory', MemoryType.Learning)).toBe('my-memory');
+  });
+
+  it('should handle natural language titles with type keywords', () => {
+    expect(stripTypePrefix('Gotcha: Edge Case', MemoryType.Gotcha)).toBe('edge-case');
+    expect(stripTypePrefix('Learning about Python', MemoryType.Learning)).toBe('about-python');
+  });
+
+  it('should only strip exact prefix match after slugification', () => {
+    // "gotchabit" doesn't start with "gotcha-" after slugification
+    expect(stripTypePrefix('gotchabit-problem', MemoryType.Gotcha)).toBe('gotchabit-problem');
+  });
+
+  it('should preserve title if stripping would leave empty string', () => {
+    expect(stripTypePrefix('gotcha', MemoryType.Gotcha)).toBe('gotcha');
+    expect(stripTypePrefix('Gotcha', MemoryType.Gotcha)).toBe('Gotcha');
+  });
+
+  it('should work with all memory types', () => {
+    expect(stripTypePrefix('artifact-tool', MemoryType.Artifact)).toBe('tool');
+    expect(stripTypePrefix('breadcrumb-trail', MemoryType.Breadcrumb)).toBe('trail');
   });
 });
 
@@ -201,6 +235,17 @@ describe('generateId', () => {
     expect(generateId(MemoryType.Learning, 'Test Title')).toBe('learning-test-title');
     expect(generateId(MemoryType.Artifact, 'Code Pattern')).toBe('artifact-code-pattern');
     expect(generateId(MemoryType.Gotcha, 'Watch Out')).toBe('gotcha-watch-out');
+  });
+
+  it('should prevent double prefix when title already contains type prefix', () => {
+    expect(generateId(MemoryType.Gotcha, 'gotcha-edge-case')).toBe('gotcha-edge-case');
+    expect(generateId(MemoryType.Learning, 'learning-pattern')).toBe('learning-pattern');
+    expect(generateId(MemoryType.Decision, 'decision-made')).toBe('decision-made');
+  });
+
+  it('should handle natural language with type keywords', () => {
+    expect(generateId(MemoryType.Gotcha, 'Gotcha: Edge Case')).toBe('gotcha-edge-case');
+    expect(generateId(MemoryType.Learning, 'Learning: New Pattern')).toBe('learning-new-pattern');
   });
 });
 

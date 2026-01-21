@@ -98,7 +98,7 @@ jobs:
             - DO NOT post any comments to the issue
             - Your ONLY action should be to apply labels using mcp__github__update_issue
             - It's okay to not add any labels if none are clearly applicable
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: |
             --model claude-sonnet-4-5-20250929
             --mcp-config /tmp/mcp-config/mcp-servers.json

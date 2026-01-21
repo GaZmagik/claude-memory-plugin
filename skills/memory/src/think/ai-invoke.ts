@@ -105,8 +105,9 @@ export function buildCliArgs(params: {
   const { prompt, sessionId, options, styleContent, agentBody } = params;
   const args: string[] = [];
 
-  // Non-interactive mode
+  // Non-interactive mode (no session persistence for sandbox compatibility)
   args.push('--print');
+  args.push('--no-session-persistence');
 
   // Session handling - either resume existing or start new
   if (options.resume) {

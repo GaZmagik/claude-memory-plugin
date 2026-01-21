@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-18T22:46:50.609Z",
+  "lastUpdated": "2026-01-21T20:17:44.113Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -2468,21 +2468,6 @@
       "relativePath": "permanent/learning-help-system-design-centralized-registry-more-maintainable-than-scattered-help-strings.md"
     },
     {
-      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
-      "title": "CLI doubled prefix bug: type prefix already added by ID generator",
-      "type": "gotcha",
-      "tags": [
-        "cli",
-        "think-promotion",
-        "id-generation",
-        "project"
-      ],
-      "created": "2026-01-12T20:02:50.449Z",
-      "updated": "2026-01-16T23:10:43.823Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator.md"
-    },
-    {
       "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
       "title": "Millisecond precision required for rapid timestamp-based ID generation",
       "type": "learning",
@@ -4247,6 +4232,67 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
+      "type": "learning",
+      "title": "Duplicated type prefix bug in memory slug generation",
+      "tags": [
+        "memory-system",
+        "bug",
+        "architecture",
+        "duplicate-prefix",
+        "project"
+      ],
+      "created": "2026-01-21T20:07:28.982Z",
+      "updated": "2026-01-21T20:07:28.982Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-duplicated-type-prefix-bug-in-memory-slug-generation.md"
+    },
+    {
+      "id": "decision-fix-duplicated-prefix-via-sanitisation-layer",
+      "type": "decision",
+      "title": "Fix duplicated prefix via sanitisation layer",
+      "tags": [
+        "memory-system",
+        "architecture",
+        "design-decision",
+        "project"
+      ],
+      "created": "2026-01-21T20:07:41.767Z",
+      "updated": "2026-01-21T20:07:41.767Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-fix-duplicated-prefix-via-sanitisation-layer.md"
+    },
+    {
+      "id": "artifact-duplicated-prefix-fix-plan",
+      "type": "artifact",
+      "title": "Duplicated prefix fix implementation plan",
+      "tags": [
+        "memory-system",
+        "bug-fix",
+        "implementation-plan",
+        "project"
+      ],
+      "created": "2026-01-21T20:07:47.400Z",
+      "updated": "2026-01-21T20:07:47.400Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-duplicated-prefix-fix-plan.md"
+    },
+    {
+      "id": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "type": "gotcha",
+      "title": "CLI doubled prefix bug: type prefix already added by ID generator",
+      "tags": [
+        "cli",
+        "think-promotion",
+        "id-generation",
+        "project"
+      ],
+      "created": "2026-01-21T20:14:13.550Z",
+      "updated": "2026-01-21T20:14:13.550Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator.md"
     }
   ]
 }

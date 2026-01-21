@@ -27,6 +27,7 @@ import { writeFileAtomic, readFile, fileExists } from '../core/fs-utils.js';
 import { writeMemory } from '../core/write.js';
 import { getScopePath } from '../scope/resolver.js';
 import { createLogger } from '../core/logger.js';
+import { stripTypePrefix } from '../core/slug.js';
 
 const log = createLogger('think-conclude');
 
@@ -85,8 +86,11 @@ function mapPromotionType(promoteType: string): MemoryType {
  * Generate memory ID from topic
  */
 function generateMemoryId(topic: string, memoryType: MemoryType): string {
-  // Normalise topic to kebab-case
-  const normalised = topic
+  // Strip type prefix if present (prevents gotcha-gotcha-* IDs)
+  const sanitised = stripTypePrefix(topic, memoryType);
+
+  // Normalise to kebab-case
+  const normalised = sanitised
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')

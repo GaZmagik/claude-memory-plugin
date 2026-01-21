@@ -288,6 +288,25 @@ describe('think/conclude', () => {
           expect(result.promoted.type).toBe(MemoryType.Learning);
         }
       });
+
+      it('should handle promotion when topic contains type prefix', async () => {
+        await createThinkDocument({ topic: 'gotcha-edge-case-discovery', basePath });
+        await addThought({
+          thought: 'Some deliberation content',
+          type: ThoughtType.CounterArgument,
+          basePath,
+        });
+
+        const result = await concludeThinkDocument({
+          conclusion: 'This is a real edge case we need to remember',
+          promote: MemoryType.Gotcha,
+          basePath,
+        });
+
+        expect(result.status).toBe('success');
+        expect(result.promoted?.id).toBe('gotcha-edge-case-discovery');
+        expect(result.promoted?.id).not.toBe('gotcha-gotcha-edge-case-discovery');
+      });
     });
 
     it('returns error when document ID not found in any scope', async () => {

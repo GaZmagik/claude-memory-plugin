@@ -133,6 +133,16 @@ describe('think/ai-invoke', () => {
       expect(args).toContain('--print');
     });
 
+    it('includes --no-session-persistence for sandbox compatibility', () => {
+      const args = buildCliArgs({
+        prompt: 'Test prompt',
+        sessionId: 'test-session',
+        options: {},
+      });
+
+      expect(args).toContain('--no-session-persistence');
+    });
+
     it('uses default model haiku', () => {
       const args = buildCliArgs({
         prompt: 'Test prompt',

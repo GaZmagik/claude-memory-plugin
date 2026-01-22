@@ -1,6 +1,6 @@
 {
   "name": "claude-memory-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Claude Code plugin for memory skill system - persistent knowledge storage with semantic search, contextual gotcha injection, and graph-based knowledge management",
   "type": "module",
   "main": "skills/memory/src/index.ts",

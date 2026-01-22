@@ -5,6 +5,16 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2026-01-22
+
+### Added
+- Auto-provision `memory.example.md` config template for first-time users
+- Template file stored in `hooks/memory-example.md` as single source of truth
+- Hook checks for existing `memory.local.md` or `memory.example.md` before provisioning
+
+### Changed
+- UserPromptSubmit hook now provisions config on first message submission (non-blocking)
+
 ## [1.0.3] - 2026-01-21
 
 ### Fixed

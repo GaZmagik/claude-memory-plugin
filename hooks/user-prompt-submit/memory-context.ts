@@ -9,9 +9,13 @@
  */
 
 import { runHook, allowWithOutput } from '../src/core/error-handler.ts';
-import { stat, mkdir, appendFile, readFile } from 'fs/promises';
+import { stat, mkdir, appendFile, readFile, copyFile } from 'fs/promises';
 import { homedir } from 'os';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {
@@ -20,6 +24,34 @@ async function pathExists(p: string): Promise<boolean> {
     return true;
   } catch {
     return false;
+  }
+}
+
+/**
+ * Provision memory plugin config template for first-time users.
+ * Creates memory.example.md in .claude/ if no config file exists.
+ */
+async function provisionConfigTemplate(projectDir: string): Promise<void> {
+  const claudeDir = join(projectDir, '.claude');
+
+  // Only provision if .claude/ directory exists
+  if (!(await pathExists(claudeDir))) return;
+
+  const localConfig = join(claudeDir, 'memory.local.md');
+  const exampleConfig = join(claudeDir, 'memory.example.md');
+
+  // Skip if either config file already exists
+  if (await pathExists(localConfig)) return;
+  if (await pathExists(exampleConfig)) return;
+
+  // Copy template from hooks folder
+  const templatePath = join(__dirname, '..', 'memory-example.md');
+  if (await pathExists(templatePath)) {
+    try {
+      await copyFile(templatePath, exampleConfig);
+    } catch {
+      // Silently fail - config provisioning is non-critical
+    }
   }
 }
 
@@ -214,6 +246,9 @@ runHook(async (input) => {
   const userPrompt = input?.prompt || '';
   const sessionId = input?.session_id || '';
   const projectDir = input?.cwd || process.cwd();
+
+  // Provision config template for first-time users (non-blocking)
+  provisionConfigTemplate(projectDir).catch(() => {});
 
   // Load plugin settings (with fallbacks to defaults)
   await initSettings(projectDir);

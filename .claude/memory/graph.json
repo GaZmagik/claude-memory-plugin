@@ -1307,10 +1307,6 @@
       "type": "decision"
     },
     {
-      "id": "gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking",
-      "type": "gotcha"
-    },
-    {
       "id": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
       "type": "learning"
     },
@@ -1329,6 +1325,18 @@
     {
       "id": "artifact-duplicated-prefix-fix-plan",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-non-blocking-config-provisioning-improves-onboarding",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -3155,6 +3163,21 @@
     {
       "source": "gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests",
       "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
+      "target": "decision-fix-duplicated-prefix-via-sanitisation-layer",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-fix-duplicated-prefix-via-sanitisation-layer",
+      "target": "artifact-duplicated-prefix-fix-plan",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-duplicated-prefix-fix-plan",
+      "target": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
       "label": "relates-to"
     }
   ]

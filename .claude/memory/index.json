@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-21T20:17:44.113Z",
+  "lastUpdated": "2026-01-22T08:39:30.592Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4185,23 +4185,6 @@
       "relativePath": "permanent/decision-claude-code-marketplace-naming-and-plugin-ideas.md"
     },
     {
-      "id": "gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking",
-      "type": "gotcha",
-      "title": "Retro - Dynamic imports require vi.mock not vi.spyOn for mocking",
-      "tags": [
-        "retrospective",
-        "testing",
-        "vitest",
-        "test-isolation",
-        "project"
-      ],
-      "created": "2026-01-18T22:46:20.041Z",
-      "updated": "2026-01-18T22:46:20.041Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-retro-dynamic-imports-require-vimock-not-vispyon-for-mocking.md",
-      "severity": "high"
-    },
-    {
       "id": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
       "type": "learning",
       "title": "Retro - Documentation accuracy prevents user confusion at install time",
@@ -4293,6 +4276,57 @@
       "updated": "2026-01-21T20:14:13.550Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator.md"
+    },
+    {
+      "id": "learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions",
+      "type": "learning",
+      "title": "Retro - HTTPS git remote resolves sandbox SSH restrictions",
+      "tags": [
+        "retrospective",
+        "process",
+        "sandbox",
+        "git",
+        "project"
+      ],
+      "created": "2026-01-22T08:24:38.543Z",
+      "updated": "2026-01-22T08:24:38.543Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-non-blocking-config-provisioning-improves-onboarding",
+      "type": "learning",
+      "title": "Retro - Non-blocking config provisioning improves onboarding",
+      "tags": [
+        "retrospective",
+        "process",
+        "onboarding",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-22T08:24:43.619Z",
+      "updated": "2026-01-22T08:24:43.619Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-non-blocking-config-provisioning-improves-onboarding.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
+      "type": "gotcha",
+      "title": "Retro - Sandbox git config writes fail but don't block operations",
+      "tags": [
+        "retrospective",
+        "process",
+        "sandbox",
+        "git",
+        "project"
+      ],
+      "created": "2026-01-22T08:24:52.596Z",
+      "updated": "2026-01-22T08:24:52.596Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations.md",
+      "severity": "low"
     }
   ]
 }

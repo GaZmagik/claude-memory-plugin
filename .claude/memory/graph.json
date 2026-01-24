@@ -1307,6 +1307,18 @@
     {
       "id": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
       "type": "gotcha"
+    },
+    {
+      "id": "decision-output-styles-for-memory-assessment-agents",
+      "type": "decision"
+    },
+    {
+      "id": "decision-v110-feature-exploration-hint-visibility-auto-flag-enhanced-injection",
+      "type": "decision"
+    },
+    {
+      "id": "decision-v110-cross-provider-agent-calling-codex-gemini",
+      "type": "decision"
     }
   ],
   "edges": [

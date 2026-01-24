@@ -471,26 +471,6 @@
       "title": "Parallel Expert Review Orchestration"
     },
     {
-      "id": "thought-20260114-200851835",
-      "type": "breadcrumb",
-      "title": "Think: Testing memory-curator agent attribution"
-    },
-    {
-      "id": "thought-20260115-232204899",
-      "type": "breadcrumb",
-      "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2"
-    },
-    {
-      "id": "thought-20260116-070440686",
-      "type": "breadcrumb",
-      "title": "Think: Testing output styles"
-    },
-    {
-      "id": "thought-20260115-194159327",
-      "type": "breadcrumb",
-      "title": "Think: Memory Hook Enhancement Plan Review"
-    },
-    {
       "id": "learning-retro-plugin-installation-solved-forked-session-hook-inheritance",
       "type": "learning",
       "title": "Retro - Plugin installation solved forked session hook inheritance"
@@ -681,11 +661,6 @@
       "title": "Retrospective: Memory refactor session"
     },
     {
-      "id": "thought-20260112-221004029",
-      "type": "breadcrumb",
-      "title": "Think: Retrospective: Memory refactor session"
-    },
-    {
       "id": "learning-think-scope-project-vs-local-split",
       "type": "learning",
       "title": "Think scope - Project vs Local split"
@@ -799,11 +774,6 @@
       "id": "learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation",
       "type": "learning",
       "title": "Millisecond precision required for rapid timestamp-based ID generation"
-    },
-    {
-      "id": "thought-20260112-190617",
-      "type": "breadcrumb",
-      "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages"
     },
     {
       "id": "artifact-typescript-cli-testing-infrastructure-first-approach",
@@ -2131,16 +2101,6 @@
       "label": "relates-to"
     },
     {
-      "source": "thought-20260115-232204899",
-      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260115-194159327",
-      "target": "decision-memory-hook-enhancement-plan-review",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-retro-help-system-broken-for-subcommands",
       "target": "hub-cli-module-hub",
       "label": "relates-to"
@@ -2213,16 +2173,6 @@
     {
       "source": "artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering",
       "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260114-200851835",
-      "target": "decision-review-findings-verification-consulting-specialist-agents",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260116-070440686",
-      "target": "decision-memory-hook-enhancement-plan-review",
       "label": "relates-to"
     },
     {
@@ -2338,21 +2288,6 @@
     {
       "source": "retro-validation-before-parsing",
       "target": "gotcha-bash-vs-typescript-index-format-mismatch",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260112-221004029",
-      "target": "learning-retro-structured-investigation-prevents-premature-design-decisions",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260112-221004029",
-      "target": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260112-221004029",
-      "target": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
       "label": "relates-to"
     },
     {
@@ -2632,11 +2567,6 @@
     },
     {
       "source": "learning-retro-test-driven-spec-updates-ensure-implementation-matches-expectations",
-      "target": "artifact-gotcha-prevention-checklist",
-      "label": "relates-to"
-    },
-    {
-      "source": "thought-20260112-190617",
       "target": "artifact-gotcha-prevention-checklist",
       "label": "relates-to"
     },

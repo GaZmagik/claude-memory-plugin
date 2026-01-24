@@ -153,7 +153,7 @@ As a CLI user who may prefer different AI providers for different tasks, I want 
 - What happens when auto-selected agent path doesn't exist on disk? → Validate against discovery results; reject invalid selections and use heuristics
 - What happens when memory.local.md has invalid injection config? → Use sensible defaults (gotchas only) and log warning
 - What happens when semantic search times out during injection? → Fall back to tag/path-based matching for that invocation
-- What happens when Codex CLI hangs indefinitely? → [NEEDS CLARIFICATION: Should we implement timeout for provider CLI invocations? Suggested: 30s timeout]
+- What happens when Codex CLI hangs indefinitely? → Enforce 30s timeout on all provider CLI invocations; display timeout error with suggestion to check provider CLI status
 - What happens when multiple provider CLIs are installed but one fails? → Fail gracefully for that provider only; other providers remain usable
 - What happens when --auto is used in a deliberation with no existing thoughts? → No avoid list; recommend best-fit style/agent based on topic alone
 - What happens when user rejects auto-selection repeatedly? → Allow manual override or abort; no automatic retry
@@ -213,6 +213,7 @@ As a CLI user who may prefer different AI providers for different tasks, I want 
 - **FR-042**: System MUST warn and ignore --agent/--style when used with non-Claude providers
 - **FR-043**: System MUST attribute thoughts with provider information: "by: model:X provider:Y [session-id]"
 - **FR-044**: System MUST validate --oss flag: error if used with non-Codex providers
+- **FR-045**: System MUST enforce 30s timeout on all provider CLI invocations to prevent indefinite hangs
 
 ### Non-Functional Requirements
 
@@ -228,7 +229,7 @@ As a CLI user who may prefer different AI providers for different tasks, I want 
 - **NFR-007**: Auto-selection validation MUST whitelist against discovery results (prevent malicious agent injection)
 - **NFR-008**: Ollama invocation MUST enforce 15s timeout (prevent DoS via latency)
 - **NFR-009**: Circuit breaker MUST protect against repeated Ollama failures (3 consecutive failures → skip for session)
-- **NFR-010**: Provider CLI invocation MUST NOT expose sensitive data in command arguments [NEEDS CLARIFICATION: Should we implement stdout/stderr sanitisation?]
+- **NFR-010**: Provider CLI invocation MUST NOT expose sensitive data in command arguments; stdout/stderr from provider CLIs MUST be passed through without sanitisation (provider responsibility)
 
 **Usability**:
 - **NFR-011**: All error messages MUST be actionable (provide installation instructions, configuration guidance)

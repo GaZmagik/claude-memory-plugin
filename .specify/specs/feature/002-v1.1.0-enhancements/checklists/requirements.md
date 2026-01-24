@@ -6,81 +6,81 @@
 
 ## Content Quality
 
-- [ ] No implementation details (languages, frameworks, APIs)
-- [ ] Focused on user value and business needs
-- [ ] Written for non-technical stakeholders
-- [ ] All mandatory sections completed
+- [x] No implementation details (languages, frameworks, APIs)
+- [x] Focused on user value and business needs
+- [x] Written for non-technical stakeholders
+- [x] All mandatory sections completed
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
-- [ ] Requirements are testable and unambiguous
-- [ ] Success criteria are measurable
-- [ ] Success criteria are technology-agnostic
-- [ ] All acceptance scenarios defined
-- [ ] Edge cases identified
-- [ ] Scope clearly bounded
-- [ ] Dependencies and assumptions identified
+- [x] No [NEEDS CLARIFICATION] markers remain (critical ones resolved; remaining are documented deferrals)
+- [x] Requirements are testable and unambiguous
+- [x] Success criteria are measurable
+- [x] Success criteria are technology-agnostic
+- [x] All acceptance scenarios defined
+- [x] Edge cases identified
+- [x] Scope clearly bounded
+- [x] Dependencies and assumptions identified
 
 ## Feature Readiness
 
-- [ ] All functional requirements have clear acceptance criteria
-- [ ] User scenarios cover primary flows
-- [ ] Feature meets measurable outcomes in Success Criteria
-- [ ] No implementation details leak into specification
+- [x] All functional requirements have clear acceptance criteria
+- [x] User scenarios cover primary flows
+- [x] Feature meets measurable outcomes in Success Criteria
+- [x] No implementation details leak into specification
 
 ## User Story Quality
 
-- [ ] US1 (Enhanced Hint Visibility) - P1 priority justified, independently testable
-- [ ] US2 (Auto-Selection) - P2 priority justified, dependencies on US1 documented
-- [ ] US3 (Enhanced Memory Injection) - P2 priority justified, independently testable
-- [ ] US4 (Cross-Provider Calling) - P3 priority justified, independently testable
-- [ ] All user stories follow "As a... I want... so that..." format
-- [ ] Each user story has clear acceptance scenarios
-- [ ] Priority justifications provided for all stories
+- [x] US1 (Enhanced Hint Visibility) - P1 priority justified, independently testable
+- [x] US2 (Auto-Selection) - P2 priority justified, dependencies on US1 documented
+- [x] US3 (Enhanced Memory Injection) - P2 priority justified, independently testable
+- [x] US4 (Cross-Provider Calling) - P3 priority justified, independently testable
+- [x] All user stories follow "As a... I want... so that..." format
+- [x] Each user story has clear acceptance scenarios
+- [x] Priority justifications provided for all stories
 
 ## Acceptance Scenario Quality
 
-- [ ] All scenarios follow Given/When/Then format
-- [ ] Scenarios are specific and testable
-- [ ] Edge cases covered in dedicated section
-- [ ] Fallback behaviours specified (Ollama unavailable, CLI not installed, etc.)
+- [x] All scenarios follow Given/When/Then format
+- [x] Scenarios are specific and testable
+- [x] Edge cases covered in dedicated section
+- [x] Fallback behaviours specified (Ollama unavailable, CLI not installed, etc.)
 
 ## Non-Functional Requirements
 
-- [ ] Performance criteria specified (latency targets)
-- [ ] Security considerations addressed (input sanitisation, validation, timeouts)
-- [ ] Usability requirements defined (error messages, progressive disclosure)
-- [ ] Maintainability requirements aligned with constitution principles
+- [x] Performance criteria specified (latency targets)
+- [x] Security considerations addressed (input sanitisation, validation, timeouts)
+- [x] Usability requirements defined (error messages, progressive disclosure)
+- [x] Maintainability requirements aligned with constitution principles
 
 ## Constitution Alignment
 
-- [ ] P1: Plugin Architecture Compliance - follows existing structure
-- [ ] P2: Test-First Development - implementation phases support TDD workflow
-- [ ] P3: GitHub Flow Discipline - feature branch specified
-- [ ] P4: Observability & Debuggability - error messages, logging requirements
-- [ ] P5: Simplicity & YAGNI - extends existing patterns, no new abstractions
-- [ ] P6: Semantic Versioning - v1.1.0 appropriate (new features, backward compatible)
+- [x] P1: Plugin Architecture Compliance - follows existing structure
+- [x] P2: Test-First Development - implementation phases support TDD workflow
+- [x] P3: GitHub Flow Discipline - feature branch specified
+- [x] P4: Observability & Debuggability - error messages, logging requirements
+- [x] P5: Simplicity & YAGNI - extends existing patterns, no new abstractions
+- [x] P6: Semantic Versioning - v1.1.0 appropriate (new features, backward compatible)
 
 ## Dependencies & Assumptions
 
-- [ ] All required dependencies identified
-- [ ] Optional dependencies with fallback behaviour specified
-- [ ] Assumptions documented and reasonable
-- [ ] External CLI dependencies handled gracefully (Codex, Gemini)
+- [x] All required dependencies identified
+- [x] Optional dependencies with fallback behaviour specified
+- [x] Assumptions documented and reasonable
+- [x] External CLI dependencies handled gracefully (Codex, Gemini)
 
 ## Out of Scope
 
-- [ ] Explicitly excluded features documented
-- [ ] Rationale provided for deferrals to v1.2.0
-- [ ] Scope boundaries clear and justified
+- [x] Explicitly excluded features documented
+- [x] Rationale provided for deferrals to v1.2.0
+- [x] Scope boundaries clear and justified
 
 ## Open Questions
 
-- [ ] Critical open questions identified
-- [ ] Suggested resolutions provided where applicable
-- [ ] Questions marked as blocking or non-blocking
-- [ ] Questions prioritised by impact
+- [x] Critical open questions identified
+- [x] Suggested resolutions provided where applicable
+- [x] Questions marked as blocking or non-blocking
+- [x] Questions prioritised by impact
 
 ## Notes
 
@@ -94,15 +94,15 @@
 
 ### Requirement Completeness Issues
 
-⚠️ **WARNING**: 6 [NEEDS CLARIFICATION] markers present in Edge Cases and Open Questions sections:
-1. Edge case: Provider CLI timeout - suggested 30s timeout
-2. NFR-010: Provider CLI stdout/stderr sanitisation
-3. Open question 1: Provider CLI timeout enforcement
-4. Open question 2: stdout/stderr sanitisation
-5. Open question 3: Circuit breaker persistence
-6. Open questions 4-6: Configuration extensibility
+✅ **RESOLVED**: All critical clarifications addressed:
+1. ~~Edge case: Provider CLI timeout~~ → FR-045 added (30s timeout)
+2. ~~NFR-010: Provider CLI stdout/stderr sanitisation~~ → Clarified (provider responsibility)
+3. ~~Open question 1: Provider CLI timeout enforcement~~ → RESOLVED in research.md
+4. ~~Open question 2: stdout/stderr sanitisation~~ → RESOLVED in research.md
+5. Open question 3: Circuit breaker persistence → Deferred (per-session only for v1.1.0)
+6. Open questions 4-6: Configuration extensibility → Deferred to v1.2.0 (documented in Out of Scope)
 
-**Assessment**: Non-blocking. All clarifications have suggested resolutions. Can proceed to planning with these as documented assumptions, refined during implementation.
+**Assessment**: All blocking clarifications resolved. Remaining items are documented deferrals.
 
 ✅ **PASS**: All functional requirements testable via acceptance scenarios.
 
@@ -120,7 +120,7 @@
 
 ### Feature Readiness Issues
 
-✅ **PASS**: All 44 functional requirements map to acceptance scenarios.
+✅ **PASS**: All 45 functional requirements map to acceptance scenarios.
 
 ✅ **PASS**: User scenarios cover primary flows and edge cases.
 
@@ -158,13 +158,8 @@
 
 ### Final Assessment
 
-**Status**: ✅ **READY FOR PLANNING**
+**Status**: ✅ **READY FOR IMPLEMENTATION**
 
-**Summary**: High-quality specification with comprehensive user scenarios, testable requirements, and clear success criteria. Six open questions identified but all have suggested resolutions and are non-blocking. Constitution alignment verified across all principles.
+**Summary**: High-quality specification with comprehensive user scenarios, testable requirements, and clear success criteria. All open questions resolved or documented as deferrals. Constitution alignment verified across all principles. Specification analysis (post-remediation) shows 100% requirement-to-task coverage with 0 ambiguities and 0 critical issues.
 
-**Recommendations**:
-1. Address open questions during planning phase (timeouts, sanitisation, configuration extensibility)
-2. Ensure test tasks precede implementation tasks per P2 (TDD discipline)
-3. Document migration guide for users adopting enhanced injection (opt-in configuration)
-
-**Next Step**: Run `/speckit:plan` to generate technical plan and architecture decisions.
+**Checklist validated**: 2026-01-24 (all 48 items checked)

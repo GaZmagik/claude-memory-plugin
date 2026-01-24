@@ -523,30 +523,24 @@ function getInstallInstructions(provider: string): string {
 ## Open Questions
 
 ### Q1: Should provider CLI invocations have timeout enforcement?
-**Status**: NEEDS CLARIFICATION
+**Status**: RESOLVED
 
-**Context**: External CLIs may hang indefinitely (network issues, model loading, etc.)
+**Decision**: Implement 30s timeout on all provider CLI invocations (FR-045)
 
-**Options**:
-- **A**: No timeout (current spec) - Simple, but risk of indefinite hangs
-- **B**: 30s timeout (suggested) - Protects against hangs, may interrupt legitimate long responses
-- **C**: Configurable timeout via memory.local.md - Most flexible, adds configuration
+**Rationale**: Protects against indefinite hangs from network issues or model loading. 30s is generous enough for most responses while preventing runaway processes. Configurable timeout deferred to v1.2.0.
 
-**Recommendation**: Implement 30s default timeout in v1.1.0, make configurable in v1.2.0
-
-**Impact**: Affects FR-035 implementation in ai-invoke.ts
+**Impact**: FR-045 added, T072b (test) and T084b (implementation) added to tasks.md
 
 ---
 
 ### Q2: Should stdout/stderr from provider CLIs be sanitised?
-**Status**: NEEDS CLARIFICATION
+**Status**: RESOLVED
 
-**Context**: Security consideration (NFR-010) - provider output may contain sensitive debug info
+**Decision**: No sanitisation - pass stdout/stderr through as-is (NFR-010 updated)
 
-**Options**:
-- **A**: No sanitisation - Trust provider CLIs, user responsible for output
-- **B**: Redact patterns (API keys, tokens) - Partial protection, complex regex maintenance
-- **C**: Sandbox execution - Maximum isolation, significant complexity
+**Rationale**: Provider CLIs are responsible for their own output sanitisation. Attempting to sanitise at our layer would create a false sense of security and add maintenance burden with regex patterns. Users who invoke provider CLIs accept responsibility for their output.
+
+**Impact**: NFR-010 clarified in spec.md
 
 **Recommendation**: Trust provider CLIs in v1.1.0, document security considerations
 

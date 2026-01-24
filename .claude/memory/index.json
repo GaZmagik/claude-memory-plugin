@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-24T20:40:26.862Z",
+  "lastUpdated": "2026-01-24T22:36:00.848Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4288,6 +4288,105 @@
       "updated": "2026-01-24T20:40:26.858Z",
       "scope": "project",
       "relativePath": "permanent/decision-v110-cross-provider-agent-calling-codex-gemini.md"
+    },
+    {
+      "id": "learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-routing",
+      "type": "learning",
+      "title": "Retro - Prompt structure matters more than model size for Ollama routing",
+      "tags": [
+        "retrospective",
+        "ollama",
+        "prompt-engineering",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-24T22:31:34.968Z",
+      "updated": "2026-01-24T22:31:34.968Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-routing.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-diversity-in-llm-selection-requires-avoid-lists-not-temperature-tuning",
+      "type": "learning",
+      "title": "Diversity in LLM selection requires avoid lists, not temperature tuning",
+      "tags": [
+        "v1.1.0",
+        "ollama",
+        "diversity",
+        "prompt-engineering",
+        "project"
+      ],
+      "created": "2026-01-24T22:31:43.896Z",
+      "updated": "2026-01-24T22:31:43.896Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-diversity-in-llm-selection-requires-avoid-lists-not-temperature-tuning.md"
+    },
+    {
+      "id": "learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design",
+      "type": "learning",
+      "title": "Retro - Deliberation with diverse AI styles genuinely improved design",
+      "tags": [
+        "retrospective",
+        "deliberation",
+        "design-process",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-24T22:31:45.735Z",
+      "updated": "2026-01-24T22:31:45.735Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
+      "type": "gotcha",
+      "title": "Ollama startup latency on first model use affects feature perception",
+      "tags": [
+        "v1.1.0",
+        "ollama",
+        "--auto",
+        "performance",
+        "UX",
+        "project"
+      ],
+      "created": "2026-01-24T22:31:47.070Z",
+      "updated": "2026-01-24T22:31:47.070Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception.md"
+    },
+    {
+      "id": "decision-v110-auto-uses-configured-model",
+      "type": "decision",
+      "title": "Auto-selection uses configured chat model from memory.local.md",
+      "tags": [
+        "v1.1.0",
+        "ollama",
+        "--auto",
+        "configuration",
+        "project"
+      ],
+      "created": "2026-01-24T22:32:01.930Z",
+      "updated": "2026-01-24T22:32:01.930Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v110-auto-uses-configured-model.md"
+    },
+    {
+      "id": "artifact-v110-ollama-selection-prompt",
+      "type": "artifact",
+      "title": "Ollama style/agent/model selection prompt template",
+      "tags": [
+        "v1.1.0",
+        "ollama",
+        "prompt-template",
+        "reusable",
+        "project"
+      ],
+      "created": "2026-01-24T22:32:03.881Z",
+      "updated": "2026-01-24T22:32:03.881Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v110-ollama-selection-prompt.md"
     }
   ]
 }

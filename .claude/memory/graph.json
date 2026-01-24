@@ -1319,6 +1319,30 @@
     {
       "id": "decision-v110-cross-provider-agent-calling-codex-gemini",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-routing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-diversity-in-llm-selection-requires-avoid-lists-not-temperature-tuning",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-v110-auto-uses-configured-model",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-v110-ollama-selection-prompt",
+      "type": "artifact"
     }
   ],
   "edges": [

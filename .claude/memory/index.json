@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-22T08:39:30.592Z",
+  "lastUpdated": "2026-01-24T19:02:53.194Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -1424,58 +1424,6 @@
       "relativePath": "permanent/learning-test-isolation-failure-filtering-requires-environment-awareness.md"
     },
     {
-      "id": "thought-20260114-200851835",
-      "title": "Think: Testing memory-curator agent attribution",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-14T20:08:51.838Z",
-      "updated": "2026-01-14T20:09:14.615Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260114-200851835.md"
-    },
-    {
-      "id": "thought-20260115-232204899",
-      "title": "Think: Memory Hook Enhancement - Multi-Expert Deliberation Round 2",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-15T23:22:04.903Z",
-      "updated": "2026-01-16T06:59:27.434Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260115-232204899.md"
-    },
-    {
-      "id": "thought-20260116-070440686",
-      "title": "Think: Testing output styles",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-16T07:04:40.690Z",
-      "updated": "2026-01-16T07:08:19.585Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260116-070440686.md"
-    },
-    {
-      "id": "thought-20260115-194159327",
-      "title": "Think: Memory Hook Enhancement Plan Review",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-15T19:41:59.331Z",
-      "updated": "2026-01-15T19:44:49.350Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260115-194159327.md"
-    },
-    {
       "id": "retro-subprocess-security-audit",
       "title": "Subprocess Security Needs Dedicated Audit Step",
       "type": "gotcha",
@@ -2123,19 +2071,6 @@
       "relativePath": "permanent/learning-retrospective-memory-refactor-session.md"
     },
     {
-      "id": "thought-20260112-221004029",
-      "title": "Think: Retrospective: Memory refactor session",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-12T22:10:04.033Z",
-      "updated": "2026-01-16T23:10:42.311Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260112-221004029.md"
-    },
-    {
       "id": "learning-think-scope-project-vs-local-split",
       "title": "Think scope - Project vs Local split",
       "type": "learning",
@@ -2482,19 +2417,6 @@
       "updated": "2026-01-16T23:10:43.887Z",
       "scope": "project",
       "relativePath": "permanent/learning-millisecond-precision-required-for-rapid-timestamp-based-id-generation.md"
-    },
-    {
-      "id": "thought-20260112-190617",
-      "title": "Think: TDD Plugin Architecture: TypeScript-for-all vs Native Languages",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-12T19:06:17.085Z",
-      "updated": "2026-01-16T23:10:43.949Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260112-190617.md"
     },
     {
       "id": "artifact-typescript-cli-testing-infrastructure-first-approach",

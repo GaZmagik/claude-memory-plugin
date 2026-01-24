@@ -5,6 +5,22 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2026-01-24
+
+### Fixed
+- Fixed output styles discovery failing when running `memory` from user's project directory (Issue #18)
+- Plugin now resolves its root via `import.meta.url` instead of `process.cwd()`
+- Clarified scope distinctions for output styles paths (PR #19 feedback):
+  - **User paths** (local/global): Use `output-styles/` directory convention (unchanged)
+  - **Plugin paths**: Use `outputStyles` field from `plugin.json` (default: `styles/`)
+- Added debug logging in `resolvePluginRoot()` catch block for troubleshooting
+- Extracted magic number for traversal depth to `MAX_PLUGIN_ROOT_TRAVERSAL_DEPTH` constant
+
+### Added
+- Added explicit component paths to plugin.json: `commands`, `agents`, `skills`, `hooks`, `outputStyles`
+- Added `readPluginJson()` helper to parse `plugin.json` for configuration fields
+- Added comprehensive tests for `outputStyles` field handling from `plugin.json`
+
 ## [1.0.4] - 2026-01-22
 
 ### Added

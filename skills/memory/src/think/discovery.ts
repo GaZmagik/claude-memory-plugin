@@ -7,10 +7,83 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { DiscoveredFile } from '../types/think.js';
 import { createLogger } from '../core/logger.js';
 
 const log = createLogger('think-discovery');
+
+/**
+ * Maximum directory levels to traverse when searching for plugin root.
+ * Covers: skills/memory/dist/think/ → plugin root (4 levels) + buffer for
+ * nested structures like skills/memory/src/think/ or monorepo layouts.
+ */
+const MAX_PLUGIN_ROOT_TRAVERSAL_DEPTH = 6;
+
+/**
+ * Plugin.json schema (partial - only fields we need)
+ */
+interface PluginJson {
+  name?: string;
+  outputStyles?: string;
+}
+
+/**
+ * Read and parse plugin.json from the given plugin root directory.
+ * Returns null if the file doesn't exist or can't be parsed.
+ */
+function readPluginJson(pluginRoot: string): PluginJson | null {
+  try {
+    const pluginJsonPath = path.join(pluginRoot, '.claude-plugin', 'plugin.json');
+    if (!fs.existsSync(pluginJsonPath)) {
+      return null;
+    }
+    const content = fs.readFileSync(pluginJsonPath, 'utf-8');
+    return JSON.parse(content) as PluginJson;
+  } catch (error) {
+    log.debug('Failed to read plugin.json', { pluginRoot, error: String(error) });
+    return null;
+  }
+}
+
+/**
+ * Resolve the plugin root directory from the current file's location.
+ * This works regardless of where the user runs the command from.
+ */
+function resolvePluginRoot(): string | null {
+  try {
+    // Get the directory of this file (works in ESM)
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    // Navigate up from skills/memory/dist/think/ (or src/think/) to plugin root
+    // Try multiple levels to handle both src and dist structures
+    let current = __dirname;
+    for (let i = 0; i < MAX_PLUGIN_ROOT_TRAVERSAL_DEPTH; i++) {
+      const pluginJsonPath = path.join(current, '.claude-plugin', 'plugin.json');
+      if (fs.existsSync(pluginJsonPath)) {
+        return current;
+      }
+      current = path.dirname(current);
+    }
+    return null;
+  } catch (error) {
+    log.debug('Failed to resolve plugin root', { error: String(error) });
+    return null;
+  }
+}
+
+// Cache the plugin root to avoid repeated filesystem lookups
+let cachedPluginRoot: string | null | undefined;
+function getPluginRoot(): string | null {
+  if (cachedPluginRoot === undefined) {
+    cachedPluginRoot = resolvePluginRoot();
+    if (cachedPluginRoot) {
+      log.debug('Resolved plugin root', { path: cachedPluginRoot });
+    }
+  }
+  return cachedPluginRoot;
+}
 
 /**
  * Discovery source with priority (lower = higher priority)
@@ -113,16 +186,17 @@ function getAgentPaths(config: DiscoveryConfig): Array<{ path: string; source: D
     source: 'local',
   });
 
-  // Plugin (when running from plugin directory - check for agents/ at cwd root)
-  // Use pluginPath if provided, otherwise detect from process.cwd()
+  // Plugin (resolved from actual file location, not cwd)
   if (!config.disablePluginScope) {
-    const pluginRoot = config.pluginPath ?? process.cwd();
-    const pluginAgentsPath = path.join(pluginRoot, 'agents');
-    if (fs.existsSync(path.join(pluginRoot, '.claude-plugin', 'plugin.json'))) {
-      paths.push({
-        path: pluginAgentsPath,
-        source: 'plugin',
-      });
+    const pluginRoot = config.pluginPath ?? getPluginRoot();
+    if (pluginRoot) {
+      const pluginAgentsPath = path.join(pluginRoot, 'agents');
+      if (fs.existsSync(pluginAgentsPath)) {
+        paths.push({
+          path: pluginAgentsPath,
+          source: 'plugin',
+        });
+      }
     }
   }
 
@@ -157,16 +231,20 @@ function getStylePaths(config: DiscoveryConfig): Array<{ path: string; source: D
     source: 'local',
   });
 
-  // Plugin (when running from plugin directory - check for output-styles/ at cwd root)
-  // Use pluginPath if provided, otherwise detect from process.cwd()
+  // Plugin (resolved from actual file location, not cwd)
+  // Uses outputStyles field from plugin.json, defaulting to 'styles'
   if (!config.disablePluginScope) {
-    const pluginRoot = config.pluginPath ?? process.cwd();
-    const pluginStylesPath = path.join(pluginRoot, 'output-styles');
-    if (fs.existsSync(path.join(pluginRoot, '.claude-plugin', 'plugin.json'))) {
-      paths.push({
-        path: pluginStylesPath,
-        source: 'plugin',
-      });
+    const pluginRoot = config.pluginPath ?? getPluginRoot();
+    if (pluginRoot) {
+      const pluginJson = readPluginJson(pluginRoot);
+      const stylesDir = pluginJson?.outputStyles ?? 'styles';
+      const pluginStylesPath = path.join(pluginRoot, stylesDir);
+      if (fs.existsSync(pluginStylesPath)) {
+        paths.push({
+          path: pluginStylesPath,
+          source: 'plugin',
+        });
+      }
     }
   }
 

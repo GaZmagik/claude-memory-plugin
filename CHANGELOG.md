@@ -5,11 +5,23 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2026-01-24
+
+### Fixed
+- Removed `hooks` field from plugin.json to fix "Duplicate hooks file detected" error
+- Claude Code auto-discovers `hooks/hooks.json` - explicit declaration caused duplication
+
+## [1.0.7] - 2026-01-24
+
+### Fixed
+- Changed `agents` field from directory path to explicit file array
+- Directory path (`"./agents/"`) was rejected by plugin validator; file array works (`["./agents/curator.md", "./agents/recall.md"]`)
+
 ## [1.0.6] - 2026-01-24
 
 ### Fixed
-- Fixed plugin.json component paths to navigate up from `.claude-plugin/` to repo root
-- All paths (`commands`, `agents`, `skills`, `hooks`, `outputStyles`) now correctly use `../` prefix
+- Reverted plugin.json paths from `../` back to `./` (paths are relative to plugin root, not plugin.json)
+- Plugin root is the directory containing `.claude-plugin/`, so `./` paths are correct
 
 ## [1.0.5] - 2026-01-24
 

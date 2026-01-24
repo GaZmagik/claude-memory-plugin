@@ -345,10 +345,11 @@ title: Test
       pluginDir = path.join(tempDir, 'plugin');
       fs.mkdirSync(path.join(pluginDir, '.claude-plugin'), { recursive: true });
       fs.mkdirSync(path.join(pluginDir, 'agents'), { recursive: true });
-      fs.mkdirSync(path.join(pluginDir, 'output-styles'), { recursive: true });
+      // Plugin uses 'styles' directory by default (per Claude Code schema)
+      fs.mkdirSync(path.join(pluginDir, 'styles'), { recursive: true });
       fs.writeFileSync(
         path.join(pluginDir, '.claude-plugin', 'plugin.json'),
-        JSON.stringify({ name: 'test-plugin' })
+        JSON.stringify({ name: 'test-plugin', outputStyles: './styles/' })
       );
     });
 
@@ -366,8 +367,8 @@ title: Test
       expect(pluginAgent?.source).toBe('plugin');
     });
 
-    it('discovers styles from plugin scope when pluginPath provided', () => {
-      fs.writeFileSync(path.join(pluginDir, 'output-styles', 'plugin-style.md'), 'Plugin style');
+    it('discovers styles from plugin scope via outputStyles field', () => {
+      fs.writeFileSync(path.join(pluginDir, 'styles', 'plugin-style.md'), 'Plugin style');
 
       const styles = discoverStyles({
         basePath: path.join(tempDir, 'local'),
@@ -378,6 +379,48 @@ title: Test
       const pluginStyle = styles.find(s => s.name === 'plugin-style');
       expect(pluginStyle).not.toBeNull();
       expect(pluginStyle?.source).toBe('plugin');
+    });
+
+    it('uses custom outputStyles path from plugin.json', () => {
+      // Create custom styles directory
+      const customStylesDir = path.join(pluginDir, 'custom-styles');
+      fs.mkdirSync(customStylesDir, { recursive: true });
+      fs.writeFileSync(path.join(customStylesDir, 'custom-style.md'), 'Custom style');
+
+      // Update plugin.json with custom path
+      fs.writeFileSync(
+        path.join(pluginDir, '.claude-plugin', 'plugin.json'),
+        JSON.stringify({ name: 'test-plugin', outputStyles: './custom-styles/' })
+      );
+
+      const styles = discoverStyles({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const customStyle = styles.find(s => s.name === 'custom-style');
+      expect(customStyle).not.toBeNull();
+      expect(customStyle?.source).toBe('plugin');
+    });
+
+    it('defaults to styles/ when outputStyles not in plugin.json', () => {
+      // Remove outputStyles from plugin.json
+      fs.writeFileSync(
+        path.join(pluginDir, '.claude-plugin', 'plugin.json'),
+        JSON.stringify({ name: 'test-plugin' })
+      );
+      fs.writeFileSync(path.join(pluginDir, 'styles', 'default-style.md'), 'Default style');
+
+      const styles = discoverStyles({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const defaultStyle = styles.find(s => s.name === 'default-style');
+      expect(defaultStyle).not.toBeNull();
+      expect(defaultStyle?.source).toBe('plugin');
     });
 
     it('prioritises local over plugin scope', () => {
@@ -406,6 +449,23 @@ title: Test
 
       const pluginAgent = agents.find(a => a.name === 'plugin-only');
       expect(pluginAgent).toBeUndefined();
+    });
+
+    it('handles missing or invalid plugin.json gracefully', () => {
+      // Delete plugin.json
+      fs.unlinkSync(path.join(pluginDir, '.claude-plugin', 'plugin.json'));
+      fs.writeFileSync(path.join(pluginDir, 'styles', 'orphan-style.md'), 'Orphan style');
+
+      // Should still discover styles using default 'styles' path
+      const styles = discoverStyles({
+        basePath: path.join(tempDir, 'local'),
+        homePath: path.join(tempDir, 'global'),
+        pluginPath: pluginDir,
+      });
+
+      const orphanStyle = styles.find(s => s.name === 'orphan-style');
+      expect(orphanStyle).not.toBeNull();
+      expect(orphanStyle?.source).toBe('plugin');
     });
   });
 

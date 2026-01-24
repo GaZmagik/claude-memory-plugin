@@ -10,10 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed output styles discovery failing when running `memory` from user's project directory (Issue #18)
 - Plugin now resolves its root via `import.meta.url` instead of `process.cwd()`
-- Renamed `output-styles/` to `styles/` to match Claude Code plugin schema
+- Clarified scope distinctions for output styles paths (PR #19 feedback):
+  - **User paths** (local/global): Use `output-styles/` directory convention (unchanged)
+  - **Plugin paths**: Use `outputStyles` field from `plugin.json` (default: `styles/`)
+- Added debug logging in `resolvePluginRoot()` catch block for troubleshooting
+- Extracted magic number for traversal depth to `MAX_PLUGIN_ROOT_TRAVERSAL_DEPTH` constant
 
 ### Added
 - Added explicit component paths to plugin.json: `commands`, `agents`, `skills`, `hooks`, `outputStyles`
+- Added `readPluginJson()` helper to parse `plugin.json` for configuration fields
+- Added comprehensive tests for `outputStyles` field handling from `plugin.json`
 
 ## [1.0.4] - 2026-01-22
 

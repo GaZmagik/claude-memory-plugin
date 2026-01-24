@@ -1,6 +1,5 @@
 ---
 name: recall
-version: 2.1.1
 model: sonnet
 description: Advanced memory recall agent with resumable session support. Efficiently search, analyse, and recall memories using the memory skill CLI. Supports multi-query sessions where the main agent can resume previous conversations for follow-up queries without reloading context. Use for finding memories by topic, analysing memory relationships, generating summaries, checking memory health, and progressive deep-dives into stored knowledge. Resume with agentId to continue previous analysis.
 tools: Bash, Read, Grep, Glob

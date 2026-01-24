@@ -1,6 +1,6 @@
 {
   "name": "claude-memory-plugin",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Persistent knowledge storage with semantic search, graph linking, and contextual gotcha injection",
   "author": {
     "name": "Gareth Williams",
@@ -9,9 +9,12 @@
   "license": "MIT",
   "repository": "https://github.com/GaZmagik/claude-memory-plugin",
   "keywords": ["memory", "knowledge-management", "semantic-search", "gotcha-injection"],
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "skills": "../skills/",
-  "hooks": "../hooks/hooks.json",
-  "outputStyles": "../styles/"
+  "commands": "./commands/",
+  "agents": [
+    "./agents/curator.md",
+    "./agents/recall.md"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "outputStyles": "./styles/"
 }

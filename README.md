@@ -475,8 +475,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Contributing
 
 This plugin is developed following:
-- **Specification-Driven Development** (SDD) - see `.specify/spec-driven.md`
-- **Test-Driven Development** (TDD) - see `.specify/test-driven.md`
-- **British English** throughout
+- **Specification-Driven Development** (SDD)
+- **Test-Driven Development** (TDD)
 
 All contributions should maintain 100% test coverage where possible and follow the specification first.

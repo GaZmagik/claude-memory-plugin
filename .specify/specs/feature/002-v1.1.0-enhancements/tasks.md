@@ -153,29 +153,29 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T041 [P] [US2] Unit test for heuristic keyword matching rules in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-heuristics.spec.ts
-- [ ] T042 [P] [US2] Unit test for Ollama prompt building with avoid list in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-ollama-prompt.spec.ts
-- [ ] T043 [P] [US2] Unit test for selection validation against discovery whitelist in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-selection-validation.spec.ts
-- [ ] T044 [P] [US2] Unit test for circuit breaker state tracking in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-circuit-breaker.spec.ts
-- [ ] T045 [P] [US2] Unit test for input sanitisation for Ollama prompts in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-input-sanitisation.spec.ts
-- [ ] T046 [US2] Integration test for Ollama-based selection (with mock) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-ollama-selection.spec.ts
-- [ ] T047 [US2] Integration test for heuristic fallback on Ollama timeout in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-heuristic-fallback.spec.ts
-- [ ] T048 [US2] Integration test for circuit breaker activation after 3 failures in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-circuit-breaker-activation.spec.ts
-- [ ] T049 [US2] Integration test for user confirmation prompt in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-auto-confirmation.spec.ts
-- [ ] T050 [US2] Integration test for diversity via avoid list (3 different styles) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-selection-diversity.spec.ts
-- [ ] T051 [US2] Integration test for --auto with --non-interactive in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-auto-non-interactive.spec.ts
+- [X] T041 [P] [US2] Unit test for heuristic keyword matching rules in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-heuristics.spec.ts
+- [X] T042 [P] [US2] Unit test for Ollama prompt building with avoid list in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-ollama-prompt.spec.ts
+- [X] T043 [P] [US2] Unit test for selection validation against discovery whitelist in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-selection-validation.spec.ts
+- [X] T044 [P] [US2] Unit test for circuit breaker state tracking in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-circuit-breaker.spec.ts
+- [X] T045 [P] [US2] Unit test for input sanitisation for Ollama prompts in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-input-sanitisation.spec.ts
+- [X] T046 [US2] Integration test for Ollama-based selection (with mock) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-ollama-selection.spec.ts
+- [X] T047 [US2] Integration test for heuristic fallback on Ollama timeout in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-heuristic-fallback.spec.ts
+- [X] T048 [US2] Integration test for circuit breaker activation after 3 failures in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-circuit-breaker-activation.spec.ts
+- [X] T049 [US2] Integration test for user confirmation prompt in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-auto-confirmation.spec.ts
+- [X] T050 [US2] Integration test for diversity via avoid list (3 different styles) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-selection-diversity.spec.ts
+- [X] T051 [US2] Integration test for --auto with --non-interactive in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-auto-non-interactive.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T052 [P] [US2] Create AutoSelection interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/auto-selection.ts
-- [ ] T053 [P] [US2] Create CircuitBreakerState interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/circuit-breaker.ts
-- [ ] T054 [P] [US2] Implement heuristic keyword matching rules in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/heuristics.ts
-- [ ] T055 [P] [US2] Implement input sanitisation for Ollama prompts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/sanitise.ts
-- [ ] T056 [US2] Implement Ollama selection with prompt building in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/ollama-selector.ts
-- [ ] T057 [US2] Implement selection validation against discovery whitelist in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/validate-selection.ts
-- [ ] T058 [US2] Implement circuit breaker state management in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/circuit-breaker.ts
-- [ ] T059 [US2] Implement auto-selector.ts with tiered strategy (Ollama → heuristics) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/auto-selector.ts
-- [ ] T060 [US2] Implement avoid list extraction from existing thoughts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/avoid-list.ts
+- [X] T052 [P] [US2] Create AutoSelection interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/auto-selection.ts
+- [X] T053 [P] [US2] Create CircuitBreakerState interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/circuit-breaker.ts
+- [X] T054 [P] [US2] Implement heuristic keyword matching rules in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/heuristics.ts
+- [X] T055 [P] [US2] Implement input sanitisation for Ollama prompts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/sanitise.ts
+- [X] T056 [US2] Implement Ollama selection with prompt building in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/ollama-selector.ts
+- [X] T057 [US2] Implement selection validation against discovery whitelist in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/validate-selection.ts
+- [X] T058 [US2] Implement circuit breaker state management in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/circuit-breaker.ts
+- [X] T059 [US2] Implement auto-selector.ts with tiered strategy (Ollama → heuristics) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/auto-selector.ts
+- [X] T060 [US2] Implement avoid list extraction from existing thoughts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/avoid-list.ts
 - [ ] T061 [US2] Add --auto flag handling to think.ts with confirmation prompt in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 - [ ] T062 [US2] Add spinner display ("Analysing thought...") during Ollama invocation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 

@@ -12,7 +12,6 @@ import { ThoughtType, MemoryType } from '../../types/enums.js';
 import {
   createThinkDocument,
   listThinkDocuments,
-  showThinkDocument,
   deleteThinkDocument,
 } from '../../think/document.js';
 import { addThought } from '../../think/thoughts.js';
@@ -23,6 +22,12 @@ import { HintTracker, shouldShowHint } from '../hint-tracker.js';
 import { isComplexThought } from '../complex-thought.js';
 import { outputHintToStderr, getRotatingHint, shouldShowHintInMode } from '../hint-output.js';
 import { promptForAiAssistance, shouldPrompt } from '../interactive-prompt.js';
+import { AutoSelector, type AutoSelectionResult } from '../../think/auto-selector.js';
+import { CircuitBreaker } from '../../think/circuit-breaker.js';
+import { discoverStyles, discoverAgents } from '../../think/discovery.js';
+import { extractAvoidList, type ThoughtMetadata } from '../../think/avoid-list.js';
+import { showThinkDocument } from '../../think/document.js';
+import prompts from 'prompts';
 
 /**
  * Parse memory type string for promotion
@@ -83,6 +88,93 @@ export async function cmdThink(args: ParsedArgs): Promise<CliResponse> {
   }
 }
 
+// Circuit breaker instance (module-level singleton for session persistence)
+let circuitBreakerInstance: CircuitBreaker | null = null;
+function getCircuitBreaker(): CircuitBreaker {
+  if (!circuitBreakerInstance) {
+    circuitBreakerInstance = new CircuitBreaker({ failureThreshold: 3, resetTimeoutMs: 30000 });
+  }
+  return circuitBreakerInstance;
+}
+
+/**
+ * Perform auto-selection of style/agent using tiered strategy
+ */
+async function performAutoSelection(
+  thought: string,
+  basePath: string,
+  options: { nonInteractive: boolean; isTTY: boolean }
+): Promise<{ style?: string; agent?: string } | null> {
+  // Discover available styles and agents
+  const styles = discoverStyles().map((s) => s.name);
+  const agents = discoverAgents().map((a) => a.name);
+
+  if (styles.length === 0 && agents.length === 0) {
+    return null; // Nothing to select from
+  }
+
+  // Get avoid list from current document (if available)
+  let avoidStyles: string[] = [];
+  try {
+    const docResult = await showThinkDocument({ basePath });
+    if (docResult.document?.thoughts && Array.isArray(docResult.document.thoughts)) {
+      const thoughtMetadata: ThoughtMetadata[] = docResult.document.thoughts.map((t) => ({
+        style: t.outputStyle,
+        agent: t.agent,
+      }));
+      avoidStyles = extractAvoidList(thoughtMetadata);
+    }
+  } catch {
+    // No current document or error - proceed without avoid list
+  }
+
+  // Create auto-selector with tiered strategy
+  const selector = new AutoSelector({
+    ollamaTimeout: 5000,
+    defaultStyle: styles[0] ?? 'Concise',
+    circuitBreaker: getCircuitBreaker(),
+    // Note: generateFn would be wired to Ollama here in production
+    // For now, we rely on heuristics and default fallback
+  });
+  selector.setAvailable(styles, agents);
+
+  // Perform selection
+  const result = await selector.select(thought, avoidStyles);
+
+  // In non-interactive mode, just apply the selection
+  if (options.nonInteractive || !options.isTTY) {
+    return { style: result.style, agent: result.agent };
+  }
+
+  // Interactive mode: show confirmation prompt
+  const confirmed = await promptAutoConfirmation(result);
+  if (confirmed) {
+    return { style: result.style, agent: result.agent };
+  }
+
+  return null; // User declined
+}
+
+/**
+ * Prompt user to confirm auto-selection
+ */
+async function promptAutoConfirmation(result: AutoSelectionResult): Promise<boolean> {
+  const description = result.style
+    ? `Style: ${result.style}`
+    : result.agent
+      ? `Agent: ${result.agent}`
+      : 'Default selection';
+
+  const response = await prompts({
+    type: 'confirm',
+    name: 'proceed',
+    message: `Auto-selected: ${description} (${result.source}: ${result.reason}). Apply?`,
+    initial: true,
+  });
+
+  return response.proceed === true;
+}
+
 /**
  * think create - Create a new thinking document
  */
@@ -122,14 +214,24 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
 
   // Check for --call flag (AI invocation)
   const callAgent = getFlagString(args.flags, 'call');
-  const style = getFlagString(args.flags, 'style');
-  const agent = getFlagString(args.flags, 'agent');
+  let style = getFlagString(args.flags, 'style');
+  let agent = getFlagString(args.flags, 'agent');
   const resume = getFlagString(args.flags, 'resume');
   const model = getFlagString(args.flags, 'model');
+  const autoFlag = getFlagBool(args.flags, 'auto') ?? false;
 
   // Check for complex thought and prompt for AI assistance if interactive
   const nonInteractive = getFlagBool(args.flags, 'non-interactive') ?? false;
   const isTTY = process.stdin.isTTY ?? false;
+
+  // Handle --auto flag: AI-powered style/agent selection
+  if (autoFlag && !style && !agent) {
+    const autoResult = await performAutoSelection(thought, basePath, { nonInteractive, isTTY });
+    if (autoResult) {
+      style = autoResult.style;
+      agent = autoResult.agent;
+    }
+  }
 
   if (!callAgent && isComplexThought(thought)) {
     // Complex thought detected - offer AI assistance if interactive

@@ -3928,6 +3928,56 @@
       "source": "learning-colocated-tests-reveal-true-tdd-coverage",
       "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
       "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-defer-low-severity-security-issues-v1.1.0",
+      "target": "decision-defer-low-severity-security-findings",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-readme-injection-config-yaml-format-must-nest-under-provider-key",
+      "target": "gotcha-readme-injection-config-requires-nested-yaml-structure",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "target": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "gotcha-test-isolation-vitest-mock-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-async-function-declarations-with-only-sync-operations-mislead-callers",
+      "target": "learning-provider-error-messages-with-installation-instructions",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
+      "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-30-second-timeout-for-provider-cli-invocation",
+      "target": "learning-provider-error-messages-with-installation-instructions",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
+      "target": "learning-30-second-timeout-for-provider-cli-invocation",
+      "label": "relates-to"
     }
   ]
 }

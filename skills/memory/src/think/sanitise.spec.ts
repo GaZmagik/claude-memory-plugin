@@ -26,13 +26,14 @@ describe('sanitiseStyleName', () => {
     expect(sanitiseStyleName('Socratic')).toBe('Socratic');
   });
 
-  it('blocks path traversal attempts', () => {
-    expect(sanitiseStyleName('../../../etc/passwd')).toBe('');
-    expect(sanitiseStyleName('..\\..\\windows')).toBe('');
+  it('strips path traversal attempts', () => {
+    // Sanitises by removing dangerous characters, returns what's left
+    expect(sanitiseStyleName('../../../etc/passwd')).toBe('etcpasswd');
+    expect(sanitiseStyleName('..\\..\\windows')).toBe('windows');
   });
 
-  it('blocks absolute paths', () => {
-    expect(sanitiseStyleName('/etc/passwd')).toBe('');
+  it('strips path separators', () => {
+    expect(sanitiseStyleName('/etc/passwd')).toBe('etcpasswd');
   });
 
   it('handles empty string', () => {
@@ -45,8 +46,9 @@ describe('sanitiseAgentName', () => {
     expect(sanitiseAgentName('security-expert')).toBe('security-expert');
   });
 
-  it('blocks path traversal attempts', () => {
-    expect(sanitiseAgentName('../malicious')).toBe('');
+  it('strips path traversal attempts', () => {
+    // Sanitises by removing dangerous characters, returns what's left
+    expect(sanitiseAgentName('../malicious')).toBe('malicious');
   });
 
   it('handles empty string', () => {

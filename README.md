@@ -70,14 +70,31 @@ memory think add "Deep dive" --call claude --style Devils-Advocate --agent secur
 
 First 3 invocations of each think command show helpful hints about available flags. Use `--non-interactive` to suppress.
 
+#### Cross-Provider Requirements
+
+Ensure the CLI is installed for your chosen provider. If missing, helpful installation instructions are shown:
+- **claude**: Pre-installed with Claude Code
+- **codex**: `npm install -g @openai/codex`
+- **gemini**: `npm install -g @google/gemini-cli`
+
+The `--auto` flag uses a tiered selection strategy: Ollama (if available) → keyword heuristics → default style.
+
 #### Enhanced Memory Injection
 
 Configure in `.claude/memory.local.md` to inject decisions and learnings alongside gotchas:
 
 ```yaml
-inject_decisions: true
-inject_learnings: true
+injection:
+  types:
+    decision:
+      enabled: true
+      threshold: 0.35
+    learning:
+      enabled: true
+      threshold: 0.4
 ```
+
+Hook multipliers adjust thresholds by context (Edit/Write: 0.8×, Bash: 1.2×). See `.claude/memory.example.md` for full options.
 
 ### Architecture
 

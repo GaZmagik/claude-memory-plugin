@@ -1,7 +1,7 @@
 /**
  * T077: Provider Detection
  */
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import type { ProviderName } from '../../types/provider-config.js';
 
 const VALID_PROVIDERS: ProviderName[] = ['claude', 'codex', 'gemini'];
@@ -13,7 +13,7 @@ export function detectProvider(callValue: string | undefined): ProviderName | nu
 }
 
 export function isProviderAvailable(provider: ProviderName): boolean {
-  try { execSync(`which ${provider}`, { stdio: 'pipe' }); return true; } catch { return false; }
+  try { execFileSync('which', [provider], { stdio: 'pipe' }); return true; } catch { return false; }
 }
 
 export function getAvailableProviders(): ProviderName[] {

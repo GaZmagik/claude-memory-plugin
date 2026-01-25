@@ -137,6 +137,32 @@ memory think counter "Consider alternatives" --call gemini
 memory think add "Deep analysis" --call claude --style Devils-Advocate --agent security-reviewer
 ```
 
+### Memory Injection (v1.1.0)
+
+The PostToolUse hook can inject relevant memories into agent context. Configure in `.claude/memory.local.md`:
+
+```yaml
+injection:
+  types:
+    gotcha:
+      enabled: true      # Default: true
+      threshold: 0.2
+      limit: 5
+    decision:
+      enabled: false     # Set true to inject decisions
+      threshold: 0.35
+      limit: 3
+    learning:
+      enabled: false     # Set true to inject learnings
+      threshold: 0.4
+      limit: 2
+  hook_multipliers:
+    Read: 1.0
+    Edit: 0.8            # Lower threshold = more sensitive
+    Write: 0.8
+    Bash: 1.2            # Higher threshold = less noise
+```
+
 ## Configuration
 
 The plugin works out-of-the-box with sensible defaults. Power users can customise behaviour via `.claude/memory.local.md`.

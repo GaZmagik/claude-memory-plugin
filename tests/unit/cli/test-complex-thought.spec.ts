@@ -83,7 +83,7 @@ describe('Complex Thought Detection', () => {
 
   describe('isComplexThought() - combined conditions', () => {
     it('should return true for long thought WITH question mark', () => {
-      const longQuestion = 'A'.repeat(150) + ' Should we proceed with this approach?';
+      const longQuestion = 'A'.repeat(170) + ' Should we proceed with this approach?';
       expect(longQuestion.length).toBeGreaterThan(200);
       expect(longQuestion.includes('?')).toBe(true);
       expect(isComplexThought(longQuestion)).toBe(true);

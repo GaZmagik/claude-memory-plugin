@@ -256,7 +256,8 @@ describe('Hint Lifecycle Integration', () => {
         fs.chmodSync(cacheDir, 0o444);
 
         // Should not throw on increment (write failure is silent)
-        await expect(tracker.increment('think:create')).resolves.not.toThrow();
+        await tracker.increment('think:create');
+        // If we got here without throwing, the test passes
 
         // Restore permissions for cleanup
         fs.chmodSync(cacheDir, 0o755);
@@ -301,8 +302,9 @@ describe('Hint Lifecycle Integration', () => {
         await tracker.increment(cmd);
       }
 
-      // Each unique command should have shown its first hint
-      expect(stderrOutput.length).toBe(5); // 5 unique commands (add appears twice but only 2 hints shown)
+      // Each invocation under threshold shows a hint (threshold=3)
+      // think:add appears twice, both under threshold, so 6 total hints
+      expect(stderrOutput.length).toBe(6);
     });
   });
 });

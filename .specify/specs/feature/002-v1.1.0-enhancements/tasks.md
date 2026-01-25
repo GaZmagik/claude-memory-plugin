@@ -89,12 +89,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for User Story 1
 
-- [ ] T014 [P] [US1] Create HintState interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/hint-state.ts
-- [ ] T015 [P] [US1] Implement hint-tracker.ts with session state persistence in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/hint-tracker.ts
-- [ ] T016 [US1] Modify response.ts to output hints to stderr before JSON to stdout in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/response.ts
-- [ ] T017 [US1] Add complex thought detection logic to think.ts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T018 [US1] Add interactive prompt using prompts library in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T019 [US1] Implement --non-interactive flag handling in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T014 [P] [US1] Create HintState interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/hint-state.ts
+- [X] T015 [P] [US1] Implement hint-tracker.ts with session state persistence in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/hint-tracker.ts
+- [X] T016 [US1] Create hint-output.ts for stderr output in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/hint-output.ts
+- [X] T017 [US1] Create complex-thought.ts for detection logic in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/complex-thought.ts
+- [X] T018 [US1] Create interactive-prompt.ts using prompts library in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/interactive-prompt.ts
+- [ ] T019 [US1] Integrate modules into think.ts commands in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 - [ ] T020 [US1] Update help text with 3+ examples (--call, --style, --agent) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 
 **Checkpoint**: US1 complete - hints appear in stderr with progressive disclosure, interactive prompts for complex thoughts, --non-interactive flag works

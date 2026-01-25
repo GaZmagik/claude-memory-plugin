@@ -98,6 +98,39 @@ function getCircuitBreaker(): CircuitBreaker {
 }
 
 /**
+ * Simple stderr spinner for long-running operations
+ */
+class Spinner {
+  private frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+  private frameIndex = 0;
+  private interval: ReturnType<typeof setInterval> | null = null;
+  private message: string;
+
+  constructor(message: string) {
+    this.message = message;
+  }
+
+  start(): void {
+    if (!process.stderr.isTTY) return;
+    this.interval = setInterval(() => {
+      const frame = this.frames[this.frameIndex];
+      process.stderr.write(`\r${frame} ${this.message}`);
+      this.frameIndex = (this.frameIndex + 1) % this.frames.length;
+    }, 80);
+  }
+
+  stop(clearLine = true): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+    if (clearLine && process.stderr.isTTY) {
+      process.stderr.write('\r' + ' '.repeat(this.message.length + 3) + '\r');
+    }
+  }
+}
+
+/**
  * Perform auto-selection of style/agent using tiered strategy
  */
 async function performAutoSelection(
@@ -138,8 +171,19 @@ async function performAutoSelection(
   });
   selector.setAvailable(styles, agents);
 
+  // Show spinner during selection (Ollama can be slow on cold start)
+  const spinner = new Spinner('Analysing thought...');
+  if (options.isTTY && !options.nonInteractive) {
+    spinner.start();
+  }
+
   // Perform selection
-  const result = await selector.select(thought, avoidStyles);
+  let result;
+  try {
+    result = await selector.select(thought, avoidStyles);
+  } finally {
+    spinner.stop();
+  }
 
   // In non-interactive mode, just apply the selection
   if (options.nonInteractive || !options.isTTY) {

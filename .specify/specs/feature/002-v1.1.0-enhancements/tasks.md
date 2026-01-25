@@ -176,8 +176,8 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T058 [US2] Implement circuit breaker state management in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/circuit-breaker.ts
 - [X] T059 [US2] Implement auto-selector.ts with tiered strategy (Ollama → heuristics) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/auto-selector.ts
 - [X] T060 [US2] Implement avoid list extraction from existing thoughts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/avoid-list.ts
-- [ ] T061 [US2] Add --auto flag handling to think.ts with confirmation prompt in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T062 [US2] Add spinner display ("Analysing thought...") during Ollama invocation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T061 [US2] Add --auto flag handling to think.ts with confirmation prompt in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T062 [US2] Add spinner display ("Analysing thought...") during Ollama invocation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 
 **Checkpoint**: US2 complete - auto-selection operational with Ollama, heuristic fallback, circuit breaker, user confirmation
 

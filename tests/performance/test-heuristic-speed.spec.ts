@@ -3,7 +3,7 @@
  * Requirement: Heuristic fallback completes <100ms
  */
 import { describe, it, expect } from 'vitest';
-import { matchKeywords, KEYWORD_RULES } from '../../skills/memory/src/think/heuristics.js';
+import { matchHeuristics, HEURISTIC_RULES } from '../../skills/memory/src/think/heuristics.js';
 
 describe('heuristic-speed', () => {
   it('keyword matching completes in <10ms', () => {
@@ -17,7 +17,7 @@ describe('heuristic-speed', () => {
 
     const start = performance.now();
     for (const thought of testThoughts) {
-      matchKeywords(thought);
+      matchHeuristics(thought);
     }
     const duration = performance.now() - start;
 
@@ -26,7 +26,7 @@ describe('heuristic-speed', () => {
 
   it('single keyword match completes in <1ms', () => {
     const start = performance.now();
-    matchKeywords('security vulnerability injection attack');
+    matchHeuristics('security vulnerability injection attack');
     const duration = performance.now() - start;
 
     expect(duration).toBeLessThan(1);
@@ -36,7 +36,7 @@ describe('heuristic-speed', () => {
     const longText = 'security '.repeat(1000) + 'performance '.repeat(1000);
 
     const start = performance.now();
-    matchKeywords(longText);
+    matchHeuristics(longText);
     const duration = performance.now() - start;
 
     expect(duration).toBeLessThan(10);
@@ -46,7 +46,7 @@ describe('heuristic-speed', () => {
     // Verify rules are indexed for fast lookup
     const start = performance.now();
     for (let i = 0; i < 1000; i++) {
-      KEYWORD_RULES.length; // Access rules
+      HEURISTIC_RULES.length; // Access rules
     }
     const duration = performance.now() - start;
 

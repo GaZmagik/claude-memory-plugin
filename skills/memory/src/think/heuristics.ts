@@ -15,7 +15,7 @@ interface HeuristicRule {
   weight: number;
 }
 
-const HEURISTIC_RULES: HeuristicRule[] = [
+export const HEURISTIC_RULES: HeuristicRule[] = [
   {
     style: 'Devils-Advocate',
     keywords: ['security', 'vulnerability', 'risk', 'attack', 'injection', 'exploit', 'threat', 'danger', 'unsafe'],

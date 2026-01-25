@@ -246,9 +246,9 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Documentation Tasks
 
-- [ ] T092 [P] Update README.md with --auto flag documentation in /home/gareth/.vs/claude-memory-plugin/README.md
-- [ ] T093 [P] Update README.md with cross-provider calling examples in /home/gareth/.vs/claude-memory-plugin/README.md
-- [ ] T094 [P] Update memory.example.md with injection configuration section in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
+- [X] T092 [P] Update README.md with --auto flag documentation in /home/gareth/.vs/claude-memory-plugin/README.md
+- [X] T093 [P] Update README.md with cross-provider calling examples in /home/gareth/.vs/claude-memory-plugin/README.md
+- [X] T094 [P] Update memory.example.md with injection configuration section in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
 - [X] T095 [P] Update SKILL.md for memory skill with new features in /home/gareth/.vs/claude-memory-plugin/skills/memory/SKILL.md
 - [X] T096 Create CHANGELOG.md entry for v1.1.0 in /home/gareth/.vs/claude-memory-plugin/CHANGELOG.md
 - [ ] T097 Update quickstart.md with validation scenarios for all features in /home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/002-v1.1.0-enhancements/quickstart.md

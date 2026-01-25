@@ -50,6 +50,35 @@ memory health local               # View memory health
 memory stats local                # Graph statistics
 ```
 
+### v1.1.0 Features
+
+#### AI-Powered Thinking with `--auto` and `--call`
+
+```bash
+# Auto-select style/agent based on thought content
+memory think add "Review security implications" --call claude --auto
+
+# Cross-provider calling (claude, codex, gemini)
+memory think add "Analyse performance" --call codex --model gpt-5-codex
+memory think counter "Alternative view" --call gemini
+
+# Explicit style and agent
+memory think add "Deep dive" --call claude --style Devils-Advocate --agent security-reviewer
+```
+
+#### Progressive Hints
+
+First 3 invocations of each think command show helpful hints about available flags. Use `--non-interactive` to suppress.
+
+#### Enhanced Memory Injection
+
+Configure in `.claude/memory.local.md` to inject decisions and learnings alongside gotchas:
+
+```yaml
+inject_decisions: true
+inject_learnings: true
+```
+
 ### Architecture
 
 ```

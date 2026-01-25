@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T23:11:30.945Z",
+  "lastUpdated": "2026-01-25T23:22:02.476Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5563,6 +5563,136 @@
       "updated": "2026-01-25T23:11:30.939Z",
       "scope": "project",
       "relativePath": "permanent/decision-defer-test-isolation-fixes-to-v120.md"
+    },
+    {
+      "id": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "type": "learning",
+      "title": "Retro - TDD parity requires explicit configuration for colocated vs centralized tests",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:42.451Z",
+      "updated": "2026-01-25T23:21:42.451Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "type": "gotcha",
+      "title": "Retro - Test isolation failures pass individually but fail together (mock pollution) requires infrastructure sprint",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "tech-debt",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:47.052Z",
+      "updated": "2026-01-25T23:21:47.052Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-test-isolation-vitest-mock-pollution",
+      "type": "gotcha",
+      "title": "Test isolation - vitest mock pollution",
+      "tags": [
+        "testing",
+        "vitest",
+        "mocks",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:47.403Z",
+      "updated": "2026-01-25T23:21:47.403Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-isolation-vitest-mock-pollution.md"
+    },
+    {
+      "id": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
+      "type": "learning",
+      "title": "Retro - Test timeout mismatches cause false failures (spawn timeout != test timeout)",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:51.305Z",
+      "updated": "2026-01-25T23:21:51.305Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-missing-export-causes-test-import-cascade-failures",
+      "type": "gotcha",
+      "title": "Missing export causes test import cascade failures",
+      "tags": [
+        "exports",
+        "imports",
+        "testing",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:53.904Z",
+      "updated": "2026-01-25T23:21:53.904Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-missing-export-causes-test-import-cascade-failures.md"
+    },
+    {
+      "id": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
+      "type": "learning",
+      "title": "Retro - Session restore + spec review workflow efficiently validates and fixes complex features",
+      "tags": [
+        "retrospective",
+        "process",
+        "workflow",
+        "review",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:55.420Z",
+      "updated": "2026-01-25T23:21:55.420Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "type": "learning",
+      "title": "TDD parity - colocated tests reveal true coverage",
+      "tags": [
+        "testing",
+        "tdd-parity",
+        "colocated-tests",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T23:21:58.639Z",
+      "updated": "2026-01-25T23:21:58.639Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-parity-colocated-tests-reveal-true-coverage.md"
+    },
+    {
+      "id": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "type": "learning",
+      "title": "Colocated tests reveal true TDD coverage",
+      "tags": [
+        "testing",
+        "tdd-parity",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T23:22:02.470Z",
+      "updated": "2026-01-25T23:22:02.470Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-colocated-tests-reveal-true-tdd-coverage.md"
     }
   ]
 }

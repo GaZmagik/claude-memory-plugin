@@ -1684,6 +1684,38 @@
     {
       "id": "decision-defer-test-isolation-fixes-to-v120",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-test-isolation-vitest-mock-pollution",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-missing-export-causes-test-import-cascade-failures",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "type": "learning"
+    },
+    {
+      "id": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -3891,6 +3923,11 @@
       "source": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
       "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "label": "auto-linked-by-similarity"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-24T22:36:00.848Z",
+  "lastUpdated": "2026-01-24T23:51:40.574Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4387,6 +4387,150 @@
       "updated": "2026-01-24T22:32:03.881Z",
       "scope": "project",
       "relativePath": "permanent/artifact-v110-ollama-selection-prompt.md"
+    },
+    {
+      "id": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
+      "type": "learning",
+      "title": "Speckit analyze catches spec-to-task coverage gaps early",
+      "tags": [
+        "speckit",
+        "analysis",
+        "quality-gates",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-24T23:43:05.565Z",
+      "updated": "2026-01-24T23:43:05.565Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early.md"
+    },
+    {
+      "id": "learning-requirements-checklist-validation-enforces-spec-quality-discipline",
+      "type": "learning",
+      "title": "Requirements checklist validation enforces spec quality discipline",
+      "tags": [
+        "checklist",
+        "validation",
+        "quality-gates",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-24T23:43:10.329Z",
+      "updated": "2026-01-24T23:43:10.329Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-requirements-checklist-validation-enforces-spec-quality-discipline.md"
+    },
+    {
+      "id": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "type": "learning",
+      "title": "Pre-commit fresh-session pattern for large speckit workflows",
+      "tags": [
+        "context-management",
+        "speckit",
+        "session-planning",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-24T23:43:17.572Z",
+      "updated": "2026-01-24T23:43:17.572Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows.md"
+    },
+    {
+      "id": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "type": "artifact",
+      "title": "Spec remediation pattern: analyze → decide → FR → test",
+      "tags": [
+        "speckit",
+        "pattern",
+        "remediation",
+        "analysis",
+        "quality-gates",
+        "project"
+      ],
+      "created": "2026-01-24T23:43:26.020Z",
+      "updated": "2026-01-24T23:43:26.020Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test.md"
+    },
+    {
+      "id": "decision-v110-commit-before-fresh-implementation-session",
+      "type": "decision",
+      "title": "Commit all spec changes before fresh implementation session",
+      "tags": [
+        "v1.1.0",
+        "context-management",
+        "session-planning",
+        "process",
+        "project"
+      ],
+      "created": "2026-01-24T23:43:26.143Z",
+      "updated": "2026-01-24T23:43:26.143Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v110-commit-before-fresh-implementation-session.md"
+    },
+    {
+      "id": "learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd",
+      "title": "Plugin-relative discovery requires import.meta.url not process.cwd",
+      "type": "learning",
+      "tags": [
+        "plugin-architecture",
+        "esm",
+        "discovery",
+        "node.js",
+        "project"
+      ],
+      "created": "2026-01-24T14:15:03.083Z",
+      "updated": "2026-01-24T14:15:03.083Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd.md"
+    },
+    {
+      "id": "learning-github-actions-checkout-action-v5-does-not-exist",
+      "title": "GitHub Actions checkout action v5 does not exist",
+      "type": "learning",
+      "tags": [
+        "github-actions",
+        "ci-cd",
+        "versioning",
+        "project"
+      ],
+      "created": "2026-01-24T14:14:59.604Z",
+      "updated": "2026-01-24T14:14:59.604Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-github-actions-checkout-action-v5-does-not-exist.md"
+    },
+    {
+      "id": "gotcha-output-styles-to-styles-directory-rename-is-backward-incompatible",
+      "title": "output-styles to styles directory rename is backward-incompatible",
+      "type": "gotcha",
+      "tags": [
+        "plugin-schema",
+        "backward-compatibility",
+        "breaking-changes",
+        "project"
+      ],
+      "created": "2026-01-24T14:15:05.885Z",
+      "updated": "2026-01-24T14:15:05.885Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-output-styles-to-styles-directory-rename-is-backward-incompatible.md"
+    },
+    {
+      "id": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "type": "artifact",
+      "title": "Curator Analysis: Memory Linking & Quality Audit (2026-01-24)",
+      "tags": [
+        "memory-curation",
+        "system-analysis",
+        "linking",
+        "quality-audit",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-24T23:51:40.569Z",
+      "updated": "2026-01-24T23:51:40.569Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-curator-analysis-2026-01-24-linking-quality.md"
     }
   ]
 }

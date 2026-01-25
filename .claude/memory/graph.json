@@ -1343,6 +1343,42 @@
     {
       "id": "artifact-v110-ollama-selection-prompt",
       "type": "artifact"
+    },
+    {
+      "id": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
+      "type": "learning"
+    },
+    {
+      "id": "learning-requirements-checklist-validation-enforces-spec-quality-discipline",
+      "type": "learning"
+    },
+    {
+      "id": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-v110-commit-before-fresh-implementation-session",
+      "type": "decision"
+    },
+    {
+      "id": "learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd",
+      "type": "learning"
+    },
+    {
+      "id": "learning-github-actions-checkout-action-v5-does-not-exist",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-output-styles-to-styles-directory-rename-is-backward-incompatible",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -3144,6 +3180,106 @@
     {
       "source": "artifact-duplicated-prefix-fix-plan",
       "target": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v110-commit-before-fresh-implementation-session",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "target": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-requirements-checklist-validation-enforces-spec-quality-discipline",
+      "target": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-output-styles-for-memory-assessment-agents",
+      "target": "learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v110-auto-uses-configured-model",
+      "target": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v110-auto-uses-configured-model",
+      "target": "decision-v110-cross-provider-agent-calling-codex-gemini",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd",
+      "target": "gotcha-output-styles-to-styles-directory-rename-is-backward-incompatible",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-index-migration-layer-handles-bash-to-typescript-format-transition",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-structured-investigation-prevents-premature-design-decisions",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "target": "learning-memory-context-hook-graceful-search-degradation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-non-blocking-config-provisioning-improves-onboarding",
+      "target": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions",
+      "target": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-claude-code-marketplace-naming-and-plugin-ideas",
+      "target": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools",
+      "target": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v110-feature-exploration-hint-visibility-auto-flag-enhanced-injection",
+      "target": "decision-output-styles-for-memory-assessment-agents",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-routing",
+      "target": "decision-v110-auto-uses-configured-model",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-diversity-in-llm-selection-requires-avoid-lists-not-temperature-tuning",
+      "target": "decision-v110-cross-provider-agent-calling-codex-gemini",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-v110-ollama-selection-prompt",
+      "target": "decision-v110-auto-uses-configured-model",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-github-actions-checkout-action-v5-does-not-exist",
+      "target": "artifact-gotcha-prevention-checklist",
       "label": "relates-to"
     }
   ]

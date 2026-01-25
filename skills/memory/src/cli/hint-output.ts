@@ -134,5 +134,7 @@ export function getRotatingHint(count: number): HintMessage {
     },
   ];
 
-  return hints[count % hints.length]!;
+  const index = count % hints.length;
+  // Fallback to first hint if somehow undefined (defensive programming)
+  return hints[index] ?? hints[0] ?? { type: 'call', text: 'Use --call claude for AI assistance', example: 'memory think add "topic" --call claude' };
 }

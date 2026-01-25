@@ -66,6 +66,7 @@ export function parseSelectionResponse(response: string): OllamaSelectionResult 
     if (!parsed.style && !parsed.agent) return null;
     return { style: parsed.style, agent: parsed.agent, reason: parsed.reason || 'No reason' };
   } catch {
+    // JSON parse failed - Ollama response was malformed, fall back to heuristics
     return null;
   }
 }

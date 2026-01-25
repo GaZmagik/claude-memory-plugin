@@ -101,6 +101,9 @@ function getCircuitBreaker(): CircuitBreaker {
   return circuitBreakerInstance;
 }
 
+/** Spinner animation frame interval in milliseconds */
+const SPINNER_FRAME_INTERVAL_MS = 80;
+
 /**
  * Simple stderr spinner for long-running operations
  */
@@ -120,7 +123,7 @@ class Spinner {
       const frame = this.frames[this.frameIndex];
       process.stderr.write(`\r${frame} ${this.message}`);
       this.frameIndex = (this.frameIndex + 1) % this.frames.length;
-    }, 80);
+    }, SPINNER_FRAME_INTERVAL_MS);
   }
 
   stop(clearLine = true): void {

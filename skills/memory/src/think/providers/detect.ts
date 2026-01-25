@@ -13,7 +13,13 @@ export function detectProvider(callValue: string | undefined): ProviderName | nu
 }
 
 export function isProviderAvailable(provider: ProviderName): boolean {
-  try { execFileSync('which', [provider], { stdio: 'pipe' }); return true; } catch { return false; }
+  try {
+    execFileSync('which', [provider], { stdio: 'pipe' });
+    return true;
+  } catch {
+    // Provider binary not found in PATH - expected for optional providers
+    return false;
+  }
 }
 
 export function getAvailableProviders(): ProviderName[] {

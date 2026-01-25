@@ -49,6 +49,7 @@ export class AutoSelector {
           return result;
         }
       } catch {
+        // Ollama call failed (timeout, network, etc.) - record for circuit breaker
         this.config.circuitBreaker.recordFailure();
       }
     }

@@ -1580,6 +1580,34 @@
     {
       "id": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-blind-implementation-creating-files-without-verifying-creates-technical-debt",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "type": "learning"
+    },
+    {
+      "id": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
+      "type": "learning"
+    },
+    {
+      "id": "learning-provider-modules-pattern-commands-parsers-detection-in-separate-files",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -3701,6 +3729,91 @@
     {
       "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
       "target": "gotcha-stop-work-at-85-90-context-not-95-100",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-provider-modules-pattern-commands-parsers-detection-in-separate-files",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
+      "target": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-help-text-pattern-ai-flags",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-phase2-injection-architecture",
+      "target": "decision-phase3-tiered-selection-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-2-injection-config-reduces-hook-complexity",
+      "target": "artifact-phase2-injection-architecture",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-blind-implementation-creating-files-without-verifying-creates-technical-debt",
+      "target": "learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v110-phase-milestone-commits",
+      "target": "decision-session-continuity-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
+      "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T16:16:35.102Z",
+  "lastUpdated": "2026-01-25T16:27:00.347Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5137,6 +5137,120 @@
       "updated": "2026-01-25T16:16:35.097Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context.md"
+    },
+    {
+      "id": "learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory",
+      "type": "learning",
+      "title": "Retro - User feedback on gotchas creates immediate actionable memory",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory",
+        "feedback-loops",
+        "project"
+      ],
+      "created": "2026-01-25T16:26:39.726Z",
+      "updated": "2026-01-25T16:26:39.726Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-blind-implementation-creating-files-without-verifying-creates-technical-debt",
+      "type": "gotcha",
+      "title": "Retro - Blind implementation (creating files without verifying) creates technical debt",
+      "tags": [
+        "retrospective",
+        "process",
+        "implementation",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-25T16:26:43.746Z",
+      "updated": "2026-01-25T16:26:43.746Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-blind-implementation-creating-files-without-verifying-creates-technical-debt.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "type": "learning",
+      "title": "TDD Hook Enforcement requires co-located test files",
+      "tags": [
+        "tdd",
+        "hooks",
+        "typescript",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-25T16:26:47.999Z",
+      "updated": "2026-01-25T16:26:47.999Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-hook-enforcement-requires-co-located-test-files.md"
+    },
+    {
+      "id": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
+      "type": "learning",
+      "title": "Session restore launches three parallel agents for context recovery",
+      "tags": [
+        "session-restore",
+        "memory",
+        "compaction",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-25T16:26:53.097Z",
+      "updated": "2026-01-25T16:26:53.097Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restore-launches-three-parallel-agents-for-context-recovery.md"
+    },
+    {
+      "id": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
+      "type": "learning",
+      "title": "Lightweight spinner for long-running CLI operations avoids dependencies",
+      "tags": [
+        "cli",
+        "ux",
+        "spinner",
+        "dependencies",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-01-25T16:27:00.149Z",
+      "updated": "2026-01-25T16:27:00.149Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies.md"
+    },
+    {
+      "id": "learning-provider-modules-pattern-commands-parsers-detection-in-separate-files",
+      "type": "learning",
+      "title": "Provider modules pattern: commands, parsers, detection in separate files",
+      "tags": [
+        "architecture",
+        "providers",
+        "modularity",
+        "phase-4",
+        "project"
+      ],
+      "created": "2026-01-25T16:27:00.242Z",
+      "updated": "2026-01-25T16:27:00.242Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-modules-pattern-commands-parsers-detection-in-separate-files.md"
+    },
+    {
+      "id": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
+      "type": "gotcha",
+      "title": "Feature and core hubs detected but don't exist yet - linking fails silently",
+      "tags": [
+        "memory",
+        "hubs",
+        "linking",
+        "project"
+      ],
+      "created": "2026-01-25T16:27:00.338Z",
+      "updated": "2026-01-25T16:27:00.338Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently.md"
     }
   ]
 }

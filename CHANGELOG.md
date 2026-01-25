@@ -5,6 +5,44 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-25
+
+### Added
+
+#### US1: Enhanced Hint Visibility
+- Progressive disclosure of CLI hints via stderr (first 3 invocations per command)
+- Interactive prompts for complex thoughts (>200 chars or containing "?")
+- `--non-interactive` flag to suppress hints and prompts
+- Rotating hint system with examples for `--call`, `--style`, `--agent` flags
+
+#### US2: Auto-Selection with --auto Flag
+- `--auto` flag for AI-powered style/agent selection
+- Tiered selection strategy: Ollama → Heuristics → Default
+- Circuit breaker pattern (3 failures → 30s cooldown) for Ollama resilience
+- Keyword-based heuristic matching for security, performance, architecture topics
+- Avoid list extraction to ensure diverse style/agent rotation
+- Spinner display during Ollama analysis
+
+#### US3: Enhanced Memory Injection
+- Opt-in injection of decisions and learnings (in addition to gotchas)
+- Per-type threshold multipliers for context-sensitive injection
+- Hook multipliers: Bash 1.2x, Edit/Write 0.8x
+- Session deduplication to prevent repeated injections
+- Type-specific formatting with icons (🚨 📋 💡)
+- Single semantic search with client-side filtering for efficiency
+
+#### US4: Cross-Provider Agent Calling
+- `--call codex` and `--call gemini` support alongside `--call claude`
+- `--oss` flag for Codex local models (gpt:oss-20b/120b)
+- Provider-specific output parsing (strips headers, filters noise)
+- Graceful error messages with installation instructions
+- 30-second timeout for provider CLI invocations (FR-045)
+- Thought attribution formatting (e.g., "Claude (haiku) [Style] @agent")
+
+### Changed
+- Think commands now support provider routing via `--call <provider>`
+- Default provider remains `claude` for backward compatibility
+
 ## [1.0.8] - 2026-01-24
 
 ### Fixed

@@ -112,6 +112,31 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `think conclude <text>` | Conclude (--promote type to save) |
 | | `think delete <id>` | Delete thinking document |
 
+### Think Command Flags (v1.1.0)
+
+| Flag | Description |
+|------|-------------|
+| `--call <provider>` | Invoke AI to generate thought (claude/codex/gemini) |
+| `--auto` | AI-powered style/agent selection (Ollama → heuristics) |
+| `--style <name>` | Apply output style (Claude only) |
+| `--agent <name>` | Use agent persona (Claude only) |
+| `--model <model>` | Specify model for provider |
+| `--oss` | Use OSS models (Codex only) |
+| `--non-interactive` | Suppress hints and prompts |
+
+**Examples:**
+```bash
+# AI-generated thought with auto-selected style
+memory think add "Review security implications" --call claude --auto
+
+# Cross-provider calling
+memory think add "Analyse performance" --call codex --model gpt-5-codex
+memory think counter "Consider alternatives" --call gemini
+
+# With explicit style and agent
+memory think add "Deep analysis" --call claude --style Devils-Advocate --agent security-reviewer
+```
+
 ## Configuration
 
 The plugin works out-of-the-box with sensible defaults. Power users can customise behaviour via `.claude/memory.local.md`.

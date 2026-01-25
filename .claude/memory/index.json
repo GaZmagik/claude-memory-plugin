@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T15:07:46.859Z",
+  "lastUpdated": "2026-01-25T16:16:35.102Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5120,6 +5120,23 @@
       "updated": "2026-01-25T14:56:46.354Z",
       "scope": "project",
       "relativePath": "permanent/artifact-phase3-avoid-list-extraction-pattern.md"
+    },
+    {
+      "id": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "type": "gotcha",
+      "title": "Auto-compaction mid-task is safe - session-restore rebuilds context",
+      "tags": [
+        "context-management",
+        "auto-compaction",
+        "session-restore",
+        "process",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T16:16:35.097Z",
+      "updated": "2026-01-25T16:16:35.097Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context.md"
     }
   ]
 }

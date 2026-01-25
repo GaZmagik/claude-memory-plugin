@@ -1576,6 +1576,10 @@
     {
       "id": "artifact-phase3-avoid-list-extraction-pattern",
       "type": "artifact"
+    },
+    {
+      "id": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -3692,6 +3696,11 @@
     {
       "source": "learning-dependency-ordering-prevents-integration-rework-in-phase-3",
       "target": "decision-phase3-tiered-selection-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "gotcha-stop-work-at-85-90-context-not-95-100",
       "label": "relates-to"
     }
   ]

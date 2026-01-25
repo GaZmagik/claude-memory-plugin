@@ -251,9 +251,9 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T094 [P] Update memory.example.md with injection configuration section in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
 - [X] T095 [P] Update SKILL.md for memory skill with new features in /home/gareth/.vs/claude-memory-plugin/skills/memory/SKILL.md
 - [X] T096 Create CHANGELOG.md entry for v1.1.0 in /home/gareth/.vs/claude-memory-plugin/CHANGELOG.md
-- [ ] T097 Update quickstart.md with validation scenarios for all features in /home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/002-v1.1.0-enhancements/quickstart.md
-- [ ] T098 Validate all 4 user stories against acceptance criteria from spec.md
-- [ ] T099 Run full test suite and verify all tests pass
+- [X] T097 Update quickstart.md with validation scenarios for all features in /home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/002-v1.1.0-enhancements/quickstart.md
+- [X] T098 Validate all 4 user stories against acceptance criteria from spec.md
+- [X] T099 Run full test suite and verify all tests pass
 - [X] T100 Update package.json version to 1.1.0 in /home/gareth/.vs/claude-memory-plugin/package.json
 
 **Checkpoint**: All features tested, documented, validated against acceptance criteria

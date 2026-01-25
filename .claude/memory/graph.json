@@ -1379,6 +1379,10 @@
     {
       "id": "artifact-curator-analysis-2026-01-24-linking-quality",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "type": "learning"
     }
   ],
   "edges": [

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-24T23:51:40.574Z",
+  "lastUpdated": "2026-01-25T09:56:29.966Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4531,6 +4531,23 @@
       "updated": "2026-01-24T23:51:40.569Z",
       "scope": "project",
       "relativePath": "permanent/artifact-curator-analysis-2026-01-24-linking-quality.md"
+    },
+    {
+      "id": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "type": "learning",
+      "title": "Retro - Subagent delegation unlocks speckit workflows at high context",
+      "tags": [
+        "retrospective",
+        "speckit",
+        "workflow",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-01-25T09:56:29.936Z",
+      "updated": "2026-01-25T09:56:29.936Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context.md",
+      "severity": "medium"
     }
   ]
 }

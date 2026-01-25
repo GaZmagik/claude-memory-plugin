@@ -96,7 +96,7 @@ describe('circuit-breaker', () => {
       await new Promise((r) => setTimeout(r, 60));
 
       fastBreaker.recordFailure();
-      expect(breaker.isOpen()).toBe(true);
+      expect(fastBreaker.isOpen()).toBe(true);
     });
   });
 

@@ -28,6 +28,9 @@ import { discoverStyles, discoverAgents } from '../../think/discovery.js';
 import { extractAvoidList, type ThoughtMetadata } from '../../think/avoid-list.js';
 import { showThinkDocument } from '../../think/document.js';
 import prompts from 'prompts';
+import { detectProvider } from '../../think/providers/detect.js';
+import { PROVIDERS } from '../../think/providers/providers.js';
+import type { ProviderName } from '../../types/provider-config.js';
 
 /**
  * Parse memory type string for promotion
@@ -256,13 +259,30 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   const documentId = getFlagString(args.flags, 'to');
   const by = getFlagString(args.flags, 'by');
 
-  // Check for --call flag (AI invocation)
-  const callAgent = getFlagString(args.flags, 'call');
+  // Check for --call flag (AI invocation) - T081
+  const callValue = getFlagString(args.flags, 'call');
+  const provider: ProviderName = detectProvider(callValue) ?? 'claude';
+  const callAgent = callValue ? provider : undefined; // backwards compat: truthy means invoke AI
   let style = getFlagString(args.flags, 'style');
   let agent = getFlagString(args.flags, 'agent');
   const resume = getFlagString(args.flags, 'resume');
   const model = getFlagString(args.flags, 'model');
   const autoFlag = getFlagBool(args.flags, 'auto') ?? false;
+  const ossFlag = getFlagBool(args.flags, 'oss') ?? false; // T082
+
+  // T083: Provider-specific warnings
+  if (callAgent && provider !== 'claude') {
+    const providerConfig = PROVIDERS[provider];
+    if (style && !providerConfig.supportsStyle) {
+      process.stderr.write(`⚠️  Warning: --style is not supported by ${provider}, ignored\n`);
+    }
+    if (agent && !providerConfig.supportsAgent) {
+      process.stderr.write(`⚠️  Warning: --agent is not supported by ${provider}, ignored\n`);
+    }
+    if (ossFlag && !providerConfig.supportsOss) {
+      process.stderr.write(`⚠️  Warning: --oss is only supported by codex, ignored\n`);
+    }
+  }
 
   // Check for complex thought and prompt for AI assistance if interactive
   const nonInteractive = getFlagBool(args.flags, 'non-interactive') ?? false;

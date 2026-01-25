@@ -209,19 +209,19 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for User Story 4
 
-- [ ] T073 [P] [US4] Create ProviderConfig interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/provider-config.ts
-- [ ] T074 [P] [US4] Implement provider command builders in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/commands.ts
-- [ ] T075 [P] [US4] Implement Codex output parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/codex-parser.ts
-- [ ] T076 [P] [US4] Implement Gemini output parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/gemini-parser.ts
-- [ ] T077 [P] [US4] Implement provider detection utilities in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/detect.ts
-- [ ] T078 [US4] Implement providers.ts with all provider configs in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers.ts
-- [ ] T079 [US4] Implement thought attribution formatter in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/attribution.ts
-- [ ] T080 [US4] Modify ai-invoke.ts to route to different providers in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/ai-invoke.ts
-- [ ] T081 [US4] Add --call flag parsing to think.ts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T082 [US4] Add --oss flag parsing and validation (Codex only) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T083 [US4] Add provider-specific warnings (--agent with codex/gemini) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T084 [US4] Add graceful error messages with installation instructions in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/errors.ts
-- [ ] T084b [US4] Implement 30s timeout for provider CLI invocations in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/invoke.ts
+- [X] T073 [P] [US4] Create ProviderConfig interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/provider-config.ts
+- [X] T074 [P] [US4] Implement provider command builders in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/commands.ts
+- [X] T075 [P] [US4] Implement Codex output parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/codex-parser.ts
+- [X] T076 [P] [US4] Implement Gemini output parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/gemini-parser.ts
+- [X] T077 [P] [US4] Implement provider detection utilities in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/detect.ts
+- [X] T078 [US4] Implement providers.ts with all provider configs in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/providers.ts
+- [X] T079 [US4] Implement thought attribution formatter in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/attribution.ts
+- [X] T080 [US4] Modify ai-invoke.ts to route to different providers in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/ai-invoke.ts
+- [X] T081 [US4] Add --call flag parsing to think.ts in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T082 [US4] Add --oss flag parsing and validation (Codex only) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T083 [US4] Add provider-specific warnings (--agent with codex/gemini) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T084 [US4] Add graceful error messages with installation instructions in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/errors.ts
+- [X] T084b [US4] Implement 30s timeout for provider CLI invocations in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/providers/invoke.ts
 
 **Checkpoint**: US4 complete - cross-provider calling operational for claude, codex, gemini with correct output parsing and attribution
 

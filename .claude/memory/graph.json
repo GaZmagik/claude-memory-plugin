@@ -1608,6 +1608,10 @@
     {
       "id": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
+      "type": "learning"
     }
   ],
   "edges": [

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T16:27:00.347Z",
+  "lastUpdated": "2026-01-25T20:50:01.651Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5251,6 +5251,22 @@
       "updated": "2026-01-25T16:27:00.338Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently.md"
+    },
+    {
+      "id": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
+      "type": "learning",
+      "title": "execFileSync prevents PATH inheritance vulnerability in Bun",
+      "tags": [
+        "security",
+        "bun",
+        "provider-detection",
+        "execfilesync",
+        "project"
+      ],
+      "created": "2026-01-25T20:50:01.635Z",
+      "updated": "2026-01-25T20:50:01.635Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun.md"
     }
   ]
 }

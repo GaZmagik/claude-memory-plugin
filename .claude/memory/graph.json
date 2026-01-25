@@ -1656,6 +1656,30 @@
     {
       "id": "learning-parallel-expert-review-agents-scale-efficiently",
       "type": "learning"
+    },
+    {
+      "id": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
+      "type": "gotcha"
     }
   ],
   "edges": [

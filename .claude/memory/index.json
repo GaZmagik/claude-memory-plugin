@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T20:51:49.416Z",
+  "lastUpdated": "2026-01-25T21:18:52.164Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5285,23 +5285,6 @@
       "relativePath": "permanent/learning-readme-injection-config-yaml-format-must-nest-under-provider-key.md"
     },
     {
-      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "type": "learning",
-      "title": "Retro - Parallel expert review agents scale efficiently for pre-shipping validation",
-      "tags": [
-        "retrospective",
-        "review-process",
-        "agents",
-        "parallelism",
-        "project"
-      ],
-      "created": "2026-01-25T20:50:19.022Z",
-      "updated": "2026-01-25T20:50:19.022Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-provider-error-messages-with-installation-instructions",
       "type": "learning",
       "title": "Provider error messages with installation instructions",
@@ -5449,6 +5432,122 @@
       "updated": "2026-01-25T20:51:49.410Z",
       "scope": "project",
       "relativePath": "permanent/learning-tdd-parity-enforcement-catches-undocumented-test-files.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "type": "learning",
+      "title": "Retro - Parallel expert review agents scale efficiently for pre-shipping validation",
+      "tags": [
+        "retrospective",
+        "process",
+        "review",
+        "agents",
+        "parallel-execution",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:35.815Z",
+      "updated": "2026-01-25T21:18:35.815Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "type": "learning",
+      "title": "Parallel expert review agents scale efficiently for pre-shipping validation",
+      "tags": [
+        "code-review",
+        "architecture",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:40.077Z",
+      "updated": "2026-01-25T21:18:40.077Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md"
+    },
+    {
+      "id": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "type": "learning",
+      "title": "Retro - Pre-commit hook validation prevented regression blame",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "validation",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:41.471Z",
+      "updated": "2026-01-25T21:18:41.471Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-pre-commit-hook-validation-prevented-regression-blame.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names",
+      "type": "gotcha",
+      "title": "Path traversal validation required for user-supplied agent/style names",
+      "tags": [
+        "security",
+        "validation",
+        "input-sanitisation",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:43.409Z",
+      "updated": "2026-01-25T21:18:43.409Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names.md"
+    },
+    {
+      "id": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
+      "type": "gotcha",
+      "title": "Gotcha - Event listener cleanup requires specificity to avoid breaking async operations",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "async",
+        "events",
+        "nodejs",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:46.346Z",
+      "updated": "2026-01-25T21:18:46.346Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
+      "type": "learning",
+      "title": "Hook timeout budgets prevent unbounded blocking in PostToolUse and UserPromptSubmit",
+      "tags": [
+        "performance",
+        "hooks",
+        "timeouts",
+        "budgeting",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:48.522Z",
+      "updated": "2026-01-25T21:18:48.522Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit.md"
+    },
+    {
+      "id": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
+      "type": "gotcha",
+      "title": "Stream event listener cleanup race condition in subprocess timeout handlers",
+      "tags": [
+        "subprocess",
+        "streams",
+        "concurrency",
+        "cleanup",
+        "project"
+      ],
+      "created": "2026-01-25T21:18:52.159Z",
+      "updated": "2026-01-25T21:18:52.159Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers.md"
     }
   ]
 }

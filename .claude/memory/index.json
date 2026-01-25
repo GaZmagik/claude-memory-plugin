@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T09:59:01.986Z",
+  "lastUpdated": "2026-01-25T12:22:51.447Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4680,6 +4680,124 @@
       "updated": "2026-01-25T09:59:01.981Z",
       "scope": "project",
       "relativePath": "permanent/learning-v110-implementation-10-documented-gotchas-require-proactive-handling.md"
+    },
+    {
+      "id": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "type": "learning",
+      "title": "Retro - TDD with distributed tests requires explicit .tddignore documentation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:32.411Z",
+      "updated": "2026-01-25T12:22:32.411Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "type": "learning",
+      "title": "TDD compliance hook requires .tddignore for non-colocated tests",
+      "tags": [
+        "tdd",
+        "testing",
+        "hooks",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:35.247Z",
+      "updated": "2026-01-25T12:22:35.247Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests.md"
+    },
+    {
+      "id": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "type": "learning",
+      "title": "Retro - Phase 1 implementation (T014-T018) cleanly complete; T019-T020 needs fresh context",
+      "tags": [
+        "retrospective",
+        "process",
+        "v1.1.0",
+        "phase-1",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:38.223Z",
+      "updated": "2026-01-25T12:22:38.223Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-integration-test-assertions-need-verification-before-implementation",
+      "type": "gotcha",
+      "title": "Gotcha retro - Integration test assertions need verification before implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "testing-patterns",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:43.991Z",
+      "updated": "2026-01-25T12:22:43.991Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-integration-test-assertions-need-verification-before-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "type": "learning",
+      "title": "Phase 1 hint visibility implementation (T007-T020) completed TDD cycle",
+      "tags": [
+        "tdd",
+        "testing",
+        "phase-1",
+        "us1",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:45.160Z",
+      "updated": "2026-01-25T12:22:45.160Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle.md"
+    },
+    {
+      "id": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "type": "learning",
+      "title": "Session restoration with three-agent parallel pattern successful",
+      "tags": [
+        "memory",
+        "restoration",
+        "agents",
+        "session-continuity",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:45.466Z",
+      "updated": "2026-01-25T12:22:45.466Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restoration-with-three-agent-parallel-pattern-successful.md"
+    },
+    {
+      "id": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
+      "type": "learning",
+      "title": "Integration test mock patterns for hint system lifecycle",
+      "tags": [
+        "testing",
+        "mocking",
+        "integration-tests",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T12:22:51.441Z",
+      "updated": "2026-01-25T12:22:51.441Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-integration-test-mock-patterns-for-hint-system-lifecycle.md"
     }
   ]
 }

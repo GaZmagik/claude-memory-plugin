@@ -1415,6 +1415,34 @@
     {
       "id": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-integration-test-assertions-need-verification-before-implementation",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "type": "learning"
+    },
+    {
+      "id": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "type": "learning"
+    },
+    {
+      "id": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -3351,6 +3379,76 @@
     {
       "source": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
       "target": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
+      "target": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "target": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "target": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "target": "decision-colocate-unit-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-integration-test-assertions-need-verification-before-implementation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-integration-test-assertions-need-verification-before-implementation",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "target": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "target": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
       "label": "relates-to"
     }
   ]

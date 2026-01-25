@@ -195,17 +195,17 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T063 [P] [US4] Unit test for provider CLI command building (claude, codex, gemini) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-provider-commands.spec.ts
-- [ ] T064 [P] [US4] Unit test for Codex output parsing (strip headers) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-codex-parser.spec.ts
-- [ ] T065 [P] [US4] Unit test for Gemini output parsing (filter noise) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-gemini-parser.spec.ts
-- [ ] T066 [P] [US4] Unit test for provider detection (which command) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-provider-detection.spec.ts
-- [ ] T067 [P] [US4] Unit test for thought attribution formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-attribution.spec.ts
-- [ ] T068 [US4] Integration test for Codex CLI invocation (mocked) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-codex-invocation.spec.ts
-- [ ] T069 [US4] Integration test for Gemini CLI invocation (mocked) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-gemini-invocation.spec.ts
-- [ ] T070 [US4] Integration test for --oss flag with Codex in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-codex-oss.spec.ts
-- [ ] T071 [US4] Integration test for graceful error on missing CLI in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-missing-provider.spec.ts
-- [ ] T072 [US4] Integration test for --agent warning with non-Claude providers in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-provider-warnings.spec.ts
-- [ ] T072b [US4] Integration test for 30s provider CLI timeout in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-provider-timeout.spec.ts
+- [X] T063 [P] [US4] Unit test for provider CLI command building (claude, codex, gemini) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-provider-commands.spec.ts
+- [X] T064 [P] [US4] Unit test for Codex output parsing (strip headers) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-codex-parser.spec.ts
+- [X] T065 [P] [US4] Unit test for Gemini output parsing (filter noise) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-gemini-parser.spec.ts
+- [X] T066 [P] [US4] Unit test for provider detection (which command) in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-provider-detection.spec.ts
+- [X] T067 [P] [US4] Unit test for thought attribution formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/think/test-attribution.spec.ts
+- [X] T068 [US4] Integration test for Codex CLI invocation (mocked) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-codex-invocation.spec.ts
+- [X] T069 [US4] Integration test for Gemini CLI invocation (mocked) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-gemini-invocation.spec.ts
+- [X] T070 [US4] Integration test for --oss flag with Codex in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-codex-oss.spec.ts
+- [X] T071 [US4] Integration test for graceful error on missing CLI in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-missing-provider.spec.ts
+- [X] T072 [US4] Integration test for --agent warning with non-Claude providers in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-provider-warnings.spec.ts
+- [X] T072b [US4] Integration test for 30s provider CLI timeout in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-provider-timeout.spec.ts
 
 ### Implementation for User Story 4
 

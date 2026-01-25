@@ -113,16 +113,16 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T021 [P] [US3] Unit test for InjectionConfig parsing from memory.local.md in /home/gareth/.vs/claude-memory-plugin/tests/unit/settings/test-injection-config.spec.ts
-- [ ] T022 [P] [US3] Unit test for per-type threshold calculation with multipliers in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-threshold-multipliers.spec.ts
-- [ ] T023 [P] [US3] Unit test for memory type prioritisation (gotcha > decision > learning) in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-type-priority.spec.ts
-- [ ] T024 [P] [US3] Unit test for session deduplication cache in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-injection-dedup.spec.ts
-- [ ] T025 [US3] Integration test for default config (backward compatibility - gotchas only) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-default-injection.spec.ts
-- [ ] T026 [US3] Integration test for opt-in decision injection in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-decision-injection.spec.ts
-- [ ] T027 [US3] Integration test for opt-in learning injection in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-learning-injection.spec.ts
-- [ ] T028 [US3] Integration test for hook multipliers (Bash 1.2x, Edit/Write 0.8x) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-hook-multipliers.spec.ts
-- [ ] T029 [US3] Integration test for single semantic search with client-side filtering in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-single-search.spec.ts
-- [ ] T030 [US3] Integration test for total memory limit (10 max) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-injection-limit.spec.ts
+- [X] T021 [P] [US3] Unit test for InjectionConfig parsing from memory.local.md in /home/gareth/.vs/claude-memory-plugin/tests/unit/settings/test-injection-config.spec.ts
+- [X] T022 [P] [US3] Unit test for per-type threshold calculation with multipliers in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-threshold-multipliers.spec.ts
+- [X] T023 [P] [US3] Unit test for memory type prioritisation (gotcha > decision > learning) in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-type-priority.spec.ts
+- [X] T024 [P] [US3] Unit test for session deduplication cache in /home/gareth/.vs/claude-memory-plugin/tests/unit/memory/test-injection-dedup.spec.ts
+- [X] T025 [US3] Integration test for default config (backward compatibility - gotchas only) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-default-injection.spec.ts
+- [X] T026 [US3] Integration test for opt-in decision injection in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-decision-injection.spec.ts
+- [X] T027 [US3] Integration test for opt-in learning injection in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-learning-injection.spec.ts
+- [X] T028 [US3] Integration test for hook multipliers (Bash 1.2x, Edit/Write 0.8x) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-hook-multipliers.spec.ts
+- [X] T029 [US3] Integration test for single semantic search with client-side filtering in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-single-search.spec.ts
+- [X] T030 [US3] Integration test for total memory limit (10 max) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-injection-limit.spec.ts
 
 ### Implementation for User Story 3
 

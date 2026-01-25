@@ -79,13 +79,13 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T007 [P] [US1] Unit test for HintState session storage in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-tracker.spec.ts
-- [ ] T008 [P] [US1] Unit test for progressive disclosure threshold logic in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-threshold.spec.ts
-- [ ] T009 [P] [US1] Unit test for complex thought detection (>200 chars or "?") in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-complex-thought.spec.ts
-- [ ] T010 [P] [US1] Unit test for stderr hint output formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-output.spec.ts
-- [ ] T011 [US1] Integration test for hint display count tracking in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-hint-lifecycle.spec.ts
-- [ ] T012 [US1] Integration test for interactive prompt triggering in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-interactive-prompt.spec.ts
-- [ ] T013 [US1] Integration test for --non-interactive flag suppression in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-non-interactive.spec.ts
+- [X] T007 [P] [US1] Unit test for HintState session storage in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-tracker.spec.ts
+- [X] T008 [P] [US1] Unit test for progressive disclosure threshold logic in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-threshold.spec.ts
+- [X] T009 [P] [US1] Unit test for complex thought detection (>200 chars or "?") in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-complex-thought.spec.ts
+- [X] T010 [P] [US1] Unit test for stderr hint output formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-hint-output.spec.ts
+- [X] T011 [US1] Integration test for hint display count tracking in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-hint-lifecycle.spec.ts
+- [X] T012 [US1] Integration test for interactive prompt triggering in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-interactive-prompt.spec.ts
+- [X] T013 [US1] Integration test for --non-interactive flag suppression in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-non-interactive.spec.ts
 
 ### Implementation for User Story 1
 

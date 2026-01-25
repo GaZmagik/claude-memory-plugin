@@ -90,6 +90,7 @@ export class CircuitBreaker {
       const elapsed = Date.now() - this.lastFailureTime;
       if (elapsed >= this.config.resetTimeoutMs) {
         this.state = 'half-open';
+        this.failureCount = 0; // Reset for fresh evaluation
       }
     }
   }

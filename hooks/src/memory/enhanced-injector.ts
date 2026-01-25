@@ -25,6 +25,9 @@ export function calculateEffectiveThreshold(
   hookType: HookType,
   multipliers: HookMultipliers
 ): number {
+  // Multiplier adjusts sensitivity:
+  // - multiplier < 1.0 (e.g. 0.8) = higher threshold = less sensitive
+  // - multiplier > 1.0 (e.g. 1.2) = lower threshold = more sensitive
   const multiplier = multipliers[hookType] ?? 1.0;
   return Math.min(1.0, baseThreshold * multiplier);
 }

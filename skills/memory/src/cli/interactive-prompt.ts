@@ -60,7 +60,7 @@ export function shouldPrompt(options: InteractiveOptions): boolean {
 
   // CI environment detection
   if (options.detectCI) {
-    const ciEnvVars = ['CI', 'CONTINUOUS_INTEGRATION', 'GITHUB_ACTIONS', 'JENKINS_URL'];
+    const ciEnvVars = ['CI', 'CONTINUOUS_INTEGRATION', 'GITHUB_ACTIONS', 'JENKINS_URL', 'CIRCLECI', 'TRAVIS', 'GITLAB_CI', 'BUILDKITE'];
     for (const envVar of ciEnvVars) {
       if (process.env[envVar]) {
         return false;
@@ -100,7 +100,7 @@ export async function promptForAiAssistance(
   const response = await prompts({
     type: 'confirm',
     name: 'proceed',
-    message: 'This thought seems complex. Invoke AI for assistance? (y/N)',
+    message: 'This thought seems complex. Invoke AI for assistance? (y/N, use --non-interactive to skip)',
     initial: false, // Default to "no" for safety
   });
 

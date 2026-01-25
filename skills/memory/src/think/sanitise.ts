@@ -43,6 +43,8 @@ export function sanitiseStyleName(name: string): string {
     .replace(/\.\./g, '')
     // Keep only alphanumeric, hyphens, underscores
     .replace(/[^a-zA-Z0-9_-]/g, '')
+    // Strip leading dots (prevent hidden files)
+    .replace(/^\.+/, '')
     // Truncate
     .slice(0, 100);
 }
@@ -61,6 +63,8 @@ export function sanitiseAgentName(name: string): string {
     .replace(/\.\./g, '')
     // Keep only alphanumeric, hyphens, underscores
     .replace(/[^a-zA-Z0-9_-]/g, '')
+    // Strip leading dots (prevent hidden files)
+    .replace(/^\.+/, '')
     // Truncate
     .slice(0, 100);
 }

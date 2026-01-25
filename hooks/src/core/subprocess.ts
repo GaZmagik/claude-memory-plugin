@@ -193,13 +193,12 @@ export async function spawn(
       // Set up timeout with proper resource cleanup
       const timeoutId = setTimeout(() => {
         timedOut = true;
-        // Remove data listeners to prevent race conditions with late data events
-        proc.stdout?.removeAllListeners('data');
-        proc.stderr?.removeAllListeners('data');
-        // Destroy streams to prevent resource leaks
-        proc.stdin?.destroy();
+        // Destroy streams to close file descriptors and prevent further events
+        // destroy() internally handles listener cleanup and prevents race conditions
         proc.stdout?.destroy();
         proc.stderr?.destroy();
+        proc.stdin?.destroy();
+        // Kill process - this will trigger 'close' event
         proc.kill('SIGTERM');
       }, timeout);
 

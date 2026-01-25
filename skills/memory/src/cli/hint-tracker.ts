@@ -59,7 +59,9 @@ export class HintTracker {
     options: HintTrackerOptions = {}
   ): Promise<HintTracker> {
     const ttlMs = options.ttlMs ?? DEFAULT_TTL_MS;
-    const cacheFile = join(cacheDir, `hint-state-${sessionId}.json`);
+    // Sanitise sessionId to prevent path traversal
+    const sanitizedSessionId = sessionId.replace(/[^a-zA-Z0-9_-]/g, '');
+    const cacheFile = join(cacheDir, `hint-state-${sanitizedSessionId}.json`);
 
     // Ensure cache directory exists
     await mkdir(cacheDir, { recursive: true });

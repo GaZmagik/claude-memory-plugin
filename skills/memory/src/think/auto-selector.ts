@@ -66,6 +66,8 @@ export class AutoSelector {
     if (!this.config.generateFn) return null;
 
     const prompt = buildSelectionPrompt(thought, this.availableStyles, this.availableAgents, avoidStyles);
+    // Note: Ollama generation continues after timeout (resource leak risk)
+    // This is acceptable because circuit breaker will eventually stop calling Ollama
     const response = await Promise.race([
       this.config.generateFn(prompt),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Timeout')), this.config.ollamaTimeout)),

@@ -65,8 +65,9 @@ function mergeTypeConfig(input: Partial<TypeConfig> | undefined, defaults: TypeC
 }
 
 /**
- * Parse injection configuration from a markdown file with YAML frontmatter.
- * Note: Uses sync fs operations but returns Promise for API consistency with callers.
+ * Load injection config from YAML file.
+ * Uses sync fs operations but returns Promise for API consistency with callers.
+ * This enables future migration to async operations without API changes.
  */
 export async function parseInjectionConfig(configPath: string): Promise<InjectionConfig> {
   if (!fs.existsSync(configPath)) return { ...DEFAULT_INJECTION_CONFIG };

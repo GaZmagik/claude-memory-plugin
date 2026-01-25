@@ -98,7 +98,7 @@ export function shouldShowHintInMode(options: InteractiveOptions): boolean {
 
   // CI environment detection
   if (options.detectCI) {
-    const ciEnvVars = ['CI', 'CONTINUOUS_INTEGRATION', 'GITHUB_ACTIONS', 'JENKINS_URL'];
+    const ciEnvVars = ['CI', 'CONTINUOUS_INTEGRATION', 'GITHUB_ACTIONS', 'JENKINS_URL', 'CIRCLECI', 'TRAVIS', 'GITLAB_CI', 'BUILDKITE'];
     for (const envVar of ciEnvVars) {
       if (process.env[envVar]) {
         return false;

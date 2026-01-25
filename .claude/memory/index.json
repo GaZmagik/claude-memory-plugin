@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T09:56:29.966Z",
+  "lastUpdated": "2026-01-25T09:59:01.986Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4548,6 +4548,138 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "type": "learning",
+      "title": "Retro - Subagent delegation pattern bypasses context ceiling for multi-phase tasks",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "subagents",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:30.075Z",
+      "updated": "2026-01-25T09:58:30.075Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "type": "learning",
+      "title": "Retro - Memory curation (linking + orphan elimination) created legitimate system value",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "quality",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:36.554Z",
+      "updated": "2026-01-25T09:58:36.554Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "type": "gotcha",
+      "title": "Gotcha retro - Restoration agent blocking pattern requires manual flag cleanup",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:41.962Z",
+      "updated": "2026-01-25T09:58:41.962Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-scales-well",
+      "type": "learning",
+      "title": "Session restoration with parallel agents scales well",
+      "tags": [
+        "memory-system",
+        "restoration",
+        "scalability",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:42.121Z",
+      "updated": "2026-01-25T09:58:42.121Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restoration-with-parallel-agents-scales-well.md"
+    },
+    {
+      "id": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
+      "type": "learning",
+      "title": "Learning retro - Task estimates require decomposition into research vs. verification vs. implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "estimation",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:47.623Z",
+      "updated": "2026-01-25T09:58:47.623Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
+      "type": "learning",
+      "title": "Restoring flag blocks subagent file edits during session recovery",
+      "tags": [
+        "session-restore",
+        "flags",
+        "subagents",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:53.053Z",
+      "updated": "2026-01-25T09:58:53.053Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery.md"
+    },
+    {
+      "id": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "type": "learning",
+      "title": "Context exhaustion at 92%+ forces subagent delegation for phase execution",
+      "tags": [
+        "context-management",
+        "subagents",
+        "speckit",
+        "implementation",
+        "project"
+      ],
+      "created": "2026-01-25T09:58:56.761Z",
+      "updated": "2026-01-25T09:58:56.761Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution.md"
+    },
+    {
+      "id": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
+      "type": "learning",
+      "title": "v1.1.0 implementation: 10 documented gotchas require proactive handling",
+      "tags": [
+        "v1.1.0",
+        "gotchas",
+        "implementation",
+        "testing",
+        "ollama",
+        "project"
+      ],
+      "created": "2026-01-25T09:59:01.981Z",
+      "updated": "2026-01-25T09:59:01.981Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-v110-implementation-10-documented-gotchas-require-proactive-handling.md"
     }
   ]
 }

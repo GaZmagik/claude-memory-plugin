@@ -1383,6 +1383,38 @@
     {
       "id": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-scales-well",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "type": "learning"
+    },
+    {
+      "id": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -3284,6 +3316,41 @@
     {
       "source": "learning-github-actions-checkout-action-v5-does-not-exist",
       "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "target": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "target": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
+      "target": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
+      "target": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
       "label": "relates-to"
     }
   ]

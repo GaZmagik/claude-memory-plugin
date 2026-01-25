@@ -1612,6 +1612,50 @@
     {
       "id": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
       "type": "learning"
+    },
+    {
+      "id": "learning-readme-injection-config-yaml-format-must-nest-under-provider-key",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-async-function-declarations-with-only-sync-operations-mislead-callers",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-defer-low-severity-security-issues-v1.1.0",
+      "type": "decision"
+    },
+    {
+      "id": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
+      "type": "learning"
+    },
+    {
+      "id": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "type": "learning"
+    },
+    {
+      "id": "learning-provider-error-messages-with-installation-instructions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-30-second-timeout-for-provider-cli-invocation",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-readme-injection-config-requires-nested-yaml-structure",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-defer-low-severity-security-findings",
+      "type": "decision"
+    },
+    {
+      "id": "learning-parallel-expert-review-agents-scale-efficiently",
+      "type": "learning"
     }
   ],
   "edges": [

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T20:50:01.651Z",
+  "lastUpdated": "2026-01-25T20:51:49.416Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5267,6 +5267,188 @@
       "updated": "2026-01-25T20:50:01.635Z",
       "scope": "project",
       "relativePath": "permanent/learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun.md"
+    },
+    {
+      "id": "learning-readme-injection-config-yaml-format-must-nest-under-provider-key",
+      "type": "learning",
+      "title": "README injection config YAML format must nest under provider key",
+      "tags": [
+        "documentation",
+        "yaml",
+        "configuration",
+        "injection",
+        "project"
+      ],
+      "created": "2026-01-25T20:50:15.280Z",
+      "updated": "2026-01-25T20:50:15.280Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-readme-injection-config-yaml-format-must-nest-under-provider-key.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "type": "learning",
+      "title": "Retro - Parallel expert review agents scale efficiently for pre-shipping validation",
+      "tags": [
+        "retrospective",
+        "review-process",
+        "agents",
+        "parallelism",
+        "project"
+      ],
+      "created": "2026-01-25T20:50:19.022Z",
+      "updated": "2026-01-25T20:50:19.022Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-provider-error-messages-with-installation-instructions",
+      "type": "learning",
+      "title": "Provider error messages with installation instructions",
+      "tags": [
+        "provider",
+        "error-handling",
+        "ux",
+        "user-experience",
+        "project"
+      ],
+      "created": "2026-01-25T20:50:38.007Z",
+      "updated": "2026-01-25T20:50:38.007Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-error-messages-with-installation-instructions.md"
+    },
+    {
+      "id": "decision-defer-low-severity-security-findings",
+      "type": "decision",
+      "title": "Defer low-severity security findings to future phases",
+      "tags": [
+        "security",
+        "review",
+        "priority",
+        "risk-management",
+        "project"
+      ],
+      "created": "2026-01-25T20:50:53.401Z",
+      "updated": "2026-01-25T20:50:53.401Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-low-severity-security-findings.md"
+    },
+    {
+      "id": "learning-parallel-expert-review-agents-scale-efficiently",
+      "type": "learning",
+      "title": "Parallel expert review agents scale efficiently",
+      "tags": [
+        "pre-shipping",
+        "code-review",
+        "agents",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:10.976Z",
+      "updated": "2026-01-25T20:51:10.976Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-expert-review-agents-scale-efficiently.md"
+    },
+    {
+      "id": "decision-defer-low-severity-security-issues-v1.1.0",
+      "type": "decision",
+      "title": "Defer low-severity security issues to future release",
+      "tags": [
+        "security",
+        "deferral",
+        "threat-model",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:24.337Z",
+      "updated": "2026-01-25T20:51:24.337Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-low-severity-security-issues-v1.1.0.md"
+    },
+    {
+      "id": "gotcha-async-function-declarations-with-only-sync-operations-mislead-callers",
+      "type": "gotcha",
+      "title": "Async function declarations with only sync operations mislead callers",
+      "tags": [
+        "typescript",
+        "async",
+        "providers",
+        "gotcha",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:29.469Z",
+      "updated": "2026-01-25T20:51:29.469Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-async-function-declarations-with-only-sync-operations-mislead-callers.md"
+    },
+    {
+      "id": "gotcha-readme-injection-config-requires-nested-yaml-structure",
+      "type": "gotcha",
+      "title": "README injection config requires nested YAML structure",
+      "tags": [
+        "documentation",
+        "yaml",
+        "injection",
+        "config",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:34.102Z",
+      "updated": "2026-01-25T20:51:34.102Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-readme-injection-config-requires-nested-yaml-structure.md"
+    },
+    {
+      "id": "learning-30-second-timeout-for-provider-cli-invocation",
+      "type": "learning",
+      "title": "30-second timeout for provider CLI invocation",
+      "tags": [
+        "providers",
+        "timeout",
+        "cli",
+        "error-handling",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:39.697Z",
+      "updated": "2026-01-25T20:51:39.697Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-30-second-timeout-for-provider-cli-invocation.md"
+    },
+    {
+      "id": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "type": "learning",
+      "title": "execFileSync loses PATH in Bun subprocesses",
+      "tags": [
+        "bun",
+        "execfilesync",
+        "environment",
+        "providers",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:44.497Z",
+      "updated": "2026-01-25T20:51:44.497Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-execfilesync-loses-path-in-bun-subprocesses.md"
+    },
+    {
+      "id": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
+      "type": "learning",
+      "title": "TDD parity enforcement catches undocumented test files",
+      "tags": [
+        "tdd",
+        "testing",
+        "hooks",
+        "parity",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T20:51:49.410Z",
+      "updated": "2026-01-25T20:51:49.410Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-parity-enforcement-catches-undocumented-test-files.md"
     }
   ]
 }

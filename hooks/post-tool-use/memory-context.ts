@@ -30,9 +30,14 @@ import type { HookInput } from '../src/core/types.ts';
 
 // Import plugin settings
 import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
+import { parseInjectionConfig, DEFAULT_INJECTION_CONFIG } from '../src/settings/injection-settings.ts';
+import type { InjectionConfig } from '../src/settings/injection-settings.ts';
+import { EnhancedInjector, InjectionDeduplicator, formatMemoryReminder, type ScoredMemory, type HookType } from '../src/memory/enhanced-injector.ts';
 
 // Settings loaded at hook startup (with fallbacks)
 let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
+let INJECTION_CONFIG: InjectionConfig = DEFAULT_INJECTION_CONFIG;
+let injectionDedup = new InjectionDeduplicator();
 
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {
@@ -50,6 +55,10 @@ async function pathExists(p: string): Promise<boolean> {
 async function initSettings(projectDir: string): Promise<void> {
   const settings = await loadSettings(projectDir);
   CONTEXT_WINDOW = settings.context_window;
+
+  // Load injection config from memory.local.md
+  const configPath = join(projectDir, '.claude', 'memory.local.md');
+  INJECTION_CONFIG = await parseInjectionConfig(configPath);
 }
 
 // Load tool configuration
@@ -522,16 +531,46 @@ async function handleReadMode(
   // Search strategies
   let allFiles: string[] = [];
 
-  // 1. Semantic search
+  // 1. Semantic search (expanded limit for multi-type filtering)
+  const searchLimit = INJECTION_CONFIG.enabled ? 15 : 5;
   const searchResult = await searchMemories(
-    `${fileName} ${topic} gotcha warning`,
+    `${fileName} ${topic} gotcha warning decision learning`,
     searchUserMem ? 'both' : 'local',
     projectDir,
     'post_tool_use',
     sessionId,
-    5
+    searchLimit
   );
 
+  // Convert search results to ScoredMemory format for enhanced injection
+  const scoredMemories: ScoredMemory[] = searchResult.memories.map((m) => ({
+    id: m.id,
+    type: m.type || 'gotcha',
+    title: m.title || m.id,
+    score: m.score,
+  }));
+
+  // Apply enhanced injection filtering if enabled
+  const hookType: HookType = 'Read';
+  const injector = new EnhancedInjector(INJECTION_CONFIG);
+  let filteredMemories = injector.filterByConfig(scoredMemories);
+  filteredMemories = injector.filterByThreshold(filteredMemories, hookType);
+  filteredMemories = injector.applyLimits(filteredMemories);
+
+  // Apply session deduplication
+  filteredMemories = filteredMemories.filter((m) => injectionDedup.shouldInject(m.id, m.type));
+
+  // If enhanced injection found memories, return formatted reminder
+  if (INJECTION_CONFIG.enabled && filteredMemories.length > 0) {
+    const formatted = formatMemoryReminder(filteredMemories);
+    const sourceIds = filteredMemories.map((m) => m.id);
+    const reminder = `${formatted}\n📄 Sources: ${sourceIds.join(', ')}`;
+
+    await log(ctx, `[ENHANCED] Injected ${filteredMemories.length} memories for: ${topic}\n${reminder}`);
+    return { reminder };
+  }
+
+  // Fall back to legacy gotcha-only flow if enhanced injection is disabled or found nothing
   const semanticFiles = searchResult.memories.map((m) => m.file).filter(Boolean) as string[];
 
   await log(

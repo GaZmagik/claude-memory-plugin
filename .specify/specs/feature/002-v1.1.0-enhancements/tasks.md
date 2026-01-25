@@ -133,9 +133,9 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T035 [US3] Implement client-side type filtering after single search in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
 - [X] T036 [US3] Implement memory prioritisation (type priority then score) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
 - [X] T037 [US3] Implement session deduplication with (memoryId, type) cache key in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T038 [US3] Add type-specific formatting with icons (🚨 📋 💡) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T039 [US3] Update memory-context.ts to use enhanced injector in /home/gareth/.vs/claude-memory-plugin/hooks/post-tool-use/memory-context.ts
-- [ ] T040 [US3] Update memory.example.md with injection configuration documentation in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
+- [X] T038 [US3] Add type-specific formatting with icons (🚨 📋 💡) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T039 [US3] Update memory-context.ts to use enhanced injector in /home/gareth/.vs/claude-memory-plugin/hooks/post-tool-use/memory-context.ts
+- [X] T040 [US3] Update memory.example.md with injection configuration documentation in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
 
 **Checkpoint**: US3 complete - enhanced injection operational with opt-in decisions/learnings, single search, hook multipliers
 

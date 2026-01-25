@@ -61,6 +61,37 @@ export class InjectionDeduplicator {
   }
 }
 
+export const MEMORY_TYPE_ICONS: Record<string, string> = {
+  gotcha: '🚨',
+  decision: '📋',
+  learning: '💡',
+};
+
+export function formatMemoryReminder(memories: ScoredMemory[]): string {
+  if (memories.length === 0) return '';
+
+  const grouped: Record<string, ScoredMemory[]> = {};
+  for (const m of memories) {
+    const arr = grouped[m.type] ?? [];
+    arr.push(m);
+    grouped[m.type] = arr;
+  }
+
+  const lines: string[] = [];
+  for (const type of Object.keys(MEMORY_TYPE_PRIORITY)) {
+    const items = grouped[type];
+    if (!items || items.length === 0) continue;
+    const icon = MEMORY_TYPE_ICONS[type] ?? '📝';
+    const typeLabel = type.charAt(0).toUpperCase() + type.slice(1) + 's';
+    lines.push(`${icon} ${typeLabel}:`);
+    for (const m of items) {
+      lines.push(`  • ${m.title} (${m.id})`);
+    }
+  }
+
+  return lines.join('\n');
+}
+
 export class EnhancedInjector {
   constructor(private config: InjectionConfig) {}
 

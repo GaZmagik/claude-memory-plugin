@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T12:46:43.075Z",
+  "lastUpdated": "2026-01-25T13:31:25.270Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4936,32 +4936,6 @@
       "relativePath": "temporary/thought-20260124-200933625.md"
     },
     {
-      "id": "thought-20260121-201714639",
-      "title": "Think: gotcha-something-weird",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-21T20:17:14.650Z",
-      "updated": "2026-01-21T20:17:29.690Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260121-201714639.md"
-    },
-    {
-      "id": "thought-20260118-194743010",
-      "title": "Think: Claude Code Marketplace naming and plugin ideas",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-18T19:47:43.017Z",
-      "updated": "2026-01-18T19:54:04.443Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260118-194743010.md"
-    },
-    {
       "id": "thought-20260124-201644386",
       "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)",
       "type": "breadcrumb",
@@ -4973,6 +4947,120 @@
       "updated": "2026-01-24T20:40:26.847Z",
       "scope": "project",
       "relativePath": "temporary/thought-20260124-201644386.md"
+    },
+    {
+      "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "type": "learning",
+      "title": "Retro - TDD discipline with all tests upfront accelerates implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-25T13:30:49.523Z",
+      "updated": "2026-01-25T13:30:49.523Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for post-compaction context recovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-01-25T13:30:55.812Z",
+      "updated": "2026-01-25T13:30:55.812Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-stop-work-at-85-90-context-not-95",
+      "type": "gotcha",
+      "title": "Gotcha - Stop work at 85-90% context, not 95%",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-01-25T13:30:59.361Z",
+      "updated": "2026-01-25T13:30:59.361Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-stop-work-at-85-90-context-not-95.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "type": "learning",
+      "title": "TDD Red-Green execution for Phase 2 injection",
+      "tags": [
+        "tdd",
+        "testing",
+        "v1.1.0",
+        "injection",
+        "phase2",
+        "project"
+      ],
+      "created": "2026-01-25T13:31:13.840Z",
+      "updated": "2026-01-25T13:31:13.840Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-red-green-execution-for-phase-2-injection.md"
+    },
+    {
+      "id": "learning-v110-phase-milestone-commits",
+      "type": "learning",
+      "title": "v1.1.0 Phase milestone commits",
+      "tags": [
+        "commits",
+        "v1.1.0",
+        "workflow",
+        "milestones",
+        "project"
+      ],
+      "created": "2026-01-25T13:31:16.115Z",
+      "updated": "2026-01-25T13:31:16.115Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-v110-phase-milestone-commits.md"
+    },
+    {
+      "id": "artifact-help-text-pattern-ai-flags",
+      "type": "artifact",
+      "title": "Help text pattern for AI invocation flags",
+      "tags": [
+        "help-text",
+        "cli",
+        "ai-invocation",
+        "v1.1.0",
+        "project"
+      ],
+      "created": "2026-01-25T13:31:24.900Z",
+      "updated": "2026-01-25T13:31:24.900Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-help-text-pattern-ai-flags.md"
+    },
+    {
+      "id": "artifact-phase2-injection-architecture",
+      "type": "artifact",
+      "title": "Phase 2 injection architecture",
+      "tags": [
+        "injection",
+        "memory-context",
+        "us3",
+        "v1.1.0",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-25T13:31:25.265Z",
+      "updated": "2026-01-25T13:31:25.265Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase2-injection-architecture.md"
     }
   ]
 }

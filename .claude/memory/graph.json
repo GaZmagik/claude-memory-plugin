@@ -1536,19 +1536,37 @@
       "title": "Think: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection"
     },
     {
-      "id": "thought-20260121-201714639",
-      "type": "breadcrumb",
-      "title": "Think: gotcha-something-weird"
-    },
-    {
-      "id": "thought-20260118-194743010",
-      "type": "breadcrumb",
-      "title": "Think: Claude Code Marketplace naming and plugin ideas"
-    },
-    {
       "id": "thought-20260124-201644386",
       "type": "breadcrumb",
       "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)"
+    },
+    {
+      "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-stop-work-at-85-90-context-not-95",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "type": "learning"
+    },
+    {
+      "id": "learning-v110-phase-milestone-commits",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-help-text-pattern-ai-flags",
+      "type": "artifact"
+    },
+    {
+      "id": "artifact-phase2-injection-architecture",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -3615,6 +3633,36 @@
     {
       "source": "learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting",
       "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "target": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "target": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-v110-ollama-selection-prompt",
+      "target": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "hub-core-module-hub",
       "label": "relates-to"
     }
   ]

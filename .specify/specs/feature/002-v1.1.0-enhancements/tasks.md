@@ -56,12 +56,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Duration**: 0.5-1 day
 
-- [ ] T001 Review research.md findings and validate technical decisions
-- [ ] T002 [P] Install prompts npm package (^2.4.2) in /home/gareth/.vs/claude-memory-plugin/package.json
-- [ ] T003 [P] Verify Ollama installation and gemma3:1b model availability
-- [ ] T004 [P] Verify existing session-state mechanism in /home/gareth/.vs/claude-memory-plugin/hooks/src/session/session-cache.ts
-- [ ] T005 [P] Verify existing discovery.ts service in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/discovery.ts
-- [ ] T006 [P] Verify existing ollama.ts service in /home/gareth/.vs/claude-memory-plugin/hooks/src/services/ollama.ts
+- [X] T001 Review research.md findings and validate technical decisions
+- [X] T002 [P] Install prompts npm package (^2.4.2) in /home/gareth/.vs/claude-memory-plugin/package.json
+- [X] T003 [P] Verify Ollama installation and gemma3:1b model availability
+- [X] T004 [P] Verify existing session-state mechanism in /home/gareth/.vs/claude-memory-plugin/hooks/src/session/session-cache.ts
+- [X] T005 [P] Verify existing discovery.ts service in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/think/discovery.ts
+- [X] T006 [P] Verify existing ollama.ts service in /home/gareth/.vs/claude-memory-plugin/hooks/src/services/ollama.ts
 
 **Checkpoint**: Dependencies installed, research validated, existing services confirmed
 

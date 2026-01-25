@@ -4,6 +4,7 @@
 
 import { describe, it, expect } from 'vitest';
 import {
+  buildAdjacencyList,
   bfsTraversal,
   dfsTraversal,
   findReachable,
@@ -14,6 +15,21 @@ import {
   calculateImpact,
 } from './traversal.js';
 import type { MemoryGraph } from './structure.js';
+
+describe('buildAdjacencyList', () => {
+  it('builds bidirectional neighbours from edges', () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [{ id: 'a', type: 'hub' }, { id: 'b', type: 'hub' }],
+      edges: [{ source: 'a', target: 'b', label: '' }],
+    };
+    const adj = buildAdjacencyList(graph);
+    expect(adj.neighbours.get('a')?.has('b')).toBe(true);
+    expect(adj.neighbours.get('b')?.has('a')).toBe(true);
+    expect(adj.outbound.get('a')?.has('b')).toBe(true);
+    expect(adj.inbound.get('b')?.has('a')).toBe(true);
+  });
+});
 
 describe('bfsTraversal', () => {
   const linearGraph: MemoryGraph = {

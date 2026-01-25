@@ -126,13 +126,13 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Create InjectionConfig interface in /home/gareth/.vs/claude-memory-plugin/hooks/src/types/injection-config.ts
-- [ ] T032 [P] [US3] Implement injection-settings.ts config parser in /home/gareth/.vs/claude-memory-plugin/hooks/src/settings/injection-settings.ts
-- [ ] T033 [P] [US3] Create enhanced-injector.ts with multi-type support in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T034 [US3] Implement effective threshold calculation with multipliers in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T035 [US3] Implement client-side type filtering after single search in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T036 [US3] Implement memory prioritisation (type priority then score) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
-- [ ] T037 [US3] Implement session deduplication with (memoryId, type) cache key in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T031 [P] [US3] Create InjectionConfig interface in /home/gareth/.vs/claude-memory-plugin/hooks/src/types/injection-config.ts
+- [X] T032 [P] [US3] Implement injection-settings.ts config parser in /home/gareth/.vs/claude-memory-plugin/hooks/src/settings/injection-settings.ts
+- [X] T033 [P] [US3] Create enhanced-injector.ts with multi-type support in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T034 [US3] Implement effective threshold calculation with multipliers in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T035 [US3] Implement client-side type filtering after single search in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T036 [US3] Implement memory prioritisation (type priority then score) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
+- [X] T037 [US3] Implement session deduplication with (memoryId, type) cache key in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
 - [ ] T038 [US3] Add type-specific formatting with icons (🚨 📋 💡) in /home/gareth/.vs/claude-memory-plugin/hooks/src/memory/enhanced-injector.ts
 - [ ] T039 [US3] Update memory-context.ts to use enhanced injector in /home/gareth/.vs/claude-memory-plugin/hooks/post-tool-use/memory-context.ts
 - [ ] T040 [US3] Update memory.example.md with injection configuration documentation in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md

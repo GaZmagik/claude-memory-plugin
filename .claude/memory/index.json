@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T21:18:52.164Z",
+  "lastUpdated": "2026-01-25T23:11:30.945Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5548,6 +5548,21 @@
       "updated": "2026-01-25T21:18:52.159Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers.md"
+    },
+    {
+      "id": "decision-defer-test-isolation-fixes-to-v120",
+      "type": "decision",
+      "title": "Defer test isolation fixes to v1.2.0",
+      "tags": [
+        "v1.1.0",
+        "testing",
+        "tech-debt",
+        "project"
+      ],
+      "created": "2026-01-25T23:11:30.939Z",
+      "updated": "2026-01-25T23:11:30.939Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-test-isolation-fixes-to-v120.md"
     }
   ]
 }

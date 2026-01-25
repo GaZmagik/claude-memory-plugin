@@ -82,9 +82,7 @@ async function withTimeout<T>(
       new Promise<never>((_, reject) => {
         controller.signal.addEventListener(
           'abort',
-          () => {
-            reject(new Error(`${operation} timed out after ${timeoutMs}ms`));
-          },
+          () => reject(new Error(`${operation} timed out after ${timeoutMs}ms`)),
           { once: true }
         );
       }),
@@ -92,6 +90,10 @@ async function withTimeout<T>(
     return result;
   } finally {
     clearTimeout(timeoutId);
+    // Abort the controller to clean up the event listener if promise resolved first
+    if (!controller.signal.aborted) {
+      controller.abort();
+    }
   }
 }
 

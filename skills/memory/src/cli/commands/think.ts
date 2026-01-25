@@ -25,6 +25,7 @@ import { promptForAiAssistance, shouldPrompt } from '../interactive-prompt.js';
 import { AutoSelector, type AutoSelectionResult } from '../../think/auto-selector.js';
 import { CircuitBreaker } from '../../think/circuit-breaker.js';
 import { discoverStyles, discoverAgents } from '../../think/discovery.js';
+import { sanitiseStyleName, sanitiseAgentName } from '../../think/sanitise.js';
 import { extractAvoidList, type ThoughtMetadata } from '../../think/avoid-list.js';
 import { showThinkDocument } from '../../think/document.js';
 import prompts from 'prompts';
@@ -263,8 +264,9 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   const callValue = getFlagString(args.flags, 'call');
   const provider: ProviderName = detectProvider(callValue) ?? 'claude';
   const callAgent = callValue ? provider : undefined; // backwards compat: truthy means invoke AI
-  let style = getFlagString(args.flags, 'style');
-  let agent = getFlagString(args.flags, 'agent');
+  // Sanitise style/agent names to prevent path traversal attacks
+  let style = sanitiseStyleName(getFlagString(args.flags, 'style') ?? '') || undefined;
+  let agent = sanitiseAgentName(getFlagString(args.flags, 'agent') ?? '') || undefined;
   const resume = getFlagString(args.flags, 'resume');
   const model = getFlagString(args.flags, 'model');
   const autoFlag = getFlagBool(args.flags, 'auto') ?? false;

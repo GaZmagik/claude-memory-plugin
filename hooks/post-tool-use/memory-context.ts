@@ -39,6 +39,13 @@ let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
 let INJECTION_CONFIG: InjectionConfig = DEFAULT_INJECTION_CONFIG;
 let injectionDedup = new InjectionDeduplicator();
 
+/**
+ * Hook-specific timeout for Ollama calls.
+ * Hooks should complete quickly to avoid blocking the user experience.
+ * Default Ollama timeout is 30s, but hooks use 2s per call to prevent long waits.
+ */
+const HOOK_OLLAMA_TIMEOUT_MS = 2000; // 2 seconds per Ollama call
+
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {
   try {
@@ -498,9 +505,9 @@ async function handleReadMode(
     return null;
   }
 
-  // Ask Ollama for topic extraction
+  // Ask Ollama for topic extraction (with hook-specific timeout)
   const prompt = buildReadTopicPrompt(fileName, filePath);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
   const parsed = parseTopicResponse(response);
 
   if (!parsed) {
@@ -630,9 +637,9 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
   // Clean content
   memoryContent = cleanMemoryContent(memoryContent).slice(0, 2000);
 
-  // Ask Ollama for gotcha extraction
+  // Ask Ollama for gotcha extraction (with hook-specific timeout)
   const gotchaPrompt = buildGotchaPrompt(fileName, topic, memoryContent);
-  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW });
+  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
   const cleanedSummary = cleanGotchaSummary(gotchaSummary).slice(0, 500);
 
   if (hasNoGotchas(cleanedSummary)) {
@@ -693,9 +700,9 @@ async function handleWriteMode(
     contextSummary = `Modified file: ${fileName}`;
   }
 
-  // Ask Ollama
+  // Ask Ollama (with hook-specific timeout)
   const prompt = buildWritePrompt(toolName, contextSummary, fileName);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
 
   // Check for SKIP
   const skipMatch = response.match(/SKIP:\s*(.+)/i);

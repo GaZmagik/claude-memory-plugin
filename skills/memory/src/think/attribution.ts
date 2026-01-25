@@ -51,7 +51,7 @@ export function parseAttribution(str: string): Partial<ThoughtAttribution> {
 
   // Match provider (and optional model)
   const providerMatch = str.match(/^(Claude|Codex|Gemini)(?:\s*\(([^)]+)\))?/i);
-  if (!providerMatch) {
+  if (!providerMatch || !providerMatch[1]) {
     return result;
   }
 

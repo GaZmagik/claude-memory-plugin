@@ -31,20 +31,17 @@ const DEFAULT_TTL_MS = 60 * 60 * 1000;
 export class HintTracker {
   private readonly cacheFile: string;
   private readonly sessionId: string;
-  private readonly ttlMs: number;
   private counts: Map<string, number>;
   private lastShown: number;
 
   private constructor(
     cacheFile: string,
     sessionId: string,
-    ttlMs: number,
     counts: Map<string, number>,
     lastShown: number
   ) {
     this.cacheFile = cacheFile;
     this.sessionId = sessionId;
-    this.ttlMs = ttlMs;
     this.counts = counts;
     this.lastShown = lastShown;
   }
@@ -74,7 +71,7 @@ export class HintTracker {
       ttlMs
     );
 
-    return new HintTracker(cacheFile, sessionId, ttlMs, counts, lastShown);
+    return new HintTracker(cacheFile, sessionId, counts, lastShown);
   }
 
   /**

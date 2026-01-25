@@ -13,7 +13,7 @@ import type { ProviderName, ProviderResult } from '../types/provider-config.js';
 import { ThoughtType } from '../types/enums.js';
 import { findAgent, findStyle, readAgentBody, readStyleContent, extractBody } from './discovery.js';
 import { createLogger } from '../core/logger.js';
-import { PROVIDERS, getProvider } from './providers/providers.js';
+import { getProvider } from './providers/providers.js';
 import { buildClaudeCommand, buildCodexCommand, buildGeminiCommand } from './providers/commands.js';
 import { parseCodexOutput } from './providers/codex-parser.js';
 import { parseGeminiOutput } from './providers/gemini-parser.js';

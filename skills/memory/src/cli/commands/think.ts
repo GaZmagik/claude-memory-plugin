@@ -5,7 +5,7 @@
  */
 
 import type { ParsedArgs } from '../parser.js';
-import { parseArgs, getFlagString } from '../parser.js';
+import { parseArgs, getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { ThoughtType, MemoryType } from '../../types/enums.js';
@@ -19,6 +19,10 @@ import { addThought } from '../../think/thoughts.js';
 import { useThinkDocument } from '../../think/thoughts.js';
 import { concludeThinkDocument } from '../../think/conclude.js';
 import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { HintTracker, shouldShowHint } from '../hint-tracker.js';
+import { isComplexThought } from '../complex-thought.js';
+import { outputHintToStderr, getRotatingHint, shouldShowHintInMode } from '../hint-output.js';
+import { promptForAiAssistance, shouldPrompt } from '../interactive-prompt.js';
 
 /**
  * Parse memory type string for promotion
@@ -123,6 +127,28 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   const resume = getFlagString(args.flags, 'resume');
   const model = getFlagString(args.flags, 'model');
 
+  // Check for complex thought and prompt for AI assistance if interactive
+  const nonInteractive = getFlagBool(args.flags, 'non-interactive') ?? false;
+  const isTTY = process.stdin.isTTY ?? false;
+
+  if (!callAgent && isComplexThought(thought)) {
+    // Complex thought detected - offer AI assistance if interactive
+    if (shouldPrompt({ nonInteractive, isTTY })) {
+      const promptResult = await promptForAiAssistance({
+        thought,
+        command: `think:${type}`,
+        nonInteractive,
+        isTTY,
+        suggestStyle: thought.includes('?'),
+      });
+
+      if (promptResult.proceed && promptResult.suggestion) {
+        // User accepted - provide suggestion in response
+        // (Actual invocation would require re-running with the flag)
+      }
+    }
+  }
+
   const response = await wrapOperation(
     async () => {
       const result = await addThought({
@@ -145,11 +171,24 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
     `Added ${type} to thinking document`
   );
 
-  // Add hint about AI-assisted deliberation if --call wasn't used
+  // Progressive hint disclosure - show hints for first 3 invocations per command
   if (response.status === 'success' && !callAgent) {
-    response.hint = 'Tip: Use --call claude for AI-assisted deliberation. ' +
-      'Add --style <name> for perspective (e.g., Devils-Advocate, Architect) ' +
-      'or --agent <name> for domain expertise (e.g., typescript-expert).';
+    const commandKey = `think:${type}`;
+    const cacheDir = `${basePath}/../cache/hints`;
+    const sessionId = process.env.CLAUDE_SESSION_ID ?? 'default';
+
+    try {
+      const tracker = await HintTracker.create(cacheDir, sessionId);
+
+      if (shouldShowHint(tracker, commandKey) && shouldShowHintInMode({ nonInteractive, isTTY })) {
+        const hint = getRotatingHint(tracker.getCount(commandKey));
+        outputHintToStderr(hint);
+      }
+
+      await tracker.increment(commandKey);
+    } catch {
+      // Hint tracking failure is non-fatal - continue silently
+    }
   }
 
   return response;

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T13:31:25.270Z",
+  "lastUpdated": "2026-01-25T15:07:46.859Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4910,45 +4910,6 @@
       "relativePath": "permanent/learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting.md"
     },
     {
-      "id": "thought-20260124-195420346",
-      "title": "Think: Output styles for memory assessment agents",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-24T19:54:20.350Z",
-      "updated": "2026-01-24T20:03:50.375Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260124-195420346.md"
-    },
-    {
-      "id": "thought-20260124-200933625",
-      "title": "Think: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-24T20:09:33.631Z",
-      "updated": "2026-01-24T20:12:49.865Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260124-200933625.md"
-    },
-    {
-      "id": "thought-20260124-201644386",
-      "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-01-24T20:16:44.390Z",
-      "updated": "2026-01-24T20:40:26.847Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260124-201644386.md"
-    },
-    {
       "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
       "type": "learning",
       "title": "Retro - TDD discipline with all tests upfront accelerates implementation",
@@ -4963,38 +4924,6 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation.md",
       "severity": "medium"
-    },
-    {
-      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
-      "type": "learning",
-      "title": "Retro - Parallel restoration agents effective for post-compaction context recovery",
-      "tags": [
-        "retrospective",
-        "process",
-        "memory-system",
-        "project"
-      ],
-      "created": "2026-01-25T13:30:55.812Z",
-      "updated": "2026-01-25T13:30:55.812Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery.md",
-      "severity": "medium"
-    },
-    {
-      "id": "gotcha-stop-work-at-85-90-context-not-95",
-      "type": "gotcha",
-      "title": "Gotcha - Stop work at 85-90% context, not 95%",
-      "tags": [
-        "retrospective",
-        "process",
-        "context-management",
-        "project"
-      ],
-      "created": "2026-01-25T13:30:59.361Z",
-      "updated": "2026-01-25T13:30:59.361Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-stop-work-at-85-90-context-not-95.md",
-      "severity": "high"
     },
     {
       "id": "learning-tdd-red-green-execution-for-phase-2-injection",
@@ -5061,6 +4990,136 @@
       "updated": "2026-01-25T13:31:25.265Z",
       "scope": "project",
       "relativePath": "permanent/artifact-phase2-injection-architecture.md"
+    },
+    {
+      "id": "learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework",
+      "type": "learning",
+      "title": "Retro - TDD Red phase test coverage prevents implementation rework",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "phase3",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:21.696Z",
+      "updated": "2026-01-25T14:56:21.696Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for post-compaction context recovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:25.182Z",
+      "updated": "2026-01-25T14:56:25.182Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-2-injection-config-reduces-hook-complexity",
+      "type": "learning",
+      "title": "Phase 2 injection config reduces hook complexity",
+      "tags": [
+        "phase2",
+        "injection",
+        "architecture",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:27.834Z",
+      "updated": "2026-01-25T14:56:27.834Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-2-injection-config-reduces-hook-complexity.md"
+    },
+    {
+      "id": "gotcha-stop-work-at-85-90-context-not-95-100",
+      "type": "gotcha",
+      "title": "Gotcha - Stop work at 85-90% context, not 95-100%",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:28.942Z",
+      "updated": "2026-01-25T14:56:28.942Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-stop-work-at-85-90-context-not-95-100.md",
+      "severity": "critical"
+    },
+    {
+      "id": "learning-dependency-ordering-prevents-integration-rework-in-phase-3",
+      "type": "learning",
+      "title": "Learning - Dependency ordering prevents integration rework in Phase 3",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:32.318Z",
+      "updated": "2026-01-25T14:56:32.318Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-dependency-ordering-prevents-integration-rework-in-phase-3.md",
+      "severity": "medium"
+    },
+    {
+      "id": "decision-phase3-tiered-selection-strategy",
+      "type": "decision",
+      "title": "Phase 3: Tiered auto-selection strategy (Ollama → Heuristics → Default)",
+      "tags": [
+        "phase3",
+        "auto-selection",
+        "ollama",
+        "fallback",
+        "resilience",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:35.258Z",
+      "updated": "2026-01-25T14:56:35.258Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase3-tiered-selection-strategy.md"
+    },
+    {
+      "id": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "type": "gotcha",
+      "title": "Ollama circuit breaker needed to prevent cascading timeouts in think hook",
+      "tags": [
+        "phase3",
+        "ollama",
+        "performance",
+        "reliability",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:41.217Z",
+      "updated": "2026-01-25T14:56:41.217Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook.md"
+    },
+    {
+      "id": "artifact-phase3-avoid-list-extraction-pattern",
+      "type": "artifact",
+      "title": "Phase 3: Avoid-list extraction for agent diversity",
+      "tags": [
+        "phase3",
+        "auto-selection",
+        "pattern",
+        "diversity",
+        "project"
+      ],
+      "created": "2026-01-25T14:56:46.354Z",
+      "updated": "2026-01-25T14:56:46.354Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase3-avoid-list-extraction-pattern.md"
     }
   ]
 }

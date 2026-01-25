@@ -3,14 +3,14 @@ id: learning-retro-parallel-restoration-agents-effective-for-post-compaction-con
 title: Retro - Parallel restoration agents effective for post-compaction context recovery
 type: learning
 scope: project
-created: "2026-01-25T13:30:55.812Z"
-updated: "2026-01-25T13:30:55.812Z"
+created: "2026-01-25T14:56:25.182Z"
+updated: "2026-01-25T14:56:25.182Z"
 tags:
   - retrospective
   - process
-  - memory-system
+  - restoration
   - project
 severity: medium
 ---
 
-After compaction, launching memory-recall, memory-curator, and check-gotchas agents in parallel (not sequentially) recovered lost context efficiently. Each agent had separate context budget. Completed in single message with multiple Task tool calls. Pattern: restore memory system first before doing work.
+Session restore spawned three agents in parallel (memory-recall, memory-curator, check-gotchas) with separate context budgets. Completed in single response with no blocking. Approach: approval key system ensures all three complete before continuing. Cost ~8% main session context. Pattern: parallelise stateless analysis work post-compaction.

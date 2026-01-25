@@ -1526,31 +1526,12 @@
       "title": "YAML block scalar indentation in GitHub Actions requires proper nesting"
     },
     {
-      "id": "thought-20260124-195420346",
-      "type": "breadcrumb",
-      "title": "Think: Output styles for memory assessment agents"
-    },
-    {
-      "id": "thought-20260124-200933625",
-      "type": "breadcrumb",
-      "title": "Think: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection"
-    },
-    {
-      "id": "thought-20260124-201644386",
-      "type": "breadcrumb",
-      "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)"
-    },
-    {
       "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
       "type": "learning"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
       "type": "learning"
-    },
-    {
-      "id": "gotcha-stop-work-at-85-90-context-not-95",
-      "type": "gotcha"
     },
     {
       "id": "learning-tdd-red-green-execution-for-phase-2-injection",
@@ -1566,6 +1547,34 @@
     },
     {
       "id": "artifact-phase2-injection-architecture",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-2-injection-config-reduces-hook-complexity",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-stop-work-at-85-90-context-not-95-100",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-dependency-ordering-prevents-integration-rework-in-phase-3",
+      "type": "learning"
+    },
+    {
+      "id": "decision-phase3-tiered-selection-strategy",
+      "type": "decision"
+    },
+    {
+      "id": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-phase3-avoid-list-extraction-pattern",
       "type": "artifact"
     }
   ],
@@ -3663,6 +3672,26 @@
     {
       "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
       "target": "hub-core-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase3-tiered-selection-strategy",
+      "target": "artifact-phase3-avoid-list-extraction-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase3-tiered-selection-strategy",
+      "target": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework",
+      "target": "decision-phase3-tiered-selection-strategy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-dependency-ordering-prevents-integration-rework-in-phase-3",
+      "target": "decision-phase3-tiered-selection-strategy",
       "label": "relates-to"
     }
   ]

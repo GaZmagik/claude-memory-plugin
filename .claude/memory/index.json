@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T12:22:51.447Z",
+  "lastUpdated": "2026-01-25T12:46:43.075Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -4798,6 +4798,181 @@
       "updated": "2026-01-25T12:22:51.441Z",
       "scope": "project",
       "relativePath": "permanent/learning-integration-test-mock-patterns-for-hint-system-lifecycle.md"
+    },
+    {
+      "id": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "type": "learning",
+      "title": "Three-agent parallel restoration pattern successful for post-compaction context recovery",
+      "tags": [
+        "memory-system",
+        "session-restoration",
+        "parallel-agents",
+        "post-compaction",
+        "project"
+      ],
+      "created": "2026-01-25T12:37:45.817Z",
+      "updated": "2026-01-25T12:37:45.817Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery.md"
+    },
+    {
+      "id": "decision-t019-surgical-integration-preserves-context",
+      "type": "decision",
+      "title": "T019 integration used surgical approach to preserve context at 95%",
+      "tags": [
+        "t019",
+        "integration",
+        "context-management",
+        "hint-visibility",
+        "us1",
+        "project"
+      ],
+      "created": "2026-01-25T12:37:55.957Z",
+      "updated": "2026-01-25T12:37:55.957Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-t019-surgical-integration-preserves-context.md"
+    },
+    {
+      "id": "learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95",
+      "type": "learning",
+      "title": "T020 deferred to fresh session due to context exhaustion at 95%",
+      "tags": [
+        "t020",
+        "context-management",
+        "us1",
+        "help-text",
+        "project"
+      ],
+      "created": "2026-01-25T12:38:02.748Z",
+      "updated": "2026-01-25T12:38:02.748Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95.md"
+    },
+    {
+      "id": "gotcha-think-frontmatter-fields-require-full-serialisation-stack-tracing",
+      "type": "gotcha",
+      "title": "Think frontmatter fields require full serialisation stack tracing",
+      "tags": [
+        "think-frontmatter",
+        "serialisation",
+        "t019",
+        "t020",
+        "project"
+      ],
+      "created": "2026-01-25T12:38:07.185Z",
+      "updated": "2026-01-25T12:38:07.185Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-think-frontmatter-fields-require-full-serialisation-stack-tracing.md"
+    },
+    {
+      "id": "artifact-flag-parsing-pattern-getflagstring",
+      "type": "artifact",
+      "title": "Flag parsing pattern: getFlagString(args.flags, 'flagName')",
+      "tags": [
+        "cli-patterns",
+        "flag-parsing",
+        "t019",
+        "project"
+      ],
+      "created": "2026-01-25T12:38:10.980Z",
+      "updated": "2026-01-25T12:38:10.980Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-flag-parsing-pattern-getflagstring.md"
+    },
+    {
+      "id": "learning-secret-name-consistency-in-github-actions-workflows",
+      "title": "Secret name consistency in GitHub Actions workflows",
+      "type": "learning",
+      "tags": [
+        "github-actions",
+        "secrets",
+        "authentication",
+        "project"
+      ],
+      "created": "2026-01-24T14:15:13.132Z",
+      "updated": "2026-01-24T14:15:13.132Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-secret-name-consistency-in-github-actions-workflows.md"
+    },
+    {
+      "id": "learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting",
+      "title": "YAML block scalar indentation in GitHub Actions requires proper nesting",
+      "type": "learning",
+      "tags": [
+        "yaml",
+        "github-actions",
+        "shell-scripting",
+        "project"
+      ],
+      "created": "2026-01-24T14:15:09.786Z",
+      "updated": "2026-01-24T14:15:09.786Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting.md"
+    },
+    {
+      "id": "thought-20260124-195420346",
+      "title": "Think: Output styles for memory assessment agents",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-24T19:54:20.350Z",
+      "updated": "2026-01-24T20:03:50.375Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260124-195420346.md"
+    },
+    {
+      "id": "thought-20260124-200933625",
+      "title": "Think: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-24T20:09:33.631Z",
+      "updated": "2026-01-24T20:12:49.865Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260124-200933625.md"
+    },
+    {
+      "id": "thought-20260121-201714639",
+      "title": "Think: gotcha-something-weird",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-21T20:17:14.650Z",
+      "updated": "2026-01-21T20:17:29.690Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260121-201714639.md"
+    },
+    {
+      "id": "thought-20260118-194743010",
+      "title": "Think: Claude Code Marketplace naming and plugin ideas",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-18T19:47:43.017Z",
+      "updated": "2026-01-18T19:54:04.443Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260118-194743010.md"
+    },
+    {
+      "id": "thought-20260124-201644386",
+      "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-01-24T20:16:44.390Z",
+      "updated": "2026-01-24T20:40:26.847Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260124-201644386.md"
     }
   ]
 }

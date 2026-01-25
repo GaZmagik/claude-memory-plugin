@@ -1262,187 +1262,293 @@
     },
     {
       "id": "gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - stdin pipe inconsistency in memory CLI commands"
     },
     {
       "id": "learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Empty string falsiness caught by noUncheckedIndexedAccess"
     },
     {
       "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Tests with dynamic imports need vi.mock not vi.spyOn"
     },
     {
       "id": "decision-claude-code-marketplace-naming-and-plugin-ideas",
-      "type": "decision"
+      "type": "decision",
+      "title": "Claude Code Marketplace naming and plugin ideas"
     },
     {
       "id": "learning-retro-documentation-accuracy-prevents-user-confusion-at-install-time",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Documentation accuracy prevents user confusion at install time"
     },
     {
       "id": "learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-tools",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Embedded templates are better than file-based ones for CLI tools"
     },
     {
       "id": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Duplicated type prefix bug in memory slug generation"
     },
     {
       "id": "decision-fix-duplicated-prefix-via-sanitisation-layer",
-      "type": "decision"
+      "type": "decision",
+      "title": "Fix duplicated prefix via sanitisation layer"
     },
     {
       "id": "artifact-duplicated-prefix-fix-plan",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Duplicated prefix fix implementation plan"
     },
     {
       "id": "learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - HTTPS git remote resolves sandbox SSH restrictions"
     },
     {
       "id": "learning-retro-non-blocking-config-provisioning-improves-onboarding",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Non-blocking config provisioning improves onboarding"
     },
     {
       "id": "gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Sandbox git config writes fail but don't block operations"
     },
     {
       "id": "decision-output-styles-for-memory-assessment-agents",
-      "type": "decision"
+      "type": "decision",
+      "title": "Output styles for memory assessment agents"
     },
     {
       "id": "decision-v110-feature-exploration-hint-visibility-auto-flag-enhanced-injection",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection"
     },
     {
       "id": "decision-v110-cross-provider-agent-calling-codex-gemini",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)"
     },
     {
       "id": "learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-routing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Prompt structure matters more than model size for Ollama routing"
     },
     {
       "id": "learning-diversity-in-llm-selection-requires-avoid-lists-not-temperature-tuning",
-      "type": "learning"
+      "type": "learning",
+      "title": "Diversity in LLM selection requires avoid lists, not temperature tuning"
     },
     {
       "id": "learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Deliberation with diverse AI styles genuinely improved design"
     },
     {
       "id": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Ollama startup latency on first model use affects feature perception"
     },
     {
       "id": "decision-v110-auto-uses-configured-model",
-      "type": "decision"
+      "type": "decision",
+      "title": "Auto-selection uses configured chat model from memory.local.md"
     },
     {
       "id": "artifact-v110-ollama-selection-prompt",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Ollama style/agent/model selection prompt template"
     },
     {
       "id": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
-      "type": "learning"
+      "type": "learning",
+      "title": "Speckit analyze catches spec-to-task coverage gaps early"
     },
     {
       "id": "learning-requirements-checklist-validation-enforces-spec-quality-discipline",
-      "type": "learning"
+      "type": "learning",
+      "title": "Requirements checklist validation enforces spec quality discipline"
     },
     {
       "id": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
-      "type": "learning"
+      "type": "learning",
+      "title": "Pre-commit fresh-session pattern for large speckit workflows"
     },
     {
       "id": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Spec remediation pattern: analyze → decide → FR → test"
     },
     {
       "id": "decision-v110-commit-before-fresh-implementation-session",
-      "type": "decision"
+      "type": "decision",
+      "title": "Commit all spec changes before fresh implementation session"
     },
     {
       "id": "learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd",
-      "type": "learning"
+      "type": "learning",
+      "title": "Plugin-relative discovery requires import.meta.url not process.cwd"
     },
     {
       "id": "learning-github-actions-checkout-action-v5-does-not-exist",
-      "type": "learning"
+      "type": "learning",
+      "title": "GitHub Actions checkout action v5 does not exist"
     },
     {
       "id": "gotcha-output-styles-to-styles-directory-rename-is-backward-incompatible",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "output-styles to styles directory rename is backward-incompatible"
     },
     {
       "id": "artifact-curator-analysis-2026-01-24-linking-quality",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Curator Analysis: Memory Linking & Quality Audit (2026-01-24)"
     },
     {
       "id": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Subagent delegation unlocks speckit workflows at high context"
     },
     {
       "id": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Subagent delegation pattern bypasses context ceiling for multi-phase tasks"
     },
     {
       "id": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Memory curation (linking + orphan elimination) created legitimate system value"
     },
     {
       "id": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha retro - Restoration agent blocking pattern requires manual flag cleanup"
     },
     {
       "id": "learning-session-restoration-with-parallel-agents-scales-well",
-      "type": "learning"
+      "type": "learning",
+      "title": "Session restoration with parallel agents scales well"
     },
     {
       "id": "learning-retro-task-estimates-require-decomposition-into-research-vs-verification-vs-implementation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Learning retro - Task estimates require decomposition into research vs. verification vs. implementation"
     },
     {
       "id": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Restoring flag blocks subagent file edits during session recovery"
     },
     {
       "id": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Context exhaustion at 92%+ forces subagent delegation for phase execution"
     },
     {
       "id": "learning-v110-implementation-10-documented-gotchas-require-proactive-handling",
-      "type": "learning"
+      "type": "learning",
+      "title": "v1.1.0 implementation: 10 documented gotchas require proactive handling"
     },
     {
       "id": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD with distributed tests requires explicit .tddignore documentation"
     },
     {
       "id": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD compliance hook requires .tddignore for non-colocated tests"
     },
     {
       "id": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Phase 1 implementation (T014-T018) cleanly complete; T019-T020 needs fresh context"
     },
     {
       "id": "gotcha-retro-integration-test-assertions-need-verification-before-implementation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha retro - Integration test assertions need verification before implementation"
     },
     {
       "id": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase 1 hint visibility implementation (T007-T020) completed TDD cycle"
     },
     {
       "id": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "type": "learning"
+      "type": "learning",
+      "title": "Session restoration with three-agent parallel pattern successful"
     },
     {
       "id": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
-      "type": "learning"
+      "type": "learning",
+      "title": "Integration test mock patterns for hint system lifecycle"
+    },
+    {
+      "id": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "type": "learning",
+      "title": "Three-agent parallel restoration pattern successful for post-compaction context recovery"
+    },
+    {
+      "id": "decision-t019-surgical-integration-preserves-context",
+      "type": "decision",
+      "title": "T019 integration used surgical approach to preserve context at 95%"
+    },
+    {
+      "id": "learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95",
+      "type": "learning",
+      "title": "T020 deferred to fresh session due to context exhaustion at 95%"
+    },
+    {
+      "id": "gotcha-think-frontmatter-fields-require-full-serialisation-stack-tracing",
+      "type": "gotcha",
+      "title": "Think frontmatter fields require full serialisation stack tracing"
+    },
+    {
+      "id": "artifact-flag-parsing-pattern-getflagstring",
+      "type": "artifact",
+      "title": "Flag parsing pattern: getFlagString(args.flags, 'flagName')"
+    },
+    {
+      "id": "learning-secret-name-consistency-in-github-actions-workflows",
+      "type": "learning",
+      "title": "Secret name consistency in GitHub Actions workflows"
+    },
+    {
+      "id": "learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting",
+      "type": "learning",
+      "title": "YAML block scalar indentation in GitHub Actions requires proper nesting"
+    },
+    {
+      "id": "thought-20260124-195420346",
+      "type": "breadcrumb",
+      "title": "Think: Output styles for memory assessment agents"
+    },
+    {
+      "id": "thought-20260124-200933625",
+      "type": "breadcrumb",
+      "title": "Think: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection"
+    },
+    {
+      "id": "thought-20260121-201714639",
+      "type": "breadcrumb",
+      "title": "Think: gotcha-something-weird"
+    },
+    {
+      "id": "thought-20260118-194743010",
+      "type": "breadcrumb",
+      "title": "Think: Claude Code Marketplace naming and plugin ideas"
+    },
+    {
+      "id": "thought-20260124-201644386",
+      "type": "breadcrumb",
+      "title": "Think: v1.1.0 Cross-Provider Agent Calling (Codex & Gemini)"
     }
   ],
   "edges": [
@@ -3449,6 +3555,66 @@
     {
       "source": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
       "target": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-t019-surgical-integration-preserves-context",
+      "target": "artifact-flag-parsing-pattern-getflagstring",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-t019-surgical-integration-preserves-context",
+      "target": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-t019-surgical-integration-preserves-context",
+      "target": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95",
+      "target": "decision-t019-surgical-integration-preserves-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95",
+      "target": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-think-frontmatter-fields-require-full-serialisation-stack-tracing",
+      "target": "decision-t019-surgical-integration-preserves-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-think-frontmatter-fields-require-full-serialisation-stack-tracing",
+      "target": "gotcha-think-frontmatter-field-tracing",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-flag-parsing-pattern-getflagstring",
+      "target": "gotcha-call-flag-passed-as-model-name-bug",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-secret-name-consistency-in-github-actions-workflows",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nesting",
+      "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
     }
   ]

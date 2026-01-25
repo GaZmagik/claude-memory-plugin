@@ -94,8 +94,8 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T016 [US1] Create hint-output.ts for stderr output in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/hint-output.ts
 - [X] T017 [US1] Create complex-thought.ts for detection logic in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/complex-thought.ts
 - [X] T018 [US1] Create interactive-prompt.ts using prompts library in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/interactive-prompt.ts
-- [ ] T019 [US1] Integrate modules into think.ts commands in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
-- [ ] T020 [US1] Update help text with 3+ examples (--call, --style, --agent) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T019 [US1] Integrate modules into think.ts commands in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
+- [X] T020 [US1] Update help text with 3+ examples (--call, --style, --agent) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/think.ts
 
 **Checkpoint**: US1 complete - hints appear in stderr with progressive disclosure, interactive prompts for complex thoughts, --non-interactive flag works
 

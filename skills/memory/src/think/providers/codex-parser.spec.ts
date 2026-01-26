@@ -71,4 +71,30 @@ test prompt`;
     const output = 'Some output without model info';
     expect(extractCodexModel(output)).toBeUndefined();
   });
+
+  it('extracts model with colon in name (OSS format)', () => {
+    const output = `model: gpt-oss:120b-cloud\nprovider: openai`;
+    expect(extractCodexModel(output)).toBe('gpt-oss:120b-cloud');
+  });
+
+  it('handles model line with extra whitespace', () => {
+    const output = `model:    gpt-5-codex   \nprovider: openai`;
+    expect(extractCodexModel(output)).toBe('gpt-5-codex');
+  });
+
+  it('picks first model line when multiple present', () => {
+    const output = `model: first-model\nmodel: second-model`;
+    expect(extractCodexModel(output)).toBe('first-model');
+  });
+
+  it('handles whitespace-only model line by consuming next line (known limitation)', () => {
+    // Note: \s* in regex consumes newlines, so empty model: line grabs next
+    const output = `model: \nprovider: openai`;
+    expect(extractCodexModel(output)).toBe('provider: openai');
+  });
+
+  it('handles model with version suffix', () => {
+    const output = `model: gpt-5.2-codex-v2.1\nprovider: openai`;
+    expect(extractCodexModel(output)).toBe('gpt-5.2-codex-v2.1');
+  });
 });

@@ -95,4 +95,30 @@ describe('extractGeminiModel', () => {
     const output = `"model": "gpt-4"`;
     expect(extractGeminiModel(output)).toBeUndefined();
   });
+
+  it('handles model with version numbers', () => {
+    const output = `"model": "gemini-2.5-pro-exp-03-25"`;
+    expect(extractGeminiModel(output)).toBe('gemini-2.5-pro-exp-03-25');
+  });
+
+  it('does not extract model from prose text (only JSON format)', () => {
+    // The regex requires "model": "gemini-xxx" format, not prose
+    const output = `{"error": {"message": "No capacity for model gemini-3-flash-preview"}}`;
+    expect(extractGeminiModel(output)).toBeUndefined();
+  });
+
+  it('handles User-Agent with platform suffix', () => {
+    const output = `'User-Agent': 'GeminiCLI/1.0.0/gemini-2.5-flash (darwin; arm64) node/20.0.0'`;
+    expect(extractGeminiModel(output)).toBe('gemini-2.5-flash');
+  });
+
+  it('extracts from deeply nested JSON', () => {
+    const output = `{"request": {"config": {"model": "gemini-3-pro-preview"}}}`;
+    expect(extractGeminiModel(output)).toBe('gemini-3-pro-preview');
+  });
+
+  it('returns undefined for partial gemini match', () => {
+    const output = `"model": "gem-2"`;
+    expect(extractGeminiModel(output)).toBeUndefined();
+  });
 });

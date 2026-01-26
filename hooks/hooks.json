@@ -1,5 +1,5 @@
 {
-  "description": "Memory plugin hooks - gotcha injection, memory capture, and session management",
+  "description": "Memory plugin hooks - gotcha injection, memory capture, and session management. NOTE: PostToolUse requires 'matcher: *' for proper merging with user-level hooks. 30s timeout needed for Ollama cold-start (model loading).",
   "hooks": {
     "UserPromptSubmit": [
       {

@@ -44,7 +44,7 @@ let injectionDedup = new InjectionDeduplicator();
  * Hooks should complete quickly to avoid blocking the user experience.
  * Default Ollama timeout is 30s, but hooks use 2s per call to prevent long waits.
  */
-const HOOK_OLLAMA_TIMEOUT_MS = 2000; // 2 seconds per Ollama call
+const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10 seconds per Ollama call (2s was too aggressive)
 
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {

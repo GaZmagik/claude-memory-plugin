@@ -28,6 +28,7 @@ import { validateThinkAdd, validateThinkUse } from './validation.js';
 import { writeFileAtomic, readFile, fileExists } from '../core/fs-utils.js';
 import { getScopePath } from '../scope/resolver.js';
 import { createLogger } from '../core/logger.js';
+import { getProvider } from './providers/providers.js';
 import { invokeAI, invokeProviderThought } from './ai-invoke.js';
 import type { ProviderName } from '../types/provider-config.js';
 
@@ -160,13 +161,10 @@ export async function addThought(
       thoughtContent = aiResult.content ?? '';
       // Auto-set attribution with model, style, and session ID
       // Use actual model from CLI output (parsed), fall back to request or provider default
-      // Provider defaults: claude=haiku, codex=gpt-5-codex, gemini=gemini-2-flash
-      const providerDefaults: Record<string, string> = {
-        claude: 'haiku',
-        codex: 'gpt-5-codex',  // Note: actual default may be gpt-5.2-codex
-        gemini: 'gemini-2-flash',  // Conservative default
-      };
-      const defaultModel = providerDefaults[provider] ?? 'unknown';
+      // Claude uses 'haiku' for cost-efficiency in think commands (not PROVIDERS default)
+      const defaultModel = provider === 'claude'
+        ? 'haiku'
+        : (getProvider(provider)?.defaultModel ?? 'unknown');
       const model = aiResult.model ?? request.call.model ?? defaultModel;
       const style = request.call.outputStyle;
       const agent = request.call.agent;

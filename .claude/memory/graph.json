@@ -1840,6 +1840,18 @@
     {
       "id": "learning-plugin-posttooluse-hooks-not-auto-discovered",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
+      "type": "learning"
+    },
+    {
+      "id": "learning-marketplace-plugin-install-location-discovery",
+      "type": "learning"
     }
   ],
   "edges": [

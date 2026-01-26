@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T22:34:06.373Z",
+  "lastUpdated": "2026-01-26T22:53:33.713Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -6187,6 +6187,55 @@
       "updated": "2026-01-26T22:34:06.358Z",
       "scope": "project",
       "relativePath": "permanent/learning-plugin-posttooluse-hooks-not-auto-discovered.md"
+    },
+    {
+      "id": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "type": "gotcha",
+      "title": "Missing node_modules error: Cannot find package js-yaml",
+      "tags": [
+        "marketplace",
+        "error-message",
+        "debugging",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:52:49.246Z",
+      "updated": "2026-01-26T22:52:49.246Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-missing-nodemodules-error-cannot-find-package-js-yaml.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
+      "type": "learning",
+      "title": "Debug hook execution with console.error at entry point",
+      "tags": [
+        "hooks",
+        "debugging",
+        "pattern",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:52:53.198Z",
+      "updated": "2026-01-26T22:52:53.198Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-debug-hook-execution-with-consoleerror-at-entry-point.md"
+    },
+    {
+      "id": "learning-marketplace-plugin-install-location-discovery",
+      "type": "learning",
+      "title": "Marketplace plugin install location discovery",
+      "tags": [
+        "marketplace",
+        "plugin",
+        "debugging",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:53:33.703Z",
+      "updated": "2026-01-26T22:53:33.703Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-marketplace-plugin-install-location-discovery.md"
     }
   ]
 }

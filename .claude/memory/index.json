@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T22:53:33.713Z",
+  "lastUpdated": "2026-01-26T23:08:54.671Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -6236,6 +6236,22 @@
       "updated": "2026-01-26T22:53:33.703Z",
       "scope": "project",
       "relativePath": "permanent/learning-marketplace-plugin-install-location-discovery.md"
+    },
+    {
+      "id": "learning-permission-error-tests-should-use-testskipif-for-cross-platform",
+      "type": "learning",
+      "title": "Permission error tests should use test.skipIf for cross-platform",
+      "tags": [
+        "testing",
+        "cross-platform",
+        "pattern",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T23:08:54.663Z",
+      "updated": "2026-01-26T23:08:54.663Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-permission-error-tests-should-use-testskipif-for-cross-platform.md"
     }
   ]
 }

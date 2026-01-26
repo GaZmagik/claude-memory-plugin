@@ -1852,6 +1852,10 @@
     {
       "id": "learning-marketplace-plugin-install-location-discovery",
       "type": "learning"
+    },
+    {
+      "id": "learning-permission-error-tests-should-use-testskipif-for-cross-platform",
+      "type": "learning"
     }
   ],
   "edges": [

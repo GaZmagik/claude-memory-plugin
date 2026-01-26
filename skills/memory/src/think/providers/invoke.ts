@@ -8,8 +8,8 @@ import { parseCodexOutput } from './codex-parser.js';
 import { parseGeminiOutput } from './gemini-parser.js';
 import { formatProviderError } from './errors.js';
 
-/** Default timeout for provider CLI invocations (30 seconds per FR-045) */
-export const DEFAULT_TIMEOUT_MS = 30000;
+/** Default timeout for provider CLI invocations (fallback if command.timeout not set) */
+export const DEFAULT_TIMEOUT_MS = 120000;
 
 /** Maximum output length to capture (bytes) */
 const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // 10MB

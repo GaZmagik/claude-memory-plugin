@@ -79,6 +79,9 @@ function resolveStyleAndAgent(
 /** Maximum output length to capture (bytes) */
 const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // 10MB
 
+/** Default timeout for Claude CLI (2 minutes for MCP startup) */
+const CLAUDE_TIMEOUT_MS = 120000;
+
 /**
  * Sanitise error messages to remove sensitive path information
  * Replaces home directory paths with redacted placeholders
@@ -221,7 +224,7 @@ function executeClaudeCli(args: string[], sessionId: string): { output: string; 
     const result = execFileSync('claude', args, {
       encoding: 'utf-8',
       maxBuffer: MAX_OUTPUT_LENGTH,
-      timeout: 120000, // 2 minute timeout
+      timeout: CLAUDE_TIMEOUT_MS,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
@@ -501,7 +504,7 @@ export async function invokeProvider(params: {
         model,
         durationMs: Date.now() - startTime,
         timedOut: true,
-        error: `${provider} CLI timed out after ${(command.timeout ?? 30000) / 1000}s`,
+        error: `${provider} CLI timed out after ${(command.timeout ?? CLAUDE_TIMEOUT_MS) / 1000}s`,
       };
     }
 

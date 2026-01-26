@@ -71,9 +71,9 @@ let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
 /**
  * Hook-specific timeout for Ollama calls.
  * Hooks should complete quickly to avoid blocking the user experience.
- * Default Ollama timeout was 30s, but hooks use 2s to prevent long waits.
+ * 2s was too aggressive - increased to 10s for reliability.
  */
-const OLLAMA_TIMEOUT = 2000;
+const OLLAMA_TIMEOUT = 10000;
 
 function getOllamaApi(): string {
   return `${OLLAMA_HOST}/api/generate`;

@@ -24,6 +24,58 @@ const log = createLogger('think-ai-invoke');
 /** Default model for AI invocation */
 const DEFAULT_MODEL = 'haiku';
 
+/**
+ * Resolved style and agent content
+ */
+interface ResolvedStyleAgent {
+  styleContent?: string;
+  agentContent?: string;
+  error?: string;
+}
+
+/**
+ * Resolve style and agent content from options
+ * @param strict - If true, returns error when style/agent not found. If false, silently skips.
+ */
+function resolveStyleAndAgent(
+  options: { outputStyle?: string; agent?: string },
+  basePath?: string,
+  strict = true
+): ResolvedStyleAgent {
+  let styleContent: string | undefined;
+  let agentContent: string | undefined;
+
+  // Resolve style content
+  if (options.outputStyle) {
+    const style = findStyle(options.outputStyle, { basePath });
+    if (!style) {
+      if (strict) return { error: `Output style not found: ${options.outputStyle}` };
+    } else {
+      const rawContent = readStyleContent(style.path);
+      if (!rawContent) {
+        if (strict) return { error: `Failed to read output style: ${options.outputStyle}` };
+      } else {
+        styleContent = extractBody(rawContent);
+      }
+    }
+  }
+
+  // Resolve agent body
+  if (options.agent) {
+    const agent = findAgent(options.agent, { basePath });
+    if (!agent) {
+      if (strict) return { error: `Agent not found: ${options.agent}` };
+    } else {
+      agentContent = readAgentBody(agent.path) ?? undefined;
+      if (!agentContent && strict) {
+        return { error: `Failed to read agent: ${options.agent}` };
+      }
+    }
+  }
+
+  return { styleContent, agentContent };
+}
+
 /** Maximum output length to capture (bytes) */
 const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // 10MB
 
@@ -204,45 +256,12 @@ export async function invokeAI(params: {
   const { topic, thoughtType, existingThoughts, options, basePath } = params;
 
   try {
-    // Resolve style content
-    let styleContent: string | undefined;
-    if (options.outputStyle) {
-      const style = findStyle(options.outputStyle, { basePath });
-      if (!style) {
-        return {
-          success: false,
-          error: `Output style not found: ${options.outputStyle}`,
-        };
-      }
-      const rawContent = readStyleContent(style.path);
-      if (!rawContent) {
-        return {
-          success: false,
-          error: `Failed to read output style: ${options.outputStyle}`,
-        };
-      }
-      // Extract just the body for system prompt
-      styleContent = extractBody(rawContent);
+    // Resolve style and agent content (strict mode - fail if not found)
+    const resolved = resolveStyleAndAgent(options, basePath, true);
+    if (resolved.error) {
+      return { success: false, error: resolved.error };
     }
-
-    // Resolve agent body
-    let agentBody: string | undefined;
-    if (options.agent) {
-      const agent = findAgent(options.agent, { basePath });
-      if (!agent) {
-        return {
-          success: false,
-          error: `Agent not found: ${options.agent}`,
-        };
-      }
-      agentBody = readAgentBody(agent.path) ?? undefined;
-      if (!agentBody) {
-        return {
-          success: false,
-          error: `Failed to read agent: ${options.agent}`,
-        };
-      }
-    }
+    const { styleContent, agentContent: agentBody } = resolved;
 
     // Build user prompt
     const userPrompt = buildUserPrompt({
@@ -298,28 +317,8 @@ export async function invokeProviderThought(params: {
   const { topic, thoughtType, existingThoughts, options, provider, basePath } = params;
 
   try {
-    // Resolve style content (for providers that support it)
-    let styleContent: string | undefined;
-    if (options.outputStyle) {
-      const style = findStyle(options.outputStyle, { basePath });
-      if (style) {
-        const rawContent = readStyleContent(style.path);
-        if (rawContent) {
-          styleContent = extractBody(rawContent);
-        }
-      }
-      // Note: Non-supporting providers will ignore styleContent anyway
-    }
-
-    // Resolve agent body (for providers that support it)
-    let agentContent: string | undefined;
-    if (options.agent) {
-      const agent = findAgent(options.agent, { basePath });
-      if (agent) {
-        agentContent = readAgentBody(agent.path) ?? undefined;
-      }
-      // Note: Non-supporting providers will ignore agentContent anyway
-    }
+    // Resolve style and agent content (lenient mode - skip if not found)
+    const { styleContent, agentContent } = resolveStyleAndAgent(options, basePath, false);
 
     // Build user prompt using shared function
     const userPrompt = buildUserPrompt({

@@ -23,7 +23,7 @@ const CLAUDE_CONFIG: ProviderConfig = {
 const CODEX_CONFIG: ProviderConfig = {
   name: 'codex',
   binary: 'codex',
-  defaultModel: 'gpt-5-codex',
+  defaultModel: 'gpt-5.2-codex',  // Matches actual Codex CLI banner output
   supportsAgent: false,
   supportsStyle: false,
   supportsOss: true,

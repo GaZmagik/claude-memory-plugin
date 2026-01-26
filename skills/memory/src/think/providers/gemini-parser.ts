@@ -26,7 +26,8 @@ export function parseGeminiOutput(raw: string | null | undefined): string {
 export function extractGeminiModel(raw: string | null | undefined): string | undefined {
   if (!raw) return undefined;
 
-  // Match "model": "gemini-xxx" in JSON-ish debug output
+  // Match "model": "gemini-xxx" in JSON debug output
+  // Note: Requires double-quoted JSON format; single quotes not supported
   const jsonMatch = raw.match(/"model":\s*"(gemini-[^"]+)"/);
   if (jsonMatch) return jsonMatch[1];
 

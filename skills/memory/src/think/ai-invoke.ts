@@ -76,8 +76,11 @@ function resolveStyleAndAgent(
   return { styleContent, agentContent };
 }
 
-/** Maximum output length to capture (bytes) */
-const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // 10MB
+/** Maximum output length to capture (bytes)
+ * 2MB is generous for thought content (typical: 1-10KB)
+ * Prevents memory exhaustion from misbehaving providers
+ */
+const MAX_OUTPUT_LENGTH = 2 * 1024 * 1024; // 2MB
 
 /** Default timeout for Claude CLI (2 minutes for MCP startup) */
 const CLAUDE_TIMEOUT_MS = 120000;
@@ -479,7 +482,8 @@ export async function invokeProvider(params: {
     const resolvedModel = actualModel ?? model;
     log.debug('Provider model resolved', { requested: model, actual: actualModel, resolved: resolvedModel });
 
-    // Check for non-zero exit (some CLIs exit non-zero but still have valid output)
+    // Only throw on non-zero exit if there's no valid output
+    // (Some CLIs exit non-zero even when producing useful output)
     if (spawnResult.status !== 0 && !content) {
       throw new Error(`Exit code ${spawnResult.status}: ${stderr.slice(0, 500)}`);
     }

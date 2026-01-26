@@ -9,9 +9,15 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { unsafeAsSessionId } from '../types/branded.js';
 import type { AICallOptions, AICallResult, ThoughtEntry } from '../types/think.js';
+import type { ProviderName, ProviderResult } from '../types/provider-config.js';
 import { ThoughtType } from '../types/enums.js';
 import { findAgent, findStyle, readAgentBody, readStyleContent, extractBody } from './discovery.js';
 import { createLogger } from '../core/logger.js';
+import { getProvider } from './providers/providers.js';
+import { buildClaudeCommand, buildCodexCommand, buildGeminiCommand } from './providers/commands.js';
+import { parseCodexOutput } from './providers/codex-parser.js';
+import { parseGeminiOutput } from './providers/gemini-parser.js';
+import { isProviderAvailable } from './providers/detect.js';
 
 const log = createLogger('think-ai-invoke');
 
@@ -286,5 +292,109 @@ export function getClaudeCliVersion(): string | null {
     return output.trim();
   } catch {
     return null;
+  }
+}
+
+/**
+ * T080: Provider invocation with routing
+ * Invoke a thought using a specific provider (claude, codex, or gemini)
+ */
+export async function invokeProvider(params: {
+  prompt: string;
+  provider: ProviderName;
+  model?: string;
+  styleContent?: string;
+  agentContent?: string;
+  oss?: boolean;
+}): Promise<ProviderResult> {
+  const { prompt, provider, model, styleContent, agentContent, oss } = params;
+  const startTime = Date.now();
+
+  // Check provider availability
+  if (!isProviderAvailable(provider)) {
+    const config = getProvider(provider);
+    return {
+      content: '',
+      provider,
+      model,
+      durationMs: Date.now() - startTime,
+      error: `${provider} CLI not found. ${config?.installInstructions ?? 'Please install the CLI.'}`,
+    };
+  }
+
+  // Build command based on provider
+  const commandOptions = { prompt, model, styleContent, agentContent, oss };
+  let command;
+
+  switch (provider) {
+    case 'claude':
+      command = buildClaudeCommand(commandOptions);
+      break;
+    case 'codex':
+      command = buildCodexCommand(commandOptions);
+      break;
+    case 'gemini':
+      command = buildGeminiCommand(commandOptions);
+      break;
+    default:
+      return {
+        content: '',
+        provider,
+        durationMs: Date.now() - startTime,
+        error: `Unknown provider: ${provider}`,
+      };
+  }
+
+  try {
+    log.debug('Invoking provider', { provider, binary: command.binary, argCount: command.args.length });
+
+    const result = execFileSync(command.binary, command.args, {
+      encoding: 'utf-8',
+      maxBuffer: MAX_OUTPUT_LENGTH,
+      timeout: command.timeout ?? 30000,
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    // Parse output based on provider
+    let content = result.trim();
+    if (provider === 'codex') {
+      content = parseCodexOutput(content);
+    } else if (provider === 'gemini') {
+      content = parseGeminiOutput(content);
+    }
+
+    return {
+      content,
+      provider,
+      model,
+      durationMs: Date.now() - startTime,
+    };
+  } catch (error) {
+    const execError = error as { status?: number; stderr?: Buffer | string; stdout?: Buffer | string; killed?: boolean };
+    const stderr = typeof execError.stderr === 'string'
+      ? execError.stderr
+      : execError.stderr?.toString() ?? '';
+
+    // Check for timeout
+    if (execError.killed) {
+      return {
+        content: '',
+        provider,
+        model,
+        durationMs: Date.now() - startTime,
+        timedOut: true,
+        error: `${provider} CLI timed out after ${(command.timeout ?? 30000) / 1000}s`,
+      };
+    }
+
+    log.error('Provider CLI execution failed', { provider, status: execError.status, stderr: stderr.slice(0, 500) });
+
+    return {
+      content: '',
+      provider,
+      model,
+      durationMs: Date.now() - startTime,
+      error: `${provider} CLI failed: ${stderr || 'Unknown error'}`,
+    };
   }
 }

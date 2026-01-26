@@ -28,3 +28,8 @@ src/suggest/index.ts
 src/types/api.ts
 src/types/think.ts
 src/types/operations.ts
+src/types/hint-state.ts
+src/types/provider-config.ts
+
+# CLI subprocess execution - requires actual CLI binaries
+src/think/ai-invoke.ts:invokeProvider

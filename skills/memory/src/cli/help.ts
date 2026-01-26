@@ -62,14 +62,19 @@ COMMANDS:
 
 THINK COMMANDS (ephemeral deliberation before decisions):
   think create <topic>     Start a new thinking document
-  think add <thought>      Add a thought (--by <author>, --call <agent>)
-  think counter <thought>  Add counter-argument
+  think add <thought>      Add a thought (--call, --style, --agent)
+  think counter <thought>  Add counter-argument (--call, --style, --agent)
   think branch <thought>   Add alternative exploration branch
   think list               List all thinking documents
   think show [id]          Show document contents
   think use <id>           Switch to a different document
   think conclude <text>    Conclude deliberation (--promote <type>)
   think delete <id>        Delete a thinking document
+
+  AI Invocation Flags (for add/counter/branch):
+    --call <model>     Invoke AI (claude, haiku, opus, sonnet)
+    --style <name>     Output style (e.g., Devils-Advocate, Concise)
+    --agent <name>     Agent prompt (e.g., curator, recall)
 
 SCOPE:
   user               User-level memories (~/.claude/memory/)

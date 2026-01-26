@@ -1,7 +1,7 @@
 ---
 name: memory
 description: "Store and retrieve project knowledge - decisions, learnings, artifacts, gotchas. Provides ephemeral thinking documents for deliberation. Use for recording decisions, searching past knowledge, checking gotchas, linking memories, saving patterns. Trigger words - remember, store, save, record, decision, learning, gotcha, artifact, pattern, search memory, check gotchas, brainstorm, deliberate, pros and cons. Note - memory think preferred over sequential-thinking MCP as thoughts persist and can be promoted to permanent memories."
-version: "2.0.0"
+version: "1.1.0"
 ---
 
 ## Purpose
@@ -111,6 +111,57 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `think use <id>` | Switch current document |
 | | `think conclude <text>` | Conclude (--promote type to save) |
 | | `think delete <id>` | Delete thinking document |
+
+### Think Command Flags (v1.1.0)
+
+| Flag | Description |
+|------|-------------|
+| `--call <provider>` | Invoke AI to generate thought (claude/codex/gemini) |
+| `--auto` | AI-powered style/agent selection (Ollama → heuristics) |
+| `--style <name>` | Apply output style (Claude only) |
+| `--agent <name>` | Use agent persona (Claude only) |
+| `--model <model>` | Specify model for provider |
+| `--oss` | Use OSS models (Codex only) |
+| `--non-interactive` | Suppress hints and prompts |
+
+**Examples:**
+```bash
+# AI-generated thought with auto-selected style
+memory think add "Review security implications" --call claude --auto
+
+# Cross-provider calling
+memory think add "Analyse performance" --call codex --model gpt-5-codex
+memory think counter "Consider alternatives" --call gemini
+
+# With explicit style and agent
+memory think add "Deep analysis" --call claude --style Devils-Advocate --agent security-reviewer
+```
+
+### Memory Injection (v1.1.0)
+
+The PostToolUse hook can inject relevant memories into agent context. Configure in `.claude/memory.local.md`:
+
+```yaml
+injection:
+  types:
+    gotcha:
+      enabled: true      # Default: true
+      threshold: 0.2
+      limit: 5
+    decision:
+      enabled: false     # Set true to inject decisions
+      threshold: 0.35
+      limit: 3
+    learning:
+      enabled: false     # Set true to inject learnings
+      threshold: 0.4
+      limit: 2
+  hook_multipliers:
+    Read: 1.0
+    Edit: 0.8            # Lower threshold = more sensitive
+    Write: 0.8
+    Bash: 1.2            # Higher threshold = less noise
+```
 
 ## Configuration
 

@@ -50,6 +50,52 @@ memory health local               # View memory health
 memory stats local                # Graph statistics
 ```
 
+### v1.1.0 Features
+
+#### AI-Powered Thinking with `--auto` and `--call`
+
+```bash
+# Auto-select style/agent based on thought content
+memory think add "Review security implications" --call claude --auto
+
+# Cross-provider calling (claude, codex, gemini)
+memory think add "Analyse performance" --call codex --model gpt-5-codex
+memory think counter "Alternative view" --call gemini
+
+# Explicit style and agent
+memory think add "Deep dive" --call claude --style Devils-Advocate --agent security-reviewer
+```
+
+#### Progressive Hints
+
+First 3 invocations of each think command show helpful hints about available flags. Use `--non-interactive` to suppress.
+
+#### Cross-Provider Requirements
+
+Ensure the CLI is installed for your chosen provider. If missing, helpful installation instructions are shown:
+- **claude**: Pre-installed with Claude Code
+- **codex**: `npm install -g @openai/codex`
+- **gemini**: `npm install -g @google/gemini-cli`
+
+The `--auto` flag uses a tiered selection strategy: Ollama (if available) → keyword heuristics → default style.
+
+#### Enhanced Memory Injection
+
+Configure in `.claude/memory.local.md` to inject decisions and learnings alongside gotchas:
+
+```yaml
+injection:
+  types:
+    decision:
+      enabled: true
+      threshold: 0.35
+    learning:
+      enabled: true
+      threshold: 0.4
+```
+
+Hook multipliers adjust thresholds by context (Edit/Write: 0.8×, Bash: 1.2×). See `.claude/memory.example.md` for full options.
+
 ### Architecture
 
 ```
@@ -475,8 +521,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Contributing
 
 This plugin is developed following:
-- **Specification-Driven Development** (SDD) - see `.specify/spec-driven.md`
-- **Test-Driven Development** (TDD) - see `.specify/test-driven.md`
-- **British English** throughout
+- **Specification-Driven Development** (SDD)
+- **Test-Driven Development** (TDD)
 
 All contributions should maintain 100% test coverage where possible and follow the specification first.

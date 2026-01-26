@@ -67,7 +67,13 @@ import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.
 let OLLAMA_MODEL = DEFAULT_SETTINGS.chat_model;
 let OLLAMA_HOST = DEFAULT_SETTINGS.ollama_host;
 let CONTEXT_WINDOW = DEFAULT_SETTINGS.context_window;
-const OLLAMA_TIMEOUT = 30000;
+
+/**
+ * Hook-specific timeout for Ollama calls.
+ * Hooks should complete quickly to avoid blocking the user experience.
+ * Default Ollama timeout was 30s, but hooks use 2s to prevent long waits.
+ */
+const OLLAMA_TIMEOUT = 2000;
 
 function getOllamaApi(): string {
   return `${OLLAMA_HOST}/api/generate`;

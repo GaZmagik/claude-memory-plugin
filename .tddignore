@@ -94,3 +94,26 @@ src/session/session-cache.ts:SessionCache.has
 src/session/session-cache.ts:SessionCache.add
 src/session/session-cache.ts:SessionCache.cleanup
 src/session/session-cache.ts:SessionCache.clear
+
+# =============================================================================
+# For --src skills/memory/src: US1 Enhanced Hint Visibility (v1.1.0)
+# Tests exist in tests/unit/cli/ and tests/integration/ with test-*.spec.ts naming
+# =============================================================================
+
+# Type definition file (no runtime code - TypeScript interfaces only)
+src/types/hint-state.ts
+
+# hint-tracker.ts - tested in tests/unit/cli/test-hint-tracker.spec.ts
+# and tests/unit/cli/test-hint-threshold.spec.ts
+src/cli/hint-tracker.ts
+
+# complex-thought.ts - tested in tests/unit/cli/test-complex-thought.spec.ts
+src/cli/complex-thought.ts
+
+# hint-output.ts - tested in tests/unit/cli/test-hint-output.spec.ts
+# and tests/integration/test-hint-lifecycle.spec.ts
+src/cli/hint-output.ts
+
+# interactive-prompt.ts - tested in tests/integration/test-interactive-prompt.spec.ts
+# and tests/integration/test-non-interactive.spec.ts
+src/cli/interactive-prompt.ts

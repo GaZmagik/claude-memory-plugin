@@ -69,7 +69,7 @@ export async function spawnSync(
     const cmdArgs = args.slice(1);
     const proc = nodeSpawnSync(command, cmdArgs, {
       cwd,
-      env: env ? { ...process.env, ...env } : process.env,
+      env: env && Object.keys(env).length > 0 ? { ...process.env, ...env } : process.env,
       input: stdin,
       timeout,
       encoding: 'utf-8',
@@ -134,7 +134,7 @@ export async function spawn(
       const cmdArgs = args.slice(1);
       const proc: ChildProcess = nodeSpawn(command, cmdArgs, {
         cwd,
-        env: env ? { ...process.env, ...env } : process.env,
+        env: env && Object.keys(env).length > 0 ? { ...process.env, ...env } : process.env,
         stdio: ['pipe', 'pipe', 'pipe'],
       });
 
@@ -193,10 +193,12 @@ export async function spawn(
       // Set up timeout with proper resource cleanup
       const timeoutId = setTimeout(() => {
         timedOut = true;
-        // Destroy streams to prevent resource leaks
-        proc.stdin?.destroy();
+        // Destroy streams to close file descriptors and prevent further events
+        // destroy() internally handles listener cleanup and prevents race conditions
         proc.stdout?.destroy();
         proc.stderr?.destroy();
+        proc.stdin?.destroy();
+        // Kill process - this will trigger 'close' event
         proc.kill('SIGTERM');
       }, timeout);
 

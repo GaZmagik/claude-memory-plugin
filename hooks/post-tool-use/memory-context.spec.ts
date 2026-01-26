@@ -98,12 +98,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 30000, // Longer timeout if Ollama is called (CPU mode can take 15s+)
+        timeout: 10000, // Hook timeout is 2s, add buffer for bun startup
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    });
+    }, 15000); // Test timeout must exceed spawn timeout
 
     it('should skip non-code files', async () => {
       const result = await spawn(['bun', HOOK_PATH], {
@@ -154,12 +154,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    });
+    }, 15000);
 
     it('should process Edit tool events without error', async () => {
       const result = await spawn(['bun', HOOK_PATH], {
@@ -174,12 +174,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    });
+    }, 15000);
 
     it('should process MultiEdit tool events without error', async () => {
       const result = await spawn(['bun', HOOK_PATH], {
@@ -193,12 +193,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    });
+    }, 15000);
   });
 
   describe('config loading', () => {
@@ -214,12 +214,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: '/tmp',
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    });
+    }, 15000);
   });
 
   describe('logging behaviour', () => {
@@ -235,7 +235,7 @@ describe('memory-context hook', () => {
           session_id: 'test-session-logging',
           cwd: process.cwd(),
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
@@ -243,7 +243,7 @@ describe('memory-context hook', () => {
       // Check that logs dir exists (may have been created by hook)
       const logsDir = join(process.cwd(), '.claude', 'logs');
       expect(existsSync(logsDir)).toBe(true);
-    });
+    }, 15000);
   });
 
   describe('code file extensions', () => {
@@ -262,12 +262,12 @@ describe('memory-context hook', () => {
             session_id: `test-ext-${ext}`,
             cwd: process.cwd(),
           }),
-          timeout: 30000,
+          timeout: 10000,
         });
 
         expect(result.success).toBe(true);
         expect(result.exitCode).toBe(0);
-      });
+      }, 15000);
     }
 
     for (const ext of nonCodeExtensions) {
@@ -308,7 +308,7 @@ describe('memory-context hook', () => {
           session_id: 'test-output-structure',
           cwd: process.cwd(),
         }),
-        timeout: 30000,
+        timeout: 10000,
       });
 
       expect(result.success).toBe(true);
@@ -324,6 +324,6 @@ describe('memory-context hook', () => {
           result.stdout.includes('SYSTEM NOTICE');
         expect(hasValidStructure).toBe(true);
       }
-    });
+    }, 15000);
   });
 });

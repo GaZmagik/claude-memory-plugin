@@ -42,6 +42,32 @@ context_window: 16384
 # lsh_collection_threshold: 200
 # lsh_hash_bits: 10
 # lsh_tables: 6
+
+# Memory Injection (v1.1.0+)
+# --------------------------
+# Configure which memory types are injected into agent context.
+# By default, only gotchas are injected. Enable decisions/learnings for richer context.
+
+# injection:
+#   enabled: true
+#   types:
+#     gotcha:
+#       enabled: true
+#       threshold: 0.2
+#       limit: 5
+#     decision:
+#       enabled: false      # Set to true to inject decisions
+#       threshold: 0.35
+#       limit: 3
+#     learning:
+#       enabled: false      # Set to true to inject learnings
+#       threshold: 0.4
+#       limit: 2
+#   hook_multipliers:
+#     Read: 1.0
+#     Edit: 0.8             # Lower threshold for edits (more relevant)
+#     Write: 0.8            # Lower threshold for writes
+#     Bash: 1.2             # Higher threshold for bash (less noise)
 ---
 
 # Memory Plugin Configuration
@@ -139,3 +165,66 @@ The plugin works without Ollama installed. Features that require Ollama
 **Poor semantic search results?**
 - Try adjusting `semantic_threshold` (lower = more results)
 - Ensure `embedding_model` is installed and working
+
+## Memory Injection (v1.1.0+)
+
+Control which memory types are injected into agent context during file operations.
+
+### Default Behaviour
+
+By default, only **gotchas** are injected. This maintains backward compatibility
+and keeps context focused on warnings/pitfalls.
+
+### Enabling Decisions and Learnings
+
+To inject decisions and learnings alongside gotchas, add to your `memory.local.md`:
+
+```yaml
+injection:
+  enabled: true
+  types:
+    gotcha:
+      enabled: true
+      threshold: 0.2
+      limit: 5
+    decision:
+      enabled: true       # Enable decision injection
+      threshold: 0.35
+      limit: 3
+    learning:
+      enabled: true       # Enable learning injection
+      threshold: 0.4
+      limit: 2
+```
+
+### Settings Reference
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `injection.enabled` | boolean | `true` | Master switch for memory injection |
+| `injection.types.<type>.enabled` | boolean | varies | Enable injection for this memory type |
+| `injection.types.<type>.threshold` | number | varies | Minimum similarity score (0-1) to inject |
+| `injection.types.<type>.limit` | number | varies | Maximum memories of this type to inject |
+
+### Hook Multipliers
+
+Adjust thresholds based on the tool being used:
+
+| Hook | Default | Effect |
+|------|---------|--------|
+| `Read` | 1.0 | Standard threshold |
+| `Edit` | 0.8 | Lower threshold (20% more sensitive) |
+| `Write` | 0.8 | Lower threshold (20% more sensitive) |
+| `Bash` | 1.2 | Higher threshold (20% less sensitive) |
+
+Example: With `decision.threshold: 0.35` and `Edit` multiplier `0.8`:
+- Effective threshold = 0.35 × 0.8 = 0.28
+
+### Type Priority
+
+When multiple memory types match, they're shown in priority order:
+1. 🚨 **Gotchas** - Warnings and pitfalls (highest priority)
+2. 📋 **Decisions** - Architectural choices and rationale
+3. 💡 **Learnings** - Insights and patterns
+
+Total injection is capped at 10 memories per tool use.

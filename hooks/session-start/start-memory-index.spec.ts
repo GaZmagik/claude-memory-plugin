@@ -29,7 +29,7 @@ describe('start-memory-index hook', () => {
       expect(result.exitCode).toBe(0);
     });
 
-    it('should return JSON with hookSpecificOutput when memory index exists', async () => {
+    it('should return plain text summary when memory index exists', async () => {
       const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
       if (!existsSync(localIndex)) {
         // Skip if no index - test requires memory index to exist
@@ -49,11 +49,8 @@ describe('start-memory-index hook', () => {
       expect(result.success).toBe(true);
       expect(result.stdout.trim()).not.toBe('');
 
-      // Parse JSON output and validate structure
-      const output = JSON.parse(result.stdout);
-      expect(output).toHaveProperty('hookSpecificOutput');
-      expect(output.hookSpecificOutput).toHaveProperty('additionalContext');
-      expect(output.hookSpecificOutput.additionalContext).toContain('Memory Index Available');
+      // SessionStart hooks output plain text, not JSON
+      expect(result.stdout).toContain('Memory Index Available');
     });
 
     it('should include memory counts in summary when index exists', async () => {
@@ -72,9 +69,8 @@ describe('start-memory-index hook', () => {
         timeout: 15000,
       });
 
-      // Parse JSON and get the additionalContext
-      const output = JSON.parse(result.stdout);
-      const context = output.hookSpecificOutput.additionalContext;
+      // SessionStart hooks output plain text directly
+      const context = result.stdout;
 
       // Should contain memory type counts
       expect(context).toMatch(/Decisions: \d+/);

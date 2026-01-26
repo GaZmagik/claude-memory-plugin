@@ -306,4 +306,56 @@ describe('think/thoughts provider routing', () => {
     // Should use specified model, not default
     expect(result.thought?.by).toContain('model:gpt-4-turbo');
   });
+
+  it('handles provider timeout gracefully', async () => {
+    // Mock for timeout scenario
+    mock.module('./ai-invoke.js', () => ({
+      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
+      invokeProviderThought: mock(async () => ({
+        success: false,
+        error: 'codex CLI timed out after 120s',
+      })),
+    }));
+
+    const { addThought: addTimeoutThought } = await import('./thoughts.js');
+    const { createThinkDocument: createTimeoutDoc } = await import('./document.js');
+
+    await createTimeoutDoc({ topic: 'Timeout Test', basePath });
+
+    const result = await addTimeoutThought({
+      thought: 'This will timeout',
+      type: ThoughtType.Thought,
+      call: { provider: 'codex' },
+      basePath,
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('AI invocation failed');
+  });
+
+  it('handles unavailable provider gracefully', async () => {
+    // Mock for unavailable provider scenario
+    mock.module('./ai-invoke.js', () => ({
+      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
+      invokeProviderThought: mock(async () => ({
+        success: false,
+        error: 'gemini CLI not found. Please install the CLI.',
+      })),
+    }));
+
+    const { addThought: addUnavailableThought } = await import('./thoughts.js');
+    const { createThinkDocument: createUnavailableDoc } = await import('./document.js');
+
+    await createUnavailableDoc({ topic: 'Unavailable Test', basePath });
+
+    const result = await addUnavailableThought({
+      thought: 'Provider not installed',
+      type: ThoughtType.Thought,
+      call: { provider: 'gemini' },
+      basePath,
+    });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('AI invocation failed');
+  });
 });

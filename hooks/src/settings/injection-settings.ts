@@ -68,9 +68,11 @@ function mergeTypeConfig(input: Partial<TypeConfig> | undefined, defaults: TypeC
  * Load injection config from YAML file.
  * Uses sync fs operations but returns Promise for API consistency with callers.
  * This enables future migration to async operations without API changes.
+ * Note: Explicitly returns Promise.resolve() rather than using async keyword
+ * to clarify that operations are synchronous (per code review recommendation).
  */
-export async function parseInjectionConfig(configPath: string): Promise<InjectionConfig> {
-  if (!fs.existsSync(configPath)) return { ...DEFAULT_INJECTION_CONFIG };
+export function parseInjectionConfig(configPath: string): Promise<InjectionConfig> {
+  if (!fs.existsSync(configPath)) return Promise.resolve({ ...DEFAULT_INJECTION_CONFIG });
   try {
     const content = fs.readFileSync(configPath, 'utf-8');
     const fm = extractFrontmatter(content);

@@ -1716,6 +1716,38 @@
     {
       "id": "learning-colocated-tests-reveal-true-tdd-coverage",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
+      "type": "learning"
+    },
+    {
+      "id": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
+      "type": "learning"
+    },
+    {
+      "id": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-colocated-test-pattern-for-typescript-projects",
+      "type": "artifact"
+    },
+    {
+      "id": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
+      "type": "gotcha"
     }
   ],
   "edges": [

@@ -10,6 +10,7 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { DiscoveredFile } from '../types/think.js';
 import { createLogger } from '../core/logger.js';
+import { sanitiseAgentName, sanitiseStyleName } from './sanitise.js';
 
 const log = createLogger('think-discovery');
 
@@ -355,6 +356,8 @@ export function findAgent(
   name: string,
   config?: Partial<DiscoveryConfig>
 ): DiscoveredFile | null {
+  // Defense-in-depth: sanitise user input even though whitelist validation follows
+  const sanitizedName = sanitiseAgentName(name);
   const fullConfig = { ...getDefaultConfig(), ...config };
   const searchPaths = getAgentPaths(fullConfig);
 
@@ -363,7 +366,7 @@ export function findAgent(
 
     for (const filePath of files) {
       const fileName = path.basename(filePath, '.md');
-      if (fileName === name) {
+      if (fileName === sanitizedName) {
         let description: string | undefined;
         try {
           const content = fs.readFileSync(filePath, 'utf-8');
@@ -372,9 +375,9 @@ export function findAgent(
           // Ignore read errors
         }
 
-        log.debug('Found agent', { name, source, filePath });
+        log.debug('Found agent', { name: sanitizedName, source, filePath });
         return {
-          name,
+          name: sanitizedName,
           path: filePath,
           source,
           description,
@@ -383,7 +386,7 @@ export function findAgent(
     }
   }
 
-  log.debug('Agent not found', { name });
+  log.debug('Agent not found', { name: sanitizedName });
   return null;
 }
 
@@ -395,6 +398,8 @@ export function findStyle(
   name: string,
   config?: Partial<DiscoveryConfig>
 ): DiscoveredFile | null {
+  // Defense-in-depth: sanitise user input even though whitelist validation follows
+  const sanitizedName = sanitiseStyleName(name);
   const fullConfig = { ...getDefaultConfig(), ...config };
   const searchPaths = getStylePaths(fullConfig);
 
@@ -403,7 +408,7 @@ export function findStyle(
 
     for (const filePath of files) {
       const fileName = path.basename(filePath, '.md');
-      if (fileName === name) {
+      if (fileName === sanitizedName) {
         let description: string | undefined;
         try {
           const content = fs.readFileSync(filePath, 'utf-8');
@@ -412,9 +417,9 @@ export function findStyle(
           // Ignore read errors
         }
 
-        log.debug('Found style', { name, source, filePath });
+        log.debug('Found style', { name: sanitizedName, source, filePath });
         return {
-          name,
+          name: sanitizedName,
           path: filePath,
           source,
           description,
@@ -423,7 +428,7 @@ export function findStyle(
     }
   }
 
-  log.debug('Style not found', { name });
+  log.debug('Style not found', { name: sanitizedName });
   return null;
 }
 

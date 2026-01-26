@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-25T23:22:02.476Z",
+  "lastUpdated": "2026-01-26T00:12:17.307Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5693,6 +5693,135 @@
       "updated": "2026-01-25T23:22:02.470Z",
       "scope": "project",
       "relativePath": "permanent/learning-colocated-tests-reveal-true-tdd-coverage.md"
+    },
+    {
+      "id": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
+      "type": "learning",
+      "title": "Retro - Parallel agent restoration accelerates context recovery post-compaction",
+      "tags": [
+        "retrospective",
+        "process",
+        "compaction",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-26T00:11:56.061Z",
+      "updated": "2026-01-26T00:11:56.061Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "type": "learning",
+      "title": "Duplicate SDD Scaffolding Bloats Test Suite",
+      "tags": [
+        "testing",
+        "sdd",
+        "test-organization",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:01.508Z",
+      "updated": "2026-01-26T00:12:01.508Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-duplicate-sdd-scaffolding-bloats-test-suite.md"
+    },
+    {
+      "id": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
+      "type": "learning",
+      "title": "Retro - SDD scaffolding stubs should be deleted, not implemented",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "sdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:01.899Z",
+      "updated": "2026-01-26T00:12:01.899Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "type": "learning",
+      "title": "PR Review Agents Should Fix Issues In Parallel",
+      "tags": [
+        "workflow",
+        "agents",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:07.821Z",
+      "updated": "2026-01-26T00:12:07.821Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-pr-review-agents-should-fix-issues-in-parallel.md"
+    },
+    {
+      "id": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
+      "type": "gotcha",
+      "title": "Gotcha - Context budget reached at 100%, should have launched agents earlier",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "agents",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:08.737Z",
+      "updated": "2026-01-26T00:12:08.737Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier.md",
+      "severity": "high"
+    },
+    {
+      "id": "decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners",
+      "type": "decision",
+      "title": "Subprocess Timeout Cleanup Should Use destroy() Not Manual Listeners",
+      "tags": [
+        "nodejs",
+        "subprocess",
+        "race-conditions",
+        "security-fix",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:10.735Z",
+      "updated": "2026-01-26T00:12:10.735Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners.md"
+    },
+    {
+      "id": "artifact-colocated-test-pattern-for-typescript-projects",
+      "type": "artifact",
+      "title": "Colocated Test Pattern for TypeScript Projects",
+      "tags": [
+        "testing",
+        "typescript",
+        "project-structure",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:13.916Z",
+      "updated": "2026-01-26T00:12:13.916Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-colocated-test-pattern-for-typescript-projects.md"
+    },
+    {
+      "id": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
+      "type": "gotcha",
+      "title": "Test Agents Generate Aspirational Tests Without Implementation",
+      "tags": [
+        "testing",
+        "agents",
+        "test-generation",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-26T00:12:17.300Z",
+      "updated": "2026-01-26T00:12:17.300Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-agents-generate-aspirational-tests-without-implementation.md"
     }
   ]
 }

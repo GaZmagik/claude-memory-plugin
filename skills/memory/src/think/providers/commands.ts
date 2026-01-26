@@ -40,7 +40,8 @@ export function buildCodexCommand(options: ProviderCommandOptions): ProviderComm
 }
 
 export function buildGeminiCommand(options: ProviderCommandOptions): ProviderCommand {
-  const args: string[] = ['--debug', options.prompt];  // --debug to capture model info
+  // gemini [query] [options] - prompt first, flags after
+  const args: string[] = [options.prompt, '--debug'];  // --debug to capture model info
   if (options.model) args.push('--model', sanitiseModelName(options.model));
   return { binary: 'gemini', args, timeout: validateTimeout(SLOW_PROVIDER_TIMEOUT_MS) };
 }

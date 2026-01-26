@@ -5,8 +5,9 @@ export function parseGeminiOutput(raw: string | null | undefined): string {
   if (!raw) return '';
   const lines = raw.split('\n').filter(line => {
     const t = line.trim();
+    // Filter out log lines (INFO, DEBUG, WARN, ERROR prefixes)
     if (/^\[(INFO|DEBUG|WARN|ERROR)\]/i.test(t)) return false;
-    if (/^\[DEBUG\]/i.test(t)) return false;
+    // Filter out status messages
     if (/^(Thinking|Processing|Done!?)\.{0,3}$/i.test(t)) return false;
     return true;
   });

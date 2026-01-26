@@ -135,7 +135,7 @@ describe('--non-interactive Flag Suppression', () => {
       const prompts = await import('prompts');
       const complexThought = 'What should we do?';
 
-      (prompts.default as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      vi.mocked(prompts.default).mockResolvedValueOnce({
         proceed: true,
       });
 

@@ -1,7 +1,7 @@
 /**
  * Unit tests for hint output functions
  */
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { formatHint, shouldShowHintInMode, getRotatingHint, HINT_PREFIX } from './hint-output.js';
 
 describe('formatHint', () => {

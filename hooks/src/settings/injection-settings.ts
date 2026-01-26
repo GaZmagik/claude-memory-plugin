@@ -76,14 +76,14 @@ export function parseInjectionConfig(configPath: string): Promise<InjectionConfi
   try {
     const content = fs.readFileSync(configPath, 'utf-8');
     const fm = extractFrontmatter(content);
-    if (!fm) return { ...DEFAULT_INJECTION_CONFIG };
+    if (!fm) return Promise.resolve({ ...DEFAULT_INJECTION_CONFIG });
     const parsed = yaml.load(fm) as Record<string, unknown> | null;
-    if (!parsed) return { ...DEFAULT_INJECTION_CONFIG };
+    if (!parsed) return Promise.resolve({ ...DEFAULT_INJECTION_CONFIG });
     const inj = parsed.injection as Record<string, unknown> | undefined;
-    if (!inj) return { ...DEFAULT_INJECTION_CONFIG };
+    if (!inj) return Promise.resolve({ ...DEFAULT_INJECTION_CONFIG });
     const types = inj.types as Record<string, Partial<TypeConfig>> | undefined;
     const hm = inj.hook_multipliers as Partial<HookMultipliers> | undefined;
-    return {
+    return Promise.resolve({
       enabled: validateBoolean(inj.enabled, DEFAULT_INJECTION_CONFIG.enabled),
       types: {
         gotcha: mergeTypeConfig(types?.gotcha, DEFAULT_INJECTION_CONFIG.types.gotcha),
@@ -96,8 +96,8 @@ export function parseInjectionConfig(configPath: string): Promise<InjectionConfi
         Write: validateMultiplier(hm?.Write, DEFAULT_INJECTION_CONFIG.hook_multipliers.Write),
         Bash: validateMultiplier(hm?.Bash, DEFAULT_INJECTION_CONFIG.hook_multipliers.Bash),
       },
-    };
+    });
   } catch {
-    return { ...DEFAULT_INJECTION_CONFIG };
+    return Promise.resolve({ ...DEFAULT_INJECTION_CONFIG });
   }
 }

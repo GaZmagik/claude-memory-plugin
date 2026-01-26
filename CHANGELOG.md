@@ -5,6 +5,27 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-01-26
+
+### Fixed
+
+#### Provider Integration Hotfix
+- `--call codex` and `--call gemini` now correctly route to provider CLIs (was silently falling back to Claude)
+- Unified timeout to 120s across all providers for MCP startup reliability
+- Fixed error message showing wrong timeout value (30s vs actual 120s)
+- Fixed Codex default model: `gpt-5-codex` → `gpt-5.2-codex` to match CLI output
+
+### Security
+- Added model name sanitisation to prevent argument injection attacks
+- Added error message path redaction to prevent information leakage
+- Added timeout bounds validation (5s min, 5min max)
+- Added comprehensive security tests for `sanitiseModelName` and `validateTimeout`
+
+### Changed
+- Gemini parser now documents JSON format assumption (double-quoted only)
+- Exit code handling comment clarified for maintainability
+- `DEFAULT_TIMEOUT_MS` increased from 30s to 120s in `invoke.ts`
+
 ## [1.1.0] - 2026-01-25
 
 ### Added

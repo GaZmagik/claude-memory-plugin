@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T00:12:17.307Z",
+  "lastUpdated": "2026-01-26T17:11:28.486Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5383,23 +5383,6 @@
       "relativePath": "permanent/gotcha-readme-injection-config-requires-nested-yaml-structure.md"
     },
     {
-      "id": "learning-30-second-timeout-for-provider-cli-invocation",
-      "type": "learning",
-      "title": "30-second timeout for provider CLI invocation",
-      "tags": [
-        "providers",
-        "timeout",
-        "cli",
-        "error-handling",
-        "v1.1.0",
-        "project"
-      ],
-      "created": "2026-01-25T20:51:39.697Z",
-      "updated": "2026-01-25T20:51:39.697Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-30-second-timeout-for-provider-cli-invocation.md"
-    },
-    {
       "id": "learning-execfilesync-loses-path-in-bun-subprocesses",
       "type": "learning",
       "title": "execFileSync loses PATH in Bun subprocesses",
@@ -5822,6 +5805,247 @@
       "updated": "2026-01-26T00:12:17.300Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-test-agents-generate-aspirational-tests-without-implementation.md"
+    },
+    {
+      "id": "learning-provider-integration-incomplete-in-v110",
+      "type": "learning",
+      "title": "Provider integration incomplete in v1.1.0",
+      "tags": [
+        "v1.1.0",
+        "provider-routing",
+        "bug",
+        "incomplete-feature",
+        "project"
+      ],
+      "created": "2026-01-26T07:20:41.975Z",
+      "updated": "2026-01-26T07:20:41.975Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-integration-incomplete-in-v110.md"
+    },
+    {
+      "id": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
+      "type": "learning",
+      "title": "Retro - Direct CLI execution validates feature before plugin rebuild",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "cli",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:09.950Z",
+      "updated": "2026-01-26T14:25:09.950Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
+      "type": "learning",
+      "title": "Retro - Parse runtime output instead of guessing provider defaults",
+      "tags": [
+        "retrospective",
+        "process",
+        "provider-routing",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:17.012Z",
+      "updated": "2026-01-26T14:25:17.012Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "type": "gotcha",
+      "title": "Gotcha - Provider CLI startup timeouts need 120s not 30s",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "provider-routing",
+        "timeout",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:21.558Z",
+      "updated": "2026-01-26T14:25:21.558Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-provider-cli-startup-timeouts-need-120s-not-30s.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-provider-stderr-output",
+      "type": "learning",
+      "title": "Provider CLI output goes to stderr, not stdout",
+      "tags": [
+        "provider-integration",
+        "cli-parsing",
+        "stderr",
+        "v1.1.1",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:27.698Z",
+      "updated": "2026-01-26T14:25:27.698Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-stderr-output.md"
+    },
+    {
+      "id": "learning-gemini-model-extraction-requires-user-agent-fallback",
+      "type": "learning",
+      "title": "Gemini model extraction requires User-Agent fallback",
+      "tags": [
+        "gemini",
+        "parser",
+        "model-extraction",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:28.031Z",
+      "updated": "2026-01-26T16:24:28.031Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-gemini-model-extraction-requires-user-agent-fallback.md"
+    },
+    {
+      "id": "learning-provider-cli-mcp-startup-requires-120s-timeout",
+      "type": "learning",
+      "title": "Provider CLI MCP startup requires 120s timeout",
+      "tags": [
+        "provider",
+        "timeout",
+        "mcp",
+        "reliability",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:33.927Z",
+      "updated": "2026-01-26T16:24:33.927Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-cli-mcp-startup-requires-120s-timeout.md"
+    },
+    {
+      "id": "gotcha-cli-think-commands-suppress-output-silently",
+      "type": "gotcha",
+      "title": "CLI think commands suppress output silently",
+      "tags": [
+        "cli",
+        "debugging",
+        "output-suppression",
+        "think",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:40.336Z",
+      "updated": "2026-01-26T16:24:40.336Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-think-commands-suppress-output-silently.md"
+    },
+    {
+      "id": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
+      "type": "learning",
+      "title": "Retro - Sequential task completion with immediate testing prevents rework",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "project"
+      ],
+      "created": "2026-01-26T16:41:54.965Z",
+      "updated": "2026-01-26T16:41:54.965Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring",
+      "type": "learning",
+      "title": "Retro - Extract shared helpers from duplicated code paths early in refactoring",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-01-26T16:41:58.767Z",
+      "updated": "2026-01-26T16:41:58.767Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer",
+      "type": "learning",
+      "title": "Retro - Edge case tests should document parser limitations rather than over-engineer",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "test-design",
+        "project"
+      ],
+      "created": "2026-01-26T16:42:02.882Z",
+      "updated": "2026-01-26T16:42:02.882Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "type": "gotcha",
+      "title": "Gotcha - Bun test runner mock isolation causes cross-file mock conflicts in test suite",
+      "tags": [
+        "retrospective",
+        "testing",
+        "bun",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-01-26T16:42:06.965Z",
+      "updated": "2026-01-26T16:42:06.965Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
+      "type": "learning",
+      "title": "Provider CLI startup timeout requires 120s not 30s",
+      "tags": [
+        "provider",
+        "timeout",
+        "cli",
+        "project"
+      ],
+      "created": "2026-01-26T16:42:18.814Z",
+      "updated": "2026-01-26T16:42:18.814Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-cli-startup-timeout-requires-120s-not-30s.md"
+    },
+    {
+      "id": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
+      "type": "learning",
+      "title": "Parser behaviour tests were missing - only export checks existed",
+      "tags": [
+        "testing",
+        "parser",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-26T16:42:22.825Z",
+      "updated": "2026-01-26T16:42:22.825Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parser-behaviour-tests-were-missing-only-export-checks-existed.md"
+    },
+    {
+      "id": "decision-v111-provider-security-hardening",
+      "type": "decision",
+      "title": "v1.1.1 provider security hardening",
+      "tags": [
+        "security",
+        "provider",
+        "project"
+      ],
+      "created": "2026-01-26T16:42:24.119Z",
+      "updated": "2026-01-26T16:42:24.119Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v111-provider-security-hardening.md"
     }
   ]
 }

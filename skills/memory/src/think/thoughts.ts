@@ -28,7 +28,9 @@ import { validateThinkAdd, validateThinkUse } from './validation.js';
 import { writeFileAtomic, readFile, fileExists } from '../core/fs-utils.js';
 import { getScopePath } from '../scope/resolver.js';
 import { createLogger } from '../core/logger.js';
-import { invokeAI } from './ai-invoke.js';
+import { getProvider } from './providers/providers.js';
+import { invokeAI, invokeProviderThought } from './ai-invoke.js';
+import type { ProviderName } from '../types/provider-config.js';
 
 const log = createLogger('think-thoughts');
 
@@ -122,18 +124,32 @@ export async function addThought(
     let attribution = request.by;
 
     if (request.call) {
-      log.info('Invoking AI for thought', { documentId, type: request.type });
+      const provider: ProviderName = request.call.provider ?? 'claude';
+      log.info('Invoking AI for thought', { documentId, type: request.type, provider });
 
-      const aiResult = await invokeAI({
-        topic: parsed.frontmatter.topic,
-        thoughtType: request.type,
-        existingThoughts: parsed.thoughts ?? [],
-        options: {
-          ...request.call,
-          guidance: request.thought, // User's text becomes guidance for AI
-        },
-        basePath,
-      });
+      // Route to appropriate provider
+      const aiResult = provider === 'claude'
+        ? await invokeAI({
+            topic: parsed.frontmatter.topic,
+            thoughtType: request.type,
+            existingThoughts: parsed.thoughts ?? [],
+            options: {
+              ...request.call,
+              guidance: request.thought, // User's text becomes guidance for AI
+            },
+            basePath,
+          })
+        : await invokeProviderThought({
+            topic: parsed.frontmatter.topic,
+            thoughtType: request.type,
+            existingThoughts: parsed.thoughts ?? [],
+            options: {
+              ...request.call,
+              guidance: request.thought,
+            },
+            provider,
+            basePath,
+          });
 
       if (!aiResult.success) {
         return {
@@ -144,7 +160,12 @@ export async function addThought(
 
       thoughtContent = aiResult.content ?? '';
       // Auto-set attribution with model, style, and session ID
-      const model = request.call.model ?? 'haiku';
+      // Use actual model from CLI output (parsed), fall back to request or provider default
+      // Claude uses 'haiku' for cost-efficiency in think commands (not PROVIDERS default)
+      const defaultModel = provider === 'claude'
+        ? 'haiku'
+        : (getProvider(provider)?.defaultModel ?? 'unknown');
+      const model = aiResult.model ?? request.call.model ?? defaultModel;
       const style = request.call.outputStyle;
       const agent = request.call.agent;
 
@@ -155,7 +176,7 @@ export async function addThought(
       if (aiResult.sessionId) parts.push(`[${aiResult.sessionId}]`);
       attribution = parts.join(' ');
 
-      log.info('AI thought generated', { documentId, sessionId: aiResult.sessionId, style, agent });
+      log.info('AI thought generated', { documentId, provider, sessionId: aiResult.sessionId, style, agent });
     }
 
     const timestamp = new Date().toISOString();

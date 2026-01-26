@@ -330,10 +330,12 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
         basePath,
         call: callAgent
           ? {
-              model,  // Use --model flag (defaults to 'haiku' in invoker)
+              provider,  // Route to correct provider (claude, codex, gemini)
+              model,  // Use --model flag (defaults to provider-specific model)
               outputStyle: style,
               agent,
               resume,
+              oss: ossFlag,  // OSS model flag (codex only)
             }
           : undefined,
       });

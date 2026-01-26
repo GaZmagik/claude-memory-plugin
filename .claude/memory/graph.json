@@ -1642,10 +1642,6 @@
       "type": "learning"
     },
     {
-      "id": "learning-30-second-timeout-for-provider-cli-invocation",
-      "type": "learning"
-    },
-    {
       "id": "gotcha-readme-injection-config-requires-nested-yaml-structure",
       "type": "gotcha"
     },
@@ -1748,6 +1744,66 @@
     {
       "id": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-provider-integration-incomplete-in-v110",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-provider-stderr-output",
+      "type": "learning"
+    },
+    {
+      "id": "learning-gemini-model-extraction-requires-user-agent-fallback",
+      "type": "learning"
+    },
+    {
+      "id": "learning-provider-cli-mcp-startup-requires-120s-timeout",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-cli-think-commands-suppress-output-silently",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
+      "type": "learning"
+    },
+    {
+      "id": "decision-v111-provider-security-hardening",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -3999,16 +4055,6 @@
     {
       "source": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
       "target": "learning-post-compaction-parallel-agent-restoration-effective",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-30-second-timeout-for-provider-cli-invocation",
-      "target": "learning-provider-error-messages-with-installation-instructions",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
-      "target": "learning-30-second-timeout-for-provider-cli-invocation",
       "label": "relates-to"
     }
   ]

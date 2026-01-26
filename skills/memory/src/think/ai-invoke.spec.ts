@@ -253,7 +253,9 @@ describe('think/ai-invoke', () => {
     });
   });
 
-  // Note: invokeAI and getClaudeCliVersion are not tested here
+  // Note: invokeAI, invokeProviderThought, and getClaudeCliVersion are not tested here
   // as they require actual CLI execution. They should be tested
   // via integration tests or with proper process mocking.
+  //
+  // Provider routing tests are in thoughts-ai.spec.ts which mocks the invoke functions.
 });

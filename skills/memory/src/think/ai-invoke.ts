@@ -15,8 +15,8 @@ import { findAgent, findStyle, readAgentBody, readStyleContent, extractBody } fr
 import { createLogger } from '../core/logger.js';
 import { getProvider } from './providers/providers.js';
 import { buildClaudeCommand, buildCodexCommand, buildGeminiCommand } from './providers/commands.js';
-import { parseCodexOutput } from './providers/codex-parser.js';
-import { parseGeminiOutput } from './providers/gemini-parser.js';
+import { parseCodexOutput, extractCodexModel } from './providers/codex-parser.js';
+import { parseGeminiOutput, extractGeminiModel } from './providers/gemini-parser.js';
 import { isProviderAvailable } from './providers/detect.js';
 
 const log = createLogger('think-ai-invoke');
@@ -272,6 +272,87 @@ export async function invokeAI(params: {
 }
 
 /**
+ * Invoke a non-Claude provider to generate a thought
+ * Wrapper that builds the prompt and converts ProviderResult to AICallResult
+ */
+export async function invokeProviderThought(params: {
+  topic: string;
+  thoughtType: ThoughtType;
+  existingThoughts: ThoughtEntry[];
+  options: AICallOptions;
+  provider: ProviderName;
+  basePath?: string;
+}): Promise<AICallResult> {
+  const { topic, thoughtType, existingThoughts, options, provider, basePath } = params;
+
+  try {
+    // Resolve style content (for providers that support it)
+    let styleContent: string | undefined;
+    if (options.outputStyle) {
+      const style = findStyle(options.outputStyle, { basePath });
+      if (style) {
+        const rawContent = readStyleContent(style.path);
+        if (rawContent) {
+          styleContent = extractBody(rawContent);
+        }
+      }
+      // Note: Non-supporting providers will ignore styleContent anyway
+    }
+
+    // Resolve agent body (for providers that support it)
+    let agentContent: string | undefined;
+    if (options.agent) {
+      const agent = findAgent(options.agent, { basePath });
+      if (agent) {
+        agentContent = readAgentBody(agent.path) ?? undefined;
+      }
+      // Note: Non-supporting providers will ignore agentContent anyway
+    }
+
+    // Build user prompt using shared function
+    const userPrompt = buildUserPrompt({
+      topic,
+      thoughtType,
+      existingThoughts,
+      guidance: options.guidance,
+    });
+
+    // Invoke the provider
+    const result = await invokeProvider({
+      prompt: userPrompt,
+      provider,
+      model: options.model,
+      styleContent,
+      agentContent,
+    });
+
+    // Convert ProviderResult to AICallResult
+    if (result.error) {
+      log.error('Provider invocation failed', { provider, error: result.error });
+      return {
+        success: false,
+        error: result.error,
+      };
+    }
+
+    log.info('Provider invocation successful', { provider, model: result.model, outputLength: result.content.length });
+
+    return {
+      success: true,
+      content: result.content,
+      model: result.model,  // Pass through actual model used
+      // Note: Non-Claude providers don't support session resumption
+    };
+  } catch (error) {
+    log.error('Provider invocation failed', { provider, error: String(error) });
+    return {
+      success: false,
+      error: String(error),
+    };
+  }
+}
+
+/**
  * Check if Claude CLI is available
  */
 export function isClaudeCliAvailable(): boolean {
@@ -348,25 +429,50 @@ export async function invokeProvider(params: {
   try {
     log.debug('Invoking provider', { provider, binary: command.binary, argCount: command.args.length });
 
-    const result = execFileSync(command.binary, command.args, {
+    // Use spawnSync to capture both stdout and stderr
+    const { spawnSync } = await import('node:child_process');
+    const spawnResult = spawnSync(command.binary, command.args, {
       encoding: 'utf-8',
       maxBuffer: MAX_OUTPUT_LENGTH,
-      timeout: command.timeout ?? 30000,
+      timeout: command.timeout ?? 120000,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
-    // Parse output based on provider
-    let content = result.trim();
+    // Check for errors
+    if (spawnResult.error) {
+      throw spawnResult.error;
+    }
+
+    const stdout = (spawnResult.stdout ?? '').trim();
+    const stderr = (spawnResult.stderr ?? '').trim();
+
+    // Parse content from stdout, but extract model from stderr (where banner/debug goes)
+    let content = stdout;
+    let actualModel: string | undefined;
+
     if (provider === 'codex') {
-      content = parseCodexOutput(content);
+      content = parseCodexOutput(stdout);
+      // Codex outputs banner (with model) to stderr
+      actualModel = extractCodexModel(stderr) ?? extractCodexModel(stdout);
     } else if (provider === 'gemini') {
-      content = parseGeminiOutput(content);
+      content = parseGeminiOutput(stdout);
+      // Gemini outputs debug (with model) to stderr
+      actualModel = extractGeminiModel(stderr) ?? extractGeminiModel(stdout);
+    }
+
+    // Use parsed model (what actually ran), fall back to requested model
+    const resolvedModel = actualModel ?? model;
+    log.debug('Provider model resolved', { requested: model, actual: actualModel, resolved: resolvedModel });
+
+    // Check for non-zero exit (some CLIs exit non-zero but still have valid output)
+    if (spawnResult.status !== 0 && !content) {
+      throw new Error(`Exit code ${spawnResult.status}: ${stderr.slice(0, 500)}`);
     }
 
     return {
       content,
       provider,
-      model,
+      model: resolvedModel,
       durationMs: Date.now() - startTime,
     };
   } catch (error) {

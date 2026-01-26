@@ -1748,6 +1748,30 @@
     {
       "id": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-provider-integration-incomplete-in-v110",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-provider-stderr-output",
+      "type": "learning"
+    },
+    {
+      "id": "learning-provider-cli-timeout-requirements",
+      "type": "learning"
     }
   ],
   "edges": [

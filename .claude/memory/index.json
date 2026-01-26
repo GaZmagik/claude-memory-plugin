@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T00:12:17.307Z",
+  "lastUpdated": "2026-01-26T14:25:32.836Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5822,6 +5822,105 @@
       "updated": "2026-01-26T00:12:17.300Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-test-agents-generate-aspirational-tests-without-implementation.md"
+    },
+    {
+      "id": "learning-provider-integration-incomplete-in-v110",
+      "type": "learning",
+      "title": "Provider integration incomplete in v1.1.0",
+      "tags": [
+        "v1.1.0",
+        "provider-routing",
+        "bug",
+        "incomplete-feature",
+        "project"
+      ],
+      "created": "2026-01-26T07:20:41.975Z",
+      "updated": "2026-01-26T07:20:41.975Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-integration-incomplete-in-v110.md"
+    },
+    {
+      "id": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
+      "type": "learning",
+      "title": "Retro - Direct CLI execution validates feature before plugin rebuild",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "cli",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:09.950Z",
+      "updated": "2026-01-26T14:25:09.950Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
+      "type": "learning",
+      "title": "Retro - Parse runtime output instead of guessing provider defaults",
+      "tags": [
+        "retrospective",
+        "process",
+        "provider-routing",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:17.012Z",
+      "updated": "2026-01-26T14:25:17.012Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "type": "gotcha",
+      "title": "Gotcha - Provider CLI startup timeouts need 120s not 30s",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "provider-routing",
+        "timeout",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:21.558Z",
+      "updated": "2026-01-26T14:25:21.558Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-provider-cli-startup-timeouts-need-120s-not-30s.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-provider-stderr-output",
+      "type": "learning",
+      "title": "Provider CLI output goes to stderr, not stdout",
+      "tags": [
+        "provider-integration",
+        "cli-parsing",
+        "stderr",
+        "v1.1.1",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:27.698Z",
+      "updated": "2026-01-26T14:25:27.698Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-stderr-output.md"
+    },
+    {
+      "id": "learning-provider-cli-timeout-requirements",
+      "type": "learning",
+      "title": "Provider CLIs need 120s+ timeouts for startup",
+      "tags": [
+        "provider-integration",
+        "performance",
+        "timeout",
+        "v1.1.1",
+        "project"
+      ],
+      "created": "2026-01-26T14:25:32.830Z",
+      "updated": "2026-01-26T14:25:32.830Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-cli-timeout-requirements.md"
     }
   ]
 }

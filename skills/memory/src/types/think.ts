@@ -7,6 +7,7 @@
 
 import type { MemoryId, SessionId, ThinkId } from './branded.js';
 import type { MemoryType, Scope, ThinkStatus, ThoughtType } from './enums.js';
+import type { ProviderName } from './provider-config.js';
 
 /**
  * Think document frontmatter (extends base memory frontmatter)
@@ -108,11 +109,13 @@ export interface ThinkDocumentSummary {
  * Options for AI invocation via --call
  */
 export interface AICallOptions {
+  /** Provider to use (claude, codex, gemini) */
+  provider?: ProviderName;
   /** Output style name (from output-styles/) */
   outputStyle?: string;
   /** Agent name (from agents/) */
   agent?: string;
-  /** Model override (default: haiku) */
+  /** Model override (default: haiku for claude, provider-specific otherwise) */
   model?: string;
   /** Resume existing session ID */
   resume?: string;
@@ -132,6 +135,8 @@ export interface AICallResult {
   content?: string;
   /** Session ID for future --resume */
   sessionId?: SessionId;
+  /** Actual model used (parsed from CLI output) */
+  model?: string;
   /** Error message (if failed) */
   error?: string;
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T17:11:28.486Z",
+  "lastUpdated": "2026-01-26T22:53:33.713Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -6046,6 +6046,196 @@
       "updated": "2026-01-26T16:42:24.119Z",
       "scope": "project",
       "relativePath": "permanent/decision-v111-provider-security-hardening.md"
+    },
+    {
+      "id": "gotcha-v112-marketplace-needs-bun-install-in-sessionstart",
+      "type": "gotcha",
+      "title": "v1.1.2 marketplace needs bun install in SessionStart",
+      "tags": [
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:32:45.903Z",
+      "updated": "2026-01-26T22:32:45.903Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-v112-marketplace-needs-bun-install-in-sessionstart.md"
+    },
+    {
+      "id": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "type": "gotcha",
+      "title": "Retro - Hook timeouts were too aggressive (2s), broke Ollama for users",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "v1.1.1",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:27.355Z",
+      "updated": "2026-01-26T22:33:27.355Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "type": "gotcha",
+      "title": "Retro - Marketplace plugin lacks node_modules - breaks for users",
+      "tags": [
+        "retrospective",
+        "marketplace",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:27.522Z",
+      "updated": "2026-01-26T22:33:27.522Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-plugin-hooks-need-explicit-matcher-for-user-level-hook-merging",
+      "type": "learning",
+      "title": "Retro - Plugin hooks need explicit matcher for user-level hook merging",
+      "tags": [
+        "retrospective",
+        "hooks",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:32.318Z",
+      "updated": "2026-01-26T22:33:32.318Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-plugin-hooks-need-explicit-matcher-for-user-level-hook-merging.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "type": "gotcha",
+      "title": "Marketplace plugin missing bun dependencies",
+      "tags": [
+        "hooks",
+        "marketplace",
+        "v1.1.2",
+        "dependencies",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:43.401Z",
+      "updated": "2026-01-26T22:33:43.401Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-marketplace-plugin-missing-bun-dependencies.md"
+    },
+    {
+      "id": "learning-hook-ollama-timeout-insufficient",
+      "type": "learning",
+      "title": "Hook Ollama timeout too short (2s) - needs 10-30s",
+      "tags": [
+        "hooks",
+        "ollama",
+        "timing",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:49.208Z",
+      "updated": "2026-01-26T22:33:49.208Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hook-ollama-timeout-insufficient.md"
+    },
+    {
+      "id": "learning-timeout-constant-inconsistency-30s-vs-120s",
+      "type": "learning",
+      "title": "Timeout constant inconsistency: Claude (30s) vs Codex/Gemini (120s)",
+      "tags": [
+        "timeouts",
+        "providers",
+        "v1.1.1",
+        "constants",
+        "project"
+      ],
+      "created": "2026-01-26T22:33:55.133Z",
+      "updated": "2026-01-26T22:33:55.133Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-timeout-constant-inconsistency-30s-vs-120s.md"
+    },
+    {
+      "id": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "type": "decision",
+      "title": "v1.1.2 must include SessionStart bun install and hook timeout fixes",
+      "tags": [
+        "v1.1.2",
+        "release",
+        "hooks",
+        "marketplace",
+        "project"
+      ],
+      "created": "2026-01-26T22:34:00.542Z",
+      "updated": "2026-01-26T22:34:00.542Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v112-marketplace-requires-dependency-and-timeout-fixes.md"
+    },
+    {
+      "id": "learning-plugin-posttooluse-hooks-not-auto-discovered",
+      "type": "learning",
+      "title": "Plugin PostToolUse hooks not auto-discovered by Claude Code",
+      "tags": [
+        "hooks",
+        "plugin-discovery",
+        "claudecode",
+        "workaround",
+        "project"
+      ],
+      "created": "2026-01-26T22:34:06.358Z",
+      "updated": "2026-01-26T22:34:06.358Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-plugin-posttooluse-hooks-not-auto-discovered.md"
+    },
+    {
+      "id": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "type": "gotcha",
+      "title": "Missing node_modules error: Cannot find package js-yaml",
+      "tags": [
+        "marketplace",
+        "error-message",
+        "debugging",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:52:49.246Z",
+      "updated": "2026-01-26T22:52:49.246Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-missing-nodemodules-error-cannot-find-package-js-yaml.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
+      "type": "learning",
+      "title": "Debug hook execution with console.error at entry point",
+      "tags": [
+        "hooks",
+        "debugging",
+        "pattern",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:52:53.198Z",
+      "updated": "2026-01-26T22:52:53.198Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-debug-hook-execution-with-consoleerror-at-entry-point.md"
+    },
+    {
+      "id": "learning-marketplace-plugin-install-location-discovery",
+      "type": "learning",
+      "title": "Marketplace plugin install location discovery",
+      "tags": [
+        "marketplace",
+        "plugin",
+        "debugging",
+        "v1.1.2",
+        "project"
+      ],
+      "created": "2026-01-26T22:53:33.703Z",
+      "updated": "2026-01-26T22:53:33.703Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-marketplace-plugin-install-location-discovery.md"
     }
   ]
 }

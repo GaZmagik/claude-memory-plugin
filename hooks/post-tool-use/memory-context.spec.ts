@@ -98,12 +98,12 @@ describe('memory-context hook', () => {
           session_id: 'test-session',
           cwd: process.cwd(),
         }),
-        timeout: 10000, // Hook timeout is 2s, add buffer for bun startup
+        timeout: 35000, // Hook timeout is 30s, add buffer for bun startup
       });
 
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
-    }, 15000); // Test timeout must exceed spawn timeout
+    }, 40000); // Test timeout must exceed spawn timeout
 
     it('should skip non-code files', async () => {
       const result = await spawn(['bun', HOOK_PATH], {

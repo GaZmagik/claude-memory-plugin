@@ -1804,6 +1804,54 @@
     {
       "id": "decision-v111-provider-security-hardening",
       "type": "decision"
+    },
+    {
+      "id": "gotcha-v112-marketplace-needs-bun-install-in-sessionstart",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-plugin-hooks-need-explicit-matcher-for-user-level-hook-merging",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-hook-ollama-timeout-insufficient",
+      "type": "learning"
+    },
+    {
+      "id": "learning-timeout-constant-inconsistency-30s-vs-120s",
+      "type": "learning"
+    },
+    {
+      "id": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "type": "decision"
+    },
+    {
+      "id": "learning-plugin-posttooluse-hooks-not-auto-discovered",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
+      "type": "learning"
+    },
+    {
+      "id": "learning-marketplace-plugin-install-location-discovery",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -4055,6 +4103,41 @@
     {
       "source": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
       "target": "learning-post-compaction-parallel-agent-restoration-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "target": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-v112-marketplace-needs-bun-install-in-sessionstart",
+      "target": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-timeout-constant-inconsistency-30s-vs-120s",
+      "target": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "target": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "learning-timeout-constant-inconsistency-30s-vs-120s",
       "label": "relates-to"
     }
   ]

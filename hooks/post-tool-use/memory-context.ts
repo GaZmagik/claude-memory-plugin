@@ -41,10 +41,19 @@ let injectionDedup = new InjectionDeduplicator();
 
 /**
  * Hook-specific timeout for Ollama calls.
- * Hooks should complete quickly to avoid blocking the user experience.
- * Default Ollama timeout is 30s, but hooks use 2s per call to prevent long waits.
+ *
+ * IMPORTANT: This hook has a 30s timeout in hooks.json for these reasons:
+ * 1. Ollama cold-start: Model loading from disk takes 10-30s on first call
+ * 2. Inference time: Topic extraction + semantic search can take 5-10s
+ * 3. Network latency: Ollama may be remote or containerised
+ *
+ * The 10s timeout here is per-Ollama-call; total hook timeout is 30s in hooks.json.
+ * Consider pre-warming Ollama in SessionStart if latency becomes an issue.
+ *
+ * NOTE: hooks.json requires 'matcher: "*"' for PostToolUse to merge properly
+ * with user-level hooks. Without it, marketplace plugins may not fire.
  */
-const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10 seconds per Ollama call (2s was too aggressive)
+const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (30s total hook budget)
 
 /** Check if a path exists (async alternative to existsSync) */
 async function pathExists(p: string): Promise<boolean> {

@@ -28,6 +28,17 @@ const DEFAULT_MODEL = 'haiku';
 const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // 10MB
 
 /**
+ * Sanitise error messages to remove sensitive path information
+ * Replaces home directory paths with redacted placeholders
+ */
+function sanitiseErrorMessage(message: string): string {
+  return message
+    .replace(/\/home\/[^\/\s:]+/g, '/home/***')
+    .replace(/\/Users\/[^\/\s:]+/g, '/Users/***')
+    .replace(/C:\\Users\\[^\\\s:]+/gi, 'C:\\Users\\***');
+}
+
+/**
  * Build the user prompt for AI invocation
  */
 export function buildUserPrompt(params: {
@@ -171,11 +182,12 @@ function executeClaudeCli(args: string[], sessionId: string): { output: string; 
     const stderr = typeof execError.stderr === 'string'
       ? execError.stderr
       : execError.stderr?.toString() ?? '';
+    const sanitisedStderr = sanitiseErrorMessage(stderr.slice(0, 500));
     log.error('Claude CLI execution failed', {
       status: execError.status,
-      stderr: stderr.slice(0, 500),
+      stderr: sanitisedStderr,
     });
-    throw new Error(`Claude CLI failed: ${stderr || 'Unknown error'}`);
+    throw new Error(`Claude CLI failed: ${sanitisedStderr || 'Unknown error'}`);
   }
 }
 
@@ -324,6 +336,7 @@ export async function invokeProviderThought(params: {
       model: options.model,
       styleContent,
       agentContent,
+      oss: options.oss,
     });
 
     // Convert ProviderResult to AICallResult
@@ -493,14 +506,15 @@ export async function invokeProvider(params: {
       };
     }
 
-    log.error('Provider CLI execution failed', { provider, status: execError.status, stderr: stderr.slice(0, 500) });
+    const sanitisedStderr = sanitiseErrorMessage(stderr.slice(0, 500));
+    log.error('Provider CLI execution failed', { provider, status: execError.status, stderr: sanitisedStderr });
 
     return {
       content: '',
       provider,
       model,
       durationMs: Date.now() - startTime,
-      error: `${provider} CLI failed: ${stderr || 'Unknown error'}`,
+      error: `${provider} CLI failed: ${sanitisedStderr || 'Unknown error'}`,
     };
   }
 }

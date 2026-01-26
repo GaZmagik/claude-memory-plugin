@@ -335,6 +335,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
               outputStyle: style,
               agent,
               resume,
+              oss: ossFlag,  // OSS model flag (codex only)
             }
           : undefined,
       });

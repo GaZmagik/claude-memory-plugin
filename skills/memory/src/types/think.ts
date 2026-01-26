@@ -123,6 +123,8 @@ export interface AICallOptions {
   tools?: string[];
   /** User guidance text (optional context for the AI) */
   guidance?: string;
+  /** Use OSS models (Codex only) */
+  oss?: boolean;
 }
 
 /**

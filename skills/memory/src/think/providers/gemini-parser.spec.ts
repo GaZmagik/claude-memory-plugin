@@ -4,9 +4,47 @@
 import { describe, it, expect } from 'vitest';
 import { parseGeminiOutput, extractGeminiModel } from './gemini-parser.js';
 
-describe('gemini-parser exports', () => {
-  it('exports parseGeminiOutput', () => expect(parseGeminiOutput).toBeDefined());
-  it('exports extractGeminiModel', () => expect(extractGeminiModel).toBeDefined());
+describe('parseGeminiOutput', () => {
+  it('filters out INFO log lines', () => {
+    const input = '[INFO] Starting...\nActual content\n[INFO] Done';
+    expect(parseGeminiOutput(input)).toBe('Actual content');
+  });
+
+  it('filters out DEBUG log lines', () => {
+    const input = '[DEBUG] Loading...\nContent here\n[DEBUG] Loaded';
+    expect(parseGeminiOutput(input)).toBe('Content here');
+  });
+
+  it('filters out WARN and ERROR log lines', () => {
+    const input = '[WARN] Warning message\nContent\n[ERROR] Error message';
+    expect(parseGeminiOutput(input)).toBe('Content');
+  });
+
+  it('filters out status messages', () => {
+    const input = 'Thinking...\nActual response\nProcessing...\nDone!';
+    expect(parseGeminiOutput(input)).toBe('Actual response');
+  });
+
+  it('normalises multiple newlines', () => {
+    const input = 'First\n\n\n\nSecond';
+    expect(parseGeminiOutput(input)).toBe('First\n\nSecond');
+  });
+
+  it('handles empty input', () => {
+    expect(parseGeminiOutput('')).toBe('');
+    expect(parseGeminiOutput(null)).toBe('');
+    expect(parseGeminiOutput(undefined)).toBe('');
+  });
+
+  it('handles complex real output', () => {
+    const input = `[DEBUG] Loading extensions...
+[INFO] Connected
+Thinking...
+Here is the actual response.
+Processing...
+Done!`;
+    expect(parseGeminiOutput(input)).toBe('Here is the actual response.');
+  });
 });
 
 describe('extractGeminiModel', () => {

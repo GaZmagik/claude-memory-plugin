@@ -1772,6 +1772,26 @@
     {
       "id": "learning-provider-cli-timeout-requirements",
       "type": "learning"
+    },
+    {
+      "id": "learning-gemini-model-extraction-requires-user-agent-fallback",
+      "type": "learning"
+    },
+    {
+      "id": "learning-provider-cli-mcp-startup-requires-120s-timeout",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-cli-think-commands-suppress-output-silently",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-provider-security-hardening-v1-1-1",
+      "type": "decision"
+    },
+    {
+      "id": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
+      "type": "learning"
     }
   ],
   "edges": [

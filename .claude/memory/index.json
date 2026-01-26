@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T14:25:32.836Z",
+  "lastUpdated": "2026-01-26T16:24:56.825Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -5921,6 +5921,84 @@
       "updated": "2026-01-26T14:25:32.830Z",
       "scope": "project",
       "relativePath": "permanent/learning-provider-cli-timeout-requirements.md"
+    },
+    {
+      "id": "learning-gemini-model-extraction-requires-user-agent-fallback",
+      "type": "learning",
+      "title": "Gemini model extraction requires User-Agent fallback",
+      "tags": [
+        "gemini",
+        "parser",
+        "model-extraction",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:28.031Z",
+      "updated": "2026-01-26T16:24:28.031Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-gemini-model-extraction-requires-user-agent-fallback.md"
+    },
+    {
+      "id": "learning-provider-cli-mcp-startup-requires-120s-timeout",
+      "type": "learning",
+      "title": "Provider CLI MCP startup requires 120s timeout",
+      "tags": [
+        "provider",
+        "timeout",
+        "mcp",
+        "reliability",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:33.927Z",
+      "updated": "2026-01-26T16:24:33.927Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-provider-cli-mcp-startup-requires-120s-timeout.md"
+    },
+    {
+      "id": "gotcha-cli-think-commands-suppress-output-silently",
+      "type": "gotcha",
+      "title": "CLI think commands suppress output silently",
+      "tags": [
+        "cli",
+        "debugging",
+        "output-suppression",
+        "think",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:40.336Z",
+      "updated": "2026-01-26T16:24:40.336Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-think-commands-suppress-output-silently.md"
+    },
+    {
+      "id": "decision-provider-security-hardening-v1-1-1",
+      "type": "decision",
+      "title": "Add security hardening to provider CLI invocation",
+      "tags": [
+        "security",
+        "provider",
+        "hardening",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:50.454Z",
+      "updated": "2026-01-26T16:24:50.454Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-provider-security-hardening-v1-1-1.md"
+    },
+    {
+      "id": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
+      "type": "learning",
+      "title": "Parser behaviour tests were missing, only export checks existed",
+      "tags": [
+        "testing",
+        "parser",
+        "test-coverage",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-01-26T16:24:56.804Z",
+      "updated": "2026-01-26T16:24:56.804Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parser-behaviour-tests-were-missing-only-export-checks-existed.md"
     }
   ]
 }

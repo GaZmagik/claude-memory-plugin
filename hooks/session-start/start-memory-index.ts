@@ -15,7 +15,7 @@ import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 import { spawn } from '../src/core/subprocess.ts';
-import { loadSettings, DEFAULT_SETTINGS } from '../src/settings/plugin-settings.ts';
+import { loadSettings, DEFAULT_SETTINGS, checkAndMigrateSettingsVersion } from '../src/settings/plugin-settings.ts';
 
 /**
  * Check if the memory CLI is available in PATH
@@ -408,8 +408,73 @@ runHook(async (input) => {
   // Load plugin settings (with fallbacks to defaults)
   const settings = await loadSettings(projectDir);
 
+  // Check if settings version is outdated and migrate if needed
+  const versionCheck = await checkAndMigrateSettingsVersion(projectDir, settings);
+  let versionNotification = '';
+  if (versionCheck.migrationNeeded) {
+    versionNotification = `\n📝 Settings updated to v${versionCheck.currentVersion} (you have v${versionCheck.userVersion}):\n`;
+    versionNotification += `   New settings: ${versionCheck.newSettings.join(', ')}\n`;
+    versionNotification += `   Updated memory.example.md - copy new settings to memory.local.md to use.\n`;
+  }
+
   const localIndex = join(projectDir, '.claude', 'memory', 'index.json');
   const globalIndex = join(home, '.claude', 'memory', 'index.json');
+
+  // Check if session started from /clear command
+  const clearFlagPath = join(projectDir, '.claude', 'flags', `clear-${sessionId}`);
+  const isAfterClear = existsSync(clearFlagPath);
+
+  // If skip_hooks_after_clear is enabled and this is a post-clear session,
+  // show minimal index only (skip semantic search, health check, deliberations)
+  if (isAfterClear && settings.skip_hooks_after_clear) {
+    // Clean up the flag file
+    try {
+      const { unlinkSync } = await import('fs');
+      unlinkSync(clearFlagPath);
+    } catch {
+      // Ignore cleanup errors
+    }
+
+    // Check if any index exists
+    if (!existsSync(localIndex) && !existsSync(globalIndex)) {
+      return allow();
+    }
+
+    let summary = '📚 Memory Index Available:\n';
+
+    // Build local summary
+    if (existsSync(localIndex)) {
+      const localSummary = buildSummary(localIndex, 'Local');
+      if (localSummary) {
+        summary += localSummary + '\n';
+      }
+    }
+
+    // Build global summary
+    if (existsSync(globalIndex)) {
+      const globalSummary = buildSummary(globalIndex, 'Global');
+      if (globalSummary) {
+        summary += globalSummary + '\n';
+      }
+    }
+
+    summary += "\n💡 Use 'memory search <topic>' to find relevant memories.";
+
+    // Append version notification if settings were updated
+    if (versionNotification) {
+      summary += versionNotification;
+    }
+
+    return {
+      exitCode: 0,
+      output: {
+        hookSpecificOutput: {
+          hookEventName: 'SessionStart',
+          additionalContext: summary,
+        },
+      },
+    };
+  }
 
   // Set up logging
   let logFile: string | null = null;
@@ -483,6 +548,11 @@ runHook(async (input) => {
   await autoPruneTemporaries(projectDir, logFile, sessionId);
 
   summary += "\n💡 Use 'memory search <topic>' to find relevant memories before starting work.";
+
+  // Append version notification if settings were updated
+  if (versionNotification) {
+    summary += versionNotification;
+  }
 
   return {
     exitCode: 0,

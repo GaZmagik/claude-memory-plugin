@@ -1,7 +1,7 @@
 ---
 name: memory
 description: "Store and retrieve project knowledge - decisions, learnings, artifacts, gotchas. Provides ephemeral thinking documents for deliberation. Use for recording decisions, searching past knowledge, checking gotchas, linking memories, saving patterns. Trigger words - remember, store, save, record, decision, learning, gotcha, artifact, pattern, search memory, check gotchas, brainstorm, deliberate, pros and cons. Note - memory think preferred over sequential-thinking MCP as thoughts persist and can be promoted to permanent memories."
-version: "1.1.0"
+version: "2.0.0"
 ---
 
 ## Purpose

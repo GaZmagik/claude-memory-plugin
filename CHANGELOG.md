@@ -5,6 +5,53 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-01-28
+
+### Added
+
+#### Settings Versioning
+- **Settings schema version tracking**: New `settings_version` field in `memory.local.md` to detect outdated configs
+- Future-proof configuration migration path for when new settings are introduced
+
+#### Reminder Improvements
+- **Configurable reminder frequency**: New `reminder_count` setting controls how many times reminders show per session
+  - Default: `1` (show once per session)
+  - Range: `0` (disabled) to `10` (show first 10 prompts)
+- **Consolidated reminder hook**: Merged `memory-skill-reminder.ts` and `memory-think-reminder.ts` into single `memory-reminders.ts`
+- Session-scoped reminder tracking using enhanced SessionCache key-value storage
+
+#### Ollama Optimisations
+- **Model pre-warming at session start**: Reduces PostToolUse cold-start latency by loading chat model on SessionStart
+- **Configurable keep-alive**: New `ollama_keep_alive` setting controls how long models stay loaded (default: `5m`)
+  - Eliminates repeated cold-start delays within sessions
+  - Configurable: `5m`, `10m`, `30m`, `60m`
+
+#### Performance Options
+- **Post-clear session skip**: New `skip_hooks_after_clear` setting to skip heavy operations after `/clear`
+  - Skips: semantic search, health checks, deliberation lists
+  - Shows: minimal memory index summary
+  - Use case: Fresh start with minimal context injection
+
+### Changed
+
+#### SessionCache Enhancements
+- Added key-value storage methods: `get()` and `set()`
+- Extended `CacheEntry` interface with optional `value` field
+- Maintains backward compatibility with hash-based deduplication
+
+#### Hook Registration Updates
+- SessionStart: Added `ollama-prewarm.ts` hook (15s timeout)
+- UserPromptSubmit: Replaced two reminder hooks with consolidated `memory-reminders.ts`
+
+### Removed
+- `hooks/user-prompt-submit/memory-skill-reminder.ts` (replaced by `memory-reminders.ts`)
+- `hooks/user-prompt-submit/memory-think-reminder.ts` (replaced by `memory-reminders.ts`)
+
+### Documentation
+- Added v1.2.0 settings reference to `memory.example.md`
+- Documented reminder configuration patterns
+- Documented performance options for post-clear sessions
+
 ## [1.1.2] - 2026-01-26
 
 ### Fixed

@@ -14,6 +14,8 @@ import { join } from 'path';
 interface CacheEntry {
   hash: string;
   addedAt: number;
+  /** Optional value for key-value storage (v1.2.0+) */
+  value?: string;
 }
 
 /**
@@ -44,13 +46,13 @@ export class SessionCache {
   private readonly cacheFile: string;
   private readonly sessionId: string;
   private readonly ttlMs: number;
-  private entries: Map<string, number>;
+  private entries: Map<string, { addedAt: number; value?: string }>;
 
   private constructor(
     cacheFile: string,
     sessionId: string,
     ttlMs: number,
-    entries: Map<string, number>
+    entries: Map<string, { addedAt: number; value?: string }>
   ) {
     this.cacheFile = cacheFile;
     this.sessionId = sessionId;
@@ -85,8 +87,8 @@ export class SessionCache {
     cacheFile: string,
     sessionId: string,
     ttlMs: number
-  ): Promise<Map<string, number>> {
-    const entries = new Map<string, number>();
+  ): Promise<Map<string, { addedAt: number; value?: string }>> {
+    const entries = new Map<string, { addedAt: number; value?: string }>();
 
     try {
       await access(cacheFile);
@@ -108,7 +110,7 @@ export class SessionCache {
       for (const entry of data.entries || []) {
         // Skip expired entries
         if (now - entry.addedAt < ttlMs) {
-          entries.set(entry.hash, entry.addedAt);
+          entries.set(entry.hash, { addedAt: entry.addedAt, value: entry.value });
         }
       }
     } catch {
@@ -125,10 +127,16 @@ export class SessionCache {
     try {
       const data: CacheData = {
         sessionId: this.sessionId,
-        entries: Array.from(this.entries.entries()).map(([hash, addedAt]) => ({
-          hash,
-          addedAt,
-        })),
+        entries: Array.from(this.entries.entries()).map(([hash, entry]) => {
+          const cacheEntry: CacheEntry = {
+            hash,
+            addedAt: entry.addedAt,
+          };
+          if (entry.value !== undefined) {
+            cacheEntry.value = entry.value;
+          }
+          return cacheEntry;
+        }),
       };
       await writeFile(this.cacheFile, JSON.stringify(data, null, 2));
     } catch {
@@ -140,13 +148,13 @@ export class SessionCache {
    * Check if a hash exists in the cache (and is not expired)
    */
   has(hash: string): boolean {
-    const addedAt = this.entries.get(hash);
-    if (addedAt === undefined) {
+    const entry = this.entries.get(hash);
+    if (entry === undefined) {
       return false;
     }
 
     // Check TTL
-    if (Date.now() - addedAt >= this.ttlMs) {
+    if (Date.now() - entry.addedAt >= this.ttlMs) {
       this.entries.delete(hash);
       return false;
     }
@@ -158,7 +166,35 @@ export class SessionCache {
    * Add a hash to the cache
    */
   async add(hash: string): Promise<void> {
-    this.entries.set(hash, Date.now());
+    this.entries.set(hash, { addedAt: Date.now() });
+    await this.save();
+  }
+
+  /**
+   * Get value by key (returns null if not found or expired)
+   * @since v1.2.0
+   */
+  get(key: string): string | null {
+    const entry = this.entries.get(key);
+    if (!entry) {
+      return null;
+    }
+
+    // Check TTL
+    if (Date.now() - entry.addedAt >= this.ttlMs) {
+      this.entries.delete(key);
+      return null;
+    }
+
+    return entry.value ?? null;
+  }
+
+  /**
+   * Set key-value pair in cache
+   * @since v1.2.0
+   */
+  async set(key: string, value: string): Promise<void> {
+    this.entries.set(key, { addedAt: Date.now(), value });
     await this.save();
   }
 
@@ -167,8 +203,8 @@ export class SessionCache {
    */
   async cleanup(): Promise<void> {
     const now = Date.now();
-    for (const [hash, addedAt] of this.entries) {
-      if (now - addedAt >= this.ttlMs) {
+    for (const [hash, entry] of this.entries) {
+      if (now - entry.addedAt >= this.ttlMs) {
         this.entries.delete(hash);
       }
     }

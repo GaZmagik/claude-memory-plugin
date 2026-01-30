@@ -22,6 +22,27 @@ async function pathExists(p: string): Promise<boolean> {
 }
 
 /**
+ * Current settings schema version
+ * Increment this when adding new settings fields
+ */
+export const CURRENT_SCHEMA_VERSION = 1;
+
+/**
+ * Migration map: version -> new settings added in that version
+ */
+const SCHEMA_MIGRATIONS: Record<number, string[]> = {
+  1: [
+    'settings_version: 1',
+    'reminder_count: 1',
+    'skip_hooks_after_clear: false',
+    'ollama_keep_alive: "5m"',
+    'ollama_prewarm_timeout: 10000',
+  ],
+  // Future versions:
+  // 2: ['new_setting_v2: value', ...],
+};
+
+/**
  * Memory plugin settings interface
  */
 export interface MemoryPluginSettings {
@@ -49,6 +70,16 @@ export interface MemoryPluginSettings {
   lsh_hash_bits: number;
   /** Number of LSH hash tables (default: 6) */
   lsh_tables: number;
+  /** Settings schema version for detecting config updates (default: 1) */
+  settings_version: number;
+  /** Show reminders N times per session, 0 to disable (default: 1) */
+  reminder_count: number;
+  /** Skip heavy hooks after /clear command (default: false) */
+  skip_hooks_after_clear: boolean;
+  /** How long Ollama keeps models loaded (default: "5m") */
+  ollama_keep_alive: string;
+  /** Pre-warm timeout in milliseconds (default: 10000ms / 10s) */
+  ollama_prewarm_timeout: number;
 }
 
 /**
@@ -67,6 +98,11 @@ export const DEFAULT_SETTINGS: MemoryPluginSettings = {
   lsh_collection_threshold: 200,
   lsh_hash_bits: 10,
   lsh_tables: 6,
+  settings_version: 1,
+  reminder_count: 1,
+  skip_hooks_after_clear: false,
+  ollama_keep_alive: '5m',
+  ollama_prewarm_timeout: 10000,
 };
 
 /** Settings file location relative to project root */
@@ -88,6 +124,11 @@ const FIELD_TYPES: Record<keyof MemoryPluginSettings, 'boolean' | 'string' | 'nu
   lsh_collection_threshold: 'number',
   lsh_hash_bits: 'number',
   lsh_tables: 'number',
+  settings_version: 'number',
+  reminder_count: 'number',
+  skip_hooks_after_clear: 'boolean',
+  ollama_keep_alive: 'string',
+  ollama_prewarm_timeout: 'number',
 };
 
 /**
@@ -203,6 +244,21 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
           numValue = Math.max(1, Math.floor(numValue));
         }
 
+        // Settings version must be >= 1
+        if (settingKey === 'settings_version') {
+          numValue = Math.max(1, Math.floor(numValue));
+        }
+
+        // Reminder count: 0-10 range
+        if (settingKey === 'reminder_count') {
+          numValue = Math.max(0, Math.min(10, Math.floor(numValue)));
+        }
+
+        // Ollama prewarm timeout: 1-60 seconds (1000-60000ms)
+        if (settingKey === 'ollama_prewarm_timeout') {
+          numValue = Math.max(1000, Math.min(60000, Math.floor(numValue)));
+        }
+
         (result as Record<string, number>)[settingKey] = numValue;
       }
     }
@@ -280,4 +336,83 @@ export function getDuplicateDetectionOptions(
     numHashBits: settings?.lsh_hash_bits ?? DEFAULT_SETTINGS.lsh_hash_bits,
     numTables: settings?.lsh_tables ?? DEFAULT_SETTINGS.lsh_tables,
   };
+}
+
+/**
+ * Settings version migration result
+ */
+export interface VersionMigrationResult {
+  /** Whether migration was needed */
+  migrationNeeded: boolean;
+  /** User's current settings version */
+  userVersion: number;
+  /** Current schema version */
+  currentVersion: number;
+  /** List of new settings added in newer versions */
+  newSettings: string[];
+  /** Whether template was successfully updated */
+  templateUpdated: boolean;
+}
+
+/**
+ * Check if user's settings version is outdated and migrate if needed
+ *
+ * @param projectDir - Project root directory
+ * @param userSettings - User's loaded settings
+ * @returns Migration result with details about any updates
+ */
+export async function checkAndMigrateSettingsVersion(
+  projectDir: string,
+  userSettings: MemoryPluginSettings
+): Promise<VersionMigrationResult> {
+  const userVersion = userSettings.settings_version;
+  const currentVersion = DEFAULT_SETTINGS.settings_version;
+
+  const result: VersionMigrationResult = {
+    migrationNeeded: userVersion < currentVersion,
+    userVersion,
+    currentVersion,
+    newSettings: [],
+    templateUpdated: false,
+  };
+
+  // No migration needed if versions match
+  if (!result.migrationNeeded) {
+    return result;
+  }
+
+  // Apply all migrations between user version and current version
+  // This scales as new versions are added - just add to SCHEMA_MIGRATIONS map
+  for (let version = userVersion + 1; version <= currentVersion; version++) {
+    const migrations = SCHEMA_MIGRATIONS[version];
+    if (migrations) {
+      result.newSettings.push(...migrations);
+    }
+  }
+
+  // Copy template from hooks/memory.example.md to .claude/memory.example.md
+  try {
+    const { readFile: readFileSync, writeFile: writeFileSync, mkdir: mkdirSync } = await import('fs/promises');
+
+    // Find plugin root (CLAUDE_PLUGIN_ROOT or relative path)
+    // import.meta.dir is hooks/src/settings, so go up 3 levels to get project root
+    const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || join(import.meta.dir, '..', '..', '..');
+    const templatePath = join(pluginRoot, 'hooks', 'memory.example.md');
+    const targetPath = join(projectDir, '.claude', 'memory.example.md');
+
+    // Ensure .claude directory exists
+    await mkdirSync(join(projectDir, '.claude'), { recursive: true });
+
+    // Copy template
+    const templateContent = await readFileSync(templatePath, 'utf-8');
+    await writeFileSync(targetPath, templateContent, 'utf-8');
+
+    result.templateUpdated = true;
+  } catch (error: unknown) {
+    // Failed to update template - silently continue (best-effort)
+    // Error is captured in migration result for programmatic handling
+    result.templateUpdated = false;
+  }
+
+  return result;
 }

@@ -156,6 +156,19 @@ ollama_keep_alive: 60m  # 1 hour
 
 Longer durations reduce cold-start latency but consume more RAM.
 
+#### Ollama Pre-warm Timeout
+
+Configure the timeout for pre-warming the Ollama model at session start:
+
+```yaml
+ollama_prewarm_timeout: 10000  # 10 seconds (default)
+ollama_prewarm_timeout: 15000  # 15 seconds
+ollama_prewarm_timeout: 30000  # 30 seconds
+```
+
+Pre-warming loads the model at session start to reduce latency for first memory operations.
+Users with slower systems or larger models may benefit from a longer timeout.
+
 ### Duplicate Detection (LSH)
 
 Settings for the `suggest-links` and duplicate detection features.

@@ -22,6 +22,27 @@ async function pathExists(p: string): Promise<boolean> {
 }
 
 /**
+ * Current settings schema version
+ * Increment this when adding new settings fields
+ */
+export const CURRENT_SCHEMA_VERSION = 1;
+
+/**
+ * Migration map: version -> new settings added in that version
+ */
+const SCHEMA_MIGRATIONS: Record<number, string[]> = {
+  1: [
+    'settings_version: 1',
+    'reminder_count: 1',
+    'skip_hooks_after_clear: false',
+    'ollama_keep_alive: "5m"',
+    'ollama_prewarm_timeout: 10000',
+  ],
+  // Future versions:
+  // 2: ['new_setting_v2: value', ...],
+};
+
+/**
  * Memory plugin settings interface
  */
 export interface MemoryPluginSettings {
@@ -57,6 +78,8 @@ export interface MemoryPluginSettings {
   skip_hooks_after_clear: boolean;
   /** How long Ollama keeps models loaded (default: "5m") */
   ollama_keep_alive: string;
+  /** Pre-warm timeout in milliseconds (default: 10000ms / 10s) */
+  ollama_prewarm_timeout: number;
 }
 
 /**
@@ -79,6 +102,7 @@ export const DEFAULT_SETTINGS: MemoryPluginSettings = {
   reminder_count: 1,
   skip_hooks_after_clear: false,
   ollama_keep_alive: '5m',
+  ollama_prewarm_timeout: 10000,
 };
 
 /** Settings file location relative to project root */
@@ -104,6 +128,7 @@ const FIELD_TYPES: Record<keyof MemoryPluginSettings, 'boolean' | 'string' | 'nu
   reminder_count: 'number',
   skip_hooks_after_clear: 'boolean',
   ollama_keep_alive: 'string',
+  ollama_prewarm_timeout: 'number',
 };
 
 /**
@@ -229,6 +254,11 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
           numValue = Math.max(0, Math.min(10, Math.floor(numValue)));
         }
 
+        // Ollama prewarm timeout: 1-60 seconds (1000-60000ms)
+        if (settingKey === 'ollama_prewarm_timeout') {
+          numValue = Math.max(1000, Math.min(60000, Math.floor(numValue)));
+        }
+
         (result as Record<string, number>)[settingKey] = numValue;
       }
     }
@@ -351,16 +381,13 @@ export async function checkAndMigrateSettingsVersion(
     return result;
   }
 
-  // Determine what settings were added based on version difference
-  // v1 -> v2 would add different settings than v1 -> v3
-  if (userVersion < 1 && currentVersion >= 1) {
-    // v1 added: settings_version, reminder_count, skip_hooks_after_clear, ollama_keep_alive
-    result.newSettings.push(
-      'settings_version: 1',
-      'reminder_count: 1',
-      'skip_hooks_after_clear: false',
-      'ollama_keep_alive: "5m"'
-    );
+  // Apply all migrations between user version and current version
+  // This scales as new versions are added - just add to SCHEMA_MIGRATIONS map
+  for (let version = userVersion + 1; version <= currentVersion; version++) {
+    const migrations = SCHEMA_MIGRATIONS[version];
+    if (migrations) {
+      result.newSettings.push(...migrations);
+    }
   }
 
   // Copy template from hooks/memory.example.md to .claude/memory.example.md
@@ -381,9 +408,9 @@ export async function checkAndMigrateSettingsVersion(
     await writeFileSync(targetPath, templateContent, 'utf-8');
 
     result.templateUpdated = true;
-  } catch (error) {
-    // Failed to update template - log but don't fail
-    console.error('[Settings] Failed to update memory.example.md:', error);
+  } catch (error: unknown) {
+    // Failed to update template - silently continue (best-effort)
+    // Error is captured in migration result for programmatic handling
     result.templateUpdated = false;
   }
 

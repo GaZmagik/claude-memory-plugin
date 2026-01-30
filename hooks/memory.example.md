@@ -36,6 +36,12 @@ context_window: 16384
 # Valid values: "5m", "10m", "30m", "60m"
 ollama_keep_alive: 5m
 
+# Ollama Pre-warm Timeout (v1.2.0+)
+# ----------------------------------
+# Timeout in milliseconds for pre-warming model at session start
+# Valid range: 1000-60000 (1-60 seconds)
+ollama_prewarm_timeout: 10000
+
 # Advanced Settings (optional)
 # ----------------------------
 # Uncomment to override defaults:
@@ -105,6 +111,7 @@ values you want to override.
 | `reminder_count` | number | `1` | Show reminders N times per session (0=disable, max=10) |
 | `skip_hooks_after_clear` | boolean | `false` | Skip heavy hooks after /clear |
 | `ollama_keep_alive` | string | `"5m"` | How long Ollama keeps models loaded (5m/10m/30m/60m) |
+| `ollama_prewarm_timeout` | number | `10000` | Pre-warm timeout in ms (1000-60000, default 10s) |
 
 #### Reminder Configuration
 

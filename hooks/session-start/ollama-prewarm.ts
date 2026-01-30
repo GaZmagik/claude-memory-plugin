@@ -35,7 +35,7 @@ runHook(async (input) => {
   // This triggers model loading without generating much output
   try {
     await generate('ping', settings.chat_model, {
-      timeout: 10000, // 10s timeout for pre-warm
+      timeout: settings.ollama_prewarm_timeout,
       num_ctx: 128, // Minimal context window
     });
   } catch {

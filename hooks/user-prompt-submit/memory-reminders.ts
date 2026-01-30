@@ -42,11 +42,12 @@ runHook(async (input) => {
   const cache = await SessionCache.create(cacheDir, sessionId);
   const cacheKey = 'reminder-count';
 
-  // Get current count (defaults to 0 if not exists)
+  // Get current count (defaults to 0 if not exists or invalid)
   let count = 0;
   const cached = cache.get(cacheKey);
   if (cached !== null) {
-    count = parseInt(cached, 10);
+    const parsed = parseInt(cached, 10);
+    count = isNaN(parsed) ? 0 : parsed;
   }
 
   // Increment and store

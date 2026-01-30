@@ -33,6 +33,13 @@ context_window: 16384
 # semantic_threshold: 0.45
 # auto_sync: false
 
+# Settings Version (v1.2.0+)
+# --------------------------
+# Schema version for detecting config updates.
+# Bump this when new settings are added to trigger migration prompts.
+
+settings_version: 1
+
 # Duplicate Detection (LSH)
 # -------------------------
 # Settings for finding similar/duplicate memories.
@@ -101,6 +108,53 @@ values you want to override.
 | `health_threshold` | number | `0.7` | Graph health warning threshold (0-1) |
 | `semantic_threshold` | number | `0.45` | Semantic search similarity cutoff (0-1) |
 | `auto_sync` | boolean | `false` | Run memory sync on session start |
+
+### v1.2.0 Settings
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `settings_version` | number | `1` | Schema version for detecting config updates |
+| `reminder_count` | number | `1` | Show reminders N times per session (0=disable) |
+| `skip_hooks_after_clear` | boolean | `false` | Skip heavy hooks after /clear |
+| `ollama_keep_alive` | string | `"5m"` | How long Ollama keeps models loaded |
+
+#### Reminder Configuration
+
+Control how often memory reminders are shown:
+
+```yaml
+reminder_count: 1    # Show once per session (default)
+reminder_count: 3    # Show first 3 prompts
+reminder_count: 0    # Disable reminders
+```
+
+#### Performance Options
+
+```yaml
+skip_hooks_after_clear: false  # (default) Show full memory index after /clear
+skip_hooks_after_clear: true   # Skip semantic search/health checks after /clear
+```
+
+**Why skip after clear?** After `/clear`, you may want minimal context injection
+for a fresh start. Enabling this skips:
+- Semantic search based on branch context
+- Memory health check warnings
+- Active deliberation lists
+
+The basic memory index summary is still shown.
+
+#### Ollama Keep-Alive
+
+Configure how long Ollama keeps models loaded in memory:
+
+```yaml
+ollama_keep_alive: 5m   # 5 minutes (default)
+ollama_keep_alive: 10m  # 10 minutes
+ollama_keep_alive: 30m  # 30 minutes
+ollama_keep_alive: 60m  # 1 hour
+```
+
+Longer durations reduce cold-start latency but consume more RAM.
 
 ### Duplicate Detection (LSH)
 

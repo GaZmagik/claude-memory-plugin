@@ -9,6 +9,11 @@
 
 enabled: true
 
+# Settings Version (v1.2.0+)
+# --------------------------
+# Schema version for detecting config updates
+settings_version: 1
+
 # Ollama Configuration
 # --------------------
 # The plugin uses Ollama for semantic search and AI-assisted features.
@@ -25,6 +30,12 @@ chat_model: gemma3:4b
 embedding_model: embeddinggemma:latest
 context_window: 16384
 
+# Ollama Keep-Alive (v1.2.0+)
+# ---------------------------
+# How long Ollama keeps models loaded in memory (reduces cold-start latency)
+# Valid values: "5m", "10m", "30m", "60m"
+ollama_keep_alive: 5m
+
 # Advanced Settings (optional)
 # ----------------------------
 # Uncomment to override defaults:
@@ -32,6 +43,16 @@ context_window: 16384
 # health_threshold: 0.7
 # semantic_threshold: 0.45
 # auto_sync: false
+
+# Reminder Configuration (v1.2.0+)
+# --------------------------------
+# Show memory/deliberation reminders N times per session (0 to disable)
+reminder_count: 1
+
+# Performance Options (v1.2.0+)
+# -----------------------------
+# Skip heavy hooks (semantic search, health check) after /clear command
+skip_hooks_after_clear: false
 
 # Duplicate Detection (LSH)
 # -------------------------
@@ -75,6 +96,39 @@ values you want to override.
 | `health_threshold` | number | `0.7` | Graph health warning threshold (0-1) |
 | `semantic_threshold` | number | `0.45` | Semantic search similarity cutoff (0-1) |
 | `auto_sync` | boolean | `false` | Run memory sync on session start |
+
+### v1.2.0 Settings
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `settings_version` | number | `1` | Schema version for detecting config updates |
+| `reminder_count` | number | `1` | Show reminders N times per session (0=disable, max=10) |
+| `skip_hooks_after_clear` | boolean | `false` | Skip heavy hooks after /clear |
+| `ollama_keep_alive` | string | `"5m"` | How long Ollama keeps models loaded (5m/10m/30m/60m) |
+
+#### Reminder Configuration
+
+Control how often memory reminders are shown:
+
+```yaml
+reminder_count: 1    # Show once per session (default)
+reminder_count: 3    # Show first 3 prompts
+reminder_count: 0    # Disable reminders
+```
+
+#### Performance Options
+
+```yaml
+skip_hooks_after_clear: false  # (default) Show full memory index after /clear
+skip_hooks_after_clear: true   # Skip semantic search/health checks after /clear
+```
+
+**Why skip after clear?** After `/clear`, you may want minimal context injection for a fresh start. Enabling this skips:
+- Semantic search based on branch context
+- Memory health check warnings
+- Active deliberation lists
+
+The basic memory index summary is still shown.
 
 ### Duplicate Detection (LSH)
 

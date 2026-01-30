@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26T22:53:33.713Z",
+  "lastUpdated": "2026-01-30T18:01:35.463Z",
   "memories": [
     {
       "id": "learning-scope-isolation-architecture-design",
@@ -6236,6 +6236,264 @@
       "updated": "2026-01-26T22:53:33.703Z",
       "scope": "project",
       "relativePath": "permanent/learning-marketplace-plugin-install-location-discovery.md"
+    },
+    {
+      "id": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "type": "learning",
+      "title": "Marketplace plugin hooks fail silently without node_modules",
+      "tags": [
+        "hooks",
+        "marketplace",
+        "node_modules",
+        "plugin-installation",
+        "project"
+      ],
+      "created": "2026-01-28T01:18:30.206Z",
+      "updated": "2026-01-28T01:18:30.206Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-marketplace-plugin-hooks-fail-silently-without-nodemodules.md"
+    },
+    {
+      "id": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "type": "learning",
+      "title": "PostToolUse hooks need matcher field for user-level merging",
+      "tags": [
+        "hooks",
+        "matcher",
+        "hook-merging",
+        "plugin-configuration",
+        "project"
+      ],
+      "created": "2026-01-28T01:18:30.682Z",
+      "updated": "2026-01-28T01:18:30.682Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-posttooluse-hooks-need-matcher-field-for-user-level-merging.md"
+    },
+    {
+      "id": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "type": "learning",
+      "title": "Ollama timeouts need 10-30s for cold-start, not 2s",
+      "tags": [
+        "ollama",
+        "timeouts",
+        "performance",
+        "hook-configuration",
+        "project"
+      ],
+      "created": "2026-01-28T01:18:31.123Z",
+      "updated": "2026-01-28T01:18:31.123Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s.md"
+    },
+    {
+      "id": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "type": "decision",
+      "title": "v1.1.2 marketplace fixes - comprehensive approach",
+      "tags": [
+        "v1.1.2",
+        "marketplace",
+        "plugin-reliability",
+        "project"
+      ],
+      "created": "2026-01-28T01:18:31.638Z",
+      "updated": "2026-01-28T01:18:31.638Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v112-marketplace-fixes-comprehensive-approach.md"
+    },
+    {
+      "id": "learning-reminder-hook-fatigue-fire-on-every-userpromptsubmit",
+      "type": "learning",
+      "title": "Reminder hook fatigue - fire on every UserPromptSubmit",
+      "tags": [
+        "hooks",
+        "user-experience",
+        "reminders",
+        "session-cache",
+        "project"
+      ],
+      "created": "2026-01-28T01:18:32.165Z",
+      "updated": "2026-01-28T01:18:32.165Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-reminder-hook-fatigue-fire-on-every-userpromptsubmit.md"
+    },
+    {
+      "id": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
+      "type": "gotcha",
+      "title": "settings_version must be updated in multiple files when schema changes",
+      "tags": [
+        "settings",
+        "versioning",
+        "yaml-frontmatter",
+        "sync-required",
+        "project"
+      ],
+      "created": "2026-01-28T22:20:02.493Z",
+      "updated": "2026-01-28T22:20:02.493Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes.md"
+    },
+    {
+      "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "type": "learning",
+      "title": "Test isolation failures caused by mixed test frameworks (Bun test + vitest)",
+      "tags": [
+        "testing",
+        "test-isolation",
+        "bun-test",
+        "vitest",
+        "tech-debt",
+        "root-cause",
+        "project"
+      ],
+      "created": "2026-01-28T22:49:23.586Z",
+      "updated": "2026-01-28T22:49:23.586Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest.md"
+    },
+    {
+      "id": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "type": "decision",
+      "title": "v1.3.0 Agent Meetings - Scheduled multi-agent deliberation sessions",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-30T17:15:10.666Z",
+      "updated": "2026-01-30T17:15:10.666Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions.md"
+    },
+    {
+      "id": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
+      "type": "learning",
+      "title": "Retro - Multi-agent architectural consensus converges faster than single-expert iteration",
+      "tags": [
+        "retrospective",
+        "process",
+        "multi-agent",
+        "architecture",
+        "accord-plugin",
+        "project"
+      ],
+      "created": "2026-01-30T17:23:51.654Z",
+      "updated": "2026-01-30T17:23:51.654Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "type": "gotcha",
+      "title": "Retro - Test isolation root cause was mixed frameworks, not mock pollution",
+      "tags": [
+        "retrospective",
+        "testing",
+        "root-cause",
+        "blame-assumption",
+        "project"
+      ],
+      "created": "2026-01-30T17:23:59.636Z",
+      "updated": "2026-01-30T17:23:59.636Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "type": "learning",
+      "title": "Test isolation failures caused by mixed test frameworks, not mock pollution",
+      "tags": [
+        "testing",
+        "gotcha-correction",
+        "test-frameworks",
+        "bun",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-01-30T17:24:11.036Z",
+      "updated": "2026-01-30T17:24:11.036Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution.md"
+    },
+    {
+      "id": "decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state",
+      "type": "decision",
+      "title": "Accord plugin uses daemon + plugin split with memory as canonical state",
+      "tags": [
+        "architecture",
+        "accord-plugin",
+        "autonomous-agents",
+        "daemon-pattern",
+        "memory-integration",
+        "project"
+      ],
+      "created": "2026-01-30T17:24:21.205Z",
+      "updated": "2026-01-30T17:24:21.205Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state.md"
+    },
+    {
+      "id": "artifact-settings-version-detection-and-migration",
+      "type": "artifact",
+      "title": "Settings version detection and auto-migration logic",
+      "tags": [
+        "settings-management",
+        "v1.2.0",
+        "migration",
+        "auto-sync",
+        "project"
+      ],
+      "created": "2026-01-30T17:24:25.903Z",
+      "updated": "2026-01-30T17:24:25.903Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-settings-version-detection-and-migration.md"
+    },
+    {
+      "id": "decision-accord-plugin-manual-meeting-skill-first-before-scheduled",
+      "type": "decision",
+      "title": "Accord plugin MVP: manual /meeting skill first, validate before scheduling",
+      "tags": [
+        "accord-plugin",
+        "architecture",
+        "v1.3.0",
+        "mvp-first",
+        "autonomous-agents",
+        "project"
+      ],
+      "created": "2026-01-30T17:24:30.589Z",
+      "updated": "2026-01-30T17:24:30.589Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-accord-plugin-manual-meeting-skill-first-before-scheduled.md"
+    },
+    {
+      "id": "learning-v120-implementation-complete-all-features-shipped-and-tested",
+      "type": "learning",
+      "title": "v1.2.0 implementation complete - all features shipped and tested",
+      "tags": [
+        "v1.2.0",
+        "release",
+        "completion",
+        "settings-management",
+        "performance",
+        "project"
+      ],
+      "created": "2026-01-30T17:24:34.827Z",
+      "updated": "2026-01-30T17:24:34.827Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-v120-implementation-complete-all-features-shipped-and-tested.md"
+    },
+    {
+      "id": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
+      "type": "decision",
+      "title": "Accord Plugin - Autonomous agent orchestration platform with persistent memory and dashboard",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-01-30T18:01:35.449Z",
+      "updated": "2026-01-30T18:01:35.449Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard.md"
     }
   ]
 }

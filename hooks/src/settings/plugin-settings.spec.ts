@@ -3,14 +3,15 @@
  * TDD: Tests written first to define expected behaviour
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 import { join } from 'path';
-import { mkdirSync, writeFileSync, rmSync, existsSync } from 'fs';
+import { mkdirSync, writeFileSync, rmSync, existsSync, readFileSync } from 'fs';
 import {
   loadSettings,
   parseYamlFrontmatter,
   validateSettings,
   DEFAULT_SETTINGS,
+  checkAndMigrateSettingsVersion,
 } from './plugin-settings.ts';
 
 describe('plugin-settings', () => {
@@ -39,6 +40,14 @@ describe('plugin-settings', () => {
         health_threshold: 0.7,
         semantic_threshold: 0.45,
         auto_sync: false,
+        duplicate_threshold: 0.92,
+        lsh_collection_threshold: 200,
+        lsh_hash_bits: 10,
+        lsh_tables: 6,
+        settings_version: 1,
+        reminder_count: 1,
+        skip_hooks_after_clear: false,
+        ollama_keep_alive: '5m',
       });
     });
   });
@@ -260,6 +269,14 @@ auto_sync: true
         health_threshold: 0.9,
         semantic_threshold: 0.6,
         auto_sync: true,
+        duplicate_threshold: 0.92,
+        lsh_collection_threshold: 200,
+        lsh_hash_bits: 10,
+        lsh_tables: 6,
+        settings_version: 1,
+        reminder_count: 1,
+        skip_hooks_after_clear: false,
+        ollama_keep_alive: '5m',
       });
     });
 
@@ -273,6 +290,79 @@ enabled: false
       );
       const settings = await loadSettings(testDir);
       expect(settings.enabled).toBe(false);
+    });
+  });
+
+  describe('checkAndMigrateSettingsVersion', () => {
+    const testDir = join(__dirname, '../../../.test-temp/settings-version');
+    const examplePath = join(testDir, '.claude', 'memory.example.md');
+
+    beforeEach(() => {
+      if (existsSync(testDir)) {
+        rmSync(testDir, { recursive: true, force: true });
+      }
+      mkdirSync(join(testDir, '.claude'), { recursive: true });
+    });
+
+    afterEach(() => {
+      if (existsSync(testDir)) {
+        rmSync(testDir, { recursive: true, force: true });
+      }
+    });
+
+    it('should not migrate when versions match', async () => {
+      const settings = { ...DEFAULT_SETTINGS, settings_version: 1 };
+      const result = await checkAndMigrateSettingsVersion(testDir, settings);
+
+      expect(result.migrationNeeded).toBe(false);
+      expect(result.userVersion).toBe(1);
+      expect(result.currentVersion).toBe(1);
+      expect(result.newSettings).toEqual([]);
+      expect(result.templateUpdated).toBe(false);
+    });
+
+    it('should migrate when user version is outdated', async () => {
+      const settings = { ...DEFAULT_SETTINGS, settings_version: 0 };
+      const result = await checkAndMigrateSettingsVersion(testDir, settings);
+
+      expect(result.migrationNeeded).toBe(true);
+      expect(result.userVersion).toBe(0);
+      expect(result.currentVersion).toBe(1);
+      expect(result.newSettings.length).toBeGreaterThan(0);
+      expect(result.newSettings).toContain('settings_version: 1');
+      expect(result.newSettings).toContain('reminder_count: 1');
+    });
+
+    it('should update memory.example.md when migrating', async () => {
+      const settings = { ...DEFAULT_SETTINGS, settings_version: 0 };
+      const result = await checkAndMigrateSettingsVersion(testDir, settings);
+
+      expect(result.templateUpdated).toBe(true);
+      expect(existsSync(examplePath)).toBe(true);
+
+      // Verify content was copied
+      const content = readFileSync(examplePath, 'utf-8');
+      expect(content).toContain('settings_version: 1');
+      expect(content).toContain('Memory Plugin Configuration');
+    });
+
+    it('should handle missing template gracefully', async () => {
+      // Set invalid CLAUDE_PLUGIN_ROOT to simulate missing template
+      const originalRoot = process.env.CLAUDE_PLUGIN_ROOT;
+      process.env.CLAUDE_PLUGIN_ROOT = '/nonexistent/path';
+
+      const settings = { ...DEFAULT_SETTINGS, settings_version: 0 };
+      const result = await checkAndMigrateSettingsVersion(testDir, settings);
+
+      expect(result.migrationNeeded).toBe(true);
+      expect(result.templateUpdated).toBe(false); // Should fail gracefully
+
+      // Restore env
+      if (originalRoot) {
+        process.env.CLAUDE_PLUGIN_ROOT = originalRoot;
+      } else {
+        delete process.env.CLAUDE_PLUGIN_ROOT;
+      }
     });
   });
 });

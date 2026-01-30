@@ -1852,6 +1852,70 @@
     {
       "id": "learning-marketplace-plugin-install-location-discovery",
       "type": "learning"
+    },
+    {
+      "id": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "type": "learning"
+    },
+    {
+      "id": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "type": "learning"
+    },
+    {
+      "id": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "type": "learning"
+    },
+    {
+      "id": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "type": "decision"
+    },
+    {
+      "id": "learning-reminder-hook-fatigue-fire-on-every-userpromptsubmit",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "type": "learning"
+    },
+    {
+      "id": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "type": "decision"
+    },
+    {
+      "id": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "type": "learning"
+    },
+    {
+      "id": "decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-settings-version-detection-and-migration",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-accord-plugin-manual-meeting-skill-first-before-scheduled",
+      "type": "decision"
+    },
+    {
+      "id": "learning-v120-implementation-complete-all-features-shipped-and-tested",
+      "type": "learning"
+    },
+    {
+      "id": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -4138,6 +4202,136 @@
     {
       "source": "learning-hook-ollama-timeout-insufficient",
       "target": "learning-timeout-constant-inconsistency-30s-vs-120s",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "target": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "target": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-accord-plugin-manual-meeting-skill-first-before-scheduled",
+      "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "gotcha-test-isolation-vitest-mock-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "target": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "target": "decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-settings-version-detection-and-migration",
+      "target": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v120-implementation-complete-all-features-shipped-and-tested",
+      "target": "artifact-settings-version-detection-and-migration",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v120-implementation-complete-all-features-shipped-and-tested",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-v120-implementation-complete-all-features-shipped-and-tested",
+      "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
+      "target": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-expert-review-agents-scale-efficiently",
+      "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-missing-export-causes-test-import-cascade-failures",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
+      "target": "artifact-hook-system-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
+      "target": "learning-parallel-expert-review-agents-scale-efficiently",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-colocated-test-pattern-for-typescript-projects",
+      "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
     }
   ]

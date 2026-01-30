@@ -117,6 +117,7 @@ values you want to override.
 | `reminder_count` | number | `1` | Show reminders N times per session (0=disable) |
 | `skip_hooks_after_clear` | boolean | `false` | Skip heavy hooks after /clear |
 | `ollama_keep_alive` | string | `"5m"` | How long Ollama keeps models loaded |
+| `ollama_prewarm_timeout` | number | `10000` | Pre-warm timeout in ms (1000-60000, default 10s) |
 
 #### Reminder Configuration
 

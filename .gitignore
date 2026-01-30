@@ -42,6 +42,9 @@ yarn-error.log*
 .claude/*.local.md
 .claude/*.local.json
 
+# Test cache files (hooks subdirectory)
+hooks/.claude/
+
 # Testing
 .coverage
 htmlcov/

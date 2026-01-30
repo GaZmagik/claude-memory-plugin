@@ -48,6 +48,7 @@ describe('plugin-settings', () => {
         reminder_count: 1,
         skip_hooks_after_clear: false,
         ollama_keep_alive: '5m',
+        ollama_prewarm_timeout: 10000,
       });
     });
   });
@@ -277,6 +278,7 @@ auto_sync: true
         reminder_count: 1,
         skip_hooks_after_clear: false,
         ollama_keep_alive: '5m',
+        ollama_prewarm_timeout: 10000,
       });
     });
 

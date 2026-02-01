@@ -203,7 +203,16 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   // Create Ollama embedding provider (required for semantic search)
   const provider = await createOllamaProviderWithHealthCheck();
   if (!provider) {
-    return error('Semantic search requires Ollama. Please ensure Ollama is running and embeddinggemma:latest model is available.');
+    return error(
+      'Semantic search requires Ollama with the embeddinggemma:latest model.\n' +
+      '\n' +
+      'Setup instructions:\n' +
+      '  1. Install Ollama: https://ollama.ai/download\n' +
+      '  2. Start Ollama service\n' +
+      '  3. Pull the model: ollama pull embeddinggemma:latest\n' +
+      '\n' +
+      'If already installed, ensure Ollama is running on http://localhost:11434'
+    );
   }
 
   return wrapOperation(

@@ -14,6 +14,7 @@ import { parseMemoryFile } from './frontmatter.js';
 import { parseId } from './slug.js';
 import { createLogger } from './logger.js';
 import { Scope } from '../types/enums.js';
+import { loadEmbeddingCache } from '../search/embedding.js';
 
 const log = createLogger('index');
 
@@ -271,11 +272,43 @@ export async function rebuildIndex(request: RebuildIndexRequest): Promise<Rebuil
       newEntriesAdded,
     });
 
+    // Detect missing embeddings
+    const cachePath = path.join(basePath, 'embeddings.json');
+    let missingEmbeddings = 0;
+
+    try {
+      const cache = await loadEmbeddingCache(cachePath);
+
+      for (const entry of newIndex.memories) {
+        // Skip temporary/thought memories (they're ephemeral)
+        if (entry.id.startsWith('thought-') || entry.relativePath?.includes('temporary/')) {
+          continue;
+        }
+
+        if (!cache.memories[entry.id]) {
+          missingEmbeddings++;
+        }
+      }
+    } catch (error) {
+      // Cache doesn't exist or couldn't be read
+      missingEmbeddings = newIndex.memories.filter(
+        e => !e.id.startsWith('thought-') && !e.relativePath?.includes('temporary/')
+      ).length;
+    }
+
+    if (missingEmbeddings > 0) {
+      log.info('Detected memories without embeddings', {
+        count: missingEmbeddings,
+        suggestion: 'Run: memory refresh --embeddings'
+      });
+    }
+
     return {
       status: 'success',
       entriesCount: newEntries.length,
       orphansRemoved,
       newEntriesAdded,
+      missingEmbeddings,
     };
   } catch (error) {
     log.error('Failed to rebuild index', { error: String(error) });

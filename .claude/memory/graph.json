@@ -1916,6 +1916,54 @@
     {
       "id": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
       "type": "decision"
+    },
+    {
+      "id": "learning-meeting-command-orchestration-parallel-promiseall-with-memory-think",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-meeting-template-yaml-schema-design",
+      "type": "artifact"
+    },
+    {
+      "id": "gotcha-meeting-command-10-agent-limit-and-timeouts-prevent-runaway-costs",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-meeting-command-research-synthesis",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-prompt-improver-forked-sessions-leak-processes",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-embedding-generation-tied-to-auto-link-flag",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-embedding-generation-should-be-default",
+      "type": "decision"
+    },
+    {
+      "id": "learning-embedding-generation-requires-ollama-provider-separation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-embedding-generation-2",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-embedding-generation-3",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-local-embedding",
+      "type": "learning"
+    },
+    {
+      "id": "learning-auto-link-test",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -4333,6 +4381,156 @@
       "source": "artifact-colocated-test-pattern-for-typescript-projects",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
+      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-provider-integration-incomplete-in-v110",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-provider-stderr-output",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-gemini-model-extraction-requires-user-agent-fallback",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-provider-cli-mcp-startup-requires-120s-timeout",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-cli-think-commands-suppress-output-silently",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v111-provider-security-hardening",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-plugin-hooks-need-explicit-matcher-for-user-level-hook-merging",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plugin-posttooluse-hooks-not-auto-discovered",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-marketplace-plugin-install-location-discovery",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-reminder-hook-fatigue-fire-on-every-userpromptsubmit",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-embedding-generation-requires-ollama-provider-separation",
+      "target": "decision-embedding-generation-should-be-default",
+      "label": "auto-linked-by-similarity"
     }
   ]
 }

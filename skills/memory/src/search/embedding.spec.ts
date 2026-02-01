@@ -14,11 +14,13 @@ import {
   batchGenerateEmbeddings,
   createMockProvider,
   createOllamaProvider,
+  createOllamaProviderWithHealthCheck,
   generateContentHash,
   truncateForEmbedding,
   type EmbeddingCache,
   type EmbeddingProvider,
 } from './embedding.js';
+import * as fsUtils from '../core/fs-utils.js';
 
 describe('Embedding Generation', () => {
   let testDir: string;
@@ -353,12 +355,10 @@ describe('Embedding Generation', () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const cache: EmbeddingCache = { version: 1, memories: {} };
 
-      // Mock writeFileSync to throw ENOSPC error
+      // Mock writeFileAtomic to throw ENOSPC error
       const enospcError = new Error('ENOSPC: no space left on device');
       (enospcError as NodeJS.ErrnoException).code = 'ENOSPC';
-      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
-        throw enospcError;
-      });
+      const spy = vi.spyOn(fsUtils, 'writeFileAtomic').mockRejectedValue(enospcError);
 
       try {
         await expect(saveEmbeddingCache(cachePath, cache)).rejects.toThrow('ENOSPC');
@@ -371,12 +371,10 @@ describe('Embedding Generation', () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const cache: EmbeddingCache = { version: 1, memories: {} };
 
-      // Mock writeFileSync to throw EACCES error
+      // Mock writeFileAtomic to throw EACCES error
       const eaccesError = new Error('EACCES: permission denied');
       (eaccesError as NodeJS.ErrnoException).code = 'EACCES';
-      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
-        throw eaccesError;
-      });
+      const spy = vi.spyOn(fsUtils, 'writeFileAtomic').mockRejectedValue(eaccesError);
 
       try {
         await expect(saveEmbeddingCache(cachePath, cache)).rejects.toThrow('EACCES');
@@ -398,12 +396,10 @@ describe('Embedding Generation', () => {
         generate: vi.fn().mockResolvedValue([0.5, 0.5]),
       };
 
-      // Mock writeFileSync to throw EACCES error after generation
+      // Mock writeFileAtomic to throw EACCES error after generation
       const eaccesError = new Error('EACCES: permission denied');
       (eaccesError as NodeJS.ErrnoException).code = 'EACCES';
-      const spy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {
-        throw eaccesError;
-      });
+      const spy = vi.spyOn(fsUtils, 'writeFileAtomic').mockRejectedValue(eaccesError);
 
       try {
         // Should reject because cache write fails
@@ -565,6 +561,200 @@ describe('Embedding Generation', () => {
 
       expect(result.length).toBe(6003); // 6000 + '...'
       expect(result.endsWith('...')).toBe(true);
+    });
+  });
+
+  describe('createOllamaProviderWithHealthCheck', () => {
+    const mockFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+
+    beforeEach(() => {
+      globalThis.fetch = mockFetch as any;
+      mockFetch.mockClear();
+    });
+
+    afterEach(() => {
+      globalThis.fetch = originalFetch;
+    });
+
+    it('should return provider when health check succeeds', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [
+            { name: 'embeddinggemma:latest' },
+            { name: 'llama2:latest' },
+          ],
+        }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeDefined();
+      expect(provider?.name).toBe('ollama:embeddinggemma:latest');
+      expect(mockFetch).toHaveBeenCalledWith(
+        'http://localhost:11434/api/tags',
+        expect.objectContaining({
+          method: 'GET',
+        })
+      );
+    });
+
+    it('should return undefined when Ollama is unavailable (timeout)', async () => {
+      mockFetch.mockRejectedValue(new Error('Timeout'));
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should return undefined when HTTP response is not ok', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 503,
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should return undefined when model is not available', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [
+            { name: 'llama2:latest' },
+            { name: 'codellama:latest' },
+          ],
+        }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should match models by prefix (version flexibility)', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [
+            { name: 'embeddinggemma:v2' }, // Different version
+            { name: 'llama2:latest' },
+          ],
+        }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeDefined();
+      expect(provider?.name).toBe('ollama:embeddinggemma:latest');
+    });
+
+    it('should return undefined on network error', async () => {
+      mockFetch.mockRejectedValue(new Error('Network error'));
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should return undefined when response JSON is invalid', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => {
+          throw new Error('Invalid JSON');
+        },
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should return undefined when response structure is invalid (missing models)', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ invalid: 'structure' }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should return undefined when models is not an array', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ models: 'not-an-array' }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
+    });
+
+    it('should handle malformed model entries gracefully', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [
+            { name: 'embeddinggemma:latest' },
+            { invalid: 'entry' }, // Missing name field
+            null, // Null entry
+            'string-entry', // String instead of object
+          ],
+        }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      // Should still find the valid entry
+      expect(provider).toBeDefined();
+    });
+
+    it('should use custom baseUrl when provided', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [{ name: 'embeddinggemma:latest' }],
+        }),
+      });
+
+      await createOllamaProviderWithHealthCheck(
+        'embeddinggemma:latest',
+        'http://custom-host:8080'
+      );
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'http://custom-host:8080/api/tags',
+        expect.any(Object)
+      );
+    });
+
+    it('should use custom model when provided', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          models: [{ name: 'custom-model:v1' }],
+        }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck('custom-model:v1');
+
+      expect(provider).toBeDefined();
+    });
+
+    it('should handle empty models array', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ models: [] }),
+      });
+
+      const provider = await createOllamaProviderWithHealthCheck();
+
+      expect(provider).toBeUndefined();
     });
   });
 });

@@ -142,6 +142,42 @@ async function findSimilarTitles(
 const AUTO_LINK_RELATION = 'auto-linked-by-similarity';
 
 /**
+ * Generate and cache embedding for a memory
+ * Failures are logged but don't block the operation
+ */
+async function generateAndCacheEmbedding(
+  memoryId: string,
+  memoryContent: string,
+  basePath: string,
+  provider?: EmbeddingProvider
+): Promise<void> {
+  if (!provider) {
+    return; // No provider, skip silently
+  }
+
+  try {
+    const cachePath = path.join(basePath, 'embeddings.json');
+    const embedding = await generateEmbedding(memoryContent, provider);
+
+    const cache = await loadEmbeddingCache(cachePath);
+    cache.memories[memoryId] = {
+      embedding,
+      hash: generateContentHash(memoryContent),
+      timestamp: new Date().toISOString(),
+    };
+    await saveEmbeddingCache(cachePath, cache);
+
+    log.debug('Generated embedding for memory', { memoryId });
+  } catch (error) {
+    // Embedding generation failure shouldn't fail the write
+    log.warn('Embedding generation failed (Ollama may be unavailable)', {
+      memoryId,
+      error: String(error)
+    });
+  }
+}
+
+/**
  * Perform auto-linking for a newly written memory
  *
  * If an embedding provider is given, generates an embedding for the new memory
@@ -162,22 +198,8 @@ async function performAutoLink(
   provider?: EmbeddingProvider
 ): Promise<number> {
   try {
-    // If provider given, generate embedding for the new memory and save to cache
-    if (provider) {
-      const cachePath = path.join(basePath, 'embeddings.json');
-      const embedding = await generateEmbedding(memoryContent, provider);
-
-      // Save to cache
-      const cache = await loadEmbeddingCache(cachePath);
-      cache.memories[memoryId] = {
-        embedding,
-        hash: generateContentHash(memoryContent),
-        timestamp: new Date().toISOString(),
-      };
-      await saveEmbeddingCache(cachePath, cache);
-
-      log.debug('Generated embedding for auto-link', { memoryId });
-    }
+    // Generate embedding if provider available
+    await generateAndCacheEmbedding(memoryId, memoryContent, basePath, provider);
 
     // Find similar memories using embeddings cache
     // Provider is passed but findSimilarToMemory reads from cache
@@ -332,6 +354,9 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     }
 
     log.info('Wrote memory', { id, path: filePath });
+
+    // Always attempt embedding generation (best effort)
+    await generateAndCacheEmbedding(id, request.content, basePath, request.embeddingProvider);
 
     // Auto-link if requested
     let autoLinked: number | undefined;

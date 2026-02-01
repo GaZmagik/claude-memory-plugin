@@ -8,8 +8,15 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
 import { createLogger } from '../core/logger.js';
+import { writeFileAtomic } from '../core/fs-utils.js';
 
 const log = createLogger('embedding');
+
+/**
+ * Timeout for Ollama health check in milliseconds
+ * Fast failure to avoid 30-second default timeout
+ */
+const OLLAMA_HEALTH_CHECK_TIMEOUT_MS = 2000;
 
 /**
  * Embedding provider interface
@@ -98,7 +105,8 @@ export async function saveEmbeddingCache(
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+  // Use atomic write to prevent cache corruption during concurrent writes
+  await writeFileAtomic(cachePath, JSON.stringify(cache, null, 2));
   log.debug('Saved embedding cache', { path: cachePath, memories: Object.keys(cache.memories).length });
 }
 
@@ -298,4 +306,74 @@ export function createOllamaProvider(
       return data.embedding;
     },
   };
+}
+
+/**
+ * Create Ollama provider with upfront health check to avoid timeouts
+ * Returns undefined if Ollama is unavailable
+ *
+ * Model matching strategy:
+ * Uses prefix matching for flexibility - 'embeddinggemma' will match
+ * 'embeddinggemma:latest', 'embeddinggemma:v2', etc. This allows version
+ * flexibility while ensuring the correct model family is available.
+ *
+ * @param model - Model name (e.g., 'embeddinggemma:latest')
+ * @param baseUrl - Ollama API base URL
+ * @returns EmbeddingProvider if available, undefined otherwise
+ */
+export async function createOllamaProviderWithHealthCheck(
+  model: string = 'embeddinggemma:latest',
+  baseUrl: string = 'http://localhost:11434'
+): Promise<EmbeddingProvider | undefined> {
+  try {
+    // Quick health check with fast timeout to avoid blocking
+    const response = await fetch(`${baseUrl}/api/tags`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(OLLAMA_HEALTH_CHECK_TIMEOUT_MS),
+    });
+
+    if (!response.ok) {
+      return undefined;
+    }
+
+    // Parse and validate response structure
+    let data: unknown;
+    try {
+      data = await response.json();
+    } catch {
+      // Invalid JSON response
+      return undefined;
+    }
+
+    // Validate response has expected structure
+    if (!data || typeof data !== 'object' || !('models' in data)) {
+      return undefined;
+    }
+
+    const apiResponse = data as { models?: unknown };
+    if (!Array.isArray(apiResponse.models)) {
+      return undefined;
+    }
+
+    // Extract model prefix (before ':') for flexible version matching
+    const modelPrefix = model.split(':')[0] ?? '';
+    const modelAvailable = apiResponse.models.some((m) => {
+      // Validate each model entry has expected structure
+      if (!m || typeof m !== 'object' || !('name' in m)) {
+        return false;
+      }
+      const modelEntry = m as { name?: unknown };
+      return typeof modelEntry.name === 'string' && modelEntry.name.includes(modelPrefix);
+    });
+
+    if (!modelAvailable) {
+      return undefined;
+    }
+
+    // Health check passed, return provider
+    return createOllamaProvider(model, baseUrl);
+  } catch (error) {
+    // Ollama unavailable - return undefined for graceful fallback
+    return undefined;
+  }
 }

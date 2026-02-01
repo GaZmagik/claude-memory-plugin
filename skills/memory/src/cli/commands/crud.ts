@@ -15,7 +15,7 @@ import { listMemories } from '../../core/list.js';
 import { deleteMemory } from '../../core/delete.js';
 import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
-import { createOllamaProvider } from '../../search/embedding.js';
+import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
 import { getResolvedScopePath, parseScope, parseMemoryType } from '../helpers.js';
 
@@ -62,8 +62,8 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     meta: input.meta,
     autoLink,
     autoLinkThreshold: getFlagNumber(args.flags, 'auto-link-threshold') ?? input.autoLinkThreshold,
-    // Inject Ollama provider when auto-link requested (for embedding generation)
-    embeddingProvider: autoLink ? createOllamaProvider() : undefined,
+    // Always attempt embedding generation (graceful fallback if Ollama unavailable)
+    embeddingProvider: await createOllamaProviderWithHealthCheck(),
     basePath,
   };
 
@@ -200,8 +200,11 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.5;
   const limit = getFlagNumber(args.flags, 'limit') ?? 10;
 
-  // Create Ollama embedding provider
-  const provider = createOllamaProvider();
+  // Create Ollama embedding provider (required for semantic search)
+  const provider = await createOllamaProviderWithHealthCheck();
+  if (!provider) {
+    return error('Semantic search requires Ollama. Please ensure Ollama is running and embeddinggemma:latest model is available.');
+  }
 
   return wrapOperation(
     async () => {

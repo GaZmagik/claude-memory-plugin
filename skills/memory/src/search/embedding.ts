@@ -299,3 +299,40 @@ export function createOllamaProvider(
     },
   };
 }
+
+/**
+ * Create Ollama provider with upfront health check to avoid timeouts
+ * Returns undefined if Ollama is unavailable
+ */
+export async function createOllamaProviderWithHealthCheck(
+  model: string = 'embeddinggemma:latest',
+  baseUrl: string = 'http://localhost:11434'
+): Promise<EmbeddingProvider | undefined> {
+  try {
+    // Quick health check with 2s timeout
+    const response = await fetch(`${baseUrl}/api/tags`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(2000),
+    });
+
+    if (!response.ok) {
+      return undefined;
+    }
+
+    const data = (await response.json()) as { models?: Array<{ name?: string }> };
+    const modelPrefix = model.split(':')[0] ?? '';
+    const modelAvailable = data.models?.some((m) =>
+      m.name ? m.name.includes(modelPrefix) : false
+    );
+
+    if (!modelAvailable) {
+      return undefined;
+    }
+
+    // Health check passed, return provider
+    return createOllamaProvider(model, baseUrl);
+  } catch (error) {
+    // Ollama unavailable - return undefined for graceful fallback
+    return undefined;
+  }
+}

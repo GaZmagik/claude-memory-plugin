@@ -319,6 +319,8 @@ export interface RebuildIndexResponse extends BaseResponse {
   orphansRemoved?: number;
   /** Number of new entries added */
   newEntriesAdded?: number;
+  /** Number of memories missing embeddings */
+  missingEmbeddings?: number;
 }
 
 /**

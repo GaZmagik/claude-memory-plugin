@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-02T20:06:46.859Z",
+  "lastUpdated": "2026-02-02T22:46:39.432Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -787,22 +787,6 @@
       "scope": "global",
       "relativePath": "permanent/learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout.md",
       "severity": "medium"
-    },
-    {
-      "id": "gotcha-embedding-generation-tied-to-auto-link-flag",
-      "type": "gotcha",
-      "title": "embedding-generation-tied-to-auto-link-flag",
-      "tags": [
-        "embeddings",
-        "memory-plugin",
-        "search",
-        "architecture",
-        "project"
-      ],
-      "created": "2026-02-01T15:13:29.375Z",
-      "updated": "2026-02-01T15:13:29.375Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-embedding-generation-tied-to-auto-link-flag.md"
     },
     {
       "id": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
@@ -6548,6 +6532,211 @@
       "updated": "2026-02-01T23:03:00.901Z",
       "scope": "project",
       "relativePath": "permanent/artifact-v130-specification-analysis-zero-critical-issues.md"
+    },
+    {
+      "id": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "type": "learning",
+      "title": "Retro - Session restoration with parallel agents recovers context efficiently post-compaction",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "session-recovery",
+        "project"
+      ],
+      "created": "2026-02-02T20:38:29.632Z",
+      "updated": "2026-02-02T20:38:29.632Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "type": "gotcha",
+      "title": "Retro - Bun test framework does not support vi.importActual, requires mock.module approach",
+      "tags": [
+        "retrospective",
+        "testing",
+        "bun",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-02T20:38:39.021Z",
+      "updated": "2026-02-02T20:38:39.021Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "type": "learning",
+      "title": "Retro - TDD test-first creation prevents implementation rework in multi-file phases",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-02T20:38:45.376Z",
+      "updated": "2026-02-02T20:38:45.376Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "type": "learning",
+      "title": "TDD compliance hook requires co-located .spec.ts files alongside implementation",
+      "tags": [
+        "tdd",
+        "bun",
+        "testing",
+        "hook-enforcement",
+        "project"
+      ],
+      "created": "2026-02-02T20:39:25.442Z",
+      "updated": "2026-02-02T20:39:25.442Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation.md"
+    },
+    {
+      "id": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "type": "learning",
+      "title": "Bun test framework mocking requires different patterns than Vitest",
+      "tags": [
+        "testing",
+        "bun",
+        "mocking",
+        "framework-differences",
+        "project"
+      ],
+      "created": "2026-02-02T20:39:33.143Z",
+      "updated": "2026-02-02T20:39:33.143Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-framework-mocking-requires-different-patterns-than-vitest.md"
+    },
+    {
+      "id": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "type": "learning",
+      "title": "Phase A TDD cycle: All tests written upfront (Red) → Sequential Green implementation → Batch refactoring",
+      "tags": [
+        "tdd",
+        "phase-a",
+        "testing-strategy",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-02T20:39:41.976Z",
+      "updated": "2026-02-02T20:39:41.976Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring.md"
+    },
+    {
+      "id": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
+      "type": "decision",
+      "title": "Memory System Analysis Complete - Embedding Gotcha Needs Review",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-02T21:07:27.428Z",
+      "updated": "2026-02-02T21:07:27.428Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-memory-system-analysis-complete-embedding-gotcha-needs-review.md"
+    },
+    {
+      "id": "gotcha-embedding-generation-tied-to-auto-link-flag",
+      "type": "gotcha",
+      "title": "embedding-generation-tied-to-auto-link-flag",
+      "tags": [
+        "embeddings",
+        "memory-plugin",
+        "search",
+        "architecture",
+        "project",
+        "resolved-v1.2.0",
+        "archive-candidate"
+      ],
+      "created": "2026-02-01T15:13:29.375Z",
+      "updated": "2026-02-02T21:19:12.906Z",
+      "scope": "global",
+      "relativePath": "permanent/gotcha-embedding-generation-tied-to-auto-link-flag.md"
+    },
+    {
+      "id": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "type": "learning",
+      "title": "Bun test mocking requires mock.module() not vi.importActual()",
+      "tags": [
+        "bun",
+        "testing",
+        "mocking",
+        "phase-a",
+        "project"
+      ],
+      "created": "2026-02-02T22:46:11.114Z",
+      "updated": "2026-02-02T22:46:11.114Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-mocking-requires-mockmodule-not-viimportactual.md"
+    },
+    {
+      "id": "learning-api-validation-must-occur-before-sanitisation-for-security",
+      "type": "learning",
+      "title": "API validation must occur before sanitisation for security",
+      "tags": [
+        "validation",
+        "architecture",
+        "design",
+        "phase-a",
+        "project"
+      ],
+      "created": "2026-02-02T22:46:16.240Z",
+      "updated": "2026-02-02T22:46:16.240Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-api-validation-must-occur-before-sanitisation-for-security.md"
+    },
+    {
+      "id": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "type": "learning",
+      "title": "Phase B storage infrastructure requires minimal changes to CRUD",
+      "tags": [
+        "phase-b",
+        "storage",
+        "architecture",
+        "design",
+        "project"
+      ],
+      "created": "2026-02-02T22:46:23.526Z",
+      "updated": "2026-02-02T22:46:23.526Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud.md"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "type": "learning",
+      "title": "Session restoration with parallel agents efficiently recovers post-compaction context",
+      "tags": [
+        "session-management",
+        "memory-system",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-02T22:46:27.823Z",
+      "updated": "2026-02-02T22:46:27.823Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context.md"
+    },
+    {
+      "id": "decision-agent-scope-api-vs-cli-layer",
+      "type": "decision",
+      "title": "Separate agent scope API validation from CLI sanitisation",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-02T22:46:39.410Z",
+      "updated": "2026-02-02T22:46:39.410Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-agent-scope-api-vs-cli-layer.md"
     }
   ]
 }

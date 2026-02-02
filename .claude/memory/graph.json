@@ -1924,6 +1924,54 @@
     {
       "id": "artifact-v130-specification-analysis-zero-critical-issues",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "type": "learning"
+    },
+    {
+      "id": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
+      "type": "decision"
+    },
+    {
+      "id": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "type": "learning"
+    },
+    {
+      "id": "learning-api-validation-must-occur-before-sanitisation-for-security",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "type": "learning"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "type": "learning"
+    },
+    {
+      "id": "decision-agent-scope-api-vs-cli-layer",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -4410,6 +4458,96 @@
     {
       "source": "learning-embedding-generation-requires-ollama-provider-separation",
       "target": "decision-embedding-generation-should-be-default",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-meeting-command-orchestration-parallel-promiseall-with-memory-think",
+      "target": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-meeting-command-10-agent-limit-and-timeouts-prevent-runaway-costs",
+      "target": "learning-meeting-command-orchestration-parallel-promiseall-with-memory-think",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-embedding-generation-tied-to-auto-link-flag",
+      "target": "decision-embedding-generation-should-be-default",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord",
+      "target": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "target": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "target": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-prompt-improver-forked-sessions-leak-processes",
+      "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v130-specification-phase-complete",
+      "target": "learning-v130-phase-0-research-validation-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-v130-specification-phase-complete",
+      "target": "artifact-v130-specification-analysis-zero-critical-issues",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-v130-specification-analysis-zero-critical-issues",
+      "target": "learning-v130-phase-0-research-validation-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "target": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "target": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "target": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
       "label": "auto-linked-by-similarity"
     }
   ]

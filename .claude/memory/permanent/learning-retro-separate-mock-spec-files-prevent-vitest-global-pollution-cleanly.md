@@ -3,8 +3,9 @@ id: learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-clea
 title: Retro - Separate mock spec files prevent vitest global pollution cleanly
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:48:50.183Z"
-updated: "2026-01-16T20:48:50.183Z"
+updated: "2026-02-01T22:38:06.603Z"
 tags:
   - retrospective
   - testing

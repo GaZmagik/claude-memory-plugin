@@ -3,8 +3,9 @@ id: artifact-phase2-injection-architecture
 title: Phase 2 injection architecture
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T13:31:25.265Z"
-updated: "2026-01-25T13:31:25.265Z"
+updated: "2026-02-01T22:38:06.398Z"
 tags:
   - injection
   - memory-context

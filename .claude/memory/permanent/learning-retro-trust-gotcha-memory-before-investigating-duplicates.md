@@ -3,8 +3,9 @@ id: learning-retro-trust-gotcha-memory-before-investigating-duplicates
 title: Retro - Trust gotcha memory before investigating duplicates
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T17:45:54.596Z"
-updated: "2026-01-16T17:45:54.596Z"
+updated: "2026-02-01T22:38:06.857Z"
 tags:
   - retrospective
   - process

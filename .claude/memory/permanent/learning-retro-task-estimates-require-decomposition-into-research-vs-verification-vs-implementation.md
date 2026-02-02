@@ -3,8 +3,9 @@ id: learning-retro-task-estimates-require-decomposition-into-research-vs-verific
 title: Learning retro - Task estimates require decomposition into research vs. verification vs. implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:47.623Z"
-updated: "2026-01-25T09:58:47.623Z"
+updated: "2026-02-01T22:38:06.618Z"
 tags:
   - retrospective
   - process

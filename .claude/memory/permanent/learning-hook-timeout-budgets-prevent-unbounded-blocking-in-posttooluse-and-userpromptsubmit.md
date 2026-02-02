@@ -3,8 +3,9 @@ id: learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-
 title: Hook timeout budgets prevent unbounded blocking in PostToolUse and UserPromptSubmit
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T21:18:48.522Z"
-updated: "2026-01-25T21:18:48.522Z"
+updated: "2026-02-01T22:38:06.278Z"
 tags:
   - performance
   - hooks

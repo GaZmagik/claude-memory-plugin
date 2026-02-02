@@ -3,8 +3,9 @@ id: gotcha-test-missing-savegraph-mock-corrupted-production-graph
 title: Test missing saveGraph mock corrupted production graph
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T03:07:00.851Z"
-updated: "2026-01-18T03:07:00.851Z"
+updated: "2026-02-01T22:38:06.274Z"
 tags:
   - gotcha
   - testing

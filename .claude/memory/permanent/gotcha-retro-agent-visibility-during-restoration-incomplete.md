@@ -3,8 +3,9 @@ id: gotcha-retro-agent-visibility-during-restoration-incomplete
 title: Retro - Agent visibility during restoration incomplete
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T05:09:28.195Z"
-updated: "2026-01-18T05:09:28.195Z"
+updated: "2026-02-01T22:38:06.600Z"
 tags:
   - retrospective
   - process

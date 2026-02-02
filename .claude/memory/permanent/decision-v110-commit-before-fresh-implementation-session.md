@@ -3,8 +3,9 @@ id: decision-v110-commit-before-fresh-implementation-session
 title: Commit all spec changes before fresh implementation session
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T23:43:26.143Z"
-updated: "2026-01-24T23:43:26.143Z"
+updated: "2026-02-01T22:38:06.887Z"
 tags:
   - v1.1.0
   - context-management

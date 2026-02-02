@@ -3,8 +3,9 @@ id: learning-retro-parallel-memory-restoration-agents-unblock-context-efficientl
 title: Retro - Parallel memory restoration agents unblock context efficiently
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T06:11:51.985Z"
-updated: "2026-01-17T06:11:51.985Z"
+updated: "2026-02-01T22:38:06.320Z"
 tags:
   - retrospective
   - process

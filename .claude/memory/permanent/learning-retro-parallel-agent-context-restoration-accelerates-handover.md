@@ -3,8 +3,9 @@ id: learning-retro-parallel-agent-context-restoration-accelerates-handover
 title: Retro - Parallel agent context restoration accelerates handover
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T17:45:59.995Z"
-updated: "2026-01-16T17:45:59.995Z"
+updated: "2026-02-01T22:38:06.878Z"
 tags:
   - retrospective
   - process

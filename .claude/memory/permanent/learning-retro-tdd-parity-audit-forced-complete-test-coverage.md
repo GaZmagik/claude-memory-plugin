@@ -3,8 +3,9 @@ id: learning-retro-tdd-parity-audit-forced-complete-test-coverage
 title: Retro - TDD parity audit forced complete test coverage
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T16:38:12.771Z"
-updated: "2026-01-16T16:38:12.771Z"
+updated: "2026-02-01T22:38:06.707Z"
 tags:
   - retrospective
   - testing

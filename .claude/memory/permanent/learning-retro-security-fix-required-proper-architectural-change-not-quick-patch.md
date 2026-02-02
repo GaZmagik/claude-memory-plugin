@@ -3,8 +3,9 @@ id: learning-retro-security-fix-required-proper-architectural-change-not-quick-p
 title: Retro - Security fix required proper architectural change, not quick patch
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T12:15:37.310Z"
-updated: "2026-01-18T12:15:37.310Z"
+updated: "2026-02-01T22:38:06.532Z"
 tags:
   - retrospective
   - process

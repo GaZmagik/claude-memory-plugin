@@ -3,8 +3,9 @@ id: learning-retro-embedded-templates-are-better-than-file-based-ones-for-cli-to
 title: Retro - Embedded templates are better than file-based ones for CLI tools
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T22:46:30.645Z"
-updated: "2026-01-18T22:46:30.645Z"
+updated: "2026-02-01T22:38:06.502Z"
 tags:
   - retrospective
   - cli-design

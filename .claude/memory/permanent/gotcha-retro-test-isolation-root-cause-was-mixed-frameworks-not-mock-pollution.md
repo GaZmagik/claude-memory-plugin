@@ -3,8 +3,9 @@ id: gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-polluti
 title: Retro - Test isolation root cause was mixed frameworks, not mock pollution
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:23:59.636Z"
-updated: "2026-01-30T17:23:59.636Z"
+updated: "2026-02-01T22:38:07.014Z"
 tags:
   - retrospective
   - testing

@@ -3,8 +3,9 @@ id: gotcha-global-hooks-override-plugin-hooks
 title: Global hooks in ~/.claude/hooks/ can override or conflict with plugin hooks
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T11:05:42.352Z"
-updated: "2026-01-18T11:05:42.352Z"
+updated: "2026-02-01T22:38:06.602Z"
 tags:
   - hooks
   - plugin

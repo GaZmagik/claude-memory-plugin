@@ -3,8 +3,9 @@ id: learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-re
 title: Retro - Extract shared helpers from duplicated code paths early in refactoring
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T16:41:58.767Z"
-updated: "2026-01-26T16:41:58.767Z"
+updated: "2026-02-01T22:38:06.536Z"
 tags:
   - retrospective
   - process

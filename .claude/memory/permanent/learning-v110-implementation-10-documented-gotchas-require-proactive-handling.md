@@ -3,8 +3,9 @@ id: learning-v110-implementation-10-documented-gotchas-require-proactive-handlin
 title: "v1.1.0 implementation: 10 documented gotchas require proactive handling"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:59:01.981Z"
-updated: "2026-01-25T09:59:01.981Z"
+updated: "2026-02-01T22:38:06.857Z"
 tags:
   - v1.1.0
   - gotchas

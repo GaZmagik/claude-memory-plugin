@@ -3,8 +3,9 @@ id: artifact-duplicated-prefix-fix-plan
 title: Duplicated prefix fix implementation plan
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-21T20:07:47.400Z"
-updated: "2026-01-21T20:07:47.400Z"
+updated: "2026-02-01T22:38:06.739Z"
 tags:
   - memory-system
   - bug-fix

@@ -3,8 +3,9 @@ id: learning-retro-fixing-critical-issues-systematically-with-test-verification-
 title: Retro - Fixing critical issues systematically with test verification between each fix
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T05:32:24.094Z"
-updated: "2026-01-17T05:32:24.094Z"
+updated: "2026-02-01T22:38:06.535Z"
 tags:
   - retrospective
   - process

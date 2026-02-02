@@ -3,8 +3,9 @@ id: gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-o
 title: Gotcha - Event listener cleanup requires specificity to avoid breaking async operations
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T21:18:46.346Z"
-updated: "2026-01-25T21:18:46.346Z"
+updated: "2026-02-01T22:38:06.467Z"
 tags:
   - retrospective
   - gotcha

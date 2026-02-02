@@ -3,8 +3,9 @@ id: learning-debug-hook-execution-with-consoleerror-at-entry-point
 title: Debug hook execution with console.error at entry point
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:52:53.198Z"
-updated: "2026-01-26T22:52:53.198Z"
+updated: "2026-02-01T22:38:06.534Z"
 tags:
   - hooks
   - debugging

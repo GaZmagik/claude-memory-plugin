@@ -3,8 +3,9 @@ id: learning-retro-session-restore-spec-review-workflow-efficiently-validates-an
 title: Retro - Session restore + spec review workflow efficiently validates and fixes complex features
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:55.420Z"
-updated: "2026-01-25T23:21:55.420Z"
+updated: "2026-02-01T22:38:06.534Z"
 tags:
   - retrospective
   - process

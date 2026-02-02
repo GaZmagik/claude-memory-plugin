@@ -3,8 +3,9 @@ id: gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode
 title: Gotcha - vi.mock() causes test pollution in coverage mode
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T18:31:40.641Z"
-updated: "2026-01-16T18:31:40.641Z"
+updated: "2026-02-01T22:38:06.364Z"
 tags:
   - retrospective
   - testing

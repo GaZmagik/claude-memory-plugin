@@ -3,8 +3,9 @@ id: learning-learning-duplicated-cli-helpers-hidden-in-10-command-files
 title: Learning - Duplicated CLI helpers hidden in 10 command files
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T06:12:03.362Z"
-updated: "2026-01-17T06:12:03.362Z"
+updated: "2026-02-01T22:38:06.825Z"
 tags:
   - retrospective
   - refactoring

@@ -3,8 +3,9 @@ id: learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-
 title: Retro - Separate mock spec files prevent test pollution and scale to coverage ceiling
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T21:10:10.061Z"
-updated: "2026-01-16T21:10:10.061Z"
+updated: "2026-02-01T22:38:06.374Z"
 tags:
   - retrospective
   - testing

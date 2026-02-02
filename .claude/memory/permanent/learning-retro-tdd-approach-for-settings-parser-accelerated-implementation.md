@@ -3,8 +3,9 @@ id: learning-retro-tdd-approach-for-settings-parser-accelerated-implementation
 title: Retro - TDD approach for settings parser accelerated implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T12:37:35.911Z"
-updated: "2026-01-17T12:37:35.911Z"
+updated: "2026-02-01T22:38:06.485Z"
 tags:
   - retrospective
   - tdd

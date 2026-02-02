@@ -3,8 +3,9 @@ id: decision-plugin-settings-design-for-memory-plugin
 title: Plugin Settings Design for Memory Plugin
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T11:16:54.573Z"
-updated: "2026-01-17T11:16:54.573Z"
+updated: "2026-02-01T22:38:06.355Z"
 tags:
   - promoted-from-think
   - project

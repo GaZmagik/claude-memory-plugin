@@ -3,8 +3,9 @@ id: learning-duplicated-type-prefix-bug-in-memory-slug-generation
 title: Duplicated type prefix bug in memory slug generation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-21T20:07:28.982Z"
-updated: "2026-01-21T20:07:28.982Z"
+updated: "2026-02-01T22:38:06.858Z"
 tags:
   - memory-system
   - bug

@@ -3,8 +3,9 @@ id: learning-retro-iterative-orphan-linking-with-semantic-validation-is-effectiv
 title: Retro - Iterative orphan linking with semantic validation is effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T23:53:30.501Z"
-updated: "2026-01-16T23:53:30.501Z"
+updated: "2026-02-01T22:38:06.552Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: decision-claude-code-marketplace-naming-and-plugin-ideas
 title: Claude Code Marketplace naming and plugin ideas
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T19:54:04.479Z"
-updated: "2026-01-18T19:54:04.479Z"
+updated: "2026-02-01T22:38:06.410Z"
 tags:
   - promoted-from-think
   - project

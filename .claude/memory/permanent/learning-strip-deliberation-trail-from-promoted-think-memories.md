@@ -3,8 +3,9 @@ id: learning-strip-deliberation-trail-from-promoted-think-memories
 title: Strip deliberation trail from promoted think memories
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T18:17:09.180Z"
-updated: "2026-01-16T18:17:09.180Z"
+updated: "2026-02-01T22:38:06.793Z"
 tags:
   - think
   - promotion

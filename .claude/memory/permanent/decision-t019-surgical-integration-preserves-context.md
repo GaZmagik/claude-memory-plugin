@@ -3,8 +3,9 @@ id: decision-t019-surgical-integration-preserves-context
 title: T019 integration used surgical approach to preserve context at 95%
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:37:55.957Z"
-updated: "2026-01-25T12:37:55.957Z"
+updated: "2026-02-01T22:38:06.583Z"
 tags:
   - t019
   - integration

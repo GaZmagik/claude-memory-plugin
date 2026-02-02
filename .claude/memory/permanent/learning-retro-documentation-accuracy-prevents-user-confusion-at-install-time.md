@@ -3,8 +3,9 @@ id: learning-retro-documentation-accuracy-prevents-user-confusion-at-install-tim
 title: Retro - Documentation accuracy prevents user confusion at install time
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T22:46:25.274Z"
-updated: "2026-01-18T22:46:25.274Z"
+updated: "2026-02-01T22:38:06.219Z"
 tags:
   - retrospective
   - documentation

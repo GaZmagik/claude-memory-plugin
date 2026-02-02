@@ -3,8 +3,9 @@ id: learning-provider-stderr-output
 title: Provider CLI output goes to stderr, not stdout
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T14:25:27.698Z"
-updated: "2026-01-26T14:25:27.698Z"
+updated: "2026-02-01T22:38:06.262Z"
 tags:
   - provider-integration
   - cli-parsing

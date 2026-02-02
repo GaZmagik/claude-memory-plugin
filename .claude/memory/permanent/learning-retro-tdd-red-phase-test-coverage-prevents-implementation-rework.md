@@ -3,8 +3,9 @@ id: learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework
 title: Retro - TDD Red phase test coverage prevents implementation rework
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:21.696Z"
-updated: "2026-01-25T14:56:21.696Z"
+updated: "2026-02-01T22:38:06.533Z"
 tags:
   - retrospective
   - process

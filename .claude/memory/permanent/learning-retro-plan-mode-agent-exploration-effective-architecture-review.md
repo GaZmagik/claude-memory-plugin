@@ -3,8 +3,9 @@ id: learning-retro-plan-mode-agent-exploration-effective-architecture-review
 title: Retro - Plan mode + agent exploration = effective architecture review
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T23:53:40.342Z"
-updated: "2026-01-16T23:53:40.342Z"
+updated: "2026-02-01T22:38:05.868Z"
 tags:
   - retrospective
   - process

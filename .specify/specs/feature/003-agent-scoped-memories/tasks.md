@@ -65,12 +65,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Duration**: 0.5 day
 
-- [ ] T001 Review plan/research.md findings and validate technical decisions for agent scoping
-- [ ] T002 [P] Verify existing scope resolver in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
-- [ ] T003 [P] Verify existing graph system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/
-- [ ] T004 [P] Verify existing index system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/index.ts
-- [ ] T005 [P] Verify existing frontmatter system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
-- [ ] T006 [P] Verify existing CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
+- [X] T001 Review plan/research.md findings and validate technical decisions for agent scoping
+- [X] T002 [P] Verify existing scope resolver in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
+- [X] T003 [P] Verify existing graph system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/
+- [X] T004 [P] Verify existing index system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/index.ts
+- [X] T005 [P] Verify existing frontmatter system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
+- [X] T006 [P] Verify existing CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
 
 **Checkpoint**: Research validated, existing services confirmed, ready for implementation
 
@@ -88,27 +88,27 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T007 [P] [US1] Unit test for AgentProject and AgentGlobal in Scope enum in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-scope-enum.spec.ts
-- [ ] T008 [P] [US1] Unit test for agent name sanitisation (spaces, special chars, Unicode) in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-sanitisation.spec.ts
-- [ ] T009 [P] [US1] Unit test for reserved agent name validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-reserved-names.spec.ts
-- [ ] T010 [P] [US2] Unit test for agent scope path resolution (project vs global) in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-paths.spec.ts
-- [ ] T011 [P] [US2] Unit test for default scope selection with agent context in git repo in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-default-agent-scope.spec.ts
-- [ ] T012 [P] [US2] Unit test for default scope selection with agent context outside git in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-scope-no-git.spec.ts
-- [ ] T013 [US2] Integration test for scope hierarchy resolution with agent context in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-scope-hierarchy.spec.ts
-- [ ] T014 [US1] Integration test for AgentContext creation and validation in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-context.spec.ts
+- [X] T007 [P] [US1] Unit test for AgentProject and AgentGlobal in Scope enum in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-scope-enum.spec.ts
+- [X] T008 [P] [US1] Unit test for agent name sanitisation (spaces, special chars, Unicode) in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-sanitisation.spec.ts
+- [X] T009 [P] [US1] Unit test for reserved agent name validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-reserved-names.spec.ts
+- [X] T010 [P] [US2] Unit test for agent scope path resolution (project vs global) in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-paths.spec.ts
+- [X] T011 [P] [US2] Unit test for default scope selection with agent context in git repo in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-default-agent-scope.spec.ts
+- [X] T012 [P] [US2] Unit test for default scope selection with agent context outside git in /home/gareth/.vs/claude-memory-plugin/tests/unit/scope/test-agent-scope-no-git.spec.ts
+- [X] T013 [US2] Integration test for scope hierarchy resolution with agent context in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-scope-hierarchy.spec.ts
+- [X] T014 [US1] Integration test for AgentContext creation and validation in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-context.spec.ts
 
 ### Implementation for Phase A
 
-- [ ] T015 [P] [US1] Add AgentProject and AgentGlobal to Scope enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T016 [P] [US1] Create AgentContext interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-context.ts
-- [ ] T017 [P] [US1] Create ScopeContext extension with agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/scope-context.ts
-- [ ] T018 [P] [US1] Implement sanitiseAgentName utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/sanitise-agent-name.ts
-- [ ] T019 [P] [US1] Implement validateAgentName utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/validate-agent-name.ts
-- [ ] T020 [P] [US1] Create isAgentScope helper in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/is-agent-scope.ts
-- [ ] T021 [US2] Implement getAgentDirectoryPath utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/get-agent-directory-path.ts
-- [ ] T022 [US2] Extend ScopeResolver to accept optional agent parameter in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
-- [ ] T023 [US2] Update getDefaultScope for agent context in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
-- [ ] T024 [US2] Add agent scope path resolution logic to ScopeResolver in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
+- [X] T015 [P] [US1] Add AgentProject and AgentGlobal to Scope enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T016 [P] [US1] Create AgentContext interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-context.ts
+- [X] T017 [P] [US1] Create ScopeContext extension with agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/scope-context.ts
+- [X] T018 [P] [US1] Implement sanitiseAgentName utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/sanitise-agent-name.ts
+- [X] T019 [P] [US1] Implement validateAgentName utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/validate-agent-name.ts
+- [X] T020 [P] [US1] Create isAgentScope helper in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/is-agent-scope.ts
+- [X] T021 [US2] Implement getAgentDirectoryPath utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/get-agent-directory-path.ts
+- [X] T022 [US2] Extend ScopeResolver to accept optional agent parameter in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
+- [X] T023 [US2] Update getDefaultScope for agent context in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
+- [X] T024 [US2] Add agent scope path resolution logic to ScopeResolver in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/scope/resolver.ts
 
 **Checkpoint**: Scope system extended, agent name sanitisation operational, agent scope paths resolved correctly
 

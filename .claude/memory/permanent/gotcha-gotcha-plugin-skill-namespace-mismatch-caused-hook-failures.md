@@ -3,8 +3,9 @@ id: gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures
 title: Gotcha - Plugin skill namespace mismatch caused hook failures
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T06:11:57.861Z"
-updated: "2026-01-17T06:11:57.861Z"
+updated: "2026-02-01T22:38:06.605Z"
 tags:
   - retrospective
   - hooks

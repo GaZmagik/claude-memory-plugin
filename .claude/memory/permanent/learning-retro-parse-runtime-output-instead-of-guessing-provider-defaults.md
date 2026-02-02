@@ -3,8 +3,9 @@ id: learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults
 title: Retro - Parse runtime output instead of guessing provider defaults
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T14:25:17.012Z"
-updated: "2026-01-26T14:25:17.012Z"
+updated: "2026-02-01T22:38:06.702Z"
 tags:
   - retrospective
   - process

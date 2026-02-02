@@ -3,8 +3,9 @@ id: gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context
 title: Auto-compaction mid-task is safe - session-restore rebuilds context
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T16:16:35.097Z"
-updated: "2026-01-25T16:16:35.097Z"
+updated: "2026-02-01T22:38:06.602Z"
 tags:
   - context-management
   - auto-compaction

@@ -3,8 +3,9 @@ id: learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery
 title: Retro - Systematic coverage patterns accelerate edge case discovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:01:08.586Z"
-updated: "2026-01-16T20:01:08.586Z"
+updated: "2026-02-01T22:38:06.493Z"
 tags:
   - retrospective
   - process

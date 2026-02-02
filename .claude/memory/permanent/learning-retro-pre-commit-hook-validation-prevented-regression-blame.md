@@ -3,8 +3,9 @@ id: learning-retro-pre-commit-hook-validation-prevented-regression-blame
 title: Retro - Pre-commit hook validation prevented regression blame
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T21:18:41.471Z"
-updated: "2026-01-25T21:18:41.471Z"
+updated: "2026-02-01T22:38:06.050Z"
 tags:
   - retrospective
   - process

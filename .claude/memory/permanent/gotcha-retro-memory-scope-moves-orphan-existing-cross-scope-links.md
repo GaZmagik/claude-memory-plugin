@@ -3,8 +3,9 @@ id: gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links
 title: Retro - Memory scope moves orphan existing cross-scope links
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T23:12:37.583Z"
-updated: "2026-01-16T23:12:37.583Z"
+updated: "2026-02-01T22:38:06.312Z"
 tags:
   - retrospective
   - process

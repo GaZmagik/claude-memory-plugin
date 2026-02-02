@@ -3,8 +3,9 @@ id: gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental
 title: Gotcha - Mock test refactoring needs dedicated sprint, not incremental
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T23:06:47.911Z"
-updated: "2026-01-18T00:08:06.987Z"
+updated: "2026-02-01T22:38:06.500Z"
 tags:
   - retrospective
   - testing

@@ -3,8 +3,9 @@ id: gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags
 title: Retro - Review estimation drift on type checker strictness flags
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T13:56:10.029Z"
-updated: "2026-01-18T13:56:10.029Z"
+updated: "2026-02-01T22:38:06.077Z"
 tags:
   - retrospective
   - estimation

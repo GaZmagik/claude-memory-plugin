@@ -3,8 +3,9 @@ id: gotcha-provider-cli-startup-timeouts-need-120s-not-30s
 title: Gotcha - Provider CLI startup timeouts need 120s not 30s
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T14:25:21.558Z"
-updated: "2026-01-26T14:25:21.558Z"
+updated: "2026-02-01T22:38:06.852Z"
 tags:
   - retrospective
   - gotcha

@@ -3,8 +3,9 @@ id: learning-retro-test-driven-spec-updates-ensure-implementation-matches-expect
 title: Retro - Test-driven spec updates ensure implementation matches expectations
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T00:31:55.376Z"
-updated: "2026-01-17T00:31:55.376Z"
+updated: "2026-02-01T22:38:06.217Z"
 tags:
   - retrospective
   - process

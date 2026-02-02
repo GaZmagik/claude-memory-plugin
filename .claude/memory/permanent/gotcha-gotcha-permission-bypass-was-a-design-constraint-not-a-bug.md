@@ -3,8 +3,9 @@ id: gotcha-gotcha-permission-bypass-was-a-design-constraint-not-a-bug
 title: Gotcha - Permission bypass was a design constraint, not a bug
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T05:32:29.319Z"
-updated: "2026-01-17T05:32:29.319Z"
+updated: "2026-02-01T22:38:06.058Z"
 tags:
   - retrospective
   - process

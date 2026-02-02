@@ -341,11 +341,6 @@
       "title": "Embeddings Cache Schema Must Match Code"
     },
     {
-      "id": "learning-post-compaction-parallel-agent-restoration-effective",
-      "type": "learning",
-      "title": "Post-Compaction Parallel Agent Restoration Effective"
-    },
-    {
       "id": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
       "type": "learning",
       "title": "Feature Already Implemented - Pivot to Testing Instead of Re-implementing"
@@ -571,11 +566,6 @@
       "title": "Retro - Coverage ceiling reached when code requires process.exit/signal mocking"
     },
     {
-      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
-      "type": "learning",
-      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact"
-    },
-    {
       "id": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
       "type": "learning",
       "title": "Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly"
@@ -589,11 +579,6 @@
       "id": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
       "type": "learning",
       "title": "Retro - Systematic coverage patterns accelerate edge case discovery"
-    },
-    {
-      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
-      "type": "learning",
-      "title": "Retro - Parallel restoration agents post-compaction proved efficient"
     },
     {
       "id": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
@@ -1481,11 +1466,6 @@
       "title": "Phase 1 hint visibility implementation (T007-T020) completed TDD cycle"
     },
     {
-      "id": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "type": "learning",
-      "title": "Session restoration with three-agent parallel pattern successful"
-    },
-    {
       "id": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
       "type": "learning",
       "title": "Integration test mock patterns for hint system lifecycle"
@@ -1527,10 +1507,6 @@
     },
     {
       "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
-      "type": "learning"
-    },
-    {
-      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
       "type": "learning"
     },
     {
@@ -1594,10 +1570,6 @@
       "type": "learning"
     },
     {
-      "id": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
-      "type": "learning"
-    },
-    {
       "id": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
       "type": "learning"
     },
@@ -1615,10 +1587,6 @@
     },
     {
       "id": "learning-readme-injection-config-yaml-format-must-nest-under-provider-key",
-      "type": "learning"
-    },
-    {
-      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
       "type": "learning"
     },
     {
@@ -1648,14 +1616,6 @@
     {
       "id": "decision-defer-low-severity-security-findings",
       "type": "decision"
-    },
-    {
-      "id": "learning-parallel-expert-review-agents-scale-efficiently",
-      "type": "learning"
-    },
-    {
-      "id": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "type": "learning"
     },
     {
       "id": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
@@ -1711,10 +1671,6 @@
     },
     {
       "id": "learning-colocated-tests-reveal-true-tdd-coverage",
-      "type": "learning"
-    },
-    {
-      "id": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
       "type": "learning"
     },
     {
@@ -1922,16 +1878,8 @@
       "type": "learning"
     },
     {
-      "id": "artifact-meeting-template-yaml-schema-design",
-      "type": "artifact"
-    },
-    {
       "id": "gotcha-meeting-command-10-agent-limit-and-timeouts-prevent-runaway-costs",
       "type": "gotcha"
-    },
-    {
-      "id": "learning-meeting-command-research-synthesis",
-      "type": "learning"
     },
     {
       "id": "gotcha-prompt-improver-forked-sessions-leak-processes",
@@ -1950,20 +1898,32 @@
       "type": "learning"
     },
     {
-      "id": "learning-test-embedding-generation-2",
+      "id": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
+      "type": "decision"
+    },
+    {
+      "id": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
       "type": "learning"
     },
     {
-      "id": "learning-test-embedding-generation-3",
+      "id": "learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord",
       "type": "learning"
     },
     {
-      "id": "learning-test-local-embedding",
+      "id": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-v130-specification-phase-complete",
+      "type": "decision"
+    },
+    {
+      "id": "learning-v130-phase-0-research-validation-complete",
       "type": "learning"
     },
     {
-      "id": "learning-auto-link-test",
-      "type": "learning"
+      "id": "artifact-v130-specification-analysis-zero-critical-issues",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -2588,11 +2548,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-post-compaction-parallel-agent-restoration-effective",
-      "target": "decision-session-continuity-strategy",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-feature-already-implemented-pivot-to-testing-instead-of-re-implementing",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
@@ -2753,11 +2708,6 @@
       "label": "relates-to"
     },
     {
-      "source": "retro-parallel-expert-review",
-      "target": "learning-post-compaction-parallel-agent-restoration-effective",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-retro-help-system-broken-for-subcommands",
       "target": "hub-cli-module-hub",
       "label": "relates-to"
@@ -2785,11 +2735,6 @@
     {
       "source": "retro-parallel-expert-review-effective",
       "target": "learning-expert-consultation-effectiveness",
-      "label": "relates-to"
-    },
-    {
-      "source": "retro-parallel-expert-review-effective",
-      "target": "learning-post-compaction-parallel-agent-restoration-effective",
       "label": "relates-to"
     },
     {
@@ -2878,11 +2823,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
-      "target": "decision-session-continuity-strategy",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-retro-coverage-tool-continuation-threshold-unclear",
       "target": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
       "label": "relates-to"
@@ -2890,11 +2830,6 @@
     {
       "source": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
       "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
-      "target": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
       "label": "relates-to"
     },
     {
@@ -3923,16 +3858,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "target": "learning-session-restoration-with-parallel-agents-scales-well",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-phase-1-implementation-t014-t018-cleanly-complete-t019-t020-needs-fresh-context",
       "target": "learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycle",
       "label": "relates-to"
@@ -4013,16 +3938,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
-      "target": "learning-post-compaction-parallel-agent-restoration-effective",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
-      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-secret-name-consistency-in-github-actions-workflows",
       "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
@@ -4035,11 +3950,6 @@
     {
       "source": "learning-session-restoration-with-parallel-agents-scales-well",
       "target": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
-      "label": "relates-to"
-    },
-    {
-      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
-      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
       "label": "relates-to"
     },
     {
@@ -4095,11 +4005,6 @@
     {
       "source": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
       "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
-      "target": "learning-session-restoration-with-parallel-agents-scales-well",
       "label": "relates-to"
     },
     {
@@ -4163,11 +4068,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
-      "target": "learning-session-restoration-with-parallel-agents-scales-well",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
       "target": "artifact-memory-system-architecture-reference",
       "label": "relates-to"
@@ -4210,11 +4110,6 @@
     {
       "source": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
       "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "target": "learning-post-compaction-parallel-agent-restoration-effective",
       "label": "relates-to"
     },
     {
@@ -4343,11 +4238,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-parallel-expert-review-agents-scale-efficiently",
-      "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
-      "label": "relates-to"
-    },
-    {
       "source": "gotcha-missing-export-causes-test-import-cascade-failures",
       "target": "artifact-tdd-testing-patterns-catalogue",
       "label": "relates-to"
@@ -4363,11 +4253,6 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "target": "learning-parallel-expert-review-agents-scale-efficiently",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-pr-review-agents-should-fix-issues-in-parallel",
       "target": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
       "label": "relates-to"
@@ -4380,11 +4265,6 @@
     {
       "source": "artifact-colocated-test-pattern-for-typescript-projects",
       "target": "artifact-tdd-testing-patterns-catalogue",
-      "label": "relates-to"
-    },
-    {
-      "source": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
-      "target": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
       "label": "relates-to"
     },
     {

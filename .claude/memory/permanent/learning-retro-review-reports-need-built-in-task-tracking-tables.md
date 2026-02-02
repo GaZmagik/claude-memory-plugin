@@ -3,8 +3,9 @@ id: learning-retro-review-reports-need-built-in-task-tracking-tables
 title: Retro - Review reports need built-in task tracking tables
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T05:43:47.616Z"
-updated: "2026-01-18T05:43:47.616Z"
+updated: "2026-02-01T22:38:06.498Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: gotcha-gotcha-graph-edge-loss-silently-corrupts-state-without-validation
 title: Gotcha - Graph edge loss silently corrupts state without validation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T10:26:56.793Z"
-updated: "2026-01-17T10:26:56.793Z"
+updated: "2026-02-01T22:38:06.410Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-single-responsibility-principle-prevented-scope-creep-in-hook
 title: Retro - Single responsibility principle prevented scope creep in hook design
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T19:14:39.406Z"
-updated: "2026-01-17T19:14:39.406Z"
+updated: "2026-02-01T22:38:05.985Z"
 tags:
   - retrospective
   - process

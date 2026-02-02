@@ -3,8 +3,9 @@ id: learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-r
 title: "Learning - Mock file organisation: vi.spyOn() safe to inline, mock.module() requires isolation"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T01:07:49.230Z"
-updated: "2026-01-17T01:07:49.230Z"
+updated: "2026-02-01T22:38:06.807Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-integration-test-mock-patterns-for-hint-system-lifecycle
 title: Integration test mock patterns for hint system lifecycle
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:22:51.441Z"
-updated: "2026-01-25T12:22:51.441Z"
+updated: "2026-02-01T22:38:05.998Z"
 tags:
   - testing
   - mocking

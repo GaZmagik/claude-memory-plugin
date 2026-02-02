@@ -3,8 +3,9 @@ id: gotcha-prompt-improver-forked-sessions-leak-processes
 title: Prompt improver forked sessions leak processes causing slowdowns
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-31T07:41:47.788Z"
-updated: "2026-01-31T07:41:47.788Z"
+updated: "2026-02-01T22:38:06.484Z"
 tags:
   - prompt-improver
   - performance

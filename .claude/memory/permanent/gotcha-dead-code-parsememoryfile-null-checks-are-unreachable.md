@@ -3,8 +3,9 @@ id: gotcha-dead-code-parsememoryfile-null-checks-are-unreachable
 title: Dead code - parseMemoryFile null checks are unreachable
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T23:29:04.066Z"
-updated: "2026-01-18T00:08:25.230Z"
+updated: "2026-02-01T22:38:06.600Z"
 tags:
   - dead-code
   - testing

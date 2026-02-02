@@ -3,8 +3,9 @@ id: gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes
 title: settings_version must be updated in multiple files when schema changes
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T22:20:02.493Z"
-updated: "2026-01-28T22:20:02.493Z"
+updated: "2026-02-01T22:38:06.337Z"
 tags:
   - settings
   - versioning

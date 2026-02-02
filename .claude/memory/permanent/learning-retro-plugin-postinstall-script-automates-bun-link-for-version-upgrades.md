@@ -3,8 +3,9 @@ id: learning-retro-plugin-postinstall-script-automates-bun-link-for-version-upgr
 title: Retro - Plugin postinstall script automates bun link for version upgrades
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T12:37:32.812Z"
-updated: "2026-01-17T12:37:32.812Z"
+updated: "2026-02-01T22:38:06.269Z"
 tags:
   - retrospective
   - process

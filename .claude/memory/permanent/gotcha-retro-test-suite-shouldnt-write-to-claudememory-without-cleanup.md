@@ -3,8 +3,9 @@ id: gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup
 title: Retro - Test suite shouldn't write to .claude/memory without cleanup
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T00:31:50.690Z"
-updated: "2026-01-17T00:31:50.690Z"
+updated: "2026-02-01T22:38:06.701Z"
 tags:
   - retrospective
   - testing

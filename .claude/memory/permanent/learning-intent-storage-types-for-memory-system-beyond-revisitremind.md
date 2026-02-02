@@ -3,8 +3,9 @@ id: learning-intent-storage-types-for-memory-system-beyond-revisitremind
 title: Intent Storage Types for Memory System - Beyond Revisit/Remind
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T22:11:47.074Z"
-updated: "2026-01-17T22:11:47.074Z"
+updated: "2026-02-01T22:38:06.133Z"
 tags:
   - promoted-from-think
   - project

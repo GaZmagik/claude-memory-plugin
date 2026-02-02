@@ -3,8 +3,9 @@ id: learning-posttooluse-hooks-need-matcher-field-for-user-level-merging
 title: PostToolUse hooks need matcher field for user-level merging
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T01:18:30.682Z"
-updated: "2026-01-28T01:18:30.682Z"
+updated: "2026-02-01T22:38:07.008Z"
 tags:
   - hooks
   - matcher

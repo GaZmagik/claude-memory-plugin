@@ -3,8 +3,9 @@ id: learning-meeting-command-orchestration-parallel-promiseall-with-memory-think
 title: "Meeting command orchestration: parallel Promise.all with memory think"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-31T07:38:20.976Z"
-updated: "2026-01-31T07:38:20.976Z"
+updated: "2026-02-01T22:38:06.912Z"
 tags:
   - meeting-command
   - orchestration

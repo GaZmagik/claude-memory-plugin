@@ -3,8 +3,9 @@ id: learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-mult
 title: Retro - Subagent delegation pattern bypasses context ceiling for multi-phase tasks
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:30.075Z"
-updated: "2026-01-25T09:58:30.075Z"
+updated: "2026-02-01T22:38:06.258Z"
 tags:
   - retrospective
   - process

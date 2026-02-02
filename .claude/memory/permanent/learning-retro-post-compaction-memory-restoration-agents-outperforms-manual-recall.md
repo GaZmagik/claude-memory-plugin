@@ -3,8 +3,9 @@ id: learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-
 title: Retro - Post-compaction memory restoration (agents) outperforms manual recall
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T17:06:02.325Z"
-updated: "2026-01-16T17:06:02.325Z"
+updated: "2026-02-01T22:38:06.499Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-duplicate-sdd-scaffolding-bloats-test-suite
 title: Duplicate SDD Scaffolding Bloats Test Suite
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:01.508Z"
-updated: "2026-01-26T00:12:01.508Z"
+updated: "2026-02-01T22:38:06.791Z"
 tags:
   - testing
   - sdd

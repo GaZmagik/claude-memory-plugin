@@ -3,8 +3,9 @@ id: learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal
 title: Retro - Coverage ceiling reached when code requires process.exit/signal mocking
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T19:01:46.765Z"
-updated: "2026-01-16T19:01:46.765Z"
+updated: "2026-02-01T22:38:06.601Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-systematic-investigation-methodology-for-complex-issues
 title: Retro - Systematic investigation methodology for complex issues
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T10:34:33.781Z"
-updated: "2026-01-18T10:34:33.781Z"
+updated: "2026-02-01T22:38:06.089Z"
 tags:
   - retrospective
   - process

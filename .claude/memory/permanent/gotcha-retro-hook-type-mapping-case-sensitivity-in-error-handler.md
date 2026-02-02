@@ -3,8 +3,9 @@ id: gotcha-retro-hook-type-mapping-case-sensitivity-in-error-handler
 title: Retro - Hook type mapping case sensitivity in error-handler
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T12:37:27.513Z"
-updated: "2026-01-17T12:37:27.513Z"
+updated: "2026-02-01T22:38:06.393Z"
 tags:
   - retrospective
   - hooks

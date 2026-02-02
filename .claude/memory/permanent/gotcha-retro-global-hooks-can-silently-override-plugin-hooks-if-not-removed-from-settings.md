@@ -3,8 +3,9 @@ id: gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-
 title: Retro - Global hooks can silently override plugin hooks if not removed from settings
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T11:40:25.920Z"
-updated: "2026-01-18T11:40:25.920Z"
+updated: "2026-02-01T22:38:06.570Z"
 tags:
   - retrospective
   - process

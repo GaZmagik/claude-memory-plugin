@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-01T15:54:09.426Z",
+  "lastUpdated": "2026-02-02T20:06:46.859Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -318,18 +318,6 @@
       "relativePath": "permanent/learning-tdd-caught-hook-integration-pattern-mismatch.md"
     },
     {
-      "id": "learning-test-embedding-generation-3",
-      "type": "learning",
-      "title": "Test Embedding Generation 3",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-01T15:46:39.582Z",
-      "updated": "2026-02-01T15:46:39.582Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-test-embedding-generation-3.md"
-    },
-    {
       "id": "learning-integration-test-mock-patterns-for-hint-system-lifecycle",
       "type": "learning",
       "title": "Integration test mock patterns for hint system lifecycle",
@@ -613,24 +601,6 @@
       "relativePath": "permanent/gotcha-test-isolation-vitest-mock-pollution.md"
     },
     {
-      "id": "artifact-meeting-template-yaml-schema-design",
-      "type": "artifact",
-      "title": "Meeting template YAML schema design",
-      "tags": [
-        "meeting-command",
-        "yaml",
-        "schema",
-        "template",
-        "v1.3.0",
-        "project"
-      ],
-      "created": "2026-01-31T07:38:25.470Z",
-      "updated": "2026-01-31T07:38:25.470Z",
-      "scope": "global",
-      "relativePath": "permanent/artifact-meeting-template-yaml-schema-design.md",
-      "severity": "low"
-    },
-    {
       "id": "learning-retro-systematic-investigation-methodology-for-complex-issues",
       "type": "learning",
       "title": "Retro - Systematic investigation methodology for complex issues",
@@ -677,18 +647,6 @@
       "updated": "2026-01-12T22:02:47.184Z",
       "scope": "global",
       "relativePath": "permanent/retro-mock-syntax-friction-bun.md"
-    },
-    {
-      "id": "learning-test-embedding-generation-2",
-      "type": "learning",
-      "title": "Test Embedding Generation 2",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-01T15:46:19.806Z",
-      "updated": "2026-02-01T15:46:19.806Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-test-embedding-generation-2.md"
     },
     {
       "id": "learning-provider-error-messages-with-installation-instructions",
@@ -1108,24 +1066,6 @@
       "updated": "2026-01-13T19:02:56.182Z",
       "scope": "global",
       "relativePath": "permanent/learning-semantic-linking-with-ollama-effective-for-recovering-orphaned-memories.md"
-    },
-    {
-      "id": "learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "type": "learning",
-      "title": "Retro - Parallel expert review agents scale efficiently for pre-shipping validation",
-      "tags": [
-        "retrospective",
-        "process",
-        "review",
-        "agents",
-        "parallel-execution",
-        "project"
-      ],
-      "created": "2026-01-25T21:18:35.815Z",
-      "updated": "2026-01-25T21:18:35.815Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md",
-      "severity": "high"
     },
     {
       "id": "learning-retro-tdd-with-async-cascades-test-first-approach-clarifies-scope",
@@ -2118,18 +2058,6 @@
       "relativePath": "permanent/gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes.md"
     },
     {
-      "id": "learning-test-local-embedding",
-      "type": "learning",
-      "title": "Test Local Embedding",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-01T15:48:29.194Z",
-      "updated": "2026-02-01T15:48:29.194Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-test-local-embedding.md"
-    },
-    {
       "id": "gotcha-stop-work-at-85-90-context-not-95-100",
       "type": "gotcha",
       "title": "Gotcha - Stop work at 85-90% context, not 95-100%",
@@ -2190,22 +2118,6 @@
       "updated": "2026-01-13T18:49:49.828Z",
       "scope": "global",
       "relativePath": "permanent/learning-tdd-phase-completion-pattern.md"
-    },
-    {
-      "id": "learning-session-restoration-with-three-agent-parallel-pattern-successful",
-      "type": "learning",
-      "title": "Session restoration with three-agent parallel pattern successful",
-      "tags": [
-        "memory",
-        "restoration",
-        "agents",
-        "session-continuity",
-        "project"
-      ],
-      "created": "2026-01-25T12:22:45.466Z",
-      "updated": "2026-01-25T12:22:45.466Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-session-restoration-with-three-agent-parallel-pattern-successful.md"
     },
     {
       "id": "decision-plugin-settings-design-for-memory-plugin",
@@ -2450,22 +2362,6 @@
       "severity": "low"
     },
     {
-      "id": "learning-retro-parallel-restoration-agents-post-compaction-proved-efficient",
-      "type": "learning",
-      "title": "Retro - Parallel restoration agents post-compaction proved efficient",
-      "tags": [
-        "retrospective",
-        "process",
-        "session-management",
-        "project"
-      ],
-      "created": "2026-01-16T20:01:11.904Z",
-      "updated": "2026-01-16T20:01:11.904Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-parallel-restoration-agents-post-compaction-proved-efficient.md",
-      "severity": "low"
-    },
-    {
       "id": "gotcha-embedding-context-length-causes-500-error",
       "type": "gotcha",
       "title": "Embedding Context Length Causes 500 Error",
@@ -2657,22 +2553,6 @@
       "updated": "2026-01-25T12:38:10.980Z",
       "scope": "global",
       "relativePath": "permanent/artifact-flag-parsing-pattern-getflagstring.md"
-    },
-    {
-      "id": "learning-parallel-expert-review-agents-scale-efficiently",
-      "type": "learning",
-      "title": "Parallel expert review agents scale efficiently",
-      "tags": [
-        "pre-shipping",
-        "code-review",
-        "agents",
-        "efficiency",
-        "project"
-      ],
-      "created": "2026-01-25T20:51:10.976Z",
-      "updated": "2026-01-25T20:51:10.976Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-parallel-expert-review-agents-scale-efficiently.md"
     },
     {
       "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
@@ -3262,21 +3142,6 @@
       "relativePath": "permanent/learning-promoting-learnings-to-decisions-revealed-12-misclassified-memories.md"
     },
     {
-      "id": "learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation",
-      "type": "learning",
-      "title": "Parallel expert review agents scale efficiently for pre-shipping validation",
-      "tags": [
-        "code-review",
-        "architecture",
-        "optimization",
-        "project"
-      ],
-      "created": "2026-01-25T21:18:40.077Z",
-      "updated": "2026-01-25T21:18:40.077Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-parallel-expert-review-agents-scale-efficiently-for-pre-shipping-validation.md"
-    },
-    {
       "id": "gotcha-prompt-improver-forked-sessions-leak-processes",
       "type": "gotcha",
       "title": "Prompt improver forked sessions leak processes causing slowdowns",
@@ -3340,23 +3205,6 @@
       "updated": "2026-01-13T19:45:06.427Z",
       "scope": "global",
       "relativePath": "permanent/gotcha-embeddings-cache-schema-must-match-code.md",
-      "severity": "medium"
-    },
-    {
-      "id": "learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact",
-      "type": "learning",
-      "title": "Retro - Parallel agent restoration (recall, curator, gotchas) efficient post-compact",
-      "tags": [
-        "retrospective",
-        "process",
-        "memory",
-        "agents",
-        "project"
-      ],
-      "created": "2026-01-16T19:01:52.830Z",
-      "updated": "2026-01-16T19:01:52.830Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-parallel-agent-restoration-recall-curator-gotchas-efficient-post-compact.md",
       "severity": "medium"
     },
     {
@@ -4681,19 +4529,6 @@
       "relativePath": "permanent/gotcha-async-function-declarations-with-only-sync-operations-mislead-callers.md"
     },
     {
-      "id": "learning-meeting-command-research-synthesis",
-      "type": "learning",
-      "title": "Meeting Command Research Synthesis",
-      "tags": [
-        "promoted-from-think",
-        "project"
-      ],
-      "created": "2026-01-31T07:38:43.661Z",
-      "updated": "2026-01-31T07:38:43.661Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-meeting-command-research-synthesis.md"
-    },
-    {
       "id": "decision-session-continuity-strategy",
       "type": "decision",
       "title": "Session Continuity Strategy",
@@ -4885,22 +4720,6 @@
       "updated": "2026-01-25T16:27:00.338Z",
       "scope": "global",
       "relativePath": "permanent/gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently.md"
-    },
-    {
-      "id": "learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery",
-      "type": "learning",
-      "title": "Retro - Parallel restoration agents effective for post-compaction context recovery",
-      "tags": [
-        "retrospective",
-        "process",
-        "restoration",
-        "project"
-      ],
-      "created": "2026-01-25T14:56:25.182Z",
-      "updated": "2026-01-25T14:56:25.182Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-post-compaction-context-recovery.md",
-      "severity": "medium"
     },
     {
       "id": "learning-spawn-session-refactor",
@@ -5162,22 +4981,6 @@
       "scope": "global",
       "relativePath": "permanent/learning-retro-backwards-compatibility-via-field-derivation-prevents-cascade-breakage.md",
       "severity": "medium"
-    },
-    {
-      "id": "learning-session-restore-launches-three-parallel-agents-for-context-recovery",
-      "type": "learning",
-      "title": "Session restore launches three parallel agents for context recovery",
-      "tags": [
-        "session-restore",
-        "memory",
-        "compaction",
-        "agents",
-        "project"
-      ],
-      "created": "2026-01-25T16:26:53.097Z",
-      "updated": "2026-01-25T16:26:53.097Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-session-restore-launches-three-parallel-agents-for-context-recovery.md"
     },
     {
       "id": "retro-subprocess-security-audit",
@@ -5592,23 +5395,6 @@
       "updated": "2026-01-16T23:10:42.895Z",
       "scope": "global",
       "relativePath": "permanent/learning-two-hook-enforcement-pattern-for-memory-operations.md"
-    },
-    {
-      "id": "learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction",
-      "type": "learning",
-      "title": "Retro - Parallel agent restoration accelerates context recovery post-compaction",
-      "tags": [
-        "retrospective",
-        "process",
-        "compaction",
-        "agents",
-        "project"
-      ],
-      "created": "2026-01-26T00:11:56.061Z",
-      "updated": "2026-01-26T00:11:56.061Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-retro-parallel-agent-restoration-accelerates-context-recovery-post-compaction.md",
-      "severity": "medium"
     },
     {
       "id": "learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key",
@@ -6587,21 +6373,6 @@
       "severity": "high"
     },
     {
-      "id": "learning-post-compaction-parallel-agent-restoration-effective",
-      "type": "learning",
-      "title": "Post-Compaction Parallel Agent Restoration Effective",
-      "tags": [
-        "retrospective",
-        "process",
-        "session-continuity",
-        "project"
-      ],
-      "created": "2026-01-13T19:40:49.598Z",
-      "updated": "2026-01-13T19:45:06.429Z",
-      "scope": "global",
-      "relativePath": "permanent/learning-post-compaction-parallel-agent-restoration-effective.md"
-    },
-    {
       "id": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
       "type": "learning",
       "title": "Lightweight spinner for long-running CLI operations avoids dependencies",
@@ -6666,55 +6437,117 @@
       "severity": "medium"
     },
     {
-      "id": "thought-20260126-140845698",
-      "type": "breadcrumb",
-      "title": "Think: Provider integration test v1.1.1",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-26T14:08:45.709Z",
-      "updated": "2026-01-26T14:11:42.614Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260126-140845698.md"
-    },
-    {
-      "id": "thought-20260126-010319465",
-      "type": "breadcrumb",
-      "title": "Think: Should v1.2.0 prioritise test isolation fixes or new features?",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-26T01:03:19.468Z",
-      "updated": "2026-01-26T01:05:01.463Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260126-010319465.md"
-    },
-    {
-      "id": "thought-20260126-141134725",
-      "type": "breadcrumb",
-      "title": "Think: provider integration test v1.1.1",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-01-26T14:11:34.729Z",
-      "updated": "2026-01-26T15:16:50.757Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260126-141134725.md"
-    },
-    {
-      "id": "learning-auto-link-test",
+      "id": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
       "type": "learning",
-      "title": "Auto-Link Test",
+      "title": "Retro - Speckit workflow enables rapid feature progression through full spec-plan-tasks pipeline",
       "tags": [
+        "retrospective",
+        "process",
+        "speckit",
+        "workflow",
         "project"
       ],
-      "created": "2026-02-01T15:50:13.196Z",
-      "updated": "2026-02-01T15:50:13.196Z",
+      "created": "2026-02-01T23:01:41.600Z",
+      "updated": "2026-02-01T23:01:41.600Z",
       "scope": "project",
-      "relativePath": "permanent/learning-auto-link-test.md"
+      "relativePath": "permanent/learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord",
+      "type": "learning",
+      "title": "Retro - Architecture pivoting mid-workflow prevented wasted implementation (meetings → Accord)",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "decision-making",
+        "project"
+      ],
+      "created": "2026-02-01T23:01:51.385Z",
+      "updated": "2026-02-01T23:01:51.385Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "type": "gotcha",
+      "title": "Retro - Context token awareness at 95% prompted timely compaction before blocking",
+      "tags": [
+        "retrospective",
+        "process",
+        "context-management",
+        "project"
+      ],
+      "created": "2026-02-01T23:02:00.510Z",
+      "updated": "2026-02-01T23:02:00.510Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking.md",
+      "severity": "low"
+    },
+    {
+      "id": "decision-v130-specification-phase-complete",
+      "type": "decision",
+      "title": "v1.3.0 Agent-Scoped Memories Specification Phase Complete",
+      "tags": [
+        "v1.3.0",
+        "specification",
+        "agent-scoped-memories",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-01T23:02:25.818Z",
+      "updated": "2026-02-01T23:02:25.818Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v130-specification-phase-complete.md"
+    },
+    {
+      "id": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
+      "type": "decision",
+      "title": "Meetings Orchestration Moved to Accord Plugin",
+      "tags": [
+        "architecture",
+        "plugin-design",
+        "separation-of-concerns",
+        "project"
+      ],
+      "created": "2026-02-01T23:02:42.126Z",
+      "updated": "2026-02-01T23:02:42.126Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-meetings-orchestration-belongs-in-accord-not-memory-plugin.md"
+    },
+    {
+      "id": "learning-v130-phase-0-research-validation-complete",
+      "type": "learning",
+      "title": "v1.3.0 Phase 0: All Existing Systems Verified",
+      "tags": [
+        "v1.3.0",
+        "research-validation",
+        "phase-0",
+        "implementation",
+        "project"
+      ],
+      "created": "2026-02-01T23:02:53.709Z",
+      "updated": "2026-02-01T23:02:53.709Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-v130-phase-0-research-validation-complete.md"
+    },
+    {
+      "id": "artifact-v130-specification-analysis-zero-critical-issues",
+      "type": "artifact",
+      "title": "v1.3.0 Specification Analysis: Zero Critical Issues Pattern",
+      "tags": [
+        "v1.3.0",
+        "specification-analysis",
+        "quality-gate",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-01T23:03:00.901Z",
+      "updated": "2026-02-01T23:03:00.901Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v130-specification-analysis-zero-critical-issues.md"
     }
   ]
 }

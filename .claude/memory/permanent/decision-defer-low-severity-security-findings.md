@@ -3,8 +3,9 @@ id: decision-defer-low-severity-security-findings
 title: Defer low-severity security findings to future phases
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T20:50:53.401Z"
-updated: "2026-01-25T20:50:53.401Z"
+updated: "2026-02-01T22:38:06.373Z"
 tags:
   - security
   - review

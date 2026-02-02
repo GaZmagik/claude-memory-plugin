@@ -3,8 +3,9 @@ id: gotcha-retro-blind-implementation-creating-files-without-verifying-creates-t
 title: Retro - Blind implementation (creating files without verifying) creates technical debt
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T16:26:43.746Z"
-updated: "2026-01-25T16:26:43.746Z"
+updated: "2026-02-01T22:38:06.858Z"
 tags:
   - retrospective
   - process

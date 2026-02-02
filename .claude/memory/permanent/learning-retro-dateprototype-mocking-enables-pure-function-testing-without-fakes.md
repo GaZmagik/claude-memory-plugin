@@ -3,8 +3,9 @@ id: learning-retro-dateprototype-mocking-enables-pure-function-testing-without-f
 title: Retro - Date.prototype mocking enables pure function testing without fakes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T13:56:16.826Z"
-updated: "2026-01-18T13:56:16.826Z"
+updated: "2026-02-01T22:38:06.565Z"
 tags:
   - retrospective
   - testing

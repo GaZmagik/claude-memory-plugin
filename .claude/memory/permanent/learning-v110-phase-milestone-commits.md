@@ -3,8 +3,9 @@ id: learning-v110-phase-milestone-commits
 title: v1.1.0 Phase milestone commits
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T13:31:16.115Z"
-updated: "2026-01-25T13:31:16.115Z"
+updated: "2026-02-01T22:38:06.287Z"
 tags:
   - commits
   - v1.1.0

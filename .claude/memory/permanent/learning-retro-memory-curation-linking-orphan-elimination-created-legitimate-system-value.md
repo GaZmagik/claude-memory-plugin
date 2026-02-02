@@ -3,8 +3,9 @@ id: learning-retro-memory-curation-linking-orphan-elimination-created-legitimate
 title: Retro - Memory curation (linking + orphan elimination) created legitimate system value
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:36.554Z"
-updated: "2026-01-25T09:58:36.554Z"
+updated: "2026-02-01T22:38:06.228Z"
 tags:
   - retrospective
   - process

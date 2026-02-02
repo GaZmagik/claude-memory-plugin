@@ -3,8 +3,9 @@ id: gotcha-retro-parenthetical-context-can-be-misread-as-syntax-by-literal-inter
 title: Retro - Parenthetical context can be misread as syntax by literal interpreters
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T21:31:00.066Z"
-updated: "2026-01-17T21:31:00.066Z"
+updated: "2026-02-01T22:38:06.600Z"
 tags:
   - retrospective
   - documentation

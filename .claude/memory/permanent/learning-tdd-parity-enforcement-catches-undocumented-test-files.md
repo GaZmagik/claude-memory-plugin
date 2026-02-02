@@ -3,8 +3,9 @@ id: learning-tdd-parity-enforcement-catches-undocumented-test-files
 title: TDD parity enforcement catches undocumented test files
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T20:51:49.410Z"
-updated: "2026-01-25T20:51:49.410Z"
+updated: "2026-02-01T22:38:06.707Z"
 tags:
   - tdd
   - testing

@@ -3,8 +3,9 @@ id: gotcha-gotcha-sync-file-io-in-hooks-blocks-event-loop-breaks-50ms-budget
 title: Gotcha - Sync file I/O in hooks blocks event loop, breaks 50ms budget
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T13:19:00.225Z"
-updated: "2026-01-17T13:19:00.225Z"
+updated: "2026-02-01T22:38:06.484Z"
 tags:
   - retrospective
   - performance

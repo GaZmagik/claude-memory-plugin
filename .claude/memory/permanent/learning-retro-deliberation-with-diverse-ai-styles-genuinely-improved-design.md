@@ -3,8 +3,9 @@ id: learning-retro-deliberation-with-diverse-ai-styles-genuinely-improved-design
 title: Retro - Deliberation with diverse AI styles genuinely improved design
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T22:31:45.735Z"
-updated: "2026-01-24T22:31:45.735Z"
+updated: "2026-02-01T22:38:05.987Z"
 tags:
   - retrospective
   - deliberation

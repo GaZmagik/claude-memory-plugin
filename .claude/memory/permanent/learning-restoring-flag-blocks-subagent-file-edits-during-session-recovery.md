@@ -3,8 +3,9 @@ id: learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery
 title: Restoring flag blocks subagent file edits during session recovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:53.053Z"
-updated: "2026-01-25T09:58:53.053Z"
+updated: "2026-02-01T22:38:06.855Z"
 tags:
   - session-restore
   - flags

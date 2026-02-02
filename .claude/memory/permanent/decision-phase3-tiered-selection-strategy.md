@@ -3,8 +3,9 @@ id: decision-phase3-tiered-selection-strategy
 title: "Phase 3: Tiered auto-selection strategy (Ollama → Heuristics → Default)"
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:35.258Z"
-updated: "2026-01-25T14:56:35.258Z"
+updated: "2026-02-01T22:38:06.519Z"
 tags:
   - phase3
   - auto-selection

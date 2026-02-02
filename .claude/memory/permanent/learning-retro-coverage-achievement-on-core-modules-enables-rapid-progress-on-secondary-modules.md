@@ -3,8 +3,9 @@ id: learning-retro-coverage-achievement-on-core-modules-enables-rapid-progress-o
 title: Retro - Coverage achievement on core modules enables rapid progress on secondary modules
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:11:23.059Z"
-updated: "2026-01-16T20:11:23.059Z"
+updated: "2026-02-01T22:38:06.585Z"
 tags:
   - retrospective
   - process

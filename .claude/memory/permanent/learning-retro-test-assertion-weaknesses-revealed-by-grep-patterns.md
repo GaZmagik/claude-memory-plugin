@@ -3,8 +3,9 @@ id: learning-retro-test-assertion-weaknesses-revealed-by-grep-patterns
 title: Retro - Test assertion weaknesses revealed by grep patterns
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T12:15:30.270Z"
-updated: "2026-01-18T12:15:30.270Z"
+updated: "2026-02-01T22:38:06.602Z"
 tags:
   - retrospective
   - process

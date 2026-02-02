@@ -3,8 +3,9 @@ id: learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild
 title: Retro - Direct CLI execution validates feature before plugin rebuild
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T14:25:09.950Z"
-updated: "2026-01-26T14:25:09.950Z"
+updated: "2026-02-01T22:38:06.964Z"
 tags:
   - retrospective
   - process

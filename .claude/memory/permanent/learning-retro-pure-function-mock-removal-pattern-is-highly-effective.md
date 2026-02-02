@@ -3,8 +3,9 @@ id: learning-retro-pure-function-mock-removal-pattern-is-highly-effective
 title: Retro - Pure function mock removal pattern is highly effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T02:32:19.292Z"
-updated: "2026-01-18T02:32:19.292Z"
+updated: "2026-02-01T22:38:06.416Z"
 tags:
   - retrospective
   - testing

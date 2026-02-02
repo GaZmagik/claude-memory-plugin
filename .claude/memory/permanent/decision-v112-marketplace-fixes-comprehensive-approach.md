@@ -3,8 +3,9 @@ id: decision-v112-marketplace-fixes-comprehensive-approach
 title: v1.1.2 marketplace fixes - comprehensive approach
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T01:18:31.638Z"
-updated: "2026-01-28T01:18:31.638Z"
+updated: "2026-02-01T22:38:06.698Z"
 tags:
   - v1.1.2
   - marketplace

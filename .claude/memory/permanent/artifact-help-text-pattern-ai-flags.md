@@ -3,8 +3,9 @@ id: artifact-help-text-pattern-ai-flags
 title: Help text pattern for AI invocation flags
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T13:31:24.900Z"
-updated: "2026-01-25T13:31:24.900Z"
+updated: "2026-02-01T22:38:06.856Z"
 tags:
   - help-text
   - cli

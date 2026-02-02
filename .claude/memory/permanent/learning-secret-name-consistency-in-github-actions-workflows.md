@@ -3,8 +3,9 @@ id: learning-secret-name-consistency-in-github-actions-workflows
 title: Secret name consistency in GitHub Actions workflows
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T14:15:13.132Z"
-updated: "2026-01-24T14:15:13.132Z"
+updated: "2026-02-01T22:38:06.479Z"
 tags:
   - github-actions
   - secrets

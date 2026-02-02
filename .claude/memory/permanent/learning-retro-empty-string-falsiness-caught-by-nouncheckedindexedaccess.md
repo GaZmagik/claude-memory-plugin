@@ -3,8 +3,9 @@ id: learning-retro-empty-string-falsiness-caught-by-nouncheckedindexedaccess
 title: Retro - Empty string falsiness caught by noUncheckedIndexedAccess
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T19:05:13.985Z"
-updated: "2026-01-18T19:05:13.985Z"
+updated: "2026-02-01T22:38:06.274Z"
 tags:
   - retrospective
   - process

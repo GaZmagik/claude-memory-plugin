@@ -3,8 +3,9 @@ id: gotcha-retro-documentation-should-be-consulted-proactively-before-trial-and-
 title: Retro - Documentation should be consulted proactively before trial-and-error debugging
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T19:14:43.249Z"
-updated: "2026-01-17T19:14:43.249Z"
+updated: "2026-02-01T22:38:06.458Z"
 tags:
   - retrospective
   - process

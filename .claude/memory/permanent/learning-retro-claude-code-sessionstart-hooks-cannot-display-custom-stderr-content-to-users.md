@@ -3,8 +3,9 @@ id: learning-retro-claude-code-sessionstart-hooks-cannot-display-custom-stderr-c
 title: Retro - Claude Code SessionStart hooks cannot display custom stderr content to users
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T19:14:35.588Z"
-updated: "2026-01-17T19:14:35.588Z"
+updated: "2026-02-01T22:38:06.543Z"
 tags:
   - retrospective
   - hooks

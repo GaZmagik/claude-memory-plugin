@@ -3,8 +3,9 @@ id: gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon
 title: Tests with dynamic imports need vi.mock not vi.spyOn
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T19:42:06.114Z"
-updated: "2026-01-18T19:42:06.114Z"
+updated: "2026-02-01T22:38:05.988Z"
 tags:
   - testing
   - vitest

@@ -3,8 +3,9 @@ id: learning-retro-pre-existing-test-failures-are-better-fixed-during-mock-reduc
 title: Retro - Pre-existing test failures are better fixed during mock reduction
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T02:32:22.571Z"
-updated: "2026-01-18T02:32:22.571Z"
+updated: "2026-02-01T22:38:06.553Z"
 tags:
   - retrospective
   - testing

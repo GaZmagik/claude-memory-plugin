@@ -3,8 +3,9 @@ id: learning-yaml-block-scalar-indentation-in-github-actions-requires-proper-nes
 title: YAML block scalar indentation in GitHub Actions requires proper nesting
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T14:15:09.786Z"
-updated: "2026-01-24T14:15:09.786Z"
+updated: "2026-02-01T22:38:06.552Z"
 tags:
   - yaml
   - github-actions

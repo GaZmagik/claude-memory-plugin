@@ -3,8 +3,9 @@ id: gotcha-retro-test-quality-audit-post-coverage-risks-releasing-cheating-tests
 title: Retro - Test quality audit post-coverage risks releasing cheating tests
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T21:44:27.959Z"
-updated: "2026-01-16T21:44:27.959Z"
+updated: "2026-02-01T22:38:06.220Z"
 tags:
   - retrospective
   - testing

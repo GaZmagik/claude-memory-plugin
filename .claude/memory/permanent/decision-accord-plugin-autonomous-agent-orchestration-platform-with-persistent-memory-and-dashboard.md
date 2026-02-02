@@ -3,8 +3,9 @@ id: decision-accord-plugin-autonomous-agent-orchestration-platform-with-persiste
 title: Accord Plugin - Autonomous agent orchestration platform with persistent memory and dashboard
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T18:01:35.449Z"
-updated: "2026-01-30T18:01:35.449Z"
+updated: "2026-02-01T22:38:06.149Z"
 tags:
   - promoted-from-think
   - project

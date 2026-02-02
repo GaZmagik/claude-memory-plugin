@@ -3,8 +3,9 @@ id: gotcha-retro-plugin-code-changes-require-reinstall-when-version-unchanged
 title: Retro - Plugin code changes require reinstall when version unchanged
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T01:29:46.792Z"
-updated: "2026-01-18T01:29:46.792Z"
+updated: "2026-02-01T22:38:07.014Z"
 tags:
   - retrospective
   - plugin

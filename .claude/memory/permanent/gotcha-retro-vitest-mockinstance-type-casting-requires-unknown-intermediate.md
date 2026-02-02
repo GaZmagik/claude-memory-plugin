@@ -3,8 +3,9 @@ id: gotcha-retro-vitest-mockinstance-type-casting-requires-unknown-intermediate
 title: Retro - Vitest MockInstance type casting requires unknown intermediate
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T06:54:14.248Z"
-updated: "2026-01-17T06:54:14.248Z"
+updated: "2026-02-01T22:38:06.235Z"
 tags:
   - retrospective
   - typescript

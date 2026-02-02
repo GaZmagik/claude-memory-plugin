@@ -3,8 +3,9 @@ id: learning-marketplace-plugin-install-location-discovery
 title: Marketplace plugin install location discovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:53:33.703Z"
-updated: "2026-01-26T22:53:33.703Z"
+updated: "2026-02-01T22:38:06.413Z"
 tags:
   - marketplace
   - plugin

@@ -3,8 +3,9 @@ id: learning-pr-review-agents-should-fix-issues-in-parallel
 title: PR Review Agents Should Fix Issues In Parallel
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:07.821Z"
-updated: "2026-01-26T00:12:07.821Z"
+updated: "2026-02-01T22:38:06.837Z"
 tags:
   - workflow
   - agents

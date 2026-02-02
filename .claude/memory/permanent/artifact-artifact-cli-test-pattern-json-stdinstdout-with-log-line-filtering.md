@@ -3,8 +3,9 @@ id: artifact-artifact-cli-test-pattern-json-stdinstdout-with-log-line-filtering
 title: "Artifact - CLI test pattern: JSON stdin/stdout with log line filtering"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T17:06:28.731Z"
-updated: "2026-01-16T17:06:28.731Z"
+updated: "2026-02-01T22:38:06.516Z"
 tags:
   - retrospective
   - artifact

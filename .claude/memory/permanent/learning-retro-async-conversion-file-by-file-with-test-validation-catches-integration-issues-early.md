@@ -3,8 +3,9 @@ id: learning-retro-async-conversion-file-by-file-with-test-validation-catches-in
 title: Retro - Async conversion file-by-file with test validation catches integration issues early
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T21:30:48.439Z"
-updated: "2026-01-17T21:30:48.439Z"
+updated: "2026-02-01T22:38:06.364Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-forked-agent-orchestration-for-multi-expert-review-effective
 title: Retro - Forked agent orchestration for multi-expert review effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T13:18:52.496Z"
-updated: "2026-01-17T13:18:52.496Z"
+updated: "2026-02-01T22:38:06.601Z"
 tags:
   - retrospective
   - process

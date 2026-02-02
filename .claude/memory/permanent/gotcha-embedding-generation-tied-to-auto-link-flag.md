@@ -3,8 +3,9 @@ id: gotcha-embedding-generation-tied-to-auto-link-flag
 title: embedding-generation-tied-to-auto-link-flag
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-01T15:13:29.375Z"
-updated: "2026-02-01T15:13:29.375Z"
+updated: "2026-02-01T22:38:06.154Z"
 tags:
   - embeddings
   - memory-plugin

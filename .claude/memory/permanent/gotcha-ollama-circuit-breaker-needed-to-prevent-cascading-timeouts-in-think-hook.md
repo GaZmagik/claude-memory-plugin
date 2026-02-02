@@ -3,8 +3,9 @@ id: gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-
 title: Ollama circuit breaker needed to prevent cascading timeouts in think hook
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:41.217Z"
-updated: "2026-01-25T14:56:41.217Z"
+updated: "2026-02-01T22:38:06.699Z"
 tags:
   - phase3
   - ollama

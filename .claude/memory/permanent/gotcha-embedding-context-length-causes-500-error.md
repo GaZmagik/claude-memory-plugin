@@ -3,8 +3,9 @@ id: gotcha-embedding-context-length-causes-500-error
 title: Embedding Context Length Causes 500 Error
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T14:57:37.482Z"
-updated: "2026-01-16T14:57:37.482Z"
+updated: "2026-02-01T22:38:06.378Z"
 tags:
   - embedding
   - ollama

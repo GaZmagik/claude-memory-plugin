@@ -3,8 +3,9 @@ id: decision-accord-plugin-manual-meeting-skill-first-before-scheduled
 title: "Accord plugin MVP: manual /meeting skill first, validate before scheduling"
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:24:30.589Z"
-updated: "2026-01-30T17:24:30.589Z"
+updated: "2026-02-01T22:38:06.493Z"
 tags:
   - accord-plugin
   - architecture

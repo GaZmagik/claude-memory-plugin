@@ -3,8 +3,9 @@ id: learning-retro-parallel-expert-agents-for-code-review-scales-efficiently
 title: Retro - Parallel expert agents for code review scales efficiently
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T05:32:13.899Z"
-updated: "2026-01-17T05:32:13.899Z"
+updated: "2026-02-01T22:38:06.295Z"
 tags:
   - retrospective
   - process

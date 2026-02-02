@@ -3,8 +3,9 @@ id: decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions
 title: v1.3.0 Agent Meetings - Scheduled multi-agent deliberation sessions
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:15:10.666Z"
-updated: "2026-01-30T17:15:10.666Z"
+updated: "2026-02-01T22:38:06.380Z"
 tags:
   - promoted-from-think
   - project

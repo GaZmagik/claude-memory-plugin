@@ -3,8 +3,9 @@ id: gotcha-retro-stdin-pipe-inconsistency-in-memory-cli-commands
 title: Retro - stdin pipe inconsistency in memory CLI commands
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T19:05:09.699Z"
-updated: "2026-01-18T19:05:09.699Z"
+updated: "2026-02-01T22:38:05.928Z"
 tags:
   - retrospective
   - process

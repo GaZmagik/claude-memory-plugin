@@ -3,8 +3,9 @@ id: learning-github-actions-checkout-action-v5-does-not-exist
 title: GitHub Actions checkout action v5 does not exist
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T14:14:59.604Z"
-updated: "2026-01-24T14:14:59.604Z"
+updated: "2026-02-01T22:38:06.639Z"
 tags:
   - github-actions
   - ci-cd

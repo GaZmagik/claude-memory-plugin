@@ -3,8 +3,9 @@ id: gotcha-stop-work-at-85-90-context-not-95-100
 title: Gotcha - Stop work at 85-90% context, not 95-100%
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:28.942Z"
-updated: "2026-01-25T14:56:28.942Z"
+updated: "2026-02-01T22:38:06.340Z"
 tags:
   - retrospective
   - process

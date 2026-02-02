@@ -3,8 +3,9 @@ id: decision-async-fs-conversion-required
 title: Async FS Conversion Required for Performance
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T11:35:37.043Z"
-updated: "2026-01-18T11:35:37.043Z"
+updated: "2026-02-01T22:38:06.999Z"
 tags:
   - performance
   - async

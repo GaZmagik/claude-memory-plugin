@@ -3,8 +3,9 @@ id: gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-te
 title: Gotcha - Bun test runner mock isolation causes cross-file mock conflicts in test suite
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T16:42:06.965Z"
-updated: "2026-01-26T16:42:06.965Z"
+updated: "2026-02-01T22:38:06.858Z"
 tags:
   - retrospective
   - testing

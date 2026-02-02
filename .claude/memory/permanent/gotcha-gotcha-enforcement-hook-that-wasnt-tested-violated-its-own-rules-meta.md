@@ -3,8 +3,9 @@ id: gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta
 title: Gotcha - Enforcement hook that wasn't tested violated its own rules (meta)
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T13:19:03.901Z"
-updated: "2026-01-17T13:19:03.901Z"
+updated: "2026-02-01T22:38:06.468Z"
 tags:
   - retrospective
   - tdd

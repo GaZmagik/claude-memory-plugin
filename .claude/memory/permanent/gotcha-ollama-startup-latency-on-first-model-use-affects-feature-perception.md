@@ -3,8 +3,9 @@ id: gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception
 title: Ollama startup latency on first model use affects feature perception
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T22:31:47.070Z"
-updated: "2026-01-24T22:31:47.070Z"
+updated: "2026-02-01T22:38:06.501Z"
 tags:
   - v1.1.0
   - ollama

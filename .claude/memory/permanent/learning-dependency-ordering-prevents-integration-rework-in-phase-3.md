@@ -3,8 +3,9 @@ id: learning-dependency-ordering-prevents-integration-rework-in-phase-3
 title: Learning - Dependency ordering prevents integration rework in Phase 3
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:32.318Z"
-updated: "2026-01-25T14:56:32.318Z"
+updated: "2026-02-01T22:38:06.617Z"
 tags:
   - retrospective
   - process

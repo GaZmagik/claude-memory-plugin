@@ -3,8 +3,9 @@ id: learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-po
 title: Test isolation failures caused by mixed test frameworks, not mock pollution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:24:11.036Z"
-updated: "2026-01-30T17:24:11.036Z"
+updated: "2026-02-01T22:38:06.396Z"
 tags:
   - testing
   - gotcha-correction

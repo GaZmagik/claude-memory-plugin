@@ -3,8 +3,9 @@ id: learning-marketplace-plugin-hooks-fail-silently-without-nodemodules
 title: Marketplace plugin hooks fail silently without node_modules
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T01:18:30.206Z"
-updated: "2026-01-28T01:18:30.206Z"
+updated: "2026-02-01T22:38:06.362Z"
 tags:
   - hooks
   - marketplace

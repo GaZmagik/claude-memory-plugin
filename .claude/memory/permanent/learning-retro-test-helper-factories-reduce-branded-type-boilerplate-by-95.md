@@ -3,8 +3,9 @@ id: learning-retro-test-helper-factories-reduce-branded-type-boilerplate-by-95
 title: Retro - Test helper factories reduce branded type boilerplate by 95%
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T04:25:19.877Z"
-updated: "2026-01-18T04:25:19.877Z"
+updated: "2026-02-01T22:38:06.331Z"
 tags:
   - retrospective
   - process

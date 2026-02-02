@@ -3,8 +3,9 @@ id: gotcha-retro-dead-code-detection-phantom-tests-mock-impossible-scenarios
 title: "Retro - Dead code detection: phantom tests mock impossible scenarios"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T23:59:53.738Z"
-updated: "2026-01-18T00:07:31.181Z"
+updated: "2026-02-01T22:38:06.857Z"
 tags:
   - retrospective
   - testing

@@ -3,8 +3,9 @@ id: gotcha-retro-coverage-tool-continuation-threshold-unclear
 title: Retro - Coverage tool continuation threshold unclear
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:01:16.483Z"
-updated: "2026-01-16T20:01:16.483Z"
+updated: "2026-02-01T22:38:06.502Z"
 tags:
   - retrospective
   - process

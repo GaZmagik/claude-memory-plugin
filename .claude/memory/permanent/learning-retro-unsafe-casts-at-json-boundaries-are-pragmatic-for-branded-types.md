@@ -3,8 +3,9 @@ id: learning-retro-unsafe-casts-at-json-boundaries-are-pragmatic-for-branded-typ
 title: Retro - Unsafe casts at JSON boundaries are pragmatic for branded types
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T04:25:29.940Z"
-updated: "2026-01-18T04:25:29.940Z"
+updated: "2026-02-01T22:38:06.321Z"
 tags:
   - retrospective
   - process

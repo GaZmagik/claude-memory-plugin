@@ -14,7 +14,6 @@ import { getEnterprisePath, validateEnterprisePath } from './enterprise.js';
 import { createLogger } from '../core/logger.js';
 import { getAgentDirectoryPath } from './get-agent-directory-path.js';
 import { validateAgentName } from './validate-agent-name.js';
-import { sanitiseAgentName } from './sanitise-agent-name.js';
 
 const log = createLogger('resolver');
 

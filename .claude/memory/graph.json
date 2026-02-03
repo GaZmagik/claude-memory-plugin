@@ -2004,6 +2004,18 @@
     {
       "id": "decision-phase-b-api-types-agent-field-propagation",
       "type": "decision"
+    },
+    {
+      "id": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -4630,6 +4642,26 @@
     {
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
+      "target": "decision-agent-scope-api-vs-cli-layer",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
+      "target": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
       "label": "relates-to"
     }
   ]

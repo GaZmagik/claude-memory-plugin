@@ -73,6 +73,8 @@ export interface IndexEntry {
   updated: string;
   /** Storage scope */
   scope: Scope;
+  /** Agent name (for agent-scoped memories) */
+  agent?: string;
   /** Relative file path from scope root */
   relativePath: string;
   /** Severity if applicable */

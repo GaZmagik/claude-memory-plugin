@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-02T23:20:40.627Z",
+  "lastUpdated": "2026-02-03T05:50:47.721Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -6872,6 +6872,52 @@
       "updated": "2026-02-02T23:20:40.595Z",
       "scope": "project",
       "relativePath": "permanent/decision-phase-b-api-types-agent-field-propagation.md"
+    },
+    {
+      "id": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "type": "gotcha",
+      "title": "Agent field propagation requires tracing through serialisation, validation, and request/response types",
+      "tags": [
+        "agent-scoped",
+        "api-design",
+        "type-safety",
+        "project"
+      ],
+      "created": "2026-02-03T05:50:20.687Z",
+      "updated": "2026-02-03T05:50:20.687Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types.md"
+    },
+    {
+      "id": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
+      "type": "learning",
+      "title": "Graph node structure only stores id, type, and optional title - agent/scope metadata belongs in frontmatter and index",
+      "tags": [
+        "agent-scoped",
+        "architecture",
+        "test-design",
+        "project"
+      ],
+      "created": "2026-02-03T05:50:39.838Z",
+      "updated": "2026-02-03T05:50:39.838Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index.md"
+    },
+    {
+      "id": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
+      "type": "learning",
+      "title": "TDD test-first approach caught architectural issues early in Phase B (where agent metadata belongs)",
+      "tags": [
+        "tdd",
+        "test-design",
+        "architecture",
+        "agent-scoped",
+        "project"
+      ],
+      "created": "2026-02-03T05:50:47.700Z",
+      "updated": "2026-02-03T05:50:47.700Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs.md"
     }
   ]
 }

@@ -27,6 +27,8 @@ export interface MemoryFrontmatter {
   tags: string[];
   /** Storage scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Severity level (optional, primarily for gotchas/learnings) */
   severity?: Severity;
   /** Linked memory IDs */

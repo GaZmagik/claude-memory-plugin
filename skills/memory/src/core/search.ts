@@ -6,10 +6,12 @@
 
 import * as path from 'node:path';
 import type { SearchMemoriesRequest, SearchMemoriesResponse, SearchResult } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { loadIndex } from './index.js';
 import { readFile, fileExists } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
+import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
 
 const log = createLogger('search');
 
@@ -107,8 +109,32 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
   const query = request.query.trim();
+
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+
+    basePath = getAgentDirectoryPath({
+      scope: request.scope,
+      agentName: request.agent,
+      projectRoot,
+      globalRoot,
+    });
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     const index = await loadIndex({ basePath });

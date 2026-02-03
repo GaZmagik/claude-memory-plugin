@@ -7,11 +7,13 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
 import { deleteFile, fileExists, isInsideDir } from './fs-utils.js';
 import { createLogger } from './logger.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
 
 const log = createLogger('delete');
 
@@ -27,7 +29,30 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+
+    basePath = getAgentDirectoryPath({
+      scope: request.scope,
+      agentName: request.agent,
+      projectRoot,
+      globalRoot,
+    });
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     // Find in index first

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-02T22:46:39.432Z",
+  "lastUpdated": "2026-02-02T23:20:40.627Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -6737,6 +6737,141 @@
       "updated": "2026-02-02T22:46:39.410Z",
       "scope": "project",
       "relativePath": "permanent/decision-agent-scope-api-vs-cli-layer.md"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "type": "learning",
+      "title": "Retro - TDD test-first enforcement prevents premature file creation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:19:04.770Z",
+      "updated": "2026-02-02T23:19:04.770Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "type": "gotcha",
+      "title": "Retro - Agent field propagation requires tracing through serialisation, validation, AND request/response types",
+      "tags": [
+        "retrospective",
+        "process",
+        "gotcha",
+        "field-propagation",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:19:11.565Z",
+      "updated": "2026-02-02T23:19:11.565Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-proactive-memory-check-before-phase-work-prevents-rework",
+      "type": "learning",
+      "title": "Retro - Proactive memory check before phase work prevents rework",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-check",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:19:19.381Z",
+      "updated": "2026-02-02T23:19:19.381Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-proactive-memory-check-before-phase-work-prevents-rework.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utilities",
+      "type": "gotcha",
+      "title": "Retro - CRUD operations need import additions for Scope and scope utilities",
+      "tags": [
+        "retrospective",
+        "process",
+        "gotcha",
+        "imports",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:19:28.780Z",
+      "updated": "2026-02-02T23:19:28.780Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utilities.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement",
+      "type": "learning",
+      "title": "Phase B TDD pattern: Test files first satisfy hook enforcement",
+      "tags": [
+        "tdd",
+        "typescript",
+        "test-first",
+        "hook-enforcement",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:20:01.663Z",
+      "updated": "2026-02-02T23:20:01.663Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement.md"
+    },
+    {
+      "id": "learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths",
+      "type": "learning",
+      "title": "Agent field in frontmatter requires tracing through all serialisation paths",
+      "tags": [
+        "frontmatter",
+        "serialisation",
+        "agent-scoped",
+        "type-safety",
+        "project"
+      ],
+      "created": "2026-02-02T23:20:15.638Z",
+      "updated": "2026-02-02T23:20:15.638Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths.md"
+    },
+    {
+      "id": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "type": "learning",
+      "title": "Agent directory resolution pattern: Consistent path resolution across CRUD operations",
+      "tags": [
+        "agent-scoped",
+        "directory-resolution",
+        "crud-operations",
+        "path-management",
+        "project"
+      ],
+      "created": "2026-02-02T23:20:23.422Z",
+      "updated": "2026-02-02T23:20:23.422Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations.md"
+    },
+    {
+      "id": "decision-phase-b-api-types-agent-field-propagation",
+      "type": "decision",
+      "title": "Phase B: Add agent field to all API request and response types",
+      "tags": [
+        "api-design",
+        "type-safety",
+        "agent-scoped",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-02T23:20:40.595Z",
+      "updated": "2026-02-02T23:20:40.595Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-b-api-types-agent-field-propagation.md"
     }
   ]
 }

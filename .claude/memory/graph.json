@@ -1972,6 +1972,38 @@
     {
       "id": "decision-agent-scope-api-vs-cli-layer",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-proactive-memory-check-before-phase-work-prevents-rework",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utilities",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "type": "learning"
+    },
+    {
+      "id": "decision-phase-b-api-types-agent-field-propagation",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -4549,6 +4581,56 @@
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
       "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-agent-scope-api-vs-cli-layer",
+      "target": "learning-api-validation-must-occur-before-sanitisation-for-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-b-api-types-agent-field-propagation",
+      "target": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-b-api-types-agent-field-propagation",
+      "target": "learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-b-api-types-agent-field-propagation",
+      "target": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utilities",
+      "target": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "target": "learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
+      "target": "learning-retro-proactive-memory-check-before-phase-work-prevents-rework",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "decision-agent-scope-api-vs-cli-layer",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "relates-to"
     }
   ]
 }

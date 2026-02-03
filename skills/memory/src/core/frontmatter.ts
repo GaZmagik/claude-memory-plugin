@@ -69,6 +69,9 @@ export function serialiseFrontmatter(frontmatter: MemoryFrontmatter): string {
   if (frontmatter.scope) {
     clean.scope = frontmatter.scope;
   }
+  if (frontmatter.agent) {
+    clean.agent = frontmatter.agent;
+  }
   if (frontmatter.project) {
     clean.project = frontmatter.project;
   }
@@ -150,6 +153,7 @@ export function createFrontmatter(params: {
   title: string;
   tags: string[];
   scope?: MemoryFrontmatter['scope'];
+  agent?: string;
   project?: string;
   severity?: MemoryFrontmatter['severity'];
   links?: MemoryId[];
@@ -172,6 +176,10 @@ export function createFrontmatter(params: {
 
   if (params.scope) {
     frontmatter.scope = params.scope;
+  }
+
+  if (params.agent) {
+    frontmatter.agent = params.agent;
   }
 
   if (params.project) {

@@ -253,7 +253,33 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const { createAgentDirectory } = await import('../storage/create-agent-directory.js');
+    const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
+    // For global agent scope, we need to construct the global path
+    // This should come from a config or default location
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+
+    basePath = await createAgentDirectory(
+      request.scope,
+      request.agent,
+      projectRoot,
+      globalRoot
+    );
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     // Ensure directory exists
@@ -298,13 +324,14 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);
 
-    // Create frontmatter with id, scope, and project
+    // Create frontmatter with id, scope, agent, and project
     const frontmatter = createFrontmatter({
       id,
       type: request.type,
       title: request.title,
       tags,
       scope: request.scope,
+      agent: request.agent,
       project: request.project,
       severity: request.severity,
       links: request.links?.map(unsafeAsMemoryId),

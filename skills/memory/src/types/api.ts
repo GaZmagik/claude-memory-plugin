@@ -51,6 +51,8 @@ export interface WriteMemoryRequest extends BaseRequest {
   tags: string[];
   /** Storage scope */
   scope: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Severity level (optional, primarily for gotchas) */
   severity?: Severity;
   /** Linked memory IDs */
@@ -85,6 +87,8 @@ export interface WriteMemoryResponse extends BaseResponse {
     frontmatter: MemoryFrontmatter;
     /** Storage scope */
     scope: Scope;
+    /** Agent name (for agent-scoped memories) */
+    agent?: string;
   };
   /** Number of auto-linked memories (if autoLink was true) */
   autoLinked?: number;
@@ -104,6 +108,8 @@ export interface ReadMemoryRequest extends BaseRequest {
   id: string;
   /** Scope to search in (optional) */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
 }
 
 /**
@@ -137,6 +143,8 @@ export interface ListMemoriesRequest extends BaseRequest {
   tags?: string[];
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Maximum number of results */
   limit?: number;
   /** Sort order */
@@ -159,6 +167,8 @@ export interface MemorySummary {
   tags: string[];
   /** Scope */
   scope: Scope;
+  /** Agent name (for agent-scoped memories) */
+  agent?: string;
   /** Creation timestamp */
   created: string;
   /** Update timestamp */
@@ -191,6 +201,8 @@ export interface DeleteMemoryRequest extends BaseRequest {
   id: string;
   /** Scope to delete from (optional) */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
 }
 
 /**
@@ -215,6 +227,8 @@ export interface SearchMemoriesRequest extends BaseRequest {
   type?: MemoryType;
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Maximum number of results */
   limit?: number;
 }
@@ -233,6 +247,8 @@ export interface SearchResult {
   tags: string[];
   /** Storage scope */
   scope?: Scope;
+  /** Agent name (for agent-scoped memories) */
+  agent?: string;
   /** Relevance score (0-1) */
   score: number;
   /** Matching snippet */
@@ -261,6 +277,8 @@ export interface SemanticSearchRequest extends BaseRequest {
   type?: MemoryType;
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Minimum similarity threshold (0-1) */
   threshold?: number;
   /** Maximum number of results */

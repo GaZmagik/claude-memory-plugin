@@ -7,6 +7,7 @@
 import { MemoryType, Scope, Severity } from '../types/enums.js';
 import type { MemoryFrontmatter } from '../types/memory.js';
 import type { WriteMemoryRequest, ExportPackage, ExportedMemory } from '../types/api.js';
+import { validateAgentName } from '../scope/validate-agent-name.js';
 
 /**
  * Validation error with field context
@@ -173,6 +174,41 @@ export function validateFrontmatter(frontmatter: unknown): ValidationResult {
 
   if (fm.links !== undefined && !isValidLinks(fm.links)) {
     errors.push({ field: 'links', message: 'links must be an array of strings' });
+  }
+
+  // Agent field validation
+  if (fm.scope !== undefined && isValidScope(fm.scope)) {
+    const scope = fm.scope as Scope;
+
+    // If scope is agent scope, agent field is required
+    if (scope === Scope.AgentProject || scope === Scope.AgentGlobal) {
+      if (!fm.agent || typeof fm.agent !== 'string') {
+        errors.push({
+          field: 'agent',
+          message: 'agent field is required for agent scopes'
+        });
+      } else {
+        // Validate agent name format
+        const agentValidation = validateAgentName(fm.agent);
+        if (!agentValidation.valid) {
+          errors.push({
+            field: 'agent',
+            message: agentValidation.error || 'Invalid agent name'
+          });
+        }
+      }
+    }
+  }
+
+  // If agent field is provided (for any scope), validate it
+  if (fm.agent !== undefined && typeof fm.agent === 'string' && fm.agent.length > 0) {
+    const agentValidation = validateAgentName(fm.agent);
+    if (!agentValidation.valid) {
+      errors.push({
+        field: 'agent',
+        message: agentValidation.error || 'Invalid agent name'
+      });
+    }
   }
 
   return {

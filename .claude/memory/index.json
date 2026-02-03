@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-03T05:50:47.721Z",
+  "lastUpdated": "2026-02-03T21:20:58.348Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -5716,23 +5716,6 @@
       "severity": "high"
     },
     {
-      "id": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
-      "type": "gotcha",
-      "title": "Gotcha - Bun test runner mock isolation causes cross-file mock conflicts in test suite",
-      "tags": [
-        "retrospective",
-        "testing",
-        "bun",
-        "gotcha",
-        "project"
-      ],
-      "created": "2026-01-26T16:42:06.965Z",
-      "updated": "2026-01-26T16:42:06.965Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-duplicated-type-prefix-bug-in-memory-slug-generation",
       "type": "learning",
       "title": "Duplicated type prefix bug in memory slug generation",
@@ -6918,6 +6901,252 @@
       "updated": "2026-02-03T05:50:47.700Z",
       "scope": "project",
       "relativePath": "permanent/learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs.md"
+    },
+    {
+      "id": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "type": "learning",
+      "title": "Retro - TDD design clarity prevents contradictory test expectations",
+      "tags": [
+        "retrospective",
+        "tdd",
+        "design",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-03T19:28:46.757Z",
+      "updated": "2026-02-03T19:28:46.757Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "type": "gotcha",
+      "title": "Retro - Duplicate mock setup creates test fragility",
+      "tags": [
+        "retrospective",
+        "testing",
+        "mocking",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-03T19:28:56.762Z",
+      "updated": "2026-02-03T19:28:56.762Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-duplicate-mock-setup-creates-test-fragility.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-task-completion-validation-prevents-hidden-rework",
+      "type": "learning",
+      "title": "Retro - Task completion validation prevents hidden rework",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-completion",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-03T19:29:06.815Z",
+      "updated": "2026-02-03T19:29:06.815Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-task-completion-validation-prevents-hidden-rework.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "type": "learning",
+      "title": "Bun test framework requires comprehensive fs mocking for isolation",
+      "tags": [
+        "bun",
+        "testing",
+        "file-system",
+        "mocking",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-03T19:29:41.268Z",
+      "updated": "2026-02-03T19:29:41.268Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation.md"
+    },
+    {
+      "id": "learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental-choices",
+      "type": "learning",
+      "title": "TDD design clarity - conflicting test expectations reveal fundamental choices",
+      "tags": [
+        "tdd",
+        "design",
+        "testing",
+        "agent-validation",
+        "phase-b",
+        "project"
+      ],
+      "created": "2026-02-03T19:29:50.740Z",
+      "updated": "2026-02-03T19:29:50.740Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental-choices.md"
+    },
+    {
+      "id": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "type": "gotcha",
+      "title": "Gotcha - Bun test runner mock isolation causes cross-file mock conflicts in test suite",
+      "tags": [
+        "retrospective",
+        "testing",
+        "bun",
+        "gotcha",
+        "project",
+        "archived",
+        "historical-context"
+      ],
+      "created": "2026-01-26T16:42:06.965Z",
+      "updated": "2026-02-03T20:00:43.975Z",
+      "scope": "global",
+      "relativePath": "permanent/gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "type": "gotcha",
+      "title": "Phase B Test File Mocks Must Mirror beforeEach Setup Across All Test Blocks",
+      "tags": [
+        "bun",
+        "testing",
+        "phase-b",
+        "agent-scoped",
+        "fs-mocking",
+        "project"
+      ],
+      "created": "2026-02-03T20:44:25.295Z",
+      "updated": "2026-02-03T20:44:25.295Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks.md"
+    },
+    {
+      "id": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "type": "learning",
+      "title": "Agent Field Must Propagate Through Entire Write Operation Response Chain",
+      "tags": [
+        "phase-b",
+        "agent-scoped",
+        "write-operation",
+        "response-chain",
+        "project"
+      ],
+      "created": "2026-02-03T20:44:32.407Z",
+      "updated": "2026-02-03T20:44:32.407Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-field-must-propagate-through-entire-write-operation-response-chain.md"
+    },
+    {
+      "id": "learning-getscopetag-function-must-handle-all-scope-enum-variants-including-agent-scopes",
+      "type": "learning",
+      "title": "getScopeTag() Function Must Handle All Scope Enum Variants Including Agent Scopes",
+      "tags": [
+        "phase-b",
+        "agent-scoped",
+        "formatters",
+        "typescript",
+        "scope-enum",
+        "project"
+      ],
+      "created": "2026-02-03T20:44:39.172Z",
+      "updated": "2026-02-03T20:44:39.172Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-getscopetag-function-must-handle-all-scope-enum-variants-including-agent-scopes.md"
+    },
+    {
+      "id": "artifact-phase-b-storage-infrastructure",
+      "type": "artifact",
+      "title": "Phase B Completion Checklist: Storage Infrastructure for Agent-Scoped Memories",
+      "tags": [
+        "phase-b",
+        "agent-scoped",
+        "storage-infrastructure",
+        "milestone",
+        "project"
+      ],
+      "created": "2026-02-03T20:44:49.892Z",
+      "updated": "2026-02-03T20:44:49.892Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-b-storage-infrastructure.md"
+    },
+    {
+      "id": "decision-phase-b-complete-proceed-to-phase-c",
+      "type": "decision",
+      "title": "Phase B Storage Infrastructure Complete - Proceed to Phase C CLI Integration",
+      "tags": [
+        "phase-b",
+        "agent-scoped",
+        "milestone",
+        "decision",
+        "project"
+      ],
+      "created": "2026-02-03T20:44:58.049Z",
+      "updated": "2026-02-03T20:44:58.049Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-b-complete-proceed-to-phase-c.md"
+    },
+    {
+      "id": "learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-bottleneck",
+      "type": "learning",
+      "title": "Phase C CLI architecture requires helpers refactoring as critical bottleneck",
+      "tags": [
+        "phase-c",
+        "cli",
+        "architecture",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-03T20:54:44.753Z",
+      "updated": "2026-02-03T20:54:44.753Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-bottleneck.md"
+    },
+    {
+      "id": "learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-updates",
+      "type": "learning",
+      "title": "Phase C TDD strategy requires test-first approach for 15 command updates",
+      "tags": [
+        "phase-c",
+        "tdd",
+        "testing",
+        "cli-commands",
+        "project"
+      ],
+      "created": "2026-02-03T20:55:06.760Z",
+      "updated": "2026-02-03T20:55:06.760Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-updates.md"
+    },
+    {
+      "id": "decision-phase-c-implementation-plan-complete-ready",
+      "type": "decision",
+      "title": "Phase C implementation plan complete and ready",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-03T20:55:22.448Z",
+      "updated": "2026-02-03T20:55:22.448Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-c-implementation-plan-complete-ready.md"
+    },
+    {
+      "id": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
+      "type": "learning",
+      "title": "Plan mode exploration revealed parser and storage ready for Phase C integration",
+      "tags": [
+        "phase-c",
+        "cli-integration",
+        "architecture",
+        "exploration",
+        "project"
+      ],
+      "created": "2026-02-03T20:55:32.577Z",
+      "updated": "2026-02-03T20:55:32.577Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration.md"
     }
   ]
 }

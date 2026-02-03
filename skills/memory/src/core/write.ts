@@ -42,6 +42,10 @@ function getScopeTag(scope: Scope): string {
       return 'project';
     case Scope.Global:
       return 'user';
+    case Scope.AgentProject:
+      return 'agent-project';
+    case Scope.AgentGlobal:
+      return 'agent-global';
   }
 }
 
@@ -264,6 +268,23 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       };
     }
 
+    // Sanitise agent name first
+    const { sanitiseAgentName } = await import('../scope/sanitise-agent-name.js');
+    const sanitisedAgent = sanitiseAgentName(request.agent);
+
+    // Then validate the sanitised name
+    const { validateAgentName } = await import('../scope/validate-agent-name.js');
+    const validation = validateAgentName(sanitisedAgent);
+    if (!validation.valid) {
+      return {
+        status: 'error',
+        error: validation.error ?? 'Invalid agent name',
+      };
+    }
+
+    // Use sanitised agent name from now on
+    request.agent = sanitisedAgent;
+
     const { createAgentDirectory } = await import('../storage/create-agent-directory.js');
     const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
     // For global agent scope, we need to construct the global path
@@ -407,6 +428,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
         filePath,
         frontmatter,
         scope: request.scope,
+        agent: request.agent,
       },
       autoLinked,
       similarTitles: similarTitles.length > 0 ? similarTitles : undefined,

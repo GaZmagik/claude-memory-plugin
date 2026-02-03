@@ -2016,6 +2016,62 @@
     {
       "id": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-task-completion-validation-prevents-hidden-rework",
+      "type": "learning"
+    },
+    {
+      "id": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental-choices",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "type": "learning"
+    },
+    {
+      "id": "learning-getscopetag-function-must-handle-all-scope-enum-variants-including-agent-scopes",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-phase-b-storage-infrastructure",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-phase-b-complete-proceed-to-phase-c",
+      "type": "decision"
+    },
+    {
+      "id": "learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-bottleneck",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-updates",
+      "type": "learning"
+    },
+    {
+      "id": "decision-phase-c-implementation-plan-complete-ready",
+      "type": "decision"
+    },
+    {
+      "id": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -4662,6 +4718,56 @@
     {
       "source": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
       "target": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "target": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-getscopetag-function-must-handle-all-scope-enum-variants-including-agent-scopes",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental-choices",
+      "target": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-task-completion-validation-prevents-hidden-rework",
+      "target": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "label": "relates-to"
     }
   ]

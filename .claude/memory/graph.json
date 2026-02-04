@@ -2232,6 +2232,26 @@
     {
       "id": "learning-phase-d-test-suite-failures-resolved",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-explore-unknown-patterns-before-designing-phase-features",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-plan-interactive-confirmation-upfront-for-destructive-cli-operations",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-phase-e-agent-discovery-implementation",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-cli-sub-command-routing-via-dispatcher-functions",
+      "type": "learning"
     }
   ],
   "edges": [

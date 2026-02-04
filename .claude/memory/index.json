@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T16:57:47.855Z",
+  "lastUpdated": "2026-02-04T18:04:03.615Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7795,6 +7795,87 @@
       "updated": "2026-02-04T16:57:47.830Z",
       "scope": "project",
       "relativePath": "permanent/learning-phase-d-test-suite-failures-resolved.md"
+    },
+    {
+      "id": "learning-retro-explore-unknown-patterns-before-designing-phase-features",
+      "type": "learning",
+      "title": "Retro - Explore unknown patterns before designing phase features",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "project"
+      ],
+      "created": "2026-02-04T18:02:59.859Z",
+      "updated": "2026-02-04T18:02:59.859Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-explore-unknown-patterns-before-designing-phase-features.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-plan-interactive-confirmation-upfront-for-destructive-cli-operations",
+      "type": "gotcha",
+      "title": "Retro - Plan interactive confirmation upfront for destructive CLI operations",
+      "tags": [
+        "retrospective",
+        "process",
+        "cli-design",
+        "project"
+      ],
+      "created": "2026-02-04T18:03:08.978Z",
+      "updated": "2026-02-04T18:03:08.978Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-plan-interactive-confirmation-upfront-for-destructive-cli-operations.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "type": "learning",
+      "title": "TDD parity enforcement blocks file creation without tests",
+      "tags": [
+        "tdd",
+        "testing",
+        "hooks",
+        "enforcement",
+        "project"
+      ],
+      "created": "2026-02-04T18:03:47.848Z",
+      "updated": "2026-02-04T18:03:47.848Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-parity-enforcement-blocks-file-creation-without-tests.md"
+    },
+    {
+      "id": "artifact-phase-e-agent-discovery-implementation",
+      "type": "artifact",
+      "title": "Phase E Agent Discovery Implementation",
+      "tags": [
+        "agents",
+        "discovery",
+        "cli",
+        "phase-e",
+        "implementation",
+        "project"
+      ],
+      "created": "2026-02-04T18:03:55.841Z",
+      "updated": "2026-02-04T18:03:55.841Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-e-agent-discovery-implementation.md"
+    },
+    {
+      "id": "learning-cli-sub-command-routing-via-dispatcher-functions",
+      "type": "learning",
+      "title": "CLI sub-command routing via dispatcher functions",
+      "tags": [
+        "cli",
+        "routing",
+        "commands",
+        "dispatcher",
+        "project"
+      ],
+      "created": "2026-02-04T18:04:03.594Z",
+      "updated": "2026-02-04T18:04:03.594Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-sub-command-routing-via-dispatcher-functions.md"
     }
   ]
 }

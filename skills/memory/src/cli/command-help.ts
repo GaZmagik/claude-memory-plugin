@@ -130,14 +130,21 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     usage: 'memory search <query>',
     description: 'Full-text search across titles and content',
     arguments: `  <query>    Search terms (case-insensitive)`,
-    flags: `  --scope <scope>    Target scope
-  --type <type>      Filter by memory type
-  --limit <n>        Maximum results (default: 20)`,
+    flags: `  --scope <scope>      Target scope
+  --type <type>        Filter by memory type
+  --limit <n>          Maximum results (default: 20)
+  --agent <name>       Search within agent scope
+  --include-shared     Search across agent + shared scopes (requires --agent)`,
     examples: [
       'memory search "database migration"',
       'memory search typescript --type learning',
       'memory search vitest --scope project --limit 10',
+      'memory search "patterns" --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped search with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators like [agent-project], [project], [global].`,
   },
 
   semantic: {

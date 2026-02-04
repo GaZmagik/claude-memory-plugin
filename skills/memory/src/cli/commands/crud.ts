@@ -17,7 +17,8 @@ import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
-import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared } from '../helpers.js';
+import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
+import { getScopeNameFromPath, formatScopedResult } from '../../core/scope-indicators.js';
 
 /**
  * write - Create or update a memory from stdin JSON
@@ -138,16 +139,57 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
     return error(validation.error!);
   }
 
-  // Choose helper based on agent context
-  const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
-
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(typeArg);
 
   return wrapOperation(
     async () => {
+      // Multi-scope list if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; memories: any[] }> = [];
+
+        // List across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await listMemories({
+            basePath: scopePath,
+            type,
+            tag: tagArg,
+            limit,
+            agent: agentName,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.memories) {
+            allResults.push({ scope: scopeName, memories: scopeResult.memories });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedMemories = allResults.flatMap(({ scope, memories }) =>
+          memories.map((memory: any) => ({
+            ...memory,
+            id: formatScopedResult(memory.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedMemories = limit ? mergedMemories.slice(0, limit) : mergedMemories;
+
+        return {
+          status: 'success',
+          memories: limitedMemories,
+          count: mergedMemories.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope list (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await listMemories({
         basePath,
         type,
@@ -220,16 +262,57 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
     return error(validation.error!);
   }
 
-  // Choose helper based on agent context
-  const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
-
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(getFlagString(args.flags, 'type'));
 
   return wrapOperation(
     async () => {
+      // Multi-scope search if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; results: any[] }> = [];
+
+        // Search across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await searchMemories({
+            query,
+            basePath: scopePath,
+            limit,
+            type,
+            agent: agentName,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.results) {
+            allResults.push({ scope: scopeName, results: scopeResult.results });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedResults = allResults.flatMap(({ scope, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope search (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await searchMemories({
         query,
         basePath,
@@ -266,11 +349,6 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
     return error(validation.error!);
   }
 
-  // Choose helper based on agent context
-  const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
-
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.5;
   const limit = getFlagNumber(args.flags, 'limit') ?? 10;
 
@@ -291,6 +369,54 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
+      // Multi-scope semantic search if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; results: any[] }> = [];
+
+        // Search across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await semanticSearchMemories({
+            query,
+            basePath: scopePath,
+            threshold,
+            agent: agentName,
+            limit,
+            provider,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.results) {
+            allResults.push({ scope: scopeName, results: scopeResult.results });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedResults = allResults.flatMap(({ scope, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Sort by similarity and apply limit
+        mergedResults.sort((a, b) => (b.similarity ?? 0) - (a.similarity ?? 0));
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope semantic search (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await semanticSearchMemories({
         query,
         basePath,

@@ -32,6 +32,12 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
 
+  // Validate --include-shared flag (cross-scope linking not supported)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: cross-scope linking not supported (design constraint). Remove --include-shared flag.');
+  }
+
   // Choose helper based on agent context
   const basePath = agentName
     ? resolveAgentScopePath(agentName, scopeStr)
@@ -64,6 +70,12 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag (cross-scope linking not supported)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: cross-scope linking not supported (design constraint). Remove --include-shared flag.');
+  }
 
   // Choose helper based on agent context
   const basePath = agentName

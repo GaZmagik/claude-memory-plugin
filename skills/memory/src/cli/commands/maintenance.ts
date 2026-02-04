@@ -6,7 +6,7 @@
  */
 
 import type { ParsedArgs } from '../parser.js';
-import { getFlagString } from '../parser.js';
+import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { rebuildIndex } from '../../core/index.js';
@@ -32,6 +32,12 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag (write operations are single-scope only)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: write operations are single-scope only. Remove --include-shared flag.');
+  }
 
   // Choose helper based on agent context
   const basePath = agentName

@@ -17,7 +17,7 @@ import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
-import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath } from '../helpers.js';
+import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared } from '../helpers.js';
 
 /**
  * write - Create or update a memory from stdin JSON
@@ -42,6 +42,12 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope') ?? (input.scope as string | undefined);
+
+  // Validate --include-shared flag (write operations are single-scope only)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: write operations are single-scope only. Remove --include-shared flag.');
+  }
 
   // Choose helper based on agent context
   const basePath = agentName
@@ -115,7 +121,7 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
 /**
  * list - List memories with optional filters
  *
- * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>] [--agent <name>]
+ * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>] [--agent <name>] [--include-shared]
  */
 export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
   const typeArg = args.positional[0];
@@ -124,6 +130,13 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
 
   // Choose helper based on agent context
   const basePath = agentName
@@ -164,6 +177,12 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
 
+  // Validate --include-shared flag (write operations are single-scope only)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: write operations are single-scope only. Remove --include-shared flag.');
+  }
+
   // Choose helper based on agent context
   const basePath = agentName
     ? resolveAgentScopePath(agentName, scopeStr)
@@ -181,7 +200,7 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
 /**
  * search - Full-text search across memories
  *
- * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>] [--agent <name>]
+ * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>] [--agent <name>] [--include-shared]
  */
 export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -193,6 +212,13 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
 
   // Choose helper based on agent context
   const basePath = agentName
@@ -220,7 +246,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 /**
  * semantic - Search by meaning using embeddings
  *
- * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>] [--agent <name>]
+ * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>] [--agent <name>] [--include-shared]
  */
 export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -232,6 +258,13 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
 
   // Choose helper based on agent context
   const basePath = agentName

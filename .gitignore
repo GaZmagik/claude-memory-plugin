@@ -74,3 +74,9 @@ bun.lock
 .specify/templates
 .specify/spec-driven.md
 .specify/test-driven.md
+
+# Accord plugin local data (not part of memory plugin)
+.claude/accord/
+
+# Memory plugin local test data
+skills/memory/.claude/

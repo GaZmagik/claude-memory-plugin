@@ -2108,6 +2108,22 @@
     {
       "id": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
+      "type": "learning"
+    },
+    {
+      "id": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-validation-pattern-include-shared-flag",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -4804,6 +4820,91 @@
     {
       "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
       "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "target": "decision-phase-b-complete-proceed-to-phase-c",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "target": "artifact-phase-b-storage-infrastructure",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-c-implementation-plan-complete-ready",
+      "target": "learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-bottleneck",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-type-system-updates-can-hide-incomplete-implementations",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-updates",
+      "target": "decision-phase-c-implementation-plan-complete-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
+      "target": "decision-phase-c-implementation-plan-complete-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-c-helper-function-refactoring-bottleneck",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-c-agent-name-validation-with-helpful-errors",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-validation-pattern-include-shared-flag",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
       "label": "relates-to"
     }
   ]

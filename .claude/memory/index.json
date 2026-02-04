@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-03T22:32:49.845Z",
+  "lastUpdated": "2026-02-04T08:37:28.373Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7289,6 +7289,69 @@
       "updated": "2026-02-03T22:32:49.820Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types.md"
+    },
+    {
+      "id": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
+      "type": "learning",
+      "title": "TDD-driven validation prevents cross-scope access misuse",
+      "tags": [
+        "tdd",
+        "validation",
+        "include-shared",
+        "agent-scope",
+        "project"
+      ],
+      "created": "2026-02-04T08:36:41.063Z",
+      "updated": "2026-02-04T08:36:41.063Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-driven-validation-prevents-cross-scope-access-misuse.md"
+    },
+    {
+      "id": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
+      "type": "learning",
+      "title": "resolveSharedScopePaths helper simplifies multi-scope memory resolution",
+      "tags": [
+        "helper-function",
+        "include-shared",
+        "scope-resolution",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-04T08:36:54.701Z",
+      "updated": "2026-02-04T08:36:54.701Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution.md"
+    },
+    {
+      "id": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "type": "gotcha",
+      "title": "Git context detection affects default scope in tests",
+      "tags": [
+        "testing",
+        "git-context",
+        "scope-resolution",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-04T08:37:03.597Z",
+      "updated": "2026-02-04T08:37:03.597Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-git-context-detection-affects-default-scope-in-tests.md"
+    },
+    {
+      "id": "artifact-validation-pattern-include-shared-flag",
+      "type": "artifact",
+      "title": "Validation pattern for --include-shared flag enforcement",
+      "tags": [
+        "validation-pattern",
+        "flag-enforcement",
+        "include-shared",
+        "project"
+      ],
+      "created": "2026-02-04T08:37:28.309Z",
+      "updated": "2026-02-04T08:37:28.309Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-validation-pattern-include-shared-flag.md"
     }
   ]
 }

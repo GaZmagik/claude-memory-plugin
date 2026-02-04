@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T10:59:12.228Z",
+  "lastUpdated": "2026-02-04T13:20:45.427Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7554,6 +7554,116 @@
       "updated": "2026-02-04T10:59:12.161Z",
       "scope": "project",
       "relativePath": "permanent/learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed.md"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents accelerate post-compaction recovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-04T13:19:06.225Z",
+      "updated": "2026-02-04T13:19:06.225Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-positional-array-structure-bug-caught-post-implementation",
+      "type": "gotcha",
+      "title": "Retro - Test positional array structure bug caught post-implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-04T13:19:47.608Z",
+      "updated": "2026-02-04T13:19:47.608Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-positional-array-structure-bug-caught-post-implementation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-memory-system-gatekeeping-prevented-documentation-shortcuts",
+      "type": "learning",
+      "title": "Retro - Memory system gatekeeping prevented documentation shortcuts",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "documentation",
+        "project"
+      ],
+      "created": "2026-02-04T13:19:55.425Z",
+      "updated": "2026-02-04T13:19:55.425Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-memory-system-gatekeeping-prevented-documentation-shortcuts.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-test-positional-array-structure-in-cli-command-tests",
+      "type": "learning",
+      "title": "Test positional array structure in CLI command tests",
+      "tags": [
+        "testing",
+        "cli",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-04T13:20:05.670Z",
+      "updated": "2026-02-04T13:20:05.670Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-positional-array-structure-in-cli-command-tests.md"
+    },
+    {
+      "id": "learning-scope-indicators-in-search-results-are-in-results-array-not-message-field",
+      "type": "learning",
+      "title": "Scope indicators in search results are in results array, not message field",
+      "tags": [
+        "testing",
+        "scope-indicators",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-04T13:20:12.265Z",
+      "updated": "2026-02-04T13:20:12.265Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-scope-indicators-in-search-results-are-in-results-array-not-message-field.md"
+    },
+    {
+      "id": "gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs",
+      "type": "gotcha",
+      "title": "Phase D test suite had 6 initial failures due to test structure bugs",
+      "tags": [
+        "phase-d",
+        "testing",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-04T13:20:17.902Z",
+      "updated": "2026-02-04T13:20:17.902Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs.md"
+    },
+    {
+      "id": "decision-phase-d-implementation-complete-all-tests-passing",
+      "type": "decision",
+      "title": "Phase D implementation complete - all tests passing",
+      "tags": [
+        "phase-d",
+        "decision",
+        "project"
+      ],
+      "created": "2026-02-04T13:20:45.408Z",
+      "updated": "2026-02-04T13:20:45.408Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-d-implementation-complete-all-tests-passing.md"
     }
   ]
 }

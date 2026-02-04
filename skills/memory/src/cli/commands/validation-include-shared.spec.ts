@@ -1,0 +1,299 @@
+/**
+ * Tests for --include-shared flag validation
+ *
+ * Phase D: Shared Memory Inclusion
+ * Tests verify that --include-shared validation works correctly:
+ * - Requires --agent flag (can't use alone)
+ * - Rejected on write operations (single-scope only)
+ * - Accepted on read operations (search, list, query, etc.)
+ *
+ * Note: These are validation-focused tests. Integration tests verify actual
+ * multi-scope functionality.
+ */
+
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { cmdWrite, cmdDelete, cmdSearch, cmdList } from './crud.js';
+import { cmdLink, cmdUnlink } from './graph.js';
+import { cmdTag, cmdUntag } from './tags.js';
+import { cmdSync } from './maintenance.js';
+import { cmdQuery, cmdStats, cmdImpact } from './query.js';
+import type { ParsedArgs } from '../parser.js';
+import * as parserModule from '../parser.js';
+
+// Import modules that commands actually use
+import * as writeModule from '../../core/write.js';
+import * as deleteModule from '../../core/delete.js';
+import * as searchModule from '../../core/search.js';
+import * as listModule from '../../core/list.js';
+import * as linkModule from '../../graph/link.js';
+import * as tagModule from '../../core/tag.js';
+import * as syncModule from '../../maintenance/sync.js';
+import * as indexModule from '../../core/index.js';
+import * as graphModule from '../../graph/structure.js';
+
+describe('--include-shared validation', () => {
+  describe('requires --agent flag on read operations', () => {
+    beforeEach(() => {
+      // Mock underlying functions
+      vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({ status: 'success', results: [] });
+      vi.spyOn(listModule, 'listMemories').mockResolvedValue({ status: 'success', memories: [], count: 0 });
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ status: 'success', entries: [] });
+      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ nodes: {}, edges: [] });
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('cmdSearch: errors when --include-shared without --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['pattern'],
+        flags: { 'include-shared': true },
+      };
+      const result = await cmdSearch(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('--include-shared requires --agent');
+      expect(searchModule.searchMemories).not.toHaveBeenCalled();
+    });
+
+    it('cmdList: errors when --include-shared without --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['list'],
+        flags: { 'include-shared': true },
+      };
+      const result = await cmdList(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('--include-shared requires --agent');
+      expect(listModule.listMemories).not.toHaveBeenCalled();
+    });
+
+    it('cmdQuery: errors when --include-shared without --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['query'],
+        flags: { 'include-shared': true },
+      };
+      const result = await cmdQuery(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('--include-shared requires --agent');
+    });
+
+    it('cmdStats: errors when --include-shared without --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['stats'],
+        flags: { 'include-shared': true },
+      };
+      const result = await cmdStats(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('--include-shared requires --agent');
+    });
+
+    it('cmdImpact: errors when --include-shared without --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['impact', 'some-id'],
+        flags: { 'include-shared': true },
+      };
+      const result = await cmdImpact(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('--include-shared requires --agent');
+    });
+  });
+
+  describe('rejects --include-shared on write operations', () => {
+    beforeEach(() => {
+      // Mock stdin for cmdWrite
+      vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+        title: 'Test Memory',
+        content: 'Test content',
+        type: 'learning',
+      });
+
+      // Mock write operations
+      vi.spyOn(writeModule, 'writeMemory').mockResolvedValue({ status: 'success' });
+      vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({ status: 'success' });
+      vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({ status: 'success' });
+      vi.spyOn(linkModule, 'unlinkMemories').mockResolvedValue({ status: 'success' });
+      vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success', memory: {} as any });
+      vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({ status: 'success', memory: {} as any });
+      vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({ status: 'success', errors: [] });
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('cmdWrite: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['write'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdWrite(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('write operations are single-scope only');
+      expect(result.error).toContain('Remove --include-shared');
+      expect(writeModule.writeMemory).not.toHaveBeenCalled();
+    });
+
+    it('cmdDelete: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['delete', 'some-id'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdDelete(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('write operations are single-scope only');
+      expect(deleteModule.deleteMemory).not.toHaveBeenCalled();
+    });
+
+    it('cmdLink: rejects --include-shared (cross-scope edges forbidden)', async () => {
+      const args: ParsedArgs = {
+        positional: ['link', 'id1', 'id2'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdLink(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('cross-scope linking not supported');
+      expect(result.error).toContain('design constraint');
+      expect(linkModule.linkMemories).not.toHaveBeenCalled();
+    });
+
+    it('cmdUnlink: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['unlink', 'id1', 'id2'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdUnlink(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('cross-scope linking not supported');
+      expect(linkModule.unlinkMemories).not.toHaveBeenCalled();
+    });
+
+    it('cmdTag: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['tag', 'some-id', 'new-tag'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdTag(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('write operations are single-scope only');
+      expect(tagModule.tagMemory).not.toHaveBeenCalled();
+    });
+
+    it('cmdUntag: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['untag', 'some-id', 'old-tag'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdUntag(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('write operations are single-scope only');
+      expect(tagModule.untagMemory).not.toHaveBeenCalled();
+    });
+
+    it('cmdSync: rejects --include-shared', async () => {
+      const args: ParsedArgs = {
+        positional: ['sync'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdSync(args);
+
+      expect(result.status).toBe('error');
+      expect(result.error).toContain('write operations are single-scope only');
+      expect(syncModule.syncMemories).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('accepts --include-shared with --agent on read operations', () => {
+    beforeEach(() => {
+      // Mock read operations - will be called if validation passes
+      vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({ status: 'success', results: [] });
+      vi.spyOn(listModule, 'listMemories').mockResolvedValue({ status: 'success', memories: [], count: 0 });
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ status: 'success', entries: [] });
+      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ nodes: {}, edges: [] });
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    // These tests verify NO validation error occurs
+    // Implementation will fail in Red phase (expected - no multi-scope logic yet)
+    // Once implemented, these should pass
+
+    it('cmdSearch: accepts --include-shared with --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['pattern'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdSearch(args);
+
+      // Should not be a validation error
+      if (result.status === 'error') {
+        expect(result.error).not.toContain('--include-shared requires --agent');
+        expect(result.error).not.toContain('write operations are single-scope');
+      }
+    });
+
+    it('cmdList: accepts --include-shared with --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['list'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdList(args);
+
+      if (result.status === 'error') {
+        expect(result.error).not.toContain('--include-shared requires --agent');
+        expect(result.error).not.toContain('write operations are single-scope');
+      }
+    });
+
+    it('cmdQuery: accepts --include-shared with --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['query'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdQuery(args);
+
+      if (result.status === 'error') {
+        expect(result.error).not.toContain('--include-shared requires --agent');
+        expect(result.error).not.toContain('write operations are single-scope');
+      }
+    });
+
+    it('cmdStats: accepts --include-shared with --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['stats'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdStats(args);
+
+      if (result.status === 'error') {
+        expect(result.error).not.toContain('--include-shared requires --agent');
+        expect(result.error).not.toContain('write operations are single-scope');
+      }
+    });
+
+    it('cmdImpact: accepts --include-shared with --agent', async () => {
+      const args: ParsedArgs = {
+        positional: ['impact', 'some-id'],
+        flags: { agent: 'typescript-expert', 'include-shared': true },
+      };
+      const result = await cmdImpact(args);
+
+      if (result.status === 'error') {
+        expect(result.error).not.toContain('--include-shared requires --agent');
+        expect(result.error).not.toContain('write operations are single-scope');
+      }
+    });
+  });
+});

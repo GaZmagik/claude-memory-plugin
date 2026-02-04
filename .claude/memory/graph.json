@@ -2172,6 +2172,34 @@
     {
       "id": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-test-positional-array-structure-bug-caught-post-implementation",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-memory-system-gatekeeping-prevented-documentation-shortcuts",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-positional-array-structure-in-cli-command-tests",
+      "type": "learning"
+    },
+    {
+      "id": "learning-scope-indicators-in-search-results-are-in-results-array-not-message-field",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-phase-d-implementation-complete-all-tests-passing",
+      "type": "decision"
     }
   ],
   "edges": [

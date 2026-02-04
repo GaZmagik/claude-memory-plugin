@@ -1,6 +1,7 @@
 import path from 'path';
 import { Scope } from '../types/enums.js';
 import { isAgentScope } from './is-agent-scope.js';
+import { sanitiseAgentName } from './sanitise-agent-name.js';
 
 export interface AgentDirectoryOptions {
   scope: Scope;
@@ -46,17 +47,24 @@ export function getAgentDirectoryPath(options: AgentDirectoryOptions): string {
     throw new Error('agentName is required for agent scope paths');
   }
 
+  // Sanitise agent name for filesystem safety
+  const sanitisedName = sanitiseAgentName(agentName);
+
+  if (!sanitisedName) {
+    throw new Error(`agentName "${agentName}" contains no valid characters after sanitisation`);
+  }
+
   // Resolve path based on scope
   if (scope === Scope.AgentProject) {
     if (!projectRoot) {
       throw new Error('projectRoot is required for AgentProject scope');
     }
-    return path.join(projectRoot, '.claude', 'memory', 'agents', agentName);
+    return path.join(projectRoot, '.claude', 'memory', 'agents', sanitisedName);
   }
 
   // AgentGlobal
   if (!globalRoot) {
     throw new Error('globalRoot is required for AgentGlobal scope');
   }
-  return path.join(globalRoot, 'agents', agentName);
+  return path.join(globalRoot, 'agents', sanitisedName);
 }

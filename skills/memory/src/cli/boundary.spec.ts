@@ -12,6 +12,19 @@ import { cmdImport, cmdExport } from './commands/bulk.js';
 import { cmdThink } from './commands/think.js';
 import type { ParsedArgs } from './parser.js';
 
+// Mock exportMemories at module level
+vi.mock('../core/export.js', () => ({
+  exportMemories: vi.fn().mockResolvedValue({
+    status: 'success',
+    data: {
+      version: '1.0.0',
+      exportedAt: new Date().toISOString(),
+      memories: [],
+    },
+    serialised: '{}',
+  }),
+}));
+
 describe('CLI Argument Parsing Edge Cases', () => {
   it('handles empty arguments', () => {
     const result = parseArgs([]);
@@ -249,6 +262,24 @@ describe('Graph Command Boundary Conditions', () => {
 describe('Bulk Command Boundary Conditions', () => {
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  describe('cmdExport', () => {
+    it('handles missing scope gracefully', async () => {
+      const args: ParsedArgs = { positional: [], flags: {} };
+      const result = await cmdExport(args);
+      // Should default to project scope and succeed
+      expect(result.status).toBe('success');
+      // Verify exported data has expected structure
+      const data = result.data as any;
+      expect(data).toBeDefined();
+      // Export should return structured data even if empty
+      if (data?.data) {
+        expect(data.data).toHaveProperty('version');
+        expect(data.data).toHaveProperty('exportedAt');
+        expect(data.data).toHaveProperty('memories');
+      }
+    });
   });
 
   describe('cmdImport', () => {

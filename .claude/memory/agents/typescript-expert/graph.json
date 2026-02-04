@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "learning-typescript-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test",
+      "type": "learning"
+    }
+  ],
+  "edges": []
+}

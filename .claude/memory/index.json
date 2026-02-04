@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T18:04:03.615Z",
+  "lastUpdated": "2026-02-04T19:59:08.426Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7876,6 +7876,70 @@
       "updated": "2026-02-04T18:04:03.594Z",
       "scope": "project",
       "relativePath": "permanent/learning-cli-sub-command-routing-via-dispatcher-functions.md"
+    },
+    {
+      "id": "learning-modular-test-structure-for-large-operation-test-suites",
+      "type": "learning",
+      "title": "Modular test structure for large operation test suites",
+      "tags": [
+        "testing",
+        "architecture",
+        "tdd",
+        "agent-operations",
+        "project"
+      ],
+      "created": "2026-02-04T19:58:10.140Z",
+      "updated": "2026-02-04T19:58:10.140Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-modular-test-structure-for-large-operation-test-suites.md"
+    },
+    {
+      "id": "learning-agent-path-structure-consistency-across-tests-and-implementation",
+      "type": "learning",
+      "title": "Agent path structure consistency across tests and implementation",
+      "tags": [
+        "testing",
+        "path-resolution",
+        "agent-operations",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-04T19:58:28.974Z",
+      "updated": "2026-02-04T19:58:28.974Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-path-structure-consistency-across-tests-and-implementation.md"
+    },
+    {
+      "id": "learning-agent-name-validation-auto-lowercasing-pattern",
+      "type": "learning",
+      "title": "Agent name validation auto-lowercasing pattern",
+      "tags": [
+        "validation",
+        "agent-operations",
+        "naming",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-04T19:58:45.249Z",
+      "updated": "2026-02-04T19:58:45.249Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-name-validation-auto-lowercasing-pattern.md"
+    },
+    {
+      "id": "artifact-agent-copy-export-import-delegation",
+      "type": "artifact",
+      "title": "Agent copy via export-import delegation pattern",
+      "tags": [
+        "pattern",
+        "agent-operations",
+        "reuse",
+        "export-import",
+        "project"
+      ],
+      "created": "2026-02-04T19:59:08.407Z",
+      "updated": "2026-02-04T19:59:08.407Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-agent-copy-export-import-delegation.md"
     }
   ]
 }

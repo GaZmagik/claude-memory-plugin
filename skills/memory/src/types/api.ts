@@ -528,6 +528,58 @@ export interface ThinkDeleteResponse extends BaseResponse {
 }
 
 // ============================================================================
+// Agent Discovery Operations (Phase E)
+// ============================================================================
+
+/**
+ * Agent summary with metadata and optional statistics
+ */
+export interface AgentSummary {
+  /** Agent name */
+  name: string;
+  /** Agent scope (AgentProject or AgentGlobal) */
+  scope: Scope.AgentProject | Scope.AgentGlobal;
+  /** Total number of memories */
+  memoryCount: number;
+  /** Last updated timestamp (most recent memory update) */
+  lastUpdated?: string;
+  /** Health statistics (if includeStats was true) */
+  health?: {
+    status: string;
+    score: number;
+    connectivityRatio: number;
+  };
+  /** Unique tags across all memories (if includeStats was true) */
+  tags?: string[];
+  /** Memory type distribution (if includeStats was true) */
+  memoryTypes?: Record<MemoryType, number>;
+}
+
+/**
+ * Request to discover agents across project and global scopes
+ */
+export interface DiscoverAgentsRequest {
+  /** Project root directory */
+  projectRoot: string;
+  /** Global memory root directory */
+  globalRoot: string;
+  /** Include detailed statistics (health, types, tags) */
+  includeStats?: boolean;
+  /** Filter by scope (optional) */
+  scope?: Scope.AgentProject | Scope.AgentGlobal;
+}
+
+/**
+ * Response from agent discovery
+ */
+export interface DiscoverAgentsResponse extends BaseResponse {
+  /** List of discovered agents */
+  agents?: AgentSummary[];
+  /** Total count */
+  count?: number;
+}
+
+// ============================================================================
 // Re-export Bulk & Utility Operation Types
 // ============================================================================
 

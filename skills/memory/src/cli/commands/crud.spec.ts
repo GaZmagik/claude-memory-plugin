@@ -253,6 +253,28 @@ describe('cmdSearch', () => {
       })
     );
   });
+
+  it('returns error when --all-agents used with --agent', async () => {
+    const args: ParsedArgs = {
+      positional: ['query'],
+      flags: { 'all-agents': true, agent: 'typescript-expert' },
+    };
+    const result = await cmdSearch(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Cannot use --all-agents with --agent');
+  });
+
+  it('returns error when --all-agents used with --include-shared', async () => {
+    const args: ParsedArgs = {
+      positional: ['query'],
+      flags: { 'all-agents': true, 'include-shared': true },
+    };
+    const result = await cmdSearch(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Cannot use --all-agents with --include-shared');
+  });
 });
 
 describe('cmdSemantic', () => {

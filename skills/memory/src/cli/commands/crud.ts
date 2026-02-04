@@ -17,8 +17,10 @@ import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
-import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
+import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, getGlobalMemoryPath } from '../helpers.js';
 import { getScopeNameFromPath, formatScopedResult } from '../../core/scope-indicators.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
+import { getAgentDirectoryPath } from '../../scope/get-agent-directory-path.js';
 
 /**
  * write - Create or update a memory from stdin JSON
@@ -254,9 +256,20 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
   // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const allAgents = getFlagBool(args.flags, 'all-agents');
+
+  // Validate mutually exclusive flags
+  if (allAgents && agentName) {
+    return error('Cannot use --all-agents with --agent');
+  }
 
   // Validate --include-shared flag
   const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  if (allAgents && includeShared) {
+    return error('Cannot use --all-agents with --include-shared');
+  }
+
   const validation = validateIncludeShared(includeShared, agentName);
   if (!validation.valid) {
     return error(validation.error!);
@@ -267,6 +280,57 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
+      // Cross-agent search if --all-agents is used
+      if (allAgents) {
+        const agents = await discoverAgents({
+          projectRoot: process.cwd(),
+          globalRoot: getGlobalMemoryPath(),
+        });
+
+        const allResults: Array<{ agent: string; results: any[] }> = [];
+
+        // Search across all agents
+        for (const agent of agents) {
+          const agentPath = getAgentDirectoryPath({
+            scope: agent.scope,
+            agentName: agent.name,
+            projectRoot: process.cwd(),
+            globalRoot: getGlobalMemoryPath(),
+          });
+
+          const agentResult = await searchMemories({
+            query,
+            basePath: agentPath,
+            limit,
+            type,
+            agent: agent.name,
+          });
+
+          if (agentResult.status === 'success' && agentResult.results) {
+            allResults.push({ agent: agent.name, results: agentResult.results });
+          }
+        }
+
+        // Merge results with agent indicators
+        const mergedResults = allResults.flatMap(({ agent, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, `agent:${agent}`),
+            agent, // Add agent field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          agents: allResults.map(({ agent }) => agent),
+        };
+      }
+
       // Multi-scope search if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);

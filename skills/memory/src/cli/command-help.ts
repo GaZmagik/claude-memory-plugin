@@ -627,6 +627,47 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   - Does not traverse cross-scope edges (design constraint)`,
   },
 
+  // Agent Discovery Operations (Phase E)
+  agents: {
+    usage: 'memory agents <subcommand> [options]',
+    description: 'Discover and analyse agent-scoped memories',
+    subcommands: `  list          List all available agents
+  stats <name>  Show detailed statistics for an agent`,
+    flags: `  For 'list':
+    --scope <scope>      Filter by scope (project, global)
+    --include-stats      Include detailed statistics (types, tags, health)
+
+  For 'stats':
+    --all                Show statistics for all agents`,
+    examples: [
+      '# List all agents',
+      'memory agents list',
+      '',
+      '# List project agents only',
+      'memory agents list --scope project',
+      '',
+      '# List with detailed statistics',
+      'memory agents list --include-stats',
+      '',
+      '# Show stats for one agent',
+      'memory agents stats typescript-expert',
+      '',
+      '# Show stats for all agents',
+      'memory agents stats --all',
+    ],
+    notes: `  Agent discovery scans .claude/memory/agents/ (project) and
+  ~/.claude/memory/agents/ (global) directories.
+
+  Priority: Project-scoped agents take precedence over global agents
+  when duplicate names exist.
+
+  Cross-agent search: Use --all-agents flag with search, list, or query
+  commands to search across all discovered agents:
+    memory search "API patterns" --all-agents
+    memory list --type learning --all-agents
+    memory query --tag typescript --all-agents`,
+  },
+
   // Think Operations
   think: {
     usage: 'memory think <subcommand> [options]',

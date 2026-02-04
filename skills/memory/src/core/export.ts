@@ -48,6 +48,14 @@ export async function exportMemories(
         memories: [],
       };
 
+      // Include empty graph if requested (no memories = no nodes/edges to export)
+      if (request.includeGraph) {
+        emptyPackage.graph = {
+          nodes: [],
+          edges: [],
+        };
+      }
+
       return {
         status: 'success',
         data: emptyPackage,

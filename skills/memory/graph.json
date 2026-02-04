@@ -12,6 +12,10 @@
     {
       "id": "decision-api",
       "type": "decision"
+    },
+    {
+      "id": "decision-foo",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -24,6 +28,11 @@
       "source": "decision-api",
       "target": "hub-decisions",
       "label": "relates-to"
+    },
+    {
+      "source": "decision-foo",
+      "target": "hub-decisions",
+      "label": "contributes-to"
     }
   ]
 }

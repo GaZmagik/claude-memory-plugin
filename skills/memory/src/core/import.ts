@@ -14,7 +14,6 @@ import type {
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { writeMemory } from './write.js';
-import { linkMemories } from '../graph/link.js';
 import { createLogger } from './logger.js';
 import { isValidExportPackage } from './validation.js';
 
@@ -77,6 +76,50 @@ export async function importMemories(
     }
 
     if (data.memories.length === 0) {
+      // Still need to import graph even if no memories
+      if (!request.dryRun && data.graph !== undefined) {
+        const { loadGraph, saveGraph } = await import('../graph/structure.js');
+
+        // Load existing graph or create empty one
+        let graph: any;
+        try {
+          graph = await loadGraph(basePath);
+        } catch {
+          // Initialize empty graph if load fails
+          graph = {
+            version: 1,
+            nodes: [],
+            edges: [],
+          };
+        }
+
+        // Add nodes from import
+        if (data.graph.nodes) {
+          for (const node of data.graph.nodes) {
+            // Only add if not already present
+            if (!graph.nodes.find((n: any) => n.id === node.id)) {
+              graph.nodes.push(node);
+            }
+          }
+        }
+
+        // Add edges from import
+        if (data.graph.edges) {
+          for (const edge of data.graph.edges) {
+            // Only add if not already present
+            const edgeExists = graph.edges.find(
+              (e: any) => e.source === edge.source && e.target === edge.target && e.label === edge.label
+            );
+            if (!edgeExists) {
+              graph.edges.push(edge);
+            }
+          }
+        }
+
+        // Always save graph when import includes graph data (even if empty)
+        await saveGraph(basePath, graph);
+      }
+
       return {
         status: 'success',
         importedCount: 0,
@@ -157,16 +200,49 @@ export async function importMemories(
       }
     }
 
-    // Import graph relationships if present
-    if (!request.dryRun && data.graph?.edges) {
-      for (const edge of data.graph.edges) {
-        await linkMemories({
-          source: edge.source,
-          target: edge.target,
-          relation: edge.label,
-          basePath,
-        });
+    // Import graph relationships if present (always save graph even if empty)
+    if (!request.dryRun && data.graph !== undefined) {
+      const { loadGraph, saveGraph } = await import('../graph/structure.js');
+
+      // Load existing graph or create empty one
+      let graph: any;
+      try {
+        graph = await loadGraph(basePath);
+      } catch {
+        // Initialize empty graph if load fails
+        graph = {
+          version: 1,
+          nodes: [],
+          edges: [],
+        };
       }
+
+      // Add nodes from import
+      if (data.graph.nodes) {
+        for (const node of data.graph.nodes) {
+          // Only add if not already present
+          if (!graph.nodes.find((n: any) => n.id === node.id)) {
+            graph.nodes.push(node);
+          }
+        }
+      }
+
+      // Add edges from import
+      if (data.graph.edges) {
+        for (const edge of data.graph.edges) {
+          // Only add if not already present
+          const edgeExists = graph.edges.find(
+            (e: any) => e.source === edge.source && e.target === edge.target && e.label === edge.label
+          );
+          if (!edgeExists) {
+            graph.edges.push(edge);
+          }
+        }
+      }
+
+      // Always save graph when import includes graph data (even if empty)
+      // This ensures graph.json exists in target directory
+      await saveGraph(basePath, graph);
     }
 
     log.info('Import complete', {

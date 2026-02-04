@@ -2124,6 +2124,34 @@
     {
       "id": "artifact-validation-pattern-include-shared-flag",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first-accelerates-subsequent-commands",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentation",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "type": "learning"
+    },
+    {
+      "id": "learning-multi-scope-result-merging-pattern-with-scope-indicators",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-agent-field-propagation-requires-tracing-through-all-layers",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-include-shared-validation-pattern",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -4905,6 +4933,56 @@
     {
       "source": "artifact-validation-pattern-include-shared-flag",
       "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-include-shared-validation-pattern",
+      "target": "artifact-validation-pattern-include-shared-flag",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-multi-scope-result-merging-pattern-with-scope-indicators",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-agent-field-propagation-requires-tracing-through-all-layers",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-include-shared-validation-pattern",
+      "target": "artifact-validation-pattern-include-shared-flag",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first-accelerates-subsequent-commands",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentation",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
+      "target": "learning-multi-scope-result-merging-pattern-with-scope-indicators",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
+      "target": "artifact-validation-pattern-include-shared-flag",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
+      "target": "artifact-include-shared-validation-pattern",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
       "label": "relates-to"
     }
   ]

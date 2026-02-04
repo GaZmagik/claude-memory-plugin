@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T08:37:28.373Z",
+  "lastUpdated": "2026-02-04T09:55:16.849Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7339,6 +7339,126 @@
       "relativePath": "permanent/gotcha-git-context-detection-affects-default-scope-in-tests.md"
     },
     {
+      "id": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents improve post-compaction recovery speed",
+      "tags": [
+        "retrospective",
+        "process",
+        "compaction",
+        "agents",
+        "project"
+      ],
+      "created": "2026-02-04T09:47:13.516Z",
+      "updated": "2026-02-04T09:47:13.516Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first-accelerates-subsequent-commands",
+      "type": "learning",
+      "title": "Retro - Phase D multi-scope implementation: establishing pattern first accelerates subsequent commands",
+      "tags": [
+        "retrospective",
+        "process",
+        "phase-d",
+        "multi-scope",
+        "project"
+      ],
+      "created": "2026-02-04T09:47:24.415Z",
+      "updated": "2026-02-04T09:47:24.415Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first-accelerates-subsequent-commands.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentation",
+      "type": "gotcha",
+      "title": "Gotcha - Help text updates deferred to final task risked incomplete documentation",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-04T09:47:34.282Z",
+      "updated": "2026-02-04T09:47:34.282Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "type": "learning",
+      "title": "Parallel restoration agents improve post-compaction recovery speed",
+      "tags": [
+        "performance",
+        "compaction",
+        "memory-system",
+        "agents",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-04T09:48:12.135Z",
+      "updated": "2026-02-04T09:48:12.135Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-improve-post-compaction-recovery-speed.md"
+    },
+    {
+      "id": "learning-multi-scope-result-merging-pattern-with-scope-indicators",
+      "type": "learning",
+      "title": "Multi-scope result merging pattern with scope indicators",
+      "tags": [
+        "pattern",
+        "multi-scope",
+        "search",
+        "scope-indicators",
+        "feature-003",
+        "project"
+      ],
+      "created": "2026-02-04T09:48:21.576Z",
+      "updated": "2026-02-04T09:48:21.576Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-multi-scope-result-merging-pattern-with-scope-indicators.md"
+    },
+    {
+      "id": "gotcha-agent-field-propagation-requires-tracing-through-all-layers",
+      "type": "gotcha",
+      "title": "Agent field propagation requires tracing through all layers",
+      "tags": [
+        "gotcha",
+        "agent-field",
+        "propagation",
+        "BaseRequest",
+        "feature-003",
+        "critical",
+        "project"
+      ],
+      "created": "2026-02-04T09:48:32.997Z",
+      "updated": "2026-02-04T09:48:32.997Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-field-propagation-requires-tracing-through-all-layers.md"
+    },
+    {
+      "id": "artifact-include-shared-validation-pattern",
+      "type": "artifact",
+      "title": "Validation pattern for --include-shared flag enforcement",
+      "tags": [
+        "pattern",
+        "validation",
+        "include-shared",
+        "feature-003",
+        "reusable",
+        "project"
+      ],
+      "created": "2026-02-04T09:48:47.702Z",
+      "updated": "2026-02-04T09:48:47.702Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-include-shared-validation-pattern.md"
+    },
+    {
       "id": "artifact-validation-pattern-include-shared-flag",
       "type": "artifact",
       "title": "Validation pattern for --include-shared flag enforcement",
@@ -7346,10 +7466,11 @@
         "validation-pattern",
         "flag-enforcement",
         "include-shared",
-        "project"
+        "project",
+        "feature-003"
       ],
       "created": "2026-02-04T08:37:28.309Z",
-      "updated": "2026-02-04T08:37:28.309Z",
+      "updated": "2026-02-04T09:55:16.807Z",
       "scope": "project",
       "relativePath": "permanent/artifact-validation-pattern-include-shared-flag.md"
     }

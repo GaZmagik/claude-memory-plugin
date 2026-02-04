@@ -103,14 +103,21 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     description: 'List all memories, optionally filtered by type or tag',
     arguments: `  [type]   Filter by memory type (decision, learning, gotcha, artifact, etc.)
   [tag]    Filter by tag`,
-    flags: `  --scope <scope>    Target scope (user, project, local, enterprise)
-  --limit <n>        Maximum number of results`,
+    flags: `  --scope <scope>      Target scope (user, project, local, enterprise)
+  --limit <n>          Maximum number of results
+  --agent <name>       List memories within agent scope
+  --include-shared     List across agent + shared scopes (requires --agent)`,
     examples: [
       'memory list',
       'memory list decision',
       'memory list learning typescript',
       'memory list --scope user --limit 20',
+      'memory list learning --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped listing with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators like [agent-project], [project], [global].`,
   },
 
   delete: {
@@ -151,15 +158,23 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     usage: 'memory semantic <query>',
     description: 'Search by meaning using embeddings (requires Ollama)',
     arguments: `  <query>    Natural language query`,
-    flags: `  --threshold <n>    Minimum similarity (0-1, default: 0.7)
-  --limit <n>        Maximum results (default: 10)
-  --scope <scope>    Target scope`,
+    flags: `  --threshold <n>      Minimum similarity (0-1, default: 0.7)
+  --limit <n>          Maximum results (default: 10)
+  --scope <scope>      Target scope
+  --agent <name>       Search within agent scope
+  --include-shared     Search across agent + shared scopes (requires --agent)`,
     examples: [
       'memory semantic "how do we handle authentication"',
       'memory semantic "testing patterns" --threshold 0.8',
+      'memory semantic "API design" --agent typescript-expert --include-shared',
     ],
     notes: `  Requires Ollama running locally with an embedding model.
-  First search may be slow as embeddings are generated.`,
+  First search may be slow as embeddings are generated.
+
+  Agent-scoped search with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators and sorted by similarity.`,
   },
 
   // Tag Operations
@@ -551,42 +566,65 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   query: {
     usage: 'memory query [options]',
     description: 'Complex filtering with multiple criteria',
-    flags: `  --type <type>      Filter by memory type
-  --tags <tags>      Filter by tags (comma-separated)
-  --has-edges        Only memories with edges
-  --orphans          Only orphaned memories (no edges)
-  --scope <scope>    Target scope
-  --limit <n>        Maximum results`,
+    flags: `  --type <type>        Filter by memory type
+  --tags <tags>        Filter by tags (comma-separated)
+  --has-edges          Only memories with edges
+  --orphans            Only orphaned memories (no edges)
+  --scope <scope>      Target scope
+  --limit <n>          Maximum results
+  --agent <name>       Query within agent scope
+  --include-shared     Query across agent + shared scopes (requires --agent)`,
     examples: [
       'memory query --type decision --has-edges',
       'memory query --tags important,reviewed',
       'memory query --orphans --scope project',
+      'memory query --type learning --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped queries with --include-shared search across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators and include edge counts.`,
   },
 
   stats: {
     usage: 'memory stats [scope]',
     description: 'Show graph statistics (connectivity, hubs, sinks)',
     arguments: `  [scope]    Target scope (default: project)`,
+    flags: `  --agent <name>       Show stats for agent scope
+  --include-shared     Aggregate stats across agent + shared scopes (requires --agent)`,
     examples: [
       'memory stats',
       'memory stats user',
+      'memory stats --agent typescript-expert --include-shared',
     ],
     notes: `  Shows edge ratio, hub nodes (many outbound), sink nodes (many inbound),
-  orphan count, and overall connectivity health.`,
+  orphan count, and overall connectivity health.
+
+  Agent-scoped stats with --include-shared aggregate across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results include per-scope breakdown and combined totals.`,
   },
 
   impact: {
     usage: 'memory impact <id>',
     description: 'Show dependency tree for a memory',
     arguments: `  <id>    Memory ID to analyse`,
-    flags: `  --depth <n>    Maximum depth to traverse (default: 3)
-  --json         Output as JSON instead of tree`,
+    flags: `  --depth <n>        Maximum depth to traverse (default: 3)
+  --json             Output as JSON instead of tree
+  --agent <name>     Analyse impact within agent scope
+  --include-shared   Include shared scope context (requires --agent)`,
     examples: [
       'memory impact decision-core-architecture',
       'memory impact learning-patterns --depth 5',
+      'memory impact learning-api-design --agent typescript-expert --include-shared',
     ],
-    notes: `  Shows what depends on this memory (inbound) and what it depends on (outbound).`,
+    notes: `  Shows what depends on this memory (inbound) and what it depends on (outbound).
+
+  Agent-scoped impact analysis with --include-shared:
+  - Analyses dependencies within the agent's own scope
+  - Can reference shared memories for context
+  - Does not traverse cross-scope edges (design constraint)`,
   },
 
   // Think Operations

@@ -2152,6 +2152,26 @@
     {
       "id": "artifact-include-shared-validation-pattern",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-help-text-updates-as-final-task-risk-incomplete-documentation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-d-multi-scope-read-operations-completed-with-6-command-updates",
+      "type": "learning"
+    },
+    {
+      "id": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -4983,6 +5003,36 @@
     {
       "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
       "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
+      "target": "learning-help-text-updates-as-final-task-risk-incomplete-documentation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-help-text-updates-as-final-task-risk-incomplete-documentation",
+      "target": "learning-phase-d-multi-scope-read-operations-completed-with-6-command-updates",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-proactive-memory-check-before-phase-work-prevents-rework",
+      "target": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
       "label": "relates-to"
     }
   ]

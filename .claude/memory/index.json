@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T09:55:16.849Z",
+  "lastUpdated": "2026-02-04T10:59:12.228Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7473,6 +7473,87 @@
       "updated": "2026-02-04T09:55:16.807Z",
       "scope": "project",
       "relativePath": "permanent/artifact-validation-pattern-include-shared-flag.md"
+    },
+    {
+      "id": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "type": "learning",
+      "title": "Retro - Session restore with parallel agents improves post-compaction recovery speed",
+      "tags": [
+        "retrospective",
+        "session-restore",
+        "process",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-04T10:57:45.345Z",
+      "updated": "2026-02-04T10:57:45.345Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
+      "type": "gotcha",
+      "title": "Gotcha - Deferring help text updates to final task created time pressure",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-04T10:58:01.061Z",
+      "updated": "2026-02-04T10:58:01.061Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-deferring-help-text-updates-to-final-task-created-time-pressure.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-help-text-updates-as-final-task-risk-incomplete-documentation",
+      "type": "learning",
+      "title": "Help text updates as final task risk incomplete documentation",
+      "tags": [
+        "phase-d",
+        "documentation",
+        "quality-gate",
+        "task-ordering",
+        "project"
+      ],
+      "created": "2026-02-04T10:58:39.247Z",
+      "updated": "2026-02-04T10:58:39.247Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-text-updates-as-final-task-risk-incomplete-documentation.md"
+    },
+    {
+      "id": "learning-phase-d-multi-scope-read-operations-completed-with-6-command-updates",
+      "type": "learning",
+      "title": "Phase D multi-scope read operations completed with 6 command updates",
+      "tags": [
+        "phase-d",
+        "completion",
+        "implementation-complete",
+        "project"
+      ],
+      "created": "2026-02-04T10:59:03.615Z",
+      "updated": "2026-02-04T10:59:03.615Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-d-multi-scope-read-operations-completed-with-6-command-updates.md"
+    },
+    {
+      "id": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "type": "learning",
+      "title": "Session restore with parallel agents improves post-compaction recovery speed",
+      "tags": [
+        "session-restore",
+        "parallel-agents",
+        "post-compaction",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-04T10:59:12.161Z",
+      "updated": "2026-02-04T10:59:12.161Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed.md"
     }
   ]
 }

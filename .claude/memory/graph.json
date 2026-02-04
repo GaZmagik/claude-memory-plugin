@@ -2200,6 +2200,10 @@
     {
       "id": "decision-phase-d-implementation-complete-all-tests-passing",
       "type": "decision"
+    },
+    {
+      "id": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "type": "decision"
     }
   ],
   "edges": [

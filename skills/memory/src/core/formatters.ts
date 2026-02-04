@@ -44,6 +44,12 @@ export function getScopeIndicator(
       case Scope.Global:
         indicator = 'G';
         break;
+      case Scope.AgentProject:
+        indicator = 'AP';
+        break;
+      case Scope.AgentGlobal:
+        indicator = 'AG';
+        break;
     }
   } else {
     indicator = scope;
@@ -128,6 +134,10 @@ export function getScopeDescription(scope: Scope): string {
       return 'Shared project memories (tracked in git)';
     case Scope.Global:
       return 'Personal cross-project memories (~/.claude/memory/)';
+    case Scope.AgentProject:
+      return 'Agent-specific project memories (.claude/memory/agents/{agent-name}/)';
+    case Scope.AgentGlobal:
+      return 'Agent-specific global memories (~/.claude/memory/agents/{agent-name}/)';
   }
 }
 

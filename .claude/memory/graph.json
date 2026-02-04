@@ -2072,6 +2072,42 @@
     {
       "id": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-type-system-updates-can-hide-incomplete-implementations",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-c-tdd-first-completion-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-c-helper-function-refactoring-bottleneck",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-c-agent-name-validation-with-helpful-errors",
+      "type": "learning"
+    },
+    {
+      "id": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "type": "decision"
+    },
+    {
+      "id": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
+      "type": "gotcha"
     }
   ],
   "edges": [

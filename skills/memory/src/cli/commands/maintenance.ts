@@ -19,17 +19,25 @@ import { checkHealth } from '../../quality/health.js';
 import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embedding.js';
 import { loadIndex } from '../../core/index.js';
 import { readMemory } from '../../core/read.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * sync - Synchronise graph, index, and disk
  *
- * Usage: memory sync [scope] [--dry-run]
+ * Usage: memory sync [scope] [--dry-run] [--agent <name>]
  */
 export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
-  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const dryRun = args.flags['dry-run'] === true;
 
   return wrapOperation(
@@ -37,6 +45,7 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
       const result = await syncMemories({
         basePath,
         dryRun,
+        agent: agentName,
       });
       return result;
     },
@@ -47,21 +56,29 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
 /**
  * repair - Run sync then validate (health check)
  *
- * Usage: memory repair [scope] [--dry-run]
+ * Usage: memory repair [scope] [--dry-run] [--agent <name>]
  */
 export async function cmdRepair(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
-  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const dryRun = args.flags['dry-run'] === true;
 
   return wrapOperation(
     async () => {
       // Step 1: Sync
-      const syncResult = await syncMemories({ basePath, dryRun });
+      const syncResult = await syncMemories({ basePath, dryRun, agent: agentName });
 
       // Step 2: Health check (validate)
-      const healthResult = await checkHealth({ basePath });
+      const healthResult = await checkHealth({ basePath, agent: agentName });
 
       return {
         sync: syncResult,

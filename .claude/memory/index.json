@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-03T21:20:58.348Z",
+  "lastUpdated": "2026-02-03T22:32:49.845Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7147,6 +7147,148 @@
       "updated": "2026-02-03T20:55:32.577Z",
       "scope": "project",
       "relativePath": "permanent/learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration.md"
+    },
+    {
+      "id": "learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation",
+      "type": "learning",
+      "title": "Retro - TDD with rapid smoke testing accelerates feature validation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:05.942Z",
+      "updated": "2026-02-03T22:32:05.942Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
+      "type": "learning",
+      "title": "Retro - Systematic pattern application prevents command handler regressions",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:11.218Z",
+      "updated": "2026-02-03T22:32:11.218Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-pattern-application-prevents-command-handler-regressions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-type-system-updates-can-hide-incomplete-implementations",
+      "type": "gotcha",
+      "title": "Gotcha - Type system updates can hide incomplete implementations",
+      "tags": [
+        "retrospective",
+        "process",
+        "types",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:15.982Z",
+      "updated": "2026-02-03T22:32:15.982Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-type-system-updates-can-hide-incomplete-implementations.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
+      "type": "learning",
+      "title": "Retro - Coverage validation should be explicit, not assumed",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "quality",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:20.326Z",
+      "updated": "2026-02-03T22:32:20.326Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-coverage-validation-should-be-explicit-not-assumed.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-c-tdd-first-completion-pattern",
+      "type": "learning",
+      "title": "Phase C TDD-first completion pattern",
+      "tags": [
+        "tdd",
+        "phase-c",
+        "cli-integration",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:33.240Z",
+      "updated": "2026-02-03T22:32:33.240Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-c-tdd-first-completion-pattern.md"
+    },
+    {
+      "id": "learning-phase-c-helper-function-refactoring-bottleneck",
+      "type": "learning",
+      "title": "Phase C helper function refactoring bottleneck",
+      "tags": [
+        "phase-c",
+        "cli-integration",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:34.001Z",
+      "updated": "2026-02-03T22:32:34.001Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-c-helper-function-refactoring-bottleneck.md"
+    },
+    {
+      "id": "learning-phase-c-agent-name-validation-with-helpful-errors",
+      "type": "learning",
+      "title": "Phase C agent name validation with helpful errors",
+      "tags": [
+        "phase-c",
+        "validation",
+        "ux",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:34.810Z",
+      "updated": "2026-02-03T22:32:34.810Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-c-agent-name-validation-with-helpful-errors.md"
+    },
+    {
+      "id": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "type": "decision",
+      "title": "Phase C complete - CLI integration for agent scopes is production-ready",
+      "tags": [
+        "phase-c",
+        "decision",
+        "cli-integration",
+        "ready-for-next-phase",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:43.087Z",
+      "updated": "2026-02-03T22:32:43.087Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready.md"
+    },
+    {
+      "id": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
+      "type": "gotcha",
+      "title": "Phase C BaseRequest type mutation adds agent field to all request types",
+      "tags": [
+        "phase-c",
+        "type-system",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-03T22:32:49.820Z",
+      "updated": "2026-02-03T22:32:49.820Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types.md"
     }
   ]
 }

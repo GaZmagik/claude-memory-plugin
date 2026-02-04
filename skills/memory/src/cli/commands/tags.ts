@@ -9,12 +9,12 @@ import { getFlagString } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { tagMemory, untagMemory } from '../../core/tag.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * tag - Add tags to a memory
  *
- * Usage: memory tag <id> <tag1> [tag2] ... [--scope <scope>]
+ * Usage: memory tag <id> <tag1> [tag2] ... [--scope <scope>] [--agent <name>]
  */
 export async function cmdTag(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -28,12 +28,18 @@ export async function cmdTag(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: at least one tag');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await tagMemory({ id, tags, basePath });
+      const result = await tagMemory({ id, tags, basePath, agent: agentName });
       return result;
     },
     `Added ${tags.length} tag(s) to ${id}`
@@ -43,7 +49,7 @@ export async function cmdTag(args: ParsedArgs): Promise<CliResponse> {
 /**
  * untag - Remove tags from a memory
  *
- * Usage: memory untag <id> <tag1> [tag2] ... [--scope <scope>]
+ * Usage: memory untag <id> <tag1> [tag2] ... [--scope <scope>] [--agent <name>]
  */
 export async function cmdUntag(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -57,12 +63,18 @@ export async function cmdUntag(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: at least one tag');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await untagMemory({ id, tags, basePath });
+      const result = await untagMemory({ id, tags, basePath, agent: agentName });
       return result;
     },
     `Removed ${tags.length} tag(s) from ${id}`

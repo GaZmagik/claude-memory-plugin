@@ -17,12 +17,12 @@ import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
-import { getResolvedScopePath, parseScope, parseMemoryType } from '../helpers.js';
+import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * write - Create or update a memory from stdin JSON
  *
- * Usage: echo '{"title":"...", "content":"...", ...}' | memory write [--auto-link]
+ * Usage: echo '{"title":"...", "content":"...", ...}' | memory write [--auto-link] [--agent <name>]
  */
 export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   const input = await readStdinJson<Partial<WriteMemoryRequest>>();
@@ -39,9 +39,14 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required field: content');
   }
 
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope') ?? (input.scope as string | undefined);
-  const scope = parseScope(scopeStr);
-  const basePath = getResolvedScopePath(scope);
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   // Parse type - default to Decision if not specified
   const typeStr = getFlagString(args.flags, 'type') ?? (input.type as string | undefined);
@@ -54,7 +59,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     title: input.title,
     content: input.content,
     type,
-    scope,
+    scope: parseScope(scopeStr),
     tags: input.tags ?? [],
     severity: input.severity,
     links: input.links,
@@ -65,6 +70,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     // Always attempt embedding generation (graceful fallback if Ollama unavailable)
     embeddingProvider: await createOllamaProviderWithHealthCheck(),
     basePath,
+    agent: agentName,  // Pass agent to storage layer
   };
 
   return wrapOperation(
@@ -79,7 +85,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
 /**
  * read - Read a memory by ID
  *
- * Usage: memory read <id> [--scope <scope>]
+ * Usage: memory read <id> [--scope <scope>] [--agent <name>]
  */
 export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -88,12 +94,18 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await readMemory({ id, basePath });
+      const result = await readMemory({ id, basePath, agent: agentName });
       return result;
     },
     `Read memory: ${id}`
@@ -103,14 +115,21 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
 /**
  * list - List memories with optional filters
  *
- * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>]
+ * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>] [--agent <name>]
  */
 export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
   const typeArg = args.positional[0];
   const tagArg = args.positional[1];
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(typeArg);
 
@@ -121,6 +140,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
         type,
         tag: tagArg,
         limit,
+        agent: agentName,
       });
       return result;
     },
@@ -131,7 +151,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
 /**
  * delete - Delete a memory
  *
- * Usage: memory delete <id> [--scope <scope>] [--force]
+ * Usage: memory delete <id> [--scope <scope>] [--force] [--agent <name>]
  */
 export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -140,12 +160,18 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await deleteMemory({ id, basePath });
+      const result = await deleteMemory({ id, basePath, agent: agentName });
       return result;
     },
     `Deleted memory: ${id}`
@@ -155,7 +181,7 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
 /**
  * search - Full-text search across memories
  *
- * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>]
+ * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>] [--agent <name>]
  */
 export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -164,8 +190,15 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: query');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(getFlagString(args.flags, 'type'));
 
@@ -176,6 +209,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
         basePath,
         limit,
         type,
+        agent: agentName,
       });
       return result;
     },
@@ -186,7 +220,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 /**
  * semantic - Search by meaning using embeddings
  *
- * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>]
+ * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>] [--agent <name>]
  */
 export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -195,8 +229,15 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: query');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.5;
   const limit = getFlagNumber(args.flags, 'limit') ?? 10;
 
@@ -221,6 +262,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
         query,
         basePath,
         threshold,
+        agent: agentName,
         limit,
         provider,
       });

@@ -140,6 +140,73 @@ describe('parseArgs', () => {
       expect(result.flags.file).toBe('/path/to/file.txt');
     });
   });
+
+  describe('agent-related flags', () => {
+    it('parses --agent flag with agent name', () => {
+      const result = parseArgs(['write', '--agent', 'typescript-expert']);
+      expect(result.positional).toEqual(['write']);
+      expect(result.flags.agent).toBe('typescript-expert');
+    });
+
+    it('parses --target-agent flag', () => {
+      const result = parseArgs(['link', 'id1', 'id2', '--target-agent', 'rust-expert']);
+      expect(result.positional).toEqual(['link', 'id1', 'id2']);
+      expect(result.flags['target-agent']).toBe('rust-expert');
+    });
+
+    it('parses --include-shared boolean flag', () => {
+      const result = parseArgs(['search', 'pattern', '--agent', 'api-architect', '--include-shared']);
+      expect(result.positional).toEqual(['search', 'pattern']);
+      expect(result.flags.agent).toBe('api-architect');
+      expect(result.flags['include-shared']).toBe(true);
+    });
+
+    it('parses --all-agents boolean flag', () => {
+      const result = parseArgs(['list', '--all-agents']);
+      expect(result.positional).toEqual(['list']);
+      expect(result.flags['all-agents']).toBe(true);
+    });
+
+    it('combines agent flags with other flags', () => {
+      const result = parseArgs([
+        'search',
+        'pattern',
+        '--agent', 'typescript-expert',
+        '--scope', 'project',
+        '--limit', '10',
+        '--include-shared',
+      ]);
+      expect(result.positional).toEqual(['search', 'pattern']);
+      expect(result.flags.agent).toBe('typescript-expert');
+      expect(result.flags.scope).toBe('project');
+      expect(result.flags.limit).toBe('10');
+      expect(result.flags['include-shared']).toBe(true);
+    });
+
+    it('parses agent name with hyphens', () => {
+      const result = parseArgs(['write', '--agent', 'frontend-ui-expert']);
+      expect(result.flags.agent).toBe('frontend-ui-expert');
+    });
+
+    it('parses --agent=value syntax', () => {
+      const result = parseArgs(['read', 'id', '--agent=typescript-expert']);
+      expect(result.positional).toEqual(['read', 'id']);
+      expect(result.flags.agent).toBe('typescript-expert');
+    });
+
+    it('handles multiple agent-related flags together', () => {
+      const result = parseArgs([
+        'link',
+        'source-id',
+        'target-id',
+        '--agent', 'python-expert',
+        '--target-agent', 'rust-expert',
+      ]);
+      expect(result.positional).toEqual(['link', 'source-id', 'target-id']);
+      expect(result.flags.agent).toBe('python-expert');
+      expect(result.flags['target-agent']).toBe('rust-expert');
+    });
+  });
 });
 
 describe('getFlagString', () => {

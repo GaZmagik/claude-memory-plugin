@@ -29,6 +29,8 @@ export interface BaseResponse {
 export interface BaseRequest {
   /** Override base path for testing */
   basePath?: string;
+  /** Agent name (for agent-scoped operations) */
+  agent?: string;
 }
 
 // ============================================================================

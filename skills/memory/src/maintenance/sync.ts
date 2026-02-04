@@ -41,6 +41,8 @@ export interface SyncRequest {
   basePath: string;
   /** Dry run - report changes without applying */
   dryRun?: boolean;
+  /** Agent name (for agent-scoped operations) */
+  agent?: string;
 }
 
 /**

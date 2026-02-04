@@ -189,6 +189,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
         title: entry.title,
         tags: entry.tags,
         scope: entry.scope,
+        agent: entry.agent,
         score,
         snippet,
       });

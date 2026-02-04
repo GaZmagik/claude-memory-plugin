@@ -115,6 +115,8 @@ function getStatusFromScore(score: number): HealthStatus {
  */
 export interface CheckHealthRequest {
   basePath?: string;
+  /** Agent name (for agent-scoped operations) */
+  agent?: string;
 }
 
 /**

@@ -12,12 +12,12 @@ import { loadGraph } from '../../graph/structure.js';
 import { findOrphanedNodes, getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { calculateImpact } from '../../graph/traversal.js';
 import { loadIndex } from '../../core/index.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * query - Query memories with complex filters
  *
- * Usage: memory query [--type <type>] [--tags <tag1,tag2>] [--has-edges] [--orphans] [--scope <scope>] [--limit <n>]
+ * Usage: memory query [--type <type>] [--tags <tag1,tag2>] [--has-edges] [--orphans] [--scope <scope>] [--limit <n>] [--agent <name>]
  *
  * Filters:
  * - --type: Filter by memory type (decision, learning, artifact, etc.)
@@ -27,8 +27,15 @@ import { getResolvedScopePath, parseScope } from '../helpers.js';
  * - --limit: Maximum results to return (default 50)
  */
 export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const typeFilter = getFlagString(args.flags, 'type');
   const tagsStr = getFlagString(args.flags, 'tags');
   const hasEdges = getFlagBool(args.flags, 'has-edges');
@@ -38,7 +45,7 @@ export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
   return wrapOperation(
     async () => {
       // Load index and graph
-      const index = await loadIndex({ basePath });
+      const index = await loadIndex({ basePath, agent: agentName });
       const graph = await loadGraph(basePath);
 
       // Build set of orphaned node IDs
@@ -117,12 +124,19 @@ export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
 /**
  * stats - Show graph statistics
  *
- * Usage: memory stats [scope]
+ * Usage: memory stats [scope] [--agent <name>]
  */
 export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
-  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -178,7 +192,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
 /**
  * impact - Show what depends on a memory
  *
- * Usage: memory impact <id> [--depth <n>] [--json] [--scope <scope>]
+ * Usage: memory impact <id> [--depth <n>] [--json] [--scope <scope>] [--agent <name>]
  */
 export async function cmdImpact(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -187,8 +201,14 @@ export async function cmdImpact(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {

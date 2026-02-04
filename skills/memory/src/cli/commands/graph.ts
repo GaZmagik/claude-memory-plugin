@@ -13,12 +13,12 @@ import { linkMemories, unlinkMemories } from '../../graph/link.js';
 import { loadGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * link - Create a relationship between memories
  *
- * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>]
+ * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>] [--agent <name>]
  */
 export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -28,13 +28,20 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const relation = getFlagString(args.flags, 'relation');
 
   return wrapOperation(
     async () => {
-      const result = await linkMemories({ source, target, relation, basePath });
+      const result = await linkMemories({ source, target, relation, basePath, agent: agentName });
       return result;
     },
     `Linked ${source} -> ${target}`
@@ -44,7 +51,7 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
 /**
  * unlink - Remove a relationship between memories
  *
- * Usage: memory unlink <from> <to> [--scope <scope>]
+ * Usage: memory unlink <from> <to> [--scope <scope>] [--agent <name>]
  */
 export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -54,12 +61,18 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await unlinkMemories({ source, target, basePath });
+      const result = await unlinkMemories({ source, target, basePath, agent: agentName });
       return result;
     },
     `Unlinked ${source} -> ${target}`

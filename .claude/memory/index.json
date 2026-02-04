@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T20:50:54.095Z",
+  "lastUpdated": "2026-02-04T21:25:52.580Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7966,6 +7966,135 @@
       ],
       "scope": "agent-project",
       "relativePath": "permanent/learning-import-requires-agent-field-for-scope-resolution.md"
+    },
+    {
+      "id": "learning-retro-console-logging-at-boundary-conditions-reveals-root-causes-efficiently",
+      "type": "learning",
+      "title": "Retro - Console logging at boundary conditions reveals root causes efficiently",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "copy-agent-implementation",
+        "project"
+      ],
+      "created": "2026-02-04T21:17:47.273Z",
+      "updated": "2026-02-04T21:17:47.273Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-console-logging-at-boundary-conditions-reveals-root-causes-efficiently.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-whats-actually-preserved",
+      "type": "learning",
+      "title": "Retro - Test assertion format mismatches don't indicate failure - check what's actually preserved",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "copy-agent-implementation",
+        "project"
+      ],
+      "created": "2026-02-04T21:17:51.281Z",
+      "updated": "2026-02-04T21:17:51.281Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-whats-actually-preserved.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "type": "gotcha",
+      "title": "Gotcha - Graph handling bypassed by early returns in export and import for empty memories",
+      "tags": [
+        "retrospective",
+        "process",
+        "copy-agent",
+        "graph-handling",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-04T21:17:54.969Z",
+      "updated": "2026-02-04T21:17:54.969Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "type": "gotcha",
+      "title": "graph-edges-not-saved-when-importing-to-new-agent",
+      "tags": [
+        "agent-copy",
+        "graph",
+        "import",
+        "bug-fix",
+        "project"
+      ],
+      "created": "2026-02-04T21:18:39.775Z",
+      "updated": "2026-02-04T21:18:39.775Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-graph-edges-not-saved-when-importing-to-new-agent.md"
+    },
+    {
+      "id": "gotcha-export-early-return-skips-graph-when-no-memories",
+      "type": "gotcha",
+      "title": "export-early-return-skips-graph-when-no-memories",
+      "tags": [
+        "export",
+        "graph",
+        "empty-set",
+        "bug-fix",
+        "project"
+      ],
+      "created": "2026-02-04T21:18:46.296Z",
+      "updated": "2026-02-04T21:18:46.296Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-export-early-return-skips-graph-when-no-memories.md"
+    },
+    {
+      "id": "learning-graph-structure-filtered-to-exported-memories-only",
+      "type": "learning",
+      "title": "graph-structure-filtered-to-exported-memories-only",
+      "tags": [
+        "agent-copy",
+        "graph",
+        "design",
+        "export-filter",
+        "project"
+      ],
+      "created": "2026-02-04T21:18:54.070Z",
+      "updated": "2026-02-04T21:18:54.070Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-graph-structure-filtered-to-exported-memories-only.md"
+    },
+    {
+      "id": "learning-test-setup-should-create-actual-memories-not-orphaned-nodes",
+      "type": "learning",
+      "title": "test-setup-should-create-actual-memories-not-orphaned-nodes",
+      "tags": [
+        "testing",
+        "graph",
+        "test-design",
+        "agent-copy",
+        "project"
+      ],
+      "created": "2026-02-04T21:18:55.621Z",
+      "updated": "2026-02-04T21:18:55.621Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-setup-should-create-actual-memories-not-orphaned-nodes.md"
+    },
+    {
+      "id": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "type": "learning",
+      "title": "Memory system linking and quality audit session - 2026-02-04",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-04T21:25:52.562Z",
+      "updated": "2026-02-04T21:25:52.562Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-system-linking-and-quality-audit-session-2026-02-04.md"
     }
   ]
 }

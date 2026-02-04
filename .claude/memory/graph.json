@@ -2276,6 +2276,38 @@
     {
       "id": "learning-import-requires-agent-field-for-scope-resolution",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-console-logging-at-boundary-conditions-reveals-root-causes-efficiently",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-whats-actually-preserved",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-export-early-return-skips-graph-when-no-memories",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-graph-structure-filtered-to-exported-memories-only",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-setup-should-create-actual-memories-not-orphaned-nodes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -6117,6 +6149,56 @@
     {
       "source": "learning-metadata-preservation-requires-explicit-timestamp-passing",
       "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-phase-e-agent-discovery-implementation",
+      "target": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-explore-unknown-patterns-before-designing-phase-features",
+      "target": "learning-cli-sub-command-routing-via-dispatcher-functions",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-phase-e-agent-discovery-implementation",
+      "target": "decision-agent-scopes-as-parallel-namespaces",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-console-logging-at-boundary-conditions-reveals-root-causes-efficiently",
+      "target": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-whats-actually-preserved",
+      "target": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-export-early-return-skips-graph-when-no-memories",
+      "target": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-graph-structure-filtered-to-exported-memories-only",
+      "target": "learning-test-setup-should-create-actual-memories-not-orphaned-nodes",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "target": "gotcha-export-early-return-skips-graph-when-no-memories",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "target": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "target": "artifact-phase-e-agent-discovery-implementation",
       "label": "relates-to"
     }
   ]

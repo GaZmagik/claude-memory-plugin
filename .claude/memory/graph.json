@@ -2204,6 +2204,34 @@
     {
       "id": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-systematic-bulk-fix-approach-reduces-test-failures-efficiently",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-sub-agent-exploration-before-plan-mode-design-accelerates-planning",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-cli-test-positional-array-structure",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-cross-scope-graph-edges-design-constraint",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-agent-scopes-as-parallel-namespaces",
+      "type": "decision"
+    },
+    {
+      "id": "learning-phase-d-test-suite-failures-resolved",
+      "type": "learning"
     }
   ],
   "edges": [

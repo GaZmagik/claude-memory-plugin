@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T16:17:26.272Z",
+  "lastUpdated": "2026-02-04T16:57:47.855Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7682,6 +7682,119 @@
       "scope": "project",
       "relativePath": "permanent/decision-phase-d-shared-memory-inclusion-complete-production-ready.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-systematic-bulk-fix-approach-reduces-test-failures-efficiently",
+      "type": "learning",
+      "title": "Retro - Systematic bulk fix approach reduces test failures efficiently",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-04T16:56:47.574Z",
+      "updated": "2026-02-04T16:56:47.574Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-bulk-fix-approach-reduces-test-failures-efficiently.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-sub-agent-exploration-before-plan-mode-design-accelerates-planning",
+      "type": "learning",
+      "title": "Retro - Sub-agent exploration before plan mode design accelerates planning",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:12.409Z",
+      "updated": "2026-02-04T16:57:12.409Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-sub-agent-exploration-before-plan-mode-design-accelerates-planning.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "type": "gotcha",
+      "title": "Gotcha - Post-session-continue tool unlock can fail silently",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:22.664Z",
+      "updated": "2026-02-04T16:57:22.664Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-post-session-continue-tool-unlock-can-fail-silently.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-cli-test-positional-array-structure",
+      "type": "gotcha",
+      "title": "CLI Test Positional Array Structure",
+      "tags": [
+        "testing",
+        "phase-d",
+        "cli",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:27.682Z",
+      "updated": "2026-02-04T16:57:27.682Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cli-test-positional-array-structure.md"
+    },
+    {
+      "id": "gotcha-cross-scope-graph-edges-design-constraint",
+      "type": "gotcha",
+      "title": "Cross-Scope Graph Edges Design Constraint",
+      "tags": [
+        "design",
+        "phase-d",
+        "graph",
+        "scope",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:40.837Z",
+      "updated": "2026-02-04T16:57:40.837Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cross-scope-graph-edges-design-constraint.md"
+    },
+    {
+      "id": "decision-agent-scopes-as-parallel-namespaces",
+      "type": "decision",
+      "title": "Agent Scopes as Parallel Namespaces (Not Sub-Scopes)",
+      "tags": [
+        "architecture",
+        "design",
+        "phase-a",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:44.505Z",
+      "updated": "2026-02-04T16:57:44.505Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-agent-scopes-as-parallel-namespaces.md"
+    },
+    {
+      "id": "learning-phase-d-test-suite-failures-resolved",
+      "type": "learning",
+      "title": "Phase D Test Suite: 3 Pre-Existing Failures Fixed",
+      "tags": [
+        "testing",
+        "phase-c",
+        "phase-d",
+        "completion",
+        "project"
+      ],
+      "created": "2026-02-04T16:57:47.830Z",
+      "updated": "2026-02-04T16:57:47.830Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-d-test-suite-failures-resolved.md"
     }
   ]
 }

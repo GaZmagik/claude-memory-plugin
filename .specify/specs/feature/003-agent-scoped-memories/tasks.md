@@ -126,34 +126,34 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T025 [P] [US1] Unit test for agent field in frontmatter schema in /home/gareth/.vs/claude-memory-plugin/tests/unit/core/test-agent-frontmatter.spec.ts
-- [ ] T026 [P] [US1] Unit test for frontmatter validation (agent field required for agent scopes) in /home/gareth/.vs/claude-memory-plugin/tests/unit/core/test-frontmatter-validation.spec.ts
-- [ ] T027 [P] [US1] Unit test for agent directory auto-creation structure in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-directory-creation.spec.ts
-- [ ] T028 [P] [US1] Unit test for agent index operations (add, update, remove) in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-index.spec.ts
-- [ ] T029 [P] [US1] Unit test for agent graph initialisation in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-graph-init.spec.ts
-- [ ] T030 [P] [US2] Unit test for agent-scoped search filtering in /home/gareth/.vs/claude-memory-plugin/tests/unit/search/test-agent-search.spec.ts
-- [ ] T031 [P] [US2] Unit test for agent-scoped semantic search isolation in /home/gareth/.vs/claude-memory-plugin/tests/unit/search/test-agent-semantic.spec.ts
-- [ ] T032 [US1] Integration test for write agent memory to agent-project scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-write-agent-memory.spec.ts
-- [ ] T033 [US1] Integration test for write agent memory to agent-global scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-write-agent-global.spec.ts
-- [ ] T034 [US1] Integration test for read agent memory from agent scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-read-agent-memory.spec.ts
-- [ ] T035 [US1] Integration test for delete agent memory with index cleanup in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-delete-agent-memory.spec.ts
-- [ ] T036 [US2] Integration test for search within agent scope only in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-search-agent-scope.spec.ts
-- [ ] T037 [US2] Integration test for search with --include-shared flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-search-include-shared.spec.ts
+- [X] T025 [P] [US1] Unit test for agent field in frontmatter schema in /home/gareth/.vs/claude-memory-plugin/tests/unit/core/test-agent-frontmatter.spec.ts
+- [X] T026 [P] [US1] Unit test for frontmatter validation (agent field required for agent scopes) in /home/gareth/.vs/claude-memory-plugin/tests/unit/core/test-frontmatter-validation.spec.ts
+- [X] T027 [P] [US1] Unit test for agent directory auto-creation structure in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-directory-creation.spec.ts
+- [X] T028 [P] [US1] Unit test for agent index operations (add, update, remove) in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-index.spec.ts
+- [X] T029 [P] [US1] Unit test for agent graph initialisation in /home/gareth/.vs/claude-memory-plugin/tests/unit/storage/test-agent-graph-init.spec.ts
+- [X] T030 [P] [US2] Unit test for agent-scoped search filtering in /home/gareth/.vs/claude-memory-plugin/tests/unit/search/test-agent-search.spec.ts
+- [X] T031 [P] [US2] Unit test for agent-scoped semantic search isolation in /home/gareth/.vs/claude-memory-plugin/tests/unit/search/test-agent-semantic.spec.ts
+- [X] T032 [US1] Integration test for write agent memory to agent-project scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-write-agent-memory.spec.ts
+- [X] T033 [US1] Integration test for write agent memory to agent-global scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-write-agent-global.spec.ts
+- [X] T034 [US1] Integration test for read agent memory from agent scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-read-agent-memory.spec.ts
+- [X] T035 [US1] Integration test for delete agent memory with index cleanup in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-delete-agent-memory.spec.ts
+- [X] T036 [US2] Integration test for search within agent scope only in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-search-agent-scope.spec.ts
+- [X] T037 [US2] Integration test for search with --include-shared flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-search-include-shared.spec.ts
 
 ### Implementation for Phase B
 
-- [ ] T038 [P] [US1] Extend MemoryFrontmatter interface with optional agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/frontmatter.ts
-- [ ] T039 [P] [US1] Create AgentMemoryFrontmatter interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-frontmatter.ts
-- [ ] T040 [P] [US1] Implement createAgentDirectory utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/storage/create-agent-directory.ts
-- [ ] T041 [P] [US1] Implement agentDirectoryExists check in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/storage/agent-directory-exists.ts
-- [ ] T042 [US1] Update frontmatter serialisation to include agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
-- [ ] T043 [US1] Update frontmatter validation for agent scope requirements in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
-- [ ] T044 [US1] Extend index system to handle agent scope directories in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/index.ts
-- [ ] T045 [US1] Update write operation to auto-create agent directories in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/write.ts
-- [ ] T046 [US1] Update read operation to resolve agent scope paths in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/read.ts
-- [ ] T047 [US1] Update delete operation to clean up agent indexes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/delete.ts
-- [ ] T048 [US2] Update search operation to filter by agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/search/search.ts
-- [ ] T049 [US2] Update semantic search to use agent-specific embeddings in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/search/semantic.ts
+- [X] T038 [P] [US1] Extend MemoryFrontmatter interface with optional agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/frontmatter.ts
+- [X] T039 [P] [US1] Create AgentMemoryFrontmatter interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-frontmatter.ts
+- [X] T040 [P] [US1] Implement createAgentDirectory utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/storage/create-agent-directory.ts
+- [X] T041 [P] [US1] Implement agentDirectoryExists check in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/storage/agent-directory-exists.ts
+- [X] T042 [US1] Update frontmatter serialisation to include agent field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
+- [X] T043 [US1] Update frontmatter validation for agent scope requirements in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/frontmatter.ts
+- [X] T044 [US1] Extend index system to handle agent scope directories in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/index.ts
+- [X] T045 [US1] Update write operation to auto-create agent directories in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/write.ts
+- [X] T046 [US1] Update read operation to resolve agent scope paths in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/read.ts
+- [X] T047 [US1] Update delete operation to clean up agent indexes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/core/delete.ts
+- [X] T048 [US2] Update search operation to filter by agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/search/search.ts
+- [X] T049 [US2] Update semantic search to use agent-specific embeddings in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/search/semantic.ts
 
 **Checkpoint**: Agent-scoped storage operational, CRUD operations work with agent context, search scoped correctly
 
@@ -171,50 +171,109 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T050 [P] [US3] Unit test for --agent flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-agent-flag-parsing.spec.ts
-- [ ] T051 [P] [US3] Unit test for --target-agent flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-target-agent-flag.spec.ts
-- [ ] T052 [P] [US3] Unit test for --include-shared flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-include-shared-flag.spec.ts
-- [ ] T053 [P] [US3] Unit test for --all-agents flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-all-agents-flag.spec.ts
-- [ ] T054 [P] [US3] Unit test for agent context propagation through command pipeline in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-agent-context-propagation.spec.ts
-- [ ] T055 [US3] Integration test for memory write with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-write-agent.spec.ts
-- [ ] T056 [US3] Integration test for memory read with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-read-agent.spec.ts
-- [ ] T057 [US3] Integration test for memory list with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-list-agent.spec.ts
-- [ ] T058 [US3] Integration test for memory delete with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-delete-agent.spec.ts
-- [ ] T059 [US3] Integration test for memory search with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-search-agent.spec.ts
-- [ ] T060 [US3] Integration test for memory semantic with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-semantic-agent.spec.ts
-- [ ] T061 [US3] Integration test for backward compatibility (no --agent flag) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-backward-compat.spec.ts
-- [ ] T062 [US3] Integration test for error messages with agent context in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-agent-errors.spec.ts
+- [X] T050 [P] [US3] Unit test for --agent flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-agent-flag-parsing.spec.ts
+- [X] T051 [P] [US3] Unit test for --target-agent flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-target-agent-flag.spec.ts
+- [X] T052 [P] [US3] Unit test for --include-shared flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-include-shared-flag.spec.ts
+- [X] T053 [P] [US3] Unit test for --all-agents flag parsing in CLI parser in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-all-agents-flag.spec.ts
+- [X] T054 [P] [US3] Unit test for agent context propagation through command pipeline in /home/gareth/.vs/claude-memory-plugin/tests/unit/cli/test-agent-context-propagation.spec.ts
+- [X] T055 [US3] Integration test for memory write with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-write-agent.spec.ts
+- [X] T056 [US3] Integration test for memory read with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-read-agent.spec.ts
+- [X] T057 [US3] Integration test for memory list with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-list-agent.spec.ts
+- [X] T058 [US3] Integration test for memory delete with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-delete-agent.spec.ts
+- [X] T059 [US3] Integration test for memory search with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-search-agent.spec.ts
+- [X] T060 [US3] Integration test for memory semantic with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-semantic-agent.spec.ts
+- [X] T061 [US3] Integration test for backward compatibility (no --agent flag) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-backward-compat.spec.ts
+- [X] T062 [US3] Integration test for error messages with agent context in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cli-agent-errors.spec.ts
 
 ### Implementation for Phase C
 
-- [ ] T063 [P] [US3] Add --agent flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
-- [ ] T064 [P] [US3] Add --target-agent flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
-- [ ] T065 [P] [US3] Add --include-shared flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
-- [ ] T066 [P] [US3] Add --all-agents flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
-- [ ] T067 [P] [US3] Create ParsedArgsWithAgent interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/parsed-args-agent.ts
-- [ ] T068 [US3] Update memory write command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/write.ts
-- [ ] T069 [US3] Update memory read command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/read.ts
-- [ ] T070 [US3] Update memory list command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/list.ts
-- [ ] T071 [US3] Update memory delete command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/delete.ts
-- [ ] T072 [US3] Update memory search command to accept --agent and --include-shared flags in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/search.ts
-- [ ] T073 [US3] Update memory semantic command to accept --agent and --include-shared flags in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/semantic.ts
-- [ ] T074 [US3] Update memory tag command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/tag.ts
-- [ ] T075 [US3] Update help text for all commands with --agent flag documentation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/help.ts
-- [ ] T076 [US3] Update error messages to include agent context when applicable in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/errors.ts
+- [X] T063 [P] [US3] Add --agent flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
+- [X] T064 [P] [US3] Add --target-agent flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
+- [X] T065 [P] [US3] Add --include-shared flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
+- [X] T066 [P] [US3] Add --all-agents flag definition to CLI parser in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/parser.ts
+- [X] T067 [P] [US3] Create ParsedArgsWithAgent interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/parsed-args-agent.ts
+- [X] T068 [US3] Update memory write command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/write.ts
+- [X] T069 [US3] Update memory read command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/read.ts
+- [X] T070 [US3] Update memory list command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/list.ts
+- [X] T071 [US3] Update memory delete command to accept and use --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/delete.ts
+- [X] T072 [US3] Update memory search command to accept --agent and --include-shared flags in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/search.ts
+- [X] T073 [US3] Update memory semantic command to accept --agent and --include-shared flags in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/semantic.ts
+- [X] T074 [US3] Update memory tag command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/tag.ts
+- [X] T075 [US3] Update help text for all commands with --agent flag documentation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/help.ts
+- [X] T076 [US3] Update error messages to include agent context when applicable in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/errors.ts
 
 **Checkpoint**: All CLI commands support --agent flag, backward compatibility maintained, help text updated
 
 ---
 
-## Phase D: Cross-Scope Graph Operations
+## Phase D: Multi-Scope Read Operations (--include-shared)
 
-**Goal**: Support linking memories across scope boundaries
+**Goal**: Enable read operations across agent + shared scopes
+
+**Duration**: 2-3 days
+
+**Status**: ✅ COMPLETED
+
+**Maps to**: US4 (partial - read-only multi-scope operations)
+
+**Note**: Original Phase D planned full cross-scope graph operations with bidirectional edge storage. This was simplified to implement `--include-shared` flag for read operations only (search, semantic, list, query, stats, impact). Full cross-scope linking is deferred to future phases.
+
+### Tasks Completed
+
+- [X] Add `resolveSharedScopePaths()` helper function
+- [X] Add `validateIncludeShared()` validation helper
+- [X] Add `getScopeNameFromPath()` scope indicator utility
+- [X] Add `formatScopedResult()` formatting utility
+- [X] Update cmdSearch to support --include-shared (with tests)
+- [X] Update cmdSemantic to support --include-shared (with tests)
+- [X] Update cmdList to support --include-shared (with tests)
+- [X] Update cmdQuery to support --include-shared (with tests)
+- [X] Update cmdStats to support --include-shared (with tests)
+- [X] Update cmdImpact to support --include-shared (with boundary handling)
+- [X] Add validation: reject --include-shared on write operations
+- [X] Add validation: require --agent when --include-shared used
+- [X] Update help text for all affected commands
+
+**Checkpoint**: Multi-scope read operations functional, scope indicators implemented, validation prevents misuse
+
+---
+
+---
+
+## 📊 Progress Summary
+
+### Completed Phases
+- ✅ **Phase 0**: Research Validation (6/6 tasks)
+- ✅ **Phase A**: Foundation - Scope System Extension (18/18 tasks)
+- ✅ **Phase B**: Storage Infrastructure (25/25 tasks)
+- ✅ **Phase C**: CLI Integration (27/27 tasks)
+- ✅ **Phase D**: Multi-Scope Read Operations (13/13 tasks - simplified version)
+
+### Next Phase
+- 🎯 **Phase E**: Advanced Features (agent listing, visualization, quality checks)
+
+### Deferred
+- 🔄 **Phase D-Original**: Full cross-scope graph operations (bidirectional linking)
+- 🔄 **Phase F**: Context Injection Preparation (documentation only)
+- 🔄 **Phase G**: Integration & Documentation
+
+**Total Progress**: 89/149 tasks completed (60%)
+
+---
+
+## Phase D-DEFERRED: Cross-Scope Graph Operations
+
+**Goal**: Support linking memories across scope boundaries with bidirectional edge storage
 
 **Duration**: 4-5 days
 
-**Maps to**: US4 (Cross-Scope Memory Linking)
+**Status**: 🔄 DEFERRED (to be planned as future phase)
 
-### Tests for Phase D
+**Maps to**: US4 (Cross-Scope Memory Linking - full bidirectional implementation)
+
+**Reason for Deferral**: The simpler --include-shared implementation (completed) provides sufficient functionality for current needs. Full bidirectional cross-scope linking requires more complex graph operations and can be implemented when needed.
+
+### Tests for Phase D-DEFERRED
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 

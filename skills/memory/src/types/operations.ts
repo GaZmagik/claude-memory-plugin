@@ -410,6 +410,12 @@ export interface ImportMemoriesRequest extends BaseRequest {
   strategy?: ImportStrategy;
   /** Target scope (override source scope) */
   targetScope?: Scope;
+  /** Agent name (required when targetScope is agent-project or agent-global) */
+  agent?: string;
+  /** Project root (required for agent-project scope) */
+  projectRoot?: string;
+  /** Global root (required for agent-global scope) */
+  globalRoot?: string;
   /** Preview mode */
   dryRun?: boolean;
 }

@@ -137,6 +137,13 @@ export async function importMemories(
         content: memory.content,
         tags: memory.frontmatter.tags,
         scope,
+        agent: request.agent,
+        projectRoot: request.projectRoot,
+        globalRoot: request.globalRoot,
+        created: memory.frontmatter.created,
+        updated: memory.frontmatter.updated,
+        links: memory.frontmatter.links,
+        severity: memory.frontmatter.severity,
         basePath,
       });
 

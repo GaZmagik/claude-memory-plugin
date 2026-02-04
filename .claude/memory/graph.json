@@ -2268,6 +2268,14 @@
     {
       "id": "artifact-agent-copy-export-import-delegation",
       "type": "artifact"
+    },
+    {
+      "id": "learning-metadata-preservation-requires-explicit-timestamp-passing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-import-requires-agent-field-for-scope-resolution",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -6080,6 +6088,36 @@
       "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
       "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
       "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-metadata-preservation-requires-explicit-timestamp-passing",
+      "target": "artifact-agent-copy-export-import-delegation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-import-requires-agent-field-for-scope-resolution",
+      "target": "artifact-agent-copy-export-import-delegation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-import-requires-agent-field-for-scope-resolution",
+      "target": "decision-agent-scopes-as-parallel-namespaces",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-metadata-preservation-requires-explicit-timestamp-passing",
+      "target": "learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-import-requires-agent-field-for-scope-resolution",
+      "target": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-metadata-preservation-requires-explicit-timestamp-passing",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "label": "relates-to"
     }
   ]
 }

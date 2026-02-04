@@ -61,10 +61,16 @@ export interface WriteMemoryRequest extends BaseRequest {
   links?: string[];
   /** Source file or context */
   source?: string;
+  /** Created timestamp (for imports - preserves original timestamp) */
+  created?: string;
+  /** Updated timestamp (for imports - preserves original timestamp) */
+  updated?: string;
   /** Additional metadata */
   meta?: Record<string, unknown>;
   /** Project root for gitignore automation (optional) */
   projectRoot?: string;
+  /** Global root for agent-global scope (optional) */
+  globalRoot?: string;
   /** Project name for cross-project context */
   project?: string;
   /** Automatically link to similar memories after write */

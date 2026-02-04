@@ -358,6 +358,8 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       links: request.links?.map(unsafeAsMemoryId),
       source: request.source,
       meta: request.meta,
+      created: request.created,
+      updated: request.updated,
     });
 
     // Serialise to file content

@@ -159,14 +159,16 @@ export function createFrontmatter(params: {
   links?: MemoryId[];
   source?: string;
   meta?: Record<string, unknown>;
+  created?: string;
+  updated?: string;
 }): MemoryFrontmatter {
   const now = new Date().toISOString();
 
   const frontmatter: MemoryFrontmatter = {
     type: params.type,
     title: params.title,
-    created: now,
-    updated: now,
+    created: params.created ?? now,
+    updated: params.updated ?? now,
     tags: params.tags,
   };
 

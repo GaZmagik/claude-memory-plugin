@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T19:59:08.426Z",
+  "lastUpdated": "2026-02-04T20:50:54.095Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -7940,6 +7940,32 @@
       "updated": "2026-02-04T19:59:08.407Z",
       "scope": "project",
       "relativePath": "permanent/artifact-agent-copy-export-import-delegation.md"
+    },
+    {
+      "id": "learning-metadata-preservation-requires-explicit-timestamp-passing",
+      "title": "Metadata preservation requires passing created/updated timestamps to writeMemory",
+      "type": "learning",
+      "tags": [
+        "import",
+        "metadata",
+        "timestamps",
+        "preservation"
+      ],
+      "scope": "agent-project",
+      "relativePath": "permanent/learning-metadata-preservation-requires-explicit-timestamp-passing.md"
+    },
+    {
+      "id": "learning-import-requires-agent-field-for-scope-resolution",
+      "title": "Import operation requires agent field for agent-scoped writes",
+      "type": "learning",
+      "tags": [
+        "agent-scopes",
+        "import",
+        "copy",
+        "write-operation"
+      ],
+      "scope": "agent-project",
+      "relativePath": "permanent/learning-import-requires-agent-field-for-scope-resolution.md"
     }
   ]
 }

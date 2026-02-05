@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T11:45:18.520Z",
+  "lastUpdated": "2026-02-05T14:33:32.090Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8377,6 +8377,165 @@
       "updated": "2026-02-05T11:45:18.494Z",
       "scope": "project",
       "relativePath": "permanent/decision-memory-health-audit-2026-02-05.md"
+    },
+    {
+      "id": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "type": "learning",
+      "title": "Retro - Session-restore with parallel curator agent accelerates memory system recovery",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-system",
+        "session-restore",
+        "project"
+      ],
+      "created": "2026-02-05T13:25:43.028Z",
+      "updated": "2026-02-05T13:25:43.028Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "type": "learning",
+      "title": "Retro - TDD test-first approach for Phase E provides clear requirements and accelerates Green phase",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "phase-e",
+        "project"
+      ],
+      "created": "2026-02-05T13:25:51.043Z",
+      "updated": "2026-02-05T13:25:51.043Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-phase-e-test-directory-structure-needs-early-verification-against-project-conventions",
+      "type": "gotcha",
+      "title": "Gotcha - Phase E test directory structure needs early verification against project conventions",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "directories",
+        "project"
+      ],
+      "created": "2026-02-05T13:31:22.580Z",
+      "updated": "2026-02-05T13:31:22.580Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-phase-e-test-directory-structure-needs-early-verification-against-project-conventions.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing",
+      "type": "gotcha",
+      "title": "Gotcha - Phase E scope is substantial (10 tests + ~15 implementation files); Green phase needs careful pacing",
+      "tags": [
+        "retrospective",
+        "process",
+        "phase-planning",
+        "phase-e",
+        "project"
+      ],
+      "created": "2026-02-05T13:31:33.539Z",
+      "updated": "2026-02-05T13:31:33.539Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "learning",
+      "title": "Parallel restoration agents accelerate post-compaction recovery",
+      "tags": [
+        "session-restore",
+        "memory-system",
+        "parallel-agents",
+        "performance",
+        "project"
+      ],
+      "created": "2026-02-05T13:32:05.636Z",
+      "updated": "2026-02-05T13:32:05.636Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-accelerate-post-compaction-recovery.md"
+    },
+    {
+      "id": "gotcha-test-directory-structure-verification-needed-before-phase-e-implementation",
+      "type": "gotcha",
+      "title": "Test directory structure verification needed before Phase E implementation",
+      "tags": [
+        "phase-e",
+        "test-infrastructure",
+        "tdd",
+        "verification",
+        "project"
+      ],
+      "created": "2026-02-05T13:32:35.292Z",
+      "updated": "2026-02-05T13:32:35.292Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-directory-structure-verification-needed-before-phase-e-implementation.md"
+    },
+    {
+      "id": "learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation",
+      "type": "learning",
+      "title": "TDD test-first approach for Phase E accelerates Green phase implementation",
+      "tags": [
+        "phase-e",
+        "tdd",
+        "test-first",
+        "red-phase",
+        "acceleration",
+        "project"
+      ],
+      "created": "2026-02-05T13:32:52.412Z",
+      "updated": "2026-02-05T13:32:52.412Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation.md"
+    },
+    {
+      "id": "learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion",
+      "type": "learning",
+      "title": "Memory curator agent successfully resolves test pollution investigation completion",
+      "tags": [
+        "memory-curator",
+        "test-pollution",
+        "investigation-completion",
+        "graph-health",
+        "project"
+      ],
+      "created": "2026-02-05T13:33:03.966Z",
+      "updated": "2026-02-05T13:33:03.966Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion.md"
+    },
+    {
+      "id": "thought-20260204-212536323",
+      "title": "Think: Memory system linking and quality audit session - 2026-02-04",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "concluded"
+      ],
+      "created": "2026-02-04T21:25:36.331Z",
+      "updated": "2026-02-04T21:25:52.521Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260204-212536323.md"
+    },
+    {
+      "id": "thought-20260201-230956218",
+      "title": "Think: Memory System Analysis Summary",
+      "type": "breadcrumb",
+      "tags": [
+        "think",
+        "active"
+      ],
+      "created": "2026-02-01T23:09:56.230Z",
+      "updated": "2026-02-01T23:09:56.230Z",
+      "scope": "project",
+      "relativePath": "temporary/thought-20260201-230956218.md"
     }
   ]
 }

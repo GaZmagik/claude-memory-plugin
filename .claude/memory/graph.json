@@ -1507,875 +1507,1143 @@
     },
     {
       "id": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD discipline with all tests upfront accelerates implementation"
     },
     {
       "id": "learning-tdd-red-green-execution-for-phase-2-injection",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD Red-Green execution for Phase 2 injection"
     },
     {
       "id": "learning-v110-phase-milestone-commits",
-      "type": "learning"
+      "type": "learning",
+      "title": "v1.1.0 Phase milestone commits"
     },
     {
       "id": "artifact-help-text-pattern-ai-flags",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Help text pattern for AI invocation flags"
     },
     {
       "id": "artifact-phase2-injection-architecture",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Phase 2 injection architecture"
     },
     {
       "id": "learning-retro-tdd-red-phase-test-coverage-prevents-implementation-rework",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD Red phase test coverage prevents implementation rework"
     },
     {
       "id": "learning-phase-2-injection-config-reduces-hook-complexity",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase 2 injection config reduces hook complexity"
     },
     {
       "id": "gotcha-stop-work-at-85-90-context-not-95-100",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Stop work at 85-90% context, not 95-100%"
     },
     {
       "id": "learning-dependency-ordering-prevents-integration-rework-in-phase-3",
-      "type": "learning"
+      "type": "learning",
+      "title": "Learning - Dependency ordering prevents integration rework in Phase 3"
     },
     {
       "id": "decision-phase3-tiered-selection-strategy",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase 3: Tiered auto-selection strategy (Ollama → Heuristics → Default)"
     },
     {
       "id": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Ollama circuit breaker needed to prevent cascading timeouts in think hook"
     },
     {
       "id": "artifact-phase3-avoid-list-extraction-pattern",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Phase 3: Avoid-list extraction for agent diversity"
     },
     {
       "id": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Auto-compaction mid-task is safe - session-restore rebuilds context"
     },
     {
       "id": "learning-retro-user-feedback-on-gotchas-creates-immediate-actionable-memory",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - User feedback on gotchas creates immediate actionable memory"
     },
     {
       "id": "gotcha-retro-blind-implementation-creating-files-without-verifying-creates-technical-debt",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Blind implementation (creating files without verifying) creates technical debt"
     },
     {
       "id": "learning-tdd-hook-enforcement-requires-co-located-test-files",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD Hook Enforcement requires co-located test files"
     },
     {
       "id": "learning-lightweight-spinner-for-long-running-cli-operations-avoids-dependencies",
-      "type": "learning"
+      "type": "learning",
+      "title": "Lightweight spinner for long-running CLI operations avoids dependencies"
     },
     {
       "id": "learning-provider-modules-pattern-commands-parsers-detection-in-separate-files",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider modules pattern: commands, parsers, detection in separate files"
     },
     {
       "id": "gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silently",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Feature and core hubs detected but don't exist yet - linking fails silently"
     },
     {
       "id": "learning-execfilesync-prevents-path-inheritance-vulnerability-in-bun",
-      "type": "learning"
+      "type": "learning",
+      "title": "execFileSync prevents PATH inheritance vulnerability in Bun"
     },
     {
       "id": "learning-readme-injection-config-yaml-format-must-nest-under-provider-key",
-      "type": "learning"
+      "type": "learning",
+      "title": "README injection config YAML format must nest under provider key"
     },
     {
       "id": "gotcha-async-function-declarations-with-only-sync-operations-mislead-callers",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Async function declarations with only sync operations mislead callers"
     },
     {
       "id": "decision-defer-low-severity-security-issues-v1.1.0",
-      "type": "decision"
+      "type": "decision",
+      "title": "Defer low-severity security issues to future release"
     },
     {
       "id": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD parity enforcement catches undocumented test files"
     },
     {
       "id": "learning-execfilesync-loses-path-in-bun-subprocesses",
-      "type": "learning"
+      "type": "learning",
+      "title": "execFileSync loses PATH in Bun subprocesses"
     },
     {
       "id": "learning-provider-error-messages-with-installation-instructions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider error messages with installation instructions"
     },
     {
       "id": "gotcha-readme-injection-config-requires-nested-yaml-structure",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "README injection config requires nested YAML structure"
     },
     {
       "id": "decision-defer-low-severity-security-findings",
-      "type": "decision"
+      "type": "decision",
+      "title": "Defer low-severity security findings to future phases"
     },
     {
       "id": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Pre-commit hook validation prevented regression blame"
     },
     {
       "id": "gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Path traversal validation required for user-supplied agent/style names"
     },
     {
       "id": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Event listener cleanup requires specificity to avoid breaking async operations"
     },
     {
       "id": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hook timeout budgets prevent unbounded blocking in PostToolUse and UserPromptSubmit"
     },
     {
       "id": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Stream event listener cleanup race condition in subprocess timeout handlers"
     },
     {
       "id": "decision-defer-test-isolation-fixes-to-v120",
-      "type": "decision"
+      "type": "decision",
+      "title": "Defer test isolation fixes to v1.2.0"
     },
     {
       "id": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD parity requires explicit configuration for colocated vs centralized tests"
     },
     {
       "id": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Test isolation failures pass individually but fail together (mock pollution) requires infrastructure sprint"
     },
     {
       "id": "gotcha-test-isolation-vitest-mock-pollution",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Test isolation - vitest mock pollution"
     },
     {
       "id": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test timeout mismatches cause false failures (spawn timeout != test timeout)"
     },
     {
       "id": "gotcha-missing-export-causes-test-import-cascade-failures",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Missing export causes test import cascade failures"
     },
     {
       "id": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Session restore + spec review workflow efficiently validates and fixes complex features"
     },
     {
       "id": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD parity - colocated tests reveal true coverage"
     },
     {
       "id": "learning-colocated-tests-reveal-true-tdd-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "Colocated tests reveal true TDD coverage"
     },
     {
       "id": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
-      "type": "learning"
+      "type": "learning",
+      "title": "Duplicate SDD Scaffolding Bloats Test Suite"
     },
     {
       "id": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - SDD scaffolding stubs should be deleted, not implemented"
     },
     {
       "id": "learning-pr-review-agents-should-fix-issues-in-parallel",
-      "type": "learning"
+      "type": "learning",
+      "title": "PR Review Agents Should Fix Issues In Parallel"
     },
     {
       "id": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Context budget reached at 100%, should have launched agents earlier"
     },
     {
       "id": "decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners",
-      "type": "decision"
+      "type": "decision",
+      "title": "Subprocess Timeout Cleanup Should Use destroy() Not Manual Listeners"
     },
     {
       "id": "artifact-colocated-test-pattern-for-typescript-projects",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Colocated Test Pattern for TypeScript Projects"
     },
     {
       "id": "gotcha-test-agents-generate-aspirational-tests-without-implementation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Test Agents Generate Aspirational Tests Without Implementation"
     },
     {
       "id": "learning-provider-integration-incomplete-in-v110",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider integration incomplete in v1.1.0"
     },
     {
       "id": "learning-retro-direct-cli-execution-validates-feature-before-plugin-rebuild",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Direct CLI execution validates feature before plugin rebuild"
     },
     {
       "id": "learning-retro-parse-runtime-output-instead-of-guessing-provider-defaults",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parse runtime output instead of guessing provider defaults"
     },
     {
       "id": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Provider CLI startup timeouts need 120s not 30s"
     },
     {
       "id": "learning-provider-stderr-output",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider CLI output goes to stderr, not stdout"
     },
     {
       "id": "learning-gemini-model-extraction-requires-user-agent-fallback",
-      "type": "learning"
+      "type": "learning",
+      "title": "Gemini model extraction requires User-Agent fallback"
     },
     {
       "id": "learning-provider-cli-mcp-startup-requires-120s-timeout",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider CLI MCP startup requires 120s timeout"
     },
     {
       "id": "gotcha-cli-think-commands-suppress-output-silently",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "CLI think commands suppress output silently"
     },
     {
       "id": "learning-parser-behaviour-tests-were-missing-only-export-checks-existed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parser behaviour tests were missing - only export checks existed"
     },
     {
       "id": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Sequential task completion with immediate testing prevents rework"
     },
     {
       "id": "learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Extract shared helpers from duplicated code paths early in refactoring"
     },
     {
       "id": "learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Edge case tests should document parser limitations rather than over-engineer"
     },
     {
       "id": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Bun test runner mock isolation causes cross-file mock conflicts in test suite"
     },
     {
       "id": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
-      "type": "learning"
+      "type": "learning",
+      "title": "Provider CLI startup timeout requires 120s not 30s"
     },
     {
       "id": "decision-v111-provider-security-hardening",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.1.1 provider security hardening"
     },
     {
       "id": "gotcha-v112-marketplace-needs-bun-install-in-sessionstart",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "v1.1.2 marketplace needs bun install in SessionStart"
     },
     {
       "id": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Hook timeouts were too aggressive (2s), broke Ollama for users"
     },
     {
       "id": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Marketplace plugin lacks node_modules - breaks for users"
     },
     {
       "id": "learning-retro-plugin-hooks-need-explicit-matcher-for-user-level-hook-merging",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Plugin hooks need explicit matcher for user-level hook merging"
     },
     {
       "id": "gotcha-marketplace-plugin-missing-bun-dependencies",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Marketplace plugin missing bun dependencies"
     },
     {
       "id": "learning-hook-ollama-timeout-insufficient",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hook Ollama timeout too short (2s) - needs 10-30s"
     },
     {
       "id": "learning-timeout-constant-inconsistency-30s-vs-120s",
-      "type": "learning"
+      "type": "learning",
+      "title": "Timeout constant inconsistency: Claude (30s) vs Codex/Gemini (120s)"
     },
     {
       "id": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.1.2 must include SessionStart bun install and hook timeout fixes"
     },
     {
       "id": "learning-plugin-posttooluse-hooks-not-auto-discovered",
-      "type": "learning"
+      "type": "learning",
+      "title": "Plugin PostToolUse hooks not auto-discovered by Claude Code"
     },
     {
       "id": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Missing node_modules error: Cannot find package js-yaml"
     },
     {
       "id": "learning-debug-hook-execution-with-consoleerror-at-entry-point",
-      "type": "learning"
+      "type": "learning",
+      "title": "Debug hook execution with console.error at entry point"
     },
     {
       "id": "learning-marketplace-plugin-install-location-discovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Marketplace plugin install location discovery"
     },
     {
       "id": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
-      "type": "learning"
+      "type": "learning",
+      "title": "Marketplace plugin hooks fail silently without node_modules"
     },
     {
       "id": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
-      "type": "learning"
+      "type": "learning",
+      "title": "PostToolUse hooks need matcher field for user-level merging"
     },
     {
       "id": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
-      "type": "learning"
+      "type": "learning",
+      "title": "Ollama timeouts need 10-30s for cold-start, not 2s"
     },
     {
       "id": "decision-v112-marketplace-fixes-comprehensive-approach",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.1.2 marketplace fixes - comprehensive approach"
     },
     {
       "id": "learning-reminder-hook-fatigue-fire-on-every-userpromptsubmit",
-      "type": "learning"
+      "type": "learning",
+      "title": "Reminder hook fatigue - fire on every UserPromptSubmit"
     },
     {
       "id": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "settings_version must be updated in multiple files when schema changes"
     },
     {
       "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test isolation failures caused by mixed test frameworks (Bun test + vitest)"
     },
     {
       "id": "decision-v130-agent-meetings-scheduled-multi-agent-deliberation-sessions",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.3.0 Agent Meetings - Scheduled multi-agent deliberation sessions"
     },
     {
       "id": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Multi-agent architectural consensus converges faster than single-expert iteration"
     },
     {
       "id": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Test isolation root cause was mixed frameworks, not mock pollution"
     },
     {
       "id": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test isolation failures caused by mixed test frameworks, not mock pollution"
     },
     {
       "id": "decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state",
-      "type": "decision"
+      "type": "decision",
+      "title": "Accord plugin uses daemon + plugin split with memory as canonical state"
     },
     {
       "id": "artifact-settings-version-detection-and-migration",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Settings version detection and auto-migration logic"
     },
     {
       "id": "decision-accord-plugin-manual-meeting-skill-first-before-scheduled",
-      "type": "decision"
+      "type": "decision",
+      "title": "Accord plugin MVP: manual /meeting skill first, validate before scheduling"
     },
     {
       "id": "learning-v120-implementation-complete-all-features-shipped-and-tested",
-      "type": "learning"
+      "type": "learning",
+      "title": "v1.2.0 implementation complete - all features shipped and tested"
     },
     {
       "id": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
-      "type": "decision"
+      "type": "decision",
+      "title": "Accord Plugin - Autonomous agent orchestration platform with persistent memory and dashboard"
     },
     {
       "id": "learning-meeting-command-orchestration-parallel-promiseall-with-memory-think",
-      "type": "learning"
+      "type": "learning",
+      "title": "Meeting command orchestration: parallel Promise.all with memory think"
     },
     {
       "id": "gotcha-meeting-command-10-agent-limit-and-timeouts-prevent-runaway-costs",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Meeting command: 10 agent limit and timeouts prevent runaway costs"
     },
     {
       "id": "gotcha-prompt-improver-forked-sessions-leak-processes",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Prompt improver forked sessions leak processes causing slowdowns"
     },
     {
       "id": "decision-embedding-generation-should-be-default",
-      "type": "decision"
+      "type": "decision",
+      "title": "Decouple embedding generation from auto-link flag"
     },
     {
       "id": "learning-embedding-generation-requires-ollama-provider-separation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Embedding generation requires Ollama provider separation"
     },
     {
       "id": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
-      "type": "decision"
+      "type": "decision",
+      "title": "Meetings Orchestration Moved to Accord Plugin"
     },
     {
       "id": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Speckit workflow enables rapid feature progression through full spec-plan-tasks pipeline"
     },
     {
       "id": "learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Architecture pivoting mid-workflow prevented wasted implementation (meetings → Accord)"
     },
     {
       "id": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Context token awareness at 95% prompted timely compaction before blocking"
     },
     {
       "id": "decision-v130-specification-phase-complete",
-      "type": "decision"
+      "type": "decision",
+      "title": "v1.3.0 Agent-Scoped Memories Specification Phase Complete"
     },
     {
       "id": "learning-v130-phase-0-research-validation-complete",
-      "type": "learning"
+      "type": "learning",
+      "title": "v1.3.0 Phase 0: All Existing Systems Verified"
     },
     {
       "id": "artifact-v130-specification-analysis-zero-critical-issues",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "v1.3.0 Specification Analysis: Zero Critical Issues Pattern"
     },
     {
       "id": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Session restoration with parallel agents recovers context efficiently post-compaction"
     },
     {
       "id": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Bun test framework does not support vi.importActual, requires mock.module approach"
     },
     {
       "id": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD test-first creation prevents implementation rework in multi-file phases"
     },
     {
       "id": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD compliance hook requires co-located .spec.ts files alongside implementation"
     },
     {
       "id": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
-      "type": "learning"
+      "type": "learning",
+      "title": "Bun test framework mocking requires different patterns than Vitest"
     },
     {
       "id": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase A TDD cycle: All tests written upfront (Red) → Sequential Green implementation → Batch refactoring"
     },
     {
       "id": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
-      "type": "decision"
+      "type": "decision",
+      "title": "Memory System Analysis Complete - Embedding Gotcha Needs Review"
     },
     {
       "id": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
-      "type": "learning"
+      "type": "learning",
+      "title": "Bun test mocking requires mock.module() not vi.importActual()"
     },
     {
       "id": "learning-api-validation-must-occur-before-sanitisation-for-security",
-      "type": "learning"
+      "type": "learning",
+      "title": "API validation must occur before sanitisation for security"
     },
     {
       "id": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase B storage infrastructure requires minimal changes to CRUD"
     },
     {
       "id": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
-      "type": "learning"
+      "type": "learning",
+      "title": "Session restoration with parallel agents efficiently recovers post-compaction context"
     },
     {
       "id": "decision-agent-scope-api-vs-cli-layer",
-      "type": "decision"
+      "type": "decision",
+      "title": "Separate agent scope API validation from CLI sanitisation"
     },
     {
       "id": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD test-first enforcement prevents premature file creation"
     },
     {
       "id": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Agent field propagation requires tracing through serialisation, validation, AND request/response types"
     },
     {
       "id": "learning-retro-proactive-memory-check-before-phase-work-prevents-rework",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Proactive memory check before phase work prevents rework"
     },
     {
       "id": "gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utilities",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - CRUD operations need import additions for Scope and scope utilities"
     },
     {
       "id": "learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase B TDD pattern: Test files first satisfy hook enforcement"
     },
     {
       "id": "learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisation-paths",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent field in frontmatter requires tracing through all serialisation paths"
     },
     {
       "id": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent directory resolution pattern: Consistent path resolution across CRUD operations"
     },
     {
       "id": "decision-phase-b-api-types-agent-field-propagation",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase B: Add agent field to all API request and response types"
     },
     {
       "id": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Agent field propagation requires tracing through serialisation, validation, and request/response types"
     },
     {
       "id": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
-      "type": "learning"
+      "type": "learning",
+      "title": "Graph node structure only stores id, type, and optional title - agent/scope metadata belongs in frontmatter and index"
     },
     {
       "id": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD test-first approach caught architectural issues early in Phase B (where agent metadata belongs)"
     },
     {
       "id": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD design clarity prevents contradictory test expectations"
     },
     {
       "id": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Duplicate mock setup creates test fragility"
     },
     {
       "id": "learning-retro-task-completion-validation-prevents-hidden-rework",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Task completion validation prevents hidden rework"
     },
     {
       "id": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Bun test framework requires comprehensive fs mocking for isolation"
     },
     {
       "id": "learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental-choices",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD design clarity - conflicting test expectations reveal fundamental choices"
     },
     {
       "id": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent Field Must Propagate Through Entire Write Operation Response Chain"
     },
     {
       "id": "learning-getscopetag-function-must-handle-all-scope-enum-variants-including-agent-scopes",
-      "type": "learning"
+      "type": "learning",
+      "title": "getScopeTag() Function Must Handle All Scope Enum Variants Including Agent Scopes"
     },
     {
       "id": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Phase B Test File Mocks Must Mirror beforeEach Setup Across All Test Blocks"
     },
     {
       "id": "artifact-phase-b-storage-infrastructure",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Phase B Completion Checklist: Storage Infrastructure for Agent-Scoped Memories"
     },
     {
       "id": "decision-phase-b-complete-proceed-to-phase-c",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase B Storage Infrastructure Complete - Proceed to Phase C CLI Integration"
     },
     {
       "id": "learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-bottleneck",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase C CLI architecture requires helpers refactoring as critical bottleneck"
     },
     {
       "id": "learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-updates",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase C TDD strategy requires test-first approach for 15 command updates"
     },
     {
       "id": "decision-phase-c-implementation-plan-complete-ready",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase C implementation plan complete and ready"
     },
     {
       "id": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
-      "type": "learning"
+      "type": "learning",
+      "title": "Plan mode exploration revealed parser and storage ready for Phase C integration"
     },
     {
       "id": "learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD with rapid smoke testing accelerates feature validation"
     },
     {
       "id": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic pattern application prevents command handler regressions"
     },
     {
       "id": "gotcha-type-system-updates-can-hide-incomplete-implementations",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Type system updates can hide incomplete implementations"
     },
     {
       "id": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Coverage validation should be explicit, not assumed"
     },
     {
       "id": "learning-phase-c-tdd-first-completion-pattern",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase C TDD-first completion pattern"
     },
     {
       "id": "learning-phase-c-helper-function-refactoring-bottleneck",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase C helper function refactoring bottleneck"
     },
     {
       "id": "learning-phase-c-agent-name-validation-with-helpful-errors",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase C agent name validation with helpful errors"
     },
     {
       "id": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase C complete - CLI integration for agent scopes is production-ready"
     },
     {
       "id": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Phase C BaseRequest type mutation adds agent field to all request types"
     },
     {
       "id": "learning-tdd-driven-validation-prevents-cross-scope-access-misuse",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD-driven validation prevents cross-scope access misuse"
     },
     {
       "id": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
-      "type": "learning"
+      "type": "learning",
+      "title": "resolveSharedScopePaths helper simplifies multi-scope memory resolution"
     },
     {
       "id": "gotcha-git-context-detection-affects-default-scope-in-tests",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Git context detection affects default scope in tests"
     },
     {
       "id": "artifact-validation-pattern-include-shared-flag",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Validation pattern for --include-shared flag enforcement"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents improve post-compaction recovery speed"
     },
     {
       "id": "learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first-accelerates-subsequent-commands",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Phase D multi-scope implementation: establishing pattern first accelerates subsequent commands"
     },
     {
       "id": "gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Help text updates deferred to final task risked incomplete documentation"
     },
     {
       "id": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parallel restoration agents improve post-compaction recovery speed"
     },
     {
       "id": "learning-multi-scope-result-merging-pattern-with-scope-indicators",
-      "type": "learning"
+      "type": "learning",
+      "title": "Multi-scope result merging pattern with scope indicators"
     },
     {
       "id": "gotcha-agent-field-propagation-requires-tracing-through-all-layers",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Agent field propagation requires tracing through all layers"
     },
     {
       "id": "artifact-include-shared-validation-pattern",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Validation pattern for --include-shared flag enforcement"
     },
     {
       "id": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Session restore with parallel agents improves post-compaction recovery speed"
     },
     {
       "id": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Deferring help text updates to final task created time pressure"
     },
     {
       "id": "learning-help-text-updates-as-final-task-risk-incomplete-documentation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Help text updates as final task risk incomplete documentation"
     },
     {
       "id": "learning-phase-d-multi-scope-read-operations-completed-with-6-command-updates",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase D multi-scope read operations completed with 6 command updates"
     },
     {
       "id": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Session restore with parallel agents improves post-compaction recovery speed"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents accelerate post-compaction recovery"
     },
     {
       "id": "gotcha-retro-test-positional-array-structure-bug-caught-post-implementation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Test positional array structure bug caught post-implementation"
     },
     {
       "id": "learning-retro-memory-system-gatekeeping-prevented-documentation-shortcuts",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Memory system gatekeeping prevented documentation shortcuts"
     },
     {
       "id": "learning-test-positional-array-structure-in-cli-command-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test positional array structure in CLI command tests"
     },
     {
       "id": "learning-scope-indicators-in-search-results-are-in-results-array-not-message-field",
-      "type": "learning"
+      "type": "learning",
+      "title": "Scope indicators in search results are in results array, not message field"
     },
     {
       "id": "gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Phase D test suite had 6 initial failures due to test structure bugs"
     },
     {
       "id": "decision-phase-d-implementation-complete-all-tests-passing",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase D implementation complete - all tests passing"
     },
     {
       "id": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase D: Shared Memory Inclusion Complete and Production Ready"
     },
     {
       "id": "learning-retro-systematic-bulk-fix-approach-reduces-test-failures-efficiently",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic bulk fix approach reduces test failures efficiently"
     },
     {
       "id": "learning-retro-sub-agent-exploration-before-plan-mode-design-accelerates-planning",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Sub-agent exploration before plan mode design accelerates planning"
     },
     {
       "id": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Post-session-continue tool unlock can fail silently"
     },
     {
       "id": "gotcha-cli-test-positional-array-structure",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "CLI Test Positional Array Structure"
     },
     {
       "id": "gotcha-cross-scope-graph-edges-design-constraint",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Cross-Scope Graph Edges Design Constraint"
     },
     {
       "id": "decision-agent-scopes-as-parallel-namespaces",
-      "type": "decision"
+      "type": "decision",
+      "title": "Agent Scopes as Parallel Namespaces (Not Sub-Scopes)"
     },
     {
       "id": "learning-phase-d-test-suite-failures-resolved",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase D Test Suite: 3 Pre-Existing Failures Fixed"
     },
     {
       "id": "learning-retro-explore-unknown-patterns-before-designing-phase-features",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Explore unknown patterns before designing phase features"
     },
     {
       "id": "gotcha-retro-plan-interactive-confirmation-upfront-for-destructive-cli-operations",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Plan interactive confirmation upfront for destructive CLI operations"
     },
     {
       "id": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD parity enforcement blocks file creation without tests"
     },
     {
       "id": "artifact-phase-e-agent-discovery-implementation",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Phase E Agent Discovery Implementation"
     },
     {
       "id": "learning-cli-sub-command-routing-via-dispatcher-functions",
-      "type": "learning"
+      "type": "learning",
+      "title": "CLI sub-command routing via dispatcher functions"
     },
     {
       "id": "learning-modular-test-structure-for-large-operation-test-suites",
-      "type": "learning"
+      "type": "learning",
+      "title": "Modular test structure for large operation test suites"
     },
     {
       "id": "learning-agent-path-structure-consistency-across-tests-and-implementation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent path structure consistency across tests and implementation"
     },
     {
       "id": "learning-agent-name-validation-auto-lowercasing-pattern",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent name validation auto-lowercasing pattern"
     },
     {
       "id": "artifact-agent-copy-export-import-delegation",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Agent copy via export-import delegation pattern"
     },
     {
       "id": "learning-metadata-preservation-requires-explicit-timestamp-passing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Metadata preservation requires passing created/updated timestamps to writeMemory"
     },
     {
       "id": "learning-import-requires-agent-field-for-scope-resolution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Import operation requires agent field for agent-scoped writes"
     },
     {
       "id": "learning-retro-console-logging-at-boundary-conditions-reveals-root-causes-efficiently",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Console logging at boundary conditions reveals root causes efficiently"
     },
     {
       "id": "learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-whats-actually-preserved",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test assertion format mismatches don't indicate failure - check what's actually preserved"
     },
     {
       "id": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Graph handling bypassed by early returns in export and import for empty memories"
     },
     {
       "id": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "graph-edges-not-saved-when-importing-to-new-agent"
     },
     {
       "id": "gotcha-export-early-return-skips-graph-when-no-memories",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "export-early-return-skips-graph-when-no-memories"
     },
     {
       "id": "learning-graph-structure-filtered-to-exported-memories-only",
-      "type": "learning"
+      "type": "learning",
+      "title": "graph-structure-filtered-to-exported-memories-only"
     },
     {
       "id": "learning-test-setup-should-create-actual-memories-not-orphaned-nodes",
-      "type": "learning"
+      "type": "learning",
+      "title": "test-setup-should-create-actual-memories-not-orphaned-nodes"
     },
     {
       "id": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
-      "type": "learning"
+      "type": "learning",
+      "title": "Memory system linking and quality audit session - 2026-02-04"
     },
     {
       "id": "learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Isolate-then-full test pattern reveals pollution vs real bugs"
     },
     {
       "id": "learning-retro-restoring-original-implementation-pattern-when-changes-break-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Restoring original implementation pattern when changes break tests"
     },
     {
       "id": "gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Gotcha - Incomplete bug fix verification leads to false progress claims"
     },
     {
       "id": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
-      "type": "learning"
+      "type": "learning",
+      "title": "Isolate then full test pattern reveals pollution vs real bugs"
     },
     {
       "id": "learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays",
-      "type": "learning"
+      "type": "learning",
+      "title": "YAML serialisation produces quoted timestamps and multi-line arrays"
     },
     {
       "id": "gotcha-import-early-returns-bypass-graph-relationship-linkage",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Import early returns bypass graph relationship linkage"
     },
     {
       "id": "learning-test-memories-must-include-all-required-frontmatter-fields",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test memories must include all required frontmatter fields"
     },
     {
       "id": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
-      "type": "decision"
+      "type": "decision",
+      "title": "Prioritise fixing genuine bugs over investigating cross-file test pollution"
     },
     {
       "id": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test pollution investigation: copy.spec.ts failures reduced from 22 to 20"
     },
     {
       "id": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
-      "type": "learning"
+      "type": "learning",
+      "title": "Fixed all test pollution: 20 failures eliminated by removing fs mock"
     },
     {
       "id": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Binary search effective for finding cross-file test pollution"
     },
     {
       "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Module-level vi.mock() creates unfixable global test pollution"
     },
     {
       "id": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Mock replacement pattern: inline spyOn with afterEach cleanup"
     },
     {
       "id": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
-      "type": "learning"
+      "type": "learning",
+      "title": "vi.mock() global pollution - module-level mocks persist across test files"
     },
     {
       "id": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase F test suite cleanup: 22 failures reduced to 0 by fixing module-level mocks"
     },
     {
       "id": "decision-copyagent-reuses-export-import-pipeline",
-      "type": "decision"
+      "type": "decision",
+      "title": "copyAgent reuses export/import pipeline instead of direct copying"
     },
     {
       "id": "artifact-phase-f-agent-operations-module",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Phase F: Agent Operations Module - Create, Delete, Copy, Rename"
     },
     {
       "id": "decision-memory-health-audit-2026-02-05",
-      "type": "decision"
+      "type": "decision",
+      "title": "Memory health audit 2026-02-05: Linked 9 orphaned memories and resolved contradiction"
+    },
+    {
+      "id": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "type": "learning",
+      "title": "Retro - Session-restore with parallel curator agent accelerates memory system recovery"
+    },
+    {
+      "id": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "type": "learning",
+      "title": "Retro - TDD test-first approach for Phase E provides clear requirements and accelerates Green phase"
+    },
+    {
+      "id": "gotcha-phase-e-test-directory-structure-needs-early-verification-against-project-conventions",
+      "type": "gotcha",
+      "title": "Gotcha - Phase E test directory structure needs early verification against project conventions"
+    },
+    {
+      "id": "gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing",
+      "type": "gotcha",
+      "title": "Gotcha - Phase E scope is substantial (10 tests + ~15 implementation files); Green phase needs careful pacing"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "learning",
+      "title": "Parallel restoration agents accelerate post-compaction recovery"
+    },
+    {
+      "id": "gotcha-test-directory-structure-verification-needed-before-phase-e-implementation",
+      "type": "gotcha",
+      "title": "Test directory structure verification needed before Phase E implementation"
+    },
+    {
+      "id": "learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation",
+      "type": "learning",
+      "title": "TDD test-first approach for Phase E accelerates Green phase implementation"
+    },
+    {
+      "id": "learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion",
+      "type": "learning",
+      "title": "Memory curator agent successfully resolves test pollution investigation completion"
+    },
+    {
+      "id": "thought-20260204-212536323",
+      "type": "breadcrumb",
+      "title": "Think: Memory system linking and quality audit session - 2026-02-04"
+    },
+    {
+      "id": "thought-20260201-230956218",
+      "type": "breadcrumb",
+      "title": "Think: Memory System Analysis Summary"
     }
   ],
   "edges": [
@@ -6337,6 +6605,36 @@
     {
       "source": "decision-memory-health-audit-2026-02-05",
       "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation",
+      "target": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-test-directory-structure-verification-needed-before-phase-e-implementation",
+      "target": "gotcha-phase-e-test-directory-structure-needs-early-verification-against-project-conventions",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion",
+      "target": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-phase-e-agent-discovery-implementation",
+      "target": "learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "target": "gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing",
       "label": "relates-to"
     }
   ]

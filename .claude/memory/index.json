@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T16:25:54.428Z",
+  "lastUpdated": "2026-02-05T22:59:00.858Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8479,19 +8479,6 @@
       "relativePath": "permanent/learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion.md"
     },
     {
-      "id": "thought-20260204-212536323",
-      "title": "Think: Memory system linking and quality audit session - 2026-02-04",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-04T21:25:36.331Z",
-      "updated": "2026-02-04T21:25:52.521Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260204-212536323.md"
-    },
-    {
       "id": "thought-20260201-230956218",
       "title": "Think: Memory System Analysis Summary",
       "type": "breadcrumb",
@@ -8835,6 +8822,103 @@
       "updated": "2026-02-05T16:13:01.048Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix.md"
+    },
+    {
+      "id": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "type": "gotcha",
+      "title": "Retro - GraphNode enrichment critical for agent-scoped Mermaid generation",
+      "tags": [
+        "retrospective",
+        "process",
+        "phase-e",
+        "graph-operations",
+        "project"
+      ],
+      "created": "2026-02-05T16:54:02.293Z",
+      "updated": "2026-02-05T16:54:02.293Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
+      "type": "learning",
+      "title": "Retro - Test assertions should be validated against implementation before marking complete",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-05T16:54:08.643Z",
+      "updated": "2026-02-05T16:54:08.643Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "type": "learning",
+      "title": "Retro - Post-compaction context restoration with parallel agents is effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-management",
+        "compaction",
+        "project"
+      ],
+      "created": "2026-02-05T16:54:14.358Z",
+      "updated": "2026-02-05T16:54:14.358Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "type": "learning",
+      "title": "Phase E integration tests require careful assertion alignment with implementation details",
+      "tags": [
+        "phase-e",
+        "testing",
+        "integration-tests",
+        "mermaid-styling",
+        "project"
+      ],
+      "created": "2026-02-05T16:54:45.410Z",
+      "updated": "2026-02-05T16:54:45.410Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details.md"
+    },
+    {
+      "id": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "type": "gotcha",
+      "title": "GraphNode enrichment critical for agent-scoped Mermaid generation",
+      "tags": [
+        "phase-e",
+        "agent-scoping",
+        "graph-structure",
+        "project"
+      ],
+      "created": "2026-02-05T16:54:54.114Z",
+      "updated": "2026-02-05T16:54:54.114Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation.md"
+    },
+    {
+      "id": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "type": "learning",
+      "title": "Agent flag implementation pattern for CLI commands with scope resolution",
+      "tags": [
+        "phase-e",
+        "cli-implementation",
+        "agent-scoping",
+        "project"
+      ],
+      "created": "2026-02-05T16:55:05.531Z",
+      "updated": "2026-02-05T16:55:05.531Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution.md"
     }
   ]
 }

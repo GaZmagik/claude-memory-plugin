@@ -323,10 +323,10 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T103 [P] [US5] Unit test for scope indicator formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/display/test-scope-indicators.spec.ts
-- [ ] T104 [P] [US5] Unit test for agent node visual styling in Mermaid in /home/gareth/.vs/claude-memory-plugin/tests/unit/graph/test-agent-mermaid-style.spec.ts
-- [ ] T105 [P] [US5] Unit test for AgentInfo structure and validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-agent-info.spec.ts
-- [ ] T106 [P] [US5] Unit test for agent directory scanning in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-scan-agents.spec.ts
+- [X] T103 [P] [US5] Unit test for scope indicator formatting in /home/gareth/.vs/claude-memory-plugin/tests/unit/display/test-scope-indicators.spec.ts
+- [X] T104 [P] [US5] Unit test for agent node visual styling in Mermaid in /home/gareth/.vs/claude-memory-plugin/tests/unit/graph/test-agent-mermaid-style.spec.ts
+- [X] T105 [P] [US5] Unit test for AgentInfo structure and validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-agent-info.spec.ts
+- [X] T106 [P] [US5] Unit test for agent directory scanning in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-scan-agents.spec.ts
 - [ ] T107 [US5] Integration test for memory mermaid with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent.spec.ts
 - [ ] T108 [US5] Integration test for memory mermaid with --agent --include-shared in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent-shared.spec.ts
 - [ ] T109 [US5] Integration test for memory stats with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-stats-agent.spec.ts
@@ -336,11 +336,11 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for Phase E
 
-- [ ] T113 [P] [US5] Implement formatScopeIndicator utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/display/format-scope-indicator.ts
-- [ ] T114 [P] [US5] Create AgentInfo interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-info.ts
-- [ ] T115 [P] [US5] Create ListAgentsResponse interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/list-agents-response.ts
-- [ ] T116 [P] [US5] Implement scanAgentDirectories utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/scan-agent-directories.ts
-- [ ] T117 [P] [US5] Implement getAgentInfo utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/get-agent-info.ts
+- [X] T113 [P] [US5] Implement formatScopeIndicator utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/display/format-scope-indicator.ts
+- [X] T114 [P] [US5] Create AgentInfo interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/agent-info.ts
+- [X] T115 [P] [US5] Create ListAgentsResponse interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/list-agents-response.ts
+- [X] T116 [P] [US5] Implement scanAgentDirectories utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/scan-agent-directories.ts
+- [X] T117 [P] [US5] Implement getAgentInfo utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/get-agent-info.ts
 - [ ] T118 [US5] Update Mermaid generation to accept agent context in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
 - [ ] T119 [US5] Add visual styling for agent nodes in Mermaid diagrams in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
 - [ ] T120 [US5] Update graph stats to support agent scope filtering in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/stats.ts

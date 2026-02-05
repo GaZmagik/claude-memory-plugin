@@ -2636,11 +2636,6 @@
       "title": "Memory curator agent successfully resolves test pollution investigation completion"
     },
     {
-      "id": "thought-20260204-212536323",
-      "type": "breadcrumb",
-      "title": "Think: Memory system linking and quality audit session - 2026-02-04"
-    },
-    {
       "id": "thought-20260201-230956218",
       "type": "breadcrumb",
       "title": "Think: Memory System Analysis Summary"
@@ -2716,6 +2711,30 @@
     {
       "id": "gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix",
       "type": "gotcha"
+    },
+    {
+      "id": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -6837,6 +6856,46 @@
     {
       "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
       "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix",
+      "target": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
       "label": "relates-to"
     }
   ]

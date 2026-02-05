@@ -90,6 +90,7 @@ export async function getAgentSummary(
   const summary: AgentSummary = {
     name: agentName,
     scope,
+    path: agentPath,
     memoryCount: 0,
   };
 

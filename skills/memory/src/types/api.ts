@@ -545,6 +545,8 @@ export interface AgentSummary {
   name: string;
   /** Agent scope (AgentProject or AgentGlobal) */
   scope: Scope.AgentProject | Scope.AgentGlobal;
+  /** Absolute path to agent directory */
+  path: string;
   /** Total number of memories */
   memoryCount: number;
   /** Last updated timestamp (most recent memory update) */

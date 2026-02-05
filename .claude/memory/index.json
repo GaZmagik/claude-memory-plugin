@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T15:18:00.430Z",
+  "lastUpdated": "2026-02-05T16:11:14.971Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8620,6 +8620,107 @@
       "updated": "2026-02-05T15:18:00.399Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md"
+    },
+    {
+      "id": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "type": "learning",
+      "title": "Retro - Session restore with parallel agents achieved perfect memory graph health in minutes",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-management",
+        "memory-system",
+        "parallel-agents",
+        "project"
+      ],
+      "created": "2026-02-05T16:10:13.856Z",
+      "updated": "2026-02-05T16:10:13.856Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "type": "learning",
+      "title": "Retro - TDD stub test files bypass hook while keeping tests DRY",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-05T16:10:20.395Z",
+      "updated": "2026-02-05T16:10:20.395Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-check-api-contracts-before-debugging-validation-errors",
+      "type": "gotcha",
+      "title": "Retro - Check API contracts before debugging validation errors",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "api-design",
+        "project"
+      ],
+      "created": "2026-02-05T16:10:25.335Z",
+      "updated": "2026-02-05T16:10:25.335Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-check-api-contracts-before-debugging-validation-errors.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-e-tdd-red-phase-yields-comprehensive-test-coverage",
+      "type": "learning",
+      "title": "Phase E TDD Red phase yields comprehensive test coverage",
+      "tags": [
+        "phase-e",
+        "tdd",
+        "testing",
+        "memory-plugin",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:04.020Z",
+      "updated": "2026-02-05T16:11:04.020Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-tdd-red-phase-yields-comprehensive-test-coverage.md"
+    },
+    {
+      "id": "learning-agentsummary-interface-requires-path-field-for-cli-discovery",
+      "type": "learning",
+      "title": "AgentSummary interface requires path field for CLI discovery",
+      "tags": [
+        "phase-e",
+        "agent-discovery",
+        "cli",
+        "api-design",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:09.794Z",
+      "updated": "2026-02-05T16:11:09.794Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agentsummary-interface-requires-path-field-for-cli-discovery.md"
+    },
+    {
+      "id": "learning-memory-writememory-requires-tags-field-in-request-payload",
+      "type": "learning",
+      "title": "Memory writeMemory requires tags field in request payload",
+      "tags": [
+        "phase-e",
+        "testing",
+        "integration-tests",
+        "api-validation",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:14.922Z",
+      "updated": "2026-02-05T16:11:14.922Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-writememory-requires-tags-field-in-request-payload.md"
     }
   ]
 }

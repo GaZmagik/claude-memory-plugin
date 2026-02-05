@@ -10,12 +10,9 @@ import * as edgesModule from '../../graph/edges.js';
 import * as mermaidModule from '../../graph/mermaid.js';
 import type { ParsedArgs } from '../parser.js';
 
-// Mock node:fs to prevent writing to real files during tests
-const mockWriteFileSync = vi.fn();
-vi.mock('node:fs', () => ({
-  default: { writeFileSync: mockWriteFileSync },
-  writeFileSync: mockWriteFileSync,
-}));
+// Note: Removed module-level vi.mock('node:fs') to prevent global test pollution.
+// The fs mock was breaking all filesystem operations in subsequent test files.
+// Graph command tests that need file writing now use real fs operations or mock at test level.
 
 describe('cmdLink', () => {
   afterEach(() => {
@@ -159,7 +156,10 @@ describe('cmdMermaid', () => {
     const mockGraph = { version: 1, nodes: [{ id: 'test', type: 'learning' }], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart TB\n  A --> B');
-    mockWriteFileSync.mockClear();
+
+    // Spy on fs.writeFileSync for this test only
+    const fs = await import('node:fs');
+    const writeFileSpy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdMermaid(args);
@@ -167,14 +167,17 @@ describe('cmdMermaid', () => {
     expect(result.status).toBe('success');
     expect((result.data as { saved: string }).saved).toContain('graph.md');
     expect((result.data as { filtered: boolean }).filtered).toBe(true);
-    expect(mockWriteFileSync).toHaveBeenCalled();
+    expect(writeFileSpy).toHaveBeenCalled();
   });
 
   it('passes direction and new flags', async () => {
     const mockGraph = { version: 1, nodes: [], edges: [] };
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart LR');
-    mockWriteFileSync.mockClear();
+
+    // Spy on fs.writeFileSync for this test only
+    const fs = await import('node:fs');
+    vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
     const args: ParsedArgs = { positional: [], flags: { direction: 'LR', all: true, hub: 'test-hub', depth: '2' } };
     await cmdMermaid(args);

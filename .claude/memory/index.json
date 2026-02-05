@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-04T21:25:52.580Z",
+  "lastUpdated": "2026-02-05T08:51:24.031Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -6629,24 +6629,6 @@
       "relativePath": "permanent/decision-memory-system-analysis-complete-embedding-gotcha-needs-review.md"
     },
     {
-      "id": "gotcha-embedding-generation-tied-to-auto-link-flag",
-      "type": "gotcha",
-      "title": "embedding-generation-tied-to-auto-link-flag",
-      "tags": [
-        "embeddings",
-        "memory-plugin",
-        "search",
-        "architecture",
-        "project",
-        "resolved-v1.2.0",
-        "archive-candidate"
-      ],
-      "created": "2026-02-01T15:13:29.375Z",
-      "updated": "2026-02-02T21:19:12.906Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-embedding-generation-tied-to-auto-link-flag.md"
-    },
-    {
       "id": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "type": "learning",
       "title": "Bun test mocking requires mock.module() not vi.importActual()",
@@ -8095,6 +8077,174 @@
       "updated": "2026-02-04T21:25:52.562Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-system-linking-and-quality-audit-session-2026-02-04.md"
+    },
+    {
+      "id": "learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "type": "learning",
+      "title": "Retro - Isolate-then-full test pattern reveals pollution vs real bugs",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-04T22:43:12.343Z",
+      "updated": "2026-02-04T22:43:12.343Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-restoring-original-implementation-pattern-when-changes-break-tests",
+      "type": "learning",
+      "title": "Retro - Restoring original implementation pattern when changes break tests",
+      "tags": [
+        "retrospective",
+        "process",
+        "design",
+        "implementation",
+        "project"
+      ],
+      "created": "2026-02-04T22:43:19.379Z",
+      "updated": "2026-02-04T22:43:19.379Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-restoring-original-implementation-pattern-when-changes-break-tests.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims",
+      "type": "gotcha",
+      "title": "Gotcha - Incomplete bug fix verification leads to false progress claims",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "task-management",
+        "project"
+      ],
+      "created": "2026-02-04T22:43:25.924Z",
+      "updated": "2026-02-04T22:43:25.924Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "type": "learning",
+      "title": "Isolate then full test pattern reveals pollution vs real bugs",
+      "tags": [
+        "testing",
+        "debugging",
+        "test-pollution",
+        "methodology",
+        "project"
+      ],
+      "created": "2026-02-04T22:43:52.472Z",
+      "updated": "2026-02-04T22:43:52.472Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs.md"
+    },
+    {
+      "id": "learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays",
+      "type": "learning",
+      "title": "YAML serialisation produces quoted timestamps and multi-line arrays",
+      "tags": [
+        "testing",
+        "yaml",
+        "frontmatter",
+        "serialisation",
+        "project"
+      ],
+      "created": "2026-02-04T22:44:03.936Z",
+      "updated": "2026-02-04T22:44:03.936Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays.md"
+    },
+    {
+      "id": "gotcha-import-early-returns-bypass-graph-relationship-linkage",
+      "type": "gotcha",
+      "title": "Import early returns bypass graph relationship linkage",
+      "tags": [
+        "import",
+        "export",
+        "graph",
+        "bug",
+        "critical",
+        "project"
+      ],
+      "created": "2026-02-04T22:44:10.498Z",
+      "updated": "2026-02-04T22:44:10.498Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-import-early-returns-bypass-graph-relationship-linkage.md"
+    },
+    {
+      "id": "learning-test-memories-must-include-all-required-frontmatter-fields",
+      "type": "learning",
+      "title": "Test memories must include all required frontmatter fields",
+      "tags": [
+        "testing",
+        "frontmatter",
+        "validation",
+        "memory-operations",
+        "project"
+      ],
+      "created": "2026-02-04T22:44:16.295Z",
+      "updated": "2026-02-04T22:44:16.295Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-memories-must-include-all-required-frontmatter-fields.md"
+    },
+    {
+      "id": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
+      "type": "decision",
+      "title": "Prioritise fixing genuine bugs over investigating cross-file test pollution",
+      "tags": [
+        "testing",
+        "test-pollution",
+        "prioritisation",
+        "methodology",
+        "project"
+      ],
+      "created": "2026-02-04T22:44:22.449Z",
+      "updated": "2026-02-04T22:44:22.449Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution.md"
+    },
+    {
+      "id": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "type": "learning",
+      "title": "Test pollution investigation: copy.spec.ts failures reduced from 22 to 20",
+      "tags": [
+        "test-pollution",
+        "vitest",
+        "copy-spec",
+        "debugging",
+        "phase-f",
+        "project"
+      ],
+      "created": "2026-02-04T23:28:44.981Z",
+      "updated": "2026-02-04T23:28:44.981Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "type": "learning",
+      "title": "Fixed all test pollution: 20 failures eliminated by removing fs mock",
+      "tags": [
+        "test-pollution",
+        "vitest",
+        "resolved",
+        "phase-f",
+        "fs-mock",
+        "project"
+      ],
+      "created": "2026-02-05T08:51:24.010Z",
+      "updated": "2026-02-05T08:51:24.010Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock.md",
+      "severity": "high"
     }
   ]
 }

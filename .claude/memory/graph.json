@@ -1886,10 +1886,6 @@
       "type": "gotcha"
     },
     {
-      "id": "gotcha-embedding-generation-tied-to-auto-link-flag",
-      "type": "gotcha"
-    },
-    {
       "id": "decision-embedding-generation-should-be-default",
       "type": "decision"
     },
@@ -2307,6 +2303,46 @@
     },
     {
       "id": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-restoring-original-implementation-pattern-when-changes-break-tests",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "type": "learning"
+    },
+    {
+      "id": "learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-import-early-returns-bypass-graph-relationship-linkage",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-test-memories-must-include-all-required-frontmatter-fields",
+      "type": "learning"
+    },
+    {
+      "id": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
+      "type": "decision"
+    },
+    {
+      "id": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "type": "learning"
+    },
+    {
+      "id": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
       "type": "learning"
     }
   ],
@@ -4817,11 +4853,6 @@
       "label": "relates-to"
     },
     {
-      "source": "gotcha-embedding-generation-tied-to-auto-link-flag",
-      "target": "decision-embedding-generation-should-be-default",
-      "label": "relates-to"
-    },
-    {
       "source": "learning-retro-architecture-pivoting-mid-workflow-prevented-wasted-implementation-meetings-accord",
       "target": "decision-meetings-orchestration-belongs-in-accord-not-memory-plugin",
       "label": "relates-to"
@@ -6199,6 +6230,36 @@
     {
       "source": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
       "target": "artifact-phase-e-agent-discovery-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "target": "learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
+      "target": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
+      "target": "gotcha-import-early-returns-bypass-graph-relationship-linkage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-memories-must-include-all-required-frontmatter-fields",
+      "target": "learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-restoring-original-implementation-pattern-when-changes-break-tests",
+      "target": "gotcha-import-early-returns-bypass-graph-relationship-linkage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims",
+      "target": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
       "label": "relates-to"
     }
   ]

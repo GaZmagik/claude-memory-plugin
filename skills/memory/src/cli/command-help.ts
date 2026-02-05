@@ -630,32 +630,57 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   // Agent Discovery Operations (Phase E)
   agents: {
     usage: 'memory agents <subcommand> [options]',
-    description: 'Discover and analyse agent-scoped memories',
-    subcommands: `  list          List all available agents
-  stats <name>  Show detailed statistics for an agent`,
+    description: 'Discover, analyse, and manage agent-scoped memories',
+    subcommands: `  list             List all available agents
+  stats <name>     Show detailed statistics for an agent
+  create <name>    Create a new agent directory structure
+  delete <name>    Delete an agent and all its memories
+  copy <src> <tgt> Copy an agent to a new name
+  rename <old> <new> Rename an agent`,
     flags: `  For 'list':
     --scope <scope>      Filter by scope (project, global)
     --include-stats      Include detailed statistics (types, tags, health)
 
   For 'stats':
-    --all                Show statistics for all agents`,
+    --all                Show statistics for all agents
+
+  For 'create':
+    --scope <scope>      Create in scope (project, global) [default: project]
+    --dry-run            Preview changes without creating
+
+  For 'delete':
+    --scope <scope>      Delete from scope (project, global) [default: project]
+    --force              Skip confirmation prompt (required for non-interactive)
+    --dry-run            Preview what would be deleted
+
+  For 'copy':
+    --scope <scope>      Operate in scope (project, global) [default: project]
+    --force              Merge into existing agent (replace strategy)
+    --dry-run            Preview what would be copied
+
+  For 'rename':
+    --scope <scope>      Operate in scope (project, global) [default: project]
+    --dry-run            Preview what would be renamed`,
     examples: [
-      '# List all agents',
+      '# Discovery commands',
       'memory agents list',
-      '',
-      '# List project agents only',
       'memory agents list --scope project',
-      '',
-      '# List with detailed statistics',
       'memory agents list --include-stats',
-      '',
-      '# Show stats for one agent',
       'memory agents stats typescript-expert',
-      '',
-      '# Show stats for all agents',
       'memory agents stats --all',
+      '',
+      '# Management commands',
+      'memory agents create rust-expert',
+      'memory agents create python-pro --scope global',
+      'memory agents delete old-agent --force',
+      'memory agents delete temp-agent --dry-run',
+      'memory agents copy typescript-expert typescript-pro',
+      'memory agents copy python-expert python-ml --force',
+      'memory agents rename go-expert golang-expert',
+      'memory agents rename old-name new-name --dry-run',
     ],
-    notes: `  Agent discovery scans .claude/memory/agents/ (project) and
+    notes: `  DISCOVERY:
+  Agent discovery scans .claude/memory/agents/ (project) and
   ~/.claude/memory/agents/ (global) directories.
 
   Priority: Project-scoped agents take precedence over global agents
@@ -665,7 +690,23 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   commands to search across all discovered agents:
     memory search "API patterns" --all-agents
     memory list --type learning --all-agents
-    memory query --tag typescript --all-agents`,
+    memory query --tag typescript --all-agents
+
+  MANAGEMENT:
+  - create: Initialises agent directory with index.json and graph.json
+  - delete: DESTRUCTIVE - requires --force flag or interactive confirmation
+  - copy: Duplicates entire agent memory collection (uses export/import)
+  - rename: Renames directory and updates all memory frontmatter
+
+  SAFETY:
+  - All management commands support --dry-run to preview changes
+  - Delete operations require explicit confirmation (--force or interactive prompt)
+  - Default scope is 'project' for all operations
+  - Copy with --force merges into existing agent (replace strategy)
+
+  NON-INTERACTIVE ENVIRONMENTS:
+  In CI/CD or piped contexts where TTY is unavailable, delete commands
+  MUST use --force flag. Without it, the command will fail with an error.`,
   },
 
   // Think Operations

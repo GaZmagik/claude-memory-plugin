@@ -12,18 +12,9 @@ import { cmdImport, cmdExport } from './commands/bulk.js';
 import { cmdThink } from './commands/think.js';
 import type { ParsedArgs } from './parser.js';
 
-// Mock exportMemories at module level
-vi.mock('../core/export.js', () => ({
-  exportMemories: vi.fn().mockResolvedValue({
-    status: 'success',
-    data: {
-      version: '1.0.0',
-      exportedAt: new Date().toISOString(),
-      memories: [],
-    },
-    serialised: '{}',
-  }),
-}));
+// Note: Removed module-level vi.mock() for export.js to prevent global test pollution.
+// The cmdExport tests now use the real exportMemories function, which works fine on
+// empty directories and doesn't interfere with other test files that need real export behavior.
 
 describe('CLI Argument Parsing Edge Cases', () => {
   it('handles empty arguments', () => {

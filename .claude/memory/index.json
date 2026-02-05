@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T16:11:33.479Z",
+  "lastUpdated": "2026-02-05T16:25:54.428Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8430,22 +8430,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
-      "type": "learning",
-      "title": "Parallel restoration agents accelerate post-compaction recovery",
-      "tags": [
-        "session-restore",
-        "memory-system",
-        "parallel-agents",
-        "performance",
-        "project"
-      ],
-      "created": "2026-02-05T13:32:05.636Z",
-      "updated": "2026-02-05T13:32:05.636Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-parallel-restoration-agents-accelerate-post-compaction-recovery.md"
-    },
-    {
       "id": "gotcha-test-directory-structure-verification-needed-before-phase-e-implementation",
       "type": "gotcha",
       "title": "Test directory structure verification needed before Phase E implementation",
@@ -8675,22 +8659,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-phase-e-tdd-red-phase-yields-comprehensive-test-coverage",
-      "type": "learning",
-      "title": "Phase E TDD Red phase yields comprehensive test coverage",
-      "tags": [
-        "phase-e",
-        "tdd",
-        "testing",
-        "memory-plugin",
-        "project"
-      ],
-      "created": "2026-02-05T16:11:04.020Z",
-      "updated": "2026-02-05T16:11:04.020Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-phase-e-tdd-red-phase-yields-comprehensive-test-coverage.md"
-    },
-    {
       "id": "learning-agentsummary-interface-requires-path-field-for-cli-discovery",
       "type": "learning",
       "title": "AgentSummary interface requires path field for CLI discovery",
@@ -8737,6 +8705,136 @@
       "updated": "2026-02-05T16:11:33.445Z",
       "scope": "project",
       "relativePath": "permanent/decision-parallel-restoration-agents-accelerate-post-compaction-recovery.md"
+    },
+    {
+      "id": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "type": "learning",
+      "title": "Phase E agent-scoped memories feature complete with 67 passing tests",
+      "tags": [
+        "phase-e",
+        "completion",
+        "agent-scoped-memories",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:45.900Z",
+      "updated": "2026-02-05T16:11:45.900Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests.md"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents with curator linking prevents orphaned nodes",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "memory-graph",
+        "agent-coordination",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:51.722Z",
+      "updated": "2026-02-05T16:11:51.722Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "type": "learning",
+      "title": "Retro - Bun test mocking without vi.mocked() requires module-level direct references",
+      "tags": [
+        "retrospective",
+        "process",
+        "bun",
+        "testing",
+        "mocking",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:58.341Z",
+      "updated": "2026-02-05T16:11:58.341Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-integration-test-import-paths-must-match-export-locations-verify-before-test-writing",
+      "type": "learning",
+      "title": "Learning - Integration test import paths must match export locations; verify before test writing",
+      "tags": [
+        "retrospective",
+        "process",
+        "integration-tests",
+        "imports",
+        "code-navigation",
+        "project"
+      ],
+      "created": "2026-02-05T16:12:10.568Z",
+      "updated": "2026-02-05T16:12:10.568Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-integration-test-import-paths-must-match-export-locations-verify-before-test-writing.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "learning",
+      "title": "Parallel restoration agents accelerate post-compaction recovery",
+      "tags": [
+        "memory-system",
+        "post-compaction",
+        "parallelization",
+        "project"
+      ],
+      "created": "2026-02-05T16:12:42.168Z",
+      "updated": "2026-02-05T16:12:42.168Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-accelerate-post-compaction-recovery.md"
+    },
+    {
+      "id": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "type": "learning",
+      "title": "Memory-curator linking prevents orphaned graph nodes",
+      "tags": [
+        "memory-system",
+        "graph-health",
+        "linking",
+        "project"
+      ],
+      "created": "2026-02-05T16:12:46.364Z",
+      "updated": "2026-02-05T16:12:46.364Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-curator-linking-prevents-orphaned-graph-nodes.md"
+    },
+    {
+      "id": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "type": "learning",
+      "title": "Phase E TDD red-phase yields 2,465 lines of comprehensive test coverage",
+      "tags": [
+        "tdd",
+        "testing",
+        "agent-scoped-memories",
+        "project"
+      ],
+      "created": "2026-02-05T16:12:51.615Z",
+      "updated": "2026-02-05T16:12:51.615Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage.md"
+    },
+    {
+      "id": "gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix",
+      "type": "gotcha",
+      "title": "writeMemory IDs auto-prefix with type - don't double-prefix",
+      "tags": [
+        "memory-system",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-05T16:13:01.048Z",
+      "updated": "2026-02-05T16:13:01.048Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix.md"
     }
   ]
 }

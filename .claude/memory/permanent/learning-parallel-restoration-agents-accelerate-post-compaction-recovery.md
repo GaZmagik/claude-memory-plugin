@@ -3,14 +3,13 @@ id: learning-parallel-restoration-agents-accelerate-post-compaction-recovery
 title: Parallel restoration agents accelerate post-compaction recovery
 type: learning
 scope: project
-created: "2026-02-05T13:32:05.636Z"
-updated: "2026-02-05T13:32:05.636Z"
+created: "2026-02-05T16:12:42.168Z"
+updated: "2026-02-05T16:12:42.168Z"
 tags:
-  - session-restore
   - memory-system
-  - parallel-agents
-  - performance
+  - post-compaction
+  - parallelization
   - project
 ---
 
-Running memory-recall, memory-curator, and check-gotchas agents in parallel post-compaction significantly accelerates context restoration. Memory curator agent successfully linked 9 orphaned test pollution investigation memories and achieved 100% graph connectivity in single pass.
+Using three parallel agents (memory-recall, memory-curator, check-gotchas) to restore context after compaction is more efficient than sequential restoration. Each agent gets its own context budget, and parallel execution completes in the time of the slowest agent rather than sum of all. Memory-curator linking prevents orphaned nodes during restoration.

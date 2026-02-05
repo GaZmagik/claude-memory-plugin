@@ -2678,10 +2678,6 @@
       "type": "gotcha"
     },
     {
-      "id": "learning-phase-e-tdd-red-phase-yields-comprehensive-test-coverage",
-      "type": "learning"
-    },
-    {
       "id": "learning-agentsummary-interface-requires-path-field-for-cli-discovery",
       "type": "learning"
     },
@@ -2692,6 +2688,34 @@
     {
       "id": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
       "type": "decision"
+    },
+    {
+      "id": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "type": "learning"
+    },
+    {
+      "id": "learning-integration-test-import-paths-must-match-export-locations-verify-before-test-writing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -6768,6 +6792,51 @@
     {
       "source": "gotcha-retro-check-api-contracts-before-debugging-validation-errors",
       "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-agentsummary-interface-requires-path-field-for-cli-discovery",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-writememory-requires-tags-field-in-request-payload",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-integration-test-import-paths-must-match-export-locations-verify-before-test-writing",
+      "target": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
       "label": "relates-to"
     }
   ]

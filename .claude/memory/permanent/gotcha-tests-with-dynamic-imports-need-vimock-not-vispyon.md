@@ -4,7 +4,7 @@ title: Tests with dynamic imports need vi.mock not vi.spyOn (OUTDATED)
 type: gotcha
 scope: project
 created: "2026-02-05T11:44:20.189Z"
-updated: "2026-02-05T11:44:20.189Z"
+updated: "2026-02-05T15:18:00.399Z"
 tags:
   - testing
   - vitest
@@ -12,6 +12,7 @@ tags:
   - mocking
   - project
   - outdated
+  - archived
 ---
 
 **STATUS: SUPERSEDED by Phase F findings (2026-02-05)**

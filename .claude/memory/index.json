@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T14:33:32.090Z",
+  "lastUpdated": "2026-02-05T15:18:00.430Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8345,23 +8345,6 @@
       "relativePath": "permanent/artifact-phase-f-agent-operations-module.md"
     },
     {
-      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
-      "type": "gotcha",
-      "title": "Tests with dynamic imports need vi.mock not vi.spyOn (OUTDATED)",
-      "tags": [
-        "testing",
-        "vitest",
-        "dynamic-import",
-        "mocking",
-        "project",
-        "outdated"
-      ],
-      "created": "2026-02-05T11:44:20.189Z",
-      "updated": "2026-02-05T11:44:20.189Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md"
-    },
-    {
       "id": "decision-memory-health-audit-2026-02-05",
       "type": "decision",
       "title": "Memory health audit 2026-02-05: Linked 9 orphaned memories and resolved contradiction",
@@ -8536,6 +8519,107 @@
       "updated": "2026-02-01T23:09:56.230Z",
       "scope": "project",
       "relativePath": "temporary/thought-20260201-230956218.md"
+    },
+    {
+      "id": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "type": "learning",
+      "title": "Phase E TDD Red phase completion yields 2465 lines of comprehensive test coverage",
+      "tags": [
+        "phase-e",
+        "tdd",
+        "test-coverage",
+        "agent-scoped-memories",
+        "project"
+      ],
+      "created": "2026-02-05T15:10:29.435Z",
+      "updated": "2026-02-05T15:10:29.435Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage.md"
+    },
+    {
+      "id": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "type": "learning",
+      "title": "Post-compaction session restore with parallel restoration agents accelerates memory recovery",
+      "tags": [
+        "phase-e",
+        "memory-system",
+        "post-compaction",
+        "restoration",
+        "agents",
+        "project"
+      ],
+      "created": "2026-02-05T15:10:44.376Z",
+      "updated": "2026-02-05T15:10:44.376Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery.md"
+    },
+    {
+      "id": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "type": "gotcha",
+      "title": "TDD hook requires co-located test stubs for new source files despite project test directory structure",
+      "tags": [
+        "phase-e",
+        "tdd",
+        "test-structure",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-05T15:10:50.644Z",
+      "updated": "2026-02-05T15:10:50.644Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure.md",
+      "severity": "medium"
+    },
+    {
+      "id": "decision-graph-node-extended-for-agent-scope",
+      "type": "decision",
+      "title": "Extended GraphNode interface with scope and agent properties for agent-scoped memory support",
+      "tags": [
+        "phase-e",
+        "graph-structure",
+        "agent-scoped-memories",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-05T15:11:00.198Z",
+      "updated": "2026-02-05T15:11:00.198Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-graph-node-extended-for-agent-scope.md"
+    },
+    {
+      "id": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "type": "artifact",
+      "title": "Bun test framework mocking pattern without vi.mocked() compatibility",
+      "tags": [
+        "phase-e",
+        "testing",
+        "bun",
+        "vitest-compat",
+        "project",
+        "agent-scoped-memories"
+      ],
+      "created": "2026-02-05T15:11:06.514Z",
+      "updated": "2026-02-05T15:17:57.735Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-bun-test-mocking-pattern-without-vi-mocked.md"
+    },
+    {
+      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "type": "gotcha",
+      "title": "Tests with dynamic imports need vi.mock not vi.spyOn (OUTDATED)",
+      "tags": [
+        "testing",
+        "vitest",
+        "dynamic-import",
+        "mocking",
+        "project",
+        "outdated",
+        "archived"
+      ],
+      "created": "2026-02-05T11:44:20.189Z",
+      "updated": "2026-02-05T15:18:00.399Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md"
     }
   ]
 }

@@ -5,6 +5,7 @@
  */
 
 import type { MemoryGraph, GraphNode } from './structure.js';
+import { Scope } from '../types/enums.js';
 
 /**
  * Mermaid generation options
@@ -26,6 +27,12 @@ export interface MermaidOptions {
   showAll?: boolean;
   /** Abbreviate edge labels for compact output (default: true) */
   abbreviateLabels?: boolean;
+  /** Filter to specific agent */
+  agent?: string;
+  /** Include shared (non-agent) memories when filtering by agent */
+  includeShared?: boolean;
+  /** Include agent names in node labels */
+  includeAgentNames?: boolean;
 }
 
 /**
@@ -49,6 +56,9 @@ const NODE_STYLES: Record<string, string> = {
   learning: 'fill:#fff3e0,stroke:#f57c00',
   hub: 'fill:#e8f5e9,stroke:#388e3c,stroke-width:3px',
   session: 'fill:#fce4ec,stroke:#c2185b',
+  agentNode: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
+  agentNodeProject: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
+  agentNodeGlobal: 'fill:#bbdefb,stroke:#0d47a1,stroke-width:2px',
 };
 
 /**
@@ -154,13 +164,43 @@ function sanitiseId(id: string): string {
 }
 
 /**
+ * Abbreviate agent name for compact display
+ */
+function abbreviateAgentName(agentName: string): string {
+  return agentName
+    .split('-')
+    .map(part => part.slice(0, Math.min(part.length, part.length <= 3 ? part.length : Math.max(2, 4))))
+    .join('-');
+}
+
+/**
+ * Check if node is agent-scoped
+ */
+function isAgentNode(node: GraphNode): boolean {
+  return node.scope === Scope.AgentProject || node.scope === Scope.AgentGlobal;
+}
+
+/**
  * Generate Mermaid node definition
  */
 function generateNode(node: GraphNode, options: MermaidOptions): string {
   const id = sanitiseId(node.id);
-  const shape = getNodeShape(node.type);
+
+  // Use double bracket shape [[text]] for agent nodes
+  const shape = isAgentNode(node)
+    ? { open: '[[', close: ']]' }
+    : getNodeShape(node.type);
 
   let label = escapeLabel(node.id);
+
+  // Add agent name to label if requested
+  if (options.includeAgentNames && node.agent) {
+    const agentLabel = options.abbreviateLabels
+      ? abbreviateAgentName(node.agent)
+      : node.agent;
+    label = `${agentLabel}: ${label}`;
+  }
+
   if (options.showType) {
     label = `${node.type}: ${label}`;
   }
@@ -191,6 +231,9 @@ function generateEdge(
 function generateStyles(graph: MemoryGraph): string[] {
   const styles: string[] = [];
   const typesSeen = new Set<string>();
+  const hasAgentNodes = graph.nodes.some(n => isAgentNode(n));
+  const hasAgentProject = graph.nodes.some(n => n.scope === Scope.AgentProject);
+  const hasAgentGlobal = graph.nodes.some(n => n.scope === Scope.AgentGlobal);
 
   for (const node of graph.nodes) {
     if (!typesSeen.has(node.type) && NODE_STYLES[node.type]) {
@@ -198,20 +241,54 @@ function generateStyles(graph: MemoryGraph): string[] {
     }
   }
 
-  // Generate class definitions
+  // Generate class definitions for standard types
   for (const type of typesSeen) {
     styles.push(`  classDef ${type} ${NODE_STYLES[type]}`);
+  }
+
+  // Generate agent node class definitions
+  if (hasAgentNodes) {
+    styles.push(`  classDef agentNode ${NODE_STYLES.agentNode}`);
+  }
+  if (hasAgentProject) {
+    styles.push(`  classDef agentNodeProject ${NODE_STYLES.agentNodeProject}`);
+  }
+  if (hasAgentGlobal) {
+    styles.push(`  classDef agentNodeGlobal ${NODE_STYLES.agentNodeGlobal}`);
   }
 
   // Apply classes to nodes
   for (const type of typesSeen) {
     const nodesOfType = graph.nodes
-      .filter(n => n.type === type)
+      .filter(n => n.type === type && !isAgentNode(n))
       .map(n => sanitiseId(n.id));
 
     if (nodesOfType.length > 0) {
       styles.push(`  class ${nodesOfType.join(',')} ${type}`);
     }
+  }
+
+  // Apply agent node classes
+  const agentProjectNodes = graph.nodes
+    .filter(n => n.scope === Scope.AgentProject)
+    .map(n => sanitiseId(n.id));
+  if (agentProjectNodes.length > 0) {
+    styles.push(`  class ${agentProjectNodes.join(',')} agentNodeProject`);
+  }
+
+  const agentGlobalNodes = graph.nodes
+    .filter(n => n.scope === Scope.AgentGlobal)
+    .map(n => sanitiseId(n.id));
+  if (agentGlobalNodes.length > 0) {
+    styles.push(`  class ${agentGlobalNodes.join(',')} agentNodeGlobal`);
+  }
+
+  // Also apply general agentNode class to all agent nodes
+  const allAgentNodes = graph.nodes
+    .filter(n => isAgentNode(n))
+    .map(n => sanitiseId(n.id));
+  if (allAgentNodes.length > 0) {
+    styles.push(`  class ${allAgentNodes.join(',')} agentNode`);
   }
 
   return styles;
@@ -232,6 +309,9 @@ export function generateMermaid(
     showType = false,
     showAll = false,
     abbreviateLabels = true,
+    agent,
+    includeShared = false,
+    includeAgentNames = false,
   } = options;
 
   let workingGraph = graph;
@@ -264,6 +344,40 @@ export function generateMermaid(
     // If no hubs, fall through to show all (showAll behaviour)
   }
 
+  // Filter by agent if specified
+  if (agent) {
+    let filteredNodes = workingGraph.nodes.filter(n => n.agent === agent);
+
+    // Include shared (non-agent) memories if requested
+    if (includeShared) {
+      const agentNodeIds = new Set(filteredNodes.map(n => n.id));
+      const sharedNodes = workingGraph.nodes.filter(n => !isAgentNode(n));
+
+      // Find shared nodes that are connected to agent nodes
+      const connectedSharedIds = new Set<string>();
+      for (const edge of workingGraph.edges) {
+        if (agentNodeIds.has(edge.source) && !isAgentNode(workingGraph.nodes.find(n => n.id === edge.target)!)) {
+          connectedSharedIds.add(edge.target);
+        }
+        if (agentNodeIds.has(edge.target) && !isAgentNode(workingGraph.nodes.find(n => n.id === edge.source)!)) {
+          connectedSharedIds.add(edge.source);
+        }
+      }
+
+      const connectedShared = sharedNodes.filter(n => connectedSharedIds.has(n.id));
+      filteredNodes = [...filteredNodes, ...connectedShared];
+    }
+
+    const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
+    workingGraph = {
+      ...workingGraph,
+      nodes: filteredNodes,
+      edges: workingGraph.edges.filter(e =>
+        filteredNodeIds.has(e.source) && filteredNodeIds.has(e.target)
+      ),
+    };
+  }
+
   // Filter by type if specified
   if (filterType) {
     const filteredNodes = workingGraph.nodes.filter(n => n.type === filterType);
@@ -284,7 +398,7 @@ export function generateMermaid(
 
   // Nodes
   for (const node of workingGraph.nodes) {
-    lines.push(generateNode(node, { showType }));
+    lines.push(generateNode(node, { showType, includeAgentNames, abbreviateLabels }));
   }
 
   // Edges

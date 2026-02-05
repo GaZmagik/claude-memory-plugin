@@ -18,6 +18,10 @@ export interface GraphNode {
   type: string;
   /** Memory title (optional for backward compatibility with existing data) */
   title?: string;
+  /** Memory scope (optional for backward compatibility with existing data) */
+  scope?: string;
+  /** Agent name for agent-scoped memories (optional) */
+  agent?: string;
 }
 
 /**

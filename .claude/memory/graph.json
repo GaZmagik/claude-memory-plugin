@@ -2644,6 +2644,26 @@
       "id": "thought-20260201-230956218",
       "type": "breadcrumb",
       "title": "Think: Memory System Analysis Summary"
+    },
+    {
+      "id": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "type": "learning"
+    },
+    {
+      "id": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-graph-node-extended-for-agent-scope",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -6635,6 +6655,76 @@
     {
       "source": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
       "target": "gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-graph-node-extended-for-agent-scope",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-tdd-test-first-approach-for-phase-e-accelerates-green-phase-implementation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "gotcha-test-directory-structure-verification-needed-before-phase-e-implementation",
       "label": "relates-to"
     }
   ]

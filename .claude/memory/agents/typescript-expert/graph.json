@@ -3,11 +3,17 @@
   "nodes": [
     {
       "id": "learning-typescript-pattern",
-      "type": "learning"
+      "type": "learning",
+      "title": "TypeScript Pattern",
+      "scope": "agent-project",
+      "agent": "typescript-expert"
     },
     {
       "id": "learning-test",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test",
+      "scope": "agent-project",
+      "agent": "typescript-expert"
     }
   ],
   "edges": []

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T22:59:00.858Z",
+  "lastUpdated": "2026-02-05T23:34:39.321Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8919,6 +8919,97 @@
       "updated": "2026-02-05T16:55:05.531Z",
       "scope": "project",
       "relativePath": "permanent/learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution.md"
+    },
+    {
+      "id": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "type": "learning",
+      "title": "linkMemories requires agent-aware basePath resolution",
+      "tags": [
+        "phase-e",
+        "agent-scoping",
+        "graph-operations",
+        "project"
+      ],
+      "created": "2026-02-05T23:24:57.593Z",
+      "updated": "2026-02-05T23:24:57.593Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-linkmemories-requires-agent-aware-basepath-resolution.md"
+    },
+    {
+      "id": "learning-hub-threshold-tuning-affects-memory-connectivity-scoring",
+      "type": "learning",
+      "title": "Hub threshold tuning affects memory connectivity scoring",
+      "tags": [
+        "phase-e",
+        "stats",
+        "health-scoring",
+        "project"
+      ],
+      "created": "2026-02-05T23:25:01.035Z",
+      "updated": "2026-02-05T23:25:01.035Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hub-threshold-tuning-affects-memory-connectivity-scoring.md"
+    },
+    {
+      "id": "gotcha-graphnode-enrichment-required-for-agent-filtering",
+      "type": "gotcha",
+      "title": "GraphNode enrichment required for agent filtering",
+      "tags": [
+        "phase-e",
+        "agent-scoping",
+        "mermaid",
+        "project"
+      ],
+      "created": "2026-02-05T23:25:16.100Z",
+      "updated": "2026-02-05T23:25:16.100Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-graphnode-enrichment-required-for-agent-filtering.md"
+    },
+    {
+      "id": "gotcha-resolveSharedScopePaths-global-scope-pollution",
+      "type": "gotcha",
+      "title": "resolveSharedScopePaths global scope loads entire user memory",
+      "tags": [
+        "phase-e",
+        "agent-scoping",
+        "scope-resolution",
+        "project"
+      ],
+      "created": "2026-02-05T23:25:19.899Z",
+      "updated": "2026-02-05T23:25:19.899Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-resolveSharedScopePaths-global-scope-pollution.md"
+    },
+    {
+      "id": "decision-cross-scope-linking-deferred-to-phase-d",
+      "type": "decision",
+      "title": "Cross-scope memory linking deferred to Phase D",
+      "tags": [
+        "phase-e",
+        "phase-d",
+        "scope-linking",
+        "project"
+      ],
+      "created": "2026-02-05T23:25:22.878Z",
+      "updated": "2026-02-05T23:25:22.878Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-cross-scope-linking-deferred-to-phase-d.md"
+    },
+    {
+      "id": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "title": "Memory curator analysis - 2026-02-05 Phase E linking and quality audit",
+      "type": "artifact",
+      "tags": [
+        "memory-system",
+        "phase-e",
+        "graph-health",
+        "linking",
+        "quality-audit"
+      ],
+      "created": "2026-02-05T23:34:45.000Z",
+      "updated": "2026-02-05T23:34:45.000Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-memory-curator-analysis-2026-02-05-phase-e-linking.md"
     }
   ]
 }

@@ -2735,6 +2735,30 @@
     {
       "id": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
       "type": "learning"
+    },
+    {
+      "id": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "type": "learning"
+    },
+    {
+      "id": "learning-hub-threshold-tuning-affects-memory-connectivity-scoring",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-graphnode-enrichment-required-for-agent-filtering",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-resolveSharedScopePaths-global-scope-pollution",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-cross-scope-linking-deferred-to-phase-d",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -6896,6 +6920,36 @@
     {
       "source": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
       "target": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-required-for-agent-filtering",
+      "target": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-required-for-agent-filtering",
+      "target": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-resolveSharedScopePaths-global-scope-pollution",
+      "target": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "target": "decision-phase-b-api-types-agent-field-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hub-threshold-tuning-affects-memory-connectivity-scoring",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-cross-scope-linking-deferred-to-phase-d",
+      "target": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
       "label": "relates-to"
     }
   ]

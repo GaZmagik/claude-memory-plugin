@@ -346,8 +346,8 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [ ] T120 [US5] Update graph stats to support agent scope filtering in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/stats.ts
 - [ ] T121 [US5] Update health checks to validate agent scope integrity in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/health.ts
 - [ ] T122 [US5] Create memory agents command implementation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/agents.ts
-- [ ] T123 [US5] Update memory mermaid command to accept --agent and --include-shared in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/mermaid.ts
-- [ ] T124 [US5] Update memory stats command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/stats.ts
+- [X] T123 [US5] Update memory mermaid command to accept --agent and --include-shared in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/mermaid.ts
+- [X] T124 [US5] Update memory stats command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/stats.ts
 - [ ] T125 [US5] Update memory health command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/health.ts
 - [ ] T126 [US5] Update suggest-links to work within agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
 

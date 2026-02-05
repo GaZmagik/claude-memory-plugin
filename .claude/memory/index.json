@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T08:51:24.031Z",
+  "lastUpdated": "2026-02-05T11:45:18.520Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -267,23 +267,6 @@
       "scope": "global",
       "relativePath": "permanent/learning-retro-edge-case-tests-should-document-parser-limitations-rather-than-over-engineer.md",
       "severity": "low"
-    },
-    {
-      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
-      "type": "gotcha",
-      "title": "Tests with dynamic imports need vi.mock not vi.spyOn",
-      "tags": [
-        "testing",
-        "vitest",
-        "dynamic-import",
-        "mocking",
-        "project"
-      ],
-      "created": "2026-01-18T19:42:06.114Z",
-      "updated": "2026-01-18T19:42:06.114Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md",
-      "severity": "high"
     },
     {
       "id": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
@@ -8245,6 +8228,155 @@
       "scope": "project",
       "relativePath": "permanent/learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "type": "learning",
+      "title": "Retro - Binary search effective for finding cross-file test pollution",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-05T11:34:30.142Z",
+      "updated": "2026-02-05T11:34:30.142Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-binary-search-effective-for-finding-cross-file-test-pollution.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "type": "gotcha",
+      "title": "Retro - Module-level vi.mock() creates unfixable global test pollution",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-05T11:34:38.768Z",
+      "updated": "2026-02-05T11:34:38.768Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "type": "learning",
+      "title": "Retro - Mock replacement pattern: inline spyOn with afterEach cleanup",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-05T11:34:46.527Z",
+      "updated": "2026-02-05T11:34:46.527Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "type": "learning",
+      "title": "vi.mock() global pollution - module-level mocks persist across test files",
+      "tags": [
+        "testing",
+        "vitest",
+        "gotcha",
+        "test-pollution",
+        "project"
+      ],
+      "created": "2026-02-05T11:35:04.183Z",
+      "updated": "2026-02-05T11:35:04.183Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vimock-global-pollution-module-level-mocks-persist-across-test-files.md"
+    },
+    {
+      "id": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
+      "type": "learning",
+      "title": "Phase F test suite cleanup: 22 failures reduced to 0 by fixing module-level mocks",
+      "tags": [
+        "testing",
+        "phase-f",
+        "test-pollution",
+        "ci-cd",
+        "project"
+      ],
+      "created": "2026-02-05T11:35:25.953Z",
+      "updated": "2026-02-05T11:35:25.953Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks.md"
+    },
+    {
+      "id": "decision-copyagent-reuses-export-import-pipeline",
+      "type": "decision",
+      "title": "copyAgent reuses export/import pipeline instead of direct copying",
+      "tags": [
+        "architecture",
+        "agent-operations",
+        "code-reuse",
+        "project"
+      ],
+      "created": "2026-02-05T11:35:35.216Z",
+      "updated": "2026-02-05T11:35:35.216Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-copyagent-reuses-export-import-pipeline.md"
+    },
+    {
+      "id": "artifact-phase-f-agent-operations-module",
+      "type": "artifact",
+      "title": "Phase F: Agent Operations Module - Create, Delete, Copy, Rename",
+      "tags": [
+        "phase-f",
+        "agent-operations",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-05T11:35:40.873Z",
+      "updated": "2026-02-05T11:35:40.873Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-f-agent-operations-module.md"
+    },
+    {
+      "id": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "type": "gotcha",
+      "title": "Tests with dynamic imports need vi.mock not vi.spyOn (OUTDATED)",
+      "tags": [
+        "testing",
+        "vitest",
+        "dynamic-import",
+        "mocking",
+        "project",
+        "outdated"
+      ],
+      "created": "2026-02-05T11:44:20.189Z",
+      "updated": "2026-02-05T11:44:20.189Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon.md"
+    },
+    {
+      "id": "decision-memory-health-audit-2026-02-05",
+      "type": "decision",
+      "title": "Memory health audit 2026-02-05: Linked 9 orphaned memories and resolved contradiction",
+      "tags": [
+        "memory-system",
+        "audit",
+        "linking",
+        "quality",
+        "phase-f",
+        "project"
+      ],
+      "created": "2026-02-05T11:45:18.494Z",
+      "updated": "2026-02-05T11:45:18.494Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-memory-health-audit-2026-02-05.md"
     }
   ]
 }

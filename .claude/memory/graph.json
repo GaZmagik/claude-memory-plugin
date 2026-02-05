@@ -2344,6 +2344,38 @@
     {
       "id": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "type": "learning"
+    },
+    {
+      "id": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "type": "learning"
+    },
+    {
+      "id": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
+      "type": "learning"
+    },
+    {
+      "id": "decision-copyagent-reuses-export-import-pipeline",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-phase-f-agent-operations-module",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-memory-health-audit-2026-02-05",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -6260,6 +6292,51 @@
     {
       "source": "gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims",
       "target": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-phase-f-agent-operations-module",
+      "target": "decision-copyagent-reuses-export-import-pipeline",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
       "label": "relates-to"
     }
   ]

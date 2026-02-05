@@ -2688,6 +2688,10 @@
     {
       "id": "learning-memory-writememory-requires-tags-field-in-request-payload",
       "type": "learning"
+    },
+    {
+      "id": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "decision"
     }
   ],
   "edges": [

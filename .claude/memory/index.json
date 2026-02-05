@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T16:11:14.971Z",
+  "lastUpdated": "2026-02-05T16:11:33.479Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8721,6 +8721,22 @@
       "updated": "2026-02-05T16:11:14.922Z",
       "scope": "project",
       "relativePath": "permanent/learning-memory-writememory-requires-tags-field-in-request-payload.md"
+    },
+    {
+      "id": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "type": "decision",
+      "title": "Parallel restoration agents accelerate post-compaction recovery",
+      "tags": [
+        "phase-e",
+        "post-compaction",
+        "agents",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-02-05T16:11:33.445Z",
+      "updated": "2026-02-05T16:11:33.445Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-parallel-restoration-agents-accelerate-post-compaction-recovery.md"
     }
   ]
 }

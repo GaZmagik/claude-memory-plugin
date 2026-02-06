@@ -250,7 +250,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - ✅ **Phase D**: Multi-Scope Read Operations (13/13 tasks - simplified version)
 
 ### In Progress
-- 🎯 **Phase E**: Advanced Features — 12/14 tasks complete (T112, T126 remaining: suggest-links agent scope)
+- ✅ **Phase E**: Advanced Features — 14/14 tasks complete (suggest-links agent scope completed)
 
 ### Next Phase
 - 🎯 **Phase F**: Context Injection Preparation (documentation only, T127-T131)
@@ -334,7 +334,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T109 [US5] Integration test for memory stats with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-stats-agent.spec.ts
 - [X] T110 [US5] Integration test for memory health with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-health-agent.spec.ts
 - [X] T111 [US5] Integration test for memory agents command listing all agents in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agents-command.spec.ts
-- [ ] T112 [US5] Integration test for suggest-links with agent scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-suggest-links-agent.spec.ts
+- [X] T112 [US5] Integration test for suggest-links with agent scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-suggest-links-agent.spec.ts
 
 ### Implementation for Phase E
 
@@ -351,7 +351,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T123 [US5] Update memory mermaid command to accept --agent and --include-shared in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/mermaid.ts
 - [X] T124 [US5] Update memory stats command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/stats.ts
 - [X] T125 [US5] Update memory health command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/health.ts
-- [ ] T126 [US5] Update suggest-links to work within agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
+- [X] T126 [US5] Update suggest-links to work within agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
 
 **Checkpoint**: Agent visualisation operational, memory agents command working, health checks validate agent scopes
 

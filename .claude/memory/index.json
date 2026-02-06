@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T07:30:33.450Z",
+  "lastUpdated": "2026-02-06T08:03:35.321Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9826,6 +9826,105 @@
       "updated": "2026-02-06T07:30:33.404Z",
       "scope": "project",
       "relativePath": "permanent/learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows.md"
+    },
+    {
+      "id": "learning-retro-tdd-for-type-level-changes-validates-at-compile-time",
+      "type": "learning",
+      "title": "Retro - TDD for type-level changes validates at compile time",
+      "tags": [
+        "retrospective",
+        "tdd",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-02-06T08:02:16.873Z",
+      "updated": "2026-02-06T08:02:16.873Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-for-type-level-changes-validates-at-compile-time.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents (3 agents, 300s total) restore context faster than sequential",
+      "tags": [
+        "retrospective",
+        "agents",
+        "performance",
+        "project"
+      ],
+      "created": "2026-02-06T08:02:24.193Z",
+      "updated": "2026-02-06T08:02:24.193Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
+      "type": "learning",
+      "title": "TDD for type-level changes uses TypeScript compilation as assertion",
+      "tags": [
+        "tdd",
+        "typescript",
+        "type-system",
+        "testing-patterns",
+        "project"
+      ],
+      "created": "2026-02-06T08:02:48.717Z",
+      "updated": "2026-02-06T08:02:48.717Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion.md"
+    },
+    {
+      "id": "decision-agent-context-placeholder-type-only-no-runtime",
+      "type": "decision",
+      "title": "AgentContext field added to HookInput as compile-clean placeholder",
+      "tags": [
+        "phase-f",
+        "hooks",
+        "agent-context",
+        "architecture",
+        "backward-compatibility",
+        "project"
+      ],
+      "created": "2026-02-06T08:03:09.971Z",
+      "updated": "2026-02-06T08:03:09.971Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-agent-context-placeholder-type-only-no-runtime.md"
+    },
+    {
+      "id": "artifact-hooks-readme-agent-context-workflow-documentation",
+      "type": "artifact",
+      "title": "hooks/README.md: Agent context injection workflow documentation",
+      "tags": [
+        "phase-f",
+        "documentation",
+        "hooks",
+        "agent-context",
+        "developer-guide",
+        "project"
+      ],
+      "created": "2026-02-06T08:03:22.907Z",
+      "updated": "2026-02-06T08:03:22.907Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-hooks-readme-agent-context-workflow-documentation.md"
+    },
+    {
+      "id": "gotcha-agent-context-serialisation-chain-propagation",
+      "type": "gotcha",
+      "title": "Agent context must survive full serialisation chain: TypeScript → JSON → subprocess stdin → parseHookInput",
+      "tags": [
+        "phase-g",
+        "hooks",
+        "agent-context",
+        "serialisation",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-06T08:03:35.250Z",
+      "updated": "2026-02-06T08:03:35.250Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-context-serialisation-chain-propagation.md"
     }
   ]
 }

@@ -3028,6 +3028,30 @@
     {
       "id": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-tdd-for-type-level-changes-validates-at-compile-time",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "type": "learning"
+    },
+    {
+      "id": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
+      "type": "learning"
+    },
+    {
+      "id": "decision-agent-context-placeholder-type-only-no-runtime",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-hooks-readme-agent-context-workflow-documentation",
+      "type": "artifact"
+    },
+    {
+      "id": "gotcha-agent-context-serialisation-chain-propagation",
+      "type": "gotcha"
     }
   ],
   "edges": [

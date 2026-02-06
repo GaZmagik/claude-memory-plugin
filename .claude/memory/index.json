@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T08:03:35.321Z",
+  "lastUpdated": "2026-02-06T08:27:06.925Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9925,6 +9925,56 @@
       "updated": "2026-02-06T08:03:35.250Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-agent-context-serialisation-chain-propagation.md"
+    },
+    {
+      "id": "learning-retro-vitest-workers-forbid-processchdir-use-basepath-instead",
+      "type": "learning",
+      "title": "Retro - Vitest workers forbid process.chdir, use basePath instead",
+      "tags": [
+        "retrospective",
+        "vitest",
+        "testing",
+        "process",
+        "project"
+      ],
+      "created": "2026-02-06T08:18:29.627Z",
+      "updated": "2026-02-06T08:18:29.627Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-vitest-workers-forbid-processchdir-use-basepath-instead.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "type": "gotcha",
+      "title": "Retro - Vitest include config covers skills/memory/src not tests subdirs",
+      "tags": [
+        "retrospective",
+        "vitest",
+        "config",
+        "test-structure",
+        "project"
+      ],
+      "created": "2026-02-06T08:18:35.407Z",
+      "updated": "2026-02-06T08:18:35.407Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-graph-edge-stores-label-not-relation",
+      "type": "learning",
+      "title": "graph-edge-stores-label-not-relation",
+      "tags": [
+        "graph",
+        "links",
+        "memory-api",
+        "frontmatter",
+        "project"
+      ],
+      "created": "2026-02-06T08:20:07.788Z",
+      "updated": "2026-02-06T08:20:07.788Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-graph-edge-stores-label-not-relation.md"
     }
   ]
 }

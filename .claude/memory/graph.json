@@ -3052,6 +3052,18 @@
     {
       "id": "gotcha-agent-context-serialisation-chain-propagation",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-vitest-workers-forbid-processchdir-use-basepath-instead",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-graph-edge-stores-label-not-relation",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -7538,6 +7550,56 @@
     {
       "source": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
       "target": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-agent-context-placeholder-type-only-no-runtime",
+      "target": "artifact-hooks-readme-agent-context-workflow-documentation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "target": "decision-agent-context-placeholder-type-only-no-runtime",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
+      "target": "decision-agent-context-placeholder-type-only-no-runtime",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-agent-context-placeholder-type-only-no-runtime",
+      "target": "gotcha-agent-context-serialisation-chain-propagation",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
+      "target": "learning-retro-tdd-for-type-level-changes-validates-at-compile-time",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "target": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "learning-retro-vitest-workers-forbid-processchdir-use-basepath-instead",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-research-documentation-agent-scoped-pattern",
+      "target": "learning-graph-edge-stores-label-not-relation",
       "label": "relates-to"
     }
   ]

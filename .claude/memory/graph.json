@@ -2980,6 +2980,18 @@
     {
       "id": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
       "type": "learning"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "type": "learning"
+    },
+    {
+      "id": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
+      "type": "learning"
+    },
+    {
+      "id": "decision-phase-e-agent-scoped-memories-complete",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -7406,6 +7418,26 @@
     {
       "source": "learning-getflagbool-returns-false-not-undefined-for-absent-flags",
       "target": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
       "label": "relates-to"
     }
   ]

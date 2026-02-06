@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T01:46:43.395Z",
+  "lastUpdated": "2026-02-06T01:53:39.594Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9632,6 +9632,54 @@
       "updated": "2026-02-06T01:46:43.365Z",
       "scope": "project",
       "relativePath": "permanent/learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking.md"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "type": "learning",
+      "title": "Parallel restoration agents unlock tools faster than sequential",
+      "tags": [
+        "restoration",
+        "agents",
+        "efficiency",
+        "compaction",
+        "project"
+      ],
+      "created": "2026-02-06T01:53:09.615Z",
+      "updated": "2026-02-06T01:53:09.615Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-unlock-tools-faster-than-sequential.md"
+    },
+    {
+      "id": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
+      "type": "learning",
+      "title": "Conversation summaries lag behind implementation during compaction cycles",
+      "tags": [
+        "compaction",
+        "summaries",
+        "context-lag",
+        "T126",
+        "project"
+      ],
+      "created": "2026-02-06T01:53:20.006Z",
+      "updated": "2026-02-06T01:53:20.006Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles.md"
+    },
+    {
+      "id": "decision-phase-e-agent-scoped-memories-complete",
+      "type": "decision",
+      "title": "Phase E agent-scoped memories implementation complete",
+      "tags": [
+        "T126",
+        "Phase-E",
+        "agent-scoped",
+        "complete",
+        "project"
+      ],
+      "created": "2026-02-06T01:53:39.561Z",
+      "updated": "2026-02-06T01:53:39.561Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-e-agent-scoped-memories-complete.md"
     }
   ]
 }

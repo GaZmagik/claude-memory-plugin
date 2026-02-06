@@ -2992,6 +2992,18 @@
     {
       "id": "decision-phase-e-agent-scoped-memories-complete",
       "type": "decision"
+    },
+    {
+      "id": "learning-retro-conversation-summaries-lag-behind-implementation-during-rapid-compaction-cycles",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern",
+      "type": "gotcha"
     }
   ],
   "edges": [
@@ -7438,6 +7450,21 @@
     {
       "source": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
       "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-conversation-summaries-lag-behind-implementation-during-rapid-compaction-cycles",
+      "target": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern",
+      "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
       "label": "relates-to"
     }
   ]

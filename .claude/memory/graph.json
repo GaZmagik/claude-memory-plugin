@@ -2796,6 +2796,30 @@
       "type": "learning",
       "title": "T125 cmdHealth --agent flag implementation complete - all 12 tests passing",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "type": "learning",
+      "title": "Retro - Restoration agent parallelisation effective but hook overhead significant",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "type": "learning",
+      "title": "Mock pollution causes cascading test failures in full suite",
+      "scope": "project"
+    },
+    {
+      "id": "learning-missing-savegraph-mock-corrupts-production-graphjson-silently",
+      "type": "learning",
+      "title": "Missing saveGraph mock corrupts production graph.json silently",
+      "scope": "project"
+    },
+    {
+      "id": "learning-agent-field-propagation-requires-tracing-through-all-architectural-layers",
+      "type": "learning",
+      "title": "Agent field propagation requires tracing through all architectural layers",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -7022,6 +7046,26 @@
     {
       "source": "learning-vitest-include-patterns-dont-cover-skillsmemorytests-subdirectory",
       "target": "gotcha-vitest-include-patterns-dont-cover-skillstests-subdirectories",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-field-propagation-requires-tracing-through-all-architectural-layers",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-missing-savegraph-mock-corrupts-production-graphjson-silently",
+      "target": "gotcha-test-isolation-vitest-mock-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "decision-defer-test-isolation-fixes-to-v120",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
       "label": "relates-to"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T23:57:42.752Z",
+  "lastUpdated": "2026-02-06T00:07:22.998Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9112,6 +9112,69 @@
       "updated": "2026-02-05T23:49:34.974Z",
       "scope": "project",
       "relativePath": "permanent/learning-t125-cmdhealth-agent-flag-implementation-complete-all-12-tests-passing.md"
+    },
+    {
+      "id": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "type": "learning",
+      "title": "Retro - Restoration agent parallelisation effective but hook overhead significant",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "hooks",
+        "parallelisation",
+        "project"
+      ],
+      "created": "2026-02-06T00:05:56.461Z",
+      "updated": "2026-02-06T00:05:56.461Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "type": "learning",
+      "title": "Mock pollution causes cascading test failures in full suite",
+      "tags": [
+        "testing",
+        "mocks",
+        "test-isolation",
+        "project"
+      ],
+      "created": "2026-02-06T00:07:01.340Z",
+      "updated": "2026-02-06T00:07:01.340Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mock-pollution-causes-cascading-test-failures-in-full-suite.md"
+    },
+    {
+      "id": "learning-missing-savegraph-mock-corrupts-production-graphjson-silently",
+      "type": "learning",
+      "title": "Missing saveGraph mock corrupts production graph.json silently",
+      "tags": [
+        "testing",
+        "mocks",
+        "side-effects",
+        "project"
+      ],
+      "created": "2026-02-06T00:07:10.694Z",
+      "updated": "2026-02-06T00:07:10.694Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-missing-savegraph-mock-corrupts-production-graphjson-silently.md"
+    },
+    {
+      "id": "learning-agent-field-propagation-requires-tracing-through-all-architectural-layers",
+      "type": "learning",
+      "title": "Agent field propagation requires tracing through all architectural layers",
+      "tags": [
+        "architecture",
+        "agent-scoping",
+        "integration-testing",
+        "project"
+      ],
+      "created": "2026-02-06T00:07:22.865Z",
+      "updated": "2026-02-06T00:07:22.865Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-field-propagation-requires-tracing-through-all-architectural-layers.md"
     }
   ]
 }

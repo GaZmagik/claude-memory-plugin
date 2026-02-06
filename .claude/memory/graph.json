@@ -2862,6 +2862,30 @@
       "type": "learning",
       "title": "Mermaid diagrams need scope indicators for agent-filtered views",
       "scope": "project"
+    },
+    {
+      "id": "learning-cross-scope-edge-merging-for-mermaid-include-shared",
+      "type": "learning",
+      "title": "Cross-scope edge merging for mermaid --include-shared",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-getflagbool-returns-false-not-undefined-for-missing-flags",
+      "type": "gotcha",
+      "title": "getFlagBool returns false not undefined for missing flags",
+      "scope": "project"
+    },
+    {
+      "id": "learning-aspirational-tests-need-rewriting-to-match-actual-implementation",
+      "type": "learning",
+      "title": "Aspirational tests need rewriting to match actual implementation",
+      "scope": "project"
+    },
+    {
+      "id": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "type": "decision",
+      "title": "Phase E test triage complete — 12 regressions fixed",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -7143,6 +7167,46 @@
     {
       "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
       "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cross-scope-edge-merging-for-mermaid-include-shared",
+      "target": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-getflagbool-returns-false-not-undefined-for-missing-flags",
+      "target": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-aspirational-tests-need-rewriting-to-match-actual-implementation",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "target": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "gotcha-graphnode-enrichment-required-for-agent-filtering",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "target": "decision-graph-node-extended-for-agent-scope",
       "label": "relates-to"
     }
   ]

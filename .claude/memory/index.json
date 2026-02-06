@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T00:29:31.376Z",
+  "lastUpdated": "2026-02-06T01:11:01.398Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9288,6 +9288,66 @@
       "updated": "2026-02-06T00:29:31.281Z",
       "scope": "project",
       "relativePath": "permanent/learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views.md"
+    },
+    {
+      "id": "learning-cross-scope-edge-merging-for-mermaid-include-shared",
+      "type": "learning",
+      "title": "Cross-scope edge merging for mermaid --include-shared",
+      "tags": [
+        "mermaid",
+        "graph-merging",
+        "scopes",
+        "project"
+      ],
+      "created": "2026-02-06T01:10:04.805Z",
+      "updated": "2026-02-06T01:10:04.805Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-edge-merging-for-mermaid-include-shared.md"
+    },
+    {
+      "id": "gotcha-getflagbool-returns-false-not-undefined-for-missing-flags",
+      "type": "gotcha",
+      "title": "getFlagBool returns false not undefined for missing flags",
+      "tags": [
+        "flags",
+        "cli",
+        "defaults",
+        "project"
+      ],
+      "created": "2026-02-06T01:10:22.209Z",
+      "updated": "2026-02-06T01:10:22.209Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-getflagbool-returns-false-not-undefined-for-missing-flags.md"
+    },
+    {
+      "id": "learning-aspirational-tests-need-rewriting-to-match-actual-implementation",
+      "type": "learning",
+      "title": "Aspirational tests need rewriting to match actual implementation",
+      "tags": [
+        "testing",
+        "tdd",
+        "test-expectations",
+        "project"
+      ],
+      "created": "2026-02-06T01:10:33.432Z",
+      "updated": "2026-02-06T01:10:33.432Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-aspirational-tests-need-rewriting-to-match-actual-implementation.md"
+    },
+    {
+      "id": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "type": "decision",
+      "title": "Phase E test triage complete — 12 regressions fixed",
+      "tags": [
+        "phase-e",
+        "testing",
+        "triage",
+        "project"
+      ],
+      "created": "2026-02-06T01:11:01.250Z",
+      "updated": "2026-02-06T01:11:01.250Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-e-test-triage-complete-12-regressions-fixed.md"
     }
   ]
 }

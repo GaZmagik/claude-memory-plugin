@@ -3092,6 +3092,26 @@
     {
       "id": "decision-disable-clear-restoring-flag-hooks",
       "type": "decision"
+    },
+    {
+      "id": "learning-dual-graphedge-definitions-typed-vs-untyped-variants",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cross-scope-graph-non-atomicity-risk",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-baserequest-already-supports-agent-override",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-replan-phase-d-deferred-25-tasks",
+      "type": "decision"
+    },
+    {
+      "id": "artifact-phase-d-edge-mirroring-pattern",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -7673,6 +7693,11 @@
     {
       "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
       "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cross-scope-graph-non-atomicity-risk",
+      "target": "gotcha-cross-scope-graph-edges-design-constraint",
       "label": "relates-to"
     }
   ]

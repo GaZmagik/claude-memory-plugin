@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T11:40:49.100Z",
+  "lastUpdated": "2026-02-06T20:44:14.502Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10092,6 +10092,82 @@
       "scope": "project",
       "relativePath": "permanent/decision-disable-clear-restoring-flag-hooks.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-dual-graphedge-definitions-typed-vs-untyped-variants",
+      "type": "learning",
+      "title": "Dual GraphEdge Definitions: Typed vs Untyped Variants",
+      "tags": [
+        "architecture",
+        "graph",
+        "types",
+        "project"
+      ],
+      "created": "2026-02-06T20:43:40.837Z",
+      "updated": "2026-02-06T20:43:40.837Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-dual-graphedge-definitions-typed-vs-untyped-variants.md"
+    },
+    {
+      "id": "learning-cross-scope-graph-non-atomicity-risk",
+      "type": "learning",
+      "title": "Cross-Scope Graph Non-Atomicity Risk",
+      "tags": [
+        "gotcha",
+        "concurrency",
+        "graph",
+        "phase-d-deferred",
+        "project"
+      ],
+      "created": "2026-02-06T20:43:48.138Z",
+      "updated": "2026-02-06T20:43:48.138Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-graph-non-atomicity-risk.md"
+    },
+    {
+      "id": "gotcha-baserequest-already-supports-agent-override",
+      "type": "gotcha",
+      "title": "BaseRequest Already Supports Agent Override",
+      "tags": [
+        "phase-d-deferred",
+        "cli",
+        "parser",
+        "project"
+      ],
+      "created": "2026-02-06T20:43:57.982Z",
+      "updated": "2026-02-06T20:43:57.982Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-baserequest-already-supports-agent-override.md"
+    },
+    {
+      "id": "decision-replan-phase-d-deferred-25-tasks",
+      "type": "decision",
+      "title": "Re-Plan Phase D-DEFERRED Rather Than Implement Original",
+      "tags": [
+        "phase-d-deferred",
+        "planning",
+        "scope-reduction",
+        "project"
+      ],
+      "created": "2026-02-06T20:44:10.547Z",
+      "updated": "2026-02-06T20:44:10.547Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-replan-phase-d-deferred-25-tasks.md"
+    },
+    {
+      "id": "artifact-phase-d-edge-mirroring-pattern",
+      "type": "artifact",
+      "title": "Edge Mirroring Pattern: Bidirectional Storage Without Reversal",
+      "tags": [
+        "phase-d-deferred",
+        "graph",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-06T20:44:14.469Z",
+      "updated": "2026-02-06T20:44:14.469Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-d-edge-mirroring-pattern.md"
     }
   ]
 }

@@ -7601,6 +7601,26 @@
       "source": "artifact-research-documentation-agent-scoped-pattern",
       "target": "learning-graph-edge-stores-label-not-relation",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
+      "target": "artifact-tdd-testing-patterns-catalogue",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-graph-edge-stores-label-not-relation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "target": "decision-phase-e-agent-scoped-memories-complete",
+      "label": "relates-to"
     }
   ]
 }

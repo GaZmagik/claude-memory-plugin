@@ -33,12 +33,12 @@ context_window: 16384
 # semantic_threshold: 0.45
 # auto_sync: false
 
-# Settings Version (v1.2.0+)
+# Settings Version (v1.3.0+)
 # --------------------------
 # Schema version for detecting config updates.
 # Bump this when new settings are added to trigger migration prompts.
 
-settings_version: 1
+settings_version: 2
 
 # Duplicate Detection (LSH)
 # -------------------------
@@ -113,11 +113,33 @@ values you want to override.
 
 | Setting | Type | Default | Description |
 |---------|------|---------|-------------|
-| `settings_version` | number | `1` | Schema version for detecting config updates |
+| `settings_version` | number | `2` | Schema version for detecting config updates |
 | `reminder_count` | number | `1` | Show reminders N times per session (0=disable) |
 | `skip_hooks_after_clear` | boolean | `false` | Skip heavy hooks after /clear |
 | `ollama_keep_alive` | string | `"5m"` | How long Ollama keeps models loaded |
 | `ollama_prewarm_timeout` | number | `10000` | Pre-warm timeout in ms (1000-60000, default 10s) |
+
+### v1.3.0 Settings
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `default_agent_scope` | string | `"agent-project"` | Default scope for agent memories when in a git repo |
+
+#### Agent-Scoped Memories
+
+v1.3.0 introduces agent-scoped namespaces. Use the `--agent` flag with any command:
+
+```bash
+memory write --title "Pattern" --type learning --agent typescript-expert
+memory search "pattern" --agent typescript-expert --include-shared
+memory agents   # List all known agents
+```
+
+Agent memories are stored in:
+- Project: `.claude/memory/agents/{agent-name}/`
+- Global: `~/.claude/memory/agents/{agent-name}/`
+
+No configuration changes required — the feature works out of the box.
 
 #### Reminder Configuration
 

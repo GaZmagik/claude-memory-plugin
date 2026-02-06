@@ -250,16 +250,19 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - ✅ **Phase D**: Multi-Scope Read Operations (13/13 tasks - simplified version)
 
 ### In Progress
-- ✅ **Phase E**: Advanced Features — 14/14 tasks complete (suggest-links agent scope completed)
+- 🎯 **Phase G**: Integration & Documentation — 15/18 tasks complete (T132-T146, T144 skipped)
 
-### Next Phase
-- 🎯 **Phase F**: Context Injection Preparation (documentation only, T127-T131)
+### Completed Additional
+- ✅ **Phase E**: Advanced Features — 14/14 tasks complete
+- ✅ **Phase F**: Context Injection Preparation — 5/5 tasks complete
 
 ### Deferred
 - 🔄 **Phase D-Original**: Full cross-scope graph operations (bidirectional linking)
-- 🔄 **Phase G**: Integration & Documentation
 
-**Total Progress**: 101/149 tasks completed (68%)
+### Remaining Phase G Tasks
+- Validation: T147 (user story acceptance), T148 (full test suite), T149 (version bump)
+
+**Total Progress**: 115/149 tasks completed (77%)
 
 ---
 
@@ -387,24 +390,24 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Integration & Validation Tasks
 
-- [ ] T132 [P] Integration test for full workflow agent write → read → link → delete in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-full-agent-workflow.spec.ts
-- [ ] T133 [P] Integration test for backward compatibility (existing commands unchanged) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-backward-compat-v1.3.spec.ts
-- [ ] T134 [P] Integration test for agent scope hierarchy fallback behaviour in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-scope-hierarchy-fallback.spec.ts
-- [ ] T135 [P] Integration test for agent directory auto-creation on first write in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-directory-auto-create.spec.ts
-- [ ] T136 [P] Integration test for cross-scope link bidirectional integrity in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cross-scope-integrity.spec.ts
-- [ ] T137 [US1] Performance test for agent-scoped CRUD operations <100ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-agent-crud-speed.spec.ts
-- [ ] T138 [US4] Performance test for cross-scope graph operations <500ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-cross-scope-speed.spec.ts
-- [ ] T139 [US5] Performance test for agent listing with many agents <200ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-list-agents-speed.spec.ts
+- [X] T132 [P] Integration test for full workflow agent write → read → link → delete in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-full-agent-workflow.spec.ts
+- [X] T133 [P] Integration test for backward compatibility (existing commands unchanged) in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-backward-compat-v1.3.spec.ts
+- [X] T134 [P] Integration test for agent scope hierarchy fallback behaviour in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-scope-hierarchy-fallback.spec.ts
+- [X] T135 [P] Integration test for agent directory auto-creation on first write in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agent-directory-auto-create.spec.ts
+- [X] T136 [P] Integration test for cross-scope link bidirectional integrity in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-cross-scope-integrity.spec.ts
+- [X] T137 [US1] Performance test for agent-scoped CRUD operations <100ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-agent-crud-speed.spec.ts
+- [X] T138 [US4] Performance test for cross-scope graph operations <500ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-cross-scope-speed.spec.ts
+- [X] T139 [US5] Performance test for agent listing with many agents <200ms in /home/gareth/.vs/claude-memory-plugin/tests/performance/test-list-agents-speed.spec.ts
 
 ### Documentation Tasks
 
-- [ ] T140 [P] Update README.md with agent-scoped memory documentation in /home/gareth/.vs/claude-memory-plugin/README.md
-- [ ] T141 [P] Update README.md with --agent flag examples for all commands in /home/gareth/.vs/claude-memory-plugin/README.md
-- [ ] T142 [P] Update SKILL.md for memory skill with agent scope features in /home/gareth/.vs/claude-memory-plugin/skills/memory/SKILL.md
-- [ ] T143 [P] Update memory.example.md with agent scope examples in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
-- [ ] T144 [P] Create agent-scoped-memories.md guide in /home/gareth/.vs/claude-memory-plugin/docs/agent-scoped-memories.md
-- [ ] T145 Create CHANGELOG.md entry for v1.3.0 in /home/gareth/.vs/claude-memory-plugin/CHANGELOG.md
-- [ ] T146 Update quickstart.md with validation scenarios for all user stories in /home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/003-agent-scoped-memories/quickstart.md
+- [X] T140 [P] Update README.md with agent-scoped memory documentation in /home/gareth/.vs/claude-memory-plugin/README.md
+- [X] T141 [P] Update README.md with --agent flag examples for all commands in /home/gareth/.vs/claude-memory-plugin/README.md
+- [X] T142 [P] Update SKILL.md for memory skill with agent scope features in /home/gareth/.vs/claude-memory-plugin/skills/memory/SKILL.md
+- [X] T143 [P] Update memory.example.md with agent scope examples in /home/gareth/.vs/claude-memory-plugin/.claude/memory.example.md
+- [~] T144 [P] SKIPPED: Standalone guide redundant — covered by README, SKILL.md, and quickstart
+- [X] T145 Create CHANGELOG.md entry for v1.3.0 in /home/gareth/.vs/claude-memory-plugin/CHANGELOG.md
+- [X] T146 Update quickstart.md with validation scenarios for all user stories in /home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/003-agent-scoped-memories/quickstart.md
 - [ ] T147 Validate all 6 user stories against acceptance criteria from spec.md
 - [ ] T148 Run full test suite and verify all tests pass
 - [ ] T149 Update package.json version to 1.3.0 in /home/gareth/.vs/claude-memory-plugin/package.json

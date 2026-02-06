@@ -1,6 +1,6 @@
 ---
 name: memory
-description: "Store and retrieve project knowledge - decisions, learnings, artifacts, gotchas. Provides ephemeral thinking documents for deliberation. Use for recording decisions, searching past knowledge, checking gotchas, linking memories, saving patterns. Trigger words - remember, store, save, record, decision, learning, gotcha, artifact, pattern, search memory, check gotchas, brainstorm, deliberate, pros and cons. Note - memory think preferred over sequential-thinking MCP as thoughts persist and can be promoted to permanent memories."
+description: "Store and retrieve project knowledge - decisions, learnings, artifacts, gotchas. Provides ephemeral thinking documents for deliberation and agent-scoped namespaces for isolated agent knowledge. Use for recording decisions, searching past knowledge, checking gotchas, linking memories, saving patterns. Trigger words - remember, store, save, record, decision, learning, gotcha, artifact, pattern, search memory, check gotchas, brainstorm, deliberate, pros and cons. Note - memory think preferred over sequential-thinking MCP as thoughts persist and can be promoted to permanent memories."
 version: "2.0.0"
 ---
 
@@ -18,6 +18,7 @@ Persist project knowledge across sessions. Record decisions, capture learnings, 
 - When deliberating on complex choices (use `think` commands)
 - User says "brainstorm", "weigh options", "think through", "pros and cons"
 - When you need documented chain-of-thought before committing to a decision
+- When working with specialised agents that need their own knowledge base (`--agent` flag)
 
 ## Usage
 
@@ -62,6 +63,7 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `search <query>` | Search titles and content |
 | | `semantic <query>` | Search by meaning using embeddings |
 | | `delete <id>` | Delete a memory |
+| | `agents` | List all registered agents with memory counts |
 | **Graph** | `link <from> <to>` | Create relationship edge |
 | | `unlink <from> <to>` | Remove relationship edge |
 | | `bulk-link [file]` | Create multiple links from JSON |
@@ -136,6 +138,35 @@ memory think counter "Consider alternatives" --call gemini
 # With explicit style and agent
 memory think add "Deep analysis" --call claude --style Devils-Advocate --agent security-reviewer
 ```
+
+### Agent Scope Flags (v1.3.0)
+
+| Flag | Description |
+|------|-------------|
+| `--agent <name>` | Target a specific agent's memory namespace |
+| `--include-shared` | Include project/global memories alongside agent memories (read operations) |
+| `--all-agents` | Apply to all agents (listing/stats operations) |
+| `--target-agent <name>` | Specify target agent for cross-agent linking |
+
+**Examples:**
+```bash
+# Write a memory to an agent's namespace
+memory write --title "ESM imports need .js" --type learning --agent typescript-expert
+
+# Search within agent scope, including shared project memories
+memory search "imports" --agent typescript-expert --include-shared
+
+# List all agents with memory counts
+memory agents
+
+# Agent health check
+memory health --agent typescript-expert
+
+# Agent graph visualisation
+memory mermaid --agent typescript-expert
+```
+
+Agent memories are isolated by default. Use `--include-shared` to also search project and global scopes. Commands without `--agent` behave identically to v1.2.0.
 
 ### Memory Injection (v1.1.0)
 

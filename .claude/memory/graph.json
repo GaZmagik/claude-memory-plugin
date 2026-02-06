@@ -3064,6 +3064,34 @@
     {
       "id": "learning-graph-edge-stores-label-not-relation",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "type": "learning"
+    },
+    {
+      "id": "decision-disable-clear-restoring-flag-hooks",
+      "type": "decision"
     }
   ],
   "edges": [
@@ -7620,6 +7648,31 @@
     {
       "source": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
       "target": "decision-phase-e-agent-scoped-memories-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "target": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
       "label": "relates-to"
     }
   ]

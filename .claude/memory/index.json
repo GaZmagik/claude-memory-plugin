@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T08:27:06.925Z",
+  "lastUpdated": "2026-02-06T11:40:49.100Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9975,6 +9975,123 @@
       "updated": "2026-02-06T08:20:07.788Z",
       "scope": "project",
       "relativePath": "permanent/learning-graph-edge-stores-label-not-relation.md"
+    },
+    {
+      "id": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
+      "type": "gotcha",
+      "title": "Retro - Restoring flag remained active across multiple restoration cycles, creating repetitive re-launches",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "compaction",
+        "flag-management",
+        "project"
+      ],
+      "created": "2026-02-06T08:50:22.374Z",
+      "updated": "2026-02-06T08:50:22.374Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents with proper subagent_type handling accelerates context recovery significantly",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "agents",
+        "parallel",
+        "project"
+      ],
+      "created": "2026-02-06T08:50:28.905Z",
+      "updated": "2026-02-06T08:50:28.905Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "type": "gotcha",
+      "title": "Retro - Session consumed entirely by restoration ceremony, zero implementation time despite T137 marked in_progress",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "compaction",
+        "work-balance",
+        "project"
+      ],
+      "created": "2026-02-06T08:50:37.554Z",
+      "updated": "2026-02-06T08:50:37.554Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "type": "gotcha",
+      "title": "Restoring flag remains active across restoration cycles",
+      "tags": [
+        "restoration",
+        "flags",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-06T08:51:55.044Z",
+      "updated": "2026-02-06T08:51:55.044Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-restoring-flag-remains-active-across-restoration-cycles.md"
+    },
+    {
+      "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "type": "gotcha",
+      "title": "Pre-compact session consumed entirely by restoration ceremony",
+      "tags": [
+        "restoration",
+        "compaction",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-06T08:52:05.088Z",
+      "updated": "2026-02-06T08:52:05.088Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony.md"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "type": "learning",
+      "title": "Parallel restoration agents with correct subagent_type accelerates recovery",
+      "tags": [
+        "restoration",
+        "agents",
+        "parallelism",
+        "performance",
+        "project"
+      ],
+      "created": "2026-02-06T08:52:09.682Z",
+      "updated": "2026-02-06T08:52:09.682Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery.md"
+    },
+    {
+      "id": "decision-disable-clear-restoring-flag-hooks",
+      "type": "decision",
+      "title": "Disabled clear/restoring flag hooks and approval key system",
+      "tags": [
+        "hooks",
+        "session-restore",
+        "flags",
+        "simplification",
+        "project"
+      ],
+      "created": "2026-02-06T11:40:49.072Z",
+      "updated": "2026-02-06T11:40:49.072Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-disable-clear-restoring-flag-hooks.md",
+      "severity": "high"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T01:31:27.409Z",
+  "lastUpdated": "2026-02-06T01:37:31.643Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9525,6 +9525,68 @@
       "updated": "2026-02-06T01:31:27.306Z",
       "scope": "project",
       "relativePath": "permanent/artifact-suggest-links-test-vectors.md"
+    },
+    {
+      "id": "learning-tdd-red-phase-requires-actual-test-execution",
+      "type": "learning",
+      "title": "TDD Red Phase Requires Actual Test Execution",
+      "tags": [
+        "tdd",
+        "testing",
+        "red-phase",
+        "project"
+      ],
+      "created": "2026-02-06T01:37:03.657Z",
+      "updated": "2026-02-06T01:37:03.657Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-red-phase-requires-actual-test-execution.md"
+    },
+    {
+      "id": "learning-getflagbool-returns-false-not-undefined",
+      "type": "learning",
+      "title": "getFlagBool Returns False Not Undefined",
+      "tags": [
+        "cli",
+        "flags",
+        "helpers",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-06T01:37:20.608Z",
+      "updated": "2026-02-06T01:37:20.608Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-getflagbool-returns-false-not-undefined.md"
+    },
+    {
+      "id": "learning-cross-scope-edges-are-read-only-in-suggest-links",
+      "type": "learning",
+      "title": "Cross-Scope Edges Are Read-Only in Suggest-Links",
+      "tags": [
+        "memory-system",
+        "suggest-links",
+        "scopes",
+        "edges",
+        "project"
+      ],
+      "created": "2026-02-06T01:37:22.222Z",
+      "updated": "2026-02-06T01:37:22.222Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-edges-are-read-only-in-suggest-links.md"
+    },
+    {
+      "id": "artifact-scope-path-resolution-pattern",
+      "type": "artifact",
+      "title": "Scope Path Resolution Pattern",
+      "tags": [
+        "cli",
+        "scope-resolution",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-06T01:37:31.600Z",
+      "updated": "2026-02-06T01:37:31.600Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-scope-path-resolution-pattern.md"
     }
   ]
 }

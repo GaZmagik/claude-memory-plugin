@@ -2952,6 +2952,22 @@
       "type": "learning",
       "title": "Memory capture and retrospective hooks may have issues in rapid compaction cycles",
       "scope": "project"
+    },
+    {
+      "id": "learning-tdd-red-phase-requires-actual-test-execution",
+      "type": "learning"
+    },
+    {
+      "id": "learning-getflagbool-returns-false-not-undefined",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cross-scope-edges-are-read-only-in-suggest-links",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-scope-path-resolution-pattern",
+      "type": "artifact"
     }
   ],
   "edges": [
@@ -7324,6 +7340,46 @@
       "source": "artifact-suggest-links-test-vectors",
       "target": "learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail",
       "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "target": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-getflagbool-returns-false-not-undefined",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-scope-path-resolution-pattern",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-red-phase-requires-actual-test-execution",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cross-scope-edges-are-read-only-in-suggest-links",
+      "target": "artifact-suggest-links-test-vectors",
+      "label": "relates-to"
     }
   ]
 }

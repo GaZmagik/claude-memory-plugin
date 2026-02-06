@@ -7392,6 +7392,21 @@
       "source": "learning-cross-scope-edges-are-read-only-in-suggest-links",
       "target": "artifact-suggest-links-test-vectors",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-getflagbool-returns-false-not-undefined-for-absent-flags",
+      "target": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "label": "relates-to"
     }
   ]
 }

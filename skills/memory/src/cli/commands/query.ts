@@ -292,8 +292,8 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
         return {
           scope: 'multi-scope',
           scopes: scopeStats,
-          nodes: totalNodes,
-          edges: totalEdges,
+          totalNodes: totalNodes,
+          totalEdges: totalEdges,
           orphans: totalOrphans,
           connected: connectedCount,
           connectivityRatio: Math.round(connectivityRatio * 100) / 100,
@@ -316,7 +316,9 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
       const orphanCount = orphans.length;
       const connectedCount = nodeCount - orphanCount;
       const connectivityRatio = nodeCount > 0 ? connectedCount / nodeCount : 1;
+      const connectivity = Math.round(connectivityRatio * 100);
       const edgeToNodeRatio = nodeCount > 0 ? edgeCount / nodeCount : 0;
+      const linkRatio = nodeCount > 0 ? edgeCount / nodeCount : 0;
 
       // Find hubs (nodes with high connectivity)
       const edgeCounts = new Map<string, number>();
@@ -326,10 +328,10 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
       }
 
       const hubs = [...edgeCounts.entries()]
-        .filter(([_, count]) => count >= 3)
+        .filter(([_, count]) => count >= 2)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 10)
-        .map(([id, count]) => ({ id, connections: count }));
+        .map(([id, _]) => id);
 
       // Find sinks (no outbound) and sources (no inbound)
       const outbound = new Set(graph.edges.map(e => e.source));
@@ -339,17 +341,41 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
       const sinks = [...allNodes].filter(id => !outbound.has(id) && inbound.has(id));
       const sources = [...allNodes].filter(id => outbound.has(id) && !inbound.has(id));
 
+      // Group by type
+      const byType: Record<string, number> = {};
+      for (const node of graph.nodes) {
+        byType[node.type] = (byType[node.type] ?? 0) + 1;
+      }
+
+      // Calculate health score (0-100)
+      // Based on connectivity and link ratio
+      const healthScore = Math.round((connectivity * 0.6) + (Math.min(linkRatio * 100, 100) * 0.4));
+
+      // Determine scope indicator
+      const scopeIndicator = agentName ? `agent:${agentName}` : (scopeArg ?? 'project');
+
+      // Placeholder for trends (historical data would be needed for real trends)
+      const trends = {
+        growth: 0,
+        recentActivity: 0,
+      };
+
       return {
-        scope: scopeArg ?? 'project',
-        nodes: nodeCount,
-        edges: edgeCount,
+        scope: scopeIndicator,
+        totalNodes: nodeCount,
+        totalEdges: edgeCount,
         orphans: orphanCount,
         connected: connectedCount,
+        connectivity,
         connectivityRatio: Math.round(connectivityRatio * 100) / 100,
+        linkRatio: Math.round(linkRatio * 100) / 100,
         edgeToNodeRatio: Math.round(edgeToNodeRatio * 100) / 100,
         hubs,
         sinks: sinks.slice(0, 10),
         sources: sources.slice(0, 10),
+        byType,
+        healthScore,
+        trends,
       };
     },
     `Stats for ${scopeArg ?? 'project'} scope`

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-05T23:34:39.321Z",
+  "lastUpdated": "2026-02-05T23:57:42.752Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -8479,19 +8479,6 @@
       "relativePath": "permanent/learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion.md"
     },
     {
-      "id": "thought-20260201-230956218",
-      "title": "Think: Memory System Analysis Summary",
-      "type": "breadcrumb",
-      "tags": [
-        "think",
-        "active"
-      ],
-      "created": "2026-02-01T23:09:56.230Z",
-      "updated": "2026-02-01T23:09:56.230Z",
-      "scope": "project",
-      "relativePath": "temporary/thought-20260201-230956218.md"
-    },
-    {
       "id": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
       "type": "learning",
       "title": "Phase E TDD Red phase completion yields 2465 lines of comprehensive test coverage",
@@ -9010,6 +8997,121 @@
       "updated": "2026-02-05T23:34:45.000Z",
       "scope": "project",
       "relativePath": "permanent/artifact-memory-curator-analysis-2026-02-05-phase-e-linking.md"
+    },
+    {
+      "id": "learning-retro-composite-scoring-resolves-legacy-penalty-system-conflicts",
+      "type": "learning",
+      "title": "Retro - Composite scoring resolves legacy penalty system conflicts",
+      "tags": [
+        "retrospective",
+        "process",
+        "phase-e",
+        "scoring",
+        "project"
+      ],
+      "created": "2026-02-05T23:47:59.542Z",
+      "updated": "2026-02-05T23:47:59.542Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-composite-scoring-resolves-legacy-penalty-system-conflicts.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vitest-include-patterns-dont-cover-skillstests-subdirectories",
+      "type": "gotcha",
+      "title": "Gotcha - Vitest include patterns don't cover skills/*/tests/ subdirectories",
+      "tags": [
+        "retrospective",
+        "process",
+        "test-infrastructure",
+        "phase-e",
+        "project"
+      ],
+      "created": "2026-02-05T23:48:14.605Z",
+      "updated": "2026-02-05T23:48:14.605Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vitest-include-patterns-dont-cover-skillstests-subdirectories.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-qualityts-modularization-needed-at-365-lines",
+      "type": "learning",
+      "title": "Retro - Quality.ts modularization needed at 365 lines",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-02-05T23:48:24.754Z",
+      "updated": "2026-02-05T23:48:24.754Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-qualityts-modularization-needed-at-365-lines.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-composite-score-calculation-resolves-legacy-penalty-system-conflicts",
+      "type": "learning",
+      "title": "Composite score calculation resolves legacy penalty system conflicts",
+      "tags": [
+        "health-scoring",
+        "cmdHealth",
+        "test-alignment",
+        "penalty-systems",
+        "project"
+      ],
+      "created": "2026-02-05T23:49:03.193Z",
+      "updated": "2026-02-05T23:49:03.193Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-composite-score-calculation-resolves-legacy-penalty-system-conflicts.md"
+    },
+    {
+      "id": "learning-vitest-include-patterns-dont-cover-skillsmemorytests-subdirectory",
+      "type": "learning",
+      "title": "Vitest include patterns don't cover skills/memory/tests/ subdirectory",
+      "tags": [
+        "vitest",
+        "test-configuration",
+        "include-patterns",
+        "build-tools",
+        "project"
+      ],
+      "created": "2026-02-05T23:49:13.832Z",
+      "updated": "2026-02-05T23:49:13.832Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vitest-include-patterns-dont-cover-skillsmemorytests-subdirectory.md"
+    },
+    {
+      "id": "learning-unit-tests-require-assertion-updates-when-cli-response-formats-change",
+      "type": "learning",
+      "title": "Unit tests require assertion updates when CLI response formats change",
+      "tags": [
+        "unit-tests",
+        "test-maintenance",
+        "CLI-commands",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-05T23:49:23.643Z",
+      "updated": "2026-02-05T23:49:23.643Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-unit-tests-require-assertion-updates-when-cli-response-formats-change.md"
+    },
+    {
+      "id": "learning-t125-cmdhealth-agent-flag-implementation-complete-all-12-tests-passing",
+      "type": "learning",
+      "title": "T125 cmdHealth --agent flag implementation complete - all 12 tests passing",
+      "tags": [
+        "T125",
+        "cmdHealth",
+        "agent-scoped-memories",
+        "task-complete",
+        "project"
+      ],
+      "created": "2026-02-05T23:49:34.974Z",
+      "updated": "2026-02-05T23:49:34.974Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-t125-cmdhealth-agent-flag-implementation-complete-all-12-tests-passing.md"
     }
   ]
 }

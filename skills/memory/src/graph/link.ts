@@ -14,6 +14,7 @@ import { loadGraph, saveGraph, addNode, hasNode } from './structure.js';
 import { addEdge, removeEdge, hasEdge } from './edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';
+import { resolveAgentScopePath } from '../cli/helpers.js';
 
 const log = createLogger('link');
 
@@ -45,7 +46,10 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve basePath, considering agent context
+  const basePath = request.agent
+    ? resolveAgentScopePath(request.agent, undefined)
+    : (request.basePath ?? process.cwd());
   const relation = request.relation ?? DEFAULT_RELATION;
 
   try {
@@ -142,7 +146,10 @@ export async function unlinkMemories(request: UnlinkMemoriesRequest): Promise<Un
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve basePath, considering agent context
+  const basePath = request.agent
+    ? resolveAgentScopePath(request.agent, undefined)
+    : (request.basePath ?? process.cwd());
 
   try {
     // Load graph

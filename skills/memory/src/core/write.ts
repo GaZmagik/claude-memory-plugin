@@ -395,7 +395,13 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     try {
       let graph = await loadGraph(basePath);
       if (!hasNode(graph, id)) {
-        graph = addNode(graph, { id, type: request.type });
+        graph = addNode(graph, {
+          id,
+          type: request.type,
+          title: request.title,
+          scope: request.scope,
+          agent: request.agent,
+        });
         await saveGraph(basePath, graph);
       }
     } catch {

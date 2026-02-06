@@ -149,8 +149,8 @@ describe('cmdStats', () => {
     const result = await cmdStats(args);
 
     expect(result.status).toBe('success');
-    expect((result.data as any).nodes).toBe(3);
-    expect((result.data as any).edges).toBe(1);
+    expect((result.data as any).totalNodes).toBe(3);
+    expect((result.data as any).totalEdges).toBe(1);
     expect((result.data as any).orphans).toBe(1);
   });
 

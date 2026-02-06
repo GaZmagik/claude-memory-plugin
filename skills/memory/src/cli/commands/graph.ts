@@ -145,7 +145,7 @@ export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
 /**
  * mermaid - Generate Mermaid diagram of memory graph
  *
- * Usage: memory mermaid [scope] [--all] [--hub <id>] [--depth <n>] [--direction <TB|LR>] [--output <path>]
+ * Usage: memory mermaid [scope] [--all] [--hub <id>] [--depth <n>] [--direction <TB|LR>] [--output <path>] [--agent <name>] [--include-shared]
  *
  * Options:
  *   --all            Show full graph (default: hub-focused view)
@@ -154,11 +154,26 @@ export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
  *   --direction      Layout direction: TB, TD, LR, RL (default: TB)
  *   --output <path>  Output file path (default: .claude/memory/graph.md)
  *   --show-type      Include node type in labels
+ *   --agent <name>   Filter to specific agent's memories
+ *   --include-shared Include shared memories (requires --agent)
  */
 export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
-  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Parse agent flag
+  const agentName = getFlagString(args.flags, 'agent');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  // Validate --include-shared requires --agent
+  if (includeShared && !agentName) {
+    return { status: 'error', error: 'Error: --include-shared requires --agent flag' };
+  }
+
+  // Determine base path based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   // Parse flags
   const directionRaw = getFlagString(args.flags, 'direction') ?? 'TB';
@@ -180,6 +195,7 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
       const graph = await loadGraph(basePath);
 
       // Generate mermaid with new options
+      const showAgentNames = getFlagBool(args.flags, 'show-agent-names');
       const mermaidContent = generateMermaid(graph, {
         direction,
         showType,
@@ -187,6 +203,9 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
         fromNode: hubId,
         depth,
         abbreviateLabels: true,
+        agent: agentName,
+        includeShared,
+        includeAgentNames: showAgentNames,
       });
 
       // Wrap in markdown code fence
@@ -197,11 +216,16 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
         ? (outputPath.endsWith('.md') ? outputPath : `${outputPath}.md`)
         : path.join(basePath, 'graph.md');
 
-      // Write to file
+      // Write to file (ensure directory exists)
       const fs = await import('node:fs');
+      const outputDir = path.dirname(finalPath);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
       fs.writeFileSync(finalPath, markdownOutput);
 
       return {
+        diagram: markdownOutput,
         saved: finalPath,
         nodes: graph.nodes.length,
         edges: graph.edges.length,

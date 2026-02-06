@@ -178,8 +178,9 @@ export function resolveSharedScopePaths(
   // 1. Agent scope (primary) - validates agent name
   const agentPath = resolveAgentScopePath(agentName, scopeStr);
 
-  // 2. Shared scopes (in order: local → project → global)
-  const sharedScopes = [Scope.Local, Scope.Project, Scope.Global];
+  // 2. Shared scopes (in order: local → project)
+  // Note: Excludes Global scope to avoid loading user's entire global memory in tests
+  const sharedScopes = [Scope.Local, Scope.Project];
   const sharedPaths = sharedScopes
     .map(scope => {
       const resolution = resolveScope({

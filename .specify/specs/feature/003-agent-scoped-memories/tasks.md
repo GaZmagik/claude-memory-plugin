@@ -367,11 +367,11 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Documentation for Phase F
 
-- [ ] T127 [P] [US6] Document agent identity detection options in plan/research.md
-- [ ] T128 [P] [US6] Document agent invocation marker format in plan/research.md
-- [ ] T129 [P] [US6] Document hook integration requirements for agent context in plan/research.md
-- [ ] T130 [US6] Add agent context parameter placeholder to hook interfaces in /home/gareth/.vs/claude-memory-plugin/hooks/src/types/hook-context.ts
-- [ ] T131 [US6] Document future agent context injection workflow in /home/gareth/.vs/claude-memory-plugin/hooks/README.md
+- [X] T127 [P] [US6] Document agent identity detection options in plan/research.md
+- [X] T128 [P] [US6] Document agent invocation marker format in plan/research.md
+- [X] T129 [P] [US6] Document hook integration requirements for agent context in plan/research.md
+- [X] T130 [US6] Add agent context parameter placeholder to hook interfaces in /home/gareth/.vs/claude-memory-plugin/hooks/src/core/types.ts
+- [X] T131 [US6] Document future agent context injection workflow in /home/gareth/.vs/claude-memory-plugin/hooks/README.md
 
 **Checkpoint**: Agent context injection infrastructure documented, placeholder for future implementation ready
 

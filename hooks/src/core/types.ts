@@ -5,6 +5,29 @@
  */
 
 /**
+ * Agent context for agent-scoped memory operations.
+ *
+ * This is a placeholder for future agent identity injection.
+ * When populated, it identifies which agent triggered the hook event,
+ * enabling agent-scoped gotcha injection and memory operations.
+ *
+ * **Not yet populated by any hook event dispatcher.**
+ * Reserved for implementation in a future phase.
+ *
+ * @see research.md "Hook Integration Requirements for Agent Context (T129)"
+ */
+export interface AgentContext {
+  /** Sanitised agent name (e.g. 'typescript-pro', 'rust-expert') */
+  agent_name: string;
+  /** How the agent identity was detected */
+  source: 'flag' | 'hook-metadata' | 'env' | 'marker' | 'plugin-config';
+  /** Optional agent type classification */
+  agent_type?: string;
+  /** Optional parent session ID for tracing agent lineage */
+  parent_session_id?: string;
+}
+
+/**
  * Input received by hooks via stdin
  */
 export interface HookInput {
@@ -37,6 +60,16 @@ export interface HookInput {
   trigger?: string;
   /** Reason for session end (e.g., 'clear', 'exit') - used in SessionEnd */
   reason?: string;
+  /**
+   * Agent context — identifies which agent triggered this hook event.
+   *
+   * **Placeholder**: Not yet populated by any hook event dispatcher.
+   * Reserved for future agent identity injection implementation.
+   * Consumers must gracefully handle this being undefined.
+   *
+   * @see AgentContext
+   */
+  agent_context?: AgentContext;
 }
 
 /**

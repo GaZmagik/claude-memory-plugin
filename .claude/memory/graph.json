@@ -3004,6 +3004,30 @@
     {
       "id": "gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern",
       "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-invocation-marker-format-standardization-html-comment-syntax",
+      "type": "learning"
+    },
+    {
+      "id": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-research-documentation-agent-scoped-pattern",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "type": "learning"
     }
   ],
   "edges": [
@@ -7465,6 +7489,31 @@
     {
       "source": "gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern",
       "target": "decision-phase-c-complete-cli-integration-for-agent-scopes-is-production-ready",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "target": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-research-documentation-agent-scoped-pattern",
+      "target": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-agent-invocation-marker-format-standardization-html-comment-syntax",
+      "target": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
+      "target": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
       "label": "relates-to"
     }
   ]

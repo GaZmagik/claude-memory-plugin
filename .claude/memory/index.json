@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T07:11:28.302Z",
+  "lastUpdated": "2026-02-06T07:30:33.450Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9732,6 +9732,100 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern.md",
       "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents significantly more efficient than sequential workflows",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "agents",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-06T07:28:35.115Z",
+      "updated": "2026-02-06T07:28:35.115Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "type": "learning",
+      "title": "Agent identity detection via invocation markers - practical implementation approach",
+      "tags": [
+        "agent-scoping",
+        "identity-detection",
+        "implementation-strategy",
+        "project"
+      ],
+      "created": "2026-02-06T07:29:53.541Z",
+      "updated": "2026-02-06T07:29:53.541Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach.md"
+    },
+    {
+      "id": "learning-agent-invocation-marker-format-standardization-html-comment-syntax",
+      "type": "learning",
+      "title": "Agent invocation marker format standardization - HTML comment syntax",
+      "tags": [
+        "agent-scoping",
+        "markers",
+        "format-specification",
+        "project"
+      ],
+      "created": "2026-02-06T07:30:02.372Z",
+      "updated": "2026-02-06T07:30:02.372Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-invocation-marker-format-standardization-html-comment-syntax.md"
+    },
+    {
+      "id": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
+      "type": "learning",
+      "title": "Hook integration for agent context - HookInput extension strategy",
+      "tags": [
+        "agent-scoping",
+        "hook-integration",
+        "performance-budget",
+        "project"
+      ],
+      "created": "2026-02-06T07:30:10.165Z",
+      "updated": "2026-02-06T07:30:10.165Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-hook-integration-for-agent-context-hookinput-extension-strategy.md"
+    },
+    {
+      "id": "artifact-research-documentation-agent-scoped-pattern",
+      "type": "artifact",
+      "title": "Agent-Scoped Research Documentation Pattern",
+      "tags": [
+        "documentation-pattern",
+        "agent-scoping",
+        "research-structure",
+        "project"
+      ],
+      "created": "2026-02-06T07:30:25.313Z",
+      "updated": "2026-02-06T07:30:25.313Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-research-documentation-agent-scoped-pattern.md"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "type": "learning",
+      "title": "Parallel restoration agents significantly more efficient than sequential workflows",
+      "tags": [
+        "session-management",
+        "restoration",
+        "performance",
+        "parallel-agents",
+        "project"
+      ],
+      "created": "2026-02-06T07:30:33.404Z",
+      "updated": "2026-02-06T07:30:33.404Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows.md"
     }
   ]
 }

@@ -249,15 +249,17 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - ✅ **Phase C**: CLI Integration (27/27 tasks)
 - ✅ **Phase D**: Multi-Scope Read Operations (13/13 tasks - simplified version)
 
+### In Progress
+- 🎯 **Phase E**: Advanced Features — 12/14 tasks complete (T112, T126 remaining: suggest-links agent scope)
+
 ### Next Phase
-- 🎯 **Phase E**: Advanced Features (agent listing, visualization, quality checks)
+- 🎯 **Phase F**: Context Injection Preparation (documentation only, T127-T131)
 
 ### Deferred
 - 🔄 **Phase D-Original**: Full cross-scope graph operations (bidirectional linking)
-- 🔄 **Phase F**: Context Injection Preparation (documentation only)
 - 🔄 **Phase G**: Integration & Documentation
 
-**Total Progress**: 89/149 tasks completed (60%)
+**Total Progress**: 101/149 tasks completed (68%)
 
 ---
 
@@ -327,11 +329,11 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T104 [P] [US5] Unit test for agent node visual styling in Mermaid in /home/gareth/.vs/claude-memory-plugin/tests/unit/graph/test-agent-mermaid-style.spec.ts
 - [X] T105 [P] [US5] Unit test for AgentInfo structure and validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-agent-info.spec.ts
 - [X] T106 [P] [US5] Unit test for agent directory scanning in /home/gareth/.vs/claude-memory-plugin/tests/unit/agents/test-scan-agents.spec.ts
-- [ ] T107 [US5] Integration test for memory mermaid with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent.spec.ts
-- [ ] T108 [US5] Integration test for memory mermaid with --agent --include-shared in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent-shared.spec.ts
-- [ ] T109 [US5] Integration test for memory stats with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-stats-agent.spec.ts
-- [ ] T110 [US5] Integration test for memory health with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-health-agent.spec.ts
-- [ ] T111 [US5] Integration test for memory agents command listing all agents in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agents-command.spec.ts
+- [X] T107 [US5] Integration test for memory mermaid with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent.spec.ts
+- [X] T108 [US5] Integration test for memory mermaid with --agent --include-shared in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-mermaid-agent-shared.spec.ts
+- [X] T109 [US5] Integration test for memory stats with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-stats-agent.spec.ts
+- [X] T110 [US5] Integration test for memory health with --agent flag in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-health-agent.spec.ts
+- [X] T111 [US5] Integration test for memory agents command listing all agents in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-agents-command.spec.ts
 - [ ] T112 [US5] Integration test for suggest-links with agent scope in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-suggest-links-agent.spec.ts
 
 ### Implementation for Phase E
@@ -341,14 +343,14 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T115 [P] [US5] Create ListAgentsResponse interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/list-agents-response.ts
 - [X] T116 [P] [US5] Implement scanAgentDirectories utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/scan-agent-directories.ts
 - [X] T117 [P] [US5] Implement getAgentInfo utility in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/agents/get-agent-info.ts
-- [ ] T118 [US5] Update Mermaid generation to accept agent context in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T119 [US5] Add visual styling for agent nodes in Mermaid diagrams in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T120 [US5] Update graph stats to support agent scope filtering in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/stats.ts
-- [ ] T121 [US5] Update health checks to validate agent scope integrity in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/health.ts
-- [ ] T122 [US5] Create memory agents command implementation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/agents.ts
+- [X] T118 [US5] Update Mermaid generation to accept agent context in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T119 [US5] Add visual styling for agent nodes in Mermaid diagrams in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T120 [US5] Update graph stats to support agent scope filtering in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/stats.ts
+- [X] T121 [US5] Update health checks to validate agent scope integrity in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/health.ts
+- [X] T122 [US5] Create memory agents command implementation in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/agents.ts
 - [X] T123 [US5] Update memory mermaid command to accept --agent and --include-shared in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/mermaid.ts
 - [X] T124 [US5] Update memory stats command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/stats.ts
-- [ ] T125 [US5] Update memory health command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/health.ts
+- [X] T125 [US5] Update memory health command to accept --agent flag in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/health.ts
 - [ ] T126 [US5] Update suggest-links to work within agent scope in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
 
 **Checkpoint**: Agent visualisation operational, memory agents command working, health checks validate agent scopes

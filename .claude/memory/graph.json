@@ -2820,6 +2820,48 @@
       "type": "learning",
       "title": "Agent field propagation requires tracing through all architectural layers",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents enable immediate triage work",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "type": "gotcha",
+      "title": "Gotcha - Test writes to wrong path when using projectRoot instead of basePath",
+      "scope": "project"
+    },
+    {
+      "id": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "type": "decision",
+      "title": "Decision - --include-shared includes ALL shared nodes by default, not just linked ones",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "type": "learning",
+      "title": "Mermaid --include-shared requires graph merging not just flag passing",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "type": "gotcha",
+      "title": "Test projectRoot parameter ignored for non-agent scopes in writeMemory",
+      "scope": "project"
+    },
+    {
+      "id": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "type": "decision",
+      "title": "Mermaid --include-shared defaults to all shared nodes, not just linked",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "type": "learning",
+      "title": "Mermaid diagrams need scope indicators for agent-filtered views",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -7066,6 +7108,41 @@
     {
       "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
       "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "target": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "target": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "target": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "target": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "target": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "target": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
       "label": "relates-to"
     }
   ]

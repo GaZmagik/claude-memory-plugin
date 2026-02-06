@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T00:07:22.998Z",
+  "lastUpdated": "2026-02-06T00:29:31.376Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9175,6 +9175,119 @@
       "updated": "2026-02-06T00:07:22.865Z",
       "scope": "project",
       "relativePath": "permanent/learning-agent-field-propagation-requires-tracing-through-all-architectural-layers.md"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents enable immediate triage work",
+      "tags": [
+        "retrospective",
+        "process",
+        "restoration",
+        "project"
+      ],
+      "created": "2026-02-06T00:27:40.138Z",
+      "updated": "2026-02-06T00:27:40.138Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-enable-immediate-triage-work.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "type": "gotcha",
+      "title": "Gotcha - Test writes to wrong path when using projectRoot instead of basePath",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "tdd",
+        "test-setup",
+        "project"
+      ],
+      "created": "2026-02-06T00:27:49.606Z",
+      "updated": "2026-02-06T00:27:49.606Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath.md",
+      "severity": "high"
+    },
+    {
+      "id": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "type": "decision",
+      "title": "Decision - --include-shared includes ALL shared nodes by default, not just linked ones",
+      "tags": [
+        "retrospective",
+        "decision",
+        "mermaid",
+        "scope",
+        "project"
+      ],
+      "created": "2026-02-06T00:27:58.408Z",
+      "updated": "2026-02-06T00:27:58.408Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing",
+      "type": "learning",
+      "title": "Mermaid --include-shared requires graph merging not just flag passing",
+      "tags": [
+        "mermaid",
+        "phase-e",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-06T00:28:33.227Z",
+      "updated": "2026-02-06T00:28:33.227Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mermaid-include-shared-requires-graph-merging-not-just-flag-passing.md"
+    },
+    {
+      "id": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "type": "gotcha",
+      "title": "Test projectRoot parameter ignored for non-agent scopes in writeMemory",
+      "tags": [
+        "test-setup",
+        "mermaid",
+        "phase-e",
+        "memory-api",
+        "project"
+      ],
+      "created": "2026-02-06T00:28:55.664Z",
+      "updated": "2026-02-06T00:28:55.664Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory.md"
+    },
+    {
+      "id": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "type": "decision",
+      "title": "Mermaid --include-shared defaults to all shared nodes, not just linked",
+      "tags": [
+        "mermaid",
+        "phase-e",
+        "ux-decision",
+        "scope-crossing",
+        "project"
+      ],
+      "created": "2026-02-06T00:29:17.367Z",
+      "updated": "2026-02-06T00:29:17.367Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-mermaid-include-shared-defaults-to-all-scopes.md"
+    },
+    {
+      "id": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "type": "learning",
+      "title": "Mermaid diagrams need scope indicators for agent-filtered views",
+      "tags": [
+        "mermaid",
+        "phase-e",
+        "ux",
+        "scope-awareness",
+        "project"
+      ],
+      "created": "2026-02-06T00:29:31.281Z",
+      "updated": "2026-02-06T00:29:31.281Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views.md"
     }
   ]
 }

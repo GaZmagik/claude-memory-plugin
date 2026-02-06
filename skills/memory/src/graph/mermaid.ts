@@ -31,8 +31,14 @@ export interface MermaidOptions {
   agent?: string;
   /** Include shared (non-agent) memories when filtering by agent */
   includeShared?: boolean;
+  /** Only include shared memories that are linked to agent nodes (requires includeShared) */
+  filterLinked?: boolean;
   /** Include agent names in node labels */
   includeAgentNames?: boolean;
+  /** Show scope indicators on node labels */
+  showScope?: boolean;
+  /** Show legend subgraph */
+  legend?: boolean;
 }
 
 /**
@@ -205,6 +211,16 @@ function generateNode(node: GraphNode, options: MermaidOptions): string {
     label = `${node.type}: ${label}`;
   }
 
+  // Add scope indicator if requested
+  if (options.showScope) {
+    const scopeLabel = node.agent
+      ? `[agent:${node.agent}]`
+      : node.scope === Scope.Global || node.scope === Scope.AgentGlobal
+        ? '[global]'
+        : '[project]';
+    label = `${label} ${scopeLabel}`;
+  }
+
   return `  ${id}${shape.open}"${label}"${shape.close}`;
 }
 
@@ -311,7 +327,10 @@ export function generateMermaid(
     abbreviateLabels = true,
     agent,
     includeShared = false,
+    filterLinked = false,
     includeAgentNames = false,
+    showScope = false,
+    legend = false,
   } = options;
 
   let workingGraph = graph;
@@ -353,19 +372,29 @@ export function generateMermaid(
       const agentNodeIds = new Set(filteredNodes.map(n => n.id));
       const sharedNodes = workingGraph.nodes.filter(n => !isAgentNode(n));
 
-      // Find shared nodes that are connected to agent nodes
-      const connectedSharedIds = new Set<string>();
-      for (const edge of workingGraph.edges) {
-        if (agentNodeIds.has(edge.source) && !isAgentNode(workingGraph.nodes.find(n => n.id === edge.target)!)) {
-          connectedSharedIds.add(edge.target);
+      if (filterLinked) {
+        // Only include shared nodes connected to agent nodes
+        const connectedSharedIds = new Set<string>();
+        for (const edge of workingGraph.edges) {
+          if (agentNodeIds.has(edge.source)) {
+            const targetNode = workingGraph.nodes.find(n => n.id === edge.target);
+            if (targetNode && !isAgentNode(targetNode)) {
+              connectedSharedIds.add(edge.target);
+            }
+          }
+          if (agentNodeIds.has(edge.target)) {
+            const sourceNode = workingGraph.nodes.find(n => n.id === edge.source);
+            if (sourceNode && !isAgentNode(sourceNode)) {
+              connectedSharedIds.add(edge.source);
+            }
+          }
         }
-        if (agentNodeIds.has(edge.target) && !isAgentNode(workingGraph.nodes.find(n => n.id === edge.source)!)) {
-          connectedSharedIds.add(edge.source);
-        }
+        const connectedShared = sharedNodes.filter(n => connectedSharedIds.has(n.id));
+        filteredNodes = [...filteredNodes, ...connectedShared];
+      } else {
+        // Include ALL shared nodes
+        filteredNodes = [...filteredNodes, ...sharedNodes];
       }
-
-      const connectedShared = sharedNodes.filter(n => connectedSharedIds.has(n.id));
-      filteredNodes = [...filteredNodes, ...connectedShared];
     }
 
     const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
@@ -398,7 +427,7 @@ export function generateMermaid(
 
   // Nodes
   for (const node of workingGraph.nodes) {
-    lines.push(generateNode(node, { showType, includeAgentNames, abbreviateLabels }));
+    lines.push(generateNode(node, { showType, includeAgentNames, abbreviateLabels, showScope }));
   }
 
   // Edges
@@ -412,6 +441,17 @@ export function generateMermaid(
   if (styles.length > 0) {
     lines.push('');
     lines.push(...styles);
+  }
+
+  // Legend subgraph
+  if (legend) {
+    lines.push('');
+    lines.push('  subgraph Legend');
+    lines.push('    direction LR');
+    lines.push('    legend_agent[["Agent Scope"]]');
+    lines.push('    legend_project["Project Scope"]');
+    lines.push('    legend_global["Global Scope"]');
+    lines.push('  end');
   }
 
   return lines.join('\n');

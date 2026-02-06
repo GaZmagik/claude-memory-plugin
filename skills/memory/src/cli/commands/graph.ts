@@ -13,7 +13,7 @@ import { linkMemories, unlinkMemories } from '../../graph/link.js';
 import { loadGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, resolveSharedScopePaths } from '../helpers.js';
 
 /**
  * link - Create a relationship between memories
@@ -192,20 +192,58 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      const graph = await loadGraph(basePath);
+      let graph = await loadGraph(basePath);
+
+      // When --include-shared, merge project/local graphs into the agent graph
+      if (includeShared && agentName) {
+        const sharedPaths = resolveSharedScopePaths(agentName, scopeStr);
+        // sharedPaths[0] is the agent path (already loaded), rest are shared scopes
+        for (const sharedPath of sharedPaths.slice(1)) {
+          if (sharedPath !== basePath) {
+            const sharedGraph = await loadGraph(sharedPath);
+            const existingNodeIds = new Set(graph.nodes.map(n => n.id));
+            const mergedNodes = [
+              ...graph.nodes,
+              ...sharedGraph.nodes.filter(n => !existingNodeIds.has(n.id)),
+            ];
+            const mergedNodeIds = new Set(mergedNodes.map(n => n.id));
+            const existingEdgeKeys = new Set(
+              graph.edges.map(e => `${e.source}->${e.target}`)
+            );
+            const mergedEdges = [
+              ...graph.edges,
+              ...sharedGraph.edges.filter(e =>
+                !existingEdgeKeys.has(`${e.source}->${e.target}`) &&
+                mergedNodeIds.has(e.source) && mergedNodeIds.has(e.target)
+              ),
+            ];
+            graph = { ...graph, nodes: mergedNodes, edges: mergedEdges };
+          }
+        }
+      }
 
       // Generate mermaid with new options
       const showAgentNames = getFlagBool(args.flags, 'show-agent-names');
+      const filterLinked = getFlagBool(args.flags, 'filter-linked');
+      const showScope = getFlagBool(args.flags, 'show-scope');
+      const legend = getFlagBool(args.flags, 'legend');
+      // abbreviateLabels defaults to true; only disable if --abbreviate false explicitly
+      const abbreviateLabels = args.flags['abbreviate'] === false || args.flags['abbreviate'] === 'false'
+        ? false
+        : true;
       const mermaidContent = generateMermaid(graph, {
         direction,
         showType,
         showAll,
         fromNode: hubId,
         depth,
-        abbreviateLabels: true,
+        abbreviateLabels,
         agent: agentName,
         includeShared,
+        filterLinked,
         includeAgentNames: showAgentNames,
+        showScope,
+        legend,
       });
 
       // Wrap in markdown code fence

@@ -2968,6 +2968,18 @@
     {
       "id": "artifact-scope-path-resolution-pattern",
       "type": "artifact"
+    },
+    {
+      "id": "learning-getflagbool-returns-false-not-undefined-for-absent-flags",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
+      "type": "learning"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "type": "learning"
     }
   ],
   "edges": [

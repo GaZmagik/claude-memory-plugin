@@ -12,6 +12,7 @@ import { loadIndex } from '../core/index.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { linkMemories } from '../graph/link.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
+import { resolveSharedScopePaths } from '../cli/helpers.js';
 
 /**
  * Suggested link
@@ -36,6 +37,12 @@ export interface SuggestLinksRequest {
   limit?: number;
   /** Automatically create suggested links */
   autoLink?: boolean;
+  /** Include shared scope memories */
+  includeShared?: boolean;
+  /** Agent name (for multi-scope loading) */
+  agentName?: string;
+  /** Scope string for agent scoping */
+  scopeStr?: string;
 }
 
 /**
@@ -60,14 +67,20 @@ export interface SuggestLinksResponse {
 export async function suggestLinks(
   request: SuggestLinksRequest
 ): Promise<SuggestLinksResponse> {
-  const { basePath, threshold = 0.75, limit = 20, autoLink = false } = request;
+  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, agentName, scopeStr } = request;
 
   const suggestions: SuggestedLink[] = [];
   let created = 0;
   let skipped = 0;
   let analysed = 0;
 
-  // Load embeddings cache
+  // Load embeddings cache(s)
+  const embeddings: Record<string, number[]> = {};
+  const indexMap = new Map<string, any>();
+  let graph = await loadGraph(basePath);
+  const existingLinks = new Set<string>();
+
+  // Load primary (agent or project) embeddings
   const cachePath = path.join(basePath, 'embeddings.json');
   let cache;
   try {
@@ -94,8 +107,72 @@ export async function suggestLinks(
     };
   }
 
-  // Filter out temporary memories (thoughts) - they're ephemeral and shouldn't be linked
-  const memoryIds = Object.keys(cache.memories).filter(id => !id.startsWith('thought-'));
+  // Load index for primary basePath
+  const index = await loadIndex({ basePath });
+  for (const entry of index.memories) {
+    indexMap.set(entry.id, entry);
+  }
+
+  // Build embeddings map from primary scope (excluding thoughts)
+  for (const [id, entry] of Object.entries(cache.memories)) {
+    if (id.startsWith('thought-')) continue; // Skip temporary
+    embeddings[id] = entry.embedding;
+  }
+
+  // Build set of existing links from primary graph
+  for (const edge of graph.edges) {
+    existingLinks.add(`${edge.source}:${edge.target}`);
+    existingLinks.add(`${edge.target}:${edge.source}`); // Bidirectional check
+  }
+
+  // When --include-shared, load embeddings from shared scopes
+  if (includeShared && agentName) {
+    try {
+      const sharedPaths = resolveSharedScopePaths(agentName, scopeStr);
+      // sharedPaths[0] is the agent path (already loaded), rest are shared scopes
+      for (const sharedPath of sharedPaths.slice(1)) {
+        if (sharedPath !== basePath) {
+          // Load embeddings from shared scope
+          const sharedCachePath = path.join(sharedPath, 'embeddings.json');
+          let sharedCache;
+          try {
+            sharedCache = await loadEmbeddingCache(sharedCachePath);
+          } catch {
+            // Shared scope might not have embeddings, skip
+            continue;
+          }
+
+          // Add embeddings from shared scope
+          for (const [id, entry] of Object.entries(sharedCache.memories)) {
+            if (id.startsWith('thought-')) continue;
+            if (!embeddings[id]) {
+              embeddings[id] = entry.embedding;
+            }
+          }
+
+          // Load index from shared scope
+          const sharedIndex = await loadIndex({ basePath: sharedPath });
+          for (const entry of sharedIndex.memories) {
+            if (!indexMap.has(entry.id)) {
+              indexMap.set(entry.id, entry);
+            }
+          }
+
+          // Load graph from shared scope and merge edges
+          const sharedGraph = await loadGraph(sharedPath);
+          for (const edge of sharedGraph.edges) {
+            existingLinks.add(`${edge.source}:${edge.target}`);
+            existingLinks.add(`${edge.target}:${edge.source}`);
+          }
+        }
+      }
+    } catch {
+      // Shared scope loading failed, continue with primary scope
+    }
+  }
+
+  // Filter out temporary memories (thoughts)
+  const memoryIds = Object.keys(embeddings).filter(id => !id.startsWith('thought-'));
   if (memoryIds.length < 2) {
     return {
       status: 'success',
@@ -106,32 +183,10 @@ export async function suggestLinks(
     };
   }
 
-  // Load index for titles
-  const index = await loadIndex({ basePath });
-  const indexMap = new Map(index.memories.map(e => [e.id, e]));
-
-  // Load graph for existing edges
-  const graph = await loadGraph(basePath);
-
-  // Build set of existing links
-  const existingLinks = new Set<string>();
-  for (const edge of graph.edges) {
-    existingLinks.add(`${edge.source}:${edge.target}`);
-    existingLinks.add(`${edge.target}:${edge.source}`); // Bidirectional check
-  }
-
-  // Build embeddings map (excluding thoughts)
-  const embeddings: Record<string, number[]> = {};
-  for (const [id, entry] of Object.entries(cache.memories)) {
-    if (id.startsWith('thought-')) continue; // Skip temporary
-    embeddings[id] = entry.embedding;
-  }
-
   // Find similar pairs
   for (const sourceId of memoryIds) {
-    const sourceEntry = cache.memories[sourceId];
-    if (!sourceEntry) continue;
-    const sourceEmbedding = sourceEntry.embedding;
+    if (!embeddings[sourceId]) continue;
+    const sourceEmbedding = embeddings[sourceId];
 
     // Find similar memories
     const similar = findSimilarMemories(sourceEmbedding, embeddings, threshold, limit);
@@ -147,9 +202,12 @@ export async function suggestLinks(
         continue;
       }
 
-      // Skip if not in graph
-      if (!hasNode(graph, sourceId) || !hasNode(graph, match.id)) {
-        continue;
+      // For --include-shared, we allow cross-scope suggestions (but won't auto-link them)
+      // For single-scope, check if both are in the graph
+      if (!includeShared) {
+        if (!hasNode(graph, sourceId) || !hasNode(graph, match.id)) {
+          continue;
+        }
       }
 
       const sourceEntry = indexMap.get(unsafeAsMemoryId(sourceId));
@@ -181,6 +239,8 @@ export async function suggestLinks(
   const finalSuggestions = suggestions.slice(0, limit);
 
   // Auto-link if requested
+  // Important: Auto-link only works within the primary scope (basePath)
+  // Cross-scope suggestions are discovered but not persisted
   if (autoLink && finalSuggestions.length > 0) {
     for (const suggestion of finalSuggestions) {
       try {

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T01:37:31.643Z",
+  "lastUpdated": "2026-02-06T01:46:43.395Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9587,6 +9587,51 @@
       "updated": "2026-02-06T01:37:31.600Z",
       "scope": "project",
       "relativePath": "permanent/artifact-scope-path-resolution-pattern.md"
+    },
+    {
+      "id": "learning-getflagbool-returns-false-not-undefined-for-absent-flags",
+      "type": "learning",
+      "title": "getFlagBool returns false not undefined for absent flags",
+      "tags": [
+        "flag-handling",
+        "command-patterns",
+        "type-safety",
+        "project"
+      ],
+      "created": "2026-02-06T01:46:18.725Z",
+      "updated": "2026-02-06T01:46:18.725Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-getflagbool-returns-false-not-undefined-for-absent-flags.md"
+    },
+    {
+      "id": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
+      "type": "learning",
+      "title": "Cross-scope edges are read-only for auto-link in suggest-links",
+      "tags": [
+        "agent-scopes",
+        "edge-access",
+        "command-patterns",
+        "project"
+      ],
+      "created": "2026-02-06T01:46:29.015Z",
+      "updated": "2026-02-06T01:46:29.015Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links.md"
+    },
+    {
+      "id": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "type": "learning",
+      "title": "Parallel restoration agents effective but require sequential approval key checking",
+      "tags": [
+        "restoration-workflow",
+        "agent-orchestration",
+        "session-management",
+        "project"
+      ],
+      "created": "2026-02-06T01:46:43.365Z",
+      "updated": "2026-02-06T01:46:43.365Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking.md"
     }
   ]
 }

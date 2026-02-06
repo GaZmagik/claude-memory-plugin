@@ -8,24 +8,39 @@
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
-import { success, wrapOperation } from '../response.js';
+import { success, wrapOperation, error } from '../response.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
  *
- * Usage: memory suggest-links [--threshold <n>] [--limit <n>] [--auto-link] [--scope <scope>]
+ * Usage: memory suggest-links [--threshold <n>] [--limit <n>] [--auto-link] [--scope <scope>] [--agent <agent>] [--include-shared]
  *
  * Uses semantic similarity to find memories that might be related.
  * Requires embeddings cache (generated via semantic search).
  */
 export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const scopeStr = getFlagString(args.flags, 'scope');
+  
+  // Parse agent and include-shared flags
+  const agentName = getFlagString(args.flags, 'agent');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  // Validate --include-shared requires --agent
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error || '--include-shared requires --agent flag');
+  }
+
+  // Determine base path based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.75;
   const limit = getFlagNumber(args.flags, 'limit') ?? 20;
-  const autoLink = getFlagBool(args.flags, 'auto-link') ?? false;
+  const autoLink = getFlagBool(args.flags, 'auto-link');
 
   return wrapOperation(
     async () => {
@@ -34,6 +49,9 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
         threshold,
         limit,
         autoLink,
+        includeShared,
+        agentName,
+        scopeStr,
       });
       return result;
     },

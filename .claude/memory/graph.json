@@ -2886,6 +2886,72 @@
       "type": "decision",
       "title": "Phase E test triage complete — 12 regressions fixed",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for session unlock",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture",
+      "type": "learning",
+      "title": "Retro - TDD test rewrite more effective than piecemeal fixture",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "type": "gotcha",
+      "title": "Retro - Memory-capture hook JSON encoding failing silently",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-rewriting-requires-implementation-reference-not-wishful-thinking",
+      "type": "learning",
+      "title": "Test rewriting requires implementation reference, not wishful thinking",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-suggest-links-test-vectors",
+      "type": "artifact",
+      "title": "Suggest-Links Test Vector Requirements",
+      "scope": "project"
+    },
+    {
+      "id": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "type": "learning",
+      "title": "Session restoration after compaction preserves conversation context effectively",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for unblocking after compaction",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "type": "gotcha",
+      "title": "Retro - Hook logs failing silently makes retrospective debugging difficult",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail",
+      "type": "learning",
+      "title": "TDD red phase confirms suggest-links tests correctly fail",
+      "scope": "project"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "type": "learning",
+      "title": "Session restoration with parallel agents effective for memory continuity",
+      "scope": "project"
+    },
+    {
+      "id": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "type": "learning",
+      "title": "Memory capture and retrospective hooks may have issues in rapid compaction cycles",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -7208,6 +7274,56 @@
       "source": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
       "target": "decision-graph-node-extended-for-agent-scope",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-suggest-links-test-vectors",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture",
+      "target": "learning-test-rewriting-requires-implementation-reference-not-wishful-thinking",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-test-rewriting-requires-implementation-reference-not-wishful-thinking",
+      "target": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-suggest-links-test-vectors",
+      "target": "learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail",
+      "label": "auto-linked-by-similarity"
     }
   ]
 }

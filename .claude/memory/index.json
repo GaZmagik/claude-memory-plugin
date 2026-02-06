@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T01:11:01.398Z",
+  "lastUpdated": "2026-02-06T01:31:27.409Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -9348,6 +9348,183 @@
       "updated": "2026-02-06T01:11:01.250Z",
       "scope": "project",
       "relativePath": "permanent/decision-phase-e-test-triage-complete-12-regressions-fixed.md"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for session unlock",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "project"
+      ],
+      "created": "2026-02-06T01:20:10.387Z",
+      "updated": "2026-02-06T01:20:10.387Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-session-unlock.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture",
+      "type": "learning",
+      "title": "Retro - TDD test rewrite more effective than piecemeal fixture",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-06T01:20:24.046Z",
+      "updated": "2026-02-06T01:20:24.046Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "type": "gotcha",
+      "title": "Retro - Memory-capture hook JSON encoding failing silently",
+      "tags": [
+        "retrospective",
+        "process",
+        "hooks",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-02-06T01:20:36.440Z",
+      "updated": "2026-02-06T01:20:36.440Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-memory-capture-hook-json-encoding-failing-silently.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-test-rewriting-requires-implementation-reference-not-wishful-thinking",
+      "type": "learning",
+      "title": "Test rewriting requires implementation reference, not wishful thinking",
+      "tags": [
+        "TDD",
+        "testing",
+        "integration-tests",
+        "project"
+      ],
+      "created": "2026-02-06T01:21:13.515Z",
+      "updated": "2026-02-06T01:21:13.515Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-rewriting-requires-implementation-reference-not-wishful-thinking.md"
+    },
+    {
+      "id": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "type": "learning",
+      "title": "Session restoration after compaction preserves conversation context effectively",
+      "tags": [
+        "session-management",
+        "compaction",
+        "memory-system",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-06T01:21:57.890Z",
+      "updated": "2026-02-06T01:21:57.890Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restoration-after-compaction-preserves-conversation-context-effectively.md"
+    },
+    {
+      "id": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents effective for unblocking after compaction",
+      "tags": [
+        "retrospective",
+        "process",
+        "session-restore",
+        "compaction",
+        "project"
+      ],
+      "created": "2026-02-06T01:29:29.122Z",
+      "updated": "2026-02-06T01:29:29.122Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "type": "gotcha",
+      "title": "Retro - Hook logs failing silently makes retrospective debugging difficult",
+      "tags": [
+        "retrospective",
+        "process",
+        "hooks",
+        "memory-system",
+        "project"
+      ],
+      "created": "2026-02-06T01:29:40.981Z",
+      "updated": "2026-02-06T01:29:40.981Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail",
+      "type": "learning",
+      "title": "TDD red phase confirms suggest-links tests correctly fail",
+      "tags": [
+        "tdd",
+        "testing",
+        "suggest-links",
+        "red-phase",
+        "project"
+      ],
+      "created": "2026-02-06T01:30:38.055Z",
+      "updated": "2026-02-06T01:30:38.055Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail.md"
+    },
+    {
+      "id": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "type": "learning",
+      "title": "Session restoration with parallel agents effective for memory continuity",
+      "tags": [
+        "restoration",
+        "agents",
+        "memory",
+        "parallel",
+        "compaction",
+        "project"
+      ],
+      "created": "2026-02-06T01:30:54.545Z",
+      "updated": "2026-02-06T01:30:54.545Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-session-restoration-with-parallel-agents-effective-for-memory-continuity.md"
+    },
+    {
+      "id": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "type": "learning",
+      "title": "Memory capture and retrospective hooks may have issues in rapid compaction cycles",
+      "tags": [
+        "hooks",
+        "memory-capture",
+        "retrospective",
+        "compaction",
+        "stability",
+        "project"
+      ],
+      "created": "2026-02-06T01:31:02.206Z",
+      "updated": "2026-02-06T01:31:02.206Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles.md"
+    },
+    {
+      "id": "artifact-suggest-links-test-vectors",
+      "type": "artifact",
+      "title": "Suggest-links agent test vectors",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-06T01:31:27.306Z",
+      "updated": "2026-02-06T01:31:27.306Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-suggest-links-test-vectors.md"
     }
   ]
 }

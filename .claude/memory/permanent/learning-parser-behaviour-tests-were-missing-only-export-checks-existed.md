@@ -3,8 +3,9 @@ id: learning-parser-behaviour-tests-were-missing-only-export-checks-existed
 title: Parser behaviour tests were missing - only export checks existed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T16:42:22.825Z"
-updated: "2026-01-26T16:42:22.825Z"
+updated: "2026-02-01T22:38:06.328Z"
 tags:
   - testing
   - parser

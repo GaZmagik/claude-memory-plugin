@@ -3,8 +3,9 @@ id: learning-retro-batch-memory-scope-moves-with-atomic-verification
 title: Retro - Batch memory scope moves with atomic verification
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T23:12:23.754Z"
-updated: "2026-01-16T23:12:23.754Z"
+updated: "2026-02-01T22:38:06.296Z"
 tags:
   - retrospective
   - process

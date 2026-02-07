@@ -3,8 +3,9 @@ id: artifact-phase3-avoid-list-extraction-pattern
 title: "Phase 3: Avoid-list extraction for agent diversity"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:46.354Z"
-updated: "2026-01-25T14:56:46.354Z"
+updated: "2026-02-01T22:38:06.518Z"
 tags:
   - phase3
   - auto-selection

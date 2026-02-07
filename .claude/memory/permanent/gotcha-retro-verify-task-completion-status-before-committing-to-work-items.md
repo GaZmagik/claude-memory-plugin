@@ -3,8 +3,9 @@ id: gotcha-retro-verify-task-completion-status-before-committing-to-work-items
 title: Retro - Verify task completion status before committing to work items
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T21:30:54.129Z"
-updated: "2026-01-17T21:30:54.129Z"
+updated: "2026-02-01T22:38:06.645Z"
 tags:
   - retrospective
   - process

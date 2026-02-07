@@ -3,8 +3,9 @@ id: gotcha-feature-and-core-hubs-detected-but-dont-exist-yet-linking-fails-silen
 title: Feature and core hubs detected but don't exist yet - linking fails silently
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T16:27:00.338Z"
-updated: "2026-01-25T16:27:00.338Z"
+updated: "2026-02-01T22:38:06.619Z"
 tags:
   - memory
   - hubs

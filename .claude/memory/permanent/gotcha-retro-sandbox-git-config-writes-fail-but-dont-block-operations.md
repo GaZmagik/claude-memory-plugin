@@ -3,8 +3,9 @@ id: gotcha-retro-sandbox-git-config-writes-fail-but-dont-block-operations
 title: Retro - Sandbox git config writes fail but don't block operations
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-22T08:24:52.596Z"
-updated: "2026-01-22T08:24:52.596Z"
+updated: "2026-02-01T22:38:06.664Z"
 tags:
   - retrospective
   - process

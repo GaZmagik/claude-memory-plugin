@@ -3,8 +3,9 @@ id: learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context
 title: Retro - Subagent delegation unlocks speckit workflows at high context
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:56:29.936Z"
-updated: "2026-01-25T09:56:29.936Z"
+updated: "2026-02-01T22:38:06.836Z"
 tags:
   - retrospective
   - speckit

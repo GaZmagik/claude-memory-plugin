@@ -41,6 +41,8 @@ export interface SyncRequest {
   basePath: string;
   /** Dry run - report changes without applying */
   dryRun?: boolean;
+  /** Agent name (for agent-scoped operations) */
+  agent?: string;
 }
 
 /**
@@ -139,7 +141,50 @@ function parseFileToIndexEntry(id: string, filePath: string): IndexEntry | null 
 }
 
 /**
- * Sync graph, index, and disk
+ * Reconciles the graph, index, embeddings, and disk to ensure consistency.
+ *
+ * This function performs a comprehensive synchronisation across all memory
+ * storage mechanisms:
+ *
+ * 1. Adds missing files to graph and index (files on disk not in metadata)
+ * 2. Removes ghost nodes (graph nodes without corresponding files)
+ * 3. Removes orphan edges (edges pointing to non-existent nodes)
+ * 4. Removes orphan index entries (index entries without files)
+ * 5. Removes orphan embedding entries (embeddings without files)
+ *
+ * Use this after manual file operations, sync failures, or when metadata
+ * becomes inconsistent with disk state.
+ *
+ * @param request - The sync request options
+ * @param request.basePath - The base path for memory storage
+ * @param request.dryRun - If true, reports changes without applying them
+ * @param request.agent - Optional agent name for agent-scoped operations
+ * @returns A promise resolving to a SyncResponse with details of all changes
+ *          made (or that would be made in dry run mode) and summary counts
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { syncMemories } from './maintenance/sync.js';
+ *
+ * // Preview sync changes
+ * const preview = await syncMemories({
+ *   basePath: '/project/.claude/memory',
+ *   dryRun: true,
+ * });
+ *
+ * console.log(`Would add ${preview.changes.addedToGraph.length} to graph`);
+ * console.log(`Would remove ${preview.changes.removedGhostNodes.length} ghost nodes`);
+ *
+ * // Apply sync
+ * const result = await syncMemories({
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * console.log(`Summary: ${result.summary.filesOnDisk} files, ` +
+ *             `${result.summary.nodesInGraph} nodes, ` +
+ *             `${result.summary.entriesInIndex} index entries`);
+ * ```
  */
 export async function syncMemories(request: SyncRequest): Promise<SyncResponse> {
   const { basePath, dryRun = false } = request;

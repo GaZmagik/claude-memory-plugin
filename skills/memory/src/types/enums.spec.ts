@@ -22,16 +22,18 @@ describe('MemoryType enum', () => {
 });
 
 describe('Scope enum', () => {
-  it('should have all 4 scope tiers', () => {
+  it('should have all 6 scope tiers', () => {
     expect(Scope.Enterprise).toBe('enterprise');
     expect(Scope.Local).toBe('local');
     expect(Scope.Project).toBe('project');
     expect(Scope.Global).toBe('global');
+    expect(Scope.AgentProject).toBe('agent-project');
+    expect(Scope.AgentGlobal).toBe('agent-global');
   });
 
-  it('should have exactly 4 scopes', () => {
+  it('should have exactly 6 scopes', () => {
     const scopes = Object.values(Scope);
-    expect(scopes).toHaveLength(4);
+    expect(scopes).toHaveLength(6);
   });
 });
 

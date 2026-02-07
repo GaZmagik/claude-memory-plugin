@@ -3,8 +3,9 @@ id: learning-retro-review-items-completed-efficiently-through-strategic-prioriti
 title: Retro - Review items completed efficiently through strategic prioritization
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T13:56:22.944Z"
-updated: "2026-01-18T13:56:22.944Z"
+updated: "2026-02-01T22:38:06.380Z"
 tags:
   - retrospective
   - prioritization

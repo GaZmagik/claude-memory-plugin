@@ -3,8 +3,9 @@ id: learning-retro-dependency-injection-for-stream-parameters-enables-better-tes
 title: Retro - Dependency injection for stream parameters enables better testability than global mocking
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T10:26:50.501Z"
-updated: "2026-01-17T10:26:50.501Z"
+updated: "2026-02-01T22:38:06.020Z"
 tags:
   - retrospective
   - process

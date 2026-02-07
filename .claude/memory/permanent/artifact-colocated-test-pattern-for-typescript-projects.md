@@ -3,8 +3,9 @@ id: artifact-colocated-test-pattern-for-typescript-projects
 title: Colocated Test Pattern for TypeScript Projects
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:13.916Z"
-updated: "2026-01-26T00:12:13.916Z"
+updated: "2026-02-01T22:38:06.304Z"
 tags:
   - testing
   - typescript

@@ -3,8 +3,9 @@ id: learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pol
 title: Retro - Mock.module isolation in separate spec files prevents test pollution while enabling comprehensive AI path coverage
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T19:39:21.033Z"
-updated: "2026-01-16T19:39:21.033Z"
+updated: "2026-02-01T22:38:06.998Z"
 tags:
   - retrospective
   - process

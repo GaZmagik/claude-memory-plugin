@@ -3,8 +3,9 @@ id: learning-requirements-checklist-validation-enforces-spec-quality-discipline
 title: Requirements checklist validation enforces spec quality discipline
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T23:43:10.329Z"
-updated: "2026-01-24T23:43:10.329Z"
+updated: "2026-02-01T22:38:06.381Z"
 tags:
   - checklist
   - validation

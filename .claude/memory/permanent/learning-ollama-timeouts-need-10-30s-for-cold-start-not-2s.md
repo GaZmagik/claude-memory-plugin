@@ -3,8 +3,9 @@ id: learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s
 title: Ollama timeouts need 10-30s for cold-start, not 2s
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T01:18:31.123Z"
-updated: "2026-01-28T01:18:31.123Z"
+updated: "2026-02-01T22:38:06.963Z"
 tags:
   - ollama
   - timeouts

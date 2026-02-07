@@ -3,8 +3,9 @@ id: learning-retro-specify-symlink-to-hybrid-structure-catches-misplaced-project
 title: Retro - .specify symlink-to-hybrid-structure catches misplaced project content early
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T18:12:12.589Z"
-updated: "2026-01-18T18:12:12.589Z"
+updated: "2026-02-01T22:38:06.638Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented
 title: Retro - SDD scaffolding stubs should be deleted, not implemented
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:01.899Z"
-updated: "2026-01-26T00:12:01.899Z"
+updated: "2026-02-01T22:38:06.938Z"
 tags:
   - retrospective
   - process

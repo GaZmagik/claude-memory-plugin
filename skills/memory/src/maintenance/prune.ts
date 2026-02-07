@@ -53,7 +53,48 @@ function isOlderThan(dateStr: string, days: number): boolean {
 }
 
 /**
- * Prune expired temporary memories
+ * Removes expired temporary memories based on configurable TTL (time-to-live) values.
+ *
+ * Temporary memories in the temporary/ directory are subject to automatic pruning.
+ * This includes think/thought documents which may have shorter TTLs once concluded.
+ * The function checks the most recent date (updated or created) against the TTL.
+ *
+ * TTL defaults:
+ * - Standard temporary memories: 7 days
+ * - Concluded think/thought documents: 1 day
+ *
+ * Pruning removes files from disk and cleans up associated graph nodes.
+ *
+ * @param request - The prune request options
+ * @param request.basePath - The base path for memory storage
+ * @param request.ttlDays - TTL in days for standard temporary memories (default: 7)
+ * @param request.concludedTtlDays - TTL in days for concluded think documents (default: 1)
+ * @param request.dryRun - If true, reports what would be deleted without deleting
+ * @returns A promise resolving to a PruneResponse with counts and lists of removed
+ *          memories, or what would be removed in dry run mode
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { pruneMemories } from './maintenance/prune.js';
+ *
+ * // Dry run to see what would be pruned
+ * const preview = await pruneMemories({
+ *   basePath: '/project/.claude/memory',
+ *   ttlDays: 14,
+ *   concludedTtlDays: 2,
+ *   dryRun: true,
+ * });
+ *
+ * console.log(`Would remove ${preview.wouldRemove?.length ?? 0} memories`);
+ *
+ * // Actually prune with default TTLs
+ * const result = await pruneMemories({
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * console.log(`Removed ${result.removed} expired memories`);
+ * ```
  */
 export async function pruneMemories(request: PruneRequest): Promise<PruneResponse> {
   const { basePath, dryRun = false } = request;

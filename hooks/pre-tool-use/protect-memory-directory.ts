@@ -13,6 +13,7 @@
  *   2 - Block the operation
  */
 
+import * as os from 'node:os';
 import { runHook, allow, block } from '../src/core/error-handler.ts';
 
 const PROTECTED_TOOLS = ['Write', 'Edit', 'MultiEdit'];
@@ -29,8 +30,8 @@ runHook(async (input) => {
     return allow();
   }
 
-  // Expand ~ to home directory
-  const home = process.env.HOME || '';
+  // Expand ~ to home directory (use os.homedir() for cross-platform compatibility)
+  const home = os.homedir();
   const expandedPath = filePath.replace(/^~/, home);
 
   // Check if path is in a .claude/memory/ directory

@@ -3,8 +3,9 @@ id: gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-ha
 title: Stream event listener cleanup race condition in subprocess timeout handlers
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T21:18:52.159Z"
-updated: "2026-01-25T21:18:52.159Z"
+updated: "2026-02-01T22:38:06.078Z"
 tags:
   - subprocess
   - streams

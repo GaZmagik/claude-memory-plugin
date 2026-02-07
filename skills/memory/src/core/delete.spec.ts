@@ -198,7 +198,6 @@ describe('deleteMemory', () => {
   });
 });
 
-import * as fs from 'node:fs';
 import * as graphModule from '../graph/structure.js';
 
 describe('deleteMemory embeddings cleanup', () => {
@@ -224,16 +223,15 @@ describe('deleteMemory embeddings cleanup', () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
     vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
-    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
+    vi.spyOn(fsUtils, 'deleteFile').mockResolvedValue(undefined);
     vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'removeNode').mockReturnValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'saveGraph').mockResolvedValue(undefined);
 
-    // Mock fs for embeddings cleanup
-    vi.spyOn(fs, 'existsSync').mockReturnValue(true);
-    vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(mockEmbeddings));
-    const writeFileSpy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+    // Mock async fs-utils for embeddings cleanup
+    vi.spyOn(fsUtils, 'readFile').mockResolvedValue(JSON.stringify(mockEmbeddings));
+    const writeFileSpy = vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
 
     const result = await deleteMemory({ id: mockId, basePath: mockBasePath });
 
@@ -251,17 +249,14 @@ describe('deleteMemory embeddings cleanup', () => {
     vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
     vi.spyOn(fsUtils, 'isInsideDir').mockReturnValue(true);
     vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
-    vi.spyOn(fsUtils, 'deleteFile').mockImplementation(async () => {});
+    vi.spyOn(fsUtils, 'deleteFile').mockResolvedValue(undefined);
     vi.spyOn(indexModule, 'removeFromIndex').mockResolvedValue(true);
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'removeNode').mockReturnValue({ version: 1, nodes: [], edges: [] });
     vi.spyOn(graphModule, 'saveGraph').mockResolvedValue(undefined);
 
-    // Mock embeddings to throw error
-    vi.spyOn(fs, 'existsSync').mockReturnValue(true);
-    vi.spyOn(fs, 'readFileSync').mockImplementation(() => {
-      throw new Error('Read failed');
-    });
+    // Mock async readFile to throw error
+    vi.spyOn(fsUtils, 'readFile').mockRejectedValue(new Error('Read failed'));
 
     const result = await deleteMemory({ id: mockId, basePath: mockBasePath });
 

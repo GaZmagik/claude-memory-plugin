@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type {
   ThinkCreateRequest,
   ThinkCreateResponse,
@@ -83,7 +84,7 @@ export async function createThinkDocument(
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
   const scope = request.scope ?? Scope.Project;
   const scopePath = resolveScopePath(scope, basePath, globalPath);
 
@@ -132,7 +133,7 @@ export async function listThinkDocuments(
   request: ThinkListRequest
 ): Promise<ThinkListResponse> {
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   const documents: ThinkDocumentSummary[] = [];
 
@@ -213,7 +214,7 @@ export async function showThinkDocument(
   request: ThinkShowRequest
 ): Promise<ThinkShowResponse> {
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   // Determine document ID and scope
   let documentId = request.documentId;
@@ -303,7 +304,7 @@ export async function deleteThinkDocument(
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
   const documentId = request.documentId;
 
   // Find the document in either scope

@@ -3,8 +3,9 @@ id: artifact-memory-system-architecture-reference
 title: Memory System Architecture Reference
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T11:31:30.029Z"
-updated: "2026-01-18T11:31:30.029Z"
+updated: "2026-02-01T22:38:06.450Z"
 tags:
   - architecture
   - memory

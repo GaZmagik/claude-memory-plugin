@@ -3,8 +3,9 @@ id: decision-output-styles-for-memory-assessment-agents
 title: Output styles for memory assessment agents
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T20:03:50.384Z"
-updated: "2026-01-24T20:03:50.384Z"
+updated: "2026-02-01T22:38:06.111Z"
 tags:
   - promoted-from-think
   - project

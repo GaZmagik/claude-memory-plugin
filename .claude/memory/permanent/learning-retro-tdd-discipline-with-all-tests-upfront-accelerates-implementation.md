@@ -3,8 +3,9 @@ id: learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementat
 title: Retro - TDD discipline with all tests upfront accelerates implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T13:30:49.523Z"
-updated: "2026-01-25T13:30:49.523Z"
+updated: "2026-02-01T22:38:06.479Z"
 tags:
   - retrospective
   - process

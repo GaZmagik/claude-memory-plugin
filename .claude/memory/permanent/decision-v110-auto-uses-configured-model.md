@@ -3,8 +3,9 @@ id: decision-v110-auto-uses-configured-model
 title: Auto-selection uses configured chat model from memory.local.md
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T22:32:01.930Z"
-updated: "2026-01-24T22:32:01.930Z"
+updated: "2026-02-01T22:38:06.279Z"
 tags:
   - v1.1.0
   - ollama

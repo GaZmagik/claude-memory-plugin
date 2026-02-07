@@ -3,8 +3,9 @@ id: gotcha-test-isolation-vitest-mock-pollution
 title: Test isolation - vitest mock pollution
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:47.403Z"
-updated: "2026-01-25T23:21:47.403Z"
+updated: "2026-02-01T22:38:06.080Z"
 tags:
   - testing
   - vitest

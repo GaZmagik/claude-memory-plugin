@@ -3,8 +3,9 @@ id: decision-embedding-context-limit-solution-for-memory-refresh-embeddings
 title: Embedding context limit solution for memory refresh --embeddings
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T18:18:23.348Z"
-updated: "2026-01-16T18:18:23.348Z"
+updated: "2026-02-01T22:38:06.270Z"
 tags:
   - promoted-from-think
   - embeddings

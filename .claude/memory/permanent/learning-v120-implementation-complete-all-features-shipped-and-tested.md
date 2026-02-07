@@ -3,8 +3,9 @@ id: learning-v120-implementation-complete-all-features-shipped-and-tested
 title: v1.2.0 implementation complete - all features shipped and tested
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:24:34.827Z"
-updated: "2026-01-30T17:24:34.827Z"
+updated: "2026-02-01T22:38:06.697Z"
 tags:
   - v1.2.0
   - release

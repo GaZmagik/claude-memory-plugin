@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../types/api.js';
 import type { IndexEntry } from '../types/memory.js';
@@ -26,6 +27,7 @@ import {
   type EmbeddingProvider,
 } from '../search/embedding.js';
 import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('write');
 
@@ -42,6 +44,10 @@ function getScopeTag(scope: Scope): string {
       return 'project';
     case Scope.Global:
       return 'user';
+    case Scope.AgentProject:
+      return 'agent-project';
+    case Scope.AgentGlobal:
+      return 'agent-global';
   }
 }
 
@@ -66,7 +72,7 @@ async function checkCrossScopeDuplicate(
   basePath: string,
   projectRoot?: string
 ): Promise<string | null> {
-  const homedir = process.env.HOME || process.env.USERPROFILE || '';
+  const homedir = os.homedir();
 
   // Paths to check for duplicates
   const pathsToCheck: string[] = [];
@@ -239,7 +245,70 @@ async function performAutoLink(
 }
 
 /**
- * Write a memory to disk
+ * Write a new memory or update an existing one.
+ *
+ * Creates a memory file with YAML frontmatter and markdown content, updates
+ * the index, adds a node to the relationship graph, and optionally generates
+ * embeddings for semantic search. Supports auto-linking to similar memories.
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: writes to project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: writes to user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - Write request containing memory data
+ * @param request.type - Memory type (learning, decision, gotcha, artifact, breadcrumb)
+ * @param request.title - Memory title (used for ID generation if no ID provided)
+ * @param request.content - Memory content in markdown format
+ * @param request.id - Optional custom ID (must start with type prefix, e.g., 'learning-...')
+ * @param request.tags - Optional array of tags (scope tag is added automatically)
+ * @param request.scope - Target scope (defaults to project)
+ * @param request.agent - Agent name (required for agent scopes)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.projectRoot - Project root for local scope gitignore handling
+ * @param request.severity - Optional severity level for gotchas
+ * @param request.links - Optional array of related memory IDs
+ * @param request.autoLink - Enable automatic linking to similar memories
+ * @param request.autoLinkThreshold - Similarity threshold for auto-linking (default 0.85)
+ * @param request.embeddingProvider - Provider for generating embeddings (optional)
+ *
+ * @returns {Promise<WriteMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `memory`: Object with id, filePath, frontmatter, scope, and agent
+ *   - `autoLinked`: Number of auto-created links (if autoLink enabled)
+ *   - `similarTitles`: Array of similar existing memories (warning)
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Write a basic learning memory
+ * const result = await writeMemory({
+ *   type: MemoryType.Learning,
+ *   title: 'TypeScript Generics Best Practices',
+ *   content: '## Key Points\n\n- Use constraints to limit type parameters...',
+ *   tags: ['typescript', 'generics'],
+ *   scope: Scope.Project,
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Created memory: ${result.memory.id}`);
+ * }
+ *
+ * @example
+ * // Write a gotcha with auto-linking enabled
+ * const result = await writeMemory({
+ *   type: MemoryType.Gotcha,
+ *   title: 'Async Iterator Cleanup',
+ *   content: 'Always use try/finally with async iterators...',
+ *   severity: 'high',
+ *   scope: Scope.AgentProject,
+ *   agent: 'async-expert',
+ *   autoLink: true,
+ *   embeddingProvider: ollamaProvider
+ * });
  */
 export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMemoryResponse> {
   // Validate request
@@ -253,7 +322,50 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && isAgentScope(request.scope)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    // Sanitise agent name first
+    const { sanitiseAgentName } = await import('../scope/sanitise-agent-name.js');
+    const sanitisedAgent = sanitiseAgentName(request.agent);
+
+    // Then validate the sanitised name
+    const { validateAgentName } = await import('../scope/validate-agent-name.js');
+    const validation = validateAgentName(sanitisedAgent);
+    if (!validation.valid) {
+      return {
+        status: 'error',
+        error: validation.error ?? 'Invalid agent name',
+      };
+    }
+
+    // Use sanitised agent name from now on
+    request.agent = sanitisedAgent;
+
+    const { createAgentDirectory } = await import('../storage/create-agent-directory.js');
+    const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
+    // For global agent scope, we need to construct the global path
+    // This should come from a config or default location
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
+
+    basePath = await createAgentDirectory(
+      request.scope,
+      request.agent,
+      projectRoot,
+      globalRoot
+    );
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     // Ensure directory exists
@@ -298,18 +410,21 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Merge user tags with auto-generated scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);
 
-    // Create frontmatter with id, scope, and project
+    // Create frontmatter with id, scope, agent, and project
     const frontmatter = createFrontmatter({
       id,
       type: request.type,
       title: request.title,
       tags,
       scope: request.scope,
+      agent: request.agent,
       project: request.project,
       severity: request.severity,
       links: request.links?.map(unsafeAsMemoryId),
       source: request.source,
       meta: request.meta,
+      created: request.created,
+      updated: request.updated,
     });
 
     // Serialise to file content
@@ -345,7 +460,13 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     try {
       let graph = await loadGraph(basePath);
       if (!hasNode(graph, id)) {
-        graph = addNode(graph, { id, type: request.type });
+        graph = addNode(graph, {
+          id,
+          type: request.type,
+          title: request.title,
+          scope: request.scope,
+          agent: request.agent,
+        });
         await saveGraph(basePath, graph);
       }
     } catch {
@@ -380,6 +501,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
         filePath,
         frontmatter,
         scope: request.scope,
+        agent: request.agent,
       },
       autoLinked,
       similarTitles: similarTitles.length > 0 ? similarTitles : undefined,

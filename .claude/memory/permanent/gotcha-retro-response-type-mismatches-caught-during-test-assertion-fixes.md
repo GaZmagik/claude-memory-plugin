@@ -3,8 +3,9 @@ id: gotcha-retro-response-type-mismatches-caught-during-test-assertion-fixes
 title: Retro - Response type mismatches caught during test assertion fixes
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T12:15:45.018Z"
-updated: "2026-01-18T12:15:45.018Z"
+updated: "2026-02-01T22:38:06.295Z"
 tags:
   - retrospective
   - process

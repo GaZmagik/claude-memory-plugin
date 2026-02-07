@@ -6,6 +6,9 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { cmdHealth, cmdValidate, cmdQuality, cmdAudit, cmdAuditQuick } from './quality.js';
 import * as healthModule from '../../quality/health.js';
 import * as assessModule from '../../quality/assess.js';
+import * as structureModule from '../../graph/structure.js';
+import * as edgesModule from '../../graph/edges.js';
+import * as indexModule from '../../core/index.js';
 import type { ParsedArgs } from '../parser.js';
 
 describe('cmdHealth', () => {
@@ -13,25 +16,43 @@ describe('cmdHealth', () => {
     vi.restoreAllMocks();
   });
 
-  it('calls checkHealth and returns report', async () => {
+  it('calls checkHealth and returns rich health report', async () => {
     vi.spyOn(healthModule, 'checkHealth').mockResolvedValue({
       status: 'healthy',
       score: 85,
       issues: [],
     } as any);
-    vi.spyOn(healthModule, 'formatHealthReport').mockReturnValue('Health: OK');
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1,
+      nodes: [{ id: 'a' }, { id: 'b' }],
+      edges: [{ source: 'a', target: 'b', label: 'relates-to' }],
+    } as any);
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      memories: [{ id: 'a' }, { id: 'b' }],
+    } as any);
+    vi.spyOn(edgesModule, 'findOrphanedNodes').mockReturnValue([]);
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdHealth(args);
 
     expect(result.status).toBe('success');
     expect(healthModule.checkHealth).toHaveBeenCalled();
-    expect(result.data).toHaveProperty('formatted');
+    expect(result.data).toHaveProperty('score');
+    expect(result.data).toHaveProperty('status');
+    expect(result.data).toHaveProperty('scoreBreakdown');
   });
 
   it('respects scope positional arg', async () => {
-    vi.spyOn(healthModule, 'checkHealth').mockResolvedValue({} as any);
-    vi.spyOn(healthModule, 'formatHealthReport').mockReturnValue('');
+    vi.spyOn(healthModule, 'checkHealth').mockResolvedValue({
+      score: 100, issues: [],
+    } as any);
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1, nodes: [], edges: [],
+    } as any);
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      memories: [],
+    } as any);
+    vi.spyOn(edgesModule, 'findOrphanedNodes').mockReturnValue([]);
 
     const args: ParsedArgs = { positional: ['local'], flags: {} };
     await cmdHealth(args);

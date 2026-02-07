@@ -3,8 +3,9 @@ id: decision-defer-low-severity-security-issues-v1.1.0
 title: Defer low-severity security issues to future release
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T20:51:24.337Z"
-updated: "2026-01-25T20:51:24.337Z"
+updated: "2026-02-01T22:38:06.170Z"
 tags:
   - security
   - deferral

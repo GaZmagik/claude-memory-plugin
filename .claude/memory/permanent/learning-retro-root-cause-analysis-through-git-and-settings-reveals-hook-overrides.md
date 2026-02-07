@@ -3,8 +3,9 @@ id: learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-ove
 title: Retro - Root cause analysis through git and settings reveals hook overrides
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T17:17:21.349Z"
-updated: "2026-01-17T17:22:14.120Z"
+updated: "2026-02-01T22:38:06.663Z"
 tags:
   - retrospective
   - process

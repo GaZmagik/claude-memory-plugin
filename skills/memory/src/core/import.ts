@@ -14,9 +14,9 @@ import type {
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { writeMemory } from './write.js';
-import { linkMemories } from '../graph/link.js';
 import { createLogger } from './logger.js';
 import { isValidExportPackage } from './validation.js';
+import { linkMemories } from '../graph/link.js';
 
 const log = createLogger('import');
 
@@ -45,7 +45,70 @@ function sanitiseObject<T>(obj: T): T {
 }
 
 /**
- * Import memories from export package
+ * Import memories from an export package (JSON or YAML).
+ *
+ * Parses and validates the import data, then writes each memory to the target
+ * scope. Supports three conflict resolution strategies:
+ * - `skip`: Keep existing memories, skip imports that conflict
+ * - `merge`: Update only if imported version is newer
+ * - `replace`: Always overwrite existing memories
+ *
+ * Also restores graph relationships if the export package includes them.
+ *
+ * @param request - Import request containing the data and options
+ * @param request.data - Pre-parsed {@link ExportPackage} object (optional)
+ * @param request.raw - Raw JSON or YAML string to parse (optional, one of data/raw required)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.targetScope - Scope to import into (overrides memory scopes)
+ * @param request.agent - Agent name for agent-scoped imports
+ * @param request.projectRoot - Project root for path resolution
+ * @param request.globalRoot - Global root for path resolution
+ * @param request.strategy - Conflict strategy: 'skip', 'merge', or 'replace' (default 'merge')
+ * @param request.dryRun - If true, validate without writing (default false)
+ *
+ * @returns {Promise<ImportMemoriesResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `importedCount`: Number of memories successfully imported
+ *   - `mergedCount`: Number of memories updated via merge strategy
+ *   - `skippedCount`: Number of memories skipped due to conflicts
+ *   - `replacedCount`: Number of memories overwritten
+ *   - `failures`: Array of {id, reason} for failed imports (optional)
+ *   - `dryRun`: Whether this was a dry run
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Import from JSON string with merge strategy
+ * const jsonData = await fs.readFile('backup.json', 'utf-8');
+ * const result = await importMemories({
+ *   raw: jsonData,
+ *   basePath: '/path/to/project/.claude/memory',
+ *   strategy: 'merge'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Imported: ${result.importedCount}`);
+ *   console.log(`Merged: ${result.mergedCount}`);
+ *   console.log(`Skipped: ${result.skippedCount}`);
+ * }
+ *
+ * @example
+ * // Dry run to preview import results
+ * const result = await importMemories({
+ *   raw: yamlData,
+ *   basePath: '/path/to/project/.claude/memory',
+ *   dryRun: true
+ * });
+ * console.log(`Would import ${result.importedCount} memories`);
+ *
+ * @example
+ * // Import into an agent's scope with replace strategy
+ * const result = await importMemories({
+ *   data: exportPackage,
+ *   targetScope: Scope.AgentProject,
+ *   agent: 'typescript-expert',
+ *   strategy: 'replace'
+ * });
  */
 export async function importMemories(
   request: ImportMemoriesRequest
@@ -137,6 +200,13 @@ export async function importMemories(
         content: memory.content,
         tags: memory.frontmatter.tags,
         scope,
+        agent: request.agent,
+        projectRoot: request.projectRoot,
+        globalRoot: request.globalRoot,
+        created: memory.frontmatter.created,
+        updated: memory.frontmatter.updated,
+        links: memory.frontmatter.links,
+        severity: memory.frontmatter.severity,
         basePath,
       });
 

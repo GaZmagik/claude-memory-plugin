@@ -3,8 +3,9 @@ id: gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users
 title: Retro - Marketplace plugin lacks node_modules - breaks for users
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:33:27.522Z"
-updated: "2026-01-26T22:33:27.522Z"
+updated: "2026-02-01T22:38:06.928Z"
 tags:
   - retrospective
   - marketplace

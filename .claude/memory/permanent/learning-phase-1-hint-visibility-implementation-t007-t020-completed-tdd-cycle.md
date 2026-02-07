@@ -3,8 +3,9 @@ id: learning-phase-1-hint-visibility-implementation-t007-t020-completed-tdd-cycl
 title: Phase 1 hint visibility implementation (T007-T020) completed TDD cycle
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:22:45.160Z"
-updated: "2026-01-25T12:22:45.160Z"
+updated: "2026-02-01T22:38:06.597Z"
 tags:
   - tdd
   - testing

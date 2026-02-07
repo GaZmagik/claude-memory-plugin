@@ -3,8 +3,9 @@ id: learning-three-agent-parallel-restoration-pattern-successful-for-post-compac
 title: Three-agent parallel restoration pattern successful for post-compaction context recovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:37:45.817Z"
-updated: "2026-01-25T12:37:45.817Z"
+updated: "2026-02-01T22:38:05.986Z"
 tags:
   - memory-system
   - session-restoration

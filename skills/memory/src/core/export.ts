@@ -21,7 +21,58 @@ const log = createLogger('export');
 const EXPORT_VERSION = '1.0.0';
 
 /**
- * Export memories to a portable format
+ * Export memories to a portable format (JSON or YAML).
+ *
+ * Reads memories matching the specified filters and packages them into a
+ * self-contained export format that includes frontmatter, content, and
+ * optionally the relationship graph. The export can be used for backup,
+ * sharing, or importing into another memory store.
+ *
+ * @param request - Export request containing filters and format options
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.format - Output format: 'json' or 'yaml' (defaults to 'json')
+ * @param request.type - Optional filter by memory type
+ * @param request.scope - Optional filter by scope
+ * @param request.tags - Optional filter by tags (AND logic)
+ * @param request.includeGraph - Include relationship graph nodes and edges (default false)
+ *
+ * @returns {Promise<ExportMemoriesResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `data`: The {@link ExportPackage} object
+ *   - `serialised`: The export as a formatted string (JSON or YAML)
+ *   - `count`: Number of memories exported
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Export all memories to JSON
+ * const result = await exportMemories({
+ *   basePath: '/path/to/project/.claude/memory',
+ *   format: 'json',
+ *   includeGraph: true
+ * });
+ * if (result.status === 'success') {
+ *   await fs.writeFile('backup.json', result.serialised);
+ *   console.log(`Exported ${result.count} memories`);
+ * }
+ *
+ * @example
+ * // Export only gotchas to YAML
+ * const result = await exportMemories({
+ *   basePath: '/path/to/project/.claude/memory',
+ *   format: 'yaml',
+ *   type: MemoryType.Gotcha,
+ *   scope: Scope.Project
+ * });
+ *
+ * @example
+ * // Export memories with specific tags
+ * const result = await exportMemories({
+ *   basePath: '/path/to/project/.claude/memory',
+ *   tags: ['typescript', 'critical'],
+ *   includeGraph: true
+ * });
  */
 export async function exportMemories(
   request: ExportMemoriesRequest
@@ -47,6 +98,14 @@ export async function exportMemories(
         sourceScope: request.scope,
         memories: [],
       };
+
+      // Include empty graph if requested (no memories = no nodes/edges to export)
+      if (request.includeGraph) {
+        emptyPackage.graph = {
+          nodes: [],
+          edges: [],
+        };
+      }
 
       return {
         status: 'success',

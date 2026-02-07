@@ -3,8 +3,9 @@ id: gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users
 title: Retro - Hook timeouts were too aggressive (2s), broke Ollama for users
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:33:27.355Z"
-updated: "2026-01-26T22:33:27.355Z"
+updated: "2026-02-01T22:38:06.595Z"
 tags:
   - retrospective
   - hooks

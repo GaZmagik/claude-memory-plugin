@@ -3,8 +3,9 @@ id: gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-
 title: Retro - Spec review discovered 59 TypeScript compilation errors at end-of-phase
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T17:46:04.250Z"
-updated: "2026-01-16T17:46:04.250Z"
+updated: "2026-02-01T22:38:06.017Z"
 tags:
   - retrospective
   - process

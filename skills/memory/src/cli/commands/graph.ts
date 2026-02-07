@@ -10,15 +10,20 @@ import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { linkMemories, unlinkMemories } from '../../graph/link.js';
-import { loadGraph, saveGraph, removeNode } from '../../graph/structure.js';
+import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
 
 /**
  * link - Create a relationship between memories
  *
- * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>]
+ * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>] [--agent <name>] [--target-agent <name>]
+ *
+ * Cross-scope scenarios:
+ *   --agent only:         source in agent scope, target in project scope
+ *   --target-agent only:  source in project scope, target in agent scope
+ *   --agent + --target-agent: source in agent scope, target in different agent scope
  */
 export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -28,13 +33,58 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const agentName = getFlagString(args.flags, 'agent');
+  const targetAgentName = getFlagString(args.flags, 'target-agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
   const relation = getFlagString(args.flags, 'relation');
+
+  // Detect cross-scope: --agent XOR --target-agent, or both with different values
+  const isCrossScope = (agentName && !targetAgentName) ||
+    (!agentName && targetAgentName) ||
+    (agentName && targetAgentName && agentName !== targetAgentName);
+
+  if (isCrossScope) {
+    // Resolve source base path
+    const sourceBasePath = agentName
+      ? resolveAgentScopePath(agentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    // Resolve target base path
+    const targetBasePath = targetAgentName
+      ? resolveAgentScopePath(targetAgentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    const sourceScope = agentName ? 'agent-project' : 'project';
+    const targetScope = targetAgentName ? 'agent-project' : 'project';
+
+    return wrapOperation(
+      async () => {
+        const result = await linkMemories({
+          source,
+          target,
+          relation,
+          basePath: sourceBasePath,
+          agent: agentName,
+          targetAgent: targetAgentName,
+          targetBasePath,
+          sourceScope,
+          targetScope,
+          sourceAgent: agentName,
+        });
+        return result;
+      },
+      `Linked ${source} -> ${target} (cross-scope)`
+    );
+  }
+
+  // Same-scope linking (existing behaviour)
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await linkMemories({ source, target, relation, basePath });
+      const result = await linkMemories({ source, target, relation, basePath, agent: agentName });
       return result;
     },
     `Linked ${source} -> ${target}`
@@ -44,7 +94,7 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
 /**
  * unlink - Remove a relationship between memories
  *
- * Usage: memory unlink <from> <to> [--scope <scope>]
+ * Usage: memory unlink <from> <to> [--scope <scope>] [--agent <name>] [--target-agent <name>]
  */
 export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -54,12 +104,48 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const agentName = getFlagString(args.flags, 'agent');
+  const targetAgentName = getFlagString(args.flags, 'target-agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Detect cross-scope
+  const isCrossScope = (agentName && !targetAgentName) ||
+    (!agentName && targetAgentName) ||
+    (agentName && targetAgentName && agentName !== targetAgentName);
+
+  if (isCrossScope) {
+    const sourceBasePath = agentName
+      ? resolveAgentScopePath(agentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    const targetBasePath = targetAgentName
+      ? resolveAgentScopePath(targetAgentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    return wrapOperation(
+      async () => {
+        const result = await unlinkMemories({
+          source,
+          target,
+          basePath: sourceBasePath,
+          agent: agentName,
+          targetAgent: targetAgentName,
+          targetBasePath,
+        });
+        return result;
+      },
+      `Unlinked ${source} -> ${target} (cross-scope)`
+    );
+  }
+
+  // Same-scope unlinking (existing behaviour)
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await unlinkMemories({ source, target, basePath });
+      const result = await unlinkMemories({ source, target, basePath, agent: agentName });
       return result;
     },
     `Unlinked ${source} -> ${target}`
@@ -69,7 +155,7 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
 /**
  * edges - Show inbound and outbound edges for a node
  *
- * Usage: memory edges <id> [--scope <scope>]
+ * Usage: memory edges <id> [--scope <scope>] [--agent <name>] [--include-shared]
  */
 export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -78,12 +164,24 @@ export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const graph = await loadGraph(basePath);
+      const graph = (includeShared && agentName)
+        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        : await loadGraph(basePath);
       const inbound = getInboundEdges(graph, id);
       const outbound = getOutboundEdges(graph, id);
       return {
@@ -120,7 +218,7 @@ export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
 /**
  * mermaid - Generate Mermaid diagram of memory graph
  *
- * Usage: memory mermaid [scope] [--all] [--hub <id>] [--depth <n>] [--direction <TB|LR>] [--output <path>]
+ * Usage: memory mermaid [scope] [--all] [--hub <id>] [--depth <n>] [--direction <TB|LR>] [--output <path>] [--agent <name>] [--include-shared]
  *
  * Options:
  *   --all            Show full graph (default: hub-focused view)
@@ -129,11 +227,26 @@ export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
  *   --direction      Layout direction: TB, TD, LR, RL (default: TB)
  *   --output <path>  Output file path (default: .claude/memory/graph.md)
  *   --show-type      Include node type in labels
+ *   --agent <name>   Filter to specific agent's memories
+ *   --include-shared Include shared memories (requires --agent)
  */
 export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
-  const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Parse agent flag
+  const agentName = getFlagString(args.flags, 'agent');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  // Validate --include-shared requires --agent
+  if (includeShared && !agentName) {
+    return { status: 'error', error: 'Error: --include-shared requires --agent flag' };
+  }
+
+  // Determine base path based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   // Parse flags
   const directionRaw = getFlagString(args.flags, 'direction') ?? 'TB';
@@ -152,16 +265,33 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      const graph = await loadGraph(basePath);
+      // When --include-shared, merge all scope graphs via loadMergedGraph
+      let graph = (includeShared && agentName)
+        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        : await loadGraph(basePath);
 
       // Generate mermaid with new options
+      const showAgentNames = getFlagBool(args.flags, 'show-agent-names');
+      const filterLinked = getFlagBool(args.flags, 'filter-linked');
+      const showScope = getFlagBool(args.flags, 'show-scope');
+      const legend = getFlagBool(args.flags, 'legend');
+      // abbreviateLabels defaults to true; only disable if --abbreviate false explicitly
+      const abbreviateLabels = args.flags['abbreviate'] === false || args.flags['abbreviate'] === 'false'
+        ? false
+        : true;
       const mermaidContent = generateMermaid(graph, {
         direction,
         showType,
         showAll,
         fromNode: hubId,
         depth,
-        abbreviateLabels: true,
+        abbreviateLabels,
+        agent: agentName,
+        includeShared,
+        filterLinked,
+        includeAgentNames: showAgentNames,
+        showScope,
+        legend,
       });
 
       // Wrap in markdown code fence
@@ -172,11 +302,16 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
         ? (outputPath.endsWith('.md') ? outputPath : `${outputPath}.md`)
         : path.join(basePath, 'graph.md');
 
-      // Write to file
+      // Write to file (ensure directory exists)
       const fs = await import('node:fs');
+      const outputDir = path.dirname(finalPath);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
       fs.writeFileSync(finalPath, markdownOutput);
 
       return {
+        diagram: markdownOutput,
         saved: finalPath,
         nodes: graph.nodes.length,
         edges: graph.edges.length,

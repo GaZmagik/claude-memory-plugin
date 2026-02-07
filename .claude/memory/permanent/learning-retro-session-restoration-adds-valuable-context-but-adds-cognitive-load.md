@@ -3,8 +3,9 @@ id: learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-
 title: Retro - Session restoration adds valuable context but adds cognitive load
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T02:32:25.941Z"
-updated: "2026-01-18T02:32:25.941Z"
+updated: "2026-02-01T22:38:06.200Z"
 tags:
   - retrospective
   - process

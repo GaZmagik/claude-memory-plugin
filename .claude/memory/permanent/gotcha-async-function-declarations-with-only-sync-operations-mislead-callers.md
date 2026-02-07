@@ -3,8 +3,9 @@ id: gotcha-async-function-declarations-with-only-sync-operations-mislead-callers
 title: Async function declarations with only sync operations mislead callers
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T20:51:29.469Z"
-updated: "2026-01-25T20:51:29.469Z"
+updated: "2026-02-01T22:38:06.611Z"
 tags:
   - typescript
   - async

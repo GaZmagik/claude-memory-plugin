@@ -3,8 +3,9 @@ id: artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test
 title: "Spec remediation pattern: analyze → decide → FR → test"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T23:43:26.020Z"
-updated: "2026-01-24T23:43:26.020Z"
+updated: "2026-02-01T22:38:06.381Z"
 tags:
   - speckit
   - pattern

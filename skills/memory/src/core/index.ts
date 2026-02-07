@@ -22,14 +22,42 @@ const INDEX_VERSION = '1.0.0';
 const INDEX_FILENAME = 'index.json';
 
 /**
- * Get the path to the index file
+ * Constructs the full filesystem path to the index.json file.
+ *
+ * The index file is always named 'index.json' and is located at the root
+ * of the memory base directory.
+ *
+ * @param basePath - The base directory path where memory files are stored
+ * @returns The absolute path to the index.json file
+ *
+ * @example
+ * ```typescript
+ * const indexPath = getIndexPath('/home/user/.claude/memory');
+ * // Returns: '/home/user/.claude/memory/index.json'
+ * ```
  */
 export function getIndexPath(basePath: string): string {
   return path.join(basePath, INDEX_FILENAME);
 }
 
 /**
- * Create an empty index
+ * Creates a new, empty memory index with default values.
+ *
+ * The returned index has the current version, a timestamp of creation,
+ * and an empty memories array. This is used when no index file exists
+ * or when the existing index is corrupted.
+ *
+ * @returns A new MemoryIndex object with version, lastUpdated timestamp, and empty memories array
+ *
+ * @example
+ * ```typescript
+ * const emptyIndex = createEmptyIndex();
+ * // Returns: {
+ * //   version: '1.0.0',
+ * //   lastUpdated: '2026-02-07T19:00:00.000Z',
+ * //   memories: []
+ * // }
+ * ```
  */
 export function createEmptyIndex(): MemoryIndex {
   return {
@@ -62,7 +90,26 @@ function migrateIndexEntry(entry: IndexEntry & { file?: string }, basePath: stri
 }
 
 /**
- * Load the index from disk
+ * Loads the memory index from disk, handling migration and validation.
+ *
+ * This function reads the index.json file from the specified base path,
+ * validates its structure, and migrates any legacy entries that use the
+ * old 'file' field to the new 'relativePath' format. If the index file
+ * does not exist or is invalid, an empty index is returned.
+ *
+ * @param request - The load request containing optional basePath (defaults to cwd)
+ * @param request.basePath - Optional base directory path; defaults to process.cwd()
+ * @returns Promise resolving to the loaded MemoryIndex, or an empty index if not found/invalid
+ *
+ * @example
+ * ```typescript
+ * // Load from default location
+ * const index = await loadIndex({});
+ *
+ * // Load from specific path
+ * const index = await loadIndex({ basePath: '/home/user/.claude/memory' });
+ * console.log(`Found ${index.memories.length} memories`);
+ * ```
  */
 export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex> {
   const basePath = request.basePath ?? process.cwd();
@@ -95,7 +142,22 @@ export async function loadIndex(request: LoadIndexRequest): Promise<MemoryIndex>
 }
 
 /**
- * Save the index to disk
+ * Persists the memory index to disk as index.json.
+ *
+ * Updates the lastUpdated timestamp before saving. The index is written
+ * as formatted JSON to the index.json file in the base directory.
+ *
+ * @param basePath - The base directory path where the index file will be saved
+ * @param index - The MemoryIndex object to persist
+ * @returns Promise that resolves when the file has been written
+ * @throws May throw filesystem errors if the directory doesn't exist or isn't writable
+ *
+ * @example
+ * ```typescript
+ * const index = await loadIndex({ basePath: '/home/user/.claude/memory' });
+ * index.memories.push(newEntry);
+ * await saveIndex('/home/user/.claude/memory', index);
+ * ```
  */
 export async function saveIndex(basePath: string, index: MemoryIndex): Promise<void> {
   const indexPath = getIndexPath(basePath);
@@ -105,7 +167,30 @@ export async function saveIndex(basePath: string, index: MemoryIndex): Promise<v
 }
 
 /**
- * Add an entry to the index
+ * Adds or updates an entry in the memory index.
+ *
+ * If an entry with the same ID already exists, it is replaced with the new entry.
+ * The index is automatically saved to disk after the operation.
+ *
+ * @param basePath - The base directory path where the index file is located
+ * @param entry - The IndexEntry to add or update in the index
+ * @returns Promise that resolves when the entry has been added and index saved
+ * @throws May throw filesystem errors if the index cannot be read or written
+ *
+ * @example
+ * ```typescript
+ * const entry: IndexEntry = {
+ *   id: 'learning-typescript-generics' as MemoryId,
+ *   type: 'learning',
+ *   title: 'TypeScript Generics Best Practices',
+ *   tags: ['typescript', 'generics'],
+ *   created: new Date().toISOString(),
+ *   updated: new Date().toISOString(),
+ *   scope: Scope.Global,
+ *   relativePath: 'permanent/learning-typescript-generics.md'
+ * };
+ * await addToIndex('/home/user/.claude/memory', entry);
+ * ```
  */
 export async function addToIndex(basePath: string, entry: IndexEntry): Promise<void> {
   const index = await loadIndex({ basePath });
@@ -121,7 +206,28 @@ export async function addToIndex(basePath: string, entry: IndexEntry): Promise<v
 }
 
 /**
- * Remove an entry from the index
+ * Removes an entry from the memory index by its ID.
+ *
+ * Searches for an entry with the matching ID and removes it from the index.
+ * The index is only saved if an entry was actually removed.
+ *
+ * @param basePath - The base directory path where the index file is located
+ * @param id - The unique identifier of the memory entry to remove
+ * @returns Promise resolving to true if an entry was removed, false if no matching entry was found
+ * @throws May throw filesystem errors if the index cannot be read or written
+ *
+ * @example
+ * ```typescript
+ * const wasRemoved = await removeFromIndex(
+ *   '/home/user/.claude/memory',
+ *   'learning-typescript-generics'
+ * );
+ * if (wasRemoved) {
+ *   console.log('Entry removed successfully');
+ * } else {
+ *   console.log('Entry not found in index');
+ * }
+ * ```
  */
 export async function removeFromIndex(basePath: string, id: string): Promise<boolean> {
   const index = await loadIndex({ basePath });
@@ -139,7 +245,25 @@ export async function removeFromIndex(basePath: string, id: string): Promise<boo
 }
 
 /**
- * Find an entry in the index by ID
+ * Searches for a memory entry in the index by its unique ID.
+ *
+ * Loads the index and performs a linear search for an entry with the matching ID.
+ *
+ * @param basePath - The base directory path where the index file is located
+ * @param id - The unique identifier of the memory entry to find
+ * @returns Promise resolving to the IndexEntry if found, or null if not found
+ *
+ * @example
+ * ```typescript
+ * const entry = await findInIndex(
+ *   '/home/user/.claude/memory',
+ *   'gotcha-async-cleanup'
+ * );
+ * if (entry) {
+ *   console.log(`Found: ${entry.title}`);
+ *   console.log(`Tags: ${entry.tags.join(', ')}`);
+ * }
+ * ```
  */
 export async function findInIndex(basePath: string, id: string): Promise<IndexEntry | null> {
   const index = await loadIndex({ basePath });
@@ -147,8 +271,29 @@ export async function findInIndex(basePath: string, id: string): Promise<IndexEn
 }
 
 /**
- * Batch remove entries from the index (single load/save cycle)
- * Returns count of entries actually removed
+ * Removes multiple entries from the index in a single operation.
+ *
+ * This is more efficient than calling removeFromIndex multiple times as it
+ * performs only one load/save cycle regardless of how many entries are removed.
+ * The index is only saved if at least one entry was removed.
+ *
+ * @param basePath - The base directory path where the index file is located
+ * @param ids - Array of unique identifiers of the memory entries to remove
+ * @returns Promise resolving to the count of entries that were actually removed
+ *
+ * @example
+ * ```typescript
+ * const idsToRemove = [
+ *   'thought-session-123',
+ *   'thought-session-456',
+ *   'thought-session-789'
+ * ];
+ * const removedCount = await batchRemoveFromIndex(
+ *   '/home/user/.claude/memory',
+ *   idsToRemove
+ * );
+ * console.log(`Removed ${removedCount} of ${idsToRemove.length} entries`);
+ * ```
  */
 export async function batchRemoveFromIndex(basePath: string, ids: string[]): Promise<number> {
   if (ids.length === 0) return 0;
@@ -203,7 +348,44 @@ function createIndexEntry(
 }
 
 /**
- * Rebuild the index from filesystem
+ * Rebuilds the memory index by scanning the filesystem for memory files.
+ *
+ * Scans the 'permanent/' and 'temporary/' subdirectories for markdown files,
+ * parses their frontmatter, and creates a fresh index. Also detects orphaned
+ * index entries (entries pointing to non-existent files) and memories that
+ * are missing embeddings.
+ *
+ * This operation is useful for:
+ * - Recovering from index corruption
+ * - Synchronising the index after manual file changes
+ * - Detecting missing embeddings that need regeneration
+ *
+ * @param request - The rebuild request containing optional basePath
+ * @param request.basePath - Optional base directory path; defaults to process.cwd()
+ * @returns Promise resolving to RebuildIndexResponse with statistics about the rebuild
+ * @returns response.status - 'success' or 'error'
+ * @returns response.entriesCount - Total number of entries in the rebuilt index
+ * @returns response.orphansRemoved - Count of stale entries that were in the old index but not on disk
+ * @returns response.newEntriesAdded - Count of new entries found on disk but not in old index
+ * @returns response.missingEmbeddings - Count of permanent memories without embeddings
+ * @returns response.error - Error message if status is 'error'
+ *
+ * @example
+ * ```typescript
+ * const result = await rebuildIndex({ basePath: '/home/user/.claude/memory' });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`Index rebuilt: ${result.entriesCount} entries`);
+ *   console.log(`Orphans removed: ${result.orphansRemoved}`);
+ *   console.log(`New entries: ${result.newEntriesAdded}`);
+ *
+ *   if (result.missingEmbeddings && result.missingEmbeddings > 0) {
+ *     console.log(`Run 'memory refresh --embeddings' to generate ${result.missingEmbeddings} embeddings`);
+ *   }
+ * } else {
+ *   console.error(`Rebuild failed: ${result.error}`);
+ * }
+ * ```
  */
 export async function rebuildIndex(request: RebuildIndexRequest): Promise<RebuildIndexResponse> {
   const basePath = request.basePath ?? process.cwd();

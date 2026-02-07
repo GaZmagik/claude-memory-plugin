@@ -3,8 +3,9 @@ id: gotcha-retro-sessionstart-hook-message-visibility-requires-exit-code-2-not-0
 title: Retro - SessionStart hook message visibility requires exit code 2, not 0 or 1
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T17:17:27.255Z"
-updated: "2026-01-17T17:22:17.096Z"
+updated: "2026-02-01T22:38:05.902Z"
 tags:
   - retrospective
   - hooks

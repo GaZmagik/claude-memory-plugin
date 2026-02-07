@@ -4,14 +4,19 @@
  * API layer for semantic search operations.
  */
 
+import * as path from 'node:path';
+import * as os from 'node:os';
 import type {
   SemanticSearchRequest,
   SemanticSearchResponse,
   SemanticSearchResultItem,
 } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { semanticSearch } from '../search/semantic.js';
 import type { EmbeddingProvider } from '../search/embedding.js';
 import { createLogger } from './logger.js';
+import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('semantic-search');
 
@@ -29,8 +34,32 @@ export async function semanticSearchMemories(
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
   const provider = request.provider as EmbeddingProvider;
+
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && isAgentScope(request.scope)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
+
+    basePath = getAgentDirectoryPath({
+      scope: request.scope,
+      agentName: request.agent,
+      projectRoot,
+      globalRoot,
+    });
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   if (!provider) {
     return {

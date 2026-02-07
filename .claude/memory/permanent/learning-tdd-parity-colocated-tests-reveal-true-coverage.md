@@ -3,8 +3,9 @@ id: learning-tdd-parity-colocated-tests-reveal-true-coverage
 title: TDD parity - colocated tests reveal true coverage
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:58.639Z"
-updated: "2026-01-25T23:21:58.639Z"
+updated: "2026-02-01T22:38:06.277Z"
 tags:
   - testing
   - tdd-parity

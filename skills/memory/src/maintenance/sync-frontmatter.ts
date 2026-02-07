@@ -65,7 +65,44 @@ function arraysEqual(a: string[] | undefined, b: string[]): boolean {
 }
 
 /**
- * Sync frontmatter from graph for all memories
+ * Synchronises YAML frontmatter in memory files to match the graph state.
+ *
+ * This function updates memory files so their frontmatter `links` array
+ * matches the outbound edges defined in graph.json. Use this after the
+ * graph has been modified directly or following bulk link operations.
+ *
+ * The sync is order-independent: links are compared as sets, so reordering
+ * alone does not trigger an update.
+ *
+ * @param request - The sync frontmatter request options
+ * @param request.basePath - The base path for memory storage
+ * @param request.dryRun - If true, reports changes without applying them
+ * @param request.ids - Optional array of specific IDs to sync; if omitted, syncs all
+ * @returns A promise resolving to a SyncFrontmatterResponse with counts of
+ *          updated and skipped files, plus lists of affected IDs
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { syncFrontmatter } from './maintenance/sync-frontmatter.js';
+ *
+ * // Preview which files would be updated
+ * const preview = await syncFrontmatter({
+ *   basePath: '/project/.claude/memory',
+ *   dryRun: true,
+ * });
+ *
+ * console.log(`Would update ${preview.wouldUpdate?.length ?? 0} files`);
+ * console.log(`Skipping ${preview.skipped} files (already in sync)`);
+ *
+ * // Sync specific memories only
+ * const result = await syncFrontmatter({
+ *   basePath: '/project/.claude/memory',
+ *   ids: ['learning-api-design', 'gotcha-rate-limiting'],
+ * });
+ *
+ * console.log(`Updated ${result.updated} files: ${result.updatedIds.join(', ')}`);
+ * ```
  */
 export async function syncFrontmatter(
   request: SyncFrontmatterRequest

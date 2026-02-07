@@ -3,8 +3,9 @@ id: learning-retro-parallel-agent-refactoring-for-file-merges-scales-well
 title: Retro - Parallel agent refactoring for file merges scales well
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T01:07:39.102Z"
-updated: "2026-01-17T01:07:39.102Z"
+updated: "2026-02-01T22:38:06.329Z"
 tags:
   - retrospective
   - process

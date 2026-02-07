@@ -3,8 +3,9 @@ id: gotcha-retro-embeddings-generation-design-not-obviously-documented
 title: Retro - Embeddings generation design not obviously documented
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T10:34:40.588Z"
-updated: "2026-01-18T10:34:40.588Z"
+updated: "2026-02-01T22:38:06.219Z"
 tags:
   - retrospective
   - process

@@ -11,6 +11,7 @@ The Claude Memory Plugin extends Claude Code with a sophisticated memory system 
 - **Injects gotchas proactively** via hooks when you read files with known pitfalls
 - **Manages relationships** between memories using directed graphs
 - **Supports multiple scopes** (global, project, local, enterprise) for knowledge isolation
+- **Supports agent-scoped namespaces** so specialised agents maintain isolated knowledge bases
 
 ## Requirements
 
@@ -96,11 +97,47 @@ injection:
 
 Hook multipliers adjust thresholds by context (Edit/Write: 0.8×, Bash: 1.2×). See `.claude/memory.example.md` for full options.
 
+### v1.3.0 Features
+
+#### Agent-Scoped Memories
+
+Agents can now maintain their own isolated memory namespaces, separate from project and global memories:
+
+```bash
+# Write a memory scoped to an agent
+memory write --title "ESM imports require .js extensions" --type learning --agent typescript-expert
+
+# Read agent-scoped memories
+memory list --agent typescript-expert
+memory search "imports" --agent typescript-expert
+
+# Include shared project memories in results
+memory search "imports" --agent typescript-expert --include-shared
+
+# List all known agents
+memory agents
+```
+
+Agent memories are stored in `.claude/memory/agents/{agent-name}/` (project scope) or `~/.claude/memory/agents/{agent-name}/` (global scope). Each agent gets its own index, graph, and memory files.
+
+#### Agent CLI Flags
+
+| Flag | Description |
+|------|-------------|
+| `--agent <name>` | Target an agent's memory namespace |
+| `--include-shared` | Include project/global memories in read operations |
+| `--all-agents` | Apply to all agents (for listing/stats) |
+| `--target-agent <name>` | Target agent for cross-agent linking |
+
+All existing commands work unchanged without `--agent` — full backward compatibility.
+
 ### Architecture
 
 ```
 claude-memory-plugin/
 ├── skills/memory/          # Memory skill system (core implementation)
+│   ├── src/scope/         # Scope resolution (now with agent scopes)
+│   ├── src/agents/        # Agent directory scanning and info
 ├── hooks/                  # Claude Code integration hooks
 │   ├── src/               # Shared hook utilities
 │   ├── pre-tool-use/      # Block dangerous memory operations
@@ -233,6 +270,8 @@ Memories are organized by scope:
 | **Project** | `.claude/memory/` | Project-specific architecture decisions | Your team |
 | **Local** | `${PWD}/.claude/memory/local/` | Current directory context (gitignored) | Only you |
 | **Enterprise** | Synced via Git | Shared team patterns | Whole org |
+| **Agent-Project** | `.claude/memory/agents/{name}/` | Agent knowledge within a project | Your team |
+| **Agent-Global** | `~/.claude/memory/agents/{name}/` | Agent knowledge across projects | Only you |
 
 ## Memory Types
 
@@ -335,6 +374,29 @@ memory list learning --tag typescript
 
 # Query with filters
 memory query --type decision --scope local --tag "api"
+```
+
+### Agent-Scoped Operations
+
+```bash
+# Write to agent scope
+memory write --title "Pattern" --type learning --agent typescript-expert
+
+# Search within agent scope
+memory search "pattern" --agent typescript-expert
+
+# Search agent + shared scopes
+memory search "pattern" --agent typescript-expert --include-shared
+
+# List all agents
+memory agents
+
+# Agent stats and health
+memory stats --agent typescript-expert
+memory health --agent typescript-expert
+
+# Agent graph visualisation
+memory mermaid --agent typescript-expert --include-shared
 ```
 
 ### Read a Memory

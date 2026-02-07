@@ -3,8 +3,9 @@ id: learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vi
 title: Test isolation failures caused by mixed test frameworks (Bun test + vitest)
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-28T22:49:23.586Z"
-updated: "2026-01-28T22:49:23.586Z"
+updated: "2026-02-01T22:38:06.517Z"
 tags:
   - testing
   - test-isolation

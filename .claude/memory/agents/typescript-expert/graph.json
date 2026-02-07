@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "learning-typescript-pattern",
+      "type": "learning",
+      "title": "TypeScript Pattern",
+      "scope": "agent-project",
+      "agent": "typescript-expert"
+    },
+    {
+      "id": "learning-test",
+      "type": "learning",
+      "title": "Test",
+      "scope": "agent-project",
+      "agent": "typescript-expert"
+    }
+  ],
+  "edges": []
+}

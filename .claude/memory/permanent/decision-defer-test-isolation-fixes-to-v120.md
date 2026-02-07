@@ -3,8 +3,9 @@ id: decision-defer-test-isolation-fixes-to-v120
 title: Defer test isolation fixes to v1.2.0
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:11:30.939Z"
-updated: "2026-01-25T23:11:30.939Z"
+updated: "2026-02-01T22:38:06.432Z"
 tags:
   - v1.1.0
   - testing

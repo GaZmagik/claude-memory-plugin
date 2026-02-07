@@ -3,8 +3,9 @@ id: learning-phase-2-injection-config-reduces-hook-complexity
 title: Phase 2 injection config reduces hook complexity
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T14:56:27.834Z"
-updated: "2026-01-25T14:56:27.834Z"
+updated: "2026-02-01T22:38:06.441Z"
 tags:
   - phase2
   - injection

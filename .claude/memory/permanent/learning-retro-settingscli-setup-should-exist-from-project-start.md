@@ -3,8 +3,9 @@ id: learning-retro-settingscli-setup-should-exist-from-project-start
 title: Retro - Settings/CLI setup should exist from project start
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T05:43:57.555Z"
-updated: "2026-01-18T05:43:57.555Z"
+updated: "2026-02-01T22:38:06.975Z"
 tags:
   - retrospective
   - process

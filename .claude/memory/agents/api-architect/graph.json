@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "decision-api-design",
+      "type": "decision"
+    }
+  ],
+  "edges": []
+}

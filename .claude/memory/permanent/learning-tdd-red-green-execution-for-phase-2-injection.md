@@ -3,8 +3,9 @@ id: learning-tdd-red-green-execution-for-phase-2-injection
 title: TDD Red-Green execution for Phase 2 injection
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T13:31:13.840Z"
-updated: "2026-01-25T13:31:13.840Z"
+updated: "2026-02-01T22:38:06.218Z"
 tags:
   - tdd
   - testing

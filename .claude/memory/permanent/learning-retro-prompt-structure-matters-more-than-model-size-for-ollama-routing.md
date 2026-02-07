@@ -3,8 +3,9 @@ id: learning-retro-prompt-structure-matters-more-than-model-size-for-ollama-rout
 title: Retro - Prompt structure matters more than model size for Ollama routing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T22:31:34.968Z"
-updated: "2026-01-24T22:31:34.968Z"
+updated: "2026-02-01T22:38:07.015Z"
 tags:
   - retrospective
   - ollama

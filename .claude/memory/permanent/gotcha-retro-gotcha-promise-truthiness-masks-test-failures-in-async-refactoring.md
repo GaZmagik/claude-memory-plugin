@@ -3,8 +3,9 @@ id: gotcha-retro-gotcha-promise-truthiness-masks-test-failures-in-async-refactor
 title: "Retro - Gotcha: Promise truthiness masks test failures in async refactoring"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T16:20:31.792Z"
-updated: "2026-01-18T16:20:31.792Z"
+updated: "2026-02-01T22:38:06.735Z"
 tags:
   - retrospective
   - process

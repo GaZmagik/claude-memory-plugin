@@ -103,14 +103,21 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     description: 'List all memories, optionally filtered by type or tag',
     arguments: `  [type]   Filter by memory type (decision, learning, gotcha, artifact, etc.)
   [tag]    Filter by tag`,
-    flags: `  --scope <scope>    Target scope (user, project, local, enterprise)
-  --limit <n>        Maximum number of results`,
+    flags: `  --scope <scope>      Target scope (user, project, local, enterprise)
+  --limit <n>          Maximum number of results
+  --agent <name>       List memories within agent scope
+  --include-shared     List across agent + shared scopes (requires --agent)`,
     examples: [
       'memory list',
       'memory list decision',
       'memory list learning typescript',
       'memory list --scope user --limit 20',
+      'memory list learning --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped listing with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators like [agent-project], [project], [global].`,
   },
 
   delete: {
@@ -130,29 +137,44 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     usage: 'memory search <query>',
     description: 'Full-text search across titles and content',
     arguments: `  <query>    Search terms (case-insensitive)`,
-    flags: `  --scope <scope>    Target scope
-  --type <type>      Filter by memory type
-  --limit <n>        Maximum results (default: 20)`,
+    flags: `  --scope <scope>      Target scope
+  --type <type>        Filter by memory type
+  --limit <n>          Maximum results (default: 20)
+  --agent <name>       Search within agent scope
+  --include-shared     Search across agent + shared scopes (requires --agent)`,
     examples: [
       'memory search "database migration"',
       'memory search typescript --type learning',
       'memory search vitest --scope project --limit 10',
+      'memory search "patterns" --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped search with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators like [agent-project], [project], [global].`,
   },
 
   semantic: {
     usage: 'memory semantic <query>',
     description: 'Search by meaning using embeddings (requires Ollama)',
     arguments: `  <query>    Natural language query`,
-    flags: `  --threshold <n>    Minimum similarity (0-1, default: 0.7)
-  --limit <n>        Maximum results (default: 10)
-  --scope <scope>    Target scope`,
+    flags: `  --threshold <n>      Minimum similarity (0-1, default: 0.7)
+  --limit <n>          Maximum results (default: 10)
+  --scope <scope>      Target scope
+  --agent <name>       Search within agent scope
+  --include-shared     Search across agent + shared scopes (requires --agent)`,
     examples: [
       'memory semantic "how do we handle authentication"',
       'memory semantic "testing patterns" --threshold 0.8',
+      'memory semantic "API design" --agent typescript-expert --include-shared',
     ],
     notes: `  Requires Ollama running locally with an embedding model.
-  First search may be slow as embeddings are generated.`,
+  First search may be slow as embeddings are generated.
+
+  Agent-scoped search with --include-shared searches across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators and sorted by similarity.`,
   },
 
   // Tag Operations
@@ -185,13 +207,25 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     arguments: `  <source>     Source memory ID
   <target>     Target memory ID
   [relation]   Relationship type (default: "relates-to")`,
+    flags: `  --agent <name>         Source agent scope (for agent-scoped memories)
+  --target-agent <name>  Target agent scope (for cross-scope linking)
+  --scope <scope>        Source scope (project, global, agent-project, agent-global)
+  --target-scope <scope> Target scope (for cross-scope linking)`,
     examples: [
       'memory link decision-api artifact-api-spec',
       'memory link learning-vitest gotcha-mocking "explains"',
       'memory link decision-postgres learning-sql-optimisation "informed-by"',
+      '# Cross-scope: link agent memory to project memory',
+      'memory link --agent typescript-expert agent-learning project-decision --target-scope project',
+      '# Cross-agent: link between two different agents',
+      'memory link --agent api-architect api-design --target-agent frontend-expert ui-pattern "informs"',
     ],
     notes: `  Common relation types: relates-to, informed-by, implements,
-  supersedes, depends-on, contradicts, supports`,
+  supersedes, depends-on, contradicts, supports
+
+  Cross-scope linking: Use --target-agent or --target-scope to create
+  links between memories in different scopes. The edge is stored in
+  both graphs with metadata indicating the cross-scope relationship.`,
   },
 
   unlink: {
@@ -199,8 +233,12 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     description: 'Remove an edge between two memories',
     arguments: `  <source>    Source memory ID
   <target>    Target memory ID`,
+    flags: `  --agent <name>         Source agent scope
+  --target-agent <name>  Target agent scope (for cross-scope unlinking)`,
     examples: [
       'memory unlink decision-api artifact-old-spec',
+      '# Remove cross-scope link',
+      'memory unlink --agent typescript-expert agent-mem --target-scope project project-mem',
     ],
   },
 
@@ -544,42 +582,147 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   query: {
     usage: 'memory query [options]',
     description: 'Complex filtering with multiple criteria',
-    flags: `  --type <type>      Filter by memory type
-  --tags <tags>      Filter by tags (comma-separated)
-  --has-edges        Only memories with edges
-  --orphans          Only orphaned memories (no edges)
-  --scope <scope>    Target scope
-  --limit <n>        Maximum results`,
+    flags: `  --type <type>        Filter by memory type
+  --tags <tags>        Filter by tags (comma-separated)
+  --has-edges          Only memories with edges
+  --orphans            Only orphaned memories (no edges)
+  --scope <scope>      Target scope
+  --limit <n>          Maximum results
+  --agent <name>       Query within agent scope
+  --include-shared     Query across agent + shared scopes (requires --agent)`,
     examples: [
       'memory query --type decision --has-edges',
       'memory query --tags important,reviewed',
       'memory query --orphans --scope project',
+      'memory query --type learning --agent typescript-expert --include-shared',
     ],
+    notes: `  Agent-scoped queries with --include-shared search across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results are prefixed with scope indicators and include edge counts.`,
   },
 
   stats: {
     usage: 'memory stats [scope]',
     description: 'Show graph statistics (connectivity, hubs, sinks)',
     arguments: `  [scope]    Target scope (default: project)`,
+    flags: `  --agent <name>       Show stats for agent scope
+  --include-shared     Aggregate stats across agent + shared scopes (requires --agent)`,
     examples: [
       'memory stats',
       'memory stats user',
+      'memory stats --agent typescript-expert --include-shared',
     ],
     notes: `  Shows edge ratio, hub nodes (many outbound), sink nodes (many inbound),
-  orphan count, and overall connectivity health.`,
+  orphan count, and overall connectivity health.
+
+  Agent-scoped stats with --include-shared aggregate across:
+  1. Agent's own memories (agent-project or agent-global)
+  2. Shared memories (local → project → global)
+  Results include per-scope breakdown and combined totals.`,
   },
 
   impact: {
     usage: 'memory impact <id>',
     description: 'Show dependency tree for a memory',
     arguments: `  <id>    Memory ID to analyse`,
-    flags: `  --depth <n>    Maximum depth to traverse (default: 3)
-  --json         Output as JSON instead of tree`,
+    flags: `  --depth <n>        Maximum depth to traverse (default: 3)
+  --json             Output as JSON instead of tree
+  --agent <name>     Analyse impact within agent scope
+  --include-shared   Include shared scope context (requires --agent)`,
     examples: [
       'memory impact decision-core-architecture',
       'memory impact learning-patterns --depth 5',
+      'memory impact learning-api-design --agent typescript-expert --include-shared',
     ],
-    notes: `  Shows what depends on this memory (inbound) and what it depends on (outbound).`,
+    notes: `  Shows what depends on this memory (inbound) and what it depends on (outbound).
+
+  Agent-scoped impact analysis with --include-shared:
+  - Analyses dependencies within the agent's own scope
+  - Can reference shared memories for context
+  - Does not traverse cross-scope edges (design constraint)`,
+  },
+
+  // Agent Discovery Operations (Phase E)
+  agents: {
+    usage: 'memory agents <subcommand> [options]',
+    description: 'Discover, analyse, and manage agent-scoped memories',
+    subcommands: `  list             List all available agents
+  stats <name>     Show detailed statistics for an agent
+  create <name>    Create a new agent directory structure
+  delete <name>    Delete an agent and all its memories
+  copy <src> <tgt> Copy an agent to a new name
+  rename <old> <new> Rename an agent`,
+    flags: `  For 'list':
+    --scope <scope>      Filter by scope (project, global)
+    --include-stats      Include detailed statistics (types, tags, health)
+
+  For 'stats':
+    --all                Show statistics for all agents
+
+  For 'create':
+    --scope <scope>      Create in scope (project, global) [default: project]
+    --dry-run            Preview changes without creating
+
+  For 'delete':
+    --scope <scope>      Delete from scope (project, global) [default: project]
+    --force              Skip confirmation prompt (required for non-interactive)
+    --dry-run            Preview what would be deleted
+
+  For 'copy':
+    --scope <scope>      Operate in scope (project, global) [default: project]
+    --force              Merge into existing agent (replace strategy)
+    --dry-run            Preview what would be copied
+
+  For 'rename':
+    --scope <scope>      Operate in scope (project, global) [default: project]
+    --dry-run            Preview what would be renamed`,
+    examples: [
+      '# Discovery commands',
+      'memory agents list',
+      'memory agents list --scope project',
+      'memory agents list --include-stats',
+      'memory agents stats typescript-expert',
+      'memory agents stats --all',
+      '',
+      '# Management commands',
+      'memory agents create rust-expert',
+      'memory agents create python-pro --scope global',
+      'memory agents delete old-agent --force',
+      'memory agents delete temp-agent --dry-run',
+      'memory agents copy typescript-expert typescript-pro',
+      'memory agents copy python-expert python-ml --force',
+      'memory agents rename go-expert golang-expert',
+      'memory agents rename old-name new-name --dry-run',
+    ],
+    notes: `  DISCOVERY:
+  Agent discovery scans .claude/memory/agents/ (project) and
+  ~/.claude/memory/agents/ (global) directories.
+
+  Priority: Project-scoped agents take precedence over global agents
+  when duplicate names exist.
+
+  Cross-agent search: Use --all-agents flag with search, list, or query
+  commands to search across all discovered agents:
+    memory search "API patterns" --all-agents
+    memory list --type learning --all-agents
+    memory query --tag typescript --all-agents
+
+  MANAGEMENT:
+  - create: Initialises agent directory with index.json and graph.json
+  - delete: DESTRUCTIVE - requires --force flag or interactive confirmation
+  - copy: Duplicates entire agent memory collection (uses export/import)
+  - rename: Renames directory and updates all memory frontmatter
+
+  SAFETY:
+  - All management commands support --dry-run to preview changes
+  - Delete operations require explicit confirmation (--force or interactive prompt)
+  - Default scope is 'project' for all operations
+  - Copy with --force merges into existing agent (replace strategy)
+
+  NON-INTERACTIVE ENVIRONMENTS:
+  In CI/CD or piped contexts where TTY is unavailable, delete commands
+  MUST use --force flag. Without it, the command will fail with an error.`,
   },
 
   // Think Operations

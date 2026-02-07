@@ -84,25 +84,6 @@ describe('cmdThink', () => {
       );
     });
 
-    // TODO(v1.2.0): Implement hint feature in cmdThink - aspirational test
-    it.skip('includes hint about --call when not using AI invocation', async () => {
-      vi.spyOn(thoughtsModule, 'addThought').mockResolvedValue({
-        status: 'success',
-      } as any);
-
-      const args: ParsedArgs = {
-        positional: ['add', 'Manual thought'],
-        flags: {},
-      };
-      const result = await cmdThink(args);
-
-      expect(result.status).toBe('success');
-      expect(result.hint).toBeDefined();
-      expect(result.hint).toContain('--call claude');
-      expect(result.hint).toContain('--style');
-      expect(result.hint).toContain('--agent');
-    });
-
     it('does not include hint when --call is used', async () => {
       vi.spyOn(thoughtsModule, 'addThought').mockResolvedValue({
         status: 'success',

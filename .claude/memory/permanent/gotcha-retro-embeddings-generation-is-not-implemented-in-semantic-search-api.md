@@ -3,8 +3,9 @@ id: gotcha-retro-embeddings-generation-is-not-implemented-in-semantic-search-api
 title: Retro - Embeddings generation is not implemented in semantic search API
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T09:20:18.527Z"
-updated: "2026-01-18T09:20:18.527Z"
+updated: "2026-02-01T22:38:06.251Z"
 tags:
   - project
 severity: high

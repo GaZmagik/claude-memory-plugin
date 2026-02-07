@@ -65,6 +65,30 @@ describe('cmdRead', () => {
       })
     );
   });
+
+  it('passes agent flag to readMemory', async () => {
+    const args: ParsedArgs = { positional: ['test-id'], flags: { agent: 'typescript-expert' } };
+    await cmdRead(args);
+
+    expect(readModule.readMemory).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: 'test-id',
+        agent: 'typescript-expert',
+        basePath: expect.stringContaining('agents/typescript-expert'),
+      })
+    );
+  });
+
+  it('resolves agent-scoped path when agent flag provided', async () => {
+    const args: ParsedArgs = { positional: ['test-id'], flags: { agent: 'rust-expert' } };
+    await cmdRead(args);
+
+    expect(readModule.readMemory).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePath: expect.stringContaining('agents/rust-expert'),
+      })
+    );
+  });
 });
 
 describe('cmdList', () => {
@@ -114,6 +138,18 @@ describe('cmdList', () => {
       expect.objectContaining({ limit: 20 })
     );
   });
+
+  it('passes agent flag to listMemories', async () => {
+    const args: ParsedArgs = { positional: [], flags: { agent: 'api-architect' } };
+    await cmdList(args);
+
+    expect(listModule.listMemories).toHaveBeenCalledWith(
+      expect.objectContaining({
+        agent: 'api-architect',
+        basePath: expect.stringContaining('agents/api-architect'),
+      })
+    );
+  });
 });
 
 describe('cmdDelete', () => {
@@ -142,6 +178,19 @@ describe('cmdDelete', () => {
     expect(result.status).toBe('success');
     expect(deleteModule.deleteMemory).toHaveBeenCalledWith(
       expect.objectContaining({ id: 'memory-to-delete' })
+    );
+  });
+
+  it('passes agent flag to deleteMemory', async () => {
+    const args: ParsedArgs = { positional: ['memory-to-delete'], flags: { agent: 'python-expert' } };
+    await cmdDelete(args);
+
+    expect(deleteModule.deleteMemory).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: 'memory-to-delete',
+        agent: 'python-expert',
+        basePath: expect.stringContaining('agents/python-expert'),
+      })
     );
   });
 });
@@ -190,6 +239,41 @@ describe('cmdSearch', () => {
         type: 'decision',
       })
     );
+  });
+
+  it('passes agent flag to searchMemories', async () => {
+    const args: ParsedArgs = { positional: ['query'], flags: { agent: 'frontend-expert' } };
+    await cmdSearch(args);
+
+    expect(searchModule.searchMemories).toHaveBeenCalledWith(
+      expect.objectContaining({
+        query: 'query',
+        agent: 'frontend-expert',
+        basePath: expect.stringContaining('agents/frontend-expert'),
+      })
+    );
+  });
+
+  it('returns error when --all-agents used with --agent', async () => {
+    const args: ParsedArgs = {
+      positional: ['query'],
+      flags: { 'all-agents': true, agent: 'typescript-expert' },
+    };
+    const result = await cmdSearch(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Cannot use --all-agents with --agent');
+  });
+
+  it('returns error when --all-agents used with --include-shared', async () => {
+    const args: ParsedArgs = {
+      positional: ['query'],
+      flags: { 'all-agents': true, 'include-shared': true },
+    };
+    const result = await cmdSearch(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Cannot use --all-agents with --include-shared');
   });
 });
 
@@ -246,6 +330,19 @@ describe('cmdSemantic', () => {
       expect.objectContaining({
         threshold: 0.8,
         limit: 5,
+      })
+    );
+  });
+
+  it('passes agent flag to semanticSearchMemories', async () => {
+    const args: ParsedArgs = { positional: ['query'], flags: { agent: 'nodejs-expert' } };
+    await cmdSemantic(args);
+
+    expect(semanticModule.semanticSearchMemories).toHaveBeenCalledWith(
+      expect.objectContaining({
+        query: 'query',
+        agent: 'nodejs-expert',
+        basePath: expect.stringContaining('agents/nodejs-expert'),
       })
     );
   });
@@ -492,5 +589,34 @@ describe('cmdWrite', () => {
     expect(writeModule.writeMemory).toHaveBeenCalledWith(
       expect.objectContaining({ type: 'hub' })
     );
+  });
+
+  it('passes agent flag to writeMemory', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Agent Memory',
+      content: 'Test content for agent',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { agent: 'typescript-expert' } };
+    await cmdWrite(args);
+
+    expect(writeModule.writeMemory).toHaveBeenCalledWith(
+      expect.objectContaining({
+        agent: 'typescript-expert',
+        basePath: expect.stringContaining('agents/typescript-expert'),
+      })
+    );
+  });
+
+  it('throws error for invalid agent names with helpful suggestion', async () => {
+    vi.spyOn(parserModule, 'readStdinJson').mockResolvedValue({
+      title: 'Test',
+      content: 'Test content',
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { agent: 'invalid/name' } };
+
+    await expect(cmdWrite(args)).rejects.toThrow('Agent name must be lowercase alphanumeric');
+    await expect(cmdWrite(args)).rejects.toThrow('suggestion: invalid-name');
   });
 });

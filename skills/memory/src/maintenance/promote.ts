@@ -92,7 +92,46 @@ function shouldBePermanent(_type: MemoryType): boolean {
 }
 
 /**
- * Promote/demote a memory to a different type
+ * Changes a memory's type, optionally moving it between directories and renaming
+ * the file to match the new type prefix.
+ *
+ * Common promotion/demotion paths:
+ * - learning -> gotcha (promote to higher severity)
+ * - gotcha -> learning (demote to lower severity)
+ * - breadcrumb -> artifact (promote ephemeral to permanent)
+ * - temporary thought -> decision/learning/artifact (conclude and make permanent)
+ *
+ * This function updates the frontmatter type, moves the file from temporary/
+ * to permanent/ if needed, updates the graph node type, and renames the file
+ * if the ID prefix doesn't match the new type.
+ *
+ * @param request - The promote request options
+ * @param request.id - The unique identifier of the memory to promote/demote
+ * @param request.targetType - The target memory type (from MemoryType enum)
+ * @param request.basePath - The base path for memory storage
+ * @returns A promise resolving to a PromoteResponse indicating success or failure
+ *          with details of changes made including any file rename
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { promoteMemory } from './maintenance/promote.js';
+ * import { MemoryType } from '../types/enums.js';
+ *
+ * // Promote a learning to a gotcha (higher severity)
+ * const result = await promoteMemory({
+ *   id: 'learning-null-pointer-edge-case',
+ *   targetType: MemoryType.Gotcha,
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`Changed from ${result.fromType} to ${result.toType}`);
+ *   if (result.newId) {
+ *     console.log(`Renamed to: ${result.newId}`);
+ *   }
+ * }
+ * ```
  */
 export async function promoteMemory(request: PromoteRequest): Promise<PromoteResponse> {
   const { id, targetType, basePath } = request;

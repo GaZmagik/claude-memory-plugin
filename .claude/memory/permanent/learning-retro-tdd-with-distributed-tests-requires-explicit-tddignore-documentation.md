@@ -3,8 +3,9 @@ id: learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-docume
 title: Retro - TDD with distributed tests requires explicit .tddignore documentation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:22:32.411Z"
-updated: "2026-01-25T12:22:32.411Z"
+updated: "2026-02-01T22:38:06.201Z"
 tags:
   - retrospective
   - process

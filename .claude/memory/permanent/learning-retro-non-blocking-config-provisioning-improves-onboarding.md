@@ -3,8 +3,9 @@ id: learning-retro-non-blocking-config-provisioning-improves-onboarding
 title: Retro - Non-blocking config provisioning improves onboarding
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-22T08:24:43.619Z"
-updated: "2026-01-22T08:24:43.619Z"
+updated: "2026-02-01T22:38:06.379Z"
 tags:
   - retrospective
   - process

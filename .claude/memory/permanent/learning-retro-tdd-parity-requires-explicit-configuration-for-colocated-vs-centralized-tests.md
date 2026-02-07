@@ -3,8 +3,9 @@ id: learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-c
 title: Retro - TDD parity requires explicit configuration for colocated vs centralized tests
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:42.451Z"
-updated: "2026-01-25T23:21:42.451Z"
+updated: "2026-02-01T22:38:06.550Z"
 tags:
   - retrospective
   - process

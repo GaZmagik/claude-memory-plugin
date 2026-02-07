@@ -3,8 +3,9 @@ id: learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-te
 title: Retro - Test timeout mismatches cause false failures (spawn timeout != test timeout)
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:51.305Z"
-updated: "2026-01-25T23:21:51.305Z"
+updated: "2026-02-01T22:38:06.150Z"
 tags:
   - retrospective
   - process

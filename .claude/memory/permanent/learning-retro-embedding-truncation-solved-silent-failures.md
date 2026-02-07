@@ -3,8 +3,9 @@ id: learning-retro-embedding-truncation-solved-silent-failures
 title: Retro - Embedding truncation solved silent failures
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T16:38:03.288Z"
-updated: "2026-01-16T16:38:03.288Z"
+updated: "2026-02-01T22:38:06.202Z"
 tags:
   - retrospective
   - embedding

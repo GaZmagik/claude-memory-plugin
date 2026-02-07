@@ -3,8 +3,9 @@ id: learning-retro-session-restore-workflow-reduced-context-loss-and-context-reo
 title: Retro - Session restore workflow reduced context loss and context reorientation time significantly
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:11:18.823Z"
-updated: "2026-01-16T20:11:18.823Z"
+updated: "2026-02-01T22:38:06.887Z"
 tags:
   - retrospective
   - process

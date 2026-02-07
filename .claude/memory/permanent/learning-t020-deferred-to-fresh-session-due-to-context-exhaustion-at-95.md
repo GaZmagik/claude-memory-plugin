@@ -3,8 +3,9 @@ id: learning-t020-deferred-to-fresh-session-due-to-context-exhaustion-at-95
 title: T020 deferred to fresh session due to context exhaustion at 95%
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:38:02.748Z"
-updated: "2026-01-25T12:38:02.748Z"
+updated: "2026-02-01T22:38:06.017Z"
 tags:
   - t020
   - context-management

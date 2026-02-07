@@ -3,8 +3,9 @@ id: learning-exclude-thoughts-from-embedding-generation
 title: Exclude thoughts from embedding generation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T18:24:45.230Z"
-updated: "2026-01-16T18:24:45.230Z"
+updated: "2026-02-01T22:38:06.686Z"
 tags:
   - think
   - embeddings

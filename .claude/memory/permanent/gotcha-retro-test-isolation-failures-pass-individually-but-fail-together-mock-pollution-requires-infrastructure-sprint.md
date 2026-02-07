@@ -3,8 +3,9 @@ id: gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-moc
 title: Retro - Test isolation failures pass individually but fail together (mock pollution) requires infrastructure sprint
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T23:21:47.052Z"
-updated: "2026-01-25T23:21:47.052Z"
+updated: "2026-02-01T22:38:06.468Z"
 tags:
   - retrospective
   - process

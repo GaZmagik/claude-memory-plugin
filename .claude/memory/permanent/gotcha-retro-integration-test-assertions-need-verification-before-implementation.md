@@ -3,8 +3,9 @@ id: gotcha-retro-integration-test-assertions-need-verification-before-implementa
 title: Gotcha retro - Integration test assertions need verification before implementation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:22:43.991Z"
-updated: "2026-01-25T12:22:43.991Z"
+updated: "2026-02-01T22:38:06.877Z"
 tags:
   - retrospective
   - process

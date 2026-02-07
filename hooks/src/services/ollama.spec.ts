@@ -3,6 +3,11 @@
  *
  * Note: These tests focus on the public API behavior.
  * Timeout and retry logic are tested through integration tests.
+ *
+ * ⚠️ TEST ISOLATION REQUIRED
+ * Uses module-level vi.mock('ollama') which creates global state that pollutes
+ * other tests. Must run separately with: bunx vitest run <this-file>
+ * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';

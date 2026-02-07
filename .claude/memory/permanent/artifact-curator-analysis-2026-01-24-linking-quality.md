@@ -3,8 +3,9 @@ id: artifact-curator-analysis-2026-01-24-linking-quality
 title: "Curator Analysis: Memory Linking & Quality Audit (2026-01-24)"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T23:51:40.569Z"
-updated: "2026-01-24T23:51:40.569Z"
+updated: "2026-02-01T22:38:06.534Z"
 tags:
   - memory-curation
   - system-analysis

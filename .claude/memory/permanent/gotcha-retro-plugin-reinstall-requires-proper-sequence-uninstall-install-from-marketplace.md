@@ -3,8 +3,9 @@ id: gotcha-retro-plugin-reinstall-requires-proper-sequence-uninstall-install-fro
 title: "Retro - Plugin reinstall requires proper sequence: uninstall → install from marketplace"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T15:16:10.398Z"
-updated: "2026-01-18T15:16:10.398Z"
+updated: "2026-02-01T22:38:06.288Z"
 tags:
   - retrospective
   - plugin

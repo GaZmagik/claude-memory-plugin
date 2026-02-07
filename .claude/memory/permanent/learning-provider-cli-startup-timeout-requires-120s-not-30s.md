@@ -3,8 +3,9 @@ id: learning-provider-cli-startup-timeout-requires-120s-not-30s
 title: Provider CLI startup timeout requires 120s not 30s
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T16:42:18.814Z"
-updated: "2026-01-26T16:42:18.814Z"
+updated: "2026-02-01T22:38:06.341Z"
 tags:
   - provider
   - timeout

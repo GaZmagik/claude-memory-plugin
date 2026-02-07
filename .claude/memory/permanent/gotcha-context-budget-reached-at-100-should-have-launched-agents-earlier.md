@@ -3,8 +3,9 @@ id: gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier
 title: Gotcha - Context budget reached at 100%, should have launched agents earlier
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:08.737Z"
-updated: "2026-01-26T00:12:08.737Z"
+updated: "2026-02-01T22:38:06.394Z"
 tags:
   - retrospective
   - process

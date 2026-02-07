@@ -4,19 +4,104 @@
  * Delete memory files and clean up index, graph, and embeddings.
  */
 
-import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
-import { deleteFile, fileExists, isInsideDir } from './fs-utils.js';
+import { deleteFile, fileExists, isInsideDir, readFile, writeFileAtomic } from './fs-utils.js';
 import { createLogger } from './logger.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
+import { isCrossScopeEdge } from '../graph/edges.js';
+import { removeEdge } from '../graph/edges.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
+import { resolveAgentScopePath, getResolvedScopePath, parseScope } from '../cli/helpers.js';
 
 const log = createLogger('delete');
 
 /**
- * Delete a memory by ID
+ * Resolve the base path for the "other" scope in a cross-scope edge.
+ *
+ * Given a cross-scope edge and the ID of the memory being deleted,
+ * determines which scope is the "other" side and resolves its path.
+ */
+function resolveOtherScopeBasePath(
+  edge: { source: string; target: string; sourceScope?: string; targetScope?: string; sourceAgent?: string; targetAgent?: string },
+  deletedId: string
+): string | null {
+  // Determine which side is the "other" scope
+  const isSource = edge.source === deletedId;
+  const otherScope = isSource ? edge.targetScope : edge.sourceScope;
+  const otherAgent = isSource ? edge.targetAgent : edge.sourceAgent;
+
+  if (!otherScope) return null;
+
+  try {
+    const agentScopes = ['agent-project', 'agent-global'];
+    if (agentScopes.includes(otherScope) && otherAgent) {
+      return resolveAgentScopePath(otherAgent, undefined);
+    }
+
+    // Non-agent scope — resolve via standard scope path
+    return getResolvedScopePath(parseScope(otherScope));
+  } catch (error) {
+    log.warn('Failed to resolve other scope base path', {
+      otherScope,
+      otherAgent,
+      error: String(error),
+    });
+    return null;
+  }
+}
+
+/**
+ * Delete a memory by ID.
+ *
+ * Removes the memory file from disk and cleans up all associated data:
+ * the index entry, graph node (including edges), and embedding cache entry.
+ * Also handles cleanup of cross-scope edges in other scope graphs.
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: deletes from project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: deletes from user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - Delete request containing the memory ID
+ * @param request.id - The ID of the memory to delete (required)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Scope where memory is located (optional, helps with agent scopes)
+ * @param request.agent - Agent name (required for agent scopes)
+ *
+ * @returns {Promise<DeleteMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `deletedId`: The ID of the deleted memory (on success)
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Delete a memory from project scope
+ * const result = await deleteMemory({
+ *   id: 'learning-typescript-generics-abc123',
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Deleted: ${result.deletedId}`);
+ * } else {
+ *   console.error(`Failed: ${result.error}`);
+ * }
+ *
+ * @example
+ * // Delete a memory from an agent's scope
+ * const result = await deleteMemory({
+ *   id: 'gotcha-async-cleanup-def456',
+ *   scope: Scope.AgentProject,
+ *   agent: 'async-expert'
+ * });
  */
 export async function deleteMemory(request: DeleteMemoryRequest): Promise<DeleteMemoryResponse> {
   // Validate ID
@@ -27,7 +112,30 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && isAgentScope(request.scope)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
+
+    basePath = getAgentDirectoryPath({
+      scope: request.scope,
+      agentName: request.agent,
+      projectRoot,
+      globalRoot,
+    });
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     // Find in index first
@@ -68,6 +176,38 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     // Remove from graph (node and all edges involving it)
     try {
       let graph = await loadGraph(basePath);
+
+      // Before removing the node, scan for cross-scope edges to clean up other graphs
+      const crossScopeEdges = graph.edges.filter(
+        e => (e.source === request.id || e.target === request.id) && isCrossScopeEdge(e)
+      );
+
+      // Clean up cross-scope edges in other graphs (best-effort)
+      for (const edge of crossScopeEdges) {
+        try {
+          const otherBasePath = resolveOtherScopeBasePath(edge, request.id);
+          if (otherBasePath) {
+            let otherGraph = await loadGraph(otherBasePath);
+            const beforeCount = otherGraph.edges.length;
+            otherGraph = removeEdge(otherGraph, edge.source, edge.target, edge.label);
+            if (otherGraph.edges.length < beforeCount) {
+              await saveGraph(otherBasePath, otherGraph);
+              log.info('Cleaned up cross-scope edge in other graph', {
+                id: request.id,
+                otherBasePath,
+                edge: `${edge.source} -> ${edge.target}`,
+              });
+            }
+          }
+        } catch (crossScopeError) {
+          log.warn('Best-effort cross-scope edge cleanup failed', {
+            id: request.id,
+            edge: `${edge.source} -> ${edge.target}`,
+            error: String(crossScopeError),
+          });
+        }
+      }
+
       graph = removeNode(graph, request.id);
       await saveGraph(basePath, graph);
     } catch {
@@ -78,12 +218,12 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     // Remove from embeddings cache
     try {
       const embeddingsPath = path.join(basePath, 'embeddings.json');
-      if (fs.existsSync(embeddingsPath)) {
-        const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      if (await fileExists(embeddingsPath)) {
+        const content = await readFile(embeddingsPath);
         const cache = JSON.parse(content) as EmbeddingCache;
         if (cache.memories && cache.memories[request.id]) {
           delete cache.memories[request.id];
-          fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+          await writeFileAtomic(embeddingsPath, JSON.stringify(cache, null, 2));
         }
       }
     } catch {

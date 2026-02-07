@@ -3,8 +3,9 @@ id: gotcha-meeting-command-10-agent-limit-and-timeouts-prevent-runaway-costs
 title: "Meeting command: 10 agent limit and timeouts prevent runaway costs"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-31T07:38:29.017Z"
-updated: "2026-01-31T07:38:29.017Z"
+updated: "2026-02-01T22:38:06.501Z"
 tags:
   - meeting-command
   - cost-control

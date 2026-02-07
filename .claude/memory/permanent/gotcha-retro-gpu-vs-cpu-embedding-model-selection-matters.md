@@ -3,8 +3,9 @@ id: gotcha-retro-gpu-vs-cpu-embedding-model-selection-matters
 title: Retro - GPU vs CPU embedding model selection matters
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T16:38:19.691Z"
-updated: "2026-01-16T18:04:44.474Z"
+updated: "2026-02-01T22:38:06.615Z"
 tags:
   - retrospective
   - embeddings

@@ -3,8 +3,9 @@ id: decision-subprocess-timeout-cleanup-should-use-destroy-not-manual-listeners
 title: Subprocess Timeout Cleanup Should Use destroy() Not Manual Listeners
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:10.735Z"
-updated: "2026-01-26T00:12:10.735Z"
+updated: "2026-02-01T22:38:07.008Z"
 tags:
   - nodejs
   - subprocess

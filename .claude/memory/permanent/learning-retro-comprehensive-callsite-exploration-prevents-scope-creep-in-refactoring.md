@@ -3,8 +3,9 @@ id: learning-retro-comprehensive-callsite-exploration-prevents-scope-creep-in-re
 title: Retro - Comprehensive callsite exploration prevents scope creep in refactoring
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T15:16:02.354Z"
-updated: "2026-01-18T15:16:02.354Z"
+updated: "2026-02-01T22:38:06.604Z"
 tags:
   - retrospective
   - process

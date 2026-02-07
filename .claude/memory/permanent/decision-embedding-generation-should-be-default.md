@@ -3,8 +3,9 @@ id: decision-embedding-generation-should-be-default
 title: Decouple embedding generation from auto-link flag
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-01T15:13:50.868Z"
-updated: "2026-02-01T15:13:50.868Z"
+updated: "2026-02-01T22:38:06.467Z"
 tags:
   - embeddings
   - memory-plugin

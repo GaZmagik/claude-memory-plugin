@@ -3,8 +3,9 @@ id: learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flag
 title: Retro - Plugin discovery in spawned sessions requires plugin-dir flags
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T13:36:44.335Z"
-updated: "2026-01-17T13:36:44.335Z"
+updated: "2026-02-01T22:38:06.234Z"
 tags:
   - retrospective
   - plugins

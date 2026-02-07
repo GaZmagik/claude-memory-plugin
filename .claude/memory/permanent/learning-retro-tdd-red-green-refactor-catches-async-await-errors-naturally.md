@@ -3,8 +3,9 @@ id: learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally
 title: Retro - TDD red-green-refactor catches async-await errors naturally
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T18:12:20.225Z"
-updated: "2026-01-18T18:12:20.225Z"
+updated: "2026-02-01T22:38:06.630Z"
 tags:
   - retrospective
   - process

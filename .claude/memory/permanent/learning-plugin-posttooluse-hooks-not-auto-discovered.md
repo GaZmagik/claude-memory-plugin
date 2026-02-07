@@ -3,8 +3,9 @@ id: learning-plugin-posttooluse-hooks-not-auto-discovered
 title: Plugin PostToolUse hooks not auto-discovered by Claude Code
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:34:06.358Z"
-updated: "2026-01-26T22:34:06.358Z"
+updated: "2026-02-01T22:38:06.681Z"
 tags:
   - hooks
   - plugin-discovery

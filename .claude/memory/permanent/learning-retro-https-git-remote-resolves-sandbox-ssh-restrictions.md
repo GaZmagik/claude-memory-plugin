@@ -3,8 +3,9 @@ id: learning-retro-https-git-remote-resolves-sandbox-ssh-restrictions
 title: Retro - HTTPS git remote resolves sandbox SSH restrictions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-22T08:24:38.543Z"
-updated: "2026-01-22T08:24:38.543Z"
+updated: "2026-02-01T22:38:06.399Z"
 tags:
   - retrospective
   - process

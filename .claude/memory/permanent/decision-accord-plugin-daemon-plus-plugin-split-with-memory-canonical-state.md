@@ -3,8 +3,9 @@ id: decision-accord-plugin-daemon-plus-plugin-split-with-memory-canonical-state
 title: Accord plugin uses daemon + plugin split with memory as canonical state
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:24:21.205Z"
-updated: "2026-01-30T17:24:21.205Z"
+updated: "2026-02-01T22:38:06.618Z"
 tags:
   - architecture
   - accord-plugin

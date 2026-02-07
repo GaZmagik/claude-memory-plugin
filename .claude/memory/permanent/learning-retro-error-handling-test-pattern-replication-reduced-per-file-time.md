@@ -3,8 +3,9 @@ id: learning-retro-error-handling-test-pattern-replication-reduced-per-file-time
 title: Retro - Error handling test pattern replication reduced per-file time
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:25:16.431Z"
-updated: "2026-01-16T20:25:16.431Z"
+updated: "2026-02-01T22:38:06.193Z"
 tags:
   - retrospective
   - process

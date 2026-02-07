@@ -6,6 +6,11 @@
  *
  * Note: This test file mocks child_process to test our secure
  * execFileSync-based implementation. No actual commands are executed.
+ *
+ * ⚠️ TEST ISOLATION REQUIRED
+ * Uses module-level bun:test mocks (mock.module) for fs and child_process
+ * which creates global state. Must run separately with: bun test <this-file>
+ * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
 import { describe, it, expect, mock, beforeEach, afterEach, afterAll } from 'bun:test';

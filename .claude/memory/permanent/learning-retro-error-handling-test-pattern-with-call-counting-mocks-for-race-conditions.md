@@ -3,8 +3,9 @@ id: learning-retro-error-handling-test-pattern-with-call-counting-mocks-for-race
 title: Retro - Error handling test pattern with call-counting mocks for race conditions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T20:48:54.636Z"
-updated: "2026-01-16T20:48:54.636Z"
+updated: "2026-02-01T22:38:06.188Z"
 tags:
   - retrospective
   - testing

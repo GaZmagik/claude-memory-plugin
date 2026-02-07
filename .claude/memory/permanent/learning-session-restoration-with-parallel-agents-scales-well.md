@@ -3,8 +3,9 @@ id: learning-session-restoration-with-parallel-agents-scales-well
 title: Session restoration with parallel agents scales well
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:42.121Z"
-updated: "2026-01-25T09:58:42.121Z"
+updated: "2026-02-01T22:38:06.551Z"
 tags:
   - memory-system
   - restoration

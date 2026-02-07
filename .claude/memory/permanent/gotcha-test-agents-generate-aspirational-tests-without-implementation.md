@@ -3,8 +3,9 @@ id: gotcha-test-agents-generate-aspirational-tests-without-implementation
 title: Test Agents Generate Aspirational Tests Without Implementation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T00:12:17.300Z"
-updated: "2026-01-26T00:12:17.300Z"
+updated: "2026-02-01T22:38:06.517Z"
 tags:
   - testing
   - agents

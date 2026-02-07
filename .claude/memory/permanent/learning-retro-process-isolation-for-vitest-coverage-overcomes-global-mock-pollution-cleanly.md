@@ -3,8 +3,9 @@ id: learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-p
 title: Retro - Process isolation for vitest coverage overcomes global mock pollution cleanly
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T19:39:10.475Z"
-updated: "2026-01-16T19:39:10.475Z"
+updated: "2026-02-01T22:38:06.965Z"
 tags:
   - retrospective
   - process

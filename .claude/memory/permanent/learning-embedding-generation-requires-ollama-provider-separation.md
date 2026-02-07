@@ -3,8 +3,9 @@ id: learning-embedding-generation-requires-ollama-provider-separation
 title: Embedding generation requires Ollama provider separation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-01T15:13:57.111Z"
-updated: "2026-02-01T15:13:57.111Z"
+updated: "2026-02-01T22:38:06.706Z"
 tags:
   - embeddings
   - ollama

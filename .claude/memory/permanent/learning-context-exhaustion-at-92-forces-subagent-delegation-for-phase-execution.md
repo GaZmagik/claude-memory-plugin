@@ -3,8 +3,9 @@ id: learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execu
 title: Context exhaustion at 92%+ forces subagent delegation for phase execution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:56.761Z"
-updated: "2026-01-25T09:58:56.761Z"
+updated: "2026-02-01T22:38:05.989Z"
 tags:
   - context-management
   - subagents

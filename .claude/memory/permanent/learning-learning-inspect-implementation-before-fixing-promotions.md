@@ -3,8 +3,9 @@ id: learning-learning-inspect-implementation-before-fixing-promotions
 title: Learning - Inspect implementation before fixing promotions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-16T18:31:46.322Z"
-updated: "2026-01-16T18:31:46.322Z"
+updated: "2026-02-01T22:38:06.122Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-unblock-main-session-during-compa
 title: Retro - Parallel restoration agents unblock main session during compaction
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T23:06:42.004Z"
-updated: "2026-01-17T23:06:42.004Z"
+updated: "2026-02-01T22:38:06.518Z"
 tags:
   - retrospective
   - process

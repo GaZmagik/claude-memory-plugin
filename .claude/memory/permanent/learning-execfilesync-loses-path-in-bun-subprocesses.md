@@ -3,8 +3,9 @@ id: learning-execfilesync-loses-path-in-bun-subprocesses
 title: execFileSync loses PATH in Bun subprocesses
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T20:51:44.497Z"
-updated: "2026-01-25T20:51:44.497Z"
+updated: "2026-02-01T22:38:06.999Z"
 tags:
   - bun
   - execfilesync

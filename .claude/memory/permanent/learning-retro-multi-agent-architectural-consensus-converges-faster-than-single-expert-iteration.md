@@ -3,8 +3,9 @@ id: learning-retro-multi-agent-architectural-consensus-converges-faster-than-sin
 title: Retro - Multi-agent architectural consensus converges faster than single-expert iteration
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:23:51.654Z"
-updated: "2026-01-30T17:23:51.654Z"
+updated: "2026-02-01T22:38:06.190Z"
 tags:
   - retrospective
   - process

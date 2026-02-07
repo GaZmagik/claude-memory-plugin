@@ -29,6 +29,8 @@ export interface BaseResponse {
 export interface BaseRequest {
   /** Override base path for testing */
   basePath?: string;
+  /** Agent name (for agent-scoped operations) */
+  agent?: string;
 }
 
 // ============================================================================
@@ -51,16 +53,24 @@ export interface WriteMemoryRequest extends BaseRequest {
   tags: string[];
   /** Storage scope */
   scope: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Severity level (optional, primarily for gotchas) */
   severity?: Severity;
   /** Linked memory IDs */
   links?: string[];
   /** Source file or context */
   source?: string;
+  /** Created timestamp (for imports - preserves original timestamp) */
+  created?: string;
+  /** Updated timestamp (for imports - preserves original timestamp) */
+  updated?: string;
   /** Additional metadata */
   meta?: Record<string, unknown>;
   /** Project root for gitignore automation (optional) */
   projectRoot?: string;
+  /** Global root for agent-global scope (optional) */
+  globalRoot?: string;
   /** Project name for cross-project context */
   project?: string;
   /** Automatically link to similar memories after write */
@@ -85,6 +95,8 @@ export interface WriteMemoryResponse extends BaseResponse {
     frontmatter: MemoryFrontmatter;
     /** Storage scope */
     scope: Scope;
+    /** Agent name (for agent-scoped memories) */
+    agent?: string;
   };
   /** Number of auto-linked memories (if autoLink was true) */
   autoLinked?: number;
@@ -104,6 +116,8 @@ export interface ReadMemoryRequest extends BaseRequest {
   id: string;
   /** Scope to search in (optional) */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
 }
 
 /**
@@ -137,6 +151,8 @@ export interface ListMemoriesRequest extends BaseRequest {
   tags?: string[];
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Maximum number of results */
   limit?: number;
   /** Sort order */
@@ -159,6 +175,8 @@ export interface MemorySummary {
   tags: string[];
   /** Scope */
   scope: Scope;
+  /** Agent name (for agent-scoped memories) */
+  agent?: string;
   /** Creation timestamp */
   created: string;
   /** Update timestamp */
@@ -191,6 +209,8 @@ export interface DeleteMemoryRequest extends BaseRequest {
   id: string;
   /** Scope to delete from (optional) */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
 }
 
 /**
@@ -215,6 +235,8 @@ export interface SearchMemoriesRequest extends BaseRequest {
   type?: MemoryType;
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Maximum number of results */
   limit?: number;
 }
@@ -233,6 +255,8 @@ export interface SearchResult {
   tags: string[];
   /** Storage scope */
   scope?: Scope;
+  /** Agent name (for agent-scoped memories) */
+  agent?: string;
   /** Relevance score (0-1) */
   score: number;
   /** Matching snippet */
@@ -261,6 +285,8 @@ export interface SemanticSearchRequest extends BaseRequest {
   type?: MemoryType;
   /** Filter by scope */
   scope?: Scope;
+  /** Agent name (required for agent-scoped memories) */
+  agent?: string;
   /** Minimum similarity threshold (0-1) */
   threshold?: number;
   /** Maximum number of results */
@@ -505,6 +531,60 @@ export interface ThinkDeleteRequest extends BaseRequest {
 export interface ThinkDeleteResponse extends BaseResponse {
   /** Deleted document ID */
   deletedId?: string;
+}
+
+// ============================================================================
+// Agent Discovery Operations (Phase E)
+// ============================================================================
+
+/**
+ * Agent summary with metadata and optional statistics
+ */
+export interface AgentSummary {
+  /** Agent name */
+  name: string;
+  /** Agent scope (AgentProject or AgentGlobal) */
+  scope: Scope.AgentProject | Scope.AgentGlobal;
+  /** Absolute path to agent directory */
+  path: string;
+  /** Total number of memories */
+  memoryCount: number;
+  /** Last updated timestamp (most recent memory update) */
+  lastUpdated?: string;
+  /** Health statistics (if includeStats was true) */
+  health?: {
+    status: string;
+    score: number;
+    connectivityRatio: number;
+  };
+  /** Unique tags across all memories (if includeStats was true) */
+  tags?: string[];
+  /** Memory type distribution (if includeStats was true) */
+  memoryTypes?: Record<MemoryType, number>;
+}
+
+/**
+ * Request to discover agents across project and global scopes
+ */
+export interface DiscoverAgentsRequest {
+  /** Project root directory */
+  projectRoot: string;
+  /** Global memory root directory */
+  globalRoot: string;
+  /** Include detailed statistics (health, types, tags) */
+  includeStats?: boolean;
+  /** Filter by scope (optional) */
+  scope?: Scope.AgentProject | Scope.AgentGlobal;
+}
+
+/**
+ * Response from agent discovery
+ */
+export interface DiscoverAgentsResponse extends BaseResponse {
+  /** List of discovered agents */
+  agents?: AgentSummary[];
+  /** Total count */
+  count?: number;
 }
 
 // ============================================================================

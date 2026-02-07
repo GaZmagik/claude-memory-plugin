@@ -3,8 +3,9 @@ id: learning-retro-systematic-file-level-mutation-audits-uncover-architectural-g
 title: Retro - Systematic file-level mutation audits uncover architectural gaps
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T09:20:24.044Z"
-updated: "2026-01-18T09:20:24.044Z"
+updated: "2026-02-01T22:38:06.996Z"
 tags:
   - project
 severity: medium

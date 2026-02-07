@@ -3,8 +3,9 @@ id: decision-fix-duplicated-prefix-via-sanitisation-layer
 title: Fix duplicated prefix via sanitisation layer
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-21T20:07:41.767Z"
-updated: "2026-01-21T20:07:41.767Z"
+updated: "2026-02-01T22:38:06.397Z"
 tags:
   - memory-system
   - architecture

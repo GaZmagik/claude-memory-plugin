@@ -17,12 +17,15 @@ import { searchMemories } from '../../core/search.js';
 import { semanticSearchMemories } from '../../core/semantic-search.js';
 import { createOllamaProviderWithHealthCheck } from '../../search/embedding.js';
 import { MemoryType } from '../../types/enums.js';
-import { getResolvedScopePath, parseScope, parseMemoryType } from '../helpers.js';
+import { getResolvedScopePath, parseScope, parseMemoryType, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, getGlobalMemoryPath } from '../helpers.js';
+import { getScopeNameFromPath, formatScopedResult } from '../../core/scope-indicators.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
+import { getAgentDirectoryPath } from '../../scope/get-agent-directory-path.js';
 
 /**
  * write - Create or update a memory from stdin JSON
  *
- * Usage: echo '{"title":"...", "content":"...", ...}' | memory write [--auto-link]
+ * Usage: echo '{"title":"...", "content":"...", ...}' | memory write [--auto-link] [--agent <name>]
  */
 export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   const input = await readStdinJson<Partial<WriteMemoryRequest>>();
@@ -39,9 +42,20 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required field: content');
   }
 
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
   const scopeStr = getFlagString(args.flags, 'scope') ?? (input.scope as string | undefined);
-  const scope = parseScope(scopeStr);
-  const basePath = getResolvedScopePath(scope);
+
+  // Validate --include-shared flag (write operations are single-scope only)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: write operations are single-scope only. Remove --include-shared flag.');
+  }
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   // Parse type - default to Decision if not specified
   const typeStr = getFlagString(args.flags, 'type') ?? (input.type as string | undefined);
@@ -54,7 +68,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     title: input.title,
     content: input.content,
     type,
-    scope,
+    scope: parseScope(scopeStr),
     tags: input.tags ?? [],
     severity: input.severity,
     links: input.links,
@@ -65,6 +79,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     // Always attempt embedding generation (graceful fallback if Ollama unavailable)
     embeddingProvider: await createOllamaProviderWithHealthCheck(),
     basePath,
+    agent: agentName,  // Pass agent to storage layer
   };
 
   return wrapOperation(
@@ -79,7 +94,7 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
 /**
  * read - Read a memory by ID
  *
- * Usage: memory read <id> [--scope <scope>]
+ * Usage: memory read <id> [--scope <scope>] [--agent <name>]
  */
 export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -88,12 +103,18 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await readMemory({ id, basePath });
+      const result = await readMemory({ id, basePath, agent: agentName });
       return result;
     },
     `Read memory: ${id}`
@@ -103,24 +124,80 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
 /**
  * list - List memories with optional filters
  *
- * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>]
+ * Usage: memory list [type] [tag] [--scope <scope>] [--limit <n>] [--agent <name>] [--include-shared]
  */
 export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
   const typeArg = args.positional[0];
   const tagArg = args.positional[1];
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(typeArg);
 
   return wrapOperation(
     async () => {
+      // Multi-scope list if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; memories: any[] }> = [];
+
+        // List across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await listMemories({
+            basePath: scopePath,
+            type,
+            tag: tagArg,
+            limit,
+            agent: agentName,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.memories) {
+            allResults.push({ scope: scopeName, memories: scopeResult.memories });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedMemories = allResults.flatMap(({ scope, memories }) =>
+          memories.map((memory: any) => ({
+            ...memory,
+            id: formatScopedResult(memory.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedMemories = limit ? mergedMemories.slice(0, limit) : mergedMemories;
+
+        return {
+          status: 'success',
+          memories: limitedMemories,
+          count: mergedMemories.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope list (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await listMemories({
         basePath,
         type,
         tag: tagArg,
         limit,
+        agent: agentName,
       });
       return result;
     },
@@ -131,7 +208,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
 /**
  * delete - Delete a memory
  *
- * Usage: memory delete <id> [--scope <scope>] [--force]
+ * Usage: memory delete <id> [--scope <scope>] [--force] [--agent <name>]
  */
 export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -140,12 +217,24 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag (write operations are single-scope only)
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  if (includeShared) {
+    return error('Error: write operations are single-scope only. Remove --include-shared flag.');
+  }
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const result = await deleteMemory({ id, basePath });
+      const result = await deleteMemory({ id, basePath, agent: agentName });
       return result;
     },
     `Deleted memory: ${id}`
@@ -155,7 +244,7 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
 /**
  * search - Full-text search across memories
  *
- * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>]
+ * Usage: memory search <query> [--scope <scope>] [--limit <n>] [--type <type>] [--agent <name>] [--include-shared]
  */
 export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -164,18 +253,136 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: query');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const allAgents = getFlagBool(args.flags, 'all-agents');
+
+  // Validate mutually exclusive flags
+  if (allAgents && agentName) {
+    return error('Cannot use --all-agents with --agent');
+  }
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  if (allAgents && includeShared) {
+    return error('Cannot use --all-agents with --include-shared');
+  }
+
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
   const limit = getFlagNumber(args.flags, 'limit');
   const type = parseMemoryType(getFlagString(args.flags, 'type'));
 
   return wrapOperation(
     async () => {
+      // Cross-agent search if --all-agents is used
+      if (allAgents) {
+        const agents = await discoverAgents({
+          projectRoot: process.cwd(),
+          globalRoot: getGlobalMemoryPath(),
+        });
+
+        const allResults: Array<{ agent: string; results: any[] }> = [];
+
+        // Search across all agents
+        for (const agent of agents) {
+          const agentPath = getAgentDirectoryPath({
+            scope: agent.scope,
+            agentName: agent.name,
+            projectRoot: process.cwd(),
+            globalRoot: getGlobalMemoryPath(),
+          });
+
+          const agentResult = await searchMemories({
+            query,
+            basePath: agentPath,
+            limit,
+            type,
+            agent: agent.name,
+          });
+
+          if (agentResult.status === 'success' && agentResult.results) {
+            allResults.push({ agent: agent.name, results: agentResult.results });
+          }
+        }
+
+        // Merge results with agent indicators
+        const mergedResults = allResults.flatMap(({ agent, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, `agent:${agent}`),
+            agent, // Add agent field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          agents: allResults.map(({ agent }) => agent),
+        };
+      }
+
+      // Multi-scope search if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; results: any[] }> = [];
+
+        // Search across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await searchMemories({
+            query,
+            basePath: scopePath,
+            limit,
+            type,
+            agent: agentName,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.results) {
+            allResults.push({ scope: scopeName, results: scopeResult.results });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedResults = allResults.flatMap(({ scope, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Apply limit across all results
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope search (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await searchMemories({
         query,
         basePath,
         limit,
         type,
+        agent: agentName,
       });
       return result;
     },
@@ -186,7 +393,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 /**
  * semantic - Search by meaning using embeddings
  *
- * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>]
+ * Usage: memory semantic <query> [--scope <scope>] [--threshold <n>] [--limit <n>] [--agent <name>] [--include-shared]
  */
 export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
   const query = args.positional[0];
@@ -195,8 +402,17 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: query');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+
+  // Validate --include-shared flag
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.5;
   const limit = getFlagNumber(args.flags, 'limit') ?? 10;
 
@@ -217,10 +433,59 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
+      // Multi-scope semantic search if --include-shared is used with --agent
+      if (includeShared && agentName) {
+        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const allResults: Array<{ scope: string; results: any[] }> = [];
+
+        // Search across all scope paths
+        for (const scopePath of scopePaths) {
+          const scopeName = getScopeNameFromPath(scopePath);
+          const scopeResult = await semanticSearchMemories({
+            query,
+            basePath: scopePath,
+            threshold,
+            agent: agentName,
+            limit,
+            provider,
+          });
+
+          if (scopeResult.status === 'success' && scopeResult.results) {
+            allResults.push({ scope: scopeName, results: scopeResult.results });
+          }
+        }
+
+        // Merge results with scope indicators
+        const mergedResults = allResults.flatMap(({ scope, results }) =>
+          results.map((result: any) => ({
+            ...result,
+            id: formatScopedResult(result.id, scope),
+            scope, // Add scope field for reference
+          }))
+        );
+
+        // Sort by similarity and apply limit
+        mergedResults.sort((a, b) => (b.similarity ?? 0) - (a.similarity ?? 0));
+        const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
+
+        return {
+          status: 'success',
+          results: limitedResults,
+          total: mergedResults.length,
+          scopes: allResults.map(({ scope }) => scope),
+        };
+      }
+
+      // Single-scope semantic search (existing behavior)
+      const basePath = agentName
+        ? resolveAgentScopePath(agentName, scopeStr)
+        : getResolvedScopePath(parseScope(scopeStr));
+
       const result = await semanticSearchMemories({
         query,
         basePath,
         threshold,
+        agent: agentName,
         limit,
         provider,
       });

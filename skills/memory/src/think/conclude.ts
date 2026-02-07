@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type {
   ThinkConcludeRequest,
   ThinkConcludeResponse,
@@ -117,7 +118,7 @@ export async function concludeThinkDocument(
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   // Determine target document
   let documentId = request.documentId;

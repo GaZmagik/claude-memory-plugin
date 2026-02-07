@@ -3,8 +3,9 @@ id: learning-timeout-constant-inconsistency-30s-vs-120s
 title: "Timeout constant inconsistency: Claude (30s) vs Codex/Gemini (120s)"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:33:55.133Z"
-updated: "2026-01-26T22:33:55.133Z"
+updated: "2026-02-01T22:38:06.992Z"
 tags:
   - timeouts
   - providers

@@ -19,7 +19,46 @@ import { createLogger } from './logger.js';
 const log = createLogger('tag');
 
 /**
- * Add tags to an existing memory
+ * Add tags to an existing memory.
+ *
+ * Reads the memory, merges the new tags with existing ones (avoiding duplicates),
+ * writes the updated file, and updates the index. The memory's `updated` timestamp
+ * is automatically refreshed.
+ *
+ * @param request - Tag request containing the memory ID and tags to add
+ * @param request.id - The ID of the memory to tag (required)
+ * @param request.tags - Array of tags to add (required, must not be empty)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Scope where memory is located (optional)
+ *
+ * @returns {Promise<TagMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `id`: The memory ID
+ *   - `previousTags`: Array of tags before the operation
+ *   - `newTags`: Array of tags after the operation
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Add tags to a memory
+ * const result = await tagMemory({
+ *   id: 'learning-typescript-generics-abc123',
+ *   tags: ['advanced', 'type-system'],
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Previous tags: ${result.previousTags.join(', ')}`);
+ *   console.log(`New tags: ${result.newTags.join(', ')}`);
+ * }
+ *
+ * @example
+ * // Add a single tag (duplicates are ignored)
+ * const result = await tagMemory({
+ *   id: 'gotcha-async-cleanup-def456',
+ *   tags: ['critical'],
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
  */
 export async function tagMemory(request: TagMemoryRequest): Promise<TagMemoryResponse> {
   // Validate request
@@ -93,7 +132,51 @@ export async function tagMemory(request: TagMemoryRequest): Promise<TagMemoryRes
 }
 
 /**
- * Remove tags from an existing memory
+ * Remove tags from an existing memory.
+ *
+ * Reads the memory, removes the specified tags from the existing tag list,
+ * writes the updated file, and updates the index. The memory's `updated`
+ * timestamp is automatically refreshed. Tags that do not exist are tracked
+ * in the `notFound` field of the response.
+ *
+ * @param request - Untag request containing the memory ID and tags to remove
+ * @param request.id - The ID of the memory to untag (required)
+ * @param request.tags - Array of tags to remove (required, must not be empty)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Scope where memory is located (optional)
+ *
+ * @returns {Promise<UntagMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `id`: The memory ID
+ *   - `previousTags`: Array of tags before the operation
+ *   - `newTags`: Array of tags after the operation
+ *   - `notFound`: Array of tags that were not present (optional)
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Remove tags from a memory
+ * const result = await untagMemory({
+ *   id: 'learning-typescript-generics-abc123',
+ *   tags: ['deprecated', 'outdated'],
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Removed tags, now: ${result.newTags.join(', ')}`);
+ *   if (result.notFound) {
+ *     console.log(`Tags not found: ${result.notFound.join(', ')}`);
+ *   }
+ * }
+ *
+ * @example
+ * // Attempt to remove a non-existent tag (still succeeds)
+ * const result = await untagMemory({
+ *   id: 'decision-api-design-ghi789',
+ *   tags: ['non-existent-tag'],
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * // result.notFound will contain ['non-existent-tag']
  */
 export async function untagMemory(request: UntagMemoryRequest): Promise<UntagMemoryResponse> {
   // Validate request

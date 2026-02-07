@@ -3,8 +3,9 @@ id: gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup
 title: Gotcha retro - Restoration agent blocking pattern requires manual flag cleanup
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T09:58:41.962Z"
-updated: "2026-01-25T09:58:41.962Z"
+updated: "2026-02-01T22:38:06.770Z"
 tags:
   - retrospective
   - process

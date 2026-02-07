@@ -3,8 +3,9 @@ id: learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows
 title: Pre-commit fresh-session pattern for large speckit workflows
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T23:43:17.572Z"
-updated: "2026-01-24T23:43:17.572Z"
+updated: "2026-02-01T22:38:06.535Z"
 tags:
   - context-management
   - speckit

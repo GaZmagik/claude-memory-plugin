@@ -3,8 +3,9 @@ id: artifact-flag-parsing-pattern-getflagstring
 title: "Flag parsing pattern: getFlagString(args.flags, 'flagName')"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-25T12:38:10.980Z"
-updated: "2026-01-25T12:38:10.980Z"
+updated: "2026-02-01T22:38:06.395Z"
 tags:
   - cli-patterns
   - flag-parsing

@@ -3,8 +3,9 @@ id: decision-v110-feature-exploration-hint-visibility-auto-flag-enhanced-injecti
 title: v1.1.0 Feature Exploration - Hint visibility, --auto flag, enhanced injection
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T20:12:49.876Z"
-updated: "2026-01-24T20:12:49.876Z"
+updated: "2026-02-01T22:38:06.075Z"
 tags:
   - promoted-from-think
   - project

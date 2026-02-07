@@ -3,8 +3,9 @@ id: learning-hook-ollama-timeout-insufficient
 title: Hook Ollama timeout too short (2s) - needs 10-30s
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:33:49.208Z"
-updated: "2026-01-26T22:33:49.208Z"
+updated: "2026-02-01T22:38:06.269Z"
 tags:
   - hooks
   - ollama

@@ -3,8 +3,9 @@ id: gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-agg
 title: Gotcha - Speckit.review on massive codebases hits context limits mid-aggregation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T01:07:44.551Z"
-updated: "2026-01-17T01:07:44.551Z"
+updated: "2026-02-01T22:38:06.519Z"
 tags:
   - retrospective
   - process

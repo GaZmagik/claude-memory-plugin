@@ -3,8 +3,9 @@ id: learning-retro-mock-removal-categorizes-into-two-distinct-types
 title: Retro - Mock removal categorizes into two distinct types
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T23:59:59.567Z"
-updated: "2026-01-18T00:07:48.955Z"
+updated: "2026-02-01T22:38:07.016Z"
 tags:
   - retrospective
   - testing

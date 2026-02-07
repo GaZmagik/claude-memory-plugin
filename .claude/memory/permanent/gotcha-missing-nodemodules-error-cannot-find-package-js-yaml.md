@@ -3,8 +3,9 @@ id: gotcha-missing-nodemodules-error-cannot-find-package-js-yaml
 title: "Missing node_modules error: Cannot find package js-yaml"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:52:49.246Z"
-updated: "2026-01-26T22:52:49.246Z"
+updated: "2026-02-01T22:38:06.564Z"
 tags:
   - marketplace
   - error-message

@@ -3,8 +3,9 @@ id: gotcha-retro-global-hooks-override-project-hooks-block-plugin-control
 title: Retro - Global hooks override project hooks block plugin control
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T13:36:40.529Z"
-updated: "2026-01-17T13:41:35.000Z"
+updated: "2026-02-01T22:38:06.289Z"
 tags:
   - retrospective
   - hooks

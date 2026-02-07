@@ -3,8 +3,9 @@ id: learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catch
 title: Retro - TypeScript error fixing in batches prevents fatigue and catches regressions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T06:54:08.166Z"
-updated: "2026-01-17T06:54:08.166Z"
+updated: "2026-02-01T22:38:06.963Z"
 tags:
   - retrospective
   - typescript

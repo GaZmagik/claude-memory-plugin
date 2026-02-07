@@ -30,6 +30,7 @@ import {
 import { cmdSuggestLinks, cmdSummarize } from './commands/suggest.js';
 import { cmdQuery, cmdStats, cmdImpact } from './commands/query.js';
 import { cmdThink } from './commands/think.js';
+import { cmdAgents } from './commands/agents.js';
 
 /**
  * Command handler function signature
@@ -106,6 +107,9 @@ const COMMANDS: Record<string, CommandHandler> = {
 
   // Think operations (two-level command)
   think: cmdThink,
+
+  // Agents operations (two-level command - Phase E)
+  agents: cmdAgents,
 
   // Help
   help: cmdHelp,

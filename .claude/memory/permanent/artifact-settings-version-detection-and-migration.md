@@ -3,8 +3,9 @@ id: artifact-settings-version-detection-and-migration
 title: Settings version detection and auto-migration logic
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-30T17:24:25.903Z"
-updated: "2026-01-30T17:24:25.903Z"
+updated: "2026-02-01T22:38:06.617Z"
 tags:
   - settings-management
   - v1.2.0

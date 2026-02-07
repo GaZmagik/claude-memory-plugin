@@ -3,8 +3,9 @@ id: artifact-v110-ollama-selection-prompt
 title: Ollama style/agent/model selection prompt template
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T22:32:03.881Z"
-updated: "2026-01-24T22:32:03.881Z"
+updated: "2026-02-01T22:38:06.244Z"
 tags:
   - v1.1.0
   - ollama

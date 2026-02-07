@@ -15,6 +15,7 @@ export default defineConfig({
       'hooks/pre-tool-use/**/*.spec.ts', // Hook implementation tests
       'tests/integration/**/*.spec.ts',  // Integration tests
       'tests/contract/**/*.spec.ts',     // Contract tests
+      'tests/performance/**/*.spec.ts',  // Performance tests
     ],
     exclude: ['node_modules', 'lib', 'dist'],
     coverage: {

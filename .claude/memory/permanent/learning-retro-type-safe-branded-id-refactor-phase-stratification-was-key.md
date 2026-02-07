@@ -3,8 +3,9 @@ id: learning-retro-type-safe-branded-id-refactor-phase-stratification-was-key
 title: "Retro - Type-safe branded ID refactor: phase stratification was key"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T04:25:14.672Z"
-updated: "2026-01-18T04:25:14.672Z"
+updated: "2026-02-01T22:38:06.756Z"
 tags:
   - retrospective
   - process

@@ -12,6 +12,8 @@ import { isInGitRepository, findGitRoot } from './git-utils.js';
 import { loadConfig, getEnterpriseConfig } from './config.js';
 import { getEnterprisePath, validateEnterprisePath } from './enterprise.js';
 import { createLogger } from '../core/logger.js';
+import { getAgentDirectoryPath } from './get-agent-directory-path.js';
+import { validateAgentName } from './validate-agent-name.js';
 
 const log = createLogger('resolver');
 
@@ -27,6 +29,8 @@ export interface ScopeContext {
   enterpriseEnabled?: boolean;
   /** Path to enterprise memory storage */
   enterprisePath?: string;
+  /** Agent name for agent-scoped operations */
+  agentName?: string;
 }
 
 /**
@@ -59,11 +63,12 @@ export function resolveScope(options: ResolveScopeOptions): ScopeResolution {
     globalMemoryPath,
     enterpriseEnabled = false,
     enterprisePath,
+    agentName,
   } = options;
 
   // If no scope requested, use default
   if (!requestedScope) {
-    const defaultScope = getDefaultScope(cwd);
+    const defaultScope = getDefaultScope({ cwd, globalMemoryPath, agentName });
     return resolveScope({
       ...options,
       requestedScope: defaultScope,
@@ -91,6 +96,10 @@ export function resolveScope(options: ResolveScopeOptions): ScopeResolution {
         scope: Scope.Global,
         path: globalMemoryPath,
       };
+
+    case Scope.AgentProject:
+    case Scope.AgentGlobal:
+      return resolveAgentScope(requestedScope, cwd, globalMemoryPath, agentName);
 
     default:
       return {
@@ -140,6 +149,59 @@ function resolveEnterpriseScope(
 }
 
 /**
+ * Resolve agent scope (AgentProject or AgentGlobal)
+ */
+function resolveAgentScope(
+  scope: Scope.AgentProject | Scope.AgentGlobal,
+  cwd: string,
+  globalMemoryPath: string,
+  agentName?: string
+): ScopeResolution {
+  // Validate agentName is provided
+  if (!agentName || agentName.trim() === '') {
+    return {
+      scope: null,
+      error: 'agentName is required for agent scopes',
+    };
+  }
+
+  // Validate agent name format (no auto-sanitisation at API layer)
+  const validation = validateAgentName(agentName);
+
+  if (!validation.valid) {
+    const errorMsg = validation.error || 'Invalid agent name';
+    const suggestion = validation.suggestion ? ` (suggestion: ${validation.suggestion})` : '';
+    return {
+      scope: null,
+      error: `${errorMsg}${suggestion}`,
+    };
+  }
+
+  // Get the appropriate root path
+  const projectRoot = scope === Scope.AgentProject ? cwd : undefined;
+  const globalRoot = scope === Scope.AgentGlobal ? globalMemoryPath : undefined;
+
+  try {
+    const agentPath = getAgentDirectoryPath({
+      scope,
+      agentName,
+      projectRoot,
+      globalRoot,
+    });
+
+    return {
+      scope,
+      path: agentPath,
+    };
+  } catch (error) {
+    return {
+      scope: null,
+      error: error instanceof Error ? error.message : 'Failed to resolve agent scope path',
+    };
+  }
+}
+
+/**
  * Get the storage path for a given scope
  */
 export function getScopePath(
@@ -157,6 +219,11 @@ export function getScopePath(
       return getProjectScopePath(cwd);
     case Scope.Global:
       return globalMemoryPath;
+    case Scope.AgentProject:
+    case Scope.AgentGlobal:
+      throw new Error(`Agent scopes require agentName parameter. Use resolveScope() instead.`);
+    default:
+      throw new Error(`Unknown scope: ${scope}`);
   }
 }
 
@@ -181,7 +248,11 @@ function getLocalScopePath(cwd: string): string {
 /**
  * Determine the default scope based on context
  */
-export function getDefaultScope(cwd: string): Scope {
+export function getDefaultScope(context: ScopeContext | string): Scope {
+  // Handle legacy string parameter for backward compatibility
+  const cwd = typeof context === 'string' ? context : context.cwd;
+  const agentName = typeof context === 'string' ? undefined : context.agentName;
+
   // Check config for explicit default
   const config = loadConfig(cwd);
   const configDefault = config.scopes?.default;
@@ -189,6 +260,17 @@ export function getDefaultScope(cwd: string): Scope {
     return configDefault as Scope;
   }
 
+  // If agent context provided, use agent scopes
+  if (agentName && agentName.trim() !== '') {
+    // If in git repo, default to agent-project scope
+    if (isInGitRepository(cwd)) {
+      return Scope.AgentProject;
+    }
+    // Otherwise default to agent-global
+    return Scope.AgentGlobal;
+  }
+
+  // No agent context: use existing default logic
   // If in git repo, default to project scope
   if (isInGitRepository(cwd)) {
     return Scope.Project;

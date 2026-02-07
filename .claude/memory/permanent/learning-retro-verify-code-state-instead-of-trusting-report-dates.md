@@ -3,8 +3,9 @@ id: learning-retro-verify-code-state-instead-of-trusting-report-dates
 title: Retro - Verify code state instead of trusting report dates
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T05:43:52.053Z"
-updated: "2026-01-18T05:43:52.053Z"
+updated: "2026-02-01T22:38:06.224Z"
 tags:
   - retrospective
   - process

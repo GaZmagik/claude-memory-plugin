@@ -113,8 +113,33 @@ function parseScope(value: string): Scope | null {
 }
 
 /**
- * Get the recommended scope for a memory type
- * Some memory types have natural scope preferences
+ * Determines the recommended scope for a given memory type based on its nature.
+ *
+ * Different memory types have natural scope preferences:
+ * - **Artifacts**: Typically shared globally across projects
+ * - **Gotchas/Learnings**: Usually project-specific (if in a git repository)
+ * - **Breadcrumbs**: Temporary personal markers, stored locally
+ * - **Other types**: Falls back to the standard default scope selection logic
+ *
+ * @param memoryType - The type of memory being created (e.g., 'artifact', 'gotcha', 'learning', 'breadcrumb')
+ * @param cwd - The current working directory, used for git repository detection
+ * @returns A DefaultScopeResult containing the recommended scope, reason, and source
+ *
+ * @example
+ * ```typescript
+ * // Get recommended scope for an artifact
+ * const result = getRecommendedScope('artifact', '/path/to/project');
+ * console.log(result.scope);  // Scope.Global
+ * console.log(result.reason); // 'Artifacts are typically shared across projects'
+ *
+ * // Get recommended scope for a gotcha in a git repository
+ * const gotchaResult = getRecommendedScope('gotcha', '/path/to/git-project');
+ * console.log(gotchaResult.scope);  // Scope.Project
+ *
+ * // Get recommended scope for a breadcrumb
+ * const breadcrumbResult = getRecommendedScope('breadcrumb', '/path/to/project');
+ * console.log(breadcrumbResult.scope);  // Scope.Local
+ * ```
  */
 export function getRecommendedScope(
   memoryType: string,
@@ -154,8 +179,45 @@ export function getRecommendedScope(
 }
 
 /**
- * Check if the selected scope is appropriate for the content
- * Returns warnings if there might be a mismatch
+ * Validates whether the selected scope is appropriate for the given content and memory type.
+ *
+ * Analyses the content and memory type to detect potential mismatches with the selected scope.
+ * Returns an array of warning messages if issues are detected:
+ * - Personal/confidential content in shared scopes (project/enterprise)
+ * - Breadcrumbs stored outside local scope
+ * - Artifacts stored in local scope (won't be shared)
+ *
+ * @param selectedScope - The scope that was selected for the memory
+ * @param memoryType - The type of memory being created (e.g., 'artifact', 'breadcrumb')
+ * @param content - The content of the memory to analyse for personal/confidential indicators
+ * @returns An array of warning strings; empty array if no issues detected
+ *
+ * @example
+ * ```typescript
+ * // Check for personal content in shared scope
+ * const warnings = validateScopeChoice(
+ *   Scope.Project,
+ *   'note',
+ *   'This is my personal API key: abc123'
+ * );
+ * // Returns: ['Content appears to be personal but scope is shared. Consider using local scope.']
+ *
+ * // Check breadcrumb in non-local scope
+ * const breadcrumbWarnings = validateScopeChoice(
+ *   Scope.Global,
+ *   'breadcrumb',
+ *   'Debugging session marker'
+ * );
+ * // Returns: ['Breadcrumbs are typically stored in local scope for privacy.']
+ *
+ * // No warnings for appropriate scope choice
+ * const noWarnings = validateScopeChoice(
+ *   Scope.Project,
+ *   'gotcha',
+ *   'Remember to run migrations before deploying'
+ * );
+ * // Returns: []
+ * ```
  */
 export function validateScopeChoice(
   selectedScope: Scope,

@@ -21,8 +21,21 @@ export enum MemoryType {
 /**
  * Memory Scope Enumeration
  *
- * Defines the 4-tier scope hierarchy for memory storage.
- * Precedence: Enterprise > Local > Project > Global
+ * Defines scopes in two separate hierarchies:
+ *
+ * REGULAR SCOPES (precedence: Enterprise > Local > Project > Global)
+ * - Enterprise: Organisation-wide memories
+ * - Local: Personal project-specific memories
+ * - Project: Shared project memories
+ * - Global: Personal cross-project memories
+ *
+ * AGENT SCOPES (isolated namespaces, parallel to regular scopes)
+ * - AgentProject: Agent-specific project memories
+ * - AgentGlobal: Agent-specific global memories
+ *
+ * Agent scopes do not participate in the regular scope precedence chain.
+ * Each agent maintains its own memory storage independent of other agents
+ * and regular scopes.
  */
 export enum Scope {
   /** Organisation-wide memories from managed-settings.json path */
@@ -33,6 +46,10 @@ export enum Scope {
   Project = 'project',
   /** Personal cross-project memories in ~/.claude/memory/ */
   Global = 'global',
+  /** Agent-specific project memories in .claude/memory/agents/{name}/ */
+  AgentProject = 'agent-project',
+  /** Agent-specific global memories in ~/.claude/memory/agents/{name}/ */
+  AgentGlobal = 'agent-global',
 }
 
 /**

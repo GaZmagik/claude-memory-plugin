@@ -5,6 +5,58 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-02-06
+
+### Added
+
+#### Agent-Scoped Memory Namespaces (US1, US2)
+- **Agent memory isolation**: Agents maintain separate memory stores in `.claude/memory/agents/{name}/`
+- **Dual agent scopes**: `agent-project` (shared with team via git) and `agent-global` (personal, in `~/.claude/memory/agents/{name}/`)
+- **Scope hierarchy**: Agent-project → agent-global → project → global resolution order
+- **Auto-directory creation**: Agent directories created automatically on first write
+- **Agent name sanitisation**: Handles uppercase, spaces, special characters, and Unicode
+
+#### CLI Agent Targeting (US3)
+- **`--agent <name>` flag**: All CRUD commands accept agent targeting
+- **`--include-shared` flag**: Include project/global memories in agent searches
+- **`--all-agents` flag**: Apply operations across all agents
+- **`--target-agent <name>` flag**: Cross-agent linking support
+- **`memory agents` command**: List all registered agents with memory counts and type breakdowns
+- **Updated help text**: All commands document agent flags
+
+#### Multi-Scope Read Operations (US4)
+- **`--include-shared` for search/semantic/list/query/stats/impact**: Read across agent + project + global scopes
+- **Scope indicators**: Results annotated with `[agent-project]`, `[agent-global]`, `[project]`, `[global]`
+- **Validation**: `--include-shared` rejected on write operations, requires `--agent`
+
+#### Agent Graph Integration (US5)
+- **Agent-scoped Mermaid diagrams**: `memory mermaid --agent` with distinct visual styling
+- **Agent health checks**: `memory health --agent` validates agent scope integrity
+- **Agent statistics**: `memory stats --agent` reports agent-specific metrics
+- **Agent suggest-links**: Works within agent scope boundaries
+- **`memory agents` command**: Scans directories, reports memory counts and types per agent
+
+#### Context Injection Preparation (US6)
+- **Hook interface placeholders**: Agent context parameter added to hook type definitions
+- **Documentation**: Future agent context injection workflow documented
+
+### Changed
+- Scope enum extended with `AgentProject` and `AgentGlobal` values
+- ScopeResolver accepts optional `agentName` parameter
+- Frontmatter schema extended with optional `agent` field
+- Index system handles agent scope directories
+- Search operations support agent scope filtering
+
+### Performance
+- Agent-scoped CRUD: <100ms warm, <500ms cold start
+- Cross-scope graph operations: <500ms
+- Agent listing: <200ms for 10+ agents
+
+### Migration
+- No breaking changes — all existing commands work unchanged without `--agent`
+- Existing memory files remain fully compatible
+- Agent directories are only created when `--agent` is used
+
 ## [1.2.1] - 2026-02-01
 
 ### Fixed

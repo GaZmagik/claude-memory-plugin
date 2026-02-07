@@ -11,9 +11,12 @@ import type {
   UnlinkMemoriesResponse,
 } from '../types/api.js';
 import { loadGraph, saveGraph, addNode, hasNode } from './structure.js';
+import type { GraphNode } from './structure.js';
 import { addEdge, removeEdge, hasEdge } from './edges.js';
+import type { EdgeMetadata } from './edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';
+import { resolveAgentScopePath } from '../cli/helpers.js';
 
 const log = createLogger('link');
 
@@ -45,7 +48,36 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Detect cross-scope scenario: targetBasePath or targetAgent present
+  if (request.targetBasePath) {
+    const sourceBasePath = request.agent
+      ? resolveAgentScopePath(request.agent, undefined)
+      : (request.basePath ?? process.cwd());
+
+    const result = await storeCrossScopeEdge({
+      sourceId: request.source,
+      targetId: request.target,
+      relation: request.relation,
+      sourceBasePath,
+      targetBasePath: request.targetBasePath,
+      sourceScope: request.sourceScope ?? (request.agent ? 'agent-project' : 'project'),
+      targetScope: request.targetScope ?? (request.targetAgent ? 'agent-project' : 'project'),
+      sourceAgent: request.sourceAgent ?? request.agent,
+      targetAgent: request.targetAgent,
+    });
+
+    return {
+      status: result.status,
+      error: result.error,
+      edge: result.edge,
+      alreadyExists: false,
+    };
+  }
+
+  // Resolve basePath, considering agent context
+  const basePath = request.agent
+    ? resolveAgentScopePath(request.agent, undefined)
+    : (request.basePath ?? process.cwd());
   const relation = request.relation ?? DEFAULT_RELATION;
 
   try {
@@ -142,7 +174,31 @@ export async function unlinkMemories(request: UnlinkMemoriesRequest): Promise<Un
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
+  // Detect cross-scope scenario
+  if (request.targetBasePath) {
+    const sourceBasePath = request.agent
+      ? resolveAgentScopePath(request.agent, undefined)
+      : (request.basePath ?? process.cwd());
+
+    const result = await removeCrossScopeEdge({
+      sourceId: request.source,
+      targetId: request.target,
+      relation: request.relation,
+      sourceBasePath,
+      targetBasePath: request.targetBasePath,
+    });
+
+    return {
+      status: result.status,
+      error: result.error,
+      removedCount: result.removedCount,
+    };
+  }
+
+  // Resolve basePath, considering agent context
+  const basePath = request.agent
+    ? resolveAgentScopePath(request.agent, undefined)
+    : (request.basePath ?? process.cwd());
 
   try {
     // Load graph
@@ -186,6 +242,246 @@ export async function unlinkMemories(request: UnlinkMemoriesRequest): Promise<Un
     return {
       status: 'error',
       error: `Failed to remove link: ${String(error)}`,
+    };
+  }
+}
+
+// ============================================================================
+// Cross-Scope Link Operations
+// ============================================================================
+
+/**
+ * Request to store a cross-scope edge in both graphs
+ */
+export interface StoreCrossScopeEdgeRequest {
+  sourceId: string;
+  targetId: string;
+  relation?: string;
+  sourceBasePath: string;
+  targetBasePath: string;
+  sourceScope: string;
+  targetScope: string;
+  sourceAgent?: string;
+  targetAgent?: string;
+}
+
+/**
+ * Response from cross-scope edge storage
+ */
+export interface StoreCrossScopeEdgeResponse {
+  status: 'success' | 'error';
+  error?: string;
+  edge?: {
+    source: string;
+    target: string;
+    label: string;
+  };
+}
+
+/**
+ * Request to remove a cross-scope edge from both graphs
+ */
+export interface RemoveCrossScopeEdgeRequest {
+  sourceId: string;
+  targetId: string;
+  relation?: string;
+  sourceBasePath: string;
+  targetBasePath: string;
+}
+
+/**
+ * Response from cross-scope edge removal
+ */
+export interface RemoveCrossScopeEdgeResponse {
+  status: 'success' | 'error';
+  error?: string;
+  removedCount: number;
+}
+
+/**
+ * Store a cross-scope edge in both the source and target graph files.
+ *
+ * The same edge (with identical metadata) is written to both graphs.
+ * Source graph is saved first (it "owns" the edge), then target.
+ * Nodes are auto-added to graphs with enrichment from the index if missing.
+ */
+export async function storeCrossScopeEdge(
+  request: StoreCrossScopeEdgeRequest
+): Promise<StoreCrossScopeEdgeResponse> {
+  const relation = request.relation ?? DEFAULT_RELATION;
+  const metadata: EdgeMetadata = {
+    sourceScope: request.sourceScope,
+    targetScope: request.targetScope,
+    sourceAgent: request.sourceAgent,
+    targetAgent: request.targetAgent,
+  };
+
+  try {
+    // Load both indexes to look up memory metadata for node enrichment
+    const sourceIndex = await loadIndex({ basePath: request.sourceBasePath });
+    const targetIndex = await loadIndex({ basePath: request.targetBasePath });
+
+    const sourceEntry = sourceIndex.memories.find(m => m.id === request.sourceId)
+      ?? targetIndex.memories.find(m => m.id === request.sourceId);
+    const targetEntry = targetIndex.memories.find(m => m.id === request.targetId)
+      ?? sourceIndex.memories.find(m => m.id === request.targetId);
+
+    // Build enriched nodes
+    const sourceNode: GraphNode = {
+      id: request.sourceId,
+      type: sourceEntry?.type ?? 'unknown',
+      ...(sourceEntry?.title && { title: sourceEntry.title }),
+      ...(request.sourceScope && { scope: request.sourceScope }),
+      ...(request.sourceAgent && { agent: request.sourceAgent }),
+    };
+
+    const targetNode: GraphNode = {
+      id: request.targetId,
+      type: targetEntry?.type ?? 'unknown',
+      ...(targetEntry?.title && { title: targetEntry.title }),
+      ...(request.targetScope && { scope: request.targetScope }),
+      ...(request.targetAgent && { agent: request.targetAgent }),
+    };
+
+    // Load both graphs
+    let sourceGraph = await loadGraph(request.sourceBasePath);
+    let targetGraph = await loadGraph(request.targetBasePath);
+
+    // Add nodes if missing (with enrichment)
+    if (!hasNode(sourceGraph, request.sourceId)) {
+      sourceGraph = addNode(sourceGraph, sourceNode);
+    }
+    if (!hasNode(sourceGraph, request.targetId)) {
+      sourceGraph = addNode(sourceGraph, targetNode);
+    }
+    if (!hasNode(targetGraph, request.sourceId)) {
+      targetGraph = addNode(targetGraph, sourceNode);
+    }
+    if (!hasNode(targetGraph, request.targetId)) {
+      targetGraph = addNode(targetGraph, targetNode);
+    }
+
+    // Add edge to both graphs with cross-scope metadata
+    sourceGraph = addEdge(sourceGraph, request.sourceId, request.targetId, relation, metadata);
+    targetGraph = addEdge(targetGraph, request.sourceId, request.targetId, relation, metadata);
+
+    // Save both graphs - source "owns" the edge so save it first
+    // Note: This is non-atomic. If target save fails after source succeeds,
+    // we attempt best-effort rollback but may leave inconsistent state.
+    // Full transactional support would require graph file backups.
+    await saveGraph(request.sourceBasePath, sourceGraph);
+    try {
+      await saveGraph(request.targetBasePath, targetGraph);
+    } catch (targetError) {
+      // Best-effort rollback: try to remove edge from source graph
+      log.warn('Target graph save failed, attempting rollback', {
+        source: request.sourceId,
+        target: request.targetId,
+        error: String(targetError),
+      });
+      try {
+        const rollbackGraph = removeEdge(sourceGraph, request.sourceId, request.targetId);
+        await saveGraph(request.sourceBasePath, rollbackGraph);
+      } catch (rollbackError) {
+        log.error('Rollback failed - graphs may be inconsistent', {
+          rollbackError: String(rollbackError),
+        });
+      }
+      throw targetError;
+    }
+
+    log.info('Created cross-scope link', {
+      source: request.sourceId,
+      target: request.targetId,
+      relation,
+      sourceScope: request.sourceScope,
+      targetScope: request.targetScope,
+    });
+
+    return {
+      status: 'success',
+      edge: {
+        source: request.sourceId,
+        target: request.targetId,
+        label: relation,
+      },
+    };
+  } catch (error) {
+    log.error('Failed to create cross-scope link', {
+      source: request.sourceId,
+      target: request.targetId,
+      error: String(error),
+    });
+    return {
+      status: 'error',
+      error: `Failed to create cross-scope link: ${String(error)}`,
+    };
+  }
+}
+
+/**
+ * Remove a cross-scope edge from both the source and target graph files.
+ *
+ * Scans the source graph for matching edges, removes from both graphs.
+ * Best-effort on target graph — if it fails, source is still cleaned up.
+ */
+export async function removeCrossScopeEdge(
+  request: RemoveCrossScopeEdgeRequest
+): Promise<RemoveCrossScopeEdgeResponse> {
+  let totalRemoved = 0;
+
+  try {
+    // Load source graph and remove matching edges
+    let sourceGraph = await loadGraph(request.sourceBasePath);
+    const edgesBefore = sourceGraph.edges.length;
+
+    sourceGraph = removeEdge(sourceGraph, request.sourceId, request.targetId, request.relation);
+    const sourceRemoved = edgesBefore - sourceGraph.edges.length;
+
+    if (sourceRemoved > 0) {
+      await saveGraph(request.sourceBasePath, sourceGraph);
+      totalRemoved += sourceRemoved;
+    }
+
+    // Best-effort: remove from target graph
+    try {
+      let targetGraph = await loadGraph(request.targetBasePath);
+      const targetEdgesBefore = targetGraph.edges.length;
+
+      targetGraph = removeEdge(targetGraph, request.sourceId, request.targetId, request.relation);
+      const targetRemoved = targetEdgesBefore - targetGraph.edges.length;
+
+      if (targetRemoved > 0) {
+        await saveGraph(request.targetBasePath, targetGraph);
+        totalRemoved += targetRemoved;
+      }
+    } catch (targetError) {
+      log.warn('Best-effort target graph cleanup failed', {
+        targetBasePath: request.targetBasePath,
+        error: String(targetError),
+      });
+    }
+
+    log.info('Removed cross-scope link', {
+      source: request.sourceId,
+      target: request.targetId,
+      removedCount: totalRemoved,
+    });
+
+    return {
+      status: 'success',
+      removedCount: totalRemoved,
+    };
+  } catch (error) {
+    log.error('Failed to remove cross-scope link', {
+      source: request.sourceId,
+      target: request.targetId,
+      error: String(error),
+    });
+    return {
+      status: 'error',
+      error: `Failed to remove cross-scope link: ${String(error)}`,
+      removedCount: totalRemoved,
     };
   }
 }

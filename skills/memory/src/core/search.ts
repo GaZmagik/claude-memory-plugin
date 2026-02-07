@@ -5,11 +5,15 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type { SearchMemoriesRequest, SearchMemoriesResponse, SearchResult } from '../types/api.js';
+import { Scope } from '../types/enums.js';
 import { loadIndex } from './index.js';
 import { readFile, fileExists } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
+import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('search');
 
@@ -86,7 +90,54 @@ function extractSnippet(content: string, query: string, maxLength: number = 150)
 }
 
 /**
- * Search memories by keyword
+ * Search memories by keyword matching in title, content, and tags.
+ *
+ * Performs case-insensitive keyword search across all indexed memories,
+ * returning results ranked by relevance score. The search matches against
+ * memory titles (highest weight), tags (medium weight), and content (lower weight).
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: searches project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: searches user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - Search request containing the query string and optional filters
+ * @param request.query - The search query string (required, max 10,000 characters)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Optional scope filter (project, global, local, agent-project, agent-global)
+ * @param request.agent - Agent name (required when using agent scopes)
+ * @param request.type - Optional memory type filter (learning, decision, gotcha, etc.)
+ * @param request.limit - Maximum number of results to return (defaults to 20)
+ *
+ * @returns {Promise<SearchMemoriesResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `results`: Array of {@link SearchResult} objects with id, title, score, and snippet
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Basic search in project scope
+ * const result = await searchMemories({
+ *   query: 'typescript generics',
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Found ${result.results.length} memories`);
+ *   result.results.forEach(r => console.log(`${r.title} (score: ${r.score})`));
+ * }
+ *
+ * @example
+ * // Search within a specific agent's memories with filters
+ * const result = await searchMemories({
+ *   query: 'API design patterns',
+ *   scope: Scope.AgentProject,
+ *   agent: 'api-architect',
+ *   type: MemoryType.Decision,
+ *   limit: 10
+ * });
  */
 export async function searchMemories(request: SearchMemoriesRequest): Promise<SearchMemoriesResponse> {
   const MAX_QUERY_LENGTH = 10000;
@@ -107,8 +158,32 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
     };
   }
 
-  const basePath = request.basePath ?? process.cwd();
   const query = request.query.trim();
+
+  // Resolve base path (handle agent scopes)
+  let basePath: string;
+  if (request.scope && isAgentScope(request.scope)) {
+    // Agent scope - resolve agent directory
+    if (!request.agent) {
+      return {
+        status: 'error',
+        error: 'agent field is required for agent scopes',
+      };
+    }
+
+    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
+
+    basePath = getAgentDirectoryPath({
+      scope: request.scope,
+      agentName: request.agent,
+      projectRoot,
+      globalRoot,
+    });
+  } else {
+    // Regular scope - use existing resolution
+    basePath = request.basePath ?? process.cwd();
+  }
 
   try {
     const index = await loadIndex({ basePath });
@@ -127,31 +202,48 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
 
     const results: SearchResult[] = [];
 
+    const queryLower = query.toLowerCase();
+
     for (const entry of entries) {
       // First, check if title or tags match (quick check from index)
-      const titleMatch = entry.title.toLowerCase().includes(query.toLowerCase());
-      const tagMatch = entry.tags.some(t => t.toLowerCase().includes(query.toLowerCase()));
+      const titleMatch = entry.title.toLowerCase().includes(queryLower);
+      const tagMatch = entry.tags.some(t => t.toLowerCase().includes(queryLower));
 
-      // Read content for content match and snippet extraction
+      // Read content only if title/tags didn't match (avoid unnecessary I/O)
       const filePath = path.join(basePath, entry.relativePath);
       let content = '';
+      let contentMatch = false;
 
-      if (await fileExists(filePath)) {
-        try {
-          const fileContent = await readFile(filePath);
-          const parsed = parseMemoryFile(fileContent);
-          content = parsed.content;
-        } catch {
-          // Skip files that can't be parsed
+      if (titleMatch || tagMatch) {
+        // Title or tag matched — still read content for scoring and snippet extraction
+        if (await fileExists(filePath)) {
+          try {
+            const fileContent = await readFile(filePath);
+            const parsed = parseMemoryFile(fileContent);
+            content = parsed.content;
+          } catch {
+            // Use empty content for scoring if file can't be parsed
+          }
+        }
+        contentMatch = content.toLowerCase().includes(queryLower);
+      } else {
+        // No index match — read file to check content as last resort
+        if (await fileExists(filePath)) {
+          try {
+            const fileContent = await readFile(filePath);
+            const parsed = parseMemoryFile(fileContent);
+            content = parsed.content;
+          } catch {
+            // Skip files that can't be parsed
+            continue;
+          }
+        }
+        contentMatch = content.toLowerCase().includes(queryLower);
+
+        // No match anywhere — skip entirely
+        if (!contentMatch) {
           continue;
         }
-      }
-
-      const contentMatch = content.toLowerCase().includes(query.toLowerCase());
-
-      // Skip if no match
-      if (!titleMatch && !tagMatch && !contentMatch) {
-        continue;
       }
 
       const score = calculateScore(query, entry.title, content, entry.tags);
@@ -163,6 +255,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
         title: entry.title,
         tags: entry.tags,
         scope: entry.scope,
+        agent: entry.agent,
         score,
         snippet,
       });

@@ -19,6 +19,7 @@ src/suggest/index.ts
 src/types/api.ts
 src/types/operations.ts
 src/types/think.ts
+src/maintenance/agent-operations/types.ts
 
 # Functions tested in different files (cross-file coverage)
 # slugify - tested indirectly via generateSlug in slug.spec.ts
@@ -117,3 +118,20 @@ src/cli/hint-output.ts
 # interactive-prompt.ts - tested in tests/integration/test-interactive-prompt.spec.ts
 # and tests/integration/test-non-interactive.spec.ts
 src/cli/interactive-prompt.ts
+
+# =============================================================================
+# For --src skills/memory/src: Phase E - Agent-Scoped Advanced Features
+# Tests exist in tests/unit/ and tests/integration/ with test-*.spec.ts naming
+# =============================================================================
+
+# format-scope-indicator.ts - tested in tests/unit/display/test-scope-indicators.spec.ts
+src/display/format-scope-indicator.ts
+
+# agent-mermaid-style.ts - tested in tests/unit/graph/test-agent-mermaid-style.spec.ts
+src/graph/agent-mermaid-style.ts
+
+# agent-info.ts - tested in tests/unit/agents/test-agent-info.spec.ts
+src/agents/agent-info.ts
+
+# scan-agents.ts - tested in tests/unit/agents/test-scan-agents.spec.ts
+src/agents/scan-agents.ts

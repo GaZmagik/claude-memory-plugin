@@ -3,8 +3,9 @@ id: learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catc
 title: Retro - TypeScript batch fixing by category prevents fatigue and catches regressions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T10:26:44.002Z"
-updated: "2026-01-17T10:26:44.002Z"
+updated: "2026-02-01T22:38:06.879Z"
 tags:
   - retrospective
   - process

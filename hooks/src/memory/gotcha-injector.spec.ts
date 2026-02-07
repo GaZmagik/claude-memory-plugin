@@ -2,6 +2,15 @@
  * T104-Tests: Unit tests for gotcha injector
  *
  * Tests the gotcha injection utilities for contextual warning display.
+ *
+ * ⚠️ TEST ISOLATION REQUIRED
+ * This file uses module-level vi.mock() for complex dependency mocking.
+ * Module-level vi.mock() is hoisted before imports and creates global state
+ * that cannot be cleaned up with vi.restoreAllMocks(). Running this file
+ * alongside other tests causes pollution.
+ *
+ * Run with: bunx vitest run hooks/src/memory/gotcha-injector.spec.ts
+ * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';

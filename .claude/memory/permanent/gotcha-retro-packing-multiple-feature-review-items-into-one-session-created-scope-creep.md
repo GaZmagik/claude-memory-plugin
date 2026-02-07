@@ -3,8 +3,9 @@ id: gotcha-retro-packing-multiple-feature-review-items-into-one-session-created-
 title: Retro - Packing multiple feature review items into one session created scope creep
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-01-18T18:12:16.796Z"
-updated: "2026-01-18T18:12:16.796Z"
+updated: "2026-02-01T22:38:06.104Z"
 tags:
   - retrospective
   - process

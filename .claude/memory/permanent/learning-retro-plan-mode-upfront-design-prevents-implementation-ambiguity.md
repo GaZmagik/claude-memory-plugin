@@ -3,8 +3,9 @@ id: learning-retro-plan-mode-upfront-design-prevents-implementation-ambiguity
 title: Retro - Plan mode upfront design prevents implementation ambiguity
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-17T00:31:46.158Z"
-updated: "2026-01-17T00:31:46.158Z"
+updated: "2026-02-01T22:38:06.458Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-plugin-relative-discovery-requires-importmetaurl-not-processcwd
 title: Plugin-relative discovery requires import.meta.url not process.cwd
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-01-24T14:15:03.083Z"
-updated: "2026-01-24T14:15:03.083Z"
+updated: "2026-02-01T22:38:06.480Z"
 tags:
   - plugin-architecture
   - esm

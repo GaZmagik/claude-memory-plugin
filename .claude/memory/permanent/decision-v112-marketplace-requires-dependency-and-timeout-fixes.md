@@ -3,8 +3,9 @@ id: decision-v112-marketplace-requires-dependency-and-timeout-fixes
 title: v1.1.2 must include SessionStart bun install and hook timeout fixes
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-01-26T22:34:00.542Z"
-updated: "2026-01-26T22:34:00.542Z"
+updated: "2026-02-01T22:38:06.497Z"
 tags:
   - v1.1.2
   - release

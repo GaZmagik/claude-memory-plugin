@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T23:49:58.197Z",
+  "lastUpdated": "2026-02-07T09:24:35.747Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10477,6 +10477,101 @@
       "updated": "2026-02-06T23:49:58.191Z",
       "scope": "project",
       "relativePath": "permanent/learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors.md"
+    },
+    {
+      "id": "gotcha-retro-cascade-failure-in-test-mock-types-blocks-entire-build",
+      "type": "gotcha",
+      "title": "Retro - Cascade failure in test mock types blocks entire build",
+      "tags": [
+        "retrospective",
+        "testing",
+        "typescript",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-07T09:23:12.370Z",
+      "updated": "2026-02-07T09:23:12.370Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-cascade-failure-in-test-mock-types-blocks-entire-build.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-fix-approach",
+      "type": "learning",
+      "title": "Retro - Systematic type error reduction more efficient than scatter-fix approach",
+      "tags": [
+        "retrospective",
+        "process",
+        "typescript",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-07T09:23:16.439Z",
+      "updated": "2026-02-07T09:23:16.439Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-fix-approach.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-all-6-critical-issues-resolved-through-systematic-review-phases",
+      "type": "learning",
+      "title": "Retro - All 6 critical issues resolved through systematic review phases",
+      "tags": [
+        "retrospective",
+        "feature-review",
+        "process",
+        "project"
+      ],
+      "created": "2026-02-07T09:23:35.851Z",
+      "updated": "2026-02-07T09:23:35.851Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-all-6-critical-issues-resolved-through-systematic-review-phases.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "type": "gotcha",
+      "title": "Incomplete mock types in tests generate cascading TypeScript errors",
+      "tags": [
+        "typescript",
+        "testing",
+        "mocks",
+        "project"
+      ],
+      "created": "2026-02-07T09:23:51.823Z",
+      "updated": "2026-02-07T09:23:51.823Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors.md"
+    },
+    {
+      "id": "learning-type-safety-fix-pattern-unused-imports-mock-properties-assertions",
+      "type": "learning",
+      "title": "Type safety fix pattern: unused imports → mock properties → assertions",
+      "tags": [
+        "typescript",
+        "testing",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-07T09:24:05.628Z",
+      "updated": "2026-02-07T09:24:05.628Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-safety-fix-pattern-unused-imports-mock-properties-assertions.md"
+    },
+    {
+      "id": "learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion",
+      "type": "learning",
+      "title": "Generic CliResponse typing in tests requires explicit type assertion",
+      "tags": [
+        "typescript",
+        "testing",
+        "generics",
+        "project"
+      ],
+      "created": "2026-02-07T09:24:35.723Z",
+      "updated": "2026-02-07T09:24:35.723Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion.md"
     }
   ]
 }

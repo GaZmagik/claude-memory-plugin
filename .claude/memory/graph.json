@@ -3192,6 +3192,30 @@
     {
       "id": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
       "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-cascade-failure-in-test-mock-types-blocks-entire-build",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-fix-approach",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-all-6-critical-issues-resolved-through-systematic-review-phases",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-type-safety-fix-pattern-unused-imports-mock-properties-assertions",
+      "type": "learning"
+    },
+    {
+      "id": "learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion",
+      "type": "learning"
     }
   ],
   "edges": [

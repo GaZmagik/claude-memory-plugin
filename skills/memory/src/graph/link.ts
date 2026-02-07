@@ -365,9 +365,30 @@ export async function storeCrossScopeEdge(
     sourceGraph = addEdge(sourceGraph, request.sourceId, request.targetId, relation, metadata);
     targetGraph = addEdge(targetGraph, request.sourceId, request.targetId, relation, metadata);
 
-    // Save source first, then target (non-atomic but source "owns" the edge)
+    // Save both graphs - source "owns" the edge so save it first
+    // Note: This is non-atomic. If target save fails after source succeeds,
+    // we attempt best-effort rollback but may leave inconsistent state.
+    // Full transactional support would require graph file backups.
     await saveGraph(request.sourceBasePath, sourceGraph);
-    await saveGraph(request.targetBasePath, targetGraph);
+    try {
+      await saveGraph(request.targetBasePath, targetGraph);
+    } catch (targetError) {
+      // Best-effort rollback: try to remove edge from source graph
+      log.warn('Target graph save failed, attempting rollback', {
+        source: request.sourceId,
+        target: request.targetId,
+        error: String(targetError),
+      });
+      try {
+        const rollbackGraph = removeEdge(sourceGraph, request.sourceId, request.targetId);
+        await saveGraph(request.sourceBasePath, rollbackGraph);
+      } catch (rollbackError) {
+        log.error('Rollback failed - graphs may be inconsistent', {
+          rollbackError: String(rollbackError),
+        });
+      }
+      throw targetError;
+    }
 
     log.info('Created cross-scope link', {
       source: request.sourceId,

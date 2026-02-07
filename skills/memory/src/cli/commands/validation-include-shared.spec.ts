@@ -230,74 +230,66 @@ describe('--include-shared validation', () => {
       vi.restoreAllMocks();
     });
 
-    // These tests verify NO validation error occurs
-    // Implementation will fail in Red phase (expected - no multi-scope logic yet)
-    // Once implemented, these should pass
+    // These tests verify validation passes and underlying functions are called
 
-    it('cmdSearch: accepts --include-shared with --agent', async () => {
+    it('cmdSearch: accepts --include-shared with --agent and calls searchMemories', async () => {
       const args: ParsedArgs = {
         positional: ['pattern'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdSearch(args);
 
-      // Should not be a validation error
-      if (result.status === 'error') {
-        expect(result.error).not.toContain('--include-shared requires --agent');
-        expect(result.error).not.toContain('write operations are single-scope');
-      }
+      // Validation should pass - underlying function should be called
+      expect(result.status).toBe('success');
+      expect(searchModule.searchMemories).toHaveBeenCalled();
     });
 
-    it('cmdList: accepts --include-shared with --agent', async () => {
+    it('cmdList: accepts --include-shared with --agent and calls listMemories', async () => {
       const args: ParsedArgs = {
         positional: ['list'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdList(args);
 
-      if (result.status === 'error') {
-        expect(result.error).not.toContain('--include-shared requires --agent');
-        expect(result.error).not.toContain('write operations are single-scope');
-      }
+      // Validation should pass - underlying function should be called
+      expect(result.status).toBe('success');
+      expect(listModule.listMemories).toHaveBeenCalled();
     });
 
-    it('cmdQuery: accepts --include-shared with --agent', async () => {
+    it('cmdQuery: accepts --include-shared with --agent and calls loadIndex', async () => {
       const args: ParsedArgs = {
         positional: ['query'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdQuery(args);
 
-      if (result.status === 'error') {
-        expect(result.error).not.toContain('--include-shared requires --agent');
-        expect(result.error).not.toContain('write operations are single-scope');
-      }
+      // Validation should pass - underlying function should be called
+      expect(result.status).toBe('success');
+      expect(indexModule.loadIndex).toHaveBeenCalled();
     });
 
-    it('cmdStats: accepts --include-shared with --agent', async () => {
+    it('cmdStats: accepts --include-shared with --agent and calls loadGraph', async () => {
       const args: ParsedArgs = {
         positional: ['stats'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdStats(args);
 
-      if (result.status === 'error') {
-        expect(result.error).not.toContain('--include-shared requires --agent');
-        expect(result.error).not.toContain('write operations are single-scope');
-      }
+      // Validation should pass - underlying function should be called
+      expect(result.status).toBe('success');
+      expect(graphModule.loadGraph).toHaveBeenCalled();
     });
 
-    it('cmdImpact: accepts --include-shared with --agent', async () => {
+    it('cmdImpact: accepts --include-shared with --agent and calls loadGraph', async () => {
       const args: ParsedArgs = {
         positional: ['impact', 'some-id'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdImpact(args);
 
-      if (result.status === 'error') {
-        expect(result.error).not.toContain('--include-shared requires --agent');
-        expect(result.error).not.toContain('write operations are single-scope');
-      }
+      // Validation should pass - underlying function should be called
+      expect(result.status).toBe('success');
+      expect(graphModule.loadGraph).toHaveBeenCalled();
     });
   });
 });

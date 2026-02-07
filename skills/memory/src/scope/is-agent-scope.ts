@@ -10,6 +10,6 @@ import { Scope } from '../types/enums.js';
  * isAgentScope(Scope.AgentProject) // => true
  * isAgentScope(Scope.Project) // => false
  */
-export function isAgentScope(scope: Scope): boolean {
+export function isAgentScope(scope: Scope): scope is Scope.AgentProject | Scope.AgentGlobal {
   return scope === Scope.AgentProject || scope === Scope.AgentGlobal;
 }

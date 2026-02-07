@@ -14,7 +14,7 @@ export interface ValidationResult {
 
 /**
  * Reserved agent names that cannot be used
- * Includes scope names and system-related terms
+ * Includes scope names, system directories, and system-related terms
  */
 const RESERVED_NAMES = new Set([
   // Scope names
@@ -24,6 +24,14 @@ const RESERVED_NAMES = new Set([
   'enterprise',
   'agent-project',
   'agent-global',
+  // Memory system directories/files (would conflict with storage structure)
+  'permanent',
+  'temporary',
+  'agents',
+  'index',
+  'graph',
+  'embeddings',
+  'cache',
   // System names
   'system',
   'admin',

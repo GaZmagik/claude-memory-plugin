@@ -6,6 +6,7 @@
  */
 
 import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import { createLogger } from '../core/logger.js';
 
@@ -41,7 +42,7 @@ function findManagedSettingsPath(searchPath?: string): string | null {
   }
 
   // Standard locations
-  const homeDir = process.env.HOME ?? process.env.USERPROFILE ?? '';
+  const homeDir = os.homedir();
   if (homeDir) {
     locations.push(path.join(homeDir, '.claude', MANAGED_SETTINGS_FILENAME));
   }

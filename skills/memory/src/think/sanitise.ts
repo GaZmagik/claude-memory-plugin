@@ -50,21 +50,7 @@ export function sanitiseStyleName(name: string): string {
 }
 
 /**
- * Sanitise agent name for validation
- * Removes path traversal and special characters
+ * Re-export the canonical sanitiseAgentName from scope module
+ * for consistency across the codebase
  */
-export function sanitiseAgentName(name: string): string {
-  if (!name) return '';
-
-  return name
-    // Remove path separators
-    .replace(/[/\\]/g, '')
-    // Remove dots (path traversal)
-    .replace(/\.\./g, '')
-    // Keep only alphanumeric, hyphens, underscores
-    .replace(/[^a-zA-Z0-9_-]/g, '')
-    // Strip leading dots (prevent hidden files)
-    .replace(/^\.+/, '')
-    // Truncate
-    .slice(0, 100);
-}
+export { sanitiseAgentName } from '../scope/sanitise-agent-name.js';

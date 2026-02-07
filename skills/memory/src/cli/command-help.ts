@@ -207,13 +207,25 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     arguments: `  <source>     Source memory ID
   <target>     Target memory ID
   [relation]   Relationship type (default: "relates-to")`,
+    flags: `  --agent <name>         Source agent scope (for agent-scoped memories)
+  --target-agent <name>  Target agent scope (for cross-scope linking)
+  --scope <scope>        Source scope (project, global, agent-project, agent-global)
+  --target-scope <scope> Target scope (for cross-scope linking)`,
     examples: [
       'memory link decision-api artifact-api-spec',
       'memory link learning-vitest gotcha-mocking "explains"',
       'memory link decision-postgres learning-sql-optimisation "informed-by"',
+      '# Cross-scope: link agent memory to project memory',
+      'memory link --agent typescript-expert agent-learning project-decision --target-scope project',
+      '# Cross-agent: link between two different agents',
+      'memory link --agent api-architect api-design --target-agent frontend-expert ui-pattern "informs"',
     ],
     notes: `  Common relation types: relates-to, informed-by, implements,
-  supersedes, depends-on, contradicts, supports`,
+  supersedes, depends-on, contradicts, supports
+
+  Cross-scope linking: Use --target-agent or --target-scope to create
+  links between memories in different scopes. The edge is stored in
+  both graphs with metadata indicating the cross-scope relationship.`,
   },
 
   unlink: {
@@ -221,8 +233,12 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     description: 'Remove an edge between two memories',
     arguments: `  <source>    Source memory ID
   <target>    Target memory ID`,
+    flags: `  --agent <name>         Source agent scope
+  --target-agent <name>  Target agent scope (for cross-scope unlinking)`,
     examples: [
       'memory unlink decision-api artifact-old-spec',
+      '# Remove cross-scope link',
+      'memory unlink --agent typescript-expert agent-mem --target-scope project project-mem',
     ],
   },
 

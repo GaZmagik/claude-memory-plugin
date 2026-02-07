@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type { ReadMemoryRequest, ReadMemoryResponse } from '../types/api.js';
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
@@ -12,6 +13,7 @@ import { readFile, fileExists, isInsideDir } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('read');
 
@@ -29,7 +31,7 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
 
   // Resolve base path (handle agent scopes)
   let basePath: string;
-  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+  if (request.scope && isAgentScope(request.scope)) {
     // Agent scope - resolve agent directory
     if (!request.agent) {
       return {
@@ -39,7 +41,7 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     }
 
     const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
 
     basePath = getAgentDirectoryPath({
       scope: request.scope,

@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../types/api.js';
 import type { IndexEntry } from '../types/memory.js';
@@ -26,6 +27,7 @@ import {
   type EmbeddingProvider,
 } from '../search/embedding.js';
 import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('write');
 
@@ -70,7 +72,7 @@ async function checkCrossScopeDuplicate(
   basePath: string,
   projectRoot?: string
 ): Promise<string | null> {
-  const homedir = process.env.HOME || process.env.USERPROFILE || '';
+  const homedir = os.homedir();
 
   // Paths to check for duplicates
   const pathsToCheck: string[] = [];
@@ -259,7 +261,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
 
   // Resolve base path (handle agent scopes)
   let basePath: string;
-  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+  if (request.scope && isAgentScope(request.scope)) {
     // Agent scope - resolve agent directory
     if (!request.agent) {
       return {
@@ -289,7 +291,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
     // For global agent scope, we need to construct the global path
     // This should come from a config or default location
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
 
     basePath = await createAgentDirectory(
       request.scope,

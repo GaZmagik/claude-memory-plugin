@@ -4,6 +4,8 @@
  * Handlers for agents list and agents stats commands.
  */
 
+import * as os from 'node:os';
+import * as path from 'node:path';
 import type { ParsedArgs } from '../parser.js';
 import { parseArgs, getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
@@ -319,9 +321,7 @@ export async function cmdAgentsRename(args: ParsedArgs): Promise<CliResponse> {
 
 /**
  * Helper to get global memory path
- * TODO: This should be imported from a shared location
  */
 function getGlobalMemoryPath(): string {
-  const home = process.env.HOME || process.env.USERPROFILE || '';
-  return `${home}/.claude/memory`;
+  return path.join(os.homedir(), '.claude', 'memory');
 }

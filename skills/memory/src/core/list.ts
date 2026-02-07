@@ -12,6 +12,27 @@ const log = createLogger('list');
 
 /**
  * List memories with optional filters
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: lists from project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: lists from user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - List request with optional filters (type, tags, scope, agent)
+ * @returns Response containing list of matching memories
+ *
+ * @example
+ * // List all memories in project scope
+ * await listMemories({ basePath: '/path/to/project/.claude/memory' });
+ *
+ * @example
+ * // List memories for a specific agent
+ * await listMemories({
+ *   scope: Scope.AgentProject,
+ *   agent: 'typescript-expert'
+ * });
  */
 export async function listMemories(request: ListMemoriesRequest): Promise<ListMemoriesResponse> {
   const basePath = request.basePath ?? process.cwd();

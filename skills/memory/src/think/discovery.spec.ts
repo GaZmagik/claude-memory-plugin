@@ -53,7 +53,7 @@ describe('think/discovery', () => {
 
     it('returns config with homePath', () => {
       const config = getDefaultConfig();
-      expect(config.homePath).toBe(process.env.HOME ?? '');
+      expect(config.homePath).toBe(os.homedir());
     });
   });
 

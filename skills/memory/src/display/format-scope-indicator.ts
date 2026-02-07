@@ -6,23 +6,13 @@
  */
 
 import { Scope } from '../types/enums.js';
+import { sanitiseAgentName } from '../scope/sanitise-agent-name.js';
 
 export interface FormatScopeOptions {
   /** Use compact format (e.g., [a:name] instead of [agent:name]) */
   compact?: boolean;
   /** Include ANSI colour codes */
   color?: boolean;
-}
-
-/**
- * Sanitises agent name for use in scope indicators
- */
-function sanitizeAgentName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
 }
 
 /**
@@ -59,7 +49,7 @@ export function formatScopeIndicator(
       break;
     case Scope.AgentProject:
       if (agentName) {
-        const sanitised = sanitizeAgentName(agentName);
+        const sanitised = sanitiseAgentName(agentName);
         indicator = compact ? `[a:${sanitised}]` : `[agent:${sanitised}]`;
       } else {
         indicator = compact ? '[a:project]' : '[agent:project]';
@@ -67,7 +57,7 @@ export function formatScopeIndicator(
       break;
     case Scope.AgentGlobal:
       if (agentName) {
-        const sanitised = sanitizeAgentName(agentName);
+        const sanitised = sanitiseAgentName(agentName);
         indicator = compact ? `[a:${sanitised}@g]` : `[agent:${sanitised}@global]`;
       } else {
         indicator = compact ? '[a:global]' : '[agent:global]';

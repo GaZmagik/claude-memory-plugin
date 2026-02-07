@@ -5,6 +5,8 @@
  * Uses the existing moveMemory function for each individual move.
  */
 
+import * as os from 'node:os';
+import * as path from 'node:path';
 import type { BulkMoveRequest, BulkMoveResponse } from '../types/operations.js';
 import { loadIndex } from '../core/index.js';
 import { moveMemory } from '../maintenance/move.js';
@@ -41,7 +43,7 @@ export async function bulkMove(request: BulkMoveRequest): Promise<BulkMoveRespon
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = `${process.env.HOME}/.claude/memory`;
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   try {
     // Report scanning phase

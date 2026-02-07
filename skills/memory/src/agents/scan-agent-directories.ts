@@ -138,6 +138,50 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
 }
 
 /**
+ * Processes a single agent entry and returns AgentInfo or null if inaccessible
+ */
+async function processAgentEntry(
+  entry: { name: string; isDirectory: () => boolean },
+  agentsDir: string,
+  scope: Scope.AgentProject | Scope.AgentGlobal,
+  options: ScanAgentOptions
+): Promise<AgentInfo | null> {
+  // Skip non-directories
+  if (!entry.isDirectory()) {
+    return null;
+  }
+
+  // Apply name pattern filter
+  if (options.namePattern && !matchesPattern(entry.name, options.namePattern)) {
+    return null;
+  }
+
+  const agentPath = path.join(agentsDir, entry.name);
+
+  try {
+    // Check if agent directory is accessible
+    await fsp.access(agentPath);
+
+    const agentInfo: AgentInfo = {
+      name: entry.name,
+      scope,
+      path: agentPath,
+    };
+
+    // Gather statistics if requested
+    if (options.includeStats) {
+      const stats = await gatherAgentStats(agentPath);
+      Object.assign(agentInfo, stats);
+    }
+
+    return agentInfo;
+  } catch {
+    // Skip agents that can't be accessed
+    return null;
+  }
+}
+
+/**
  * Scans a single agent directory location
  */
 async function scanLocation(
@@ -145,60 +189,26 @@ async function scanLocation(
   scope: Scope.AgentProject | Scope.AgentGlobal,
   options: ScanAgentOptions
 ): Promise<AgentInfo[]> {
-  const agents: AgentInfo[] = [];
-
   try {
     // Check if directory exists
     if (!(await directoryExists(agentsDir))) {
-      return agents;
+      return [];
     }
 
     // Read directory contents
     const entries = await fsp.readdir(agentsDir, { withFileTypes: true });
 
-    // Process each entry
-    for (const entry of entries) {
-      // Skip non-directories
-      if (!entry.isDirectory()) {
-        continue;
-      }
+    // Process entries in parallel
+    const results = await Promise.all(
+      entries.map(entry => processAgentEntry(entry, agentsDir, scope, options))
+    );
 
-      // Apply name pattern filter
-      if (options.namePattern && !matchesPattern(entry.name, options.namePattern)) {
-        continue;
-      }
-
-      // Build agent info
-      const agentPath = path.join(agentsDir, entry.name);
-
-      try {
-        // Check if agent directory is accessible
-        await fsp.access(agentPath);
-
-        const agentInfo: AgentInfo = {
-          name: entry.name,
-          scope,
-          path: agentPath,
-        };
-
-        // Gather statistics if requested
-        if (options.includeStats) {
-          const stats = await gatherAgentStats(agentPath);
-          Object.assign(agentInfo, stats);
-        }
-
-        agents.push(agentInfo);
-      } catch {
-        // Skip agents that can't be accessed
-        continue;
-      }
-    }
+    // Filter out null results (inaccessible or non-matching entries)
+    return results.filter((agent): agent is AgentInfo => agent !== null);
   } catch {
     // Return empty array if we can't scan this location
-    return agents;
+    return [];
   }
-
-  return agents;
 }
 
 /**
@@ -225,21 +235,24 @@ async function scanLocation(
 export async function scanAgentDirectories(
   options: ScanAgentOptions
 ): Promise<AgentInfo[]> {
-  const agents: AgentInfo[] = [];
+  // Build list of scan promises for parallel execution
+  const scanPromises: Promise<AgentInfo[]>[] = [];
 
   // Scan project agents
   if (options.projectRoot && (!options.scope || options.scope === Scope.AgentProject)) {
     const projectAgentsDir = path.join(options.projectRoot, '.claude', 'memory', 'agents');
-    const projectAgents = await scanLocation(projectAgentsDir, Scope.AgentProject, options);
-    agents.push(...projectAgents);
+    scanPromises.push(scanLocation(projectAgentsDir, Scope.AgentProject, options));
   }
 
   // Scan global agents
   if (options.globalRoot && (!options.scope || options.scope === Scope.AgentGlobal)) {
     const globalAgentsDir = path.join(options.globalRoot, 'agents');
-    const globalAgents = await scanLocation(globalAgentsDir, Scope.AgentGlobal, options);
-    agents.push(...globalAgents);
+    scanPromises.push(scanLocation(globalAgentsDir, Scope.AgentGlobal, options));
   }
+
+  // Execute all scans in parallel and flatten results
+  const results = await Promise.all(scanPromises);
+  const agents = results.flat();
 
   // Sort alphabetically by name
   agents.sort((a, b) => a.name.localeCompare(b.name));

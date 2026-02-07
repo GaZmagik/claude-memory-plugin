@@ -52,10 +52,16 @@ export interface DeleteAgentRequest extends BaseAgentRequest {
  * Response from agent deletion
  */
 export interface DeleteAgentResponse {
-  status: 'success' | 'cancelled';
+  status: 'success' | 'partial-success' | 'cancelled';
   agent?: string;
   memoriesDeleted?: number;
   deleted?: string[];
+  /** Memory IDs that failed to delete with error messages */
+  failedDeletions?: Array<{ id: string; error: string }>;
+  /** Whether agent directory removal failed */
+  directoryRemovalFailed?: boolean;
+  /** Error message if directory removal failed */
+  directoryRemovalError?: string;
   dryRun?: boolean;
 }
 

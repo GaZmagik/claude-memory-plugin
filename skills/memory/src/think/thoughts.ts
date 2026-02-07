@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type {
   ThinkAddRequest,
   ThinkAddResponse,
@@ -58,7 +59,7 @@ export async function addThought(
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   // Determine target document
   let documentId = request.documentId;
@@ -274,7 +275,7 @@ export async function useThinkDocument(
   }
 
   const basePath = request.basePath ?? process.cwd();
-  const globalPath = path.join(process.env.HOME ?? '', '.claude', 'memory');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
   const documentId = request.documentId;
 
   // Find the document

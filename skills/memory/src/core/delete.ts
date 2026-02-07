@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
 import { Scope } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
@@ -15,6 +16,7 @@ import { isCrossScopeEdge } from '../graph/edges.js';
 import { removeEdge } from '../graph/edges.js';
 import type { EmbeddingCache } from '../search/embedding.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 import { resolveAgentScopePath, getResolvedScopePath, parseScope } from '../cli/helpers.js';
 
 const log = createLogger('delete');
@@ -68,7 +70,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
 
   // Resolve base path (handle agent scopes)
   let basePath: string;
-  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+  if (request.scope && isAgentScope(request.scope)) {
     // Agent scope - resolve agent directory
     if (!request.agent) {
       return {
@@ -78,7 +80,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     }
 
     const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
 
     basePath = getAgentDirectoryPath({
       scope: request.scope,

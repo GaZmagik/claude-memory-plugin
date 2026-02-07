@@ -6,6 +6,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { getAgentDirectoryPath } from '../../scope/get-agent-directory-path.js';
 import { agentDirectoryExists } from '../../storage/agent-directory-exists.js';
+import { validateAgentName } from '../../scope/validate-agent-name.js';
 import { loadIndex } from '../../core/index.js';
 import { parseMemoryFile, serialiseMemoryFile } from '../../core/frontmatter.js';
 import type { RenameAgentRequest, RenameAgentResponse } from './types.js';
@@ -35,7 +36,18 @@ export async function renameAgent(request: RenameAgentRequest): Promise<RenameAg
     throw new Error('Old and new agent names cannot be empty');
   }
 
-  // Check if old agent exists
+  // Validate new name format and reserved names
+  const validation = validateAgentName(newName);
+  if (!validation.valid) {
+    throw new Error(`Invalid new agent name: ${validation.error}`);
+  }
+
+  // Pre-flight checks for existence
+  // Note: These checks are subject to TOCTOU race conditions. The actual
+  // fs.rename() call is the authoritative operation - these checks provide
+  // better error messages but cannot guarantee atomicity. If another process
+  // modifies the filesystem between check and rename, fs.rename will fail
+  // with an appropriate error (ENOENT or EEXIST).
   const agentScope = request.scope as Scope.AgentProject | Scope.AgentGlobal;
   const oldExists = await agentDirectoryExists(
     agentScope,
@@ -48,7 +60,6 @@ export async function renameAgent(request: RenameAgentRequest): Promise<RenameAg
     throw new Error(`Agent not found: ${oldName}`);
   }
 
-  // Check if new name already exists
   const newExists = await agentDirectoryExists(
     agentScope,
     newName,
@@ -93,29 +104,33 @@ export async function renameAgent(request: RenameAgentRequest): Promise<RenameAg
   // Rename directory at filesystem level
   await fs.rename(oldPath, newPath);
 
-  // Update agent field in all memory frontmatter
-  let updatedCount = 0;
-  for (const memory of index.memories) {
-    const filePath = path.join(newPath, memory.relativePath);
+  // Update agent field in all memory frontmatter (in parallel)
+  const updateResults = await Promise.all(
+    index.memories.map(async (memory) => {
+      const filePath = path.join(newPath, memory.relativePath);
 
-    try {
-      // Read memory file
-      const fileContent = await fs.readFile(filePath, 'utf-8');
-      const parsed = parseMemoryFile(fileContent);
+      try {
+        // Read memory file
+        const fileContent = await fs.readFile(filePath, 'utf-8');
+        const parsed = parseMemoryFile(fileContent);
 
-      // Update agent field
-      parsed.frontmatter.agent = newName;
+        // Update agent field
+        parsed.frontmatter.agent = newName;
 
-      // Write back
-      const updated = serialiseMemoryFile(parsed.frontmatter, parsed.content);
-      await fs.writeFile(filePath, updated, 'utf-8');
+        // Write back
+        const updated = serialiseMemoryFile(parsed.frontmatter, parsed.content);
+        await fs.writeFile(filePath, updated, 'utf-8');
 
-      updatedCount++;
-    } catch (error) {
-      // Log but continue with other files
-      console.error(`Failed to update ${memory.id}:`, error);
-    }
-  }
+        return { success: true, id: memory.id };
+      } catch (error) {
+        // Log but continue with other files
+        console.error(`Failed to update ${memory.id}:`, error);
+        return { success: false, id: memory.id };
+      }
+    })
+  );
+
+  const updatedCount = updateResults.filter(r => r.success).length;
 
   return {
     status: 'success',

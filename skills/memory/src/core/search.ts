@@ -5,6 +5,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import type { SearchMemoriesRequest, SearchMemoriesResponse, SearchResult } from '../types/api.js';
 import { Scope } from '../types/enums.js';
 import { loadIndex } from './index.js';
@@ -12,6 +13,7 @@ import { readFile, fileExists } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { isAgentScope } from '../scope/is-agent-scope.js';
 
 const log = createLogger('search');
 
@@ -88,7 +90,34 @@ function extractSnippet(content: string, query: string, maxLength: number = 150)
 }
 
 /**
- * Search memories by keyword
+ * Search memories by keyword matching in title, content, and tags
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: searches project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: searches user's `~/.claude/memory/agents/<name>/`
+ *
+ * The search is case-insensitive and matches against:
+ * - Memory title
+ * - Memory content (body text)
+ * - Memory tags
+ *
+ * @param request - Search request with query and optional filters
+ * @returns Response containing matching results with relevance scores
+ *
+ * @example
+ * // Search in project scope
+ * await searchMemories({ query: 'typescript pattern', basePath: '...' });
+ *
+ * @example
+ * // Search within a specific agent's memories
+ * await searchMemories({
+ *   query: 'API design',
+ *   scope: Scope.AgentProject,
+ *   agent: 'api-architect'
+ * });
  */
 export async function searchMemories(request: SearchMemoriesRequest): Promise<SearchMemoriesResponse> {
   const MAX_QUERY_LENGTH = 10000;
@@ -113,7 +142,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
 
   // Resolve base path (handle agent scopes)
   let basePath: string;
-  if (request.scope && (request.scope === Scope.AgentProject || request.scope === Scope.AgentGlobal)) {
+  if (request.scope && isAgentScope(request.scope)) {
     // Agent scope - resolve agent directory
     if (!request.agent) {
       return {
@@ -123,7 +152,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
     }
 
     const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? process.env.HOME + '/.claude/memory') : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
 
     basePath = getAgentDirectoryPath({
       scope: request.scope,

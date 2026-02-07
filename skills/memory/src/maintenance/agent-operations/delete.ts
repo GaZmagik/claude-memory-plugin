@@ -95,6 +95,8 @@ export async function deleteAgent(request: DeleteAgentRequest): Promise<DeleteAg
 
   // Delete all memories
   const deleted: string[] = [];
+  const failedDeletions: Array<{ id: string; error: string }> = [];
+
   for (const memoryId of memoryIds) {
     try {
       await deleteMemory({
@@ -106,22 +108,35 @@ export async function deleteAgent(request: DeleteAgentRequest): Promise<DeleteAg
       deleted.push(memoryId);
     } catch (error) {
       // Continue deleting other memories even if one fails
-      console.error(`Failed to delete memory ${memoryId}:`, error);
+      failedDeletions.push({
+        id: memoryId,
+        error: error instanceof Error ? error.message : String(error),
+      });
     }
   }
 
   // Remove agent directory
+  let directoryRemovalFailed = false;
+  let directoryRemovalError: string | undefined;
+
   try {
     await fs.rm(agentPath, { recursive: true, force: true });
   } catch (error) {
-    console.error(`Failed to remove agent directory ${agentPath}:`, error);
+    directoryRemovalFailed = true;
+    directoryRemovalError = error instanceof Error ? error.message : String(error);
   }
 
+  // Determine overall status
+  const hasFailures = failedDeletions.length > 0 || directoryRemovalFailed;
+  const status = hasFailures ? 'partial-success' : 'success';
+
   return {
-    status: 'success',
+    status,
     agent: agentName,
-    memoriesDeleted: memoryCount,
+    memoriesDeleted: deleted.length,
     deleted,
+    ...(failedDeletions.length > 0 && { failedDeletions }),
+    ...(directoryRemovalFailed && { directoryRemovalFailed, directoryRemovalError }),
     dryRun: false,
   };
 }

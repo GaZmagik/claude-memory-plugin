@@ -3216,6 +3216,30 @@
     {
       "id": "learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion",
       "type": "learning"
+    },
+    {
+      "id": "learning-retro-warnings-first-approach-resolved-11-items-in-single-focused-pass",
+      "type": "learning"
+    },
+    {
+      "id": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-vi-mock-global-pollution-test-state",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-agent-scope-detection-homedir-check",
+      "type": "learning"
+    },
+    {
+      "id": "learning-agent-graph-tests-require-fsutils-mocks",
+      "type": "learning"
+    },
+    {
+      "id": "learning-test-aspirational-markers-should-be-removed",
+      "type": "learning"
     }
   ],
   "edges": [

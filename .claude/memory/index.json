@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-07T09:24:35.747Z",
+  "lastUpdated": "2026-02-07T15:36:55.384Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10572,6 +10572,106 @@
       "updated": "2026-02-07T09:24:35.723Z",
       "scope": "project",
       "relativePath": "permanent/learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion.md"
+    },
+    {
+      "id": "learning-retro-warnings-first-approach-resolved-11-items-in-single-focused-pass",
+      "type": "learning",
+      "title": "Retro - Warnings-first approach resolved 11 items in single focused pass",
+      "tags": [
+        "retrospective",
+        "process",
+        "warnings",
+        "task-management",
+        "project"
+      ],
+      "created": "2026-02-07T15:35:36.632Z",
+      "updated": "2026-02-07T15:35:36.632Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-warnings-first-approach-resolved-11-items-in-single-focused-pass.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "type": "learning",
+      "title": "Retro - Test suite went from 5 failures→0 by fixing mocks and test isolation",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-07T15:35:44.319Z",
+      "updated": "2026-02-07T15:35:44.319Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vi-mock-global-pollution-test-state",
+      "type": "gotcha",
+      "title": "vi.mock() persists globally across test files causing test pollution",
+      "tags": [
+        "testing",
+        "vitest",
+        "mocks",
+        "global-state",
+        "test-pollution",
+        "project"
+      ],
+      "created": "2026-02-07T15:36:25.724Z",
+      "updated": "2026-02-07T15:36:25.724Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vi-mock-global-pollution-test-state.md"
+    },
+    {
+      "id": "learning-agent-scope-detection-homedir-check",
+      "type": "learning",
+      "title": "Agent scope detection requires os.homedir() check, not path.includes()",
+      "tags": [
+        "agent-scopes",
+        "path-detection",
+        "scope-resolver",
+        "getAgentInfo",
+        "project"
+      ],
+      "created": "2026-02-07T15:36:39.506Z",
+      "updated": "2026-02-07T15:36:39.506Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-scope-detection-homedir-check.md"
+    },
+    {
+      "id": "learning-agent-graph-tests-require-fsutils-mocks",
+      "type": "learning",
+      "title": "Agent graph tests must mock fsUtils functions, not fs module directly",
+      "tags": [
+        "testing",
+        "mocks",
+        "agent-graph",
+        "fsUtils",
+        "async-io",
+        "project"
+      ],
+      "created": "2026-02-07T15:36:40.383Z",
+      "updated": "2026-02-07T15:36:40.383Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-graph-tests-require-fsutils-mocks.md"
+    },
+    {
+      "id": "learning-test-aspirational-markers-should-be-removed",
+      "type": "learning",
+      "title": "Aspirational it.skip and it.todo markers indicate incomplete work and should be removed",
+      "tags": [
+        "testing",
+        "test-quality",
+        "code-completion",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-07T15:36:55.371Z",
+      "updated": "2026-02-07T15:36:55.371Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-aspirational-markers-should-be-removed.md"
     }
   ]
 }

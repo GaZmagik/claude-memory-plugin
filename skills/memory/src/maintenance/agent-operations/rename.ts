@@ -13,20 +13,66 @@ import type { RenameAgentRequest, RenameAgentResponse } from './types.js';
 import { Scope } from '../../types/enums.js';
 
 /**
- * Renames an agent
+ * Renames an existing agent to a new name within the same scope.
  *
- * @param request - Agent rename request
- * @returns Success response with rename summary
- * @throws Error if old name not found or new name exists
+ * This function performs the following operations:
+ * 1. Validates and normalises both old and new agent names
+ * 2. Validates the new name format (must be kebab-case, not a reserved name)
+ * 3. Verifies the source agent exists and target name is available
+ * 4. Renames the agent directory at the filesystem level
+ * 5. Updates the `agent` field in all memory file frontmatter to reflect the new name
+ *
+ * The function supports dry-run mode which validates inputs and counts memories
+ * without actually performing the rename.
+ *
+ * **Note:** The pre-flight existence checks are subject to TOCTOU (time-of-check to
+ * time-of-use) race conditions. The actual `fs.rename()` call is the authoritative
+ * operation. If another process modifies the filesystem between the check and rename,
+ * the operation will fail with an appropriate filesystem error.
+ *
+ * @param request - The agent rename request containing:
+ *   - `oldName` - The current name of the agent to rename
+ *   - `newName` - The desired new name for the agent
+ *   - `scope` - The scope of the agent (AgentProject or AgentGlobal)
+ *   - `projectRoot` - The project root directory path
+ *   - `globalRoot` - The global memory root directory path
+ *   - `dryRun` - Optional flag to simulate renaming without side effects
+ *
+ * @returns A promise resolving to {@link RenameAgentResponse} containing:
+ *   - `status` - Always 'success' if no error thrown
+ *   - `oldName` - The original agent name (normalised)
+ *   - `newName` - The new agent name (normalised)
+ *   - `memoriesUpdated` - Number of memory files with updated frontmatter
+ *   - `dryRun` - Boolean indicating if this was a dry-run operation
+ *
+ * @throws {Error} When either old or new agent name is empty
+ * @throws {Error} When the new agent name format is invalid
+ * @throws {Error} When the source agent does not exist
+ * @throws {Error} When an agent with the new name already exists
+ * @throws {Error} When filesystem operations fail (e.g., permission denied)
  *
  * @example
- * await renameAgent({
+ * // Rename a project-scoped agent
+ * const result = await renameAgent({
  *   oldName: 'typescript-expert',
  *   newName: 'typescript-pro',
  *   scope: Scope.AgentProject,
  *   projectRoot: '/home/user/project',
  *   globalRoot: '/home/user/.claude/memory',
  * });
+ * console.log(`Renamed agent, updated ${result.memoriesUpdated} memories`);
+ *
+ * @example
+ * // Dry-run to preview rename operation
+ * const dryRunResult = await renameAgent({
+ *   oldName: 'old-agent',
+ *   newName: 'new-agent',
+ *   scope: Scope.AgentGlobal,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   dryRun: true,
+ * });
+ * console.log(`Would update ${dryRunResult.memoriesUpdated} memory files`);
  */
 export async function renameAgent(request: RenameAgentRequest): Promise<RenameAgentResponse> {
   const oldName = request.oldName.trim().toLowerCase();

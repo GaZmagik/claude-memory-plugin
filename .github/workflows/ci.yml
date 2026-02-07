@@ -32,6 +32,9 @@ jobs:
       - name: Test
         run: bun test --coverage
 
+      - name: Performance regression tests
+        run: bunx vitest run tests/performance/ --reporter=verbose
+
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:

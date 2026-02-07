@@ -18,7 +18,51 @@ import { isAgentScope } from '../scope/is-agent-scope.js';
 const log = createLogger('read');
 
 /**
- * Read a memory by ID
+ * Read a memory by ID.
+ *
+ * Retrieves a memory file, parses its YAML frontmatter and markdown content,
+ * and returns the complete memory data. First attempts to locate the memory
+ * via the index, then falls back to direct file lookup.
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: reads from project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: reads from user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - Read request containing the memory ID
+ * @param request.id - The ID of the memory to read (required)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Scope where memory is located (optional, helps with agent scopes)
+ * @param request.agent - Agent name (required for agent scopes)
+ *
+ * @returns {Promise<ReadMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `memory`: Object with frontmatter, content, and filePath (on success)
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Read a memory from project scope
+ * const result = await readMemory({
+ *   id: 'learning-typescript-generics-abc123',
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Title: ${result.memory.frontmatter.title}`);
+ *   console.log(`Content: ${result.memory.content}`);
+ *   console.log(`Tags: ${result.memory.frontmatter.tags.join(', ')}`);
+ * }
+ *
+ * @example
+ * // Read a memory from an agent's global scope
+ * const result = await readMemory({
+ *   id: 'decision-api-versioning-ghi789',
+ *   scope: Scope.AgentGlobal,
+ *   agent: 'api-architect'
+ * });
  */
 export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemoryResponse> {
   // Validate ID

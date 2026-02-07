@@ -63,7 +63,36 @@ function findMemoryFile(basePath: string, id: string): string | null {
 }
 
 /**
- * Archive a memory
+ * Archives a memory by moving it to an archive directory and removing it from
+ * the active graph, index, and embeddings cache.
+ *
+ * Archived memories are preserved on disk for historical reference but are no
+ * longer searchable or included in graph traversals. The file is moved from
+ * its current location (permanent/ or temporary/) to archive/.
+ *
+ * @param request - The archive request options
+ * @param request.id - The unique identifier of the memory to archive
+ * @param request.basePath - The base path for memory storage (e.g., `.claude/memory`)
+ * @returns A promise resolving to an ArchiveResponse indicating success or failure
+ *          with details of changes made
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { archiveMemory } from './maintenance/archive.js';
+ *
+ * const result = await archiveMemory({
+ *   id: 'learning-typescript-generics',
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`Archived to: ${result.archivePath}`);
+ *   console.log(`Removed from graph: ${result.changes.removedFromGraph}`);
+ * } else {
+ *   console.error(`Archive failed: ${result.error}`);
+ * }
+ * ```
  */
 export async function archiveMemory(request: ArchiveRequest): Promise<ArchiveResponse> {
   const { id, basePath } = request;

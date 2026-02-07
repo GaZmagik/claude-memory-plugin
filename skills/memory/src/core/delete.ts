@@ -57,7 +57,51 @@ function resolveOtherScopeBasePath(
 }
 
 /**
- * Delete a memory by ID
+ * Delete a memory by ID.
+ *
+ * Removes the memory file from disk and cleans up all associated data:
+ * the index entry, graph node (including edges), and embedding cache entry.
+ * Also handles cleanup of cross-scope edges in other scope graphs.
+ *
+ * Supports both traditional scopes (project, global, local) and agent scopes
+ * (agent-project, agent-global). When using agent scopes:
+ *
+ * - Requires `request.agent` to specify the agent name
+ * - Agent-project scope: deletes from project's `.claude/memory/agents/<name>/`
+ * - Agent-global scope: deletes from user's `~/.claude/memory/agents/<name>/`
+ *
+ * @param request - Delete request containing the memory ID
+ * @param request.id - The ID of the memory to delete (required)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Scope where memory is located (optional, helps with agent scopes)
+ * @param request.agent - Agent name (required for agent scopes)
+ *
+ * @returns {Promise<DeleteMemoryResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `deletedId`: The ID of the deleted memory (on success)
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
+ *
+ * @example
+ * // Delete a memory from project scope
+ * const result = await deleteMemory({
+ *   id: 'learning-typescript-generics-abc123',
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Deleted: ${result.deletedId}`);
+ * } else {
+ *   console.error(`Failed: ${result.error}`);
+ * }
+ *
+ * @example
+ * // Delete a memory from an agent's scope
+ * const result = await deleteMemory({
+ *   id: 'gotcha-async-cleanup-def456',
+ *   scope: Scope.AgentProject,
+ *   agent: 'async-expert'
+ * });
  */
 export async function deleteMemory(request: DeleteMemoryRequest): Promise<DeleteMemoryResponse> {
   // Validate ID

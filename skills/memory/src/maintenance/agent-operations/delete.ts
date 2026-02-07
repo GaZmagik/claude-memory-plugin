@@ -8,24 +8,105 @@ import { agentDirectoryExists } from '../../storage/agent-directory-exists.js';
 import { loadIndex } from '../../core/index.js';
 import { deleteMemory } from '../../core/delete.js';
 import { confirmDeletion, shouldConfirm } from '../../cli/confirmation.js';
+import { createLogger } from '../../core/logger.js';
 import type { DeleteAgentRequest, DeleteAgentResponse } from './types.js';
 import { Scope } from '../../types/enums.js';
 
+const log = createLogger('agent-delete');
+
 /**
- * Deletes an agent and all its memories
+ * Deletes an agent and all its memories from the filesystem.
  *
- * @param request - Agent deletion request
- * @returns Success response or cancellation
- * @throws Error if agent not found
+ * This function performs the following operations:
+ * 1. Validates and normalises the agent name
+ * 2. Verifies the agent exists at the specified scope
+ * 3. Loads the agent's index to identify all memories
+ * 4. Prompts for confirmation (unless `force` is enabled or in dry-run mode)
+ * 5. Deletes each memory individually using the memory deletion system
+ * 6. Removes the agent directory and all remaining files
+ *
+ * The deletion is performed with resilience - if individual memory deletions fail,
+ * the operation continues with remaining memories. The response indicates whether
+ * any failures occurred via the `status` field ('partial-success' vs 'success').
+ *
+ * The function supports:
+ * - **Dry-run mode**: Validates and counts what would be deleted without side effects
+ * - **Force mode**: Skips the interactive confirmation prompt
+ * - **Custom confirmation**: Provides a callback for custom confirmation UI
+ *
+ * If the agent's index.json is missing or corrupted, the function gracefully
+ * continues with an empty memory list, still attempting to remove the directory.
+ *
+ * @param request - The agent deletion request containing:
+ *   - `name` - The name of the agent to delete
+ *   - `scope` - The scope of the agent (AgentProject or AgentGlobal)
+ *   - `projectRoot` - The project root directory path
+ *   - `globalRoot` - The global memory root directory path
+ *   - `force` - Optional flag to skip confirmation prompt
+ *   - `dryRun` - Optional flag to simulate deletion without side effects
+ *   - `confirmationCallback` - Optional custom function for confirmation UI
+ *
+ * @returns A promise resolving to {@link DeleteAgentResponse} containing:
+ *   - `status` - 'success', 'partial-success', or 'cancelled'
+ *   - `agent` - The deleted agent name (not present if cancelled)
+ *   - `memoriesDeleted` - Count of successfully deleted memories
+ *   - `deleted` - Array of deleted memory IDs
+ *   - `failedDeletions` - Array of objects with `id` and `error` for failed deletions
+ *   - `directoryRemovalFailed` - Boolean indicating if directory removal failed
+ *   - `directoryRemovalError` - Error message if directory removal failed
+ *   - `dryRun` - Boolean indicating if this was a dry-run operation
+ *
+ * @throws {Error} When the agent name is empty
+ * @throws {Error} When the agent does not exist at the specified scope
  *
  * @example
- * await deleteAgent({
+ * // Delete an agent with force (no confirmation)
+ * const result = await deleteAgent({
  *   name: 'old-agent',
  *   scope: Scope.AgentProject,
  *   projectRoot: '/home/user/project',
  *   globalRoot: '/home/user/.claude/memory',
  *   force: true,
  * });
+ * if (result.status === 'success') {
+ *   console.log(`Deleted ${result.memoriesDeleted} memories`);
+ * }
+ *
+ * @example
+ * // Delete with custom confirmation callback
+ * const result = await deleteAgent({
+ *   name: 'important-agent',
+ *   scope: Scope.AgentGlobal,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   confirmationCallback: async (name, count) => {
+ *     return await myCustomPrompt(`Delete ${name} with ${count} memories?`);
+ *   },
+ * });
+ *
+ * @example
+ * // Dry-run to preview deletion
+ * const dryRunResult = await deleteAgent({
+ *   name: 'test-agent',
+ *   scope: Scope.AgentProject,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   dryRun: true,
+ * });
+ * console.log(`Would delete ${dryRunResult.memoriesDeleted} memories`);
+ *
+ * @example
+ * // Handle partial success
+ * const result = await deleteAgent({
+ *   name: 'problematic-agent',
+ *   scope: Scope.AgentProject,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   force: true,
+ * });
+ * if (result.status === 'partial-success') {
+ *   console.warn('Some deletions failed:', result.failedDeletions);
+ * }
  */
 export async function deleteAgent(request: DeleteAgentRequest): Promise<DeleteAgentResponse> {
   const agentName = request.name.trim().toLowerCase();
@@ -63,8 +144,13 @@ export async function deleteAgent(request: DeleteAgentRequest): Promise<DeleteAg
     const index = await loadIndex({ basePath: agentPath });
     memoryCount = index.memories.length;
     memoryIds = index.memories.map((m) => m.id);
-  } catch {
-    // If index is missing or corrupt, assume 0 memories
+  } catch (error) {
+    // Log warning to help diagnose index issues (could be missing or corrupt)
+    log.warn('Failed to load index for agent - assuming empty', {
+      agent: agentName,
+      agentPath,
+      error: error instanceof Error ? error.message : String(error),
+    });
     memoryCount = 0;
     memoryIds = [];
   }

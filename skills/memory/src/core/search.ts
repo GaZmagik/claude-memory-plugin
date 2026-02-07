@@ -90,7 +90,11 @@ function extractSnippet(content: string, query: string, maxLength: number = 150)
 }
 
 /**
- * Search memories by keyword matching in title, content, and tags
+ * Search memories by keyword matching in title, content, and tags.
+ *
+ * Performs case-insensitive keyword search across all indexed memories,
+ * returning results ranked by relevance score. The search matches against
+ * memory titles (highest weight), tags (medium weight), and content (lower weight).
  *
  * Supports both traditional scopes (project, global, local) and agent scopes
  * (agent-project, agent-global). When using agent scopes:
@@ -99,24 +103,40 @@ function extractSnippet(content: string, query: string, maxLength: number = 150)
  * - Agent-project scope: searches project's `.claude/memory/agents/<name>/`
  * - Agent-global scope: searches user's `~/.claude/memory/agents/<name>/`
  *
- * The search is case-insensitive and matches against:
- * - Memory title
- * - Memory content (body text)
- * - Memory tags
+ * @param request - Search request containing the query string and optional filters
+ * @param request.query - The search query string (required, max 10,000 characters)
+ * @param request.basePath - Base path for memory storage (defaults to cwd)
+ * @param request.scope - Optional scope filter (project, global, local, agent-project, agent-global)
+ * @param request.agent - Agent name (required when using agent scopes)
+ * @param request.type - Optional memory type filter (learning, decision, gotcha, etc.)
+ * @param request.limit - Maximum number of results to return (defaults to 20)
  *
- * @param request - Search request with query and optional filters
- * @returns Response containing matching results with relevance scores
+ * @returns {Promise<SearchMemoriesResponse>} Response object containing:
+ *   - `status`: 'success' or 'error'
+ *   - `results`: Array of {@link SearchResult} objects with id, title, score, and snippet
+ *   - `error`: Error message if status is 'error'
+ *
+ * @throws Never throws directly; errors are returned in the response object
  *
  * @example
- * // Search in project scope
- * await searchMemories({ query: 'typescript pattern', basePath: '...' });
+ * // Basic search in project scope
+ * const result = await searchMemories({
+ *   query: 'typescript generics',
+ *   basePath: '/path/to/project/.claude/memory'
+ * });
+ * if (result.status === 'success') {
+ *   console.log(`Found ${result.results.length} memories`);
+ *   result.results.forEach(r => console.log(`${r.title} (score: ${r.score})`));
+ * }
  *
  * @example
- * // Search within a specific agent's memories
- * await searchMemories({
- *   query: 'API design',
+ * // Search within a specific agent's memories with filters
+ * const result = await searchMemories({
+ *   query: 'API design patterns',
  *   scope: Scope.AgentProject,
- *   agent: 'api-architect'
+ *   agent: 'api-architect',
+ *   type: MemoryType.Decision,
+ *   limit: 10
  * });
  */
 export async function searchMemories(request: SearchMemoriesRequest): Promise<SearchMemoriesResponse> {

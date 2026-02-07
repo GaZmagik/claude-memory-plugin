@@ -6,6 +6,11 @@
  *
  * Note: Uses bun:test mock.module() to be compatible with other
  * isolated tests that mock node modules.
+ *
+ * ⚠️ TEST ISOLATION REQUIRED
+ * Uses module-level mock.module() for fs and child_process which creates
+ * global state. Must run separately with: bun test <this-file>
+ * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
 import { describe, it, expect, mock, beforeEach, afterAll } from 'bun:test';

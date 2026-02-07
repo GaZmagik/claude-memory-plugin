@@ -151,7 +151,7 @@ export function validateEnterprisePath(enterprisePath: string): {
 }
 
 /**
- * Get enterprise configuration status
+ * Represents the current status of enterprise memory configuration.
  */
 export interface EnterpriseStatus {
   configured: boolean;
@@ -160,6 +160,43 @@ export interface EnterpriseStatus {
   error?: string;
 }
 
+/**
+ * Retrieves the current enterprise memory configuration status.
+ *
+ * Checks whether enterprise memory is configured by looking for `CLAUDE_MEMORY_ENTERPRISE_PATH`
+ * in the environment or managed-settings.json. If configured, validates that the path exists
+ * and is accessible (readable and writable).
+ *
+ * The search order for the enterprise path is:
+ * 1. `CLAUDE_MEMORY_ENTERPRISE_PATH` environment variable
+ * 2. `env.CLAUDE_MEMORY_ENTERPRISE_PATH` in managed-settings.json at the provided search path
+ * 3. `~/.claude/managed-settings.json`
+ * 4. `/etc/claude/managed-settings.json` (Linux/macOS)
+ *
+ * @param searchPath - Optional path to search for managed-settings.json (can be a directory or direct file path)
+ * @returns An EnterpriseStatus object containing:
+ *   - `configured`: Whether an enterprise path was found
+ *   - `path`: The configured enterprise path (if any)
+ *   - `accessible`: Whether the path exists and is readable/writable
+ *   - `error`: Error message if the path is configured but inaccessible
+ *
+ * @example
+ * ```typescript
+ * // Check enterprise status with default search paths
+ * const status = getEnterpriseStatus();
+ *
+ * if (!status.configured) {
+ *   console.log('Enterprise memory not configured');
+ * } else if (!status.accessible) {
+ *   console.error(`Enterprise path error: ${status.error}`);
+ * } else {
+ *   console.log(`Enterprise memory available at: ${status.path}`);
+ * }
+ *
+ * // Check with custom search path
+ * const customStatus = getEnterpriseStatus('/custom/config/path');
+ * ```
+ */
 export function getEnterpriseStatus(searchPath?: string): EnterpriseStatus {
   const enterprisePath = getEnterprisePath(searchPath);
 

@@ -72,7 +72,45 @@ function findMemoryFile(basePath: string, id: string): string | null {
 }
 
 /**
- * Rename a memory and update all references
+ * Renames a memory's ID and updates all references across the system.
+ *
+ * This function performs a comprehensive rename operation that updates:
+ * - The filename on disk
+ * - The graph node ID
+ * - All edge references (source and target)
+ * - The index entry
+ * - The frontmatter ID (if stored in meta)
+ * - The embeddings cache key
+ *
+ * The file remains in its current directory (permanent/ or temporary/).
+ * Path traversal attempts are rejected for security.
+ *
+ * @param request - The rename request options
+ * @param request.oldId - The current memory ID
+ * @param request.newId - The new memory ID
+ * @param request.basePath - The base path for memory storage
+ * @returns A promise resolving to a RenameResponse indicating success or failure,
+ *          including details of all updates made (file, graph, edges, index, embeddings)
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { renameMemory } from './maintenance/rename.js';
+ *
+ * // Rename a memory to fix a typo
+ * const result = await renameMemory({
+ *   oldId: 'learning-typescirpt-generics',
+ *   newId: 'learning-typescript-generics',
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`Renamed to: ${result.newPath}`);
+ *   console.log(`Edges updated: ${result.changes.edgesUpdated}`);
+ * } else {
+ *   console.error(`Rename failed: ${result.error}`);
+ * }
+ * ```
  */
 export async function renameMemory(request: RenameRequest): Promise<RenameResponse> {
   const { oldId, newId, basePath } = request;

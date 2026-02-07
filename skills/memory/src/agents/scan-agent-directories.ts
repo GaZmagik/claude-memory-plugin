@@ -261,11 +261,42 @@ export async function scanAgentDirectories(
 }
 
 /**
- * Retrieves detailed information for a specific agent
+ * Retrieves detailed information for a specific agent.
  *
- * @param agentName - Name of the agent
- * @param agentPath - Path to agent's directory
- * @returns Detailed agent information
+ * This function gathers comprehensive information about an agent including:
+ * - Basic metadata (name, scope, path)
+ * - Memory count from the agent's index
+ * - Link count from the agent's graph
+ * - Tags and types used across all memories
+ * - Creation and last update timestamps
+ *
+ * The scope is automatically determined by checking if the agent path
+ * is under the global agents directory (`~/.claude/memory/agents/`) or
+ * a project-specific location.
+ *
+ * @param agentName - The name of the agent to retrieve information for
+ * @param agentPath - The absolute filesystem path to the agent's directory
+ *
+ * @returns A promise resolving to {@link AgentInfo} containing:
+ *   - `name` - The agent name
+ *   - `scope` - Either AgentGlobal or AgentProject
+ *   - `path` - The agent directory path
+ *   - `memoryCount` - Number of memories (if index.json readable)
+ *   - `linkCount` - Number of graph edges (if graph.json readable)
+ *   - `tags` - Array of unique tags across all memories
+ *   - `types` - Array of unique memory types
+ *   - `created` - Oldest memory creation date or directory birthtime
+ *   - `updated` - Most recent memory update date or directory mtime
+ *
+ * @throws {Error} When the agent directory does not exist or is not accessible
+ * @throws {Error} When filesystem stat operations fail due to permissions
+ *
+ * @example
+ * const info = await getAgentInfo(
+ *   'typescript-expert',
+ *   '/home/user/project/.claude/memory/agents/typescript-expert'
+ * );
+ * console.log(`Agent has ${info.memoryCount} memories and ${info.linkCount} links`);
  */
 export async function getAgentInfo(
   agentName: string,

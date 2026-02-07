@@ -14,19 +14,57 @@ import type { CreateAgentRequest, CreateAgentResponse } from './types.js';
 import { Scope } from '../../types/enums.js';
 
 /**
- * Creates a new agent with proper directory structure and initialisation
+ * Creates a new agent with proper directory structure and initialisation.
  *
- * @param request - Agent creation request
- * @returns Success response with agent details
- * @throws Error if agent name is invalid or agent already exists
+ * This function performs the following operations:
+ * 1. Validates and normalises the agent name (trims whitespace, converts to lowercase)
+ * 2. Checks that the agent name follows kebab-case format
+ * 3. Verifies the agent does not already exist at the target scope
+ * 4. Creates the agent directory structure
+ * 5. Initialises an empty index.json for memory tracking
+ * 6. Initialises an empty graph.json for relationship tracking
+ *
+ * The function supports dry-run mode which validates inputs and returns what would
+ * be created without actually creating the agent.
+ *
+ * @param request - The agent creation request containing:
+ *   - `name` - The desired agent name (will be normalised to lowercase kebab-case)
+ *   - `scope` - The scope for the agent (AgentProject or AgentGlobal)
+ *   - `projectRoot` - The project root directory path
+ *   - `globalRoot` - The global memory root directory path
+ *   - `dryRun` - Optional flag to simulate creation without side effects
+ *
+ * @returns A promise resolving to {@link CreateAgentResponse} containing:
+ *   - `status` - Always 'success' if no error thrown
+ *   - `agent` - Object with the created agent's name, scope, and path
+ *   - `dryRun` - Boolean indicating if this was a dry-run operation
+ *
+ * @throws {Error} When agent name is empty after trimming
+ * @throws {Error} When agent name format is invalid (must be kebab-case)
+ * @throws {Error} When an agent with the same name already exists at the target scope
  *
  * @example
- * await createAgent({
+ * // Create a project-scoped agent
+ * const result = await createAgent({
  *   name: 'typescript-expert',
  *   scope: Scope.AgentProject,
- *   projectRoot: '/home/user/project/.claude/memory',
+ *   projectRoot: '/home/user/project',
  *   globalRoot: '/home/user/.claude/memory',
  * });
+ * console.log(result.agent.path); // '/home/user/project/.claude/memory/agents/typescript-expert'
+ *
+ * @example
+ * // Dry-run to check if creation would succeed
+ * const dryRunResult = await createAgent({
+ *   name: 'my-agent',
+ *   scope: Scope.AgentGlobal,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   dryRun: true,
+ * });
+ * if (dryRunResult.status === 'success') {
+ *   console.log('Agent can be created at:', dryRunResult.agent.path);
+ * }
  */
 export async function createAgent(request: CreateAgentRequest): Promise<CreateAgentResponse> {
   // Trim and lowercase agent name

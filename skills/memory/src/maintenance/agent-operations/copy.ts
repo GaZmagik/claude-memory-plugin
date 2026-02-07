@@ -11,20 +11,83 @@ import type { CopyAgentRequest, CopyAgentResponse } from './types.js';
 import { Scope } from '../../types/enums.js';
 
 /**
- * Copies an agent to a new name
+ * Copies an existing agent to a new agent with a different name.
  *
- * @param request - Agent copy request
- * @returns Success response with copy summary
- * @throws Error if source not found or target exists without --force
+ * This function performs the following operations:
+ * 1. Validates and normalises both source and target agent names
+ * 2. Verifies the source agent exists
+ * 3. Checks if target agent exists (fails unless `force` is enabled)
+ * 4. Exports all memories and graph data from the source agent
+ * 5. Creates the target agent directory if it does not exist
+ * 6. Imports the exported data into the target agent
+ *
+ * The copy operation creates a complete duplicate of the source agent including:
+ * - All memory files with updated agent references
+ * - The memory index (index.json)
+ * - The relationship graph (graph.json)
+ *
+ * When `force` is enabled and the target agent exists, the import uses the
+ * 'replace' strategy to overwrite existing memories. Otherwise, existing
+ * memories in the target are skipped.
+ *
+ * The function supports dry-run mode which validates inputs and counts memories
+ * without actually performing the copy.
+ *
+ * @param request - The agent copy request containing:
+ *   - `source` - The name of the agent to copy from
+ *   - `target` - The name of the new agent to create
+ *   - `scope` - The scope for both agents (AgentProject or AgentGlobal)
+ *   - `projectRoot` - The project root directory path
+ *   - `globalRoot` - The global memory root directory path
+ *   - `force` - Optional flag to overwrite existing target agent
+ *   - `dryRun` - Optional flag to simulate copying without side effects
+ *
+ * @returns A promise resolving to {@link CopyAgentResponse} containing:
+ *   - `status` - Always 'success' if no error thrown
+ *   - `source` - The source agent name (normalised)
+ *   - `target` - The target agent name (normalised)
+ *   - `memoriesCopied` - Number of memories copied to the target
+ *   - `dryRun` - Boolean indicating if this was a dry-run operation
+ *
+ * @throws {Error} When source or target agent name is empty
+ * @throws {Error} When the source agent does not exist
+ * @throws {Error} When the target agent exists and `force` is not enabled
+ * @throws {Error} When exporting memories from the source fails
+ * @throws {Error} When importing memories to the target fails
  *
  * @example
- * await copyAgent({
+ * // Copy an agent to create a variant
+ * const result = await copyAgent({
  *   source: 'typescript-expert',
- *   target: 'typescript-pro',
+ *   target: 'typescript-experimental',
  *   scope: Scope.AgentProject,
  *   projectRoot: '/home/user/project',
  *   globalRoot: '/home/user/.claude/memory',
  * });
+ * console.log(`Copied ${result.memoriesCopied} memories to new agent`);
+ *
+ * @example
+ * // Force-copy to overwrite an existing agent
+ * const result = await copyAgent({
+ *   source: 'production-agent',
+ *   target: 'backup-agent',
+ *   scope: Scope.AgentGlobal,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   force: true,
+ * });
+ *
+ * @example
+ * // Dry-run to preview copy operation
+ * const dryRunResult = await copyAgent({
+ *   source: 'my-agent',
+ *   target: 'my-agent-copy',
+ *   scope: Scope.AgentProject,
+ *   projectRoot: '/home/user/project',
+ *   globalRoot: '/home/user/.claude/memory',
+ *   dryRun: true,
+ * });
+ * console.log(`Would copy ${dryRunResult.memoriesCopied} memories`);
  */
 export async function copyAgent(request: CopyAgentRequest): Promise<CopyAgentResponse> {
   const sourceName = request.source.trim().toLowerCase();

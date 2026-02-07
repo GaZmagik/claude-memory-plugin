@@ -3,6 +3,11 @@
  *
  * Tests the JSONL parsing, compaction boundary detection, and content formatting
  * used for extracting conversation context from Claude Code sessions.
+ *
+ * ⚠️ TEST ISOLATION REQUIRED
+ * Uses module-level vi.mock('fs') which creates global state that pollutes
+ * other tests. Must run separately with: bunx vitest run <this-file>
+ * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';

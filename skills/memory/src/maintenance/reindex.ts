@@ -70,7 +70,41 @@ function isTemporary(filePath: string): boolean {
 }
 
 /**
- * Reindex a single memory file
+ * Re-adds an orphan memory file to the index and graph.
+ *
+ * Use this function when a memory file exists on disk but is missing from
+ * index.json and/or graph.json. This can occur after manual file operations,
+ * sync failures, or when restoring files from backup.
+ *
+ * The function reads the memory file's frontmatter to extract metadata and
+ * adds appropriate entries to both the index and graph if they don't already
+ * exist.
+ *
+ * @param request - The reindex request options
+ * @param request.id - The unique identifier of the memory to reindex (filename without .md)
+ * @param request.basePath - The base path for memory storage
+ * @returns A promise resolving to a ReindexResponse indicating success or failure,
+ *          including which actions were taken (added to index/graph)
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { reindexMemory } from './maintenance/reindex.js';
+ *
+ * // Reindex a memory that was manually restored
+ * const result = await reindexMemory({
+ *   id: 'decision-api-versioning-strategy',
+ *   basePath: '/project/.claude/memory',
+ * });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`File found at: ${result.filePath}`);
+ *   console.log(`Added to index: ${result.actions.addedToIndex}`);
+ *   console.log(`Added to graph: ${result.actions.addedToGraph}`);
+ * } else {
+ *   console.error(`Reindex failed: ${result.error}`);
+ * }
+ * ```
  */
 export async function reindexMemory(request: ReindexRequest): Promise<ReindexResponse> {
   const { id, basePath } = request;

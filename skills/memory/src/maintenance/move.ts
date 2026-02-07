@@ -85,7 +85,46 @@ function isTemporary(filePath: string): boolean {
 }
 
 /**
- * Move a memory to a different scope
+ * Moves a memory file from one scope to another, updating all associated metadata.
+ *
+ * This function handles the complete migration of a memory between scopes:
+ * - project (.claude/memory/)
+ * - local (.claude/memory/local/)
+ * - global (~/.claude/memory/)
+ *
+ * The operation preserves the permanent/temporary directory structure, updates
+ * the frontmatter scope field, transfers graph nodes and index entries, and
+ * migrates embeddings to the target scope.
+ *
+ * @param request - The move request options
+ * @param request.id - The unique identifier of the memory to move
+ * @param request.sourceBasePath - The base path of the source scope
+ * @param request.targetBasePath - The base path of the target scope
+ * @param request.targetScope - The target scope value for frontmatter update
+ * @returns A promise resolving to a MoveResponse indicating success or failure
+ *          with details of all changes made across both scopes
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { moveMemory } from './maintenance/move.js';
+ * import { Scope } from '../types/enums.js';
+ * import * as os from 'node:os';
+ *
+ * // Move a project memory to global scope
+ * const result = await moveMemory({
+ *   id: 'gotcha-typescript-strict-null-checks',
+ *   sourceBasePath: '/project/.claude/memory',
+ *   targetBasePath: `${os.homedir()}/.claude/memory`,
+ *   targetScope: Scope.Global,
+ * });
+ *
+ * if (result.status === 'success') {
+ *   console.log(`Moved from: ${result.sourcePath}`);
+ *   console.log(`Moved to: ${result.targetPath}`);
+ *   console.log(`Embeddings transferred: ${result.changes.embeddingsTransferred}`);
+ * }
+ * ```
  */
 export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
   const { id, sourceBasePath, targetBasePath, targetScope } = request;

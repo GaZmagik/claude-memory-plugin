@@ -221,7 +221,52 @@ function saveEmbeddingsCache(basePath: string, cache: EmbeddingCache): void {
 }
 
 /**
- * Refresh frontmatter for all memories
+ * Backfills missing frontmatter fields and migrates legacy data in memory files.
+ *
+ * This function performs several maintenance tasks:
+ *
+ * 1. **ID backfill**: Adds `id` field from filename if missing
+ * 2. **Project backfill**: Adds `project` field (auto-detected from git or directory)
+ * 3. **Title extraction**: Extracts title from first markdown heading if missing
+ * 4. **Embedding migration**: Moves legacy `embedding` hash from frontmatter to embeddings.json
+ * 5. **Think-to-thought migration**: Renames `think-*` files to `thought-*` prefix
+ * 6. **Graph type sync**: Updates graph node types to match frontmatter
+ *
+ * The function uses lenient parsing to handle and fix malformed frontmatter.
+ *
+ * @param request - The refresh frontmatter request options
+ * @param request.basePath - The base path for memory storage
+ * @param request.dryRun - If true, reports changes without applying them
+ * @param request.ids - Optional array of specific IDs to refresh; if omitted, refreshes all
+ * @param request.project - Optional project name; auto-detected from git remote or directory if omitted
+ * @returns A promise resolving to a RefreshFrontmatterResponse with counts of
+ *          updated files, migrations performed, and the project name used
+ * @throws Never throws directly; errors are captured in the response object
+ *
+ * @example
+ * ```typescript
+ * import { refreshFrontmatter } from './maintenance/refresh-frontmatter.js';
+ *
+ * // Preview what would be updated
+ * const preview = await refreshFrontmatter({
+ *   basePath: '/project/.claude/memory',
+ *   dryRun: true,
+ * });
+ *
+ * console.log(`Would update ${preview.wouldUpdate?.length ?? 0} files`);
+ * console.log(`Would migrate ${preview.thinkToThoughtMigrated} think->thought IDs`);
+ * console.log(`Detected project: ${preview.project}`);
+ *
+ * // Apply refresh with explicit project name
+ * const result = await refreshFrontmatter({
+ *   basePath: '/project/.claude/memory',
+ *   project: 'my-custom-project',
+ * });
+ *
+ * console.log(`Updated ${result.updated} files`);
+ * console.log(`Migrated ${result.embeddingsMigrated} embeddings`);
+ * console.log(`Updated ${result.graphTypesUpdated} graph node types`);
+ * ```
  */
 export async function refreshFrontmatter(
   request: RefreshFrontmatterRequest

@@ -39,9 +39,36 @@ const RESERVED_NAMES = new Set([
   'default',
   'config',
   'settings',
+  // Common build/tooling directories (prevent accidental collisions)
+  'tmp',
+  'temp',
+  'test',
+  'tests',
+  'node-modules',
+  'dist',
+  'build',
+  'out',
+  'lib',
+  'bin',
+  'src',
+  'vendor',
+  'coverage',
+  'docs',
 ]);
 
-/** Maximum length for agent names (filesystem compatibility) */
+/**
+ * Maximum length for agent names.
+ *
+ * Set to 64 characters for several reasons:
+ * - Filesystem safety: Most filesystems allow 255 bytes, but with nested paths
+ *   like `.claude/memory/agents/<name>/permanent/<id>.md`, shorter names prevent
+ *   hitting path length limits (especially on Windows with 260 char limit)
+ * - URL/slug compatibility: 64 chars is a common limit for URL slugs and identifiers
+ * - Database friendliness: Fits comfortably in VARCHAR(64) fields if ever persisted
+ * - Human readability: Names longer than 64 chars are unwieldy for CLI usage
+ * - Symmetry with other systems: Git branch names, Docker container names, and
+ *   Kubernetes labels all use similar constraints
+ */
 const MAX_AGENT_NAME_LENGTH = 64;
 
 /**

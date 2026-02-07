@@ -12,10 +12,48 @@ import { findInIndex, removeFromIndex } from './index.js';
 import { deleteFile, fileExists, isInsideDir } from './fs-utils.js';
 import { createLogger } from './logger.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
+import { isCrossScopeEdge } from '../graph/edges.js';
+import { removeEdge } from '../graph/edges.js';
 import type { EmbeddingCache } from '../search/embedding.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
+import { resolveAgentScopePath, getResolvedScopePath, parseScope } from '../cli/helpers.js';
 
 const log = createLogger('delete');
+
+/**
+ * Resolve the base path for the "other" scope in a cross-scope edge.
+ *
+ * Given a cross-scope edge and the ID of the memory being deleted,
+ * determines which scope is the "other" side and resolves its path.
+ */
+function resolveOtherScopeBasePath(
+  edge: { source: string; target: string; sourceScope?: string; targetScope?: string; sourceAgent?: string; targetAgent?: string },
+  deletedId: string
+): string | null {
+  // Determine which side is the "other" scope
+  const isSource = edge.source === deletedId;
+  const otherScope = isSource ? edge.targetScope : edge.sourceScope;
+  const otherAgent = isSource ? edge.targetAgent : edge.sourceAgent;
+
+  if (!otherScope) return null;
+
+  try {
+    const agentScopes = ['agent-project', 'agent-global'];
+    if (agentScopes.includes(otherScope) && otherAgent) {
+      return resolveAgentScopePath(otherAgent, undefined);
+    }
+
+    // Non-agent scope — resolve via standard scope path
+    return getResolvedScopePath(parseScope(otherScope));
+  } catch (error) {
+    log.warn('Failed to resolve other scope base path', {
+      otherScope,
+      otherAgent,
+      error: String(error),
+    });
+    return null;
+  }
+}
 
 /**
  * Delete a memory by ID
@@ -93,6 +131,38 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     // Remove from graph (node and all edges involving it)
     try {
       let graph = await loadGraph(basePath);
+
+      // Before removing the node, scan for cross-scope edges to clean up other graphs
+      const crossScopeEdges = graph.edges.filter(
+        e => (e.source === request.id || e.target === request.id) && isCrossScopeEdge(e)
+      );
+
+      // Clean up cross-scope edges in other graphs (best-effort)
+      for (const edge of crossScopeEdges) {
+        try {
+          const otherBasePath = resolveOtherScopeBasePath(edge, request.id);
+          if (otherBasePath) {
+            let otherGraph = await loadGraph(otherBasePath);
+            const beforeCount = otherGraph.edges.length;
+            otherGraph = removeEdge(otherGraph, edge.source, edge.target, edge.label);
+            if (otherGraph.edges.length < beforeCount) {
+              await saveGraph(otherBasePath, otherGraph);
+              log.info('Cleaned up cross-scope edge in other graph', {
+                id: request.id,
+                otherBasePath,
+                edge: `${edge.source} -> ${edge.target}`,
+              });
+            }
+          }
+        } catch (crossScopeError) {
+          log.warn('Best-effort cross-scope edge cleanup failed', {
+            id: request.id,
+            edge: `${edge.source} -> ${edge.target}`,
+            error: String(crossScopeError),
+          });
+        }
+      }
+
       graph = removeNode(graph, request.id);
       await saveGraph(basePath, graph);
     } catch {

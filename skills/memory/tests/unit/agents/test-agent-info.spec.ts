@@ -7,7 +7,7 @@
 import { describe, it, expect } from 'vitest';
 import type { AgentInfo } from '../../../src/types/agent-info.js';
 import { validateAgentInfo } from '../../../src/agents/validate-agent-info.js';
-import { Scope } from '../../../src/types/enums.js';
+import { Scope, MemoryType } from '../../../src/types/enums.js';
 
 describe('AgentInfo interface', () => {
   it('validates complete AgentInfo structure', () => {
@@ -18,7 +18,7 @@ describe('AgentInfo interface', () => {
       memoryCount: 10,
       linkCount: 5,
       tags: ['typescript', 'frontend'],
-      types: ['learning', 'decision'],
+      types: [MemoryType.Learning, MemoryType.Decision],
       created: new Date('2026-01-01'),
       updated: new Date('2026-02-01'),
     };
@@ -151,7 +151,7 @@ describe('AgentInfo interface', () => {
       name: 'test-agent',
       scope: Scope.AgentProject,
       path: '/path',
-      types: ['learning', 'decision', 'artifact'],
+      types: [MemoryType.Learning, MemoryType.Decision, MemoryType.Artifact],
     };
 
     const result = validateAgentInfo(agentInfo);
@@ -195,9 +195,9 @@ describe('AgentInfo comparison and sorting', () => {
 
     agents.sort((a, b) => a.name.localeCompare(b.name));
 
-    expect(agents[0].name).toBe('alpha-agent');
-    expect(agents[1].name).toBe('beta-agent');
-    expect(agents[2].name).toBe('zebra-agent');
+    expect(agents[0]!.name).toBe('alpha-agent');
+    expect(agents[1]!.name).toBe('beta-agent');
+    expect(agents[2]!.name).toBe('zebra-agent');
   });
 
   it('can be sorted by memory count descending', () => {
@@ -209,9 +209,9 @@ describe('AgentInfo comparison and sorting', () => {
 
     agents.sort((a, b) => (b.memoryCount || 0) - (a.memoryCount || 0));
 
-    expect(agents[0].memoryCount).toBe(20);
-    expect(agents[1].memoryCount).toBe(10);
-    expect(agents[2].memoryCount).toBe(5);
+    expect(agents[0]!.memoryCount).toBe(20);
+    expect(agents[1]!.memoryCount).toBe(10);
+    expect(agents[2]!.memoryCount).toBe(5);
   });
 
   it('can be sorted by scope priority', () => {
@@ -227,8 +227,8 @@ describe('AgentInfo comparison and sorting', () => {
       return a.scope === Scope.AgentProject ? -1 : 1;
     });
 
-    expect(agents[0].scope).toBe(Scope.AgentProject);
-    expect(agents[1].scope).toBe(Scope.AgentProject);
-    expect(agents[2].scope).toBe(Scope.AgentGlobal);
+    expect(agents[0]!.scope).toBe(Scope.AgentProject);
+    expect(agents[1]!.scope).toBe(Scope.AgentProject);
+    expect(agents[2]!.scope).toBe(Scope.AgentGlobal);
   });
 });

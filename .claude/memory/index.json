@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-06T20:44:14.502Z",
+  "lastUpdated": "2026-02-06T23:49:58.197Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10168,6 +10168,315 @@
       "updated": "2026-02-06T20:44:14.469Z",
       "scope": "project",
       "relativePath": "permanent/artifact-phase-d-edge-mirroring-pattern.md"
+    },
+    {
+      "id": "learning-retro-tdd-across-multi-phase-implementation-maintains-test-first-discipline-despite-complexity",
+      "type": "learning",
+      "title": "Retro - TDD across multi-phase implementation maintains test-first discipline despite complexity",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-06T21:00:31.151Z",
+      "updated": "2026-02-06T21:00:31.151Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-across-multi-phase-implementation-maintains-test-first-discipline-despite-complexity.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "type": "gotcha",
+      "title": "Retro - Test file size limits require early separation strategy for multi-feature phases",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "file-organization",
+        "project"
+      ],
+      "created": "2026-02-06T21:00:38.853Z",
+      "updated": "2026-02-06T21:00:38.853Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-explicit-task-dependency-graphs-enable-parallel-sub-phase-planning-despite-sequential-execution",
+      "type": "learning",
+      "title": "Retro - Explicit task dependency graphs enable parallel sub-phase planning despite sequential execution",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-management",
+        "planning",
+        "project"
+      ],
+      "created": "2026-02-06T21:00:51.007Z",
+      "updated": "2026-02-06T21:00:51.007Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-explicit-task-dependency-graphs-enable-parallel-sub-phase-planning-despite-sequential-execution.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-bidirectional-edge-storage-without-reversal-pattern",
+      "type": "learning",
+      "title": "Bidirectional edge storage without reversal pattern",
+      "tags": [
+        "phase-d",
+        "graph",
+        "pattern",
+        "bidirectional",
+        "project"
+      ],
+      "created": "2026-02-06T21:00:52.872Z",
+      "updated": "2026-02-06T21:00:52.872Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bidirectional-edge-storage-without-reversal-pattern.md"
+    },
+    {
+      "id": "gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges",
+      "type": "gotcha",
+      "title": "Cross-scope edge cleanup on delete must scan for matching edges",
+      "tags": [
+        "phase-d",
+        "delete",
+        "cross-scope",
+        "cleanup",
+        "project"
+      ],
+      "created": "2026-02-06T21:00:55.187Z",
+      "updated": "2026-02-06T21:00:55.187Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges.md"
+    },
+    {
+      "id": "artifact-cross-scope-link-api-contract",
+      "type": "artifact",
+      "title": "Cross-Scope Link API Contract",
+      "tags": [
+        "phase-d",
+        "api",
+        "cross-scope",
+        "link",
+        "project"
+      ],
+      "created": "2026-02-06T21:01:03.600Z",
+      "updated": "2026-02-06T21:01:03.600Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-cross-scope-link-api-contract.md"
+    },
+    {
+      "id": "decision-phase-d-tdd-with-25-tasks",
+      "type": "decision",
+      "title": "Phase D: TDD with 25 tasks across 5 sub-phases",
+      "tags": [
+        "phase-d",
+        "tdd",
+        "planning",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-06T21:01:06.243Z",
+      "updated": "2026-02-06T21:01:06.243Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-d-tdd-with-25-tasks.md"
+    },
+    {
+      "id": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "type": "decision",
+      "title": "Phase D-DEFERRED Cross-Scope Graph Operations Complete",
+      "tags": [
+        "phase-d",
+        "cross-scope",
+        "graph",
+        "architecture",
+        "milestone",
+        "project"
+      ],
+      "created": "2026-02-06T21:22:41.965Z",
+      "updated": "2026-02-06T21:22:41.965Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-d-deferred-cross-scope-graph-operations-complete.md"
+    },
+    {
+      "id": "learning-cross-scope-edge-metadata-design-optional-fields-on-graphedge",
+      "type": "learning",
+      "title": "Cross-scope edge metadata design: optional fields on GraphEdge",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-06T21:46:55.572Z",
+      "updated": "2026-02-06T21:46:55.572Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-edge-metadata-design-optional-fields-on-graphedge.md"
+    },
+    {
+      "id": "gotcha-outdated-validation-tests-cmdlinkcmdunlink-no-longer-reject-include-shared",
+      "type": "gotcha",
+      "title": "Outdated validation tests: cmdLink/cmdUnlink no longer reject --include-shared",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-06T21:46:58.663Z",
+      "updated": "2026-02-06T21:46:58.663Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-outdated-validation-tests-cmdlinkcmdunlink-no-longer-reject-include-shared.md"
+    },
+    {
+      "id": "decision-phase-d-deferred-complete-all-25-tasks",
+      "type": "decision",
+      "title": "Phase D-DEFERRED: Cross-Scope Graph Operations Complete",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-06T21:47:05.917Z",
+      "updated": "2026-02-06T21:47:05.917Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-phase-d-deferred-complete-all-25-tasks.md"
+    },
+    {
+      "id": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
+      "type": "learning",
+      "title": "Test isolation: process.chdir contamination solved with os.homedir()",
+      "tags": [
+        "testing",
+        "test-isolation",
+        "process-chdir",
+        "project"
+      ],
+      "created": "2026-02-06T21:47:09.258Z",
+      "updated": "2026-02-06T21:47:09.258Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-processchdir-contamination-solved-with-oshomedir.md"
+    },
+    {
+      "id": "artifact-loadMergedGraph-utility",
+      "type": "artifact",
+      "title": "loadMergedGraph() utility extracted from mermaid merge pattern",
+      "tags": [
+        "project"
+      ],
+      "created": "2026-02-06T21:47:11.705Z",
+      "updated": "2026-02-06T21:47:11.705Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-loadMergedGraph-utility.md"
+    },
+    {
+      "id": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "type": "learning",
+      "title": "Retro - Multi-agent review orchestration validates findings through independence",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "orchestration",
+        "project"
+      ],
+      "created": "2026-02-06T23:48:59.109Z",
+      "updated": "2026-02-06T23:48:59.109Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-agent-review-orchestration-validates-findings-through-independence.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
+      "type": "learning",
+      "title": "Multi-expert code review: consensus confirms genuine bugs",
+      "tags": [
+        "code-review",
+        "orchestration",
+        "quality-assurance",
+        "agent-coordination",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:05.301Z",
+      "updated": "2026-02-06T23:49:05.301Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-multi-expert-code-review-consensus-confirms-genuine-bugs.md"
+    },
+    {
+      "id": "gotcha-retro-expert-report-persistence-during-multi-phase-reviews",
+      "type": "gotcha",
+      "title": "Retro - Expert report persistence during multi-phase reviews",
+      "tags": [
+        "retrospective",
+        "process",
+        "review-workflow",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:07.383Z",
+      "updated": "2026-02-06T23:49:07.383Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-expert-report-persistence-during-multi-phase-reviews.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-empty-test-files-created-by-hooks-provide-false-coverage-assurance",
+      "type": "gotcha",
+      "title": "Empty test files created by hooks provide false coverage assurance",
+      "tags": [
+        "tdd",
+        "testing",
+        "hooks",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:16.448Z",
+      "updated": "2026-02-06T23:49:16.448Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-empty-test-files-created-by-hooks-provide-false-coverage-assurance.md"
+    },
+    {
+      "id": "learning-sync-io-in-async-functions-silently-blocks-entire-event-loop",
+      "type": "learning",
+      "title": "Sync I/O in async functions silently blocks entire event loop",
+      "tags": [
+        "nodejs",
+        "performance",
+        "async-await",
+        "antipattern",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:24.590Z",
+      "updated": "2026-02-06T23:49:24.590Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-sync-io-in-async-functions-silently-blocks-entire-event-loop.md"
+    },
+    {
+      "id": "learning-n1-file-reads-in-search-without-early-exit-validation",
+      "type": "learning",
+      "title": "N+1 file reads in search without early exit validation",
+      "tags": [
+        "performance",
+        "search",
+        "database-patterns",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:57.576Z",
+      "updated": "2026-02-06T23:49:57.576Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-n1-file-reads-in-search-without-early-exit-validation.md"
+    },
+    {
+      "id": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "type": "learning",
+      "title": "Incomplete mock types in tests generate cascading TypeScript errors",
+      "tags": [
+        "typescript",
+        "testing",
+        "type-safety",
+        "mocks",
+        "project"
+      ],
+      "created": "2026-02-06T23:49:58.191Z",
+      "updated": "2026-02-06T23:49:58.191Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors.md"
     }
   ]
 }

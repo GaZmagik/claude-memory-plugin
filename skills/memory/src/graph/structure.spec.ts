@@ -290,3 +290,102 @@ describe('getEdgeCount', () => {
     expect(getEdgeCount(graph)).toBe(2);
   });
 });
+
+describe('GraphEdge cross-scope fields (TD01)', () => {
+  const testPath = '/tmp/graph-test-cross-scope';
+
+  beforeEach(() => {
+    if (existsSync(testPath)) {
+      rmSync(testPath, { recursive: true });
+    }
+    mkdirSync(testPath, { recursive: true });
+  });
+
+  it('should round-trip GraphEdge with all cross-scope fields through JSON', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'agent-learning-1', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
+        { id: 'project-decision-1', type: 'decision', scope: 'project' },
+      ],
+      edges: [
+        {
+          source: 'agent-learning-1',
+          target: 'project-decision-1',
+          label: 'informs',
+          sourceScope: 'agent-project',
+          targetScope: 'project',
+          sourceAgent: 'ts-expert',
+        },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    expect(loaded.edges).toHaveLength(1);
+    const edge = loaded.edges[0]!;
+    expect(edge.source).toBe('agent-learning-1');
+    expect(edge.target).toBe('project-decision-1');
+    expect(edge.label).toBe('informs');
+    expect(edge.sourceScope).toBe('agent-project');
+    expect(edge.targetScope).toBe('project');
+    expect(edge.sourceAgent).toBe('ts-expert');
+    expect(edge.targetAgent).toBeUndefined();
+  });
+
+  it('should round-trip GraphEdge with agent-to-agent cross-scope fields', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'ts-learning-1', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
+        { id: 'rust-decision-1', type: 'decision', scope: 'agent-project', agent: 'rust-expert' },
+      ],
+      edges: [
+        {
+          source: 'ts-learning-1',
+          target: 'rust-decision-1',
+          label: 'relates-to',
+          sourceScope: 'agent-project',
+          targetScope: 'agent-project',
+          sourceAgent: 'ts-expert',
+          targetAgent: 'rust-expert',
+        },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    const edge = loaded.edges[0]!;
+    expect(edge.sourceScope).toBe('agent-project');
+    expect(edge.targetScope).toBe('agent-project');
+    expect(edge.sourceAgent).toBe('ts-expert');
+    expect(edge.targetAgent).toBe('rust-expert');
+  });
+
+  it('should round-trip GraphEdge without cross-scope fields (backward compat)', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'node-a', type: 'decision' },
+        { id: 'node-b', type: 'learning' },
+      ],
+      edges: [
+        { source: 'node-a', target: 'node-b', label: 'relates-to' },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    const edge = loaded.edges[0]!;
+    expect(edge.source).toBe('node-a');
+    expect(edge.target).toBe('node-b');
+    expect(edge.label).toBe('relates-to');
+    expect(edge.sourceScope).toBeUndefined();
+    expect(edge.targetScope).toBeUndefined();
+    expect(edge.sourceAgent).toBeUndefined();
+    expect(edge.targetAgent).toBeUndefined();
+  });
+});

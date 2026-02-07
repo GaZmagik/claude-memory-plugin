@@ -5,9 +5,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { scanAgentDirectories } from '../../../src/agents/scan-agent-directories.js';
+import { scanAgentDirectories, getAgentInfo } from '../../../src/agents/scan-agent-directories.js';
 import { Scope } from '../../../src/types/enums.js';
-import type { AgentInfo } from '../../../src/types/agent-info.js';
 
 // Mock filesystem operations
 const mockReaddir = vi.fn();
@@ -46,9 +45,9 @@ describe('scanAgentDirectories', () => {
     });
 
     expect(result).toHaveLength(2);
-    expect(result[0].name).toBe('rust-expert');
-    expect(result[0].scope).toBe(Scope.AgentProject);
-    expect(result[1].name).toBe('typescript-pro');
+    expect(result[0]!.name).toBe('rust-expert');
+    expect(result[0]!.scope).toBe(Scope.AgentProject);
+    expect(result[1]!.name).toBe('typescript-pro');
   });
 
   it('scans global agent directories', async () => {
@@ -63,8 +62,8 @@ describe('scanAgentDirectories', () => {
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('python-expert');
-    expect(result[0].scope).toBe(Scope.AgentGlobal);
+    expect(result[0]!.name).toBe('python-expert');
+    expect(result[0]!.scope).toBe(Scope.AgentGlobal);
   });
 
   it('scans both project and global when no scope specified', async () => {
@@ -101,7 +100,7 @@ describe('scanAgentDirectories', () => {
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('typescript-pro');
+    expect(result[0]!.name).toBe('typescript-pro');
   });
 
   it('includes statistics when includeStats option enabled', async () => {
@@ -185,9 +184,9 @@ describe('scanAgentDirectories', () => {
       scope: Scope.AgentProject,
     });
 
-    expect(result[0].name).toBe('alpha-agent');
-    expect(result[1].name).toBe('beta-agent');
-    expect(result[2].name).toBe('zebra-agent');
+    expect(result[0]!.name).toBe('alpha-agent');
+    expect(result[1]!.name).toBe('beta-agent');
+    expect(result[2]!.name).toBe('zebra-agent');
   });
 
   it('includes creation and update timestamps', async () => {
@@ -206,8 +205,8 @@ describe('scanAgentDirectories', () => {
       includeStats: true,
     });
 
-    expect(result[0].created).toEqual(new Date('2026-01-01'));
-    expect(result[0].updated).toEqual(new Date('2026-02-01'));
+    expect(result[0]!.created).toEqual(new Date('2026-01-01'));
+    expect(result[0]!.updated).toEqual(new Date('2026-02-01'));
   });
 
   it('constructs correct path for project agents', async () => {
@@ -221,7 +220,7 @@ describe('scanAgentDirectories', () => {
       scope: Scope.AgentProject,
     });
 
-    expect(result[0].path).toBe('/project/.claude/memory/agents/test-agent');
+    expect(result[0]!.path).toBe('/project/.claude/memory/agents/test-agent');
   });
 
   it('constructs correct path for global agents', async () => {
@@ -235,7 +234,7 @@ describe('scanAgentDirectories', () => {
       scope: Scope.AgentGlobal,
     });
 
-    expect(result[0].path).toBe('/home/user/.claude/memory/agents/test-agent');
+    expect(result[0]!.path).toBe('/home/user/.claude/memory/agents/test-agent');
   });
 
   it('filters by agent name pattern when provided', async () => {
@@ -259,7 +258,67 @@ describe('scanAgentDirectories', () => {
 
 describe('getAgentInfo', () => {
   it('retrieves detailed info for specific agent', async () => {
-    // This will be tested when getAgentInfo is implemented
-    expect(true).toBe(true);
+    // Mock index.json for the agent
+    mockReadFile.mockResolvedValueOnce(JSON.stringify({
+      version: 1,
+      memories: {
+        'learning-ts-patterns': {
+          id: 'learning-ts-patterns',
+          title: 'TS Patterns',
+          type: 'learning',
+          tags: ['typescript'],
+          scope: 'agent-project',
+          relativePath: 'permanent/learning-ts-patterns.md',
+        },
+      },
+    }));
+
+    // Mock graph.json for the agent
+    mockReadFile.mockResolvedValueOnce(JSON.stringify({
+      version: 1,
+      nodes: [{ id: 'learning-ts-patterns', type: 'learning' }],
+      edges: [],
+    }));
+
+    const result = await getAgentInfo(
+      'typescript-expert',
+      '/project/.claude/memory/agents/typescript-expert'
+    );
+
+    expect(result.name).toBe('typescript-expert');
+    expect(result.scope).toBe(Scope.AgentProject);
+    expect(result.path).toBe('/project/.claude/memory/agents/typescript-expert');
+  });
+
+  it('returns AgentGlobal scope for global agent paths', async () => {
+    // Mock index.json
+    mockReadFile.mockResolvedValueOnce(JSON.stringify({
+      version: 1,
+      memories: {},
+    }));
+
+    // Mock graph.json — not found
+    mockReadFile.mockRejectedValueOnce(new Error('ENOENT'));
+
+    const result = await getAgentInfo(
+      'rust-expert',
+      '/home/user/.claude/memory/agents/rust-expert'
+    );
+
+    expect(result.name).toBe('rust-expert');
+    expect(result.scope).toBe(Scope.AgentGlobal);
+  });
+
+  it('handles missing index.json gracefully', async () => {
+    // Mock index.json — not found
+    mockReadFile.mockRejectedValueOnce(new Error('ENOENT'));
+
+    const result = await getAgentInfo(
+      'test-agent',
+      '/project/.claude/memory/agents/test-agent'
+    );
+
+    expect(result.name).toBe('test-agent');
+    expect(result.path).toBe('/project/.claude/memory/agents/test-agent');
   });
 });

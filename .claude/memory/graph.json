@@ -3112,6 +3112,86 @@
     {
       "id": "artifact-phase-d-edge-mirroring-pattern",
       "type": "artifact"
+    },
+    {
+      "id": "learning-retro-tdd-across-multi-phase-implementation-maintains-test-first-discipline-despite-complexity",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-retro-explicit-task-dependency-graphs-enable-parallel-sub-phase-planning-despite-sequential-execution",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cross-scope-edge-metadata-design-optional-fields-on-graphedge",
+      "type": "learning"
+    },
+    {
+      "id": "learning-bidirectional-edge-storage-without-reversal-pattern",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges",
+      "type": "gotcha"
+    },
+    {
+      "id": "artifact-cross-scope-link-api-contract",
+      "type": "artifact"
+    },
+    {
+      "id": "decision-phase-d-tdd-with-25-tasks",
+      "type": "decision"
+    },
+    {
+      "id": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "type": "decision"
+    },
+    {
+      "id": "gotcha-outdated-validation-tests-cmdlinkcmdunlink-no-longer-reject-include-shared",
+      "type": "gotcha"
+    },
+    {
+      "id": "decision-phase-d-deferred-complete-all-25-tasks",
+      "type": "decision"
+    },
+    {
+      "id": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
+      "type": "learning"
+    },
+    {
+      "id": "artifact-loadMergedGraph-utility",
+      "type": "artifact"
+    },
+    {
+      "id": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "type": "learning"
+    },
+    {
+      "id": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-retro-expert-report-persistence-during-multi-phase-reviews",
+      "type": "gotcha"
+    },
+    {
+      "id": "gotcha-empty-test-files-created-by-hooks-provide-false-coverage-assurance",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-sync-io-in-async-functions-silently-blocks-entire-event-loop",
+      "type": "learning"
+    },
+    {
+      "id": "learning-n1-file-reads-in-search-without-early-exit-validation",
+      "type": "learning"
+    },
+    {
+      "id": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "type": "learning"
     }
   ],
   "edges": [

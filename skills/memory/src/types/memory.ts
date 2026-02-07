@@ -106,6 +106,9 @@ export interface GraphNode {
 /**
  * Graph edge representation
  * Note: Uses source/target to match D3.js and graph library conventions
+ *
+ * Cross-scope fields are optional and only present on edges spanning scope boundaries.
+ * Keep in sync with GraphEdge in graph/structure.ts (implementation layer).
  */
 export interface GraphEdge {
   /** Source memory ID */
@@ -114,6 +117,14 @@ export interface GraphEdge {
   target: MemoryId;
   /** Relationship label */
   label: string;
+  /** Source scope identifier (e.g. 'agent-project', 'project', 'global') */
+  sourceScope?: string;
+  /** Target scope identifier (e.g. 'agent-project', 'project', 'global') */
+  targetScope?: string;
+  /** Source agent name (required when sourceScope is agent-project or agent-global) */
+  sourceAgent?: string;
+  /** Target agent name (required when targetScope is agent-project or agent-global) */
+  targetAgent?: string;
 }
 
 /**

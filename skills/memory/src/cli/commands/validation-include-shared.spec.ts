@@ -37,8 +37,8 @@ describe('--include-shared validation', () => {
       // Mock underlying functions
       vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({ status: 'success', results: [] });
       vi.spyOn(listModule, 'listMemories').mockResolvedValue({ status: 'success', memories: [], count: 0 });
-      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ status: 'success', entries: [] });
-      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ nodes: {}, edges: [] });
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ version: '1', lastUpdated: new Date().toISOString(), memories: [] });
+      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     });
 
     afterEach(() => {
@@ -117,9 +117,13 @@ describe('--include-shared validation', () => {
       vi.spyOn(deleteModule, 'deleteMemory').mockResolvedValue({ status: 'success' });
       vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({ status: 'success' });
       vi.spyOn(linkModule, 'unlinkMemories').mockResolvedValue({ status: 'success' });
-      vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success', memory: {} as any });
-      vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({ status: 'success', memory: {} as any });
-      vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({ status: 'success', errors: [] });
+      vi.spyOn(tagModule, 'tagMemory').mockResolvedValue({ status: 'success' });
+      vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({ status: 'success' });
+      vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({
+        status: 'success',
+        changes: { addedToGraph: [], addedToIndex: [], removedGhostNodes: [], removedOrphanEdges: 0, removedFromIndex: [], removedOrphanEmbeddings: [] },
+        summary: { filesOnDisk: 0, nodesInGraph: 0, entriesInIndex: 0, entriesInEmbeddings: 0 },
+      });
     });
 
     afterEach(() => {
@@ -151,29 +155,29 @@ describe('--include-shared validation', () => {
       expect(deleteModule.deleteMemory).not.toHaveBeenCalled();
     });
 
-    it('cmdLink: rejects --include-shared (cross-scope edges forbidden)', async () => {
+    it('cmdLink: --include-shared is ignored (cross-scope uses --target-agent)', async () => {
       const args: ParsedArgs = {
-        positional: ['link', 'id1', 'id2'],
+        positional: ['id1', 'id2'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
-      const result = await cmdLink(args);
+      await cmdLink(args);
 
-      expect(result.status).toBe('error');
-      expect(result.error).toContain('cross-scope linking not supported');
-      expect(result.error).toContain('design constraint');
-      expect(linkModule.linkMemories).not.toHaveBeenCalled();
+      // cmdLink no longer rejects --include-shared; cross-scope linking
+      // is triggered via --target-agent, not --include-shared (Phase D).
+      // With just --agent (no --target-agent), this is a same-scope link.
+      expect(linkModule.linkMemories).toHaveBeenCalled();
     });
 
-    it('cmdUnlink: rejects --include-shared', async () => {
+    it('cmdUnlink: --include-shared is ignored (cross-scope uses --target-agent)', async () => {
       const args: ParsedArgs = {
-        positional: ['unlink', 'id1', 'id2'],
+        positional: ['id1', 'id2'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
-      const result = await cmdUnlink(args);
+      await cmdUnlink(args);
 
-      expect(result.status).toBe('error');
-      expect(result.error).toContain('cross-scope linking not supported');
-      expect(linkModule.unlinkMemories).not.toHaveBeenCalled();
+      // cmdUnlink no longer rejects --include-shared; cross-scope unlinking
+      // is triggered via --target-agent, not --include-shared (Phase D).
+      expect(linkModule.unlinkMemories).toHaveBeenCalled();
     });
 
     it('cmdTag: rejects --include-shared', async () => {
@@ -218,8 +222,8 @@ describe('--include-shared validation', () => {
       // Mock read operations - will be called if validation passes
       vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({ status: 'success', results: [] });
       vi.spyOn(listModule, 'listMemories').mockResolvedValue({ status: 'success', memories: [], count: 0 });
-      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ status: 'success', entries: [] });
-      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ nodes: {}, edges: [] });
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ version: '1', lastUpdated: new Date().toISOString(), memories: [] });
+      vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     });
 
     afterEach(() => {

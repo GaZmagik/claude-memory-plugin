@@ -15,7 +15,7 @@ describe('confirmDeletion', () => {
 
   beforeEach(async () => {
     const promptsModule = await import('prompts');
-    mockPrompts = promptsModule.default as ReturnType<typeof vi.fn>;
+    mockPrompts = promptsModule.default as unknown as ReturnType<typeof vi.fn>;
   });
 
   afterEach(() => {

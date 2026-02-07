@@ -18,7 +18,12 @@ import { getResolvedScopePath, parseScope, resolveAgentScopePath, resolveSharedS
 /**
  * link - Create a relationship between memories
  *
- * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>] [--agent <name>]
+ * Usage: memory link <from> <to> [--relation <type>] [--scope <scope>] [--agent <name>] [--target-agent <name>]
+ *
+ * Cross-scope scenarios:
+ *   --agent only:         source in agent scope, target in project scope
+ *   --target-agent only:  source in project scope, target in agent scope
+ *   --agent + --target-agent: source in agent scope, target in different agent scope
  */
 export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -28,22 +33,54 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
+  const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const relation = getFlagString(args.flags, 'relation');
 
-  // Validate --include-shared flag (cross-scope linking not supported)
-  const includeShared = getFlagBool(args.flags, 'include-shared');
-  if (includeShared) {
-    return error('Error: cross-scope linking not supported (design constraint). Remove --include-shared flag.');
+  // Detect cross-scope: --agent XOR --target-agent, or both with different values
+  const isCrossScope = (agentName && !targetAgentName) ||
+    (!agentName && targetAgentName) ||
+    (agentName && targetAgentName && agentName !== targetAgentName);
+
+  if (isCrossScope) {
+    // Resolve source base path
+    const sourceBasePath = agentName
+      ? resolveAgentScopePath(agentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    // Resolve target base path
+    const targetBasePath = targetAgentName
+      ? resolveAgentScopePath(targetAgentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    const sourceScope = agentName ? 'agent-project' : 'project';
+    const targetScope = targetAgentName ? 'agent-project' : 'project';
+
+    return wrapOperation(
+      async () => {
+        const result = await linkMemories({
+          source,
+          target,
+          relation,
+          basePath: sourceBasePath,
+          agent: agentName,
+          targetAgent: targetAgentName,
+          targetBasePath,
+          sourceScope,
+          targetScope,
+          sourceAgent: agentName,
+        });
+        return result;
+      },
+      `Linked ${source} -> ${target} (cross-scope)`
+    );
   }
 
-  // Choose helper based on agent context
+  // Same-scope linking (existing behaviour)
   const basePath = agentName
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));
-
-  const relation = getFlagString(args.flags, 'relation');
 
   return wrapOperation(
     async () => {
@@ -57,7 +94,7 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
 /**
  * unlink - Remove a relationship between memories
  *
- * Usage: memory unlink <from> <to> [--scope <scope>] [--agent <name>]
+ * Usage: memory unlink <from> <to> [--scope <scope>] [--agent <name>] [--target-agent <name>]
  */
 export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const source = args.positional[0];
@@ -67,17 +104,41 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required arguments: <from> <to>');
   }
 
-  // Extract agent name if provided
   const agentName = getFlagString(args.flags, 'agent');
+  const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
 
-  // Validate --include-shared flag (cross-scope linking not supported)
-  const includeShared = getFlagBool(args.flags, 'include-shared');
-  if (includeShared) {
-    return error('Error: cross-scope linking not supported (design constraint). Remove --include-shared flag.');
+  // Detect cross-scope
+  const isCrossScope = (agentName && !targetAgentName) ||
+    (!agentName && targetAgentName) ||
+    (agentName && targetAgentName && agentName !== targetAgentName);
+
+  if (isCrossScope) {
+    const sourceBasePath = agentName
+      ? resolveAgentScopePath(agentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    const targetBasePath = targetAgentName
+      ? resolveAgentScopePath(targetAgentName, scopeStr)
+      : getResolvedScopePath(parseScope(scopeStr));
+
+    return wrapOperation(
+      async () => {
+        const result = await unlinkMemories({
+          source,
+          target,
+          basePath: sourceBasePath,
+          agent: agentName,
+          targetAgent: targetAgentName,
+          targetBasePath,
+        });
+        return result;
+      },
+      `Unlinked ${source} -> ${target} (cross-scope)`
+    );
   }
 
-  // Choose helper based on agent context
+  // Same-scope unlinking (existing behaviour)
   const basePath = agentName
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));

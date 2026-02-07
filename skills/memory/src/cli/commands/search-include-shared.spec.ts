@@ -9,8 +9,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { cmdSearch } from './crud.js';
 import type { ParsedArgs } from '../parser.js';
 import * as searchModule from '../../core/search.js';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import { MemoryType } from '../../types/enums.js';
 
 describe('cmdSearch with --include-shared', () => {
   const mockCwd = '/mock/project';
@@ -58,7 +57,7 @@ describe('cmdSearch with --include-shared', () => {
 
       // First call should be agent scope
       const firstCall = searchSpy.mock.calls[0];
-      expect(firstCall[0].basePath).toContain('agents/rust-expert');
+      expect(firstCall?.[0].basePath).toContain('agents/rust-expert');
     });
 
     it('includes shared scopes after agent scope', async () => {
@@ -79,11 +78,11 @@ describe('cmdSearch with --include-shared', () => {
       expect(calls.length).toBeGreaterThanOrEqual(2);
 
       // First should be agent scope
-      expect(calls[0][0].basePath).toContain('agents/typescript-expert');
+      expect(calls[0]?.[0].basePath).toContain('agents/typescript-expert');
 
       // Subsequent calls should be different paths (shared scopes)
       for (let i = 1; i < calls.length; i++) {
-        expect(calls[i][0].basePath).not.toBe(calls[0][0].basePath);
+        expect(calls[i]?.[0].basePath).not.toBe(calls[0]?.[0].basePath);
       }
     });
   });
@@ -99,7 +98,7 @@ describe('cmdSearch with --include-shared', () => {
           return {
             status: 'success',
             results: [
-              { id: 'agent-memory-1', title: 'Agent Learning', score: 0.9 },
+              { id: 'agent-memory-1', title: 'Agent Learning', type: MemoryType.Learning, tags: ['agent'], score: 0.9 },
             ],
           };
         } else {
@@ -107,7 +106,7 @@ describe('cmdSearch with --include-shared', () => {
           return {
             status: 'success',
             results: [
-              { id: 'shared-memory-1', title: 'Project Decision', score: 0.8 },
+              { id: 'shared-memory-1', title: 'Project Decision', type: MemoryType.Decision, tags: ['shared'], score: 0.8 },
             ],
           };
         }
@@ -122,8 +121,8 @@ describe('cmdSearch with --include-shared', () => {
 
       expect(result.status).toBe('success');
       // Should have merged results from both scopes
-      if ('data' in result && result.data && 'results' in result.data) {
-        const results = result.data.results as any[];
+      if (result.data && typeof result.data === 'object' && 'results' in result.data) {
+        const results = (result.data as { results: unknown[] }).results;
         expect(results.length).toBeGreaterThan(1);
       }
     });
@@ -132,7 +131,7 @@ describe('cmdSearch with --include-shared', () => {
       vi.spyOn(searchModule, 'searchMemories').mockResolvedValue({
         status: 'success',
         results: [
-          { id: 'test-memory', title: 'Test', score: 0.9 },
+          { id: 'test-memory', title: 'Test', type: MemoryType.Learning, tags: ['test'], score: 0.9 },
         ],
       });
 
@@ -145,9 +144,9 @@ describe('cmdSearch with --include-shared', () => {
 
       // Results should include scope indicators
       // Format: [scope] memory-id
-      if (result.status === 'success' && 'data' in result && result.data && 'results' in result.data) {
-        const results = result.data.results as any[];
-        if (results.length > 0) {
+      if (result.status === 'success' && result.data && typeof result.data === 'object' && 'results' in result.data) {
+        const results = (result.data as { results: Array<{ id: string }> }).results;
+        if (results.length > 0 && results[0]) {
           // Check that at least one result has a scope indicator in its id
           expect(results[0].id).toMatch(/\[.*\]/); // Contains scope indicator like [agent-project]
         }
@@ -156,12 +155,12 @@ describe('cmdSearch with --include-shared', () => {
 
     it('indicates agent scope for agent results', async () => {
       let callCount = 0;
-      vi.spyOn(searchModule, 'searchMemories').mockImplementation(async (req) => {
+      vi.spyOn(searchModule, 'searchMemories').mockImplementation(async (_req) => {
         callCount++;
         return {
           status: 'success',
           results: [
-            { id: `memory-${callCount}`, title: 'Test', score: 0.9 },
+            { id: `memory-${callCount}`, title: 'Test', type: MemoryType.Learning, tags: ['test'], score: 0.9 },
           ],
         };
       });
@@ -173,11 +172,12 @@ describe('cmdSearch with --include-shared', () => {
 
       const result = await cmdSearch(args);
 
-      if (result.status === 'success' && 'data' in result && result.data && 'results' in result.data) {
-        const results = result.data.results as any[];
+      if (result.status === 'success' && result.data && typeof result.data === 'object' && 'results' in result.data) {
+        const results = result.data.results as unknown[];
         // Should contain agent scope indicator in at least one result
-        const hasAgentScope = results.some((r: any) =>
-          r.id.includes('[agent-project]') || r.id.includes('[agent-global]')
+        const hasAgentScope = results.some((r) =>
+          typeof r === 'object' && r !== null && 'id' in r &&
+          (String((r as { id: string }).id).includes('[agent-project]') || String((r as { id: string }).id).includes('[agent-global]'))
         );
         expect(hasAgentScope).toBe(true);
       }
@@ -201,7 +201,7 @@ describe('cmdSearch with --include-shared', () => {
       const calls = searchSpy.mock.calls;
 
       // First call: agent scope
-      expect(calls[0][0].basePath).toContain('agents/typescript-expert');
+      expect(calls[0]?.[0].basePath).toContain('agents/typescript-expert');
 
       // Remaining calls should follow scope hierarchy
       // (exact paths depend on implementation, but should be distinct)
@@ -280,7 +280,7 @@ describe('cmdSearch with --include-shared', () => {
         } else {
           return {
             status: 'success',
-            results: [{ id: 'shared-1', title: 'Shared', score: 0.8 }],
+            results: [{ id: 'shared-1', title: 'Shared', type: MemoryType.Learning, tags: ['shared'], score: 0.8 }],
           };
         }
       });

@@ -26,11 +26,25 @@ export interface GraphNode {
 
 /**
  * Graph edge representing a relationship
+ *
+ * Cross-scope fields (sourceScope, targetScope, sourceAgent, targetAgent) are
+ * optional and only present on edges that span scope boundaries. When present,
+ * the edge is mirrored in both the source and target scope's graph.json files.
+ *
+ * Note: Keep in sync with GraphEdge in types/memory.ts (documentation layer).
  */
 export interface GraphEdge {
   source: string;
   target: string;
   label: string;
+  /** Source scope identifier (e.g. 'agent-project', 'project', 'global') */
+  sourceScope?: string;
+  /** Target scope identifier (e.g. 'agent-project', 'project', 'global') */
+  targetScope?: string;
+  /** Source agent name (required when sourceScope is agent-project or agent-global) */
+  sourceAgent?: string;
+  /** Target agent name (required when targetScope is agent-project or agent-global) */
+  targetAgent?: string;
 }
 
 /**

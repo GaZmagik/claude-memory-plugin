@@ -68,6 +68,9 @@ export interface UntagMemoryResponse extends BaseResponse {
 
 /**
  * Request to create a link between memories
+ *
+ * For cross-scope linking, provide targetAgent and/or sourceScope/targetScope fields.
+ * When cross-scope fields are present, the edge is mirrored in both scope's graphs.
  */
 export interface LinkMemoriesRequest extends BaseRequest {
   /** Source memory ID */
@@ -76,6 +79,16 @@ export interface LinkMemoriesRequest extends BaseRequest {
   target: string;
   /** Relationship type (default: 'relates-to') */
   relation?: string;
+  /** Target agent name (for cross-scope: project → agent or agent → agent) */
+  targetAgent?: string;
+  /** Target base path (resolved path for the target scope's memory directory) */
+  targetBasePath?: string;
+  /** Source scope identifier (e.g. 'agent-project', 'project') */
+  sourceScope?: string;
+  /** Target scope identifier (e.g. 'agent-project', 'project') */
+  targetScope?: string;
+  /** Source agent name (explicit, when linking from an agent scope) */
+  sourceAgent?: string;
 }
 
 /**
@@ -94,6 +107,9 @@ export interface LinkMemoriesResponse extends BaseResponse {
 
 /**
  * Request to remove a link between memories
+ *
+ * For cross-scope unlinking, provide targetAgent and/or targetBasePath fields.
+ * When cross-scope fields are present, the edge is removed from both scope's graphs.
  */
 export interface UnlinkMemoriesRequest extends BaseRequest {
   /** Source memory ID */
@@ -102,6 +118,10 @@ export interface UnlinkMemoriesRequest extends BaseRequest {
   target: string;
   /** Specific relation to remove (optional, removes all if not specified) */
   relation?: string;
+  /** Target agent name (for cross-scope unlinking) */
+  targetAgent?: string;
+  /** Target base path (resolved path for the target scope's memory directory) */
+  targetBasePath?: string;
 }
 
 /**

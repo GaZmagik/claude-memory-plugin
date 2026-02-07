@@ -23,12 +23,14 @@ describe('cmdAgentsList', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
         lastUpdated: '2026-02-04T12:00:00.000Z',
       },
       {
         name: 'rust-expert',
         scope: Scope.AgentGlobal,
+        path: '/home/user/.claude/memory/agents/rust-expert',
         memoryCount: 23,
         lastUpdated: '2026-02-04T11:00:00.000Z',
       },
@@ -41,8 +43,9 @@ describe('cmdAgentsList', () => {
 
     expect(result.status).toBe('success');
     expect(result.data).toHaveProperty('agents');
-    expect(result.data?.agents).toHaveLength(2);
-    expect(result.data?.count).toBe(2);
+    const data = result.data as { agents: AgentSummary[]; count: number };
+    expect(data.agents).toHaveLength(2);
+    expect(data.count).toBe(2);
   });
 
   it('filters by project scope when --scope project provided', async () => {
@@ -50,6 +53,7 @@ describe('cmdAgentsList', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
       },
     ];
@@ -71,6 +75,7 @@ describe('cmdAgentsList', () => {
       {
         name: 'rust-expert',
         scope: Scope.AgentGlobal,
+        path: '/home/user/.claude/memory/agents/rust-expert',
         memoryCount: 23,
       },
     ];
@@ -100,6 +105,7 @@ describe('cmdAgentsList', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
         memoryTypes: {
           [MemoryType.Learning]: 20,
@@ -128,8 +134,9 @@ describe('cmdAgentsList', () => {
     const result = await cmdAgentsList(args);
 
     expect(result.status).toBe('success');
-    expect(result.data?.agents).toEqual([]);
-    expect(result.data?.count).toBe(0);
+    const data = result.data as { agents: AgentSummary[]; count: number };
+    expect(data.agents).toEqual([]);
+    expect(data.count).toBe(0);
   });
 });
 
@@ -147,6 +154,7 @@ describe('cmdAgentsStats', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
         memoryTypes: {
           [MemoryType.Learning]: 20,
@@ -163,7 +171,8 @@ describe('cmdAgentsStats', () => {
     const result = await cmdAgentsStats(args);
 
     expect(result.status).toBe('success');
-    expect(result.data?.agent).toMatchObject({
+    const data = result.data as { agent: AgentSummary };
+    expect(data.agent).toMatchObject({
       name: 'typescript-expert',
       memoryCount: 45,
     });
@@ -174,11 +183,13 @@ describe('cmdAgentsStats', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
       },
       {
         name: 'rust-expert',
         scope: Scope.AgentGlobal,
+        path: '/home/user/.claude/memory/agents/rust-expert',
         memoryCount: 23,
       },
     ];
@@ -189,7 +200,8 @@ describe('cmdAgentsStats', () => {
     const result = await cmdAgentsStats(args);
 
     expect(result.status).toBe('success');
-    expect(result.data?.agents).toHaveLength(2);
+    const data = result.data as { agents: AgentSummary[] };
+    expect(data.agents).toHaveLength(2);
   });
 
   it('returns error when both agent name and --all provided', async () => {
@@ -213,6 +225,7 @@ describe('cmdAgentsStats', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
       },
     ]);
@@ -229,6 +242,7 @@ describe('cmdAgentsStats', () => {
       {
         name: 'typescript-expert',
         scope: Scope.AgentProject,
+        path: '/project/.claude/memory/agents/typescript-expert',
         memoryCount: 45,
         memoryTypes: {
           [MemoryType.Learning]: 20,

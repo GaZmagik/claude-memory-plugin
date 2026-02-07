@@ -30,13 +30,27 @@ export type EdgeLabel = (typeof EDGE_LABELS)[number] | string;
 export type { GraphEdge };
 
 /**
+ * Optional cross-scope metadata for edges spanning scope boundaries
+ */
+export interface EdgeMetadata {
+  sourceScope?: string;
+  targetScope?: string;
+  sourceAgent?: string;
+  targetAgent?: string;
+}
+
+/**
  * Add an edge between two nodes (immutable)
+ *
+ * @param metadata - Optional cross-scope metadata. When provided, fields are
+ *                   included in the edge object for cross-scope identification.
  */
 export function addEdge(
   graph: MemoryGraph,
   source: string,
   target: string,
-  label: string = 'relates-to'
+  label: string = 'relates-to',
+  metadata?: EdgeMetadata
 ): MemoryGraph {
   // Validate nodes exist
   if (!hasNode(graph, source)) {
@@ -59,9 +73,19 @@ export function addEdge(
     return graph;
   }
 
+  const edge: GraphEdge = { source, target, label };
+
+  // Spread cross-scope metadata if provided (only defined values)
+  if (metadata) {
+    if (metadata.sourceScope) edge.sourceScope = metadata.sourceScope;
+    if (metadata.targetScope) edge.targetScope = metadata.targetScope;
+    if (metadata.sourceAgent) edge.sourceAgent = metadata.sourceAgent;
+    if (metadata.targetAgent) edge.targetAgent = metadata.targetAgent;
+  }
+
   return {
     ...graph,
-    edges: [...graph.edges, { source, target, label }],
+    edges: [...graph.edges, edge],
   };
 }
 
@@ -175,6 +199,55 @@ export function findOrphanedNodes(graph: MemoryGraph): string[] {
   return graph.nodes
     .filter(n => !connectedNodes.has(n.id))
     .map(n => n.id);
+}
+
+/**
+ * Check if an edge spans scope boundaries
+ *
+ * Returns true only when both sourceScope and targetScope are present,
+ * indicating this edge connects memories in different scopes.
+ */
+export function isCrossScopeEdge(edge: GraphEdge): boolean {
+  return Boolean(edge.sourceScope) && Boolean(edge.targetScope);
+}
+
+/**
+ * Validate cross-scope edge metadata
+ *
+ * Rules:
+ * - sourceScope and targetScope must both be present or both absent
+ * - Agent scopes (agent-project, agent-global) require the corresponding agent name
+ * - Non-cross-scope edges (no scope fields) are always valid
+ */
+export function validateCrossScopeEdge(edge: GraphEdge): { valid: boolean; error?: string } {
+  const hasSource = Boolean(edge.sourceScope);
+  const hasTarget = Boolean(edge.targetScope);
+
+  // No scope fields = regular edge, always valid
+  if (!hasSource && !hasTarget) {
+    return { valid: true };
+  }
+
+  // Must have both or neither
+  if (hasSource && !hasTarget) {
+    return { valid: false, error: 'Cross-scope edge requires targetScope when sourceScope is set' };
+  }
+  if (!hasSource && hasTarget) {
+    return { valid: false, error: 'Cross-scope edge requires sourceScope when targetScope is set' };
+  }
+
+  // Agent scopes require agent names
+  const agentScopes = ['agent-project', 'agent-global'];
+
+  if (agentScopes.includes(edge.sourceScope!) && !edge.sourceAgent) {
+    return { valid: false, error: `Agent scope '${edge.sourceScope}' requires sourceAgent to be set` };
+  }
+
+  if (agentScopes.includes(edge.targetScope!) && !edge.targetAgent) {
+    return { valid: false, error: `Agent scope '${edge.targetScope}' requires targetAgent to be set` };
+  }
+
+  return { valid: true };
 }
 
 /**

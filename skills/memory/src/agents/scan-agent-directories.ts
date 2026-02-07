@@ -5,6 +5,7 @@
  */
 
 import fsp from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import type { AgentInfo } from '../types/agent-info.js';
 import { Scope } from '../types/enums.js';
@@ -258,9 +259,12 @@ export async function getAgentInfo(
   agentPath: string
 ): Promise<AgentInfo> {
   // Determine scope from path
-  const scope = agentPath.includes('/.claude/memory/agents/')
-    ? Scope.AgentProject
-    : Scope.AgentGlobal;
+  // Global agents are under ~/.claude/memory/agents/
+  // Project agents are under /project/.claude/memory/agents/
+  const globalAgentsBase = path.join(os.homedir(), '.claude', 'memory', 'agents');
+  const scope = agentPath.startsWith(globalAgentsBase)
+    ? Scope.AgentGlobal
+    : Scope.AgentProject;
 
   const agentInfo: AgentInfo = {
     name: agentName,

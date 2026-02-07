@@ -18,8 +18,10 @@ import * as os from 'node:os';
 
 describe('Mermaid with --agent --include-shared', () => {
   let testDir: string;
+  let originalCwd: string;
 
   beforeEach(async () => {
+    originalCwd = process.cwd();
     testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mermaid-shared-test-'));
     process.chdir(testDir);
     fs.mkdirSync('.git');
@@ -108,6 +110,8 @@ describe('Mermaid with --agent --include-shared', () => {
   });
 
   afterEach(() => {
+    // Restore original cwd BEFORE deleting temp directory
+    process.chdir(originalCwd);
     if (testDir && fs.existsSync(testDir)) {
       fs.rmSync(testDir, { recursive: true, force: true });
     }

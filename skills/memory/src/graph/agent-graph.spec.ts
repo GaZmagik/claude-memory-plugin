@@ -15,17 +15,8 @@ import * as fsUtils from '../core/fs-utils.js';
 describe('Agent graph operations', () => {
   const mockAgentPath = '/test/.claude/memory/agents/typescript-expert';
 
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.clearAllMocks();
-    // Mock file system operations to prevent actual file I/O
-    vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
-
-    // structure.ts uses synchronous fs operations
-    const fs = await import('node:fs');
-    vi.spyOn(fs, 'existsSync').mockReturnValue(false);
-    vi.spyOn(fs, 'readFileSync').mockReturnValue('{}');
-    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined);
-    vi.spyOn(fs, 'writeFileSync').mockReturnValue(undefined);
   });
 
   afterEach(() => {
@@ -46,9 +37,8 @@ describe('Agent graph operations', () => {
         edges: [],
       };
 
-      const fs = await import('node:fs');
-      vi.spyOn(fs, 'existsSync').mockReturnValue(true);
-      vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(mockGraphContent));
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue(JSON.stringify(mockGraphContent));
 
       const result = await loadGraph(mockAgentPath);
 
@@ -58,8 +48,7 @@ describe('Agent graph operations', () => {
     });
 
     it('should create new graph if agent directory has no graph', async () => {
-      const fs = await import('node:fs');
-      vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(false);
 
       const result = await loadGraph(mockAgentPath);
 
@@ -83,13 +72,12 @@ describe('Agent graph operations', () => {
         edges: [],
       };
 
-      const fs = await import('node:fs');
-      vi.spyOn(fs, 'existsSync').mockReturnValue(true);
-      const writeFileSyncSpy = vi.spyOn(fs, 'writeFileSync').mockReturnValue(undefined);
+      vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
+      const writeFileSpy = vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
 
       await saveGraph(mockAgentPath, mockGraph);
 
-      expect(writeFileSyncSpy).toHaveBeenCalledWith(
+      expect(writeFileSpy).toHaveBeenCalledWith(
         expect.stringContaining('graph.json'),
         expect.any(String)
       );
@@ -124,14 +112,11 @@ describe('Agent graph operations', () => {
       const agent1Path = '/test/.claude/memory/agents/typescript-expert';
       const agent2Path = '/test/.claude/memory/agents/rust-expert';
 
-      const fs = await import('node:fs');
-
-      // Mock existsSync to return true for both paths
-      vi.spyOn(fs, 'existsSync').mockReturnValue(true);
+      vi.spyOn(fsUtils, 'fileExists').mockResolvedValue(true);
 
       // Mock different graphs for different agents
-      vi.spyOn(fs, 'readFileSync').mockImplementation((path: any) => {
-        if (path.includes('typescript-expert')) {
+      vi.spyOn(fsUtils, 'readFile').mockImplementation(async (filePath: string) => {
+        if (filePath.includes('typescript-expert')) {
           return JSON.stringify({
             version: 1,
             nodes: [

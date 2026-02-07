@@ -23,6 +23,13 @@ vi.mock('node:fs/promises', () => ({
   },
 }));
 
+// Mock os.homedir for consistent test paths
+vi.mock('node:os', () => ({
+  default: {
+    homedir: () => '/home/user',
+  },
+}));
+
 describe('scanAgentDirectories', () => {
   beforeEach(() => {
     vi.clearAllMocks();

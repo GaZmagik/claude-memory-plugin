@@ -4,9 +4,9 @@
  * Core graph structure for memory relationships.
  */
 
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { createLogger } from '../core/logger.js';
+import { ensureDir, fileExists, writeFileAtomic, readFile } from '../core/fs-utils.js';
 
 const log = createLogger('graph');
 
@@ -73,12 +73,12 @@ export function createGraph(): MemoryGraph {
 export async function loadGraph(basePath: string): Promise<MemoryGraph> {
   const graphPath = path.join(basePath, 'graph.json');
 
-  if (!fs.existsSync(graphPath)) {
+  if (!(await fileExists(graphPath))) {
     return createGraph();
   }
 
   try {
-    const content = fs.readFileSync(graphPath, 'utf-8');
+    const content = await readFile(graphPath);
     return JSON.parse(content) as MemoryGraph;
   } catch (error) {
     log.warn('Failed to load graph, starting fresh', { path: graphPath, error: String(error) });
@@ -93,11 +93,9 @@ export async function saveGraph(basePath: string, graph: MemoryGraph): Promise<v
   const graphPath = path.join(basePath, 'graph.json');
 
   // Ensure directory exists
-  if (!fs.existsSync(basePath)) {
-    fs.mkdirSync(basePath, { recursive: true });
-  }
+  await ensureDir(basePath);
 
-  fs.writeFileSync(graphPath, JSON.stringify(graph, null, 2));
+  await writeFileAtomic(graphPath, JSON.stringify(graph, null, 2));
   log.debug('Saved graph', { path: graphPath, nodes: graph.nodes.length, edges: graph.edges.length });
 }
 
@@ -168,4 +166,52 @@ export function getNodeCount(graph: MemoryGraph): number {
  */
 export function getEdgeCount(graph: MemoryGraph): number {
   return graph.edges.length;
+}
+
+/**
+ * Load and merge graphs from multiple base paths into a single virtual MemoryGraph.
+ *
+ * Deduplicates nodes by ID (first occurrence wins) and edges by source->target key.
+ * Only includes edges whose source and target nodes exist in the merged node set.
+ *
+ * Extracted from the mermaid merge pattern (cmdMermaid) for reuse across
+ * traversal, impact analysis, edge display, and other cross-scope operations.
+ */
+export async function loadMergedGraph(basePaths: string[]): Promise<MemoryGraph> {
+  if (basePaths.length === 0) {
+    return createGraph();
+  }
+
+  // Load the first graph as the base
+  let merged = await loadGraph(basePaths[0]!);
+
+  // Merge subsequent graphs
+  for (let i = 1; i < basePaths.length; i++) {
+    const otherGraph = await loadGraph(basePaths[i]!);
+
+    // Deduplicate nodes by ID (first occurrence wins)
+    const existingNodeIds = new Set(merged.nodes.map(n => n.id));
+    const mergedNodes = [
+      ...merged.nodes,
+      ...otherGraph.nodes.filter(n => !existingNodeIds.has(n.id)),
+    ];
+
+    // Deduplicate edges by source->target key, and only include
+    // edges whose endpoints exist in the merged node set
+    const mergedNodeIds = new Set(mergedNodes.map(n => n.id));
+    const existingEdgeKeys = new Set(
+      merged.edges.map(e => `${e.source}->${e.target}`)
+    );
+    const mergedEdges = [
+      ...merged.edges,
+      ...otherGraph.edges.filter(e =>
+        !existingEdgeKeys.has(`${e.source}->${e.target}`) &&
+        mergedNodeIds.has(e.source) && mergedNodeIds.has(e.target)
+      ),
+    ];
+
+    merged = { ...merged, nodes: mergedNodes, edges: mergedEdges };
+  }
+
+  return merged;
 }

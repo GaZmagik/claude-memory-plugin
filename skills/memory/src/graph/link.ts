@@ -12,7 +12,7 @@ import type {
 } from '../types/api.js';
 import { loadGraph, saveGraph, addNode, hasNode } from './structure.js';
 import type { GraphNode } from './structure.js';
-import { addEdge, removeEdge, hasEdge, isCrossScopeEdge } from './edges.js';
+import { addEdge, removeEdge, hasEdge } from './edges.js';
 import type { EdgeMetadata } from './edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';

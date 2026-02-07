@@ -153,31 +153,48 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
 
     const results: SearchResult[] = [];
 
+    const queryLower = query.toLowerCase();
+
     for (const entry of entries) {
       // First, check if title or tags match (quick check from index)
-      const titleMatch = entry.title.toLowerCase().includes(query.toLowerCase());
-      const tagMatch = entry.tags.some(t => t.toLowerCase().includes(query.toLowerCase()));
+      const titleMatch = entry.title.toLowerCase().includes(queryLower);
+      const tagMatch = entry.tags.some(t => t.toLowerCase().includes(queryLower));
 
-      // Read content for content match and snippet extraction
+      // Read content only if title/tags didn't match (avoid unnecessary I/O)
       const filePath = path.join(basePath, entry.relativePath);
       let content = '';
+      let contentMatch = false;
 
-      if (await fileExists(filePath)) {
-        try {
-          const fileContent = await readFile(filePath);
-          const parsed = parseMemoryFile(fileContent);
-          content = parsed.content;
-        } catch {
-          // Skip files that can't be parsed
+      if (titleMatch || tagMatch) {
+        // Title or tag matched — still read content for scoring and snippet extraction
+        if (await fileExists(filePath)) {
+          try {
+            const fileContent = await readFile(filePath);
+            const parsed = parseMemoryFile(fileContent);
+            content = parsed.content;
+          } catch {
+            // Use empty content for scoring if file can't be parsed
+          }
+        }
+        contentMatch = content.toLowerCase().includes(queryLower);
+      } else {
+        // No index match — read file to check content as last resort
+        if (await fileExists(filePath)) {
+          try {
+            const fileContent = await readFile(filePath);
+            const parsed = parseMemoryFile(fileContent);
+            content = parsed.content;
+          } catch {
+            // Skip files that can't be parsed
+            continue;
+          }
+        }
+        contentMatch = content.toLowerCase().includes(queryLower);
+
+        // No match anywhere — skip entirely
+        if (!contentMatch) {
           continue;
         }
-      }
-
-      const contentMatch = content.toLowerCase().includes(query.toLowerCase());
-
-      // Skip if no match
-      if (!titleMatch && !tagMatch && !contentMatch) {
-        continue;
       }
 
       const score = calculateScore(query, entry.title, content, entry.tags);

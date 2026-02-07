@@ -8,7 +8,7 @@ import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import { loadGraph } from '../../graph/structure.js';
+import { loadGraph, loadMergedGraph } from '../../graph/structure.js';
 import { findOrphanedNodes, getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { calculateImpact } from '../../graph/traversal.js';
 import { loadIndex } from '../../core/index.js';
@@ -412,7 +412,9 @@ export async function cmdImpact(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      const graph = await loadGraph(basePath);
+      const graph = (includeShared && agentName)
+        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        : await loadGraph(basePath);
       const impact = calculateImpact(graph, id);
       return {
         id,

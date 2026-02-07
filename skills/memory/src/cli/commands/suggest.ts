@@ -10,7 +10,7 @@ import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { success, wrapOperation, error } from '../response.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared } from '../helpers.js';
 
 /**
  * suggest-links - Suggest potential relationships using embeddings

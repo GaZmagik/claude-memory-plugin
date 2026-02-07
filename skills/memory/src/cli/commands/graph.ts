@@ -10,10 +10,10 @@ import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { linkMemories, unlinkMemories } from '../../graph/link.js';
-import { loadGraph, saveGraph, removeNode } from '../../graph/structure.js';
+import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath, resolveSharedScopePaths } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
 
 /**
  * link - Create a relationship between memories
@@ -155,7 +155,7 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
 /**
  * edges - Show inbound and outbound edges for a node
  *
- * Usage: memory edges <id> [--scope <scope>]
+ * Usage: memory edges <id> [--scope <scope>] [--agent <name>] [--include-shared]
  */
 export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
   const id = args.positional[0];
@@ -164,12 +164,24 @@ export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
     return error('Missing required argument: id');
   }
 
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
-      const graph = await loadGraph(basePath);
+      const graph = (includeShared && agentName)
+        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        : await loadGraph(basePath);
       const inbound = getInboundEdges(graph, id);
       const outbound = getOutboundEdges(graph, id);
       return {
@@ -253,35 +265,10 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      let graph = await loadGraph(basePath);
-
-      // When --include-shared, merge project/local graphs into the agent graph
-      if (includeShared && agentName) {
-        const sharedPaths = resolveSharedScopePaths(agentName, scopeStr);
-        // sharedPaths[0] is the agent path (already loaded), rest are shared scopes
-        for (const sharedPath of sharedPaths.slice(1)) {
-          if (sharedPath !== basePath) {
-            const sharedGraph = await loadGraph(sharedPath);
-            const existingNodeIds = new Set(graph.nodes.map(n => n.id));
-            const mergedNodes = [
-              ...graph.nodes,
-              ...sharedGraph.nodes.filter(n => !existingNodeIds.has(n.id)),
-            ];
-            const mergedNodeIds = new Set(mergedNodes.map(n => n.id));
-            const existingEdgeKeys = new Set(
-              graph.edges.map(e => `${e.source}->${e.target}`)
-            );
-            const mergedEdges = [
-              ...graph.edges,
-              ...sharedGraph.edges.filter(e =>
-                !existingEdgeKeys.has(`${e.source}->${e.target}`) &&
-                mergedNodeIds.has(e.source) && mergedNodeIds.has(e.target)
-              ),
-            ];
-            graph = { ...graph, nodes: mergedNodes, edges: mergedEdges };
-          }
-        }
-      }
+      // When --include-shared, merge all scope graphs via loadMergedGraph
+      let graph = (includeShared && agentName)
+        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        : await loadGraph(basePath);
 
       // Generate mermaid with new options
       const showAgentNames = getFlagBool(args.flags, 'show-agent-names');

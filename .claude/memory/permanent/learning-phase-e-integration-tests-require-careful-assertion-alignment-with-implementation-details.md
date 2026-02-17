@@ -3,8 +3,9 @@ id: learning-phase-e-integration-tests-require-careful-assertion-alignment-with-
 title: Phase E integration tests require careful assertion alignment with implementation details
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:54:45.410Z"
-updated: "2026-02-05T16:54:45.410Z"
+updated: "2026-02-16T22:30:07.466Z"
 tags:
   - phase-e
   - testing

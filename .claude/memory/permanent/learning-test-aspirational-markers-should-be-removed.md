@@ -3,8 +3,9 @@ id: learning-test-aspirational-markers-should-be-removed
 title: Aspirational it.skip and it.todo markers indicate incomplete work and should be removed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:36:55.371Z"
-updated: "2026-02-07T15:36:55.371Z"
+updated: "2026-02-16T22:30:07.286Z"
 tags:
   - testing
   - test-quality

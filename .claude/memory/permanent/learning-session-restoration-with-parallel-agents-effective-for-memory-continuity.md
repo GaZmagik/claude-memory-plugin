@@ -3,8 +3,9 @@ id: learning-session-restoration-with-parallel-agents-effective-for-memory-conti
 title: Session restoration with parallel agents effective for memory continuity
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:30:54.545Z"
-updated: "2026-02-06T01:30:54.545Z"
+updated: "2026-02-16T22:30:07.531Z"
 tags:
   - restoration
   - agents

@@ -3,8 +3,9 @@ id: learning-agent-invocation-marker-format-standardization-html-comment-syntax
 title: Agent invocation marker format standardization - HTML comment syntax
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:30:02.372Z"
-updated: "2026-02-06T07:30:02.372Z"
+updated: "2026-02-16T22:30:07.530Z"
 tags:
   - agent-scoping
   - markers

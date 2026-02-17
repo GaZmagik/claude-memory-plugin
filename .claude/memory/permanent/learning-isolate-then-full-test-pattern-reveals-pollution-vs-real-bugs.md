@@ -3,8 +3,9 @@ id: learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs
 title: Isolate then full test pattern reveals pollution vs real bugs
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:43:52.472Z"
-updated: "2026-02-04T22:43:52.472Z"
+updated: "2026-02-16T22:30:07.141Z"
 tags:
   - testing
   - debugging

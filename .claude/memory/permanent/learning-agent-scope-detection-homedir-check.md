@@ -3,8 +3,9 @@ id: learning-agent-scope-detection-homedir-check
 title: Agent scope detection requires os.homedir() check, not path.includes()
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:36:39.506Z"
-updated: "2026-02-07T15:36:39.506Z"
+updated: "2026-02-16T22:30:07.483Z"
 tags:
   - agent-scopes
   - path-detection

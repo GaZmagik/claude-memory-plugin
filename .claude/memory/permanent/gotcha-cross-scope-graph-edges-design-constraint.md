@@ -3,8 +3,9 @@ id: gotcha-cross-scope-graph-edges-design-constraint
 title: Cross-Scope Graph Edges Design Constraint
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:57:40.837Z"
-updated: "2026-02-04T16:57:40.837Z"
+updated: "2026-02-16T22:30:07.516Z"
 tags:
   - design
   - phase-d

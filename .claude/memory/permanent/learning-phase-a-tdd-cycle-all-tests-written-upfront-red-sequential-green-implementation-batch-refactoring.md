@@ -3,8 +3,9 @@ id: learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-im
 title: "Phase A TDD cycle: All tests written upfront (Red) → Sequential Green implementation → Batch refactoring"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T20:39:41.976Z"
-updated: "2026-02-02T20:39:41.976Z"
+updated: "2026-02-16T22:30:07.230Z"
 tags:
   - tdd
   - phase-a

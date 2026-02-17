@@ -3,8 +3,9 @@ id: learning-test-rewriting-requires-implementation-reference-not-wishful-thinki
 title: Test rewriting requires implementation reference, not wishful thinking
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:21:13.515Z"
-updated: "2026-02-06T01:21:13.515Z"
+updated: "2026-02-16T22:30:07.482Z"
 tags:
   - TDD
   - testing

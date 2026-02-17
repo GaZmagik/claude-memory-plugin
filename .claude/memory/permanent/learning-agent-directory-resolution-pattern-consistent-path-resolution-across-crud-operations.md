@@ -3,8 +3,9 @@ id: learning-agent-directory-resolution-pattern-consistent-path-resolution-acros
 title: "Agent directory resolution pattern: Consistent path resolution across CRUD operations"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:20:23.422Z"
-updated: "2026-02-02T23:20:23.422Z"
+updated: "2026-02-16T22:30:06.884Z"
 tags:
   - agent-scoped
   - directory-resolution

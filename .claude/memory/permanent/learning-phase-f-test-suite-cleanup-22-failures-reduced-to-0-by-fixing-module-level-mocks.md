@@ -3,8 +3,9 @@ id: learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-modul
 title: "Phase F test suite cleanup: 22 failures reduced to 0 by fixing module-level mocks"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:35:25.953Z"
-updated: "2026-02-05T11:35:25.953Z"
+updated: "2026-02-16T22:30:07.122Z"
 tags:
   - testing
   - phase-f

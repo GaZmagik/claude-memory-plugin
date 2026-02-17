@@ -3,8 +3,9 @@ id: learning-composite-score-calculation-resolves-legacy-penalty-system-conflict
 title: Composite score calculation resolves legacy penalty system conflicts
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:49:03.193Z"
-updated: "2026-02-05T23:49:03.193Z"
+updated: "2026-02-16T22:30:07.501Z"
 tags:
   - health-scoring
   - cmdHealth

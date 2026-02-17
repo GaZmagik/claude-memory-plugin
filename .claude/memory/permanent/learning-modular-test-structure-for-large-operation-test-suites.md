@@ -3,8 +3,9 @@ id: learning-modular-test-structure-for-large-operation-test-suites
 title: Modular test structure for large operation test suites
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T19:58:10.140Z"
-updated: "2026-02-04T19:58:10.140Z"
+updated: "2026-02-16T22:30:07.486Z"
 tags:
   - testing
   - architecture

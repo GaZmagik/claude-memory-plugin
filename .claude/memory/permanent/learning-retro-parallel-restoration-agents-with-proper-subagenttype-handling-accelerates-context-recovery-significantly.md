@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling
 title: Retro - Parallel restoration agents with proper subagent_type handling accelerates context recovery significantly
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:50:28.905Z"
-updated: "2026-02-06T08:50:28.905Z"
+updated: "2026-02-16T22:30:07.425Z"
 tags:
   - retrospective
   - process

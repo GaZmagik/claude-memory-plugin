@@ -3,8 +3,9 @@ id: decision-replan-phase-d-deferred-25-tasks
 title: Re-Plan Phase D-DEFERRED Rather Than Implement Original
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T20:44:10.547Z"
-updated: "2026-02-06T20:44:10.547Z"
+updated: "2026-02-16T22:30:07.420Z"
 tags:
   - phase-d-deferred
   - planning

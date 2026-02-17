@@ -3,8 +3,9 @@ id: learning-retro-memory-system-gatekeeping-prevented-documentation-shortcuts
 title: Retro - Memory system gatekeeping prevented documentation shortcuts
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T13:19:55.425Z"
-updated: "2026-02-04T13:19:55.425Z"
+updated: "2026-02-16T22:30:07.467Z"
 tags:
   - retrospective
   - process

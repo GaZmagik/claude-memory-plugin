@@ -3,8 +3,9 @@ id: learning-t125-cmdhealth-agent-flag-implementation-complete-all-12-tests-pass
 title: T125 cmdHealth --agent flag implementation complete - all 12 tests passing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:49:34.974Z"
-updated: "2026-02-05T23:49:34.974Z"
+updated: "2026-02-16T22:30:07.451Z"
 tags:
   - T125
   - cmdHealth

@@ -11,6 +11,7 @@
 export const HELP_COMPACT = `Memory Skill - Store and manage markdown memories
 
 COMMANDS:
+  agents <subcommand> List, create, manage agent-scoped memories
   archive <id>        Archive a memory
   audit [scope]       Bulk quality scan (--threshold, --deep)
   audit-quick [scope] Fast deterministic-only audit
@@ -81,6 +82,32 @@ SCOPE:
   project            Project memories in git (.claude/memory/)
   local              Local project memories, gitignored (.claude/memory/local/)
   enterprise         Enterprise memories (managed environments)
+  agent-project      Agent-specific project memories (.claude/memory/agents/<name>/)
+  agent-global       Agent-specific user memories (~/.claude/memory/agents/<name>/)
+
+AGENT SCOPE FLAGS:
+  --agent <name>       Target a specific agent's memory namespace
+  --include-shared     Include project/global memories (read operations only)
+  --all-agents         Apply to all discovered agents
+  --target-agent <name> Specify target agent for cross-agent linking
+
+CROSS-SCOPE LINKING:
+  Link memories across different scopes (local↔project↔global, agent↔project, agent↔agent).
+  Edges are stored in BOTH graph files with metadata, so each scope sees the relationship.
+
+  Supported combinations:
+    • local ↔ project ↔ global ↔ enterprise
+    • agent-project ↔ project
+    • agent-global ↔ global
+    • agent ↔ agent (cross-agent linking)
+
+  Cross-scope link examples:
+    memory link --scope local local-note --target-scope project project-doc
+    memory link --agent ts-expert agent-learning --target-scope project project-decision
+    memory link --agent api-architect api-design --target-agent frontend-expert ui-pattern
+
+  Note: Moving memories between scopes breaks cross-scope edges (by design).
+        Use 'suggest-links' to rebuild relationships after bulk moves.
 
 EXAMPLES:
   echo '{"id":"my-decision","title":"Use Postgres","type":"permanent","content":"..."}' | memory write
@@ -88,6 +115,13 @@ EXAMPLES:
   memory search "database"
   memory link my-decision related-learning
   memory validate project
+
+AGENT SCOPE EXAMPLES:
+  memory agents list                           # List all agents with memory counts
+  memory write --agent typescript-expert       # Write to agent namespace
+  memory search "imports" --agent typescript-expert --include-shared
+  memory list learning --agent rust-expert
+  memory health --agent security-reviewer
 
 Use 'memory help --full' for detailed documentation.
 `;
@@ -103,38 +137,56 @@ CRUD Operations:
   write              Create or update a memory from JSON stdin
                      Required fields: title, content, type
                      Optional: id (auto-generated), tags, links, scope
-                     Flags: --auto-link, --auto-link-threshold <n>
+                     Flags: --auto-link, --auto-link-threshold <n>, --agent <name>
 
   read <id>          Read a memory by its ID
                      Returns: frontmatter + content as JSON
+                     Flags: --agent <name>, --scope <scope>
 
   list [type] [tag]  List all memories, optionally filtered
                      Types: permanent, temporary
-                     Flags: --scope <scope>, --limit <n>
+                     Flags: --scope <scope>, --limit <n>, --agent <name>, --include-shared
 
   delete <id>        Delete a memory and remove from graph/index
-                     Flags: --force (skip confirmation)
+                     Flags: --force (skip confirmation), --agent <name>
 
   search <query>     Full-text search across titles and content
-                     Flags: --scope <scope>, --limit <n>, --type <type>
+                     Flags: --scope <scope>, --limit <n>, --type <type>,
+                            --agent <name>, --include-shared, --all-agents
 
   semantic <query>   Search by meaning using embeddings (requires Ollama)
-                     Flags: --threshold <n>, --limit <n>, --scope <scope>
+                     Flags: --threshold <n>, --limit <n>, --scope <scope>,
+                            --agent <name>, --include-shared
 
 Graph Operations:
-  link <from> <to>   Create directed edge between memories
-                     Flags: --relation <type>
+  link <from> <to>   Create directed edge between memories (supports cross-scope linking)
+                     Flags: --relation <type>, --agent <name>, --target-agent <name>,
+                            --scope <scope>, --target-scope <scope>
 
-  unlink <from> <to> Remove edge between memories
+                     Cross-scope linking: Edges stored in BOTH graph files with metadata.
+                     Supports: local↔project↔global, agent↔project, agent↔agent.
+
+                     Examples:
+                       memory link decision-a learning-b
+                       memory link --scope local local-note --target-scope project proj-doc
+                       memory link --agent ts-expert agent-mem --target-scope project proj-mem
+                       memory link --agent api-arch api-design --target-agent fe-expert ui-pattern
+
+  unlink <from> <to> Remove edge between memories (including cross-scope)
+                     Flags: --agent <name>, --target-agent <name>,
+                            --scope <scope>, --target-scope <scope>
 
   edges <id>         Show all inbound and outbound edges for a node
+                     Flags: --agent <name>
 
   graph [scope]      Export full graph as JSON
+                     Flags: --agent <name>
 
   mermaid [options]  Generate Mermaid diagram
-                     Flags: --direction <TB|LR>, --include-orphans
+                     Flags: --direction <TB|LR>, --include-orphans, --agent <name>
 
   remove-node <id>   Remove node from graph (file remains on disk)
+                     Flags: --agent <name>
 
 Bulk Operations:
   bulk-delete        Delete multiple memories matching criteria
@@ -147,6 +199,10 @@ Bulk Operations:
   bulk-move          Move multiple memories to different scope
                      Flags: --to <scope>, --pattern <glob>, --tags <t1,t2>, --type <type>, --dry-run
                      Example: memory bulk-move --pattern "decision-*" --to local
+
+                     WARNING: Moving memories between scopes removes their graph edges.
+                     Moved memories become orphaned until you recreate links manually or
+                     run 'memory suggest-links' to rebuild relationships.
 
   bulk-promote       Promote/demote multiple memories to different type
                      Flags: --to <type>, --pattern <glob>, --tags <t1,t2>, --type <source-type>, --dry-run
@@ -182,12 +238,18 @@ Maintenance:
 
 Utility:
   rename <old> <new> Rename memory ID, updating all references
+                     Flags: --agent <name>
   move <id> <scope>  Move memory to different scope
+                     Flags: --agent <name>
   promote <id> <type> Convert to different memory type
+                     Flags: --agent <name>
   demote <id> <type>  Alias for promote (reverse conversion)
+                     Flags: --agent <name>
   archive <id>       Archive a memory
+                     Flags: --agent <name>
   status             Show system status summary
   stats [scope]      Graph statistics (connectivity, hubs, sinks)
+                     Flags: --agent <name>, --include-shared
 
 Thinking Documents:
   think create <topic>     Create new ephemeral thinking document
@@ -210,12 +272,23 @@ Export/Import:
 
 Advanced:
   query [options]    Complex filtering
-                     Flags: --type, --tags, --has-edges, --orphans
+                     Flags: --type, --tags, --has-edges, --orphans,
+                            --agent <name>, --include-shared, --all-agents
   suggest-links      Find potential relationships using embeddings
-                     Flags: --threshold <n>, --auto-link
+                     Flags: --threshold <n>, --auto-link, --agent <name>
   summarize [type]   Generate summary rollups
+                     Flags: --agent <name>
   impact <id>        Show dependency tree for a memory
-                     Flags: --depth <n>, --json
+                     Flags: --depth <n>, --json, --agent <name>, --include-shared
+
+Agent Management:
+  agents list              List all discovered agents
+  agents stats <name>      Show detailed stats for an agent
+  agents create <name>     Create new agent directory
+  agents delete <name>     Delete agent and all its memories
+  agents copy <src> <tgt>  Copy agent to new name
+  agents rename <old> <new> Rename an agent
+                     Flags: --scope <scope>, --include-stats, --force, --dry-run
 `;
 
 /**

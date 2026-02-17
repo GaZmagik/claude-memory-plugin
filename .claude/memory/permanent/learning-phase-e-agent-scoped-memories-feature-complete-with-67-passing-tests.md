@@ -3,8 +3,9 @@ id: learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-test
 title: Phase E agent-scoped memories feature complete with 67 passing tests
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:11:45.900Z"
-updated: "2026-02-05T16:11:45.900Z"
+updated: "2026-02-16T22:30:07.285Z"
 tags:
   - phase-e
   - completion

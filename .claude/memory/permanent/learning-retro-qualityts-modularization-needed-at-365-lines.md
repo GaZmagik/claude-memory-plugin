@@ -3,8 +3,9 @@ id: learning-retro-qualityts-modularization-needed-at-365-lines
 title: Retro - Quality.ts modularization needed at 365 lines
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:48:24.754Z"
-updated: "2026-02-05T23:48:24.754Z"
+updated: "2026-02-16T22:30:07.167Z"
 tags:
   - retrospective
   - process

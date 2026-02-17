@@ -23,14 +23,20 @@ import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateInclud
 export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
   const scopeStr = getFlagString(args.flags, 'scope');
   
-  // Parse agent and include-shared flags
+  // Parse agent, include-shared, and all-scopes flags
   const agentName = getFlagString(args.flags, 'agent');
   const includeShared = getFlagBool(args.flags, 'include-shared');
+  const allScopes = getFlagBool(args.flags, 'all-scopes');
 
   // Validate --include-shared requires --agent
   const validation = validateIncludeShared(includeShared, agentName);
   if (!validation.valid) {
     return error(validation.error || '--include-shared requires --agent flag');
+  }
+
+  // Validate --all-scopes and --include-shared are mutually exclusive
+  if (allScopes && includeShared) {
+    return error('--all-scopes and --include-shared are mutually exclusive');
   }
 
   // Determine base path based on agent context
@@ -50,6 +56,7 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
         limit,
         autoLink,
         includeShared,
+        allScopes,
         agentName,
         scopeStr,
       });

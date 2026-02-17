@@ -3,8 +3,9 @@ id: gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-emp
 title: Gotcha - Graph handling bypassed by early returns in export and import for empty memories
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T21:17:54.969Z"
-updated: "2026-02-04T21:17:54.969Z"
+updated: "2026-02-16T22:30:07.081Z"
 tags:
   - retrospective
   - process

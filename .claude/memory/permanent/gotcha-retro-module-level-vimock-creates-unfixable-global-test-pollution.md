@@ -3,8 +3,9 @@ id: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
 title: Retro - Module-level vi.mock() creates unfixable global test pollution
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:34:38.768Z"
-updated: "2026-02-05T11:34:38.768Z"
+updated: "2026-02-16T22:30:07.419Z"
 tags:
   - retrospective
   - process

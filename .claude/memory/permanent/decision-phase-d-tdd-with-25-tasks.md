@@ -3,8 +3,9 @@ id: decision-phase-d-tdd-with-25-tasks
 title: "Phase D: TDD with 25 tasks across 5 sub-phases"
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:01:06.243Z"
-updated: "2026-02-06T21:01:06.243Z"
+updated: "2026-02-16T22:30:07.541Z"
 tags:
   - phase-d
   - tdd

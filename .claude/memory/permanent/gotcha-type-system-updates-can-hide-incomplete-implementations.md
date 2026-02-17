@@ -3,8 +3,9 @@ id: gotcha-type-system-updates-can-hide-incomplete-implementations
 title: Gotcha - Type system updates can hide incomplete implementations
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T22:32:15.982Z"
-updated: "2026-02-03T22:32:15.982Z"
+updated: "2026-02-16T22:30:07.434Z"
 tags:
   - retrospective
   - process

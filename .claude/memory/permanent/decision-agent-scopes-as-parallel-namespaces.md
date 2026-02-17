@@ -3,8 +3,9 @@ id: decision-agent-scopes-as-parallel-namespaces
 title: Agent Scopes as Parallel Namespaces (Not Sub-Scopes)
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:57:44.505Z"
-updated: "2026-02-04T16:57:44.505Z"
+updated: "2026-02-16T22:30:06.972Z"
 tags:
   - architecture
   - design

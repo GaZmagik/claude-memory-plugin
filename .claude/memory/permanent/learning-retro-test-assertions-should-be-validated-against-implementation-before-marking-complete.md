@@ -3,8 +3,9 @@ id: learning-retro-test-assertions-should-be-validated-against-implementation-be
 title: Retro - Test assertions should be validated against implementation before marking complete
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:54:08.643Z"
-updated: "2026-02-05T16:54:08.643Z"
+updated: "2026-02-16T22:30:07.559Z"
 tags:
   - retrospective
   - process

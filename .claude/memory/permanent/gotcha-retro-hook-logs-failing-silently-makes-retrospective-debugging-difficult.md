@@ -3,8 +3,9 @@ id: gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-diffic
 title: Retro - Hook logs failing silently makes retrospective debugging difficult
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:29:40.981Z"
-updated: "2026-02-06T01:29:40.981Z"
+updated: "2026-02-16T22:30:06.914Z"
 tags:
   - retrospective
   - process

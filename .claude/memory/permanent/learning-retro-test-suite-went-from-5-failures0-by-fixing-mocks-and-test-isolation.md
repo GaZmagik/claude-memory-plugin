@@ -3,8 +3,9 @@ id: learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-iso
 title: Retro - Test suite went from 5 failures→0 by fixing mocks and test isolation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:35:44.319Z"
-updated: "2026-02-07T15:35:44.319Z"
+updated: "2026-02-16T22:30:07.554Z"
 tags:
   - retrospective
   - process

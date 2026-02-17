@@ -3,8 +3,9 @@ id: gotcha-retro-check-api-contracts-before-debugging-validation-errors
 title: Retro - Check API contracts before debugging validation errors
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:10:25.335Z"
-updated: "2026-02-05T16:10:25.335Z"
+updated: "2026-02-16T22:30:07.493Z"
 tags:
   - retrospective
   - process

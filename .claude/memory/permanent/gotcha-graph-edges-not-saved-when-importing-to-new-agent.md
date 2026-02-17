@@ -3,8 +3,9 @@ id: gotcha-graph-edges-not-saved-when-importing-to-new-agent
 title: graph-edges-not-saved-when-importing-to-new-agent
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T21:18:39.775Z"
-updated: "2026-02-04T21:18:39.775Z"
+updated: "2026-02-16T22:30:07.572Z"
 tags:
   - agent-copy
   - graph

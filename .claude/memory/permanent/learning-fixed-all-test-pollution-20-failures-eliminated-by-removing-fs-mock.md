@@ -3,8 +3,9 @@ id: learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock
 title: "Fixed all test pollution: 20 failures eliminated by removing fs mock"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T08:51:24.010Z"
-updated: "2026-02-05T08:51:24.010Z"
+updated: "2026-02-16T22:30:07.215Z"
 tags:
   - test-pollution
   - vitest

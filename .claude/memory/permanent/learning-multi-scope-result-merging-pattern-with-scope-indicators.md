@@ -3,8 +3,9 @@ id: learning-multi-scope-result-merging-pattern-with-scope-indicators
 title: Multi-scope result merging pattern with scope indicators
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T09:48:21.576Z"
-updated: "2026-02-04T09:48:21.576Z"
+updated: "2026-02-16T22:30:07.196Z"
 tags:
   - pattern
   - multi-scope

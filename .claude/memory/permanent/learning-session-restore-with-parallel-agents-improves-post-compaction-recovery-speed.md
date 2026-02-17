@@ -3,8 +3,9 @@ id: learning-session-restore-with-parallel-agents-improves-post-compaction-recov
 title: Session restore with parallel agents improves post-compaction recovery speed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T10:59:12.161Z"
-updated: "2026-02-04T10:59:12.161Z"
+updated: "2026-02-16T22:30:07.239Z"
 tags:
   - session-restore
   - parallel-agents

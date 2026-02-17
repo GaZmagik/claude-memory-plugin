@@ -3,8 +3,9 @@ id: learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-impl
 title: TDD compliance hook requires co-located .spec.ts files alongside implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T20:39:25.442Z"
-updated: "2026-02-02T20:39:25.442Z"
+updated: "2026-02-16T22:30:07.438Z"
 tags:
   - tdd
   - bun

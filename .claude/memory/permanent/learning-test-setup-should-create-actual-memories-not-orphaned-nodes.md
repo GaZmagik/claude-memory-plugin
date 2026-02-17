@@ -3,8 +3,9 @@ id: learning-test-setup-should-create-actual-memories-not-orphaned-nodes
 title: test-setup-should-create-actual-memories-not-orphaned-nodes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T21:18:55.621Z"
-updated: "2026-02-04T21:18:55.621Z"
+updated: "2026-02-16T22:30:07.224Z"
 tags:
   - testing
   - graph

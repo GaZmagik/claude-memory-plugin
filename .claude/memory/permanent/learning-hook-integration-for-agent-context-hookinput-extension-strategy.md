@@ -3,8 +3,9 @@ id: learning-hook-integration-for-agent-context-hookinput-extension-strategy
 title: Hook integration for agent context - HookInput extension strategy
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:30:10.165Z"
-updated: "2026-02-06T07:30:10.165Z"
+updated: "2026-02-16T22:30:07.412Z"
 tags:
   - agent-scoping
   - hook-integration

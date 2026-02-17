@@ -3,8 +3,9 @@ id: learning-unit-tests-require-assertion-updates-when-cli-response-formats-chan
 title: Unit tests require assertion updates when CLI response formats change
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:49:23.643Z"
-updated: "2026-02-05T23:49:23.643Z"
+updated: "2026-02-16T22:30:07.186Z"
 tags:
   - unit-tests
   - test-maintenance

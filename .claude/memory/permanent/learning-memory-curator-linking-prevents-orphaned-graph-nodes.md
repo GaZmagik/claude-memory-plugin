@@ -3,8 +3,9 @@ id: learning-memory-curator-linking-prevents-orphaned-graph-nodes
 title: Memory-curator linking prevents orphaned graph nodes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:12:46.364Z"
-updated: "2026-02-05T16:12:46.364Z"
+updated: "2026-02-16T22:30:06.887Z"
 tags:
   - memory-system
   - graph-health

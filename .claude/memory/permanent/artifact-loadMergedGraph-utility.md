@@ -3,8 +3,9 @@ id: artifact-loadMergedGraph-utility
 title: loadMergedGraph() utility extracted from mermaid merge pattern
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:47:11.705Z"
-updated: "2026-02-06T21:47:11.705Z"
+updated: "2026-02-16T22:30:07.153Z"
 tags:
   - project
 ---

@@ -3,8 +3,9 @@ id: learning-session-restoration-after-compaction-preserves-conversation-context
 title: Session restoration after compaction preserves conversation context effectively
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:21:57.890Z"
-updated: "2026-02-06T01:21:57.890Z"
+updated: "2026-02-16T22:30:07.288Z"
 tags:
   - session-management
   - compaction

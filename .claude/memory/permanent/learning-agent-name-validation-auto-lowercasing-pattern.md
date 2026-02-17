@@ -3,8 +3,9 @@ id: learning-agent-name-validation-auto-lowercasing-pattern
 title: Agent name validation auto-lowercasing pattern
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T19:58:45.249Z"
-updated: "2026-02-04T19:58:45.249Z"
+updated: "2026-02-16T22:30:07.480Z"
 tags:
   - validation
   - agent-operations

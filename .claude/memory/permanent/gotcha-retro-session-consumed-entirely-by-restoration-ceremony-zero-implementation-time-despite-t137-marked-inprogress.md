@@ -3,8 +3,9 @@ id: gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implemen
 title: Retro - Session consumed entirely by restoration ceremony, zero implementation time despite T137 marked in_progress
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:50:37.554Z"
-updated: "2026-02-06T08:50:37.554Z"
+updated: "2026-02-16T22:30:07.556Z"
 tags:
   - retrospective
   - process

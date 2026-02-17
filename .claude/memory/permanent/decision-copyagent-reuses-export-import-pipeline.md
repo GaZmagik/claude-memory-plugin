@@ -3,8 +3,9 @@ id: decision-copyagent-reuses-export-import-pipeline
 title: copyAgent reuses export/import pipeline instead of direct copying
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:35:35.216Z"
-updated: "2026-02-05T11:35:35.216Z"
+updated: "2026-02-16T22:30:07.305Z"
 tags:
   - architecture
   - agent-operations

@@ -3,8 +3,9 @@ id: gotcha-retro-memory-capture-hook-json-encoding-failing-silently
 title: Retro - Memory-capture hook JSON encoding failing silently
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:20:36.440Z"
-updated: "2026-02-06T01:20:36.440Z"
+updated: "2026-02-16T22:30:07.467Z"
 tags:
   - retrospective
   - process

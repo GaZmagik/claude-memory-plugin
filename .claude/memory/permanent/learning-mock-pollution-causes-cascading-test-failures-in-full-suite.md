@@ -3,8 +3,9 @@ id: learning-mock-pollution-causes-cascading-test-failures-in-full-suite
 title: Mock pollution causes cascading test failures in full suite
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T00:07:01.340Z"
-updated: "2026-02-06T00:07:01.340Z"
+updated: "2026-02-16T22:30:07.366Z"
 tags:
   - testing
   - mocks

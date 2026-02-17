@@ -3,8 +3,9 @@ id: learning-yaml-serialisation-produces-quoted-timestamps-and-multi-line-arrays
 title: YAML serialisation produces quoted timestamps and multi-line arrays
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:44:03.936Z"
-updated: "2026-02-04T22:44:03.936Z"
+updated: "2026-02-16T22:30:07.540Z"
 tags:
   - testing
   - yaml

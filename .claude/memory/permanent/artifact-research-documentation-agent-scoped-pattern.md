@@ -3,8 +3,9 @@ id: artifact-research-documentation-agent-scoped-pattern
 title: Agent-Scoped Research Documentation Pattern
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:30:25.313Z"
-updated: "2026-02-06T07:30:25.313Z"
+updated: "2026-02-16T22:30:06.909Z"
 tags:
   - documentation-pattern
   - agent-scoping

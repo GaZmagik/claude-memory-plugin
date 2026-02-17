@@ -3,8 +3,9 @@ id: learning-tdd-design-clarity-conflicting-test-expectations-reveal-fundamental
 title: TDD design clarity - conflicting test expectations reveal fundamental choices
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T19:29:50.740Z"
-updated: "2026-02-03T19:29:50.740Z"
+updated: "2026-02-16T22:30:07.126Z"
 tags:
   - tdd
   - design

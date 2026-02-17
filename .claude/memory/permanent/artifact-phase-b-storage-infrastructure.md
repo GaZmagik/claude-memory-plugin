@@ -3,8 +3,9 @@ id: artifact-phase-b-storage-infrastructure
 title: "Phase B Completion Checklist: Storage Infrastructure for Agent-Scoped Memories"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:44:49.892Z"
-updated: "2026-02-03T20:44:49.892Z"
+updated: "2026-02-16T22:30:07.418Z"
 tags:
   - phase-b
   - agent-scoped

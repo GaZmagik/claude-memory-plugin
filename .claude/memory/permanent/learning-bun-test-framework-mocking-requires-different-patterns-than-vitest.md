@@ -3,8 +3,9 @@ id: learning-bun-test-framework-mocking-requires-different-patterns-than-vitest
 title: Bun test framework mocking requires different patterns than Vitest
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T20:39:33.143Z"
-updated: "2026-02-02T20:39:33.143Z"
+updated: "2026-02-16T22:30:06.928Z"
 tags:
   - testing
   - bun

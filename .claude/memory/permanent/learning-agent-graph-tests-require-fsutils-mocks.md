@@ -3,8 +3,9 @@ id: learning-agent-graph-tests-require-fsutils-mocks
 title: Agent graph tests must mock fsUtils functions, not fs module directly
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:36:40.383Z"
-updated: "2026-02-07T15:36:40.383Z"
+updated: "2026-02-16T22:30:07.304Z"
 tags:
   - testing
   - mocks

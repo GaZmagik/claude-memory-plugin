@@ -3,8 +3,9 @@ id: decision-phase-d-shared-memory-inclusion-complete-production-ready
 title: "Phase D: Shared Memory Inclusion Complete and Production Ready"
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:17:26.242Z"
-updated: "2026-02-04T16:17:26.242Z"
+updated: "2026-02-16T22:30:07.468Z"
 tags:
   - phase-d
   - agent-scopes

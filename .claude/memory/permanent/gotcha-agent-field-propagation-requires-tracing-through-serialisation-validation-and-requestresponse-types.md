@@ -3,8 +3,9 @@ id: gotcha-agent-field-propagation-requires-tracing-through-serialisation-valida
 title: Agent field propagation requires tracing through serialisation, validation, and request/response types
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T05:50:20.687Z"
-updated: "2026-02-03T05:50:20.687Z"
+updated: "2026-02-16T22:30:07.496Z"
 tags:
   - agent-scoped
   - api-design

@@ -3,8 +3,9 @@ id: gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix
 title: writeMemory IDs auto-prefix with type - don't double-prefix
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:13:01.048Z"
-updated: "2026-02-05T16:13:01.048Z"
+updated: "2026-02-16T22:30:07.184Z"
 tags:
   - memory-system
   - testing

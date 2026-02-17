@@ -3,8 +3,9 @@ id: gotcha-retro-crud-operations-need-import-additions-for-scope-and-scope-utili
 title: Retro - CRUD operations need import additions for Scope and scope utilities
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:19:28.780Z"
-updated: "2026-02-02T23:19:28.780Z"
+updated: "2026-02-16T22:30:06.929Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-graph-node-structure-only-stores-id-type-and-optional-title-agentsc
 title: Graph node structure only stores id, type, and optional title - agent/scope metadata belongs in frontmatter and index
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T05:50:39.838Z"
-updated: "2026-02-03T05:50:39.838Z"
+updated: "2026-02-16T22:30:07.336Z"
 tags:
   - agent-scoped
   - architecture

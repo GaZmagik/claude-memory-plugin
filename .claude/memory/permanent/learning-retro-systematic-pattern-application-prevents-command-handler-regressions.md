@@ -3,8 +3,9 @@ id: learning-retro-systematic-pattern-application-prevents-command-handler-regre
 title: Retro - Systematic pattern application prevents command handler regressions
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T22:32:11.218Z"
-updated: "2026-02-03T22:32:11.218Z"
+updated: "2026-02-16T22:30:07.500Z"
 tags:
   - retrospective
   - process

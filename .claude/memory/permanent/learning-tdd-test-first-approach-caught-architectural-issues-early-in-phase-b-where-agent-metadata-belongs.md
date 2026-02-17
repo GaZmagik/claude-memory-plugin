@@ -3,8 +3,9 @@ id: learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-
 title: TDD test-first approach caught architectural issues early in Phase B (where agent metadata belongs)
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T05:50:47.700Z"
-updated: "2026-02-03T05:50:47.700Z"
+updated: "2026-02-16T22:30:07.499Z"
 tags:
   - tdd
   - test-design

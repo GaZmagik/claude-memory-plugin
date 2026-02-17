@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-significantly-more-efficient-than
 title: Retro - Parallel restoration agents significantly more efficient than sequential workflows
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:28:35.115Z"
-updated: "2026-02-06T07:28:35.115Z"
+updated: "2026-02-16T22:30:07.544Z"
 tags:
   - retrospective
   - process

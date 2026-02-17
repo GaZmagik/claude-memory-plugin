@@ -3,8 +3,9 @@ id: gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-mul
 title: Retro - Test file size limits require early separation strategy for multi-feature phases
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:00:38.853Z"
-updated: "2026-02-06T21:00:38.853Z"
+updated: "2026-02-16T22:30:07.572Z"
 tags:
   - retrospective
   - process

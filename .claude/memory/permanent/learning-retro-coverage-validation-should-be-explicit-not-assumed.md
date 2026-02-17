@@ -3,8 +3,9 @@ id: learning-retro-coverage-validation-should-be-explicit-not-assumed
 title: Retro - Coverage validation should be explicit, not assumed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T22:32:20.326Z"
-updated: "2026-02-03T22:32:20.326Z"
+updated: "2026-02-16T22:30:07.287Z"
 tags:
   - retrospective
   - process

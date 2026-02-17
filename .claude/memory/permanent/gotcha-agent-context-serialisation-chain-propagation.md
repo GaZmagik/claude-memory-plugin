@@ -3,8 +3,9 @@ id: gotcha-agent-context-serialisation-chain-propagation
 title: "Agent context must survive full serialisation chain: TypeScript → JSON → subprocess stdin → parseHookInput"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:03:35.250Z"
-updated: "2026-02-06T08:03:35.250Z"
+updated: "2026-02-16T22:30:07.568Z"
 tags:
   - phase-g
   - hooks

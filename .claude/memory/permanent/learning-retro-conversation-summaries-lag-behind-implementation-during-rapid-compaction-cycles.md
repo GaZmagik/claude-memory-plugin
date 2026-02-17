@@ -3,8 +3,9 @@ id: learning-retro-conversation-summaries-lag-behind-implementation-during-rapid
 title: Retro - Conversation summaries lag behind implementation during rapid compaction cycles
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:11:16.315Z"
-updated: "2026-02-06T07:11:16.315Z"
+updated: "2026-02-16T22:30:07.497Z"
 tags:
   - retrospective
   - process

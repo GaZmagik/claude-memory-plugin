@@ -3,8 +3,9 @@ id: learning-retro-tdd-across-multi-phase-implementation-maintains-test-first-di
 title: Retro - TDD across multi-phase implementation maintains test-first discipline despite complexity
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:00:31.151Z"
-updated: "2026-02-06T21:00:31.151Z"
+updated: "2026-02-16T22:30:07.185Z"
 tags:
   - retrospective
   - process

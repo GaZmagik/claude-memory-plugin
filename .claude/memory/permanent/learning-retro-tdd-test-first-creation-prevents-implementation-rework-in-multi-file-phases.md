@@ -3,8 +3,9 @@ id: learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-mul
 title: Retro - TDD test-first creation prevents implementation rework in multi-file phases
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T20:38:45.376Z"
-updated: "2026-02-02T20:38:45.376Z"
+updated: "2026-02-16T22:30:06.959Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-parallel-restoration-agents-significantly-more-efficient-than-seque
 title: Parallel restoration agents significantly more efficient than sequential workflows
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:30:33.404Z"
-updated: "2026-02-06T07:30:33.404Z"
+updated: "2026-02-16T22:30:07.197Z"
 tags:
   - session-management
   - restoration

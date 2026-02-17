@@ -3,8 +3,9 @@ id: learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-f
 title: Retro - Systematic type error reduction more efficient than scatter-fix approach
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T09:23:16.439Z"
-updated: "2026-02-07T09:23:16.439Z"
+updated: "2026-02-16T22:30:07.411Z"
 tags:
   - retrospective
   - process

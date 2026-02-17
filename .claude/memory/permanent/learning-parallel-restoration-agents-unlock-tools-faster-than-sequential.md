@@ -3,8 +3,9 @@ id: learning-parallel-restoration-agents-unlock-tools-faster-than-sequential
 title: Parallel restoration agents unlock tools faster than sequential
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:53:09.615Z"
-updated: "2026-02-06T01:53:09.615Z"
+updated: "2026-02-16T22:30:07.418Z"
 tags:
   - restoration
   - agents

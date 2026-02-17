@@ -3,8 +3,9 @@ id: gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs
 title: Retro - Vitest include config covers skills/memory/src not tests subdirs
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:18:35.407Z"
-updated: "2026-02-06T08:18:35.407Z"
+updated: "2026-02-16T22:30:07.154Z"
 tags:
   - retrospective
   - vitest

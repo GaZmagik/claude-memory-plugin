@@ -3,8 +3,9 @@ id: learning-agent-path-structure-consistency-across-tests-and-implementation
 title: Agent path structure consistency across tests and implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T19:58:28.974Z"
-updated: "2026-02-04T19:58:28.974Z"
+updated: "2026-02-16T22:30:07.574Z"
 tags:
   - testing
   - path-resolution

@@ -3,8 +3,9 @@ id: learning-session-restoration-with-parallel-agents-efficiently-recovers-post-
 title: Session restoration with parallel agents efficiently recovers post-compaction context
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T22:46:27.823Z"
-updated: "2026-02-02T22:46:27.823Z"
+updated: "2026-02-16T22:30:06.911Z"
 tags:
   - session-management
   - memory-system

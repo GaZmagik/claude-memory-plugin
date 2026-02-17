@@ -3,8 +3,9 @@ id: artifact-scope-path-resolution-pattern
 title: Scope Path Resolution Pattern
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:37:31.600Z"
-updated: "2026-02-06T01:37:31.600Z"
+updated: "2026-02-16T22:30:07.483Z"
 tags:
   - cli
   - scope-resolution

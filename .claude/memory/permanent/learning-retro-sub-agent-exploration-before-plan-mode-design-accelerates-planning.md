@@ -3,8 +3,9 @@ id: learning-retro-sub-agent-exploration-before-plan-mode-design-accelerates-pla
 title: Retro - Sub-agent exploration before plan mode design accelerates planning
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:57:12.409Z"
-updated: "2026-02-04T16:57:12.409Z"
+updated: "2026-02-16T22:30:07.542Z"
 tags:
   - retrospective
   - process

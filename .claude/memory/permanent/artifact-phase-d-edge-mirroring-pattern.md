@@ -3,8 +3,9 @@ id: artifact-phase-d-edge-mirroring-pattern
 title: "Edge Mirroring Pattern: Bidirectional Storage Without Reversal"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T20:44:14.469Z"
-updated: "2026-02-06T20:44:14.469Z"
+updated: "2026-02-16T22:30:07.301Z"
 tags:
   - phase-d-deferred
   - graph

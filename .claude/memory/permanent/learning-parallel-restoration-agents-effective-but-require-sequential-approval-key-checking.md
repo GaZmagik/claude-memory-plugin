@@ -3,8 +3,9 @@ id: learning-parallel-restoration-agents-effective-but-require-sequential-approv
 title: Parallel restoration agents effective but require sequential approval key checking
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:46:43.365Z"
-updated: "2026-02-06T01:46:43.365Z"
+updated: "2026-02-16T22:30:07.320Z"
 tags:
   - restoration-workflow
   - agent-orchestration

@@ -3,8 +3,9 @@ id: learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup
 title: "Retro - Mock replacement pattern: inline spyOn with afterEach cleanup"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:34:46.527Z"
-updated: "2026-02-05T11:34:46.527Z"
+updated: "2026-02-16T22:30:07.469Z"
 tags:
   - retrospective
   - process

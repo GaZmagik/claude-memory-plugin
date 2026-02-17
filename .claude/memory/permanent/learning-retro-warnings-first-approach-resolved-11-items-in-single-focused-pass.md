@@ -3,8 +3,9 @@ id: learning-retro-warnings-first-approach-resolved-11-items-in-single-focused-p
 title: Retro - Warnings-first approach resolved 11 items in single focused pass
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:35:36.632Z"
-updated: "2026-02-07T15:35:36.632Z"
+updated: "2026-02-16T22:30:07.229Z"
 tags:
   - retrospective
   - process

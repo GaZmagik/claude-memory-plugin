@@ -3,8 +3,9 @@ id: gotcha-retro-expert-report-persistence-during-multi-phase-reviews
 title: Retro - Expert report persistence during multi-phase reviews
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T23:49:07.383Z"
-updated: "2026-02-06T23:49:07.383Z"
+updated: "2026-02-16T22:30:06.998Z"
 tags:
   - retrospective
   - process

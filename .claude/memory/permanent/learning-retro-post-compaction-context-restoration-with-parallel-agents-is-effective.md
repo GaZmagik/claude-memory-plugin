@@ -3,8 +3,9 @@ id: learning-retro-post-compaction-context-restoration-with-parallel-agents-is-e
 title: Retro - Post-compaction context restoration with parallel agents is effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:54:14.358Z"
-updated: "2026-02-05T16:54:14.358Z"
+updated: "2026-02-16T22:30:07.298Z"
 tags:
   - retrospective
   - process

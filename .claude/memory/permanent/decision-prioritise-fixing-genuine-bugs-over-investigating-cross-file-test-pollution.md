@@ -3,8 +3,9 @@ id: decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-p
 title: Prioritise fixing genuine bugs over investigating cross-file test pollution
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:44:22.449Z"
-updated: "2026-02-04T22:44:22.449Z"
+updated: "2026-02-16T22:30:07.270Z"
 tags:
   - testing
   - test-pollution

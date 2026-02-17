@@ -3,8 +3,9 @@ id: learning-scope-indicators-in-search-results-are-in-results-array-not-message
 title: Scope indicators in search results are in results array, not message field
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T13:20:12.265Z"
-updated: "2026-02-04T13:20:12.265Z"
+updated: "2026-02-16T22:30:07.569Z"
 tags:
   - testing
   - scope-indicators

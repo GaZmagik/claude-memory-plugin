@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orp
 title: Retro - Parallel restoration agents with curator linking prevents orphaned nodes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:11:51.722Z"
-updated: "2026-02-05T16:11:51.722Z"
+updated: "2026-02-16T22:30:07.181Z"
 tags:
   - retrospective
   - process

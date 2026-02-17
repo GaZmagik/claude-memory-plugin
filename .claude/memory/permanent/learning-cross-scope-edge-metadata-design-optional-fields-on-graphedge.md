@@ -3,8 +3,9 @@ id: learning-cross-scope-edge-metadata-design-optional-fields-on-graphedge
 title: "Cross-scope edge metadata design: optional fields on GraphEdge"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:46:55.572Z"
-updated: "2026-02-06T21:46:55.572Z"
+updated: "2026-02-16T22:30:07.469Z"
 tags:
   - project
 ---

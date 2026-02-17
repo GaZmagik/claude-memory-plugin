@@ -3,8 +3,9 @@ id: gotcha-retro-duplicate-mock-setup-creates-test-fragility
 title: Retro - Duplicate mock setup creates test fragility
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T19:28:56.762Z"
-updated: "2026-02-03T19:28:56.762Z"
+updated: "2026-02-16T22:30:07.573Z"
 tags:
   - retrospective
   - testing

@@ -3,8 +3,9 @@ id: learning-sync-io-in-async-functions-silently-blocks-entire-event-loop
 title: Sync I/O in async functions silently blocks entire event loop
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T23:49:24.590Z"
-updated: "2026-02-06T23:49:24.590Z"
+updated: "2026-02-16T22:30:07.230Z"
 tags:
   - nodejs
   - performance

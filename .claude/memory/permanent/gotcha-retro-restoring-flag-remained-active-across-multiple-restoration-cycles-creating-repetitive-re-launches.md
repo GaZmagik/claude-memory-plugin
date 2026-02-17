@@ -3,8 +3,9 @@ id: gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycl
 title: Retro - Restoring flag remained active across multiple restoration cycles, creating repetitive re-launches
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:50:22.374Z"
-updated: "2026-02-06T08:50:22.374Z"
+updated: "2026-02-16T22:30:07.570Z"
 tags:
   - retrospective
   - process

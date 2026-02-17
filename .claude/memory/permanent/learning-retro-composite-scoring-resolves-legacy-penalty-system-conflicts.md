@@ -3,8 +3,9 @@ id: learning-retro-composite-scoring-resolves-legacy-penalty-system-conflicts
 title: Retro - Composite scoring resolves legacy penalty system conflicts
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:47:59.542Z"
-updated: "2026-02-05T23:47:59.542Z"
+updated: "2026-02-16T22:30:07.337Z"
 tags:
   - retrospective
   - process

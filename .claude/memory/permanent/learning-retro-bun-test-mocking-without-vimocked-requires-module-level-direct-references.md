@@ -3,8 +3,9 @@ id: learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direc
 title: Retro - Bun test mocking without vi.mocked() requires module-level direct references
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:11:58.341Z"
-updated: "2026-02-05T16:11:58.341Z"
+updated: "2026-02-16T22:30:07.451Z"
 tags:
   - retrospective
   - process

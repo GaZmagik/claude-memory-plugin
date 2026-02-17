@@ -3,8 +3,9 @@ id: gotcha-retro-cascade-failure-in-test-mock-types-blocks-entire-build
 title: Retro - Cascade failure in test mock types blocks entire build
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T09:23:12.370Z"
-updated: "2026-02-07T09:23:12.370Z"
+updated: "2026-02-16T22:30:07.515Z"
 tags:
   - retrospective
   - testing

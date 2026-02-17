@@ -3,8 +3,9 @@ id: learning-retro-task-completion-validation-prevents-hidden-rework
 title: Retro - Task completion validation prevents hidden rework
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T19:29:06.815Z"
-updated: "2026-02-03T19:29:06.815Z"
+updated: "2026-02-16T22:30:07.335Z"
 tags:
   - retrospective
   - process

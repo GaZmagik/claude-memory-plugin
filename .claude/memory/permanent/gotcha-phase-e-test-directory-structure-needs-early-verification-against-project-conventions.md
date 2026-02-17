@@ -3,8 +3,9 @@ id: gotcha-phase-e-test-directory-structure-needs-early-verification-against-pro
 title: Gotcha - Phase E test directory structure needs early verification against project conventions
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T13:31:22.580Z"
-updated: "2026-02-05T13:31:22.580Z"
+updated: "2026-02-16T22:30:07.434Z"
 tags:
   - retrospective
   - process

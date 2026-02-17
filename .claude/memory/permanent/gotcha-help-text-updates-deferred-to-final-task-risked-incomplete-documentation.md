@@ -3,8 +3,9 @@ id: gotcha-help-text-updates-deferred-to-final-task-risked-incomplete-documentat
 title: Gotcha - Help text updates deferred to final task risked incomplete documentation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T09:47:34.282Z"
-updated: "2026-02-04T09:47:34.282Z"
+updated: "2026-02-16T22:30:07.484Z"
 tags:
   - retrospective
   - process

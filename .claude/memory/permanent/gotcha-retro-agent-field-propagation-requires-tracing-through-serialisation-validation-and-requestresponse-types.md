@@ -3,8 +3,9 @@ id: gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-
 title: Retro - Agent field propagation requires tracing through serialisation, validation, AND request/response types
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:19:11.565Z"
-updated: "2026-02-02T23:19:11.565Z"
+updated: "2026-02-16T22:30:06.976Z"
 tags:
   - retrospective
   - process

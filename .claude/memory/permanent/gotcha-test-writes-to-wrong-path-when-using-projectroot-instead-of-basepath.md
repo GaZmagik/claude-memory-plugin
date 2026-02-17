@@ -3,8 +3,9 @@ id: gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath
 title: Gotcha - Test writes to wrong path when using projectRoot instead of basePath
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T00:27:49.606Z"
-updated: "2026-02-06T00:27:49.606Z"
+updated: "2026-02-16T22:30:07.228Z"
 tags:
   - retrospective
   - gotcha

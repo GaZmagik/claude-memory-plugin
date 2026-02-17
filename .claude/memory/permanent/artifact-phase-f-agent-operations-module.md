@@ -3,8 +3,9 @@ id: artifact-phase-f-agent-operations-module
 title: "Phase F: Agent Operations Module - Create, Delete, Copy, Rename"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:35:40.873Z"
-updated: "2026-02-05T11:35:40.873Z"
+updated: "2026-02-16T22:30:07.573Z"
 tags:
   - phase-f
   - agent-operations

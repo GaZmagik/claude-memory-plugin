@@ -41,6 +41,41 @@ describe('detectAgent', () => {
       expect(result.name).toBe('agent-v2');
       expect(result.source).toBe('args');
     });
+
+    it('handles mixed case agent names', () => {
+      const result = detectAgent('--agent TypeScript-Expert');
+      expect(result.detected).toBe(true);
+      expect(result.name).toBe('TypeScript-Expert');
+      expect(result.source).toBe('args');
+    });
+
+    it('handles agent names with underscores', () => {
+      const result = detectAgent('--agent test_agent');
+      expect(result.detected).toBe(true);
+      expect(result.name).toBe('test_agent');
+      expect(result.source).toBe('args');
+    });
+
+    it('handles complex agent names with mixed case, numbers, underscores, and hyphens', () => {
+      const result = detectAgent('--agent TypeScript_Expert-v2');
+      expect(result.detected).toBe(true);
+      expect(result.name).toBe('TypeScript_Expert-v2');
+      expect(result.source).toBe('args');
+    });
+
+    it('handles --agent with equals and no quotes', () => {
+      const result = detectAgent('--agent=test-agent');
+      expect(result.detected).toBe(true);
+      expect(result.name).toBe('test-agent');
+      expect(result.source).toBe('args');
+    });
+
+    it('handles --agent with space and no quotes', () => {
+      const result = detectAgent('--agent test-agent');
+      expect(result.detected).toBe(true);
+      expect(result.name).toBe('test-agent');
+      expect(result.source).toBe('args');
+    });
   });
 
   describe('Priority 2: CLAUDE_AGENT_NAME environment variable', () => {

@@ -35,7 +35,8 @@ export function detectAgent(
 ): AgentDetectionResult {
   // Priority 1: Check --agent flag in args
   if (args) {
-    const agentMatch = args.match(/--agent[\s=]+"?([a-z0-9-]+)"?/i);
+    // Match --agent with alphanumeric, hyphens, and underscores (mixed case)
+    const agentMatch = args.match(/--agent[\s=]+"?([a-zA-Z0-9_-]+)"?/);
     if (agentMatch && agentMatch[1]) {
       return {
         detected: true,

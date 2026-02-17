@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-16T23:28:21.073Z",
+  "lastUpdated": "2026-02-17T00:27:35.281Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10924,6 +10924,137 @@
       "updated": "2026-02-16T23:28:21.049Z",
       "scope": "project",
       "relativePath": "permanent/learning-help-text-should-highlight-powerful-hidden-features-early.md"
+    },
+    {
+      "id": "learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation",
+      "type": "learning",
+      "title": "Retro - TDD stub-file pattern accelerated hook-compliant implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:26:34.182Z",
+      "updated": "2026-02-17T00:26:34.182Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-scope-edges",
+      "type": "learning",
+      "title": "Retro - Memory checks before phase work prevented rework on cross-scope edges",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-hygiene",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:26:52.256Z",
+      "updated": "2026-02-17T00:26:52.256Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-scope-edges.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations",
+      "type": "learning",
+      "title": "Metadata tracking pattern for multi-scope suggest-links operations",
+      "tags": [
+        "suggest-links",
+        "multi-scope",
+        "pattern",
+        "metadata",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:14.798Z",
+      "updated": "2026-02-17T00:27:14.798Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations.md"
+    },
+    {
+      "id": "learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables-focused",
+      "type": "learning",
+      "title": "Retro - Phase deferral and incremental marking kept v1.4.0 deliverables focused",
+      "tags": [
+        "retrospective",
+        "process",
+        "prioritization",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:16.560Z",
+      "updated": "2026-02-17T00:27:16.560Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables-focused.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture",
+      "type": "learning",
+      "title": "PostToolUse:Task hook preferred over SubagentStop for agent context capture",
+      "tags": [
+        "hooks",
+        "agent",
+        "architecture",
+        "decision-rationale",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:17.859Z",
+      "updated": "2026-02-17T00:27:17.859Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture.md"
+    },
+    {
+      "id": "gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces",
+      "type": "gotcha",
+      "title": "suggest-links --all-scopes loads from project, global, AND all agent namespaces",
+      "tags": [
+        "suggest-links",
+        "all-scopes",
+        "cross-scope",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:23.493Z",
+      "updated": "2026-02-17T00:27:23.493Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces.md"
+    },
+    {
+      "id": "decision-v140-cross-scope-auto-linking-enabled-in-suggest-links",
+      "type": "decision",
+      "title": "v1.4.0: Cross-scope auto-linking enabled in suggest-links",
+      "tags": [
+        "v1.4.0",
+        "cross-scope",
+        "suggest-links",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:33.050Z",
+      "updated": "2026-02-17T00:27:33.050Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v140-cross-scope-auto-linking-enabled-in-suggest-links.md"
+    },
+    {
+      "id": "artifact-tdd-stub-pattern-for-hooks",
+      "type": "artifact",
+      "title": "TDD stub pattern for hook infrastructure files",
+      "tags": [
+        "tdd",
+        "hooks",
+        "pattern",
+        "enforcement",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:35.271Z",
+      "updated": "2026-02-17T00:27:35.271Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-tdd-stub-pattern-for-hooks.md"
     }
   ]
 }

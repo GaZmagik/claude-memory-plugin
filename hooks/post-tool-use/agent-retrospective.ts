@@ -85,7 +85,8 @@ You've completed meaningful work as **${agentName}**. Consider capturing key lea
     console.log(JSON.stringify(output));
     process.exit(0);
   } catch (error) {
-    // Hook failures should not block - exit cleanly
+    // Log error for debugging but don't block tool execution
+    console.error(`[agent-retrospective] Hook failed: ${error instanceof Error ? error.message : String(error)}`);
     process.exit(0);
   }
 }

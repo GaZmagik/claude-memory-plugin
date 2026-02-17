@@ -3,8 +3,9 @@ id: decision-disable-clear-restoring-flag-hooks
 title: Disabled clear/restoring flag hooks and approval key system
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T11:40:49.072Z"
-updated: "2026-02-06T11:40:49.072Z"
+updated: "2026-02-16T22:30:07.470Z"
 tags:
   - hooks
   - session-restore

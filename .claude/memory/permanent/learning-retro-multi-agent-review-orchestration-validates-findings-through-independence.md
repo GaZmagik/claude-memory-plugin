@@ -3,8 +3,9 @@ id: learning-retro-multi-agent-review-orchestration-validates-findings-through-i
 title: Retro - Multi-agent review orchestration validates findings through independence
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T23:48:59.109Z"
-updated: "2026-02-06T23:48:59.109Z"
+updated: "2026-02-16T22:30:07.493Z"
 tags:
   - retrospective
   - process

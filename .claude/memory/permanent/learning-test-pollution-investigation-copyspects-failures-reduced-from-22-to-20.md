@@ -3,8 +3,9 @@ id: learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to
 title: "Test pollution investigation: copy.spec.ts failures reduced from 22 to 20"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T23:28:44.981Z"
-updated: "2026-02-04T23:28:44.981Z"
+updated: "2026-02-16T22:30:07.421Z"
 tags:
   - test-pollution
   - vitest

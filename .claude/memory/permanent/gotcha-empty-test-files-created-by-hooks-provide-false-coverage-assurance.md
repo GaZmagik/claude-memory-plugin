@@ -3,8 +3,9 @@ id: gotcha-empty-test-files-created-by-hooks-provide-false-coverage-assurance
 title: Empty test files created by hooks provide false coverage assurance
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T23:49:16.448Z"
-updated: "2026-02-06T23:49:16.448Z"
+updated: "2026-02-16T22:30:07.570Z"
 tags:
   - tdd
   - testing

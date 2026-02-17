@@ -304,6 +304,22 @@ export interface RemoveCrossScopeEdgeResponse {
  * The same edge (with identical metadata) is written to both graphs.
  * Source graph is saved first (it "owns" the edge), then target.
  * Nodes are auto-added to graphs with enrichment from the index if missing.
+ *
+ * **IMPORTANT - Non-Atomic Operation:**
+ * This operation is NOT atomic. If the target graph save fails after the source
+ * graph has been saved, we attempt best-effort rollback by removing the edge from
+ * the source graph. However, rollback itself can fail, potentially leaving the
+ * graphs in an inconsistent state (edge exists in source but not target).
+ *
+ * This is a known limitation. Future improvements could include:
+ * - Write-ahead logging (WAL) for atomic cross-scope operations
+ * - Two-phase commit protocol
+ * - Graph file backups before mutation
+ *
+ * If inconsistency occurs, use `memory graph validate --fix-cross-scope` (future)
+ * to detect and repair inconsistent cross-scope edges.
+ *
+ * @throws Error if source graph save fails or if target save fails after rollback attempt
  */
 export async function storeCrossScopeEdge(
   request: StoreCrossScopeEdgeRequest

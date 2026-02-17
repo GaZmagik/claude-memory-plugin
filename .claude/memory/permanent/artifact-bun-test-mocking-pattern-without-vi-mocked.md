@@ -3,8 +3,9 @@ id: artifact-bun-test-mocking-pattern-without-vi-mocked
 title: Bun test framework mocking pattern without vi.mocked() compatibility
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T15:11:06.514Z"
-updated: "2026-02-05T15:17:57.735Z"
+updated: "2026-02-16T22:30:07.304Z"
 tags:
   - phase-e
   - testing

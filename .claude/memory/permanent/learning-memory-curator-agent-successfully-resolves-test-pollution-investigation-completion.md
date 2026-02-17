@@ -3,8 +3,9 @@ id: learning-memory-curator-agent-successfully-resolves-test-pollution-investiga
 title: Memory curator agent successfully resolves test pollution investigation completion
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T13:33:03.966Z"
-updated: "2026-02-05T13:33:03.966Z"
+updated: "2026-02-16T22:30:07.481Z"
 tags:
   - memory-curator
   - test-pollution

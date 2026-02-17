@@ -3,8 +3,9 @@ id: decision-parallel-restoration-agents-accelerate-post-compaction-recovery
 title: Parallel restoration agents accelerate post-compaction recovery
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:11:33.445Z"
-updated: "2026-02-05T16:11:33.445Z"
+updated: "2026-02-16T22:30:07.468Z"
 tags:
   - phase-e
   - post-compaction

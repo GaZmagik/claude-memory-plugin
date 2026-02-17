@@ -3,8 +3,9 @@ id: decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked
 title: Decision - --include-shared includes ALL shared nodes by default, not just linked ones
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T00:27:58.408Z"
-updated: "2026-02-06T00:27:58.408Z"
+updated: "2026-02-16T22:30:07.303Z"
 tags:
   - retrospective
   - decision

@@ -3,8 +3,9 @@ id: gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-p
 title: Gotcha - Phase E scope is substantial (10 tests + ~15 implementation files); Green phase needs careful pacing
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T13:31:33.539Z"
-updated: "2026-02-05T13:31:33.539Z"
+updated: "2026-02-16T22:30:07.375Z"
 tags:
   - retrospective
   - process

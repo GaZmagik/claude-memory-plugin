@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-
 title: Retro - Parallel restoration agents improve post-compaction recovery speed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T09:47:13.516Z"
-updated: "2026-02-04T09:47:13.516Z"
+updated: "2026-02-16T22:30:07.150Z"
 tags:
   - retrospective
   - process

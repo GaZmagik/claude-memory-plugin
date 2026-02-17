@@ -3,8 +3,9 @@ id: learning-phase-c-cli-architecture-requires-helpers-refactoring-as-critical-b
 title: Phase C CLI architecture requires helpers refactoring as critical bottleneck
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:54:44.753Z"
-updated: "2026-02-03T20:54:44.753Z"
+updated: "2026-02-16T22:30:07.469Z"
 tags:
   - phase-c
   - cli

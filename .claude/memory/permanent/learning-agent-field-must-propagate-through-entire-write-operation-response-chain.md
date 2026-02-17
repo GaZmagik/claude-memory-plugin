@@ -3,8 +3,9 @@ id: learning-agent-field-must-propagate-through-entire-write-operation-response-
 title: Agent Field Must Propagate Through Entire Write Operation Response Chain
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:44:32.407Z"
-updated: "2026-02-03T20:44:32.407Z"
+updated: "2026-02-16T22:30:07.288Z"
 tags:
   - phase-b
   - agent-scoped

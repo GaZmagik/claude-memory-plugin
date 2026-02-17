@@ -3,8 +3,9 @@ id: learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requiremen
 title: Retro - TDD test-first approach for Phase E provides clear requirements and accelerates Green phase
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T13:25:51.043Z"
-updated: "2026-02-05T13:25:51.043Z"
+updated: "2026-02-16T22:30:07.284Z"
 tags:
   - retrospective
   - process

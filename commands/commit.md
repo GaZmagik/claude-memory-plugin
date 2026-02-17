@@ -92,7 +92,21 @@ fi
 
 Store these variables for use in Step 2.
 
-### Step 2: Write Memories with Hub Links
+### Step 2: Suggest Scope Before Writing (v1.4.0+)
+
+Before creating memories, consider which scope is most appropriate:
+
+- **Project scope** (default, no flags): Team decisions, architecture, shared patterns
+- **Global scope** (`--scope global`): Personal workflows, tooling preferences, cross-project learnings
+- **Agent scope** (`--agent <name>`): Agent-specific knowledge (use agent-commit command instead)
+
+**Quick heuristics:**
+- Contains "we decided", "team standard" → Project
+- Contains "I noticed", "my workflow" → Global
+- Technical implementation detail → Project
+- Personal preference or tool configuration → Global
+
+### Step 3: Write Memories with Hub Links
 
 For each item, call the appropriate memory script via Bash, then **immediately link to detected hubs**.
 
@@ -135,15 +149,34 @@ memory write --type artifact --id '<name>' --content '<1-2 sentence description>
 | Artifact | `created-in` | `implements` |
 | Gotcha | `discovered-in` | `warns-about` |
 
-### Step 3: Report and Exit
+### Step 3: Generate Embeddings & Auto-Link (v1.4.0+)
 
-Output a brief summary including hub links:
+After creating all memories, generate embeddings and create cross-scope links:
+
+```bash
+# Generate embeddings for semantic search
+memory refresh --embeddings
+
+# Auto-link across ALL scopes (project, global, all agents)
+memory suggest-links --all-scopes --auto-link
+```
+
+**What --all-scopes does:**
+- Loads embeddings from project, global, AND all agent scopes
+- Discovers cross-scope link opportunities across entire knowledge graph
+- Creates both same-scope and cross-scope links automatically
+
+### Step 4: Report and Exit
+
+Output a brief summary including hub links and linking stats:
 
 ```
 Memory capture complete:
 - X learnings (linked to artifact-feature-NNN-hub)
 - Y decisions (linked to artifact-feature-NNN-hub)
 - Z artifacts
+- Embeddings generated: ✓
+- Cross-scope links created: [N same-scope, M cross-scope]
 
 [or "Nothing significant to capture" if conversation was routine]
 ```

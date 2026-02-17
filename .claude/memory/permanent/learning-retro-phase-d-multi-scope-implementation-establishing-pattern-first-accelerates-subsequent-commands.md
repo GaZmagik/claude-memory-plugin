@@ -3,8 +3,9 @@ id: learning-retro-phase-d-multi-scope-implementation-establishing-pattern-first
 title: "Retro - Phase D multi-scope implementation: establishing pattern first accelerates subsequent commands"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T09:47:24.415Z"
-updated: "2026-02-04T09:47:24.415Z"
+updated: "2026-02-16T22:30:07.569Z"
 tags:
   - retrospective
   - process

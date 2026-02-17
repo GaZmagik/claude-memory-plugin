@@ -3,8 +3,9 @@ id: gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememor
 title: Test projectRoot parameter ignored for non-agent scopes in writeMemory
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T00:28:55.664Z"
-updated: "2026-02-06T00:28:55.664Z"
+updated: "2026-02-16T22:30:07.254Z"
 tags:
   - test-setup
   - mermaid

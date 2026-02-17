@@ -3,8 +3,9 @@ id: learning-test-isolation-processchdir-contamination-solved-with-oshomedir
 title: "Test isolation: process.chdir contamination solved with os.homedir()"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:47:09.258Z"
-updated: "2026-02-06T21:47:09.258Z"
+updated: "2026-02-16T22:30:07.426Z"
 tags:
   - testing
   - test-isolation

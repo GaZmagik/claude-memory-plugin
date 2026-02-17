@@ -3,8 +3,9 @@ id: learning-test-positional-array-structure-in-cli-command-tests
 title: Test positional array structure in CLI command tests
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T13:20:05.670Z"
-updated: "2026-02-04T13:20:05.670Z"
+updated: "2026-02-16T22:30:07.183Z"
 tags:
   - testing
   - cli

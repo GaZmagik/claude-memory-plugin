@@ -3,8 +3,9 @@ id: gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation
 title: GraphNode enrichment critical for agent-scoped Mermaid generation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:54:54.114Z"
-updated: "2026-02-05T16:54:54.114Z"
+updated: "2026-02-16T22:30:07.466Z"
 tags:
   - phase-e
   - agent-scoping

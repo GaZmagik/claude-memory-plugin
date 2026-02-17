@@ -3,8 +3,9 @@ id: learning-agent-identity-detection-via-invocation-markers-practical-implement
 title: Agent identity detection via invocation markers - practical implementation approach
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:29:53.541Z"
-updated: "2026-02-06T07:29:53.541Z"
+updated: "2026-02-16T22:30:07.498Z"
 tags:
   - agent-scoping
   - identity-detection

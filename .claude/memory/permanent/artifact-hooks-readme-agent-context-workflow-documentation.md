@@ -3,8 +3,9 @@ id: artifact-hooks-readme-agent-context-workflow-documentation
 title: "hooks/README.md: Agent context injection workflow documentation"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:03:22.907Z"
-updated: "2026-02-06T08:03:22.907Z"
+updated: "2026-02-16T22:30:06.923Z"
 tags:
   - phase-f
   - documentation

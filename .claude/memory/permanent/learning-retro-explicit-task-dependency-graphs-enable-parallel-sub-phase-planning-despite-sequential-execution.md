@@ -3,8 +3,9 @@ id: learning-retro-explicit-task-dependency-graphs-enable-parallel-sub-phase-pla
 title: Retro - Explicit task dependency graphs enable parallel sub-phase planning despite sequential execution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:00:51.007Z"
-updated: "2026-02-06T21:00:51.007Z"
+updated: "2026-02-16T22:30:07.261Z"
 tags:
   - retrospective
   - process

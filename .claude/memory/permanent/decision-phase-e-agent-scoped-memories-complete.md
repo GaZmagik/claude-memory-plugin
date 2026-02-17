@@ -3,8 +3,9 @@ id: decision-phase-e-agent-scoped-memories-complete
 title: Phase E agent-scoped memories implementation complete
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:53:39.561Z"
-updated: "2026-02-06T01:53:39.561Z"
+updated: "2026-02-16T22:30:07.452Z"
 tags:
   - T126
   - Phase-E

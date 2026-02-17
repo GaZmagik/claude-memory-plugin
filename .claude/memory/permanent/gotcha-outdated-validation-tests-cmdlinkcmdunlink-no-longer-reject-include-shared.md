@@ -3,8 +3,9 @@ id: gotcha-outdated-validation-tests-cmdlinkcmdunlink-no-longer-reject-include-s
 title: "Outdated validation tests: cmdLink/cmdUnlink no longer reject --include-shared"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T21:46:58.663Z"
-updated: "2026-02-06T21:46:58.663Z"
+updated: "2026-02-16T22:30:07.345Z"
 tags:
   - project
 ---

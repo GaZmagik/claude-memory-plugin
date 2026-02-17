@@ -3,8 +3,9 @@ id: learning-retro-session-restore-with-parallel-agents-improves-post-compaction
 title: Retro - Session restore with parallel agents improves post-compaction recovery speed
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T10:57:45.345Z"
-updated: "2026-02-04T10:57:45.345Z"
+updated: "2026-02-16T22:30:07.546Z"
 tags:
   - retrospective
   - session-restore

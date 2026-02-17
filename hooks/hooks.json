@@ -49,6 +49,16 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun ${CLAUDE_PLUGIN_ROOT}/hooks/post-tool-use/agent-retrospective.ts",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "SessionStart": [

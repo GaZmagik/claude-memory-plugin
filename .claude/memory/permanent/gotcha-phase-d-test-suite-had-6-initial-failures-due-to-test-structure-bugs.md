@@ -3,8 +3,9 @@ id: gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs
 title: Phase D test suite had 6 initial failures due to test structure bugs
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T13:20:17.902Z"
-updated: "2026-02-04T13:20:17.902Z"
+updated: "2026-02-16T22:30:07.484Z"
 tags:
   - phase-d
   - testing

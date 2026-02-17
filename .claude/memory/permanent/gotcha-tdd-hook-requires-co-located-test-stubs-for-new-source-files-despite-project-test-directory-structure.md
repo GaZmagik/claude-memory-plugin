@@ -3,8 +3,9 @@ id: gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-
 title: TDD hook requires co-located test stubs for new source files despite project test directory structure
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T15:10:50.644Z"
-updated: "2026-02-05T15:10:50.644Z"
+updated: "2026-02-16T22:30:06.975Z"
 tags:
   - phase-e
   - tdd

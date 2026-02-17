@@ -3,8 +3,9 @@ id: learning-integration-test-import-paths-must-match-export-locations-verify-be
 title: Learning - Integration test import paths must match export locations; verify before test writing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:12:10.568Z"
-updated: "2026-02-05T16:12:10.568Z"
+updated: "2026-02-16T22:30:07.530Z"
 tags:
   - retrospective
   - process

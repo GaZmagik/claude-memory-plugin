@@ -3,8 +3,9 @@ id: learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resol
 title: Agent flag implementation pattern for CLI commands with scope resolution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:55:05.531Z"
-updated: "2026-02-05T16:55:05.531Z"
+updated: "2026-02-16T22:30:07.149Z"
 tags:
   - phase-e
   - cli-implementation

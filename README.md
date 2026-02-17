@@ -131,6 +131,82 @@ Agent memories are stored in `.claude/memory/agents/{agent-name}/` (project scop
 
 All existing commands work unchanged without `--agent` — full backward compatibility.
 
+### v1.4.0 Features
+
+#### Cross-Scope Auto-Linking
+
+The `suggest-links` command now creates cross-scope links automatically when using `--auto-link`:
+
+```bash
+# Suggest and auto-create links within agent scope + shared scopes
+memory suggest-links --agent typescript-expert --include-shared --auto-link
+
+# Suggest and auto-create links across ALL scopes (project, global, all agents)
+memory suggest-links --all-scopes --auto-link
+
+# Review suggestions without creating links
+memory suggest-links --agent typescript-expert --include-shared
+```
+
+**How it works**:
+- Tracks metadata (basePath, scope, agent) for all loaded memories
+- Detects cross-scope boundaries during suggestion generation
+- Routes same-scope links to `linkMemories()` (single graph write)
+- Routes cross-scope links to `storeCrossScopeEdge()` (dual graph write)
+- Reports separate counts: `createdSameScope` and `createdCrossScope`
+
+**New flags**:
+- `--all-scopes`: Load embeddings from project, global, AND all agent scopes for comprehensive link discovery
+- Mutual exclusivity: `--all-scopes` and `--include-shared` cannot be used together
+
+#### Agent Retrospective System
+
+Agents are now prompted to capture learnings after completing work:
+
+**PostToolUse:Task Hook**:
+- Triggers when subagents complete tasks
+- Detects agent identity from multiple sources (--agent flag, CLAUDE_AGENT_NAME env var)
+- Classifies work significance (trivial vs meaningful)
+- Injects retrospective guidance for meaningful work
+- Performance: <25ms execution with early exit
+
+**agent-commit Command** (`/commands/agent-commit.md`):
+- Guided workflow for agents to save learnings
+- Enforces `--agent` flag for agent-scoped memories
+- Dual-save pattern: memory plugin + MEMORY.md (both required for redundancy)
+- Project scope option for team-relevant learnings
+- Includes embedding generation and cross-scope linking
+
+**Usage**:
+```bash
+# Agent saves a learning to its own namespace
+memory write --type learning --title "Title" --content "Description" --agent typescript-expert --auto-link
+
+# Generate embeddings and discover cross-scope links
+memory refresh --embeddings
+memory suggest-links --agent typescript-expert --include-shared --auto-link
+```
+
+#### Enhanced Commit Workflows
+
+The `/commit` command now includes:
+
+**Scope Suggestions** (Step 2):
+- Heuristics to recommend project vs global scope before saving
+- Project: team decisions, architecture, shared patterns
+- Global: personal workflows, tooling preferences, cross-project learnings
+
+**Embedding + Linking Workflow** (Step 3):
+```bash
+# After creating memories, generate embeddings
+memory refresh --embeddings
+
+# Auto-link across ALL scopes (project, global, all agents)
+memory suggest-links --all-scopes --auto-link
+```
+
+This ensures memories are connected across the entire knowledge graph, not just within their own scope.
+
 ### Architecture
 
 ```

@@ -3,8 +3,9 @@ id: gotcha-retro-test-positional-array-structure-bug-caught-post-implementation
 title: Retro - Test positional array structure bug caught post-implementation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T13:19:47.608Z"
-updated: "2026-02-04T13:19:47.608Z"
+updated: "2026-02-16T22:30:07.455Z"
 tags:
   - retrospective
   - process

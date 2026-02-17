@@ -3,8 +3,9 @@ id: gotcha-deferring-help-text-updates-to-final-task-created-time-pressure
 title: Gotcha - Deferring help text updates to final task created time pressure
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T10:58:01.061Z"
-updated: "2026-02-04T10:58:01.061Z"
+updated: "2026-02-16T22:30:07.485Z"
 tags:
   - retrospective
   - process

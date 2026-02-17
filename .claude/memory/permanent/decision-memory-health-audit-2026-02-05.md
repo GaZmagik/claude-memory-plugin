@@ -3,8 +3,9 @@ id: decision-memory-health-audit-2026-02-05
 title: "Memory health audit 2026-02-05: Linked 9 orphaned memories and resolved contradiction"
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:45:18.494Z"
-updated: "2026-02-05T11:45:18.494Z"
+updated: "2026-02-16T22:30:07.122Z"
 tags:
   - memory-system
   - audit
@@ -86,4 +87,3 @@ Why were 9 recent memories orphaned?
 - learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock (resolution)
 - gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution (prevention)
 - artifact-tdd-testing-patterns-catalogue (hub for testing knowledge)
-

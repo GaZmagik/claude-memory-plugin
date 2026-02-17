@@ -3,8 +3,9 @@ id: learning-retro-tdd-for-type-level-changes-validates-at-compile-time
 title: Retro - TDD for type-level changes validates at compile time
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:02:16.873Z"
-updated: "2026-02-06T08:02:16.873Z"
+updated: "2026-02-16T22:30:07.508Z"
 tags:
   - retrospective
   - tdd

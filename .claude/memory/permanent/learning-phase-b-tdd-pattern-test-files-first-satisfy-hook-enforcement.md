@@ -3,8 +3,9 @@ id: learning-phase-b-tdd-pattern-test-files-first-satisfy-hook-enforcement
 title: "Phase B TDD pattern: Test files first satisfy hook enforcement"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:20:01.663Z"
-updated: "2026-02-02T23:20:01.663Z"
+updated: "2026-02-16T22:30:07.255Z"
 tags:
   - tdd
   - typescript

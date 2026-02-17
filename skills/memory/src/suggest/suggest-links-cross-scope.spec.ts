@@ -1,0 +1,481 @@
+/**
+ * Tests for Cross-Scope Auto-Linking in Suggest Links (v1.4.0)
+ */
+
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { suggestLinks } from './suggest-links.js';
+import * as embeddingModule from '../search/embedding.js';
+import * as similarityModule from '../search/similarity.js';
+import * as indexModule from '../core/index.js';
+import * as structureModule from '../graph/structure.js';
+import * as linkModule from '../graph/link.js';
+import * as helpersModule from '../cli/helpers.js';
+import * as resolverModule from '../scope/resolver.js';
+
+describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe('Metadata Tracking', () => {
+    it('tracks metadata for primary scope memories', async () => {
+      const mockCache = {
+        memories: {
+          'learning-typescript': { embedding: [0.1, 0.2, 0.3] },
+          'learning-rust': { embedding: [0.15, 0.25, 0.35] },
+        },
+      };
+
+      const mockIndex = {
+        memories: [
+          { id: 'learning-typescript', type: 'learning', title: 'TypeScript basics' },
+          { id: 'learning-rust', type: 'learning', title: 'Rust ownership' },
+        ],
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue(mockCache as any);
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue(mockIndex as any);
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'learning-rust', similarity: 0.85 },
+      ]);
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/home/user/.claude/memory');
+
+      const result = await suggestLinks({
+        basePath: '/test/project',
+        threshold: 0.7,
+        agentName: 'typescript-expert',
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.suggestions).toHaveLength(1);
+      const suggestion = result.suggestions[0]!;
+      expect(suggestion.sourceMetadata).toBeDefined();
+      expect(suggestion.sourceMetadata?.basePath).toBe('/test/project');
+      expect(suggestion.sourceMetadata?.agent).toBe('typescript-expert');
+    });
+
+    it('tracks metadata for shared scope memories', async () => {
+      const primaryCache = {
+        memories: {
+          'agent-memory': { embedding: [0.1, 0.2, 0.3] },
+        },
+      };
+
+      const sharedCache = {
+        memories: {
+          'project-memory': { embedding: [0.15, 0.25, 0.35] },
+        },
+      };
+
+      const primaryIndex = {
+        memories: [
+          { id: 'agent-memory', type: 'learning', title: 'Agent learning' },
+        ],
+      };
+
+      const sharedIndex = {
+        memories: [
+          { id: 'project-memory', type: 'decision', title: 'Project decision' },
+        ],
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
+        .mockResolvedValueOnce(primaryCache as any)
+        .mockResolvedValueOnce(sharedCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex')
+        .mockResolvedValueOnce(primaryIndex as any)
+        .mockResolvedValueOnce(sharedIndex as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'project-memory', similarity: 0.88 },
+      ]);
+
+      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
+        '/test/agent',
+        '/test/project',
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/home/user/.claude/memory');
+
+      const result = await suggestLinks({
+        basePath: '/test/agent',
+        threshold: 0.7,
+        includeShared: true,
+        agentName: 'test-agent',
+        scopeStr: 'agent-project',
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.suggestions).toHaveLength(1);
+      const suggestion = result.suggestions[0]!;
+      expect(suggestion.sourceMetadata).toBeDefined();
+      expect(suggestion.targetMetadata).toBeDefined();
+      expect(suggestion.sourceMetadata?.basePath).toBe('/test/agent');
+      expect(suggestion.targetMetadata?.basePath).toBe('/test/project');
+    });
+  });
+
+  describe('Cross-Scope Detection', () => {
+    it('marks suggestions as cross-scope when basePaths differ', async () => {
+      const primaryCache = {
+        memories: {
+          'agent-learning': { embedding: [0.1, 0.2, 0.3] },
+        },
+      };
+
+      const sharedCache = {
+        memories: {
+          'project-decision': { embedding: [0.12, 0.22, 0.32] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
+        .mockResolvedValueOnce(primaryCache as any)
+        .mockResolvedValueOnce(sharedCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'agent-learning', type: 'learning', title: 'Agent learning' },
+          { id: 'project-decision', type: 'decision', title: 'Project decision' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'project-decision', similarity: 0.92 },
+      ]);
+
+      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
+        '/agent/path',
+        '/project/path',
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      const result = await suggestLinks({
+        basePath: '/agent/path',
+        threshold: 0.7,
+        includeShared: true,
+        agentName: 'test-agent',
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.suggestions).toHaveLength(1);
+      expect(result.suggestions[0]!.isCrossScope).toBe(true);
+    });
+
+    it('does not mark same-scope suggestions as cross-scope', async () => {
+      const mockCache = {
+        memories: {
+          'mem-1': { embedding: [0.1, 0.2, 0.3] },
+          'mem-2': { embedding: [0.11, 0.21, 0.31] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue(mockCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'mem-1', type: 'learning', title: 'Memory 1' },
+          { id: 'mem-2', type: 'learning', title: 'Memory 2' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'mem-2', similarity: 0.95 },
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      const result = await suggestLinks({
+        basePath: '/same/path',
+        threshold: 0.7,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.suggestions).toHaveLength(1);
+      expect(result.suggestions[0]!.isCrossScope).toBe(false);
+    });
+  });
+
+  describe('Cross-Scope Auto-Linking', () => {
+    it('routes cross-scope suggestions to storeCrossScopeEdge', async () => {
+      const primaryCache = {
+        memories: {
+          'agent-mem': { embedding: [0.1, 0.2, 0.3] },
+        },
+      };
+
+      const sharedCache = {
+        memories: {
+          'project-mem': { embedding: [0.12, 0.22, 0.32] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
+        .mockResolvedValueOnce(primaryCache as any)
+        .mockResolvedValueOnce(sharedCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'agent-mem', type: 'learning', title: 'Agent memory' },
+          { id: 'project-mem', type: 'decision', title: 'Project memory' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'project-mem', similarity: 0.88 },
+      ]);
+
+      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
+        '/agent/path',
+        '/project/path',
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      const storeCrossScopeEdgeSpy = vi.spyOn(linkModule, 'storeCrossScopeEdge').mockResolvedValue({
+        status: 'success',
+        edge: { source: 'agent-mem', target: 'project-mem', label: 'auto-linked-by-similarity' },
+      });
+
+      const result = await suggestLinks({
+        basePath: '/agent/path',
+        threshold: 0.7,
+        autoLink: true,
+        includeShared: true,
+        agentName: 'test-agent',
+      });
+
+      expect(result.status).toBe('success');
+      expect(storeCrossScopeEdgeSpy).toHaveBeenCalledTimes(1);
+      expect(storeCrossScopeEdgeSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sourceId: 'agent-mem',
+          targetId: 'project-mem',
+          relation: 'auto-linked-by-similarity',
+          sourceBasePath: '/agent/path',
+          targetBasePath: '/project/path',
+        })
+      );
+    });
+
+    it('routes same-scope suggestions to linkMemories', async () => {
+      const mockCache = {
+        memories: {
+          'mem-1': { embedding: [0.1, 0.2, 0.3] },
+          'mem-2': { embedding: [0.11, 0.21, 0.31] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue(mockCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'mem-1', type: 'learning', title: 'Memory 1' },
+          { id: 'mem-2', type: 'learning', title: 'Memory 2' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'mem-2', similarity: 0.95 },
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      const linkMemoriesSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
+        status: 'success',
+        edge: { source: 'mem-1', target: 'mem-2', label: 'auto-linked-by-similarity' },
+        alreadyExists: false,
+      });
+
+      const result = await suggestLinks({
+        basePath: '/same/path',
+        threshold: 0.7,
+        autoLink: true,
+      });
+
+      expect(result.status).toBe('success');
+      expect(linkMemoriesSpy).toHaveBeenCalledTimes(1);
+      expect(linkMemoriesSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          source: 'mem-1',
+          target: 'mem-2',
+          relation: 'auto-linked-by-similarity',
+          basePath: '/same/path',
+        })
+      );
+    });
+
+    it('tracks separate counts for same-scope and cross-scope links', async () => {
+      const primaryCache = {
+        memories: {
+          'agent-mem-1': { embedding: [0.1, 0.2, 0.3] },
+          'agent-mem-2': { embedding: [0.11, 0.21, 0.31] },
+        },
+      };
+
+      const sharedCache = {
+        memories: {
+          'project-mem': { embedding: [0.12, 0.22, 0.32] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
+        .mockResolvedValueOnce(primaryCache as any)
+        .mockResolvedValueOnce(sharedCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'agent-mem-1', type: 'learning', title: 'Agent memory 1' },
+          { id: 'agent-mem-2', type: 'learning', title: 'Agent memory 2' },
+          { id: 'project-mem', type: 'decision', title: 'Project memory' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      // First call for agent-mem-1 finds both agent-mem-2 (same-scope) and project-mem (cross-scope)
+      // Second call for agent-mem-2 finds no new matches (to avoid duplicates)
+      // Third call for project-mem returns empty
+      vi.spyOn(similarityModule, 'findSimilarMemories')
+        .mockReturnValueOnce([
+          { id: 'agent-mem-2', similarity: 0.95 },
+          { id: 'project-mem', similarity: 0.88 },
+        ])
+        .mockReturnValueOnce([])
+        .mockReturnValueOnce([]);
+
+      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
+        '/agent/path',
+        '/project/path',
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
+        status: 'success',
+        edge: { source: 'agent-mem-1', target: 'agent-mem-2', label: 'auto-linked-by-similarity' },
+        alreadyExists: false,
+      });
+
+      vi.spyOn(linkModule, 'storeCrossScopeEdge').mockResolvedValue({
+        status: 'success',
+        edge: { source: 'agent-mem-1', target: 'project-mem', label: 'auto-linked-by-similarity' },
+      });
+
+      const result = await suggestLinks({
+        basePath: '/agent/path',
+        threshold: 0.7,
+        autoLink: true,
+        includeShared: true,
+        agentName: 'test-agent',
+        limit: 10,
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.created).toBe(2);
+      expect(result.createdSameScope).toBe(1);
+      expect(result.createdCrossScope).toBe(1);
+    });
+
+    it('only sets count fields when links are created', async () => {
+      const mockCache = {
+        memories: {
+          'mem-1': { embedding: [0.1, 0.2, 0.3] },
+          'mem-2': { embedding: [0.11, 0.21, 0.31] },
+        },
+      };
+
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue(mockCache as any);
+
+      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+        memories: [
+          { id: 'mem-1', type: 'learning', title: 'Memory 1' },
+          { id: 'mem-2', type: 'learning', title: 'Memory 2' },
+        ],
+      } as any);
+
+      vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+        version: 1,
+        nodes: [],
+        edges: [],
+      } as any);
+
+      vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+
+      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+        { id: 'mem-2', similarity: 0.95 },
+      ]);
+
+      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
+
+      const result = await suggestLinks({
+        basePath: '/test/path',
+        threshold: 0.7,
+        autoLink: false, // Not auto-linking
+      });
+
+      expect(result.status).toBe('success');
+      expect(result.created).toBe(0);
+      expect(result.createdSameScope).toBeUndefined();
+      expect(result.createdCrossScope).toBeUndefined();
+    });
+  });
+});

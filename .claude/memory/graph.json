@@ -3240,6 +3240,144 @@
     {
       "id": "learning-test-aspirational-markers-should-be-removed",
       "type": "learning"
+    },
+    {
+      "id": "learning-type-guard-pattern-for-scope-narrowing",
+      "type": "learning"
+    },
+    {
+      "id": "learning-cross-platform-home-directory-handling-with-oshomedir",
+      "type": "learning"
+    },
+    {
+      "id": "gotcha-partial-failures-in-bulk-operations-need-explicit-surfacing",
+      "type": "gotcha"
+    },
+    {
+      "id": "learning-oshomedir-replaced-processenvhome-in-production-code",
+      "type": "learning",
+      "title": "os.homedir() replaced process.env.HOME in production code",
+      "scope": "project"
+    },
+    {
+      "id": "learning-performance-test-thresholds-must-account-for-ci-environment-variance",
+      "type": "learning",
+      "title": "Performance test thresholds must account for CI environment variance",
+      "scope": "project"
+    },
+    {
+      "id": "learning-module-level-mocks-require-test-isolation-documentation",
+      "type": "learning",
+      "title": "Module-level mocks require test isolation documentation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-reserved-agent-names-prevent-filesystem-and-dependency-collisions",
+      "type": "learning",
+      "title": "Reserved agent names prevent filesystem and dependency collisions",
+      "scope": "project"
+    },
+    {
+      "id": "learning-parallel-agent-tasks-efficiently-complete-large-documentation-efforts",
+      "type": "learning",
+      "title": "Parallel agent tasks efficiently complete large documentation efforts",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-hook-stub-tests-satisfy-enforcement-on-infrastructure-files",
+      "type": "learning",
+      "title": "TDD hook stub tests satisfy enforcement on infrastructure files",
+      "scope": "project"
+    },
+    {
+      "id": "learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers",
+      "type": "learning",
+      "title": "Complete flag infrastructure removal requires coordinated changes across multiple layers",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-flag-creation-code-persisted-in-multiple-hooks-despite-removal-comments",
+      "type": "gotcha",
+      "title": "Flag creation code persisted in multiple hooks despite 'removal' comments",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-infrastructure-removal-pattern",
+      "type": "artifact",
+      "title": "Systematic Infrastructure Removal Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-scope-linking-is-powerful-but-poorly-advertised",
+      "type": "learning",
+      "title": "Cross-scope linking is powerful but poorly advertised",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
+      "type": "gotcha",
+      "title": "Cross-scope auto-linking not implemented in suggest-links",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-v140-memory-enhancement-suite-plan",
+      "type": "artifact",
+      "title": "v1.4.0 Implementation Plan: Memory Enhancement Suite",
+      "scope": "project"
+    },
+    {
+      "id": "learning-help-text-should-highlight-powerful-hidden-features-early",
+      "type": "learning",
+      "title": "Help text should highlight powerful hidden features early",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation",
+      "type": "learning",
+      "title": "Retro - TDD stub-file pattern accelerated hook-compliant implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-scope-edges",
+      "type": "learning",
+      "title": "Retro - Memory checks before phase work prevented rework on cross-scope edges",
+      "scope": "project"
+    },
+    {
+      "id": "learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations",
+      "type": "learning",
+      "title": "Metadata tracking pattern for multi-scope suggest-links operations",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables-focused",
+      "type": "learning",
+      "title": "Retro - Phase deferral and incremental marking kept v1.4.0 deliverables focused",
+      "scope": "project"
+    },
+    {
+      "id": "learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture",
+      "type": "learning",
+      "title": "PostToolUse:Task hook preferred over SubagentStop for agent context capture",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces",
+      "type": "gotcha",
+      "title": "suggest-links --all-scopes loads from project, global, AND all agent namespaces",
+      "scope": "project"
+    },
+    {
+      "id": "decision-v140-cross-scope-auto-linking-enabled-in-suggest-links",
+      "type": "decision",
+      "title": "v1.4.0: Cross-scope auto-linking enabled in suggest-links",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-tdd-stub-pattern-for-hooks",
+      "type": "artifact",
+      "title": "TDD stub pattern for hook infrastructure files",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -7826,6 +7964,2821 @@
     {
       "source": "learning-cross-scope-graph-non-atomicity-risk",
       "target": "gotcha-cross-scope-graph-edges-design-constraint",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "decision-embedding-generation-should-be-default",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-graceful-degradation-by-default-prevents-coupling",
+      "target": "learning-embedding-generation-requires-ollama-provider-separation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-typescript-tdd-hook-naming-enforcement",
+      "target": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "target": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "decision-plugin-settings-design-for-memory-plugin",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "target": "decision-mermaid-include-shared-defaults-to-all-scopes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-test-isolation-vitest-mock-pollution",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "gotcha-test-isolation-vitest-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "target": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "target": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "target": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "target": "learning-marketplace-plugin-hooks-fail-silently-without-nodemodules",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "target": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "target": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs",
+      "target": "decision-phase-d-implementation-complete-all-tests-passing",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-d-implementation-complete-all-tests-passing",
+      "target": "gotcha-phase-d-test-suite-had-6-initial-failures-due-to-test-structure-bugs",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "decision-defer-test-isolation-fixes-to-v120",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "target": "retro-multi-agent-review-effectiveness",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "target": "learning-colocated-tests-reveal-true-tdd-coverage",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-plugin-posttooluse-hooks-not-auto-discovered",
+      "target": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-posttooluse-hooks-need-matcher-field-for-user-level-merging",
+      "target": "learning-plugin-posttooluse-hooks-not-auto-discovered",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "target": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-marketplace-plugin-lacks-nodemodules-breaks-for-users",
+      "target": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "target": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
+      "target": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-event-listener-cleanup-requires-specificity-to-avoid-breaking-async-operations",
+      "target": "gotcha-stream-event-listener-cleanup-race-condition-in-subprocess-timeout-handlers",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
+      "target": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-multi-agent-architectural-consensus-converges-faster-than-single-expert-iteration",
+      "target": "decision-accord-plugin-autonomous-agent-orchestration-platform-with-persistent-memory-and-dashboard",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "decision-defer-test-isolation-fixes-to-v120",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-core-module-hub",
+      "target": "hub-graph-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "hub-graph-module-hub",
+      "target": "hub-core-module-hub",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "target": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-session-restoration-with-parallel-agents-recovers-context-efficiently-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-test-quality-audit-2026-01-13",
+      "target": "gotcha-dead-code-parsememoryfile-null-checks-are-unreachable",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-dead-code-parsememoryfile-null-checks-are-unreachable",
+      "target": "retro-test-quality-audit-2026-01-13",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-restoring-flag-blocks-subagent-file-edits-during-session-recovery",
+      "target": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-module-level-mocks-require-test-isolation-documentation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-review-findings-verification-multi-perspective-analysis",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "target": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
+      "target": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "target": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
+      "target": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-provider-cli-startup-timeouts-need-120s-not-30s",
+      "target": "learning-provider-cli-startup-timeout-requires-120s-not-30s",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "target": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "target": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "target": "artifact-duplicated-prefix-fix-plan",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-duplicated-prefix-fix-plan",
+      "target": "gotcha-cli-doubled-prefix-bug-type-prefix-already-added-by-id-generator",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "target": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-subagent-delegation-unlocks-speckit-workflows-at-high-context",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "target": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "target": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-gotcha-prevention-checklist",
+      "target": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "target": "artifact-gotcha-prevention-checklist",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "learning-memory-system-analysis-session-linking-quality-audit",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-b-complete-proceed-to-phase-c",
+      "target": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-plan-mode-exploration-revealed-parser-and-storage-ready-for-phase-c-integration",
+      "target": "decision-phase-b-complete-proceed-to-phase-c",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "target": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "target": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-global-hooks-override-plugin-hooks",
+      "target": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "target": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "target": "learning-retro-memory-curation-linking-orphan-elimination-created-legitimate-system-value",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-scales-well",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "target": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "gotcha-marketplace-plugin-missing-bun-dependencies",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "target": "learning-cross-scope-edge-merging-for-mermaid-include-shared",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-ollama-startup-latency-on-first-model-use-affects-feature-perception",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "target": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-pre-commit-fresh-session-pattern-for-large-speckit-workflows",
+      "target": "learning-context-exhaustion-at-92-forces-subagent-delegation-for-phase-execution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-tooling-parity",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "target": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "target": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "target": "decision-defer-test-isolation-fixes-to-v120",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-memory-system-architecture-reference",
+      "target": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-global-hooks-override-project-hooks-block-plugin-control",
+      "target": "artifact-memory-system-architecture-reference",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "target": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-fixes-comprehensive-approach",
+      "target": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "target": "decision-phase-b-complete-proceed-to-phase-c",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-b-complete-proceed-to-phase-c",
+      "target": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "target": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
+      "target": "learning-retro-parallel-restoration-agents-improve-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-type-system-updates-can-hide-incomplete-implementations",
+      "target": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-phase-c-baserequest-type-mutation-adds-agent-field-to-all-request-types",
+      "target": "gotcha-type-system-updates-can-hide-incomplete-implementations",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "target": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-gotcha-enforcement-hook-that-wasnt-tested-violated-its-own-rules-meta",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "decision-defer-test-isolation-fixes-to-v120",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-agent-path-structure-consistency-across-tests-and-implementation",
+      "target": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "target": "learning-agent-path-structure-consistency-across-tests-and-implementation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "gotcha-scope-resolver-params",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-scope-resolver-params",
+      "target": "decision-4tier-scope-hierarchy",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "target": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
+      "target": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "target": "learning-retro-verify-code-state-instead-of-trusting-report-dates",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-global-hooks-can-silently-override-plugin-hooks-if-not-removed-from-settings",
+      "target": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "target": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-speckit-workflow-enables-rapid-feature-progression-through-full-spec-plan-tasks-pipeline",
+      "target": "learning-retro-subagent-delegation-pattern-bypasses-context-ceiling-for-multi-phase-tasks",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "target": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-sdd-scaffolding-stubs-should-be-deleted-not-implemented",
+      "target": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-help-system-broken-for-subcommands",
+      "target": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-embeddings-generation-design-not-obviously-documented",
+      "target": "gotcha-retro-help-system-broken-for-subcommands",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "target": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-missing-nodemodules-error-cannot-find-package-js-yaml",
+      "target": "decision-v112-marketplace-requires-dependency-and-timeout-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "target": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "target": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "target": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-error-fixing-in-batches-prevents-fatigue-and-catches-regressions",
+      "target": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-session-continuity-strategy",
+      "target": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "decision-session-continuity-strategy",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers",
+      "target": "artifact-infrastructure-removal-pattern",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-infrastructure-removal-pattern",
+      "target": "learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "target": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "target": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "target": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
+      "target": "learning-retro-parallel-restoration-agents-effective-for-unblocking-after-compaction",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "target": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
+      "target": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "target": "decision-phase-e-agent-scoped-memories-complete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-phase-e-agent-scoped-memories-complete",
+      "target": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "decision-v140-cross-scope-auto-linking-enabled-in-suggest-links",
+      "target": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
       "label": "relates-to"
     }
   ]

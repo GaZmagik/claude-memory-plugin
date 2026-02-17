@@ -3,8 +3,9 @@ id: gotcha-vitest-include-patterns-dont-cover-skillstests-subdirectories
 title: Gotcha - Vitest include patterns don't cover skills/*/tests/ subdirectories
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:48:14.605Z"
-updated: "2026-02-05T23:48:14.605Z"
+updated: "2026-02-16T22:30:07.240Z"
 tags:
   - retrospective
   - process

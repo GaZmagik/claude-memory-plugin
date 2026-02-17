@@ -3,8 +3,9 @@ id: learning-test-memories-must-include-all-required-frontmatter-fields
 title: Test memories must include all required frontmatter fields
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:44:16.295Z"
-updated: "2026-02-04T22:44:16.295Z"
+updated: "2026-02-16T22:30:07.302Z"
 tags:
   - testing
   - frontmatter

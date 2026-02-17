@@ -3,8 +3,9 @@ id: gotcha-import-early-returns-bypass-graph-relationship-linkage
 title: Import early returns bypass graph relationship linkage
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:44:10.498Z"
-updated: "2026-02-04T22:44:10.498Z"
+updated: "2026-02-16T22:30:07.547Z"
 tags:
   - import
   - export

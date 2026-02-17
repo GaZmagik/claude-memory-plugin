@@ -3,8 +3,9 @@ id: learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation
 title: Retro - TDD with rapid smoke testing accelerates feature validation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T22:32:05.942Z"
-updated: "2026-02-03T22:32:05.942Z"
+updated: "2026-02-16T22:30:07.284Z"
 tags:
   - retrospective
   - process

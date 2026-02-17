@@ -3,8 +3,9 @@ id: learning-phase-c-helper-function-refactoring-bottleneck
 title: Phase C helper function refactoring bottleneck
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T22:32:34.001Z"
-updated: "2026-02-03T22:32:34.001Z"
+updated: "2026-02-16T22:30:07.572Z"
 tags:
   - phase-c
   - cli-integration

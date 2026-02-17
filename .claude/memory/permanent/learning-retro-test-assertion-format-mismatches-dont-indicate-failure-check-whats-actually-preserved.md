@@ -3,8 +3,9 @@ id: learning-retro-test-assertion-format-mismatches-dont-indicate-failure-check-
 title: Retro - Test assertion format mismatches don't indicate failure - check what's actually preserved
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T21:17:51.281Z"
-updated: "2026-02-04T21:17:51.281Z"
+updated: "2026-02-16T22:30:07.455Z"
 tags:
   - retrospective
   - process

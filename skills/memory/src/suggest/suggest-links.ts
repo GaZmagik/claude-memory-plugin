@@ -10,9 +10,41 @@ import { loadEmbeddingCache } from '../search/embedding.js';
 import { findSimilarMemories } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
-import { linkMemories } from '../graph/link.js';
+import { linkMemories, storeCrossScopeEdge } from '../graph/link.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import { resolveSharedScopePaths } from '../cli/helpers.js';
+import { getScopePath } from '../scope/resolver.js';
+import { Scope } from '../types/enums.js';
+
+/**
+ * Metadata for a memory loaded during multi-scope suggest-links
+ */
+interface MemoryMetadata {
+  basePath: string;
+  scope: string;
+  agent?: string;
+}
+
+/**
+ * Derive scope type from a target path by comparing it to known scope paths.
+ * Used during multi-scope loading to determine the scope of shared memories.
+ */
+function deriveScope(targetPath: string, projectBase: string, globalBase: string): string {
+  // Normalize paths for comparison
+  const normalizedTarget = path.resolve(targetPath);
+  const normalizedProject = path.resolve(projectBase);
+  const normalizedGlobal = path.resolve(globalBase);
+
+  if (normalizedTarget === normalizedGlobal) {
+    return 'global';
+  } else if (normalizedTarget === normalizedProject) {
+    return 'project';
+  } else if (normalizedTarget.includes('/.claude/agents/')) {
+    return 'agent-project';
+  } else {
+    return 'local';
+  }
+}
 
 /**
  * Suggested link
@@ -24,6 +56,12 @@ export interface SuggestedLink {
   sourceTitle: string;
   targetTitle: string;
   reason: string;
+  /** Whether this suggestion crosses scope boundaries (v1.4.0+) */
+  isCrossScope?: boolean;
+  /** Source memory metadata (v1.4.0+) */
+  sourceMetadata?: MemoryMetadata;
+  /** Target memory metadata (v1.4.0+) */
+  targetMetadata?: MemoryMetadata;
 }
 
 /**
@@ -39,6 +77,8 @@ export interface SuggestLinksRequest {
   autoLink?: boolean;
   /** Include shared scope memories */
   includeShared?: boolean;
+  /** Include ALL scopes (project, global, all agents) - v1.4.0+ */
+  allScopes?: boolean;
   /** Agent name (for multi-scope loading) */
   agentName?: string;
   /** Scope string for agent scoping */
@@ -54,6 +94,10 @@ export interface SuggestLinksResponse {
   suggestions: SuggestedLink[];
   /** Links auto-created (if autoLink=true) */
   created: number;
+  /** Same-scope links created (v1.4.0+) */
+  createdSameScope?: number;
+  /** Cross-scope links created (v1.4.0+) */
+  createdCrossScope?: number;
   /** Skipped (already linked) */
   skipped: number;
   /** Total pairs analysed */
@@ -67,18 +111,24 @@ export interface SuggestLinksResponse {
 export async function suggestLinks(
   request: SuggestLinksRequest
 ): Promise<SuggestLinksResponse> {
-  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, agentName, scopeStr } = request;
+  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, allScopes = false, agentName, scopeStr } = request;
 
   const suggestions: SuggestedLink[] = [];
   let created = 0;
+  let createdSameScope = 0;
+  let createdCrossScope = 0;
   let skipped = 0;
   let analysed = 0;
 
   // Load embeddings cache(s)
   const embeddings: Record<string, number[]> = {};
   const indexMap = new Map<string, any>();
+  const metadataMap = new Map<string, MemoryMetadata>();
   let graph = await loadGraph(basePath);
   const existingLinks = new Set<string>();
+
+  // Get global path for scope detection
+  const globalPath = getScopePath(Scope.Global, process.cwd(), '');
 
   // Load primary (agent or project) embeddings
   const cachePath = path.join(basePath, 'embeddings.json');
@@ -113,10 +163,21 @@ export async function suggestLinks(
     indexMap.set(entry.id, entry);
   }
 
+  // Determine primary scope type
+  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, process.cwd(), globalPath);
+
   // Build embeddings map from primary scope (excluding thoughts)
+  // AND track metadata for each memory
   for (const [id, entry] of Object.entries(cache.memories)) {
     if (id.startsWith('thought-')) continue; // Skip temporary
     embeddings[id] = entry.embedding;
+
+    // Track metadata for primary scope memories
+    metadataMap.set(id, {
+      basePath,
+      scope: primaryScope,
+      agent: agentName,
+    });
   }
 
   // Build set of existing links from primary graph
@@ -125,8 +186,80 @@ export async function suggestLinks(
     existingLinks.add(`${edge.target}:${edge.source}`); // Bidirectional check
   }
 
+  // When --all-scopes, load embeddings from ALL scopes (project, global, all agents)
+  if (allScopes) {
+    try {
+      const projectPath = process.cwd();
+      const globalPath = getScopePath(Scope.Global, process.cwd(), '');
+      const scopePaths = new Set<string>([projectPath, globalPath]);
+
+      // Scan for all agent scopes
+      const agentsPath = path.join(projectPath, '.claude', 'agents');
+      try {
+        const agentDirs = await Bun.file(agentsPath).exists()
+          ? await Array.fromAsync(
+              (async function* () {
+                const dir = Bun.file(agentsPath).name ? agentsPath : '';
+                if (!dir) return;
+                for await (const entry of new Bun.Glob('*').scan(dir)) {
+                  const agentMemoryPath = path.join(agentsPath, entry);
+                  if (await Bun.file(path.join(agentMemoryPath, 'index.json')).exists()) {
+                    yield agentMemoryPath;
+                  }
+                }
+              })()
+            )
+          : [];
+        agentDirs.forEach(p => scopePaths.add(p));
+      } catch {
+        // Agent scanning failed, continue with project + global only
+      }
+
+      // Load embeddings from all scopes
+      for (const scopePath of scopePaths) {
+        if (scopePath === basePath) continue; // Already loaded
+
+        const scopeCachePath = path.join(scopePath, 'embeddings.json');
+        let scopeCache;
+        try {
+          scopeCache = await loadEmbeddingCache(scopeCachePath);
+        } catch {
+          continue;
+        }
+
+        const scopeType = deriveScope(scopePath, projectPath, globalPath);
+
+        for (const [id, entry] of Object.entries(scopeCache.memories)) {
+          if (id.startsWith('thought-')) continue;
+          if (!embeddings[id]) {
+            embeddings[id] = entry.embedding;
+            metadataMap.set(id, {
+              basePath: scopePath,
+              scope: scopeType,
+              agent: scopePath.includes('/.claude/agents/') ? path.basename(scopePath) : undefined,
+            });
+          }
+        }
+
+        const scopeIndex = await loadIndex({ basePath: scopePath });
+        for (const entry of scopeIndex.memories) {
+          if (!indexMap.has(entry.id)) {
+            indexMap.set(entry.id, entry);
+          }
+        }
+
+        const scopeGraph = await loadGraph(scopePath);
+        for (const edge of scopeGraph.edges) {
+          existingLinks.add(`${edge.source}:${edge.target}`);
+          existingLinks.add(`${edge.target}:${edge.source}`);
+        }
+      }
+    } catch {
+      // All-scopes loading failed, continue with primary scope
+    }
+  }
   // When --include-shared, load embeddings from shared scopes
-  if (includeShared && agentName) {
+  else if (includeShared && agentName) {
     try {
       const sharedPaths = resolveSharedScopePaths(agentName, scopeStr);
       // sharedPaths[0] is the agent path (already loaded), rest are shared scopes
@@ -142,11 +275,21 @@ export async function suggestLinks(
             continue;
           }
 
-          // Add embeddings from shared scope
+          // Determine scope type for this shared path
+          const sharedScope = deriveScope(sharedPath, process.cwd(), globalPath);
+
+          // Add embeddings from shared scope AND track metadata
           for (const [id, entry] of Object.entries(sharedCache.memories)) {
             if (id.startsWith('thought-')) continue;
             if (!embeddings[id]) {
               embeddings[id] = entry.embedding;
+
+              // Track metadata for shared scope memories
+              metadataMap.set(id, {
+                basePath: sharedPath,
+                scope: sharedScope,
+                agent: undefined, // Shared scopes don't have agent context
+              });
             }
           }
 
@@ -215,6 +358,11 @@ export async function suggestLinks(
 
       if (!sourceEntry || !targetEntry) continue;
 
+      // Get metadata for both memories to detect cross-scope
+      const sourceMeta = metadataMap.get(sourceId);
+      const targetMeta = metadataMap.get(match.id);
+      const isCrossScope = sourceMeta && targetMeta && sourceMeta.basePath !== targetMeta.basePath;
+
       suggestions.push({
         source: sourceId,
         target: match.id,
@@ -222,6 +370,9 @@ export async function suggestLinks(
         sourceTitle: sourceEntry.title,
         targetTitle: targetEntry.title,
         reason: `Semantic similarity: ${(match.similarity * 100).toFixed(1)}%`,
+        isCrossScope,
+        sourceMetadata: sourceMeta,
+        targetMetadata: targetMeta,
       });
 
       // Mark as seen to avoid duplicates
@@ -239,17 +390,35 @@ export async function suggestLinks(
   const finalSuggestions = suggestions.slice(0, limit);
 
   // Auto-link if requested
-  // Important: Auto-link only works within the primary scope (basePath)
-  // Cross-scope suggestions are discovered but not persisted
+  // v1.4.0+: Now supports cross-scope auto-linking using storeCrossScopeEdge()
   if (autoLink && finalSuggestions.length > 0) {
     for (const suggestion of finalSuggestions) {
       try {
-        await linkMemories({
-          source: suggestion.source,
-          target: suggestion.target,
-          relation: 'auto-linked-by-similarity',
-          basePath,
-        });
+        if (suggestion.isCrossScope && suggestion.sourceMetadata && suggestion.targetMetadata) {
+          // Cross-scope link: use storeCrossScopeEdge()
+          await storeCrossScopeEdge({
+            sourceId: suggestion.source,
+            targetId: suggestion.target,
+            relation: 'auto-linked-by-similarity',
+            sourceBasePath: suggestion.sourceMetadata.basePath,
+            targetBasePath: suggestion.targetMetadata.basePath,
+            sourceScope: suggestion.sourceMetadata.scope,
+            targetScope: suggestion.targetMetadata.scope,
+            sourceAgent: suggestion.sourceMetadata.agent,
+            targetAgent: suggestion.targetMetadata.agent,
+          });
+          createdCrossScope++;
+        } else {
+          // Same-scope link: use linkMemories()
+          await linkMemories({
+            source: suggestion.source,
+            target: suggestion.target,
+            relation: 'auto-linked-by-similarity',
+            basePath,
+            agent: agentName,
+          });
+          createdSameScope++;
+        }
         created++;
       } catch {
         // Link failed, skip
@@ -261,6 +430,8 @@ export async function suggestLinks(
     status: 'success',
     suggestions: finalSuggestions,
     created,
+    createdSameScope: createdSameScope > 0 ? createdSameScope : undefined,
+    createdCrossScope: createdCrossScope > 0 ? createdCrossScope : undefined,
     skipped,
     analysed,
   };

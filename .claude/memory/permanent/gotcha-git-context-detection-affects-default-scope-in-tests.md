@@ -3,8 +3,9 @@ id: gotcha-git-context-detection-affects-default-scope-in-tests
 title: Git context detection affects default scope in tests
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T08:37:03.597Z"
-updated: "2026-02-04T08:37:03.597Z"
+updated: "2026-02-16T22:30:07.574Z"
 tags:
   - testing
   - git-context

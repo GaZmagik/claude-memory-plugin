@@ -3,8 +3,9 @@ id: learning-retro-binary-search-effective-for-finding-cross-file-test-pollution
 title: Retro - Binary search effective for finding cross-file test pollution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:34:30.142Z"
-updated: "2026-02-05T11:34:30.142Z"
+updated: "2026-02-16T22:30:07.091Z"
 tags:
   - retrospective
   - process

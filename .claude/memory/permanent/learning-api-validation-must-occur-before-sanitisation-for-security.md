@@ -3,8 +3,9 @@ id: learning-api-validation-must-occur-before-sanitisation-for-security
 title: API validation must occur before sanitisation for security
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T22:46:16.240Z"
-updated: "2026-02-02T22:46:16.240Z"
+updated: "2026-02-16T22:30:07.255Z"
 tags:
   - validation
   - architecture

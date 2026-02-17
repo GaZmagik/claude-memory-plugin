@@ -3,8 +3,9 @@ id: learning-retro-systematic-bulk-fix-approach-reduces-test-failures-efficientl
 title: Retro - Systematic bulk fix approach reduces test failures efficiently
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:56:47.574Z"
-updated: "2026-02-04T16:56:47.574Z"
+updated: "2026-02-16T22:30:06.867Z"
 tags:
   - retrospective
   - process

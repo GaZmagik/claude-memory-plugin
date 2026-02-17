@@ -3,8 +3,9 @@ id: learning-vimock-global-pollution-module-level-mocks-persist-across-test-file
 title: vi.mock() global pollution - module-level mocks persist across test files
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T11:35:04.183Z"
-updated: "2026-02-05T11:35:04.183Z"
+updated: "2026-02-16T22:30:07.227Z"
 tags:
   - testing
   - vitest

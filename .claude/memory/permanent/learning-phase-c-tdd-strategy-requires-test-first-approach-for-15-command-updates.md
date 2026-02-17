@@ -3,8 +3,9 @@ id: learning-phase-c-tdd-strategy-requires-test-first-approach-for-15-command-up
 title: Phase C TDD strategy requires test-first approach for 15 command updates
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:55:06.760Z"
-updated: "2026-02-03T20:55:06.760Z"
+updated: "2026-02-16T22:30:07.484Z"
 tags:
   - phase-c
   - tdd

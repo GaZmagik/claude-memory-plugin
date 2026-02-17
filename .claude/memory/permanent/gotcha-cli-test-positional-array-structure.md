@@ -3,8 +3,9 @@ id: gotcha-cli-test-positional-array-structure
 title: CLI Test Positional Array Structure
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:57:27.682Z"
-updated: "2026-02-04T16:57:27.682Z"
+updated: "2026-02-16T22:30:07.465Z"
 tags:
   - testing
   - phase-d

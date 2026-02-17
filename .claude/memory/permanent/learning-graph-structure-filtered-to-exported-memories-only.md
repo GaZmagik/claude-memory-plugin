@@ -3,8 +3,9 @@ id: learning-graph-structure-filtered-to-exported-memories-only
 title: graph-structure-filtered-to-exported-memories-only
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T21:18:54.070Z"
-updated: "2026-02-04T21:18:54.070Z"
+updated: "2026-02-16T22:30:07.570Z"
 tags:
   - agent-copy
   - graph

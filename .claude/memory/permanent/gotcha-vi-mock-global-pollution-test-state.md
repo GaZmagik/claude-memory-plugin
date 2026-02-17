@@ -3,8 +3,9 @@ id: gotcha-vi-mock-global-pollution-test-state
 title: vi.mock() persists globally across test files causing test pollution
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T15:36:25.724Z"
-updated: "2026-02-07T15:36:25.724Z"
+updated: "2026-02-16T22:30:07.181Z"
 tags:
   - testing
   - vitest

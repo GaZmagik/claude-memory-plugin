@@ -3,8 +3,9 @@ id: gotcha-resolveSharedScopePaths-global-scope-pollution
 title: resolveSharedScopePaths global scope loads entire user memory
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:25:19.899Z"
-updated: "2026-02-05T23:25:19.899Z"
+updated: "2026-02-16T22:30:07.374Z"
 tags:
   - phase-e
   - agent-scoping

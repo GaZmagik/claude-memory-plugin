@@ -3,8 +3,9 @@ id: learning-help-text-updates-as-final-task-risk-incomplete-documentation
 title: Help text updates as final task risk incomplete documentation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T10:58:39.247Z"
-updated: "2026-02-04T10:58:39.247Z"
+updated: "2026-02-16T22:30:07.374Z"
 tags:
   - phase-d
   - documentation

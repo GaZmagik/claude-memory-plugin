@@ -3,8 +3,9 @@ id: learning-retro-proactive-memory-check-before-phase-work-prevents-rework
 title: Retro - Proactive memory check before phase work prevents rework
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:19:19.381Z"
-updated: "2026-02-02T23:19:19.381Z"
+updated: "2026-02-16T22:30:07.303Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: artifact-suggest-links-test-vectors
 title: Suggest-links agent test vectors
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:31:27.306Z"
-updated: "2026-02-06T01:31:27.306Z"
+updated: "2026-02-16T22:30:07.215Z"
 tags:
   - project
 ---

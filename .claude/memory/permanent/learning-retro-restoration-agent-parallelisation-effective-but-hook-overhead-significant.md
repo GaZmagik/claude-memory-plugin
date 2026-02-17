@@ -3,8 +3,9 @@ id: learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead
 title: Retro - Restoration agent parallelisation effective but hook overhead significant
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T00:05:56.461Z"
-updated: "2026-02-06T00:05:56.461Z"
+updated: "2026-02-16T22:30:07.201Z"
 tags:
   - retrospective
   - process

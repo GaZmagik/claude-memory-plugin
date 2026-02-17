@@ -3,8 +3,9 @@ id: decision-agent-context-placeholder-type-only-no-runtime
 title: AgentContext field added to HookInput as compile-clean placeholder
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:03:09.971Z"
-updated: "2026-02-06T08:03:09.971Z"
+updated: "2026-02-16T22:30:07.426Z"
 tags:
   - phase-f
   - hooks

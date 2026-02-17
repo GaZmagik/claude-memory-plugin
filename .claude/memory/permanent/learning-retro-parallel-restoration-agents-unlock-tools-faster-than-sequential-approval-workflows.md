@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequenti
 title: Retro - Parallel restoration agents unlock tools faster than sequential approval workflows
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T07:11:22.020Z"
-updated: "2026-02-06T07:11:22.020Z"
+updated: "2026-02-16T22:30:07.426Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-conte
 title: Retro - Parallel restoration agents (3 agents, 300s total) restore context faster than sequential
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:02:24.193Z"
-updated: "2026-02-06T08:02:24.193Z"
+updated: "2026-02-16T22:30:07.305Z"
 tags:
   - retrospective
   - agents

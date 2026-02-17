@@ -3,8 +3,9 @@ id: learning-aspirational-tests-need-rewriting-to-match-actual-implementation
 title: Aspirational tests need rewriting to match actual implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:10:33.432Z"
-updated: "2026-02-06T01:10:33.432Z"
+updated: "2026-02-16T22:30:07.479Z"
 tags:
   - testing
   - tdd

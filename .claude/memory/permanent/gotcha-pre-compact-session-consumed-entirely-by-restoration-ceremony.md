@@ -3,8 +3,9 @@ id: gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony
 title: Pre-compact session consumed entirely by restoration ceremony
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:52:05.088Z"
-updated: "2026-02-06T08:52:05.088Z"
+updated: "2026-02-16T22:30:06.851Z"
 tags:
   - restoration
   - compaction

@@ -3,8 +3,9 @@ id: learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-
 title: Retro - Session restore with parallel agents achieved perfect memory graph health in minutes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:10:13.856Z"
-updated: "2026-02-05T16:10:13.856Z"
+updated: "2026-02-16T22:30:07.482Z"
 tags:
   - retrospective
   - process

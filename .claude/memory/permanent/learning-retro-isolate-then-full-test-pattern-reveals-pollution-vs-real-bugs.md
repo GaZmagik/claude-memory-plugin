@@ -3,8 +3,9 @@ id: learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs
 title: Retro - Isolate-then-full test pattern reveals pollution vs real bugs
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:43:12.343Z"
-updated: "2026-02-04T22:43:12.343Z"
+updated: "2026-02-16T22:30:07.217Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: learning-vitest-include-patterns-dont-cover-skillsmemorytests-subdirectory
 title: Vitest include patterns don't cover skills/memory/tests/ subdirectory
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:49:13.832Z"
-updated: "2026-02-05T23:49:13.832Z"
+updated: "2026-02-16T22:30:07.450Z"
 tags:
   - vitest
   - test-configuration

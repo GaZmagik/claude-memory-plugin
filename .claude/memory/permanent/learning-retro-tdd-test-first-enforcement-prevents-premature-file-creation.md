@@ -3,8 +3,9 @@ id: learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation
 title: Retro - TDD test-first enforcement prevents premature file creation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:19:04.770Z"
-updated: "2026-02-02T23:19:04.770Z"
+updated: "2026-02-16T22:30:07.452Z"
 tags:
   - retrospective
   - process

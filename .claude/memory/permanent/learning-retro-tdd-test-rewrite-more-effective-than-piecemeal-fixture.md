@@ -3,8 +3,9 @@ id: learning-retro-tdd-test-rewrite-more-effective-than-piecemeal-fixture
 title: Retro - TDD test rewrite more effective than piecemeal fixture
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:20:24.046Z"
-updated: "2026-02-06T01:20:24.046Z"
+updated: "2026-02-16T22:30:07.482Z"
 tags:
   - retrospective
   - process

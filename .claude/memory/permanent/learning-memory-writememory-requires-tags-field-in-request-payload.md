@@ -3,8 +3,9 @@ id: learning-memory-writememory-requires-tags-field-in-request-payload
 title: Memory writeMemory requires tags field in request payload
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:11:14.922Z"
-updated: "2026-02-05T16:11:14.922Z"
+updated: "2026-02-16T22:30:07.571Z"
 tags:
   - phase-e
   - testing

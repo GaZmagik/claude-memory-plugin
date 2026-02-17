@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-07T15:36:55.384Z",
+  "lastUpdated": "2026-02-17T00:27:35.281Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10672,6 +10672,389 @@
       "updated": "2026-02-07T15:36:55.371Z",
       "scope": "project",
       "relativePath": "permanent/learning-test-aspirational-markers-should-be-removed.md"
+    },
+    {
+      "id": "learning-type-guard-pattern-for-scope-narrowing",
+      "type": "learning",
+      "title": "Type guard pattern for scope narrowing",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-07T18:33:26.117Z",
+      "updated": "2026-02-07T18:33:26.117Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-guard-pattern-for-scope-narrowing.md"
+    },
+    {
+      "id": "learning-cross-platform-home-directory-handling-with-oshomedir",
+      "type": "learning",
+      "title": "Cross-platform home directory handling with os.homedir()",
+      "tags": [
+        "nodejs",
+        "cross-platform",
+        "environment-variables",
+        "project"
+      ],
+      "created": "2026-02-07T18:33:38.306Z",
+      "updated": "2026-02-07T18:33:38.306Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-platform-home-directory-handling-with-oshomedir.md"
+    },
+    {
+      "id": "gotcha-partial-failures-in-bulk-operations-need-explicit-surfacing",
+      "type": "gotcha",
+      "title": "Partial failures in bulk operations need explicit surfacing",
+      "tags": [
+        "error-handling",
+        "testing",
+        "agent-operations",
+        "project"
+      ],
+      "created": "2026-02-07T18:33:43.032Z",
+      "updated": "2026-02-07T18:33:43.032Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-partial-failures-in-bulk-operations-need-explicit-surfacing.md"
+    },
+    {
+      "id": "learning-oshomedir-replaced-processenvhome-in-production-code",
+      "type": "learning",
+      "title": "os.homedir() replaced process.env.HOME in production code",
+      "tags": [
+        "nodejs",
+        "environment",
+        "cross-platform",
+        "home-directory",
+        "project"
+      ],
+      "created": "2026-02-09T10:51:53.470Z",
+      "updated": "2026-02-09T10:51:53.470Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-oshomedir-replaced-processenvhome-in-production-code.md"
+    },
+    {
+      "id": "learning-performance-test-thresholds-must-account-for-ci-environment-variance",
+      "type": "learning",
+      "title": "Performance test thresholds must account for CI environment variance",
+      "tags": [
+        "testing",
+        "performance",
+        "ci",
+        "flakiness",
+        "project"
+      ],
+      "created": "2026-02-09T10:51:59.622Z",
+      "updated": "2026-02-09T10:51:59.622Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-performance-test-thresholds-must-account-for-ci-environment-variance.md"
+    },
+    {
+      "id": "learning-module-level-mocks-require-test-isolation-documentation",
+      "type": "learning",
+      "title": "Module-level mocks require test isolation documentation",
+      "tags": [
+        "testing",
+        "mocking",
+        "vitest",
+        "module-isolation",
+        "project"
+      ],
+      "created": "2026-02-09T10:52:09.400Z",
+      "updated": "2026-02-09T10:52:09.400Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-module-level-mocks-require-test-isolation-documentation.md"
+    },
+    {
+      "id": "learning-reserved-agent-names-prevent-filesystem-and-dependency-collisions",
+      "type": "learning",
+      "title": "Reserved agent names prevent filesystem and dependency collisions",
+      "tags": [
+        "validation",
+        "naming-conventions",
+        "filesystem-safety",
+        "project"
+      ],
+      "created": "2026-02-09T10:52:11.045Z",
+      "updated": "2026-02-09T10:52:11.045Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-reserved-agent-names-prevent-filesystem-and-dependency-collisions.md"
+    },
+    {
+      "id": "learning-parallel-agent-tasks-efficiently-complete-large-documentation-efforts",
+      "type": "learning",
+      "title": "Parallel agent tasks efficiently complete large documentation efforts",
+      "tags": [
+        "documentation",
+        "jsDoc",
+        "parallel-agents",
+        "scale",
+        "project"
+      ],
+      "created": "2026-02-09T10:52:12.533Z",
+      "updated": "2026-02-09T10:52:12.533Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-agent-tasks-efficiently-complete-large-documentation-efforts.md"
+    },
+    {
+      "id": "learning-tdd-hook-stub-tests-satisfy-enforcement-on-infrastructure-files",
+      "type": "learning",
+      "title": "TDD hook stub tests satisfy enforcement on infrastructure files",
+      "tags": [
+        "hooks",
+        "tdd",
+        "infrastructure",
+        "patterns",
+        "project"
+      ],
+      "created": "2026-02-09T14:12:16.103Z",
+      "updated": "2026-02-09T14:12:16.103Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-hook-stub-tests-satisfy-enforcement-on-infrastructure-files.md"
+    },
+    {
+      "id": "learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers",
+      "type": "learning",
+      "title": "Complete flag infrastructure removal requires coordinated changes across multiple layers",
+      "tags": [
+        "flags",
+        "infrastructure",
+        "deprecation",
+        "cleanup",
+        "coordination",
+        "project"
+      ],
+      "created": "2026-02-09T14:12:20.636Z",
+      "updated": "2026-02-09T14:12:20.636Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers.md"
+    },
+    {
+      "id": "gotcha-flag-creation-code-persisted-in-multiple-hooks-despite-removal-comments",
+      "type": "gotcha",
+      "title": "Flag creation code persisted in multiple hooks despite 'removal' comments",
+      "tags": [
+        "flags",
+        "hooks",
+        "code-review",
+        "documentation-mismatch",
+        "project"
+      ],
+      "created": "2026-02-09T14:12:25.881Z",
+      "updated": "2026-02-09T14:12:25.881Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-flag-creation-code-persisted-in-multiple-hooks-despite-removal-comments.md"
+    },
+    {
+      "id": "artifact-infrastructure-removal-pattern",
+      "type": "artifact",
+      "title": "Systematic Infrastructure Removal Pattern",
+      "tags": [
+        "infrastructure",
+        "cleanup",
+        "deprecation",
+        "patterns",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-09T14:12:34.986Z",
+      "updated": "2026-02-09T14:12:34.986Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-infrastructure-removal-pattern.md"
+    },
+    {
+      "id": "learning-cross-scope-linking-is-powerful-but-poorly-advertised",
+      "type": "learning",
+      "title": "Cross-scope linking is powerful but poorly advertised",
+      "tags": [
+        "memory-plugin",
+        "cli-documentation",
+        "cross-scope-linking",
+        "project"
+      ],
+      "created": "2026-02-16T23:27:05.082Z",
+      "updated": "2026-02-16T23:27:05.082Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-linking-is-powerful-but-poorly-advertised.md"
+    },
+    {
+      "id": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
+      "type": "gotcha",
+      "title": "Cross-scope auto-linking not implemented in suggest-links",
+      "tags": [
+        "memory-plugin",
+        "suggest-links",
+        "cross-scope-linking",
+        "feature-gap",
+        "project"
+      ],
+      "created": "2026-02-16T23:27:39.684Z",
+      "updated": "2026-02-16T23:27:39.684Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links.md"
+    },
+    {
+      "id": "artifact-v140-memory-enhancement-suite-plan",
+      "type": "artifact",
+      "title": "v1.4.0 Implementation Plan: Memory Enhancement Suite",
+      "tags": [
+        "memory-plugin",
+        "v1.4.0",
+        "planning",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-16T23:28:10.676Z",
+      "updated": "2026-02-16T23:28:10.676Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v140-memory-enhancement-suite-plan.md"
+    },
+    {
+      "id": "learning-help-text-should-highlight-powerful-hidden-features-early",
+      "type": "learning",
+      "title": "Help text should highlight powerful hidden features early",
+      "tags": [
+        "memory-plugin",
+        "cli-documentation",
+        "help-text",
+        "project"
+      ],
+      "created": "2026-02-16T23:28:21.049Z",
+      "updated": "2026-02-16T23:28:21.049Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-text-should-highlight-powerful-hidden-features-early.md"
+    },
+    {
+      "id": "learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation",
+      "type": "learning",
+      "title": "Retro - TDD stub-file pattern accelerated hook-compliant implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:26:34.182Z",
+      "updated": "2026-02-17T00:26:34.182Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-scope-edges",
+      "type": "learning",
+      "title": "Retro - Memory checks before phase work prevented rework on cross-scope edges",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-hygiene",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:26:52.256Z",
+      "updated": "2026-02-17T00:26:52.256Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-scope-edges.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations",
+      "type": "learning",
+      "title": "Metadata tracking pattern for multi-scope suggest-links operations",
+      "tags": [
+        "suggest-links",
+        "multi-scope",
+        "pattern",
+        "metadata",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:14.798Z",
+      "updated": "2026-02-17T00:27:14.798Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations.md"
+    },
+    {
+      "id": "learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables-focused",
+      "type": "learning",
+      "title": "Retro - Phase deferral and incremental marking kept v1.4.0 deliverables focused",
+      "tags": [
+        "retrospective",
+        "process",
+        "prioritization",
+        "v1.4.0",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:16.560Z",
+      "updated": "2026-02-17T00:27:16.560Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables-focused.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture",
+      "type": "learning",
+      "title": "PostToolUse:Task hook preferred over SubagentStop for agent context capture",
+      "tags": [
+        "hooks",
+        "agent",
+        "architecture",
+        "decision-rationale",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:17.859Z",
+      "updated": "2026-02-17T00:27:17.859Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture.md"
+    },
+    {
+      "id": "gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces",
+      "type": "gotcha",
+      "title": "suggest-links --all-scopes loads from project, global, AND all agent namespaces",
+      "tags": [
+        "suggest-links",
+        "all-scopes",
+        "cross-scope",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:23.493Z",
+      "updated": "2026-02-17T00:27:23.493Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces.md"
+    },
+    {
+      "id": "decision-v140-cross-scope-auto-linking-enabled-in-suggest-links",
+      "type": "decision",
+      "title": "v1.4.0: Cross-scope auto-linking enabled in suggest-links",
+      "tags": [
+        "v1.4.0",
+        "cross-scope",
+        "suggest-links",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:33.050Z",
+      "updated": "2026-02-17T00:27:33.050Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v140-cross-scope-auto-linking-enabled-in-suggest-links.md"
+    },
+    {
+      "id": "artifact-tdd-stub-pattern-for-hooks",
+      "type": "artifact",
+      "title": "TDD stub pattern for hook infrastructure files",
+      "tags": [
+        "tdd",
+        "hooks",
+        "pattern",
+        "enforcement",
+        "project"
+      ],
+      "created": "2026-02-17T00:27:35.271Z",
+      "updated": "2026-02-17T00:27:35.271Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-tdd-stub-pattern-for-hooks.md"
     }
   ]
 }

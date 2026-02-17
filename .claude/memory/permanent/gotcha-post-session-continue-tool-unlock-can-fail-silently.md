@@ -3,8 +3,9 @@ id: gotcha-post-session-continue-tool-unlock-can-fail-silently
 title: Gotcha - Post-session-continue tool unlock can fail silently
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T16:57:22.664Z"
-updated: "2026-02-04T16:57:22.664Z"
+updated: "2026-02-16T22:30:07.330Z"
 tags:
   - retrospective
   - process

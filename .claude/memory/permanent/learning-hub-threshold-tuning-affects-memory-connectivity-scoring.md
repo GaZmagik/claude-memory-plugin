@@ -3,8 +3,9 @@ id: learning-hub-threshold-tuning-affects-memory-connectivity-scoring
 title: Hub threshold tuning affects memory connectivity scoring
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T23:25:01.035Z"
-updated: "2026-02-05T23:25:01.035Z"
+updated: "2026-02-16T22:30:07.524Z"
 tags:
   - phase-e
   - stats

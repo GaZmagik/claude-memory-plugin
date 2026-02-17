@@ -3,8 +3,9 @@ id: gotcha-incomplete-bug-fix-verification-leads-to-false-progress-claims
 title: Gotcha - Incomplete bug fix verification leads to false progress claims
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T22:43:25.924Z"
-updated: "2026-02-04T22:43:25.924Z"
+updated: "2026-02-16T22:30:07.197Z"
 tags:
   - retrospective
   - process

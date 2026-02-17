@@ -685,4 +685,4 @@ memory sync project
 
 ## Version
 
-2.0.0
+1.3.1

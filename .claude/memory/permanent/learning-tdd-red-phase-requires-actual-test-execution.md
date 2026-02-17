@@ -3,8 +3,9 @@ id: learning-tdd-red-phase-requires-actual-test-execution
 title: TDD Red Phase Requires Actual Test Execution
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:37:03.657Z"
-updated: "2026-02-06T01:37:03.657Z"
+updated: "2026-02-16T22:30:07.212Z"
 tags:
   - tdd
   - testing

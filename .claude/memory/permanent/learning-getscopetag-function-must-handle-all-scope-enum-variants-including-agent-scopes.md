@@ -3,8 +3,9 @@ id: learning-getscopetag-function-must-handle-all-scope-enum-variants-including-
 title: getScopeTag() Function Must Handle All Scope Enum Variants Including Agent Scopes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:44:39.172Z"
-updated: "2026-02-03T20:44:39.172Z"
+updated: "2026-02-16T22:30:07.466Z"
 tags:
   - phase-b
   - agent-scoped

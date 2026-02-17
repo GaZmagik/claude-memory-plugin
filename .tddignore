@@ -135,3 +135,9 @@ src/agents/agent-info.ts
 
 # scan-agents.ts - tested in tests/unit/agents/test-scan-agents.spec.ts
 src/agents/scan-agents.ts
+
+# =============================================================================
+# Commands directory (v1.4.0+)
+# Markdown documentation files for command workflows - no runtime code
+# =============================================================================
+commands/

@@ -3,8 +3,9 @@ id: learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion
 title: TDD for type-level changes uses TypeScript compilation as assertion
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:02:48.717Z"
-updated: "2026-02-06T08:02:48.717Z"
+updated: "2026-02-16T22:30:07.437Z"
 tags:
   - tdd
   - typescript

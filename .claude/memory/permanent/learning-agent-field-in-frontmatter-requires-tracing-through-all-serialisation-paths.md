@@ -3,8 +3,9 @@ id: learning-agent-field-in-frontmatter-requires-tracing-through-all-serialisati
 title: Agent field in frontmatter requires tracing through all serialisation paths
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T23:20:15.638Z"
-updated: "2026-02-02T23:20:15.638Z"
+updated: "2026-02-16T22:30:07.435Z"
 tags:
   - frontmatter
   - serialisation

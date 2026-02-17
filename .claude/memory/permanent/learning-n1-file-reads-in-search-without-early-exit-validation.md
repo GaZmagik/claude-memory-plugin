@@ -3,8 +3,9 @@ id: learning-n1-file-reads-in-search-without-early-exit-validation
 title: N+1 file reads in search without early exit validation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T23:49:57.576Z"
-updated: "2026-02-06T23:49:57.576Z"
+updated: "2026-02-16T22:30:07.540Z"
 tags:
   - performance
   - search

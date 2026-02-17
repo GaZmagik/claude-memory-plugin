@@ -3,8 +3,9 @@ id: learning-post-compaction-session-restore-with-parallel-restoration-agents-ac
 title: Post-compaction session restore with parallel restoration agents accelerates memory recovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T15:10:44.376Z"
-updated: "2026-02-05T15:10:44.376Z"
+updated: "2026-02-16T22:30:07.455Z"
 tags:
   - phase-e
   - memory-system

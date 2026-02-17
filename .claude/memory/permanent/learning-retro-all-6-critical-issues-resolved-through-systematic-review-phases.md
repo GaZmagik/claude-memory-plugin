@@ -3,8 +3,9 @@ id: learning-retro-all-6-critical-issues-resolved-through-systematic-review-phas
 title: Retro - All 6 critical issues resolved through systematic review phases
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-07T09:23:35.851Z"
-updated: "2026-02-07T09:23:35.851Z"
+updated: "2026-02-16T22:30:07.539Z"
 tags:
   - retrospective
   - feature-review

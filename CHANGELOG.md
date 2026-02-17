@@ -5,6 +5,58 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-02-17
+
+### Added
+
+#### Cross-Scope Auto-Linking
+- **suggest-links --auto-link now creates cross-scope links** - Routes cross-scope suggestions to `storeCrossScopeEdge()` for bidirectional graph writes, same-scope to `linkMemories()`
+- Metadata tracking (basePath, scope, agent) during multi-scope loading enables cross-scope detection
+- Separate count reporting: `createdSameScope` and `createdCrossScope` fields in response
+- Example: `memory suggest-links --agent typescript-expert --include-shared --auto-link`
+
+#### Agent Retrospective System
+- **PostToolUse:Task hook** - Triggers after agents complete meaningful work, injects retrospective guidance (<25ms execution)
+- **agent-commit command** (`/commands/agent-commit.md`) - Guided workflow enforcing dual-save pattern (memory plugin + MEMORY.md)
+- **Agent detection utilities** - Multi-source identity resolution: --agent flag > env var > context
+- **Work classifier** - Heuristic-based significance detection (meaningful vs trivial work)
+
+#### Enhanced Commit Workflows
+- **Scope suggestion guidance** - Heuristics help choose project vs global vs agent scope before saving
+- **--all-scopes flag** for suggest-links - Loads embeddings from project, global, AND all agent scopes for complete knowledge graph linking
+- **Embedding + linking workflow** - Both commit commands now include `memory refresh --embeddings` and `memory suggest-links --auto-link` steps
+
+### Changed
+- suggest-links response includes `createdSameScope` and `createdCrossScope` counts (v1.4.0+)
+- SuggestedLink interface extended with `isCrossScope`, `sourceMetadata`, `targetMetadata` fields
+- hooks.json updated with PostToolUse:Task matcher for agent retrospectives
+- .tddignore excludes `/commands` directory (documentation files)
+
+### Performance
+- Cross-scope auto-linking: Minimal overhead from metadata tracking
+- Agent retrospective hook: <25ms, early exit if no agent detected
+- --all-scopes: Efficient parallel cache loading
+
+## [1.3.1] - 2026-02-16
+
+### Fixed
+- **CLI help text**: Updated `help.ts` to include agent-scoped memory features that were missing from compact/full help output
+  - Added `agents` command to command list
+  - Added agent-project and agent-global to SCOPE section
+  - Added AGENT SCOPE FLAGS section documenting `--agent`, `--include-shared`, `--all-agents`, `--target-agent`
+  - Added agent scope examples showing common agent-scoped operations
+  - Updated CRUD, Graph, and Advanced command sections with agent-related flags
+  - Help text now matches the comprehensive per-command documentation in `command-help.ts`
+- **Version consistency**: Corrected version mismatch where SKILL.md and README.md showed 2.0.0 instead of 1.3.0
+
+### Added
+- **Cross-scope linking documentation**: Added dedicated CROSS-SCOPE LINKING section to help text
+  - Documents all supported cross-scope combinations (local↔project↔global, agent↔project, agent↔agent)
+  - Explains dual-graph storage mechanism (edges stored in BOTH graph files)
+  - Provides cross-scope linking examples for common scenarios
+  - Added warning about edge loss during bulk-move operations
+  - Enhanced Graph Operations section with detailed cross-scope linking examples
+
 ## [1.3.0] - 2026-02-06
 
 ### Added

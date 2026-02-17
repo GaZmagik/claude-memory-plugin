@@ -3,8 +3,9 @@ id: learning-tdd-red-phase-confirms-suggest-links-tests-correctly-fail
 title: TDD red phase confirms suggest-links tests correctly fail
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:30:38.055Z"
-updated: "2026-02-06T01:30:38.055Z"
+updated: "2026-02-16T22:30:07.481Z"
 tags:
   - tdd
   - testing

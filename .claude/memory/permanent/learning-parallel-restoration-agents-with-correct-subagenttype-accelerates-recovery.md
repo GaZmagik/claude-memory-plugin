@@ -3,8 +3,9 @@ id: learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-r
 title: Parallel restoration agents with correct subagent_type accelerates recovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T08:52:09.682Z"
-updated: "2026-02-06T08:52:09.682Z"
+updated: "2026-02-16T22:30:07.545Z"
 tags:
   - restoration
   - agents

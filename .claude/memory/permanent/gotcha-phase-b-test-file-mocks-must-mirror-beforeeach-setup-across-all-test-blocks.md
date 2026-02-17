@@ -3,8 +3,9 @@ id: gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-
 title: Phase B Test File Mocks Must Mirror beforeEach Setup Across All Test Blocks
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:44:25.295Z"
-updated: "2026-02-03T20:44:25.295Z"
+updated: "2026-02-16T22:30:07.420Z"
 tags:
   - bun
   - testing

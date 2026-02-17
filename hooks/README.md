@@ -64,6 +64,7 @@ hooks/
 | `UserPromptSubmit` | User sends message | 5-10s | Inject reminders and context |
 | `PreToolUse` | Before tool runs | 5s | Protect memory dir, enforce CLI |
 | `PostToolUse` | After tool runs | 30s | Inject memory context |
+| `PostToolUse:Task` | After agent completes | 15s | Agent retrospective prompt |
 | `PreCompact` | Before compaction | 90s | Capture memories from transcript |
 | `SessionEnd` | Session ends | 30s | Clean up session state |
 
@@ -165,6 +166,38 @@ Not all hook events will provide agent context. When implemented:
 | `SubagentStop` | Limited (see note) | Agent type only, not memory agent name |
 
 **SubagentStop Note**: This event receives minimal context — no `agent_name` or `session_id`. Use `PostToolUse` with Task matcher instead. See memory: `decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead`.
+
+### PostToolUse:Task - Agent Retrospective (v1.4.0+)
+
+**Purpose**: Prompt agents to capture learnings when completing work
+
+**Triggers**: After Task tool execution (subagent completion)
+
+**Logic**:
+1. Detect agent identity from multiple sources (--agent flag, CLAUDE_AGENT_NAME env var, future agent_context)
+2. Classify work significance (trivial vs meaningful) using keyword heuristics
+3. Inject retrospective guidance if work is meaningful
+4. Direct agents to `/commands/agent-commit.md` for guided workflow
+
+**Agent Detection Priority**:
+1. `--agent` flag in task args (highest trust)
+2. `CLAUDE_AGENT_NAME` environment variable
+3. `agent_context` field (placeholder for future)
+
+**Work Classification**:
+- **Meaningful**: Contains keywords like "implement", "refactor", "debug", "design", "fix bug"
+- **Trivial**: Short prompts (<50 chars), generic tasks, or routine operations
+
+**Performance**: <25ms execution with early exit if no agent detected
+
+**Implementation**: `hooks/post-tool-use/agent-retrospective.ts`
+
+**Related Components**:
+- `hooks/src/agent/detect-agent.ts` - Multi-source agent identity resolution (19 tests)
+- `hooks/src/agent/work-classifier.ts` - Work significance classification (31 tests)
+- `/commands/agent-commit.md` - Guided memory capture workflow for agents
+
+**Configuration**: See `hooks.json` PostToolUse:Task matcher
 
 ### Gotcha Injection Priority
 

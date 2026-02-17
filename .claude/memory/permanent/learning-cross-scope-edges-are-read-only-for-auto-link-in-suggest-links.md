@@ -3,8 +3,9 @@ id: learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links
 title: Cross-scope edges are read-only for auto-link in suggest-links
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:46:29.015Z"
-updated: "2026-02-06T01:46:29.015Z"
+updated: "2026-02-16T22:30:07.245Z"
 tags:
   - agent-scopes
   - edge-access

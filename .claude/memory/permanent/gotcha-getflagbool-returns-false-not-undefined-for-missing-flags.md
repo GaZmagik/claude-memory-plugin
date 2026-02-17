@@ -3,8 +3,9 @@ id: gotcha-getflagbool-returns-false-not-undefined-for-missing-flags
 title: getFlagBool returns false not undefined for missing flags
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:10:22.209Z"
-updated: "2026-02-06T01:10:22.209Z"
+updated: "2026-02-16T22:30:07.529Z"
 tags:
   - flags
   - cli

@@ -3,8 +3,9 @@ id: learning-conversation-summaries-lag-behind-implementation-during-compaction-
 title: Conversation summaries lag behind implementation during compaction cycles
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:53:20.006Z"
-updated: "2026-02-06T01:53:20.006Z"
+updated: "2026-02-16T22:30:07.305Z"
 tags:
   - compaction
   - summaries

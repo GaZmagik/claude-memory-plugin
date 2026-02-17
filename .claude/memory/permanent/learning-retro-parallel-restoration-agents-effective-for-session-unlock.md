@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-effective-for-session-unlock
 title: Retro - Parallel restoration agents effective for session unlock
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:20:10.387Z"
-updated: "2026-02-06T01:20:10.387Z"
+updated: "2026-02-16T22:30:07.300Z"
 tags:
   - retrospective
   - process

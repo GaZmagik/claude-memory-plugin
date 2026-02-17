@@ -3,8 +3,9 @@ id: learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-com
 title: Memory capture and retrospective hooks may have issues in rapid compaction cycles
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:31:02.206Z"
-updated: "2026-02-06T01:31:02.206Z"
+updated: "2026-02-16T22:30:07.319Z"
 tags:
   - hooks
   - memory-capture

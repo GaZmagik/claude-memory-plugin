@@ -3,8 +3,9 @@ id: gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-moc
 title: Retro - Bun test framework does not support vi.importActual, requires mock.module approach
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-02T20:38:39.021Z"
-updated: "2026-02-02T20:38:39.021Z"
+updated: "2026-02-16T22:30:07.434Z"
 tags:
   - retrospective
   - testing

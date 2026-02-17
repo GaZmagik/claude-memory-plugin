@@ -3,8 +3,9 @@ id: learning-retro-parallel-restoration-agents-effective-for-unblocking-after-co
 title: Retro - Parallel restoration agents effective for unblocking after compaction
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:29:29.122Z"
-updated: "2026-02-06T01:29:29.122Z"
+updated: "2026-02-16T22:30:07.481Z"
 tags:
   - retrospective
   - process

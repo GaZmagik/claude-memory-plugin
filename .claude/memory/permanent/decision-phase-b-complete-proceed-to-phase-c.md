@@ -3,8 +3,9 @@ id: decision-phase-b-complete-proceed-to-phase-c
 title: Phase B Storage Infrastructure Complete - Proceed to Phase C CLI Integration
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-03T20:44:58.049Z"
-updated: "2026-02-03T20:44:58.049Z"
+updated: "2026-02-16T22:30:07.482Z"
 tags:
   - phase-b
   - agent-scoped

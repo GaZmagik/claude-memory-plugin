@@ -3,8 +3,9 @@ id: decision-graph-node-extended-for-agent-scope
 title: Extended GraphNode interface with scope and agent properties for agent-scoped memory support
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T15:11:00.198Z"
-updated: "2026-02-05T15:11:00.198Z"
+updated: "2026-02-16T22:30:07.497Z"
 tags:
   - phase-e
   - graph-structure

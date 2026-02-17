@@ -3,8 +3,9 @@ id: artifact-include-shared-validation-pattern
 title: Validation pattern for --include-shared flag enforcement
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-04T09:48:47.702Z"
-updated: "2026-02-04T09:48:47.702Z"
+updated: "2026-02-16T22:30:07.421Z"
 tags:
   - pattern
   - validation

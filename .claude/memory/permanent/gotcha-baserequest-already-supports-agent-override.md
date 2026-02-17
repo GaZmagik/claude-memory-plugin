@@ -3,8 +3,9 @@ id: gotcha-baserequest-already-supports-agent-override
 title: BaseRequest Already Supports Agent Override
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T20:43:57.982Z"
-updated: "2026-02-06T20:43:57.982Z"
+updated: "2026-02-16T22:30:07.302Z"
 tags:
   - phase-d-deferred
   - cli

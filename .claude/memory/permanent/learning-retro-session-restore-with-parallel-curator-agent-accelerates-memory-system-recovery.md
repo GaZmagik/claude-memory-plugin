@@ -3,8 +3,9 @@ id: learning-retro-session-restore-with-parallel-curator-agent-accelerates-memor
 title: Retro - Session-restore with parallel curator agent accelerates memory system recovery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T13:25:43.028Z"
-updated: "2026-02-05T13:25:43.028Z"
+updated: "2026-02-16T22:30:06.899Z"
 tags:
   - retrospective
   - process

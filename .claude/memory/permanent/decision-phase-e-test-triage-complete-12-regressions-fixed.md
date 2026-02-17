@@ -3,8 +3,9 @@ id: decision-phase-e-test-triage-complete-12-regressions-fixed
 title: Phase E test triage complete — 12 regressions fixed
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T01:11:01.250Z"
-updated: "2026-02-06T01:11:01.250Z"
+updated: "2026-02-16T22:30:07.331Z"
 tags:
   - phase-e
   - testing

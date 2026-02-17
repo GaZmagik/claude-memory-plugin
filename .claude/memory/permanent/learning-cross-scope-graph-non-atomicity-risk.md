@@ -3,8 +3,9 @@ id: learning-cross-scope-graph-non-atomicity-risk
 title: Cross-Scope Graph Non-Atomicity Risk
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-06T20:43:48.138Z"
-updated: "2026-02-06T20:43:48.138Z"
+updated: "2026-02-16T22:30:07.373Z"
 tags:
   - gotcha
   - concurrency

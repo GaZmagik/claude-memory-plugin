@@ -3,8 +3,9 @@ id: gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generati
 title: Retro - GraphNode enrichment critical for agent-scoped Mermaid generation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-05T16:54:02.293Z"
-updated: "2026-02-05T16:54:02.293Z"
+updated: "2026-02-16T22:30:07.498Z"
 tags:
   - retrospective
   - process

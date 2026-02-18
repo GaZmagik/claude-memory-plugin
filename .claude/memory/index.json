@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-17T00:27:35.281Z",
+  "lastUpdated": "2026-02-17T08:02:01.228Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11055,6 +11055,53 @@
       "updated": "2026-02-17T00:27:35.271Z",
       "scope": "project",
       "relativePath": "permanent/artifact-tdd-stub-pattern-for-hooks.md"
+    },
+    {
+      "id": "artifact-v150-memory-graph-enhancements-plan",
+      "type": "artifact",
+      "title": "v1.5.0 Memory Graph Enhancement Suite Plan",
+      "tags": [
+        "v1.5.0",
+        "planning",
+        "architecture",
+        "memory-graph",
+        "project"
+      ],
+      "created": "2026-02-17T08:01:41.816Z",
+      "updated": "2026-02-17T08:01:41.816Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v150-memory-graph-enhancements-plan.md"
+    },
+    {
+      "id": "decision-v150-verified-relation-separate-field",
+      "type": "decision",
+      "title": "Store LLM-Verified Relation in Separate Field",
+      "tags": [
+        "v1.5.0",
+        "architecture",
+        "llm-verification",
+        "edge-metadata",
+        "project"
+      ],
+      "created": "2026-02-17T08:01:49.767Z",
+      "updated": "2026-02-17T08:01:49.767Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v150-verified-relation-separate-field.md"
+    },
+    {
+      "id": "decision-v150-implementation-sequence",
+      "type": "decision",
+      "title": "v1.5.0 Implementation Sequence: Similarity → Update-Edge → Check-Relevance → LLM",
+      "tags": [
+        "v1.5.0",
+        "project-planning",
+        "risk-management",
+        "project"
+      ],
+      "created": "2026-02-17T08:02:01.211Z",
+      "updated": "2026-02-17T08:02:01.211Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-v150-implementation-sequence.md"
     }
   ]
 }

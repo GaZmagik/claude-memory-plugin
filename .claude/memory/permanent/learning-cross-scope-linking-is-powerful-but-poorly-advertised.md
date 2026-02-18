@@ -3,8 +3,9 @@ id: learning-cross-scope-linking-is-powerful-but-poorly-advertised
 title: Cross-scope linking is powerful but poorly advertised
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-16T23:27:05.082Z"
-updated: "2026-02-16T23:27:05.082Z"
+updated: "2026-02-17T08:02:05.295Z"
 tags:
   - memory-plugin
   - cli-documentation

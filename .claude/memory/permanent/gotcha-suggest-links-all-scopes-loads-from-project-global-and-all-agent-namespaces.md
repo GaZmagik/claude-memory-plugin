@@ -3,8 +3,9 @@ id: gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-name
 title: suggest-links --all-scopes loads from project, global, AND all agent namespaces
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:27:23.493Z"
-updated: "2026-02-17T00:27:23.493Z"
+updated: "2026-02-17T08:02:05.341Z"
 tags:
   - suggest-links
   - all-scopes

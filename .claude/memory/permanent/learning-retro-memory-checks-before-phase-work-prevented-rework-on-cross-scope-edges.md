@@ -3,8 +3,9 @@ id: learning-retro-memory-checks-before-phase-work-prevented-rework-on-cross-sco
 title: Retro - Memory checks before phase work prevented rework on cross-scope edges
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:26:52.256Z"
-updated: "2026-02-17T00:26:52.256Z"
+updated: "2026-02-17T08:02:05.316Z"
 tags:
   - retrospective
   - process

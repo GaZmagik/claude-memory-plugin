@@ -3,8 +3,9 @@ id: learning-retro-phase-deferral-and-incremental-marking-kept-v140-deliverables
 title: Retro - Phase deferral and incremental marking kept v1.4.0 deliverables focused
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:27:16.560Z"
-updated: "2026-02-17T00:27:16.560Z"
+updated: "2026-02-17T08:02:05.341Z"
 tags:
   - retrospective
   - process

@@ -3,8 +3,9 @@ id: artifact-v140-memory-enhancement-suite-plan
 title: "v1.4.0 Implementation Plan: Memory Enhancement Suite"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-16T23:28:10.676Z"
-updated: "2026-02-16T23:28:10.676Z"
+updated: "2026-02-17T08:02:05.364Z"
 tags:
   - memory-plugin
   - v1.4.0

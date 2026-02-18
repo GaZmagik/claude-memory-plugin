@@ -3,8 +3,9 @@ id: artifact-tdd-stub-pattern-for-hooks
 title: TDD stub pattern for hook infrastructure files
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:27:35.271Z"
-updated: "2026-02-17T00:27:35.271Z"
+updated: "2026-02-17T08:02:05.339Z"
 tags:
   - tdd
   - hooks

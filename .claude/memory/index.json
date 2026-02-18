@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-18T15:50:46.078Z",
+  "lastUpdated": "2026-02-18T16:16:17.594Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11256,6 +11256,40 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-multi-phase-features-need-explicit-memory-checkpoints-between-phases-for-context-continuity.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD pattern prevents hook-blocking overwrites",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-18T16:16:08.591Z",
+      "updated": "2026-02-18T16:16:08.591Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-intent-before-implementation",
+      "type": "gotcha",
+      "title": "Retro - Test fixture design requires alignment with scoring logic intent before implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "fixtures",
+        "project"
+      ],
+      "created": "2026-02-18T16:16:17.533Z",
+      "updated": "2026-02-18T16:16:17.533Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-intent-before-implementation.md",
+      "severity": "high"
     }
   ]
 }

@@ -3450,6 +3450,18 @@
       "type": "gotcha",
       "title": "Retro - Multi-phase features need explicit memory checkpoints between phases for context continuity",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD pattern prevents hook-blocking overwrites",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-intent-before-implementation",
+      "type": "gotcha",
+      "title": "Retro - Test fixture design requires alignment with scoring logic intent before implementation",
+      "scope": "project"
     }
   ],
   "edges": [

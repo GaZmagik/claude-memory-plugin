@@ -5,6 +5,52 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-02-18
+
+### Added
+
+#### Similarity on Edges (Feature 2)
+- **`GraphEdge.similarity`** — optional `number` field (0–1) stored on edges created by `suggest-links --auto-link`
+- `EdgeMetadata.similarity` validated and clamped in `addEdge()` — NaN rejected, out-of-range clamped to [0, 1]
+- Duplicate edge detection unchanged: `(source, target, label)` identity; similarity is metadata only
+- Backward compatible: existing edges without the field load cleanly
+
+#### Edge Update Command (Feature 4)
+- **`memory update-edge <sourceId> <targetId>`** — new CLI command to mutate metadata on existing edges without recreating them
+- Flags: `--similarity <float>`, `--relation <label>`, `--verify`, `--apply`
+- Cross-scope edges updated in both graph files (non-atomic dual-write, consistent with `storeCrossScopeEdge`)
+- Implementation extracted to `skills/memory/src/graph/link-update.ts` (keeps `link.ts` under 600 lines)
+
+#### LLM-Verified Link Types (Feature 3)
+- **`suggest-links --auto-link --llm-type`** — uses Ollama to suggest a relation label before writing the edge; result stored as `verifiedRelation` on same-scope edges; cross-scope edges skipped
+- **`update-edge --verify`** — invokes Ollama to suggest a more precise relation for an existing edge; stored as `verifiedRelation` (staging area)
+- **`update-edge --apply`** — promotes `verifiedRelation` to `label` and removes the field entirely; leaves a clean edge with no dangling staging fields
+- New `skills/memory/src/services/ollama.ts` — minimal Ollama client (`generate()`, `isAvailable()`, `configureClient()`); reads `chat_model` from `.claude/memory.local.md`; no dependency on `hooks/` package
+- Graceful degradation: all LLM features degrade to no-op with stderr warning when Ollama is unavailable or times out
+- Timeouts: `--llm-type` uses 300s, `--verify` uses 60s (accounts for cold-start model loading)
+
+#### check-relevance Command (Feature 1)
+- **`memory check-relevance [scope]`** — analyses scope placement of memories using four scoring functions (100pts total)
+  - `scoreTypeMatch` (30pts): memory type appropriateness for scope
+  - `scoreTagHeuristics` (25pts): tag-based scope signals
+  - `scoreGraphConnectivity` (25pts): inbound/outbound edge ratio
+  - `scoreContentAnalysis` (20pts): content keyword signals
+- Confidence bands: High ≥80 (auto-move safe), Medium 60–79, Low 40–59, None <40
+- Flags: `--threshold <n>`, `--type <type>`, `--agent <name>`, `--auto-move`, `--confirm`, `--dry-run`, `--format table|json|detailed`
+- `--auto-move` requires `--confirm` guard (exits non-zero without it)
+
+### Changed
+- `suggest-links --auto-link` now stores cosine similarity score on created same-scope edges
+- `SuggestLinksRequest` extended with `llmType?: boolean`
+- `LinkMemoriesRequest` extended with `similarity?: number` and `verifiedRelation?: string`
+- `UpdateEdgeRequest` / `UpdateEdgeResponse` types added to graph layer
+- `--verify` help text updated: no longer annotated as "no-op until wired"
+- Version bumped to 1.5.0
+
+### Performance
+- `check-relevance` scoring functions operate on index/graph data only — no file I/O in type/tag/connectivity scorers
+- `ollama.generate()` timeout configurable per call-site, defaulting to 15s
+
 ## [1.4.1] - 2026-02-18
 
 ### Changed

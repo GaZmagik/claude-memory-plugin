@@ -134,6 +134,85 @@ describe('Graph Edges', () => {
         'Cannot create self-referencing edge'
       );
     });
+
+    // T001: similarity stored on edge
+    it('should store similarity when provided in metadata', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const updated = addEdge(graph, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: 0.87 });
+
+      expect(updated.edges[0]!.similarity).toBe(0.87);
+    });
+
+    // T002: similarity clamped to [0, 1]
+    it('should clamp similarity above 1 to 1', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const updated = addEdge(graph, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: 1.5 });
+
+      expect(updated.edges[0]!.similarity).toBe(1.0);
+    });
+
+    it('should clamp similarity below 0 to 0', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const updated = addEdge(graph, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: -0.3 });
+
+      expect(updated.edges[0]!.similarity).toBe(0.0);
+    });
+
+    // T002a: NaN rejected
+    it('should throw when similarity is NaN', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      expect(() => addEdge(graph, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: NaN })).toThrow('NaN');
+    });
+
+    // T003: duplicate detection ignores similarity
+    it('should detect duplicate regardless of different similarity values', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'node-1', type: 'decision' },
+          { id: 'node-2', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const after1 = addEdge(graph, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: 0.87 });
+      const after2 = addEdge(after1, 'node-1', 'node-2', 'auto-linked-by-similarity', { similarity: 0.92 });
+
+      expect(after2.edges).toHaveLength(1);
+      expect(after2.edges[0]!.similarity).toBe(0.87);
+    });
   });
 
   describe('removeEdge', () => {

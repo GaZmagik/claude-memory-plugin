@@ -70,6 +70,23 @@ describe('cmdSuggestLinks', () => {
       expect.objectContaining({ autoLink: true })
     );
   });
+
+  it('passes llm-type flag', async () => {
+    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
+      suggestions: [],
+      created: 1,
+    } as any);
+
+    const args: ParsedArgs = {
+      positional: [],
+      flags: { 'auto-link': true, 'llm-type': true },
+    };
+    await cmdSuggestLinks(args);
+
+    expect(suggestLinksModule.suggestLinks).toHaveBeenCalledWith(
+      expect.objectContaining({ llmType: true })
+    );
+  });
 });
 
 describe('cmdSummarize', () => {

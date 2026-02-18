@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "gotcha-tasksmd-generation-bun-test-mock-pattern-and-file-path-gotchas",
+      "type": "gotcha",
+      "title": "tasks.md generation: Bun test mock pattern and file path gotchas",
+      "scope": "project",
+      "agent": "speckit-expert"
+    }
+  ],
+  "edges": []
+}

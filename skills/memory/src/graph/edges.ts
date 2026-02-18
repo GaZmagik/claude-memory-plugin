@@ -37,6 +37,10 @@ export interface EdgeMetadata {
   targetScope?: string;
   sourceAgent?: string;
   targetAgent?: string;
+  /** Cosine similarity score [0–1]. NaN is rejected; out-of-range values are clamped. */
+  similarity?: number;
+  /** LLM-verified relation label staging area (written by --llm-type or --verify). */
+  verifiedRelation?: string;
 }
 
 /**
@@ -44,6 +48,14 @@ export interface EdgeMetadata {
  *
  * @param metadata - Optional cross-scope metadata. When provided, fields are
  *                   included in the edge object for cross-scope identification.
+ *
+ * Similarity validation note: addEdge() clamps out-of-range values to [0, 1]
+ * (Infinity → 1.0, -0.1 → 0.0) and rejects NaN. This is intentionally more
+ * permissive than updateEdgeMetadata(), which strictly rejects out-of-range
+ * values. The difference reflects context: auto-link pipelines may produce
+ * slightly over/under-range floats due to floating-point arithmetic, whereas
+ * explicit user input via --similarity should be validated precisely at the
+ * call site.
  */
 export function addEdge(
   graph: MemoryGraph,
@@ -81,6 +93,16 @@ export function addEdge(
     if (metadata.targetScope) edge.targetScope = metadata.targetScope;
     if (metadata.sourceAgent) edge.sourceAgent = metadata.sourceAgent;
     if (metadata.targetAgent) edge.targetAgent = metadata.targetAgent;
+    if (metadata.similarity !== undefined) {
+      const s = metadata.similarity;
+      if (isNaN(s)) {
+        throw new Error(`similarity must be a finite number, received NaN`);
+      }
+      edge.similarity = Math.min(1, Math.max(0, s));
+    }
+    if (metadata.verifiedRelation !== undefined) {
+      edge.verifiedRelation = metadata.verifiedRelation;
+    }
   }
 
   return {

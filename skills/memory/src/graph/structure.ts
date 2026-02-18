@@ -45,6 +45,13 @@ export interface GraphEdge {
   sourceAgent?: string;
   /** Target agent name (required when targetScope is agent-project or agent-global) */
   targetAgent?: string;
+  /** Cosine similarity score [0–1] when edge was created by suggest-links --auto-link.
+   *  Optional: absent on edges created before v1.5.0 or via manual link command.
+   *  Keep in sync with GraphEdge in types/memory.ts (documentation layer). */
+  similarity?: number;
+  /** LLM-verified relation label staging area. Written by --llm-type (suggest-links) or
+   *  --verify (update-edge). Removed entirely after update-edge --apply promotes it to label. */
+  verifiedRelation?: string;
 }
 
 /**

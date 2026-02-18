@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-17T08:02:01.228Z",
+  "lastUpdated": "2026-02-18T18:11:30.796Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11102,6 +11102,411 @@
       "updated": "2026-02-17T08:02:01.211Z",
       "scope": "project",
       "relativePath": "permanent/decision-v150-implementation-sequence.md"
+    },
+    {
+      "id": "artifact-v150-memory-graph-enhancement-suite-spec",
+      "type": "artifact",
+      "title": "v1.5.0 Memory Graph Enhancement Suite Spec",
+      "tags": [
+        "v1.5.0",
+        "spec",
+        "ready-for-planning",
+        "memory-graph",
+        "project"
+      ],
+      "created": "2026-02-18T09:36:44.527Z",
+      "updated": "2026-02-18T09:36:44.527Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v150-memory-graph-enhancement-suite-spec.md"
+    },
+    {
+      "id": "learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150",
+      "type": "learning",
+      "title": "speckit-analyze: cross-artifact remediation patterns for v1.5.0",
+      "tags": [
+        "speckit",
+        "analyze",
+        "remediation",
+        "sdd",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T12:36:54.820Z",
+      "updated": "2026-02-18T12:36:54.820Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150.md"
+    },
+    {
+      "id": "artifact-phase-a-similarity-field-on-graphedge-implementation-pattern",
+      "type": "artifact",
+      "title": "Phase A: Similarity Field on GraphEdge — Implementation Pattern",
+      "tags": [
+        "v1.5.0",
+        "phase-a",
+        "similarity",
+        "graph-edge",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-18T15:49:55.896Z",
+      "updated": "2026-02-18T15:49:55.896Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-a-similarity-field-on-graphedge-implementation-pattern.md"
+    },
+    {
+      "id": "artifact-phase-b-verifiedrelation-flag-and-updateedgemetadata-pattern",
+      "type": "artifact",
+      "title": "Phase B: verifiedRelation Flag and updateEdgeMetadata Pattern",
+      "tags": [
+        "v1.5.0",
+        "phase-b",
+        "verified-relation",
+        "edge-metadata",
+        "mutation",
+        "project"
+      ],
+      "created": "2026-02-18T15:49:57.877Z",
+      "updated": "2026-02-18T15:49:57.877Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-b-verifiedrelation-flag-and-updateedgemetadata-pattern.md"
+    },
+    {
+      "id": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "type": "learning",
+      "title": "Learning: TDD Stub File Pattern Accelerates Hook Compliance",
+      "tags": [
+        "tdd",
+        "testing",
+        "workflow",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-18T15:50:00.511Z",
+      "updated": "2026-02-18T15:50:00.511Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-stub-file-pattern-accelerates-hook-compliance.md"
+    },
+    {
+      "id": "learning-graph-edge-similarity-scope-isolation-pattern",
+      "type": "learning",
+      "title": "Learning: Graph Edge Similarity Scope Isolation Pattern",
+      "tags": [
+        "graph",
+        "similarity",
+        "scope",
+        "cross-scope",
+        "project"
+      ],
+      "created": "2026-02-18T15:50:01.796Z",
+      "updated": "2026-02-18T15:50:01.796Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-graph-edge-similarity-scope-isolation-pattern.md"
+    },
+    {
+      "id": "learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-phase-delivery",
+      "type": "learning",
+      "title": "Retro - TDD-first with explicit test sections (T001–T028) accelerated phase delivery",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "speckit",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T15:50:19.965Z",
+      "updated": "2026-02-18T15:50:19.965Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-phase-delivery.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "type": "learning",
+      "title": "Retro - TDD hook stub-first pattern eliminated accidental file overwrites and forced deliberate structure",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "hooks",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T15:50:32.302Z",
+      "updated": "2026-02-18T15:50:32.302Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-multi-phase-features-need-explicit-memory-checkpoints-between-phases-for-context-continuity",
+      "type": "gotcha",
+      "title": "Retro - Multi-phase features need explicit memory checkpoints between phases for context continuity",
+      "tags": [
+        "retrospective",
+        "process",
+        "speckit",
+        "phases",
+        "memory",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T15:50:46.047Z",
+      "updated": "2026-02-18T15:50:46.047Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-multi-phase-features-need-explicit-memory-checkpoints-between-phases-for-context-continuity.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD pattern prevents hook-blocking overwrites",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "hooks",
+        "project"
+      ],
+      "created": "2026-02-18T16:16:08.591Z",
+      "updated": "2026-02-18T16:16:08.591Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-intent-before-implementation",
+      "type": "gotcha",
+      "title": "Retro - Test fixture design requires alignment with scoring logic intent before implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "fixtures",
+        "project"
+      ],
+      "created": "2026-02-18T16:16:17.533Z",
+      "updated": "2026-02-18T16:16:17.533Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-intent-before-implementation.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-with-coordinated-multi-file-implementation-is-highly-effective-for-phase-d",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD with coordinated multi-file implementation is highly effective for Phase D",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T17:10:42.912Z",
+      "updated": "2026-02-18T17:10:42.912Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-stub-first-tdd-with-coordinated-multi-file-implementation-is-highly-effective-for-phase-d.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-spying-on-non-configurable-node-built-ins-fs-fails-spy-on-the-function-that-calls-them-instead",
+      "type": "gotcha",
+      "title": "Gotcha - Spying on non-configurable Node built-ins (fs) fails; spy on the function that calls them instead",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "node",
+        "phase-c",
+        "project"
+      ],
+      "created": "2026-02-18T17:10:52.943Z",
+      "updated": "2026-02-18T17:10:52.943Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-spying-on-non-configurable-node-built-ins-fs-fails-spy-on-the-function-that-calls-them-instead.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-pre-checking-memory-gotchas-for-integration-points-prevents-reinvention-ollama-timeout-case",
+      "type": "learning",
+      "title": "Learning - Pre-checking memory gotchas for integration points prevents reinvention (Ollama timeout case)",
+      "tags": [
+        "retrospective",
+        "process",
+        "integration",
+        "memory-discipline",
+        "project"
+      ],
+      "created": "2026-02-18T17:11:06.409Z",
+      "updated": "2026-02-18T17:11:06.409Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-pre-checking-memory-gotchas-for-integration-points-prevents-reinvention-ollama-timeout-case.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-ollama-timeout-requires-10-30s-buffer-not-default-5s",
+      "type": "learning",
+      "title": "Ollama timeout requires 10-30s buffer, not default 5s",
+      "tags": [
+        "ollama",
+        "timeout",
+        "services",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T17:11:17.939Z",
+      "updated": "2026-02-18T17:11:17.939Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-ollama-timeout-requires-10-30s-buffer-not-default-5s.md"
+    },
+    {
+      "id": "learning-stub-first-tdd-pattern-write-all-failing-tests-before-implementing",
+      "type": "learning",
+      "title": "Stub-first TDD pattern: write all failing tests before implementing",
+      "tags": [
+        "tdd",
+        "testing",
+        "vitest",
+        "pattern",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T17:11:31.396Z",
+      "updated": "2026-02-18T17:11:31.396Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-stub-first-tdd-pattern-write-all-failing-tests-before-implementing.md"
+    },
+    {
+      "id": "learning-thread-new-fields-through-all-graph-layers-edgemetadata-linkmemoriesrequest-addedge-write-logic",
+      "type": "learning",
+      "title": "Thread new fields through all graph layers: EdgeMetadata → LinkMemoriesRequest → addEdge write logic",
+      "tags": [
+        "graph-architecture",
+        "edge-metadata",
+        "data-threading",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T17:11:45.460Z",
+      "updated": "2026-02-18T17:11:45.460Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-thread-new-fields-through-all-graph-layers-edgemetadata-linkmemoriesrequest-addedge-write-logic.md"
+    },
+    {
+      "id": "learning-ollama-integration-minimal-surface-generate-isavailable-beats-full-client-api",
+      "type": "learning",
+      "title": "Ollama integration: minimal surface (generate + isAvailable) beats full client API",
+      "tags": [
+        "ollama",
+        "services",
+        "design-patterns",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T17:11:54.461Z",
+      "updated": "2026-02-18T17:11:54.461Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-ollama-integration-minimal-surface-generate-isavailable-beats-full-client-api.md"
+    },
+    {
+      "id": "gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s",
+      "type": "gotcha",
+      "title": "Ollama --llm-type cold-start requires 300s timeout, not 15s",
+      "tags": [
+        "ollama",
+        "timeout",
+        "suggest-links",
+        "llm-type",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T18:07:21.299Z",
+      "updated": "2026-02-18T18:07:21.299Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s.md"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD with multi-file test coordination accelerated Phase D delivery",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T18:10:36.331Z",
+      "updated": "2026-02-18T18:10:36.331Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-smoke-testing-real-ollama-revealed-timeout-assumptions-needed-correction",
+      "type": "learning",
+      "title": "Retro - Smoke testing real Ollama revealed timeout assumptions needed correction",
+      "tags": [
+        "retrospective",
+        "process",
+        "integration-testing",
+        "ollama",
+        "phase-e",
+        "project"
+      ],
+      "created": "2026-02-18T18:10:46.295Z",
+      "updated": "2026-02-18T18:10:46.295Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-smoke-testing-real-ollama-revealed-timeout-assumptions-needed-correction.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-timeout-configurability-via-optional-parameter-beats-hardcoding-constants",
+      "type": "learning",
+      "title": "Timeout configurability via optional parameter beats hardcoding constants",
+      "tags": [
+        "ollama",
+        "service-design",
+        "timeout",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-18T18:10:58.831Z",
+      "updated": "2026-02-18T18:10:58.831Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-timeout-configurability-via-optional-parameter-beats-hardcoding-constants.md"
+    },
+    {
+      "id": "learning-end-to-end-smoke-testing-with-real-data-validates-the-full-linking-lifecycle",
+      "type": "learning",
+      "title": "End-to-end smoke testing with real data validates the full linking lifecycle",
+      "tags": [
+        "smoke-test",
+        "linking",
+        "ollama",
+        "validation",
+        "project"
+      ],
+      "created": "2026-02-18T18:11:18.453Z",
+      "updated": "2026-02-18T18:11:18.453Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-end-to-end-smoke-testing-with-real-data-validates-the-full-linking-lifecycle.md"
+    },
+    {
+      "id": "learning-stub-first-tdd-across-multiple-coordination-points-accelerates-multi-file-phases",
+      "type": "learning",
+      "title": "Stub-first TDD across multiple coordination points accelerates multi-file phases",
+      "tags": [
+        "tdd",
+        "coordination",
+        "multi-file",
+        "phase-d",
+        "project"
+      ],
+      "created": "2026-02-18T18:11:30.707Z",
+      "updated": "2026-02-18T18:11:30.707Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-stub-first-tdd-across-multiple-coordination-points-accelerates-multi-file-phases.md"
     }
   ]
 }

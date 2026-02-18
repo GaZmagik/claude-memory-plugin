@@ -164,7 +164,11 @@ export async function updateEdgeMetadata(
       if (request.verify) {
         const available = await isAvailable();
         if (available) {
-          const prompt = `Given the relation label "${edgeInGraph.label}" between memories "${sourceId}" and "${targetId}", suggest a more precise relation label. Reply with a single short label only.`;
+          const sourceNode = graphs.flatMap(g => g.nodes).find(n => n.id === sourceId);
+          const targetNode = graphs.flatMap(g => g.nodes).find(n => n.id === targetId);
+          const sourceLabel = sourceNode?.title ?? sourceId;
+          const targetLabel = targetNode?.title ?? targetId;
+          const prompt = `Given the relation label "${edgeInGraph.label}" between memories "${sourceLabel}" and "${targetLabel}", suggest a more precise relation label. Reply with a single short label only.`;
           const llmResult = await generate(prompt, undefined, 60_000);
           const trimmed = llmResult.trim();
           if (trimmed) {
@@ -179,6 +183,8 @@ export async function updateEdgeMetadata(
       if (dirty) {
         await saveGraph(allPaths[i]!, graph);
         foundEdge = edgeInGraph;
+      } else {
+        process.stderr.write(`[link-update] Edge '${sourceId}' → '${targetId}' found in graph[${i}] but no fields changed — not written\n`);
       }
     }
 

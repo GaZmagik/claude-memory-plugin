@@ -403,7 +403,12 @@ export async function cmdCheckRelevance(args: ParsedArgs): Promise<CliResponse> 
   const autoMove = getFlagBool(args.flags, 'auto-move');
   const confirm = getFlagBool(args.flags, 'confirm');
   const dryRun = getFlagBool(args.flags, 'dry-run');
-  const format = (getFlagString(args.flags, 'format') ?? 'table') as 'table' | 'json' | 'detailed';
+  const formatStr = getFlagString(args.flags, 'format') ?? 'table';
+  const validFormats = ['table', 'json', 'detailed'] as const;
+  if (!validFormats.includes(formatStr as typeof validFormats[number])) {
+    return { status: 'error', error: `Invalid format '${formatStr}'. Valid formats: ${validFormats.join(', ')}` };
+  }
+  const format = formatStr as 'table' | 'json' | 'detailed';
 
   if (typeStr && !Object.values(MemoryType).includes(typeStr as MemoryType)) {
     const validTypes = Object.values(MemoryType).join(', ');

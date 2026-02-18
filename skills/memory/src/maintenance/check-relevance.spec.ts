@@ -784,6 +784,61 @@ describe('formatTable', () => {
 });
 
 // ============================================================================
+// Review fix: --auto-move Global target must use real global path, not ''
+// ============================================================================
+
+describe('checkRelevance --auto-move Global scope path', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  // T066a — getScopePath(Scope.Global, cwd, '') returned '' before fix;
+  // moveMemory must be called with the real ~/.claude/memory path, not ''
+  it('calls moveMemory with the real global memory path when suggested scope is Global', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      version: '1',
+      lastUpdated: new Date().toISOString(),
+      memories: [
+        {
+          id: 'misplaced-learning' as any,
+          type: MemoryType.Learning,
+          title: 'Misplaced in project',
+          tags: [],
+          created: '2026-01-01',
+          updated: '2026-01-01',
+          scope: Scope.Project,
+          relativePath: 'misplaced-learning.md',
+        },
+      ],
+    } as any);
+
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1,
+      nodes: [{ id: 'misplaced-learning', type: 'learning', scope: Scope.Project }],
+      edges: [],
+    });
+
+    const moveSpy = vi.spyOn(moveModule, 'moveMemory').mockResolvedValue({
+      status: 'success',
+      id: 'misplaced-learning',
+      changes: {
+        fileMoved: true, sourceGraphUpdated: true, targetGraphUpdated: true,
+        sourceIndexUpdated: true, targetIndexUpdated: true, embeddingsTransferred: false,
+      },
+    } as any);
+
+    await checkRelevance({ basePath: '/fake/project', autoMove: true, confirm: true });
+
+    expect(moveSpy).toHaveBeenCalled();
+    const call = moveSpy.mock.calls[0]![0] as any;
+    // targetBasePath must NOT be empty string (pre-fix bug)
+    expect(call.targetBasePath).not.toBe('');
+    // Must be the real global path
+    expect(call.targetBasePath).toMatch(/\.claude[/\\]memory/);
+  });
+});
+
+// ============================================================================
 // Review fix: --format detailed must read file content (not always pass '')
 // ============================================================================
 

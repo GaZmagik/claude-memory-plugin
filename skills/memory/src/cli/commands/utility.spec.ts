@@ -264,6 +264,24 @@ describe('cmdStatus', () => {
   });
 });
 
+// Review fix: cmdCheckRelevance should validate --format before dispatching
+describe('cmdCheckRelevance --format validation', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('returns a user-friendly error when --format is not a recognised value', async () => {
+    vi.spyOn(checkRelevanceModule, 'checkRelevance').mockResolvedValue({ results: [] });
+
+    const args: ParsedArgs = { positional: [], flags: { format: 'foobar' } };
+    const result = await cmdCheckRelevance(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toMatch(/invalid format|unknown format/i);
+    expect(checkRelevanceModule.checkRelevance).not.toHaveBeenCalled();
+  });
+});
+
 // Review fix: cmdCheckRelevance should validate --type before dispatching
 describe('cmdCheckRelevance', () => {
   afterEach(() => {

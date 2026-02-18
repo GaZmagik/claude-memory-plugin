@@ -7,6 +7,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { loadIndex } from '../core/index.js';
 import { loadGraph } from '../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../graph/edges.js';
@@ -312,7 +313,7 @@ export async function checkRelevance(
 
   let movedCount = 0;
   if (autoMove && confirm && !dryRun) {
-    const globalPath = getScopePath(Scope.Global, process.cwd(), '');
+    const globalPath = path.join(os.homedir(), '.claude', 'memory');
     for (const result of results) {
       if (result.totalScore < threshold && result.suggestedScope) {
         const targetScope = result.suggestedScope as Scope;

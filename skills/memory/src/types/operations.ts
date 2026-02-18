@@ -89,6 +89,8 @@ export interface LinkMemoriesRequest extends BaseRequest {
   targetScope?: string;
   /** Source agent name (explicit, when linking from an agent scope) */
   sourceAgent?: string;
+  /** Cosine similarity score to store on the created edge [0–1]. Same-scope auto-link only. */
+  similarity?: number;
 }
 
 /**

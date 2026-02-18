@@ -416,6 +416,7 @@ export async function suggestLinks(
             relation: 'auto-linked-by-similarity',
             basePath,
             agent: agentName,
+            similarity: suggestion.similarity,
           });
           createdSameScope++;
         }

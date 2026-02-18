@@ -388,4 +388,79 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     expect(edge.sourceAgent).toBeUndefined();
     expect(edge.targetAgent).toBeUndefined();
   });
+
+  // T004: backward compatibility — no similarity field
+  it('should round-trip edge without similarity — similarity remains undefined', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'node-a', type: 'decision' },
+        { id: 'node-b', type: 'learning' },
+      ],
+      edges: [
+        { source: 'node-a', target: 'node-b', label: 'relates-to' },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    expect(loaded.edges[0]!.similarity).toBeUndefined();
+  });
+
+  // T005: similarity survives save/load round-trip
+  it('should round-trip edge with similarity: 0.87 intact', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'node-a', type: 'decision' },
+        { id: 'node-b', type: 'learning' },
+      ],
+      edges: [
+        { source: 'node-a', target: 'node-b', label: 'auto-linked-by-similarity', similarity: 0.87 },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    expect(loaded.edges[0]!.similarity).toBe(0.87);
+  });
+
+  // T021 (B-T9): verifiedRelation round-trip
+  it('should round-trip edge with verifiedRelation intact', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'node-a', type: 'decision' },
+        { id: 'node-b', type: 'learning' },
+      ],
+      edges: [
+        { source: 'node-a', target: 'node-b', label: 'relates-to', verifiedRelation: 'superseded-by' },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    expect(loaded.edges[0]!.verifiedRelation).toBe('superseded-by');
+  });
+
+  it('should not have verifiedRelation on round-tripped edge that lacked it', async () => {
+    const graph: MemoryGraph = {
+      version: 1,
+      nodes: [
+        { id: 'node-a', type: 'decision' },
+        { id: 'node-b', type: 'learning' },
+      ],
+      edges: [
+        { source: 'node-a', target: 'node-b', label: 'relates-to' },
+      ],
+    };
+
+    await saveGraph(testPath, graph);
+    const loaded = await loadGraph(testPath);
+
+    expect(loaded.edges[0]!.verifiedRelation).toBeUndefined();
+  });
 });

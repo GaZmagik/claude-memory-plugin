@@ -37,6 +37,8 @@ export interface EdgeMetadata {
   targetScope?: string;
   sourceAgent?: string;
   targetAgent?: string;
+  /** Cosine similarity score [0–1]. NaN is rejected; out-of-range values are clamped. */
+  similarity?: number;
 }
 
 /**
@@ -81,6 +83,13 @@ export function addEdge(
     if (metadata.targetScope) edge.targetScope = metadata.targetScope;
     if (metadata.sourceAgent) edge.sourceAgent = metadata.sourceAgent;
     if (metadata.targetAgent) edge.targetAgent = metadata.targetAgent;
+    if (metadata.similarity !== undefined) {
+      const s = metadata.similarity;
+      if (isNaN(s)) {
+        throw new Error(`similarity must be a finite number, received NaN`);
+      }
+      edge.similarity = Math.min(1, Math.max(0, s));
+    }
   }
 
   return {

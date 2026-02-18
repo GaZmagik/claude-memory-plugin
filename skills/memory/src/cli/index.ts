@@ -13,7 +13,7 @@ import { getCommandHelp } from './command-help.js';
 // Command handlers - will be populated as we implement them
 import { cmdWrite, cmdRead, cmdList, cmdDelete, cmdSearch, cmdSemantic } from './commands/crud.js';
 import { cmdTag, cmdUntag } from './commands/tags.js';
-import { cmdLink, cmdUnlink, cmdGraph, cmdMermaid, cmdEdges, cmdRemoveNode } from './commands/graph.js';
+import { cmdLink, cmdUnlink, cmdGraph, cmdMermaid, cmdEdges, cmdRemoveNode, cmdUpdateEdge } from './commands/graph.js';
 import { cmdHealth, cmdValidate, cmdQuality, cmdAudit, cmdAuditQuick } from './commands/quality.js';
 import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter, cmdRefresh } from './commands/maintenance.js';
 import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus, cmdSetup } from './commands/utility.js';
@@ -60,6 +60,7 @@ const COMMANDS: Record<string, CommandHandler> = {
   mermaid: cmdMermaid,
   edges: cmdEdges,
   'remove-node': cmdRemoveNode,
+  'update-edge': cmdUpdateEdge,
 
   // Quality operations
   health: cmdHealth,

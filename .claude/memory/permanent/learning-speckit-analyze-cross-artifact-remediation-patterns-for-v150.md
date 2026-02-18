@@ -3,8 +3,9 @@ id: learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150
 title: "speckit-analyze: cross-artifact remediation patterns for v1.5.0"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T12:36:54.820Z"
-updated: "2026-02-18T12:36:54.820Z"
+updated: "2026-02-18T15:50:09.580Z"
 tags:
   - speckit
   - analyze

@@ -58,6 +58,7 @@ COMMANDS:
   think <subcommand>  Deliberation workspace (see THINK COMMANDS below)
   unlink <from> <to>  Remove a relationship between memories
   untag <id> <tags>   Remove tags from a memory
+  update-edge <s> <t> Update metadata on an existing edge (--similarity, --relation, --apply)
   validate [scope]    Detailed validation with issue detection
   write               Create or update a memory (JSON from stdin)
 
@@ -187,6 +188,15 @@ Graph Operations:
 
   remove-node <id>   Remove node from graph (file remains on disk)
                      Flags: --agent <name>
+
+  update-edge <sourceId> <targetId>
+                     Update metadata on an existing edge in the graph
+                     Flags: --similarity <0-1>  Set cosine similarity score (strict: out-of-range rejected)
+                            --relation <label>  Change the edge label
+                            --apply             Promote verifiedRelation to label (removes verifiedRelation)
+                            --verify            Stage LLM-verified relation (Phase D; no-op until wired)
+                            --agent <name>      Source agent scope
+                            --target-agent <n>  Target agent scope (for cross-scope edges)
 
 Bulk Operations:
   bulk-delete        Delete multiple memories matching criteria

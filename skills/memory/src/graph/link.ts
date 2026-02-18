@@ -126,7 +126,10 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
     }
 
     // Add edge
-    graph = addEdge(graph, request.source, request.target, relation);
+    const edgeMetadata: EdgeMetadata = {};
+    if (request.similarity !== undefined) edgeMetadata.similarity = request.similarity;
+    graph = addEdge(graph, request.source, request.target, relation,
+      Object.keys(edgeMetadata).length > 0 ? edgeMetadata : undefined);
 
     // Save graph
     await saveGraph(basePath, graph);

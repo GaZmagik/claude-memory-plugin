@@ -3,8 +3,9 @@ id: artifact-v150-memory-graph-enhancement-suite-spec
 title: v1.5.0 Memory Graph Enhancement Suite Spec
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T09:36:44.527Z"
-updated: "2026-02-18T09:36:44.527Z"
+updated: "2026-02-18T15:50:09.559Z"
 tags:
   - v1.5.0
   - spec

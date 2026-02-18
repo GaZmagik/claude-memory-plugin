@@ -3,8 +3,9 @@
  */
 
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { cmdLink, cmdUnlink, cmdEdges, cmdGraph, cmdMermaid, cmdRemoveNode } from './graph.js';
+import { cmdLink, cmdUnlink, cmdEdges, cmdGraph, cmdMermaid, cmdRemoveNode, cmdUpdateEdge } from './graph.js';
 import * as linkModule from '../../graph/link.js';
+import * as linkUpdateModule from '../../graph/link-update.js';
 import * as structureModule from '../../graph/structure.js';
 import * as edgesModule from '../../graph/edges.js';
 import * as mermaidModule from '../../graph/mermaid.js';
@@ -225,5 +226,50 @@ describe('cmdRemoveNode', () => {
     expect(structureModule.saveGraph).toHaveBeenCalled();
     expect(result.data).toHaveProperty('removed', 'my-node');
     expect(result.data).toHaveProperty('remainingNodes', 1);
+  });
+});
+
+// T022 (B-T10): CLI integration for cmdUpdateEdge
+describe('cmdUpdateEdge', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('returns error when source is missing', async () => {
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdUpdateEdge(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Missing required arguments');
+  });
+
+  it('returns error when target is missing', async () => {
+    const args: ParsedArgs = { positional: ['mem-a'], flags: {} };
+    const result = await cmdUpdateEdge(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Missing required arguments');
+  });
+
+  it('calls updateEdgeMetadata with --similarity flag and returns success', async () => {
+    vi.spyOn(linkUpdateModule, 'updateEdgeMetadata').mockResolvedValue({
+      status: 'success',
+      edge: { source: 'mem-a', target: 'mem-b', label: 'relates-to', similarity: 0.75 },
+    });
+
+    const args: ParsedArgs = {
+      positional: ['mem-a', 'mem-b'],
+      flags: { similarity: '0.75' },
+    };
+    const result = await cmdUpdateEdge(args);
+
+    expect(result.status).toBe('success');
+    expect(linkUpdateModule.updateEdgeMetadata).toHaveBeenCalledWith(
+      expect.objectContaining({
+        sourceId: 'mem-a',
+        targetId: 'mem-b',
+        similarity: 0.75,
+      })
+    );
   });
 });

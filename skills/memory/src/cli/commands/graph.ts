@@ -10,6 +10,7 @@ import { getFlagString, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { linkMemories, unlinkMemories } from '../../graph/link.js';
+import { updateEdgeMetadata } from '../../graph/link-update.js';
 import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
@@ -349,5 +350,56 @@ export async function cmdRemoveNode(args: ParsedArgs): Promise<CliResponse> {
       };
     },
     `Removed node ${id} from graph`
+  );
+}
+
+/**
+ * update-edge - Update metadata on an existing graph edge
+ *
+ * Usage: memory update-edge <sourceId> <targetId> [--similarity <n>] [--relation <label>]
+ *                           [--apply] [--scope <scope>] [--agent <name>] [--target-agent <name>]
+ */
+export async function cmdUpdateEdge(args: ParsedArgs): Promise<CliResponse> {
+  const sourceId = args.positional[0];
+  const targetId = args.positional[1];
+
+  if (!sourceId || !targetId) {
+    return error('Missing required arguments: <sourceId> <targetId>');
+  }
+
+  const agentName = getFlagString(args.flags, 'agent');
+  const targetAgentName = getFlagString(args.flags, 'target-agent');
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const similarityStr = getFlagString(args.flags, 'similarity');
+  const relation = getFlagString(args.flags, 'relation');
+  const apply = getFlagBool(args.flags, 'apply');
+  const verify = getFlagBool(args.flags, 'verify');
+
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
+  // Build cross-scope paths when --target-agent is provided
+  const crossScopeBasePaths: string[] = [];
+  if (targetAgentName) {
+    crossScopeBasePaths.push(resolveAgentScopePath(targetAgentName, scopeStr));
+  }
+
+  const similarity = similarityStr !== undefined ? parseFloat(similarityStr) : undefined;
+
+  return wrapOperation(
+    async () => {
+      return updateEdgeMetadata({
+        sourceId,
+        targetId,
+        basePath,
+        crossScopeBasePaths: crossScopeBasePaths.length > 0 ? crossScopeBasePaths : undefined,
+        similarity,
+        relation: relation ?? undefined,
+        apply: apply || undefined,
+        verify: verify || undefined,
+      });
+    },
+    `Updated edge ${sourceId} -> ${targetId}`
   );
 }

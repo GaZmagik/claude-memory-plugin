@@ -3414,6 +3414,42 @@
       "type": "artifact",
       "title": "Phase A: similarity field on GraphEdge — implementation pattern",
       "scope": "project"
+    },
+    {
+      "id": "artifact-phase-b-verifiedrelation-flag-and-updateedgemetadata-pattern",
+      "type": "artifact",
+      "title": "Phase B: verifiedRelation Flag and updateEdgeMetadata Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "type": "learning",
+      "title": "Learning: TDD Stub File Pattern Accelerates Hook Compliance",
+      "scope": "project"
+    },
+    {
+      "id": "learning-graph-edge-similarity-scope-isolation-pattern",
+      "type": "learning",
+      "title": "Learning: Graph Edge Similarity Scope Isolation Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-phase-delivery",
+      "type": "learning",
+      "title": "Retro - TDD-first with explicit test sections (T001–T028) accelerated phase delivery",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "type": "learning",
+      "title": "Retro - TDD hook stub-first pattern eliminated accidental file overwrites and forced deliberate structure",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-multi-phase-features-need-explicit-memory-checkpoints-between-phases-for-context-continuity",
+      "type": "gotcha",
+      "title": "Retro - Multi-phase features need explicit memory checkpoints between phases for context continuity",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -10915,6 +10951,106 @@
     {
       "source": "learning-session-restoration-with-parallel-agents-scales-well",
       "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "decision-memory-health-audit-2026-02-05",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-post-compaction-memory-restoration-agents-outperforms-manual-recall",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "decision-memory-health-audit-2026-02-05",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
       "label": "auto-linked-by-similarity"
     }
   ]

@@ -272,4 +272,17 @@ describe('cmdUpdateEdge', () => {
       })
     );
   });
+
+  // Review fix: --similarity with a non-numeric value should give a friendly CLI error
+  it('returns a user-friendly error when --similarity is not a valid number', async () => {
+    const args: ParsedArgs = {
+      positional: ['mem-a', 'mem-b'],
+      flags: { similarity: 'foo' },
+    };
+    const result = await cmdUpdateEdge(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toMatch(/similarity/i);
+    expect(result.error).toMatch(/not a valid number|invalid/i);
+  });
 });

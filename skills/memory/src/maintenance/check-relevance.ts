@@ -6,9 +6,11 @@
  * High score (≥80) = well-placed. Low score (<40) = migration candidate.
  */
 
+import * as path from 'node:path';
 import { loadIndex } from '../core/index.js';
 import { loadGraph } from '../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../graph/edges.js';
+import { readFile } from '../core/fs-utils.js';
 import { moveMemory } from './move.js';
 import { getScopePath } from '../scope/resolver.js';
 import { MemoryType, Scope } from '../types/enums.js';
@@ -208,6 +210,14 @@ function isGlobalLike(scope: string): boolean {
   return scope === Scope.Global || scope === Scope.AgentGlobal;
 }
 
+/**
+ * Suggest the best alternative scope for a memory based on its type affinity.
+ *
+ * Known limitation: scope suggestions are driven purely by static TYPE_SCOPE_SCORES
+ * affinity and intentionally ignore the tag, graph-connectivity, and content signals
+ * already computed during scoring. This keeps suggestions deterministic and fast.
+ * A future version could weight scope candidates using the full scoring breakdown.
+ */
 function suggestBestScope(type: MemoryType, currentScope: string): string | undefined {
   const affinities = TYPE_SCOPE_SCORES[type];
   if (!affinities) return undefined;
@@ -268,9 +278,16 @@ export async function checkRelevance(
     const tagScore = scoreTagHeuristics(entry.tags, currentScope);
     const connectivityScore = scoreGraphConnectivity(entry.id as string, graph, currentScope);
     // Content analysis only loaded for --format detailed (performance constraint SC-004)
-    const contentScore = format === 'detailed'
-      ? scoreContentAnalysis('', currentScope) // placeholder — real impl reads file
-      : 0;
+    let contentScore = 0;
+    if (format === 'detailed') {
+      try {
+        const filePath = path.join(basePath, entry.relativePath);
+        const content = await readFile(filePath);
+        contentScore = scoreContentAnalysis(content, currentScope);
+      } catch {
+        // File unreadable — score 0 gracefully
+      }
+    }
 
     const total = typeScore + tagScore + connectivityScore + contentScore;
     const band = classifyConfidenceBand(total);

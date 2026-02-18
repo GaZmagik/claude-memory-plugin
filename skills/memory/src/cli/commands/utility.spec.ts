@@ -4,12 +4,13 @@
 
 import * as fs from 'node:fs';
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus } from './utility.js';
+import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus, cmdCheckRelevance } from './utility.js';
 import * as renameModule from '../../maintenance/rename.js';
 import * as moveModule from '../../maintenance/move.js';
 import * as promoteModule from '../../maintenance/promote.js';
 import * as archiveModule from '../../maintenance/archive.js';
 import * as structureModule from '../../graph/structure.js';
+import * as checkRelevanceModule from '../../maintenance/check-relevance.js';
 import type { ParsedArgs } from '../parser.js';
 
 describe('cmdRename', () => {
@@ -260,5 +261,23 @@ describe('cmdStatus', () => {
 
     expect(result.status).toBe('success');
     expect((result.data as any).total_memories).toBe(0);
+  });
+});
+
+// Review fix: cmdCheckRelevance should validate --type before dispatching
+describe('cmdCheckRelevance', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('returns a user-friendly error when --type is not a recognised MemoryType', async () => {
+    vi.spyOn(checkRelevanceModule, 'checkRelevance').mockResolvedValue({ results: [] });
+
+    const args: ParsedArgs = { positional: [], flags: { type: 'invalid-type' } };
+    const result = await cmdCheckRelevance(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toMatch(/invalid type|unknown type/i);
+    expect(checkRelevanceModule.checkRelevance).not.toHaveBeenCalled();
   });
 });

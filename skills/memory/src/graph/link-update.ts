@@ -115,7 +115,7 @@ export async function updateEdgeMetadata(
     if (!foundEdge) {
       return {
         status: 'error',
-        error: `Edge not found: source '${sourceId}' not found in any scanned graph`,
+        error: `Edge not found: no edge from '${sourceId}' to '${targetId}' in any scanned graph`,
       };
     }
 

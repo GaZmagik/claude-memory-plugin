@@ -405,6 +405,10 @@ export async function cmdCheckRelevance(args: ParsedArgs): Promise<CliResponse> 
   const dryRun = getFlagBool(args.flags, 'dry-run');
   const format = (getFlagString(args.flags, 'format') ?? 'table') as 'table' | 'json' | 'detailed';
 
+  if (typeStr && !Object.values(MemoryType).includes(typeStr as MemoryType)) {
+    const validTypes = Object.values(MemoryType).join(', ');
+    return { status: 'error', error: `Invalid type '${typeStr}'. Valid types: ${validTypes}` };
+  }
   const typeFilter = typeStr ? (typeStr as MemoryType) : undefined;
 
   return wrapOperation(

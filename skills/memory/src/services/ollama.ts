@@ -22,9 +22,24 @@ let client: Ollama = new Ollama({ host: 'http://localhost:11434' });
 /**
  * Configure the Ollama client with a custom host.
  * Always creates a new client instance.
+ *
+ * NOTE: This mutates a module-level singleton. In a single-process CLI context
+ * this is safe, but calling configureClient() from multiple concurrent code
+ * paths would affect all in-flight generate() calls.
  */
 export function configureClient(host: string): void {
   client = new Ollama({ host });
+}
+
+/** Module-level cache for the resolved chat model name. Populated on first read. */
+let cachedChatModel: string | undefined;
+
+/**
+ * Reset the cached chat model name.
+ * Exported for testing only — production code should not call this.
+ */
+export function resetChatModelCache(): void {
+  cachedChatModel = undefined;
 }
 
 function getClient(): Ollama {
@@ -33,9 +48,13 @@ function getClient(): Ollama {
 
 /**
  * Read chat_model from .claude/memory.local.md YAML frontmatter.
+ * Result is cached after the first successful read so subsequent generate()
+ * calls do not hit the filesystem. Call resetChatModelCache() in tests to
+ * force a re-read.
  * Falls back to DEFAULT_CHAT_MODEL if file is missing or field absent.
  */
 function readChatModel(): string {
+  if (cachedChatModel !== undefined) return cachedChatModel;
   try {
     const settingsPath = join(process.cwd(), '.claude', 'memory.local.md');
     const content = readFileSync(settingsPath, 'utf-8');
@@ -43,13 +62,15 @@ function readChatModel(): string {
     if (match?.[1]) {
       const line = match[1].split('\n').find(l => l.trimStart().startsWith('chat_model:'));
       if (line) {
-        return line.split(':').slice(1).join(':').trim().replace(/^['"]|['"]$/g, '');
+        cachedChatModel = line.split(':').slice(1).join(':').trim().replace(/^['"]|['"]$/g, '');
+        return cachedChatModel;
       }
     }
   } catch {
     // File not found or unreadable — use default
   }
-  return DEFAULT_CHAT_MODEL;
+  cachedChatModel = DEFAULT_CHAT_MODEL;
+  return cachedChatModel;
 }
 
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {

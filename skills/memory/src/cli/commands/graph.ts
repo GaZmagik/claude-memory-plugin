@@ -386,6 +386,9 @@ export async function cmdUpdateEdge(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const similarity = similarityStr !== undefined ? parseFloat(similarityStr) : undefined;
+  if (similarity !== undefined && isNaN(similarity)) {
+    return { status: 'error', error: `--similarity: '${similarityStr}' is not a valid number. Expected a value between 0 and 1.` };
+  }
 
   return wrapOperation(
     async () => {

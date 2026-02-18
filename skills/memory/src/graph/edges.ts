@@ -48,6 +48,14 @@ export interface EdgeMetadata {
  *
  * @param metadata - Optional cross-scope metadata. When provided, fields are
  *                   included in the edge object for cross-scope identification.
+ *
+ * Similarity validation note: addEdge() clamps out-of-range values to [0, 1]
+ * (Infinity → 1.0, -0.1 → 0.0) and rejects NaN. This is intentionally more
+ * permissive than updateEdgeMetadata(), which strictly rejects out-of-range
+ * values. The difference reflects context: auto-link pipelines may produce
+ * slightly over/under-range floats due to floating-point arithmetic, whereas
+ * explicit user input via --similarity should be validated precisely at the
+ * call site.
  */
 export function addEdge(
   graph: MemoryGraph,

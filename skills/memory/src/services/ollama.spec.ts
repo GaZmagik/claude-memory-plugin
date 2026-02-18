@@ -5,11 +5,13 @@
  */
 
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
+import { mkdtempSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { Ollama } from 'ollama';
-import { generate, isAvailable, configureClient } from './ollama.js';
+import { generate, isAvailable, configureClient, resetChatModelCache } from './ollama.js';
 
 vi.mock('ollama', () => ({
   Ollama: vi.fn(),
@@ -140,6 +142,64 @@ describe('configureClient', () => {
   it('with a custom host, creates a new client using that host', () => {
     configureClient('http://custom-host:11434');
     expect(Ollama).toHaveBeenCalledWith({ host: 'http://custom-host:11434' });
+  });
+});
+
+// ============================================================================
+// Review fix: readChatModel() must cache result — not re-read disk every call
+// ============================================================================
+
+describe('readChatModel caching', () => {
+  let tmpDir: string;
+
+  beforeEach(() => {
+    tmpDir = mkdtempSync(join(tmpdir(), 'ollama-cache-test-'));
+    mkdirSync(join(tmpDir, '.claude'), { recursive: true });
+    writeFileSync(
+      join(tmpDir, '.claude', 'memory.local.md'),
+      '---\nchat_model: cached-model-a\n---\n'
+    );
+    vi.spyOn(process, 'cwd').mockReturnValue(tmpDir);
+    resetChatModelCache();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it('returns the same model on second call even when the settings file changes', async () => {
+    const mockGen = vi.fn().mockResolvedValue({ response: 'ok' });
+    mockOllamaClient({ generate: mockGen });
+    configureClient('http://localhost:11434');
+
+    await generate('first call');
+    // Overwrite file with different model — cache should prevent re-read
+    writeFileSync(
+      join(tmpDir, '.claude', 'memory.local.md'),
+      '---\nchat_model: different-model-b\n---\n'
+    );
+    await generate('second call');
+
+    expect(mockGen).toHaveBeenNthCalledWith(1, expect.objectContaining({ model: 'cached-model-a' }));
+    expect(mockGen).toHaveBeenNthCalledWith(2, expect.objectContaining({ model: 'cached-model-a' }));
+  });
+
+  it('after resetChatModelCache(), re-reads the settings file on next call', async () => {
+    const mockGen = vi.fn().mockResolvedValue({ response: 'ok' });
+    mockOllamaClient({ generate: mockGen });
+    configureClient('http://localhost:11434');
+
+    await generate('first call');
+    writeFileSync(
+      join(tmpDir, '.claude', 'memory.local.md'),
+      '---\nchat_model: refreshed-model-c\n---\n'
+    );
+    resetChatModelCache();
+    await generate('second call after reset');
+
+    expect(mockGen).toHaveBeenNthCalledWith(1, expect.objectContaining({ model: 'cached-model-a' }));
+    expect(mockGen).toHaveBeenNthCalledWith(2, expect.objectContaining({ model: 'refreshed-model-c' }));
   });
 });
 

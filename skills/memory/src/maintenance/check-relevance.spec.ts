@@ -22,6 +22,7 @@ import type { MemoryGraph } from '../graph/structure.js';
 import * as indexModule from '../core/index.js';
 import * as structureModule from '../graph/structure.js';
 import * as moveModule from './move.js';
+import * as fsUtils from '../core/fs-utils.js';
 
 // ============================================================================
 // C-T1: scoreTypeMatch
@@ -779,5 +780,36 @@ describe('formatTable', () => {
     const output = formatTable(results);
     const widestLine = Math.max(...output.split('\n').map(l => l.length));
     expect(widestLine).toBeGreaterThanOrEqual(80);
+  });
+});
+
+// ============================================================================
+// Review fix: --format detailed must read file content (not always pass '')
+// ============================================================================
+
+describe('checkRelevance — format detailed reads file content for content scoring', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('passes actual file content to scoreContentAnalysis when format is detailed', async () => {
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      memories: [{
+        id: 'mem-1', title: 'Test', type: MemoryType.Decision, tags: [],
+        relativePath: 'permanent/mem-1.md', scope: Scope.Project,
+      }],
+    } as any);
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1, nodes: [], edges: [],
+    } as any);
+    // Content with strong project signals → contentAnalysis should be > 0
+    const readFileSpy = vi.spyOn(fsUtils, 'readFile').mockResolvedValue(
+      'In this project we use src/ and this codebase for all TypeScript files.'
+    );
+
+    const result = await checkRelevance({ basePath: '/test', format: 'detailed' });
+
+    expect(readFileSpy).toHaveBeenCalled();
+    expect(result.results[0]!.components.contentAnalysis).toBeGreaterThan(0);
   });
 });

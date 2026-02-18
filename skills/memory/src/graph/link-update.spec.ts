@@ -228,6 +228,8 @@ describe('updateEdgeMetadata', () => {
 
     expect(result.status).toBe('error');
     expect(result.error).toContain('mem-a');
+    // Review fix: error message must also identify the target so users see the full edge pair
+    expect(result.error).toContain('mem-b');
   });
 
   // T022a (B-T11): verify and apply together is rejected before any graph read/write

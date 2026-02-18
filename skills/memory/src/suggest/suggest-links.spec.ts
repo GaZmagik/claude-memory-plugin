@@ -330,7 +330,12 @@ describe('suggestLinks --llm-type', () => {
 
     await suggestLinks({ basePath: '/test', autoLink: true, llmType: true });
 
-    expect(generateSpy).toHaveBeenCalledWith(expect.any(String), undefined, 300_000);
+    // Review fix: prompt must use human-readable titles, not opaque memory IDs
+    expect(generateSpy).toHaveBeenCalledWith(
+      expect.stringMatching(/Memory One.*Memory Two|Memory Two.*Memory One/),
+      undefined,
+      300_000
+    );
     expect(linkModule.linkMemories).toHaveBeenCalledWith(
       expect.objectContaining({ verifiedRelation: 'superseded-by' })
     );

@@ -417,7 +417,7 @@ export async function suggestLinks(
           if (llmType) {
             const available = await isAvailable();
             if (available) {
-              const prompt = `Given source memory "${suggestion.source}" and target memory "${suggestion.target}", what is the best relation label for their link? Reply with a single short label only.`;
+              const prompt = `Given source memory "${suggestion.sourceTitle}" and target memory "${suggestion.targetTitle}", what is the best relation label for their link? Reply with a single short label only.`;
               const llmResult = await generate(prompt, undefined, 300_000);
               verifiedRelation = llmResult.trim() || undefined;
             } else {

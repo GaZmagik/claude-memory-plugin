@@ -3,8 +3,9 @@ id: gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s
 title: Ollama --llm-type cold-start requires 300s timeout, not 15s
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T18:07:21.299Z"
-updated: "2026-02-18T18:07:21.299Z"
+updated: "2026-02-18T18:11:45.719Z"
 tags:
   - ollama
   - timeout

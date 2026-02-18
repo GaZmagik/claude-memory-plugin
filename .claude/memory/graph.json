@@ -3462,6 +3462,84 @@
       "type": "gotcha",
       "title": "Retro - Test fixture design requires alignment with scoring logic intent before implementation",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-with-coordinated-multi-file-implementation-is-highly-effective-for-phase-d",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD with coordinated multi-file implementation is highly effective for Phase D",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-spying-on-non-configurable-node-built-ins-fs-fails-spy-on-the-function-that-calls-them-instead",
+      "type": "gotcha",
+      "title": "Gotcha - Spying on non-configurable Node built-ins (fs) fails; spy on the function that calls them instead",
+      "scope": "project"
+    },
+    {
+      "id": "learning-pre-checking-memory-gotchas-for-integration-points-prevents-reinvention-ollama-timeout-case",
+      "type": "learning",
+      "title": "Learning - Pre-checking memory gotchas for integration points prevents reinvention (Ollama timeout case)",
+      "scope": "project"
+    },
+    {
+      "id": "learning-ollama-timeout-requires-10-30s-buffer-not-default-5s",
+      "type": "learning",
+      "title": "Ollama timeout requires 10-30s buffer, not default 5s",
+      "scope": "project"
+    },
+    {
+      "id": "learning-stub-first-tdd-pattern-write-all-failing-tests-before-implementing",
+      "type": "learning",
+      "title": "Stub-first TDD pattern: write all failing tests before implementing",
+      "scope": "project"
+    },
+    {
+      "id": "learning-thread-new-fields-through-all-graph-layers-edgemetadata-linkmemoriesrequest-addedge-write-logic",
+      "type": "learning",
+      "title": "Thread new fields through all graph layers: EdgeMetadata → LinkMemoriesRequest → addEdge write logic",
+      "scope": "project"
+    },
+    {
+      "id": "learning-ollama-integration-minimal-surface-generate-isavailable-beats-full-client-api",
+      "type": "learning",
+      "title": "Ollama integration: minimal surface (generate + isAvailable) beats full client API",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s",
+      "type": "gotcha",
+      "title": "Ollama --llm-type cold-start requires 300s timeout, not 15s",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "type": "learning",
+      "title": "Retro - Stub-first TDD with multi-file test coordination accelerated Phase D delivery",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-smoke-testing-real-ollama-revealed-timeout-assumptions-needed-correction",
+      "type": "learning",
+      "title": "Retro - Smoke testing real Ollama revealed timeout assumptions needed correction",
+      "scope": "project"
+    },
+    {
+      "id": "learning-timeout-configurability-via-optional-parameter-beats-hardcoding-constants",
+      "type": "learning",
+      "title": "Timeout configurability via optional parameter beats hardcoding constants",
+      "scope": "project"
+    },
+    {
+      "id": "learning-end-to-end-smoke-testing-with-real-data-validates-the-full-linking-lifecycle",
+      "type": "learning",
+      "title": "End-to-end smoke testing with real data validates the full linking lifecycle",
+      "scope": "project"
+    },
+    {
+      "id": "learning-stub-first-tdd-across-multiple-coordination-points-accelerates-multi-file-phases",
+      "type": "learning",
+      "title": "Stub-first TDD across multiple coordination points accelerates multi-file phases",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -11063,6 +11141,327 @@
     {
       "source": "retro-parallel-expert-review-effective",
       "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-typescript-batch-fixing-by-category-prevents-fatigue-and-catches-regressions",
+      "target": "learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-fix-approach",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-parallel-agent-context-restoration-accelerates-handover",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "target": "decision-memory-health-audit-2026-02-05",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "target": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "Improvement",
+      "similarity": 0.7564862940053702
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7491918753456693
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "warns",
+      "similarity": 0.739
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7381103387751977
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7374213871915651
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7305480544522805
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7291483622179599
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7254386013074376
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7221494393472488
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7220332453562766
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7211195405273578
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7196109351803078
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7153001008184525
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7107893596937711
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.710345356714634
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7075797932028646
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "target": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.706870606448335,
+      "verifiedRelation": "Abstraction"
+    },
+    {
+      "source": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7065245579806781
+    },
+    {
+      "source": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "target": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7052730961777639
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7033652705524175
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "learning-scope-field-frontmatter-serialisation-gotcha-two",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "decision-hook-separation-clarified-enforcement-boundaries",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "retro-duplicate-test-discovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-cargo-cult-tdd-compliance",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "gotcha-scope-resolver-params",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "target": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-feature-automation-should-verify-existing-capability-before-implementing",
+      "target": "decision-memory-hook-enhancement-plan-review",
       "label": "auto-linked-by-similarity"
     }
   ]

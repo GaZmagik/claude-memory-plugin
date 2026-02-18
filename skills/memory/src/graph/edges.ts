@@ -39,6 +39,8 @@ export interface EdgeMetadata {
   targetAgent?: string;
   /** Cosine similarity score [0–1]. NaN is rejected; out-of-range values are clamped. */
   similarity?: number;
+  /** LLM-verified relation label staging area (written by --llm-type or --verify). */
+  verifiedRelation?: string;
 }
 
 /**
@@ -89,6 +91,9 @@ export function addEdge(
         throw new Error(`similarity must be a finite number, received NaN`);
       }
       edge.similarity = Math.min(1, Math.max(0, s));
+    }
+    if (metadata.verifiedRelation !== undefined) {
+      edge.verifiedRelation = metadata.verifiedRelation;
     }
   }
 

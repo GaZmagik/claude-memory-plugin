@@ -39,6 +39,8 @@ curl http://localhost:11434/api/tags
 - `memory semantic <query>` - Search by meaning
 - `memory write --auto-link` - Auto-link to similar memories
 - `memory suggest-links` - Find potential relationships
+- `memory suggest-links --auto-link --llm-type` - Auto-link with LLM-verified relation labels
+- `memory update-edge <src> <tgt> --verify` - Stage LLM-verified relation on an existing edge
 - `memory refresh --embeddings` - Pre-generate embedding cache
 
 **Graceful degradation:** If Ollama is unavailable, semantic features fall back to keyword search (2s timeout check on `localhost:11434`).
@@ -87,6 +89,19 @@ memory link decision-postgres learning-orm-issues "informed-by"
 
 # View relationships
 memory edges decision-postgres
+
+# Update metadata on an existing edge (similarity, relation, LLM verification)
+memory update-edge decision-postgres learning-orm-issues --similarity 0.91 --relation "informed-by"
+memory update-edge decision-postgres learning-orm-issues --verify   # Stage LLM label
+memory update-edge decision-postgres learning-orm-issues --apply    # Promote to label
+
+# Find and auto-create missing relationships
+memory suggest-links --auto-link --threshold 0.80
+memory suggest-links --auto-link --llm-type  # With LLM-verified relation labels
+
+# Suggest scope moves for misplaced memories
+memory check-relevance project --threshold 60
+memory check-relevance --auto-move --dry-run  # Preview moves
 
 # Generate diagram
 memory mermaid project

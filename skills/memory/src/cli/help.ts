@@ -21,6 +21,7 @@ COMMANDS:
   bulk-promote        Promote memories to type (--pattern --to <type>)
   bulk-tag            Add/remove tags (--pattern --add/--remove <tags>)
   bulk-unlink         Remove links (--pattern --from <target>)
+  check-relevance     Analyse scope placement (--auto-move --confirm)
   delete <id>         Delete a memory
   demote <id> <type>  Reverse conversion (gotcha->learning, etc)
   edges <id>          Show inbound and outbound edges for a node
@@ -58,7 +59,7 @@ COMMANDS:
   think <subcommand>  Deliberation workspace (see THINK COMMANDS below)
   unlink <from> <to>  Remove a relationship between memories
   untag <id> <tags>   Remove tags from a memory
-  update-edge <s> <t> Update metadata on an existing edge (--similarity, --relation, --apply)
+  update-edge <s> <t> Update metadata on an existing edge (--similarity, --relation, --verify, --apply)
   validate [scope]    Detailed validation with issue detection
   write               Create or update a memory (JSON from stdin)
 
@@ -194,7 +195,7 @@ Graph Operations:
                      Flags: --similarity <0-1>  Set cosine similarity score (strict: out-of-range rejected)
                             --relation <label>  Change the edge label
                             --apply             Promote verifiedRelation to label (removes verifiedRelation)
-                            --verify            Stage LLM-verified relation (Phase D; no-op until wired)
+                            --verify            Stage LLM-verified relation via Ollama (stores as verifiedRelation)
                             --agent <name>      Source agent scope
                             --target-agent <n>  Target agent scope (for cross-scope edges)
 
@@ -245,6 +246,10 @@ Maintenance:
   rebuild [scope]    Full reconstruction from disk (destructive)
   reindex <id>       Re-index an orphan file
   prune              Remove expired temporary memories
+  check-relevance [scope] Analyse scope placement of memories
+                     Flags: --type <type>, --agent <name>, --threshold <n>
+                            --auto-move, --confirm, --dry-run
+                            --format table|json|detailed
 
 Utility:
   rename <old> <new> Rename memory ID, updating all references
@@ -285,7 +290,7 @@ Advanced:
                      Flags: --type, --tags, --has-edges, --orphans,
                             --agent <name>, --include-shared, --all-agents
   suggest-links      Find potential relationships using embeddings
-                     Flags: --threshold <n>, --auto-link, --agent <name>
+                     Flags: --threshold <n>, --auto-link, --llm-type, --agent <name>
   summarize [type]   Generate summary rollups
                      Flags: --agent <name>
   impact <id>        Show dependency tree for a memory

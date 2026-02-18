@@ -3,8 +3,9 @@ id: learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwr
 title: Retro - TDD hook stub-first pattern eliminated accidental file overwrites and forced deliberate structure
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T15:50:32.302Z"
-updated: "2026-02-18T15:50:32.302Z"
+updated: "2026-02-18T17:12:05.973Z"
 tags:
   - retrospective
   - process

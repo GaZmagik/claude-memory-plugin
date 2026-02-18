@@ -3,8 +3,9 @@ id: learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-ph
 title: Retro - TDD-first with explicit test sections (T001–T028) accelerated phase delivery
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T15:50:19.965Z"
-updated: "2026-02-18T15:50:19.965Z"
+updated: "2026-02-18T17:12:06.151Z"
 tags:
   - retrospective
   - process

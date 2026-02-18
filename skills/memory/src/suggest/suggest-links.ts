@@ -11,6 +11,7 @@ import { findSimilarMemories } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { linkMemories, storeCrossScopeEdge } from '../graph/link.js';
+import { generate, isAvailable } from '../services/ollama.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import { resolveSharedScopePaths } from '../cli/helpers.js';
 import { getScopePath } from '../scope/resolver.js';
@@ -83,6 +84,8 @@ export interface SuggestLinksRequest {
   agentName?: string;
   /** Scope string for agent scoping */
   scopeStr?: string;
+  /** Invoke LLM to verify relation type on auto-linked same-scope edges (requires Ollama) */
+  llmType?: boolean;
 }
 
 /**
@@ -111,7 +114,7 @@ export interface SuggestLinksResponse {
 export async function suggestLinks(
   request: SuggestLinksRequest
 ): Promise<SuggestLinksResponse> {
-  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, allScopes = false, agentName, scopeStr } = request;
+  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, allScopes = false, agentName, scopeStr, llmType = false } = request;
 
   const suggestions: SuggestedLink[] = [];
   let created = 0;
@@ -410,6 +413,17 @@ export async function suggestLinks(
           createdCrossScope++;
         } else {
           // Same-scope link: use linkMemories()
+          let verifiedRelation: string | undefined;
+          if (llmType) {
+            const available = await isAvailable();
+            if (available) {
+              const prompt = `Given source memory "${suggestion.source}" and target memory "${suggestion.target}", what is the best relation label for their link? Reply with a single short label only.`;
+              const llmResult = await generate(prompt, undefined, 300_000);
+              verifiedRelation = llmResult.trim() || undefined;
+            } else {
+              process.stderr.write('[Ollama] Unavailable — skipping LLM type verification\n');
+            }
+          }
           await linkMemories({
             source: suggestion.source,
             target: suggestion.target,
@@ -417,6 +431,7 @@ export async function suggestLinks(
             basePath,
             agent: agentName,
             similarity: suggestion.similarity,
+            verifiedRelation,
           });
           createdSameScope++;
         }

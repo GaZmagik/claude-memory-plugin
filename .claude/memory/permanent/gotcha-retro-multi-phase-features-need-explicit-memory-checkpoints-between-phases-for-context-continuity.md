@@ -3,8 +3,9 @@ id: gotcha-retro-multi-phase-features-need-explicit-memory-checkpoints-between-p
 title: Retro - Multi-phase features need explicit memory checkpoints between phases for context continuity
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T15:50:46.047Z"
-updated: "2026-02-18T15:50:46.047Z"
+updated: "2026-02-18T17:12:06.122Z"
 tags:
   - retrospective
   - process

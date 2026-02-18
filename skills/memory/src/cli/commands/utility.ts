@@ -8,7 +8,7 @@
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import type { ParsedArgs } from '../parser.js';
-import { getFlagString } from '../parser.js';
+import { getFlagString, getFlagBool, getFlagNumber } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
 import { Scope } from '../../types/enums.js';
@@ -19,6 +19,7 @@ import { promoteMemory } from '../../maintenance/promote.js';
 import { archiveMemory } from '../../maintenance/archive.js';
 import { MemoryType } from '../../types/enums.js';
 import { getResolvedScopePath, getGlobalMemoryPath, parseScope } from '../helpers.js';
+import { checkRelevance, formatTable, formatJson } from '../../maintenance/check-relevance.js';
 
 /**
  * Find which scope a memory exists in
@@ -381,5 +382,50 @@ export async function cmdStatus(args: ParsedArgs): Promise<CliResponse> {
       };
     },
     'Status retrieved'
+  );
+}
+
+/**
+ * check-relevance - Analyse memories for scope optimisation
+ *
+ * Usage: memory check-relevance [scope] [--type <type>] [--agent <name>]
+ *        [--threshold <n>] [--auto-move] [--confirm] [--dry-run]
+ *        [--format table|json|detailed]
+ */
+export async function cmdCheckRelevance(args: ParsedArgs): Promise<CliResponse> {
+  const scopeArg = args.positional[0];
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+  const basePath = getResolvedScopePath(parseScope(scopeStr));
+
+  const typeStr = getFlagString(args.flags, 'type');
+  const agentFilter = getFlagString(args.flags, 'agent');
+  const threshold = getFlagNumber(args.flags, 'threshold');
+  const autoMove = getFlagBool(args.flags, 'auto-move');
+  const confirm = getFlagBool(args.flags, 'confirm');
+  const dryRun = getFlagBool(args.flags, 'dry-run');
+  const format = (getFlagString(args.flags, 'format') ?? 'table') as 'table' | 'json' | 'detailed';
+
+  const typeFilter = typeStr ? (typeStr as MemoryType) : undefined;
+
+  return wrapOperation(
+    async () => {
+      const result = await checkRelevance({
+        basePath,
+        typeFilter,
+        agentFilter: agentFilter ?? undefined,
+        threshold: threshold ?? undefined,
+        autoMove,
+        confirm,
+        dryRun,
+        format,
+      });
+
+      const formatted = format === 'json'
+        ? formatJson(result.results)
+        : formatTable(result.results);
+
+      return { ...result, formatted };
+    },
+    dryRun ? 'Dry run complete' : 'Relevance check complete'
   );
 }

@@ -183,10 +183,10 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for Phase D (US4)
 
-- [ ] T066 [US4] Add `ollama` to the `dependencies` field in `/home/gareth/.vs/claude-memory-plugin/skills/memory/package.json`, then run `bun install` in the `skills/memory/` directory to update the lockfile. This is a manual chore step; commit the updated `package.json` and `bun.lockb` together before proceeding to T067 — traceability: FR-016 (D-I1)
-- [ ] T067 [US4] Create `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/services/ollama.ts`: expose `generate(prompt: string, model?: string): Promise<string>`, `isAvailable(): Promise<boolean>`, `configureClient(host: string): void`; read `chat_model` from `.claude/memory.local.md` YAML front-matter; default model `gemma3:4b`; timeout `15_000ms`; no retry logic; return `''` on timeout/error with stderr log; no import from `hooks/` — traceability: FR-016, FR-017 (D-I2)
-- [ ] T068 [US4] Add `--llm-type` flag handling to `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/suggest/suggest-links.ts`: when `--auto-link` and `--llm-type` are both set, call `services/ollama.generate()` after computing `label`, store trimmed response as `verifiedRelation` on same-scope edges via `addEdge()` metadata; skip cross-scope candidates; degrade gracefully when `isAvailable()` returns `false` — traceability: FR-018 (D-I3)
-- [ ] T069 [US4] Add `--verify` path to `updateEdgeMetadata()` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/link-update.ts`: call `services/ollama.generate()` with the edge's current `label` as context; store trimmed result as `verifiedRelation`; degrade gracefully if Ollama unavailable — traceability: FR-019 (D-I4)
+- [X] T066 [US4] Add `ollama` to the `dependencies` field in `/home/gareth/.vs/claude-memory-plugin/skills/memory/package.json`, then run `bun install` in the `skills/memory/` directory to update the lockfile. This is a manual chore step; commit the updated `package.json` and `bun.lockb` together before proceeding to T067 — traceability: FR-016 (D-I1)
+- [X] T067 [US4] Create `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/services/ollama.ts`: expose `generate(prompt: string, model?: string): Promise<string>`, `isAvailable(): Promise<boolean>`, `configureClient(host: string): void`; read `chat_model` from `.claude/memory.local.md` YAML front-matter; default model `gemma3:4b`; timeout `15_000ms`; no retry logic; return `''` on timeout/error with stderr log; no import from `hooks/` — traceability: FR-016, FR-017 (D-I2)
+- [X] T068 [US4] Add `--llm-type` flag handling to `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/suggest/suggest-links.ts`: when `--auto-link` and `--llm-type` are both set, call `services/ollama.generate()` after computing `label`, store trimmed response as `verifiedRelation` on same-scope edges via `addEdge()` metadata; skip cross-scope candidates; degrade gracefully when `isAvailable()` returns `false` — traceability: FR-018 (D-I3)
+- [X] T069 [US4] Add `--verify` path to `updateEdgeMetadata()` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/link-update.ts`: call `services/ollama.generate()` with the edge's current `label` as context; store trimmed result as `verifiedRelation`; degrade gracefully if Ollama unavailable — traceability: FR-019 (D-I4)
 
 **Checkpoint**: Phase D complete — `suggest-links --auto-link --llm-type` writes `verifiedRelation` on same-scope edges when Ollama is available; `update-edge --verify` backfills `verifiedRelation` on existing edges; both operations degrade gracefully (exit 0 with stderr warning) when Ollama is unavailable (SC-005); `services/ollama.ts` has no `hooks/` imports.
 
@@ -196,12 +196,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Purpose**: Documentation, version bump, and final validation across all user stories.
 
-- [ ] T070 [P] Bump version to `1.5.0` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/package.json` — traceability: SC-008, P6
-- [ ] T071 [P] Update README in `/home/gareth/.vs/claude-memory-plugin/skills/memory/README.md` to document `update-edge`, `check-relevance`, and `suggest-links --llm-type` commands — traceability: SC-008
-- [ ] T072 [P] Verify `link.ts` line count remains below 600 in `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/link.ts` — traceability: SC-007
-- [ ] T073 Run full test suite via `bun test` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/` and confirm all tests pass — traceability: SC-001 (test graph: 100 project-scoped memories with at least 20 edges, no agent-scoped memories)
-- [ ] T073a Verify `/home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/004-v1.5.0-memory-graph-enhancements/quickstart.md` exists and is complete before proceeding to T074 — traceability: F18 (artefact pre-check)
-- [ ] T074 Follow all steps in `/home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/004-v1.5.0-memory-graph-enhancements/quickstart.md`: run per-phase test commands, verify key files exist, and execute smoke tests for `update-edge`, `check-relevance`, and `suggest-links --llm-type` — traceability: SC-001, SC-008
+- [X] T070 [P] Bump version to `1.5.0` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/package.json` — traceability: SC-008, P6
+- [X] T071 [P] Update README in `/home/gareth/.vs/claude-memory-plugin/skills/memory/README.md` to document `update-edge`, `check-relevance`, and `suggest-links --llm-type` commands — traceability: SC-008
+- [X] T072 [P] Verify `link.ts` line count remains below 600 in `/home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/link.ts` — traceability: SC-007
+- [X] T073 Run full test suite via `bun test` in `/home/gareth/.vs/claude-memory-plugin/skills/memory/` and confirm all tests pass — traceability: SC-001 (test graph: 100 project-scoped memories with at least 20 edges, no agent-scoped memories)
+- [X] T073a Verify `/home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/004-v1.5.0-memory-graph-enhancements/quickstart.md` exists and is complete before proceeding to T074 — traceability: F18 (artefact pre-check)
+- [X] T074 Follow all steps in `/home/gareth/.vs/claude-memory-plugin/.specify/specs/feature/004-v1.5.0-memory-graph-enhancements/quickstart.md`: run per-phase test commands, verify key files exist, and execute smoke tests for `update-edge`, `check-relevance`, and `suggest-links --llm-type` — traceability: SC-001, SC-008
 
 ---
 

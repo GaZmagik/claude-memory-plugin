@@ -3,8 +3,9 @@ id: gotcha-retro-test-fixture-design-requires-alignment-with-scoring-logic-inten
 title: Retro - Test fixture design requires alignment with scoring logic intent before implementation
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-18T16:16:17.533Z"
-updated: "2026-02-18T16:16:17.533Z"
+updated: "2026-02-18T17:12:05.851Z"
 tags:
   - retrospective
   - process

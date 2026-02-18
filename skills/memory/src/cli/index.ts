@@ -16,7 +16,7 @@ import { cmdTag, cmdUntag } from './commands/tags.js';
 import { cmdLink, cmdUnlink, cmdGraph, cmdMermaid, cmdEdges, cmdRemoveNode, cmdUpdateEdge } from './commands/graph.js';
 import { cmdHealth, cmdValidate, cmdQuality, cmdAudit, cmdAuditQuick } from './commands/quality.js';
 import { cmdSync, cmdRepair, cmdRebuild, cmdReindex, cmdPrune, cmdSyncFrontmatter, cmdRefresh } from './commands/maintenance.js';
-import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus, cmdSetup } from './commands/utility.js';
+import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus, cmdSetup, cmdCheckRelevance } from './commands/utility.js';
 import {
   cmdBulkLink,
   cmdBulkDelete,
@@ -86,6 +86,7 @@ const COMMANDS: Record<string, CommandHandler> = {
   archive: cmdArchive,
   status: cmdStatus,
   setup: cmdSetup,
+  'check-relevance': cmdCheckRelevance,
 
   // Bulk operations
   'bulk-link': cmdBulkLink,

@@ -3,8 +3,9 @@ id: learning-help-text-should-highlight-powerful-hidden-features-early
 title: Help text should highlight powerful hidden features early
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-16T23:28:21.049Z"
-updated: "2026-02-16T23:28:21.049Z"
+updated: "2026-02-17T08:02:05.388Z"
 tags:
   - memory-plugin
   - cli-documentation

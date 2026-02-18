@@ -3378,6 +3378,24 @@
       "type": "artifact",
       "title": "TDD stub pattern for hook infrastructure files",
       "scope": "project"
+    },
+    {
+      "id": "artifact-v150-memory-graph-enhancements-plan",
+      "type": "artifact",
+      "title": "v1.5.0 Memory Graph Enhancement Suite Plan",
+      "scope": "project"
+    },
+    {
+      "id": "decision-v150-verified-relation-separate-field",
+      "type": "decision",
+      "title": "Store LLM-Verified Relation in Separate Field",
+      "scope": "project"
+    },
+    {
+      "id": "decision-v150-implementation-sequence",
+      "type": "decision",
+      "title": "v1.5.0 Implementation Sequence: Similarity → Update-Edge → Check-Relevance → LLM",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -10780,6 +10798,106 @@
       "source": "decision-v140-cross-scope-auto-linking-enabled-in-suggest-links",
       "target": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "target": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "retro-session-restore-with-parallel-agents-restored-85percent-context",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "learning-session-restoration-with-parallel-agents-scales-well",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "auto-linked-by-similarity"
     }
   ]
 }

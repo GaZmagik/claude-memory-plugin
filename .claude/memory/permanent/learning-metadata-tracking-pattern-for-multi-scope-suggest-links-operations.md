@@ -3,8 +3,9 @@ id: learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations
 title: Metadata tracking pattern for multi-scope suggest-links operations
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:27:14.798Z"
-updated: "2026-02-17T00:27:14.798Z"
+updated: "2026-02-17T08:02:05.367Z"
 tags:
   - suggest-links
   - multi-scope

@@ -3,8 +3,9 @@ id: learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementati
 title: Retro - TDD stub-file pattern accelerated hook-compliant implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-17T00:26:34.182Z"
-updated: "2026-02-17T00:26:34.182Z"
+updated: "2026-02-17T08:02:05.311Z"
 tags:
   - retrospective
   - process

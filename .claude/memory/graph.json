@@ -3408,6 +3408,12 @@
       "type": "learning",
       "title": "speckit-analyze: cross-artifact remediation patterns for v1.5.0",
       "scope": "project"
+    },
+    {
+      "id": "artifact-phase-a-similarity-field-on-graphedge-implementation-pattern",
+      "type": "artifact",
+      "title": "Phase A: similarity field on GraphEdge — implementation pattern",
+      "scope": "project"
     }
   ],
   "edges": [

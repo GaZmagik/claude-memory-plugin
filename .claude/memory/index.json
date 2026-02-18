@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-18T12:36:54.828Z",
+  "lastUpdated": "2026-02-18T13:04:36.271Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11135,6 +11135,23 @@
       "updated": "2026-02-18T12:36:54.820Z",
       "scope": "project",
       "relativePath": "permanent/learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150.md"
+    },
+    {
+      "id": "artifact-phase-a-similarity-field-on-graphedge-implementation-pattern",
+      "type": "artifact",
+      "title": "Phase A: similarity field on GraphEdge — implementation pattern",
+      "tags": [
+        "v1.5.0",
+        "phase-a",
+        "similarity",
+        "graph-edge",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-18T13:04:36.263Z",
+      "updated": "2026-02-18T13:04:36.263Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-phase-a-similarity-field-on-graphedge-implementation-pattern.md"
     }
   ]
 }

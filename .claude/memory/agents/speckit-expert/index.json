@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-18T11:38:39.466Z",
+  "memories": [
+    {
+      "id": "gotcha-tasksmd-generation-bun-test-mock-pattern-and-file-path-gotchas",
+      "type": "gotcha",
+      "title": "tasks.md generation: Bun test mock pattern and file path gotchas",
+      "tags": [
+        "speckit",
+        "tasks-generation",
+        "bun",
+        "claude-memory-plugin",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T11:38:39.457Z",
+      "updated": "2026-02-18T11:38:39.457Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tasksmd-generation-bun-test-mock-pattern-and-file-path-gotchas.md"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-17T08:02:01.228Z",
+  "lastUpdated": "2026-02-18T12:36:54.828Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11102,6 +11102,39 @@
       "updated": "2026-02-17T08:02:01.211Z",
       "scope": "project",
       "relativePath": "permanent/decision-v150-implementation-sequence.md"
+    },
+    {
+      "id": "artifact-v150-memory-graph-enhancement-suite-spec",
+      "type": "artifact",
+      "title": "v1.5.0 Memory Graph Enhancement Suite Spec",
+      "tags": [
+        "v1.5.0",
+        "spec",
+        "ready-for-planning",
+        "memory-graph",
+        "project"
+      ],
+      "created": "2026-02-18T09:36:44.527Z",
+      "updated": "2026-02-18T09:36:44.527Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-v150-memory-graph-enhancement-suite-spec.md"
+    },
+    {
+      "id": "learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150",
+      "type": "learning",
+      "title": "speckit-analyze: cross-artifact remediation patterns for v1.5.0",
+      "tags": [
+        "speckit",
+        "analyze",
+        "remediation",
+        "sdd",
+        "v1.5.0",
+        "project"
+      ],
+      "created": "2026-02-18T12:36:54.820Z",
+      "updated": "2026-02-18T12:36:54.820Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150.md"
     }
   ]
 }

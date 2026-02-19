@@ -130,37 +130,43 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T033 [P] [US1] Unit test for ExternalFileKind enum values in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-external-file-kind.spec.ts
-- [ ] T034 [P] [US1] Unit test for ExternalFileEntry interface validation in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-external-file-entry.spec.ts
-- [ ] T035 [P] [US1] Unit test for discoverRuleFiles finding CLAUDE.md in project root in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-claude-md.spec.ts
-- [ ] T036 [P] [US1] Unit test for discoverRuleFiles finding CLAUDE.local.md in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-claude-local-md.spec.ts
-- [ ] T037 [P] [US1] Unit test for discoverRuleFiles finding rules directory files in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-rules-files.spec.ts
-- [ ] T038 [P] [US1] Unit test for discoverRuleFiles walking ancestor directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-ancestor-claude.spec.ts
-- [ ] T039 [P] [US1] Unit test for discoverRuleFiles excluding vendor directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-exclude-vendors.spec.ts
-- [ ] T040 [P] [US1] Unit test for discoverRuleFiles resolving symlinks to canonical paths in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-resolve-symlinks.spec.ts
-- [ ] T040A [P] [US1] Unit test for discoverRuleFiles handling symlink loops without infinite recursion in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-symlink-loops.spec.ts
-- [ ] T040B [P] [US1] Unit test for discoverRuleFiles handling broken symlinks gracefully in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-broken-symlinks.spec.ts
-- [ ] T041 [P] [US1] Unit test for deterministic rule ID generation in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-rule-id-generation.spec.ts
-- [ ] T042 [P] [US1] Unit test for rule file scope determination in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-rule-scope-determination.spec.ts
-- [ ] T043 [P] [US2] Unit test for discoverReminderFiles finding MEMORY.md in agent directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-memory-md.spec.ts
-- [ ] T044 [P] [US2] Unit test for discoverReminderFiles finding sub-files in agent directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-agent-subfiles.spec.ts
-- [ ] T045 [P] [US2] Unit test for discoverReminderFiles handling missing MEMORY.md gracefully in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-missing-memory.spec.ts
-- [ ] T046 [P] [US2] Unit test for discoverReminderFiles extracting agent name correctly in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-agent-name-extraction.spec.ts
-- [ ] T047 [P] [US2] Unit test for deterministic reminder ID generation in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-reminder-id-generation.spec.ts
-- [ ] T048 [P] [US2] Unit test for reminder file scope determination in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-reminder-scope-determination.spec.ts
-- [ ] T049 [P] [US1] Unit test for discoverExternalFiles combining rules and reminders in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-combined.spec.ts
-- [ ] T050 [P] [US1] Unit test for indexExternalFiles creating GraphNode for rule in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-create-rule-node.spec.ts
-- [ ] T051 [P] [US2] Unit test for indexExternalFiles creating GraphNode for reminder in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-create-reminder-node.spec.ts
-- [ ] T052 [P] [US1] Unit test for indexExternalFiles creating IndexEntry with externalPath in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-create-entry.spec.ts
-- [ ] T053 [P] [US1] Unit test for indexExternalFiles generating embedding via provider in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-generate-embedding.spec.ts
-- [ ] T054 [P] [US1] Unit test for indexExternalFiles reusing cached embedding on hash match in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-cache-reuse.spec.ts
-- [ ] T055 [P] [US1] Unit test for indexExternalFiles updating embedding on hash mismatch in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-update-embedding.spec.ts
-- [ ] T056 [P] [US1] Unit test for indexExternalFiles removing stale external nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-remove-stale.spec.ts
-- [ ] T057 [P] [US1] Unit test for indexExternalFiles handling missing embedding provider gracefully in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-no-ollama.spec.ts
-- [ ] T058 [P] [US1] Unit test for indexExternalFiles respecting dryRun flag in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-dry-run.spec.ts
+**Note: T033-T060 implemented as comprehensive co-located test files:**
+- external-file-types.spec.ts (T033-T034)
+- external-file-discovery.spec.ts (T035-T049)
+- external-file-indexer.spec.ts (T050-T058)
+- external-file-integration.spec.ts (T059-T060)
+
+- [X] T033 [P] [US1] Unit test for ExternalFileKind enum values (covered by external-file-types.spec.ts)
+- [X] T034 [P] [US1] Unit test for ExternalFileEntry interface validation (covered by external-file-types.spec.ts)
+- [X] T035 [P] [US1] Unit test for discoverRuleFiles finding CLAUDE.md in project root (covered by external-file-discovery.spec.ts)
+- [X] T036 [P] [US1] Unit test for discoverRuleFiles finding CLAUDE.local.md (covered by external-file-discovery.spec.ts)
+- [X] T037 [P] [US1] Unit test for discoverRuleFiles finding rules directory files (covered by external-file-discovery.spec.ts)
+- [X] T038 [P] [US1] Unit test for discoverRuleFiles walking ancestor directories (covered by external-file-discovery.spec.ts)
+- [X] T039 [P] [US1] Unit test for discoverRuleFiles excluding vendor directories (covered by external-file-discovery.spec.ts)
+- [X] T040 [P] [US1] Unit test for discoverRuleFiles resolving symlinks to canonical paths (covered by external-file-discovery.spec.ts)
+- [X] T040A [P] [US1] Unit test for discoverRuleFiles handling symlink loops without infinite recursion (covered by external-file-discovery.spec.ts)
+- [X] T040B [P] [US1] Unit test for discoverRuleFiles handling broken symlinks gracefully (covered by external-file-discovery.spec.ts)
+- [X] T041 [P] [US1] Unit test for deterministic rule ID generation (covered by external-file-discovery.spec.ts)
+- [X] T042 [P] [US1] Unit test for rule file scope determination (covered by external-file-discovery.spec.ts)
+- [X] T043 [P] [US2] Unit test for discoverReminderFiles finding MEMORY.md in agent directories (covered by external-file-discovery.spec.ts)
+- [X] T044 [P] [US2] Unit test for discoverReminderFiles finding sub-files in agent directories (covered by external-file-discovery.spec.ts)
+- [X] T045 [P] [US2] Unit test for discoverReminderFiles handling missing MEMORY.md gracefully (covered by external-file-discovery.spec.ts)
+- [X] T046 [P] [US2] Unit test for discoverReminderFiles extracting agent name correctly (covered by external-file-discovery.spec.ts)
+- [X] T047 [P] [US2] Unit test for deterministic reminder ID generation (covered by external-file-discovery.spec.ts)
+- [X] T048 [P] [US2] Unit test for reminder file scope determination (covered by external-file-discovery.spec.ts)
+- [X] T049 [P] [US1] Unit test for discoverExternalFiles combining rules and reminders (covered by external-file-discovery.spec.ts)
+- [X] T050 [P] [US1] Unit test for indexExternalFiles creating GraphNode for rule (covered by external-file-indexer.spec.ts)
+- [X] T051 [P] [US2] Unit test for indexExternalFiles creating GraphNode for reminder (covered by external-file-indexer.spec.ts)
+- [X] T052 [P] [US1] Unit test for indexExternalFiles creating IndexEntry with externalPath (covered by external-file-indexer.spec.ts)
+- [X] T053 [P] [US1] Unit test for indexExternalFiles generating embedding via provider (covered by external-file-indexer.spec.ts)
+- [X] T054 [P] [US1] Unit test for indexExternalFiles reusing cached embedding on hash match (covered by external-file-indexer.spec.ts)
+- [X] T055 [P] [US1] Unit test for indexExternalFiles updating embedding on hash mismatch (covered by external-file-indexer.spec.ts)
+- [X] T056 [P] [US1] Unit test for indexExternalFiles removing stale external nodes (covered by external-file-indexer.spec.ts)
+- [X] T057 [P] [US1] Unit test for indexExternalFiles handling missing embedding provider gracefully (covered by external-file-indexer.spec.ts)
+- [X] T058 [P] [US1] Unit test for indexExternalFiles respecting dryRun flag (covered by external-file-indexer.spec.ts)
 - [X] T058A [P] [US4] Unit test for suggest-links candidate filtering including rule and reminder nodes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/suggest/suggest-links-external.spec.ts
-- [ ] T059 [US1] Integration test for end-to-end rule discovery and indexing in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-rule-discovery-to-index.spec.ts
-- [ ] T060 [US2] Integration test for end-to-end reminder discovery and indexing in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-reminder-discovery-to-index.spec.ts
+- [X] T059 [US1] Integration test for end-to-end rule discovery and indexing (covered by external-file-integration.spec.ts)
+- [X] T060 [US2] Integration test for end-to-end reminder discovery and indexing (covered by external-file-integration.spec.ts)
 
 ### Implementation for Phase 2B
 

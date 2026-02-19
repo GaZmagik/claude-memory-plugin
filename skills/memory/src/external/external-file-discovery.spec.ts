@@ -16,16 +16,13 @@ import { Scope } from '../types/enums.js';
 
 describe('discoverRuleFiles', () => {
   let tempDir: string;
-  let originalCwd: string;
 
   beforeEach(() => {
-    originalCwd = process.cwd();
     // Create temp directory for testing
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'rule-discovery-test-'));
   });
 
   afterEach(() => {
-    process.chdir(originalCwd);
     // Clean up temp directory
     fs.rmSync(tempDir, { recursive: true, force: true });
   });

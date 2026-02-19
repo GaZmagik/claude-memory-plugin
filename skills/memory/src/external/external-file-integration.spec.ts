@@ -12,7 +12,7 @@ import type { MemoryGraph, MemoryIndex } from '../types/memory.js';
 import { MemoryType, EdgeType, Scope } from '../types/enums.js';
 import { writeMemory } from '../core/write.js';
 import { linkMemories } from '../graph/link.js';
-import { saveGraph } from '../graph/structure.js';
+import { saveGraph, loadGraph } from '../graph/structure.js';
 import { saveIndex } from '../core/index.js';
 
 describe('External File Integration Tests', () => {
@@ -203,8 +203,8 @@ describe('External File Integration Tests', () => {
 
     expect(linkResult.status).toBe('success');
 
-    // Verify the link was created in the graph
-    const updatedGraph = baseGraph;
+    // Verify the link was created in the graph (reload from disk)
+    const updatedGraph = await loadGraph(tempDir);
     const edge = updatedGraph.edges.find(
       e => e.source === 'learning-tdd-best-practices' && e.target === ruleId
     );

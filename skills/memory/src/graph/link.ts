@@ -12,7 +12,7 @@ import type {
 } from '../types/api.js';
 import { loadGraph, saveGraph, addNode, hasNode } from './structure.js';
 import type { GraphNode } from './structure.js';
-import { addEdge, removeEdge, hasEdge } from './edges.js';
+import { addEdge, removeEdge, getEdge, updateEdge } from './edges.js';
 import type { EdgeMetadata } from './edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';
@@ -113,7 +113,45 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
     }
 
     // Check if edge already exists
-    if (hasEdge(graph, request.source, request.target, relation)) {
+    const existingEdge = getEdge(graph, request.source, request.target, relation);
+
+    if (existingEdge) {
+      // If force is enabled, check if metadata needs updating
+      if (request.force) {
+        const needsUpdate =
+          (request.similarity !== undefined && existingEdge.similarity !== request.similarity) ||
+          (request.verifiedRelation !== undefined && existingEdge.verifiedRelation !== request.verifiedRelation);
+
+        if (needsUpdate) {
+          // Update edge metadata
+          const edgeMetadata: EdgeMetadata = {};
+          if (request.similarity !== undefined) edgeMetadata.similarity = request.similarity;
+          if (request.verifiedRelation !== undefined) edgeMetadata.verifiedRelation = request.verifiedRelation;
+
+          graph = updateEdge(graph, request.source, request.target, relation, edgeMetadata);
+          await saveGraph(basePath, graph);
+
+          log.info('Updated edge metadata', {
+            source: request.source,
+            target: request.target,
+            relation,
+            similarity: request.similarity,
+            verifiedRelation: request.verifiedRelation,
+          });
+
+          return {
+            status: 'success',
+            edge: {
+              source: request.source,
+              target: request.target,
+              label: relation,
+            },
+            alreadyExists: false, // Metadata was updated
+          };
+        }
+      }
+
+      // Edge exists and no update needed
       return {
         status: 'success',
         edge: {
@@ -125,7 +163,7 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
       };
     }
 
-    // Add edge
+    // Add new edge
     const edgeMetadata: EdgeMetadata = {};
     if (request.similarity !== undefined) edgeMetadata.similarity = request.similarity;
     if (request.verifiedRelation !== undefined) edgeMetadata.verifiedRelation = request.verifiedRelation;

@@ -593,4 +593,179 @@ describe('Graph Edges', () => {
       expect(updated.edges).toEqual([]);
     });
   });
+
+  describe('updateEdge', () => {
+    it('should update edge similarity', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: 'relates-to', similarity: 0.75 },
+        ],
+      };
+
+      const updated = updateEdge(graph, 'a', 'b', 'relates-to', { similarity: 0.88 });
+
+      expect(updated.edges).toHaveLength(1);
+      expect(updated.edges[0]!.similarity).toBe(0.88);
+    });
+
+    it('should update edge verifiedRelation', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: 'relates-to' },
+        ],
+      };
+
+      const updated = updateEdge(graph, 'a', 'b', 'relates-to', {
+        verifiedRelation: 'informs',
+      });
+
+      expect(updated.edges).toHaveLength(1);
+      expect(updated.edges[0]!.verifiedRelation).toBe('informs');
+    });
+
+    it('should update multiple metadata fields', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: 'relates-to', similarity: 0.75 },
+        ],
+      };
+
+      const updated = updateEdge(graph, 'a', 'b', 'relates-to', {
+        similarity: 0.92,
+        verifiedRelation: 'implements',
+      });
+
+      expect(updated.edges[0]!.similarity).toBe(0.92);
+      expect(updated.edges[0]!.verifiedRelation).toBe('implements');
+    });
+
+    it('should throw error for non-existent edge', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      expect(() =>
+        updateEdge(graph, 'a', 'b', 'relates-to', { similarity: 0.88 })
+      ).toThrow('Edge not found');
+    });
+
+    it('should reject invalid similarity values', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: 'relates-to' },
+        ],
+      };
+
+      expect(() =>
+        updateEdge(graph, 'a', 'b', 'relates-to', { similarity: 1.5 })
+      ).toThrow('similarity must be in range [0, 1]');
+
+      expect(() =>
+        updateEdge(graph, 'a', 'b', 'relates-to', { similarity: -0.1 })
+      ).toThrow('similarity must be in range [0, 1]');
+
+      expect(() =>
+        updateEdge(graph, 'a', 'b', 'relates-to', { similarity: NaN })
+      ).toThrow('similarity must be in range [0, 1]');
+    });
+
+    it('should preserve existing metadata when updating', async () => {
+      const { updateEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          {
+            source: 'a',
+            target: 'b',
+            label: 'relates-to',
+            similarity: 0.75,
+            sourceScope: 'project',
+            targetScope: 'global',
+          },
+        ],
+      };
+
+      const updated = updateEdge(graph, 'a', 'b', 'relates-to', {
+        verifiedRelation: 'implements',
+      });
+
+      expect(updated.edges[0]!.similarity).toBe(0.75);
+      expect(updated.edges[0]!.sourceScope).toBe('project');
+      expect(updated.edges[0]!.targetScope).toBe('global');
+      expect(updated.edges[0]!.verifiedRelation).toBe('implements');
+    });
+  });
+
+  describe('getEdge', () => {
+    it('should find edge by source, target, and label', async () => {
+      const { getEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [
+          { source: 'a', target: 'b', label: 'relates-to', similarity: 0.88 },
+        ],
+      };
+
+      const edge = getEdge(graph, 'a', 'b', 'relates-to');
+
+      expect(edge).toBeDefined();
+      expect(edge!.source).toBe('a');
+      expect(edge!.target).toBe('b');
+      expect(edge!.similarity).toBe(0.88);
+    });
+
+    it('should return undefined for non-existent edge', async () => {
+      const { getEdge } = await import('./edges.js');
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [
+          { id: 'a', type: 'decision' },
+          { id: 'b', type: 'learning' },
+        ],
+        edges: [],
+      };
+
+      const edge = getEdge(graph, 'a', 'b', 'relates-to');
+
+      expect(edge).toBeUndefined();
+    });
+  });
 });

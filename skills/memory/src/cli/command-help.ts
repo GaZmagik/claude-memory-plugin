@@ -92,10 +92,12 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     usage: 'memory read <id>',
     description: 'Read a memory by its ID',
     arguments: `  <id>    The memory ID to read (e.g., "decision-use-postgres")`,
-    flags: `  --scope <scope>    Search scope (user, project, local, enterprise)`,
+    flags: `  --scope <scope>    Search scope (user, project, local, enterprise)
+  --agent <name>     Read from agent-scoped memory`,
     examples: [
       'memory read decision-use-postgres',
       'memory read learning-vitest-mocking --scope user',
+      'memory read reminder-curator-patterns --agent curator',
     ],
   },
 
@@ -561,6 +563,7 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     flags: `  --threshold <n>    Minimum similarity (0-1, default: 0.75)
   --limit <n>        Maximum suggestions (default: 20)
   --auto-link        Automatically create suggested links
+  --force            Update existing edge metadata (only when metadata differs)
   --llm-type         Use LLM to suggest relation labels (requires --auto-link)
   --scope <scope>    Target scope
   --agent <name>     Suggest links within agent scope
@@ -570,10 +573,12 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
       'memory suggest-links',
       'memory suggest-links --threshold 0.85 --auto-link',
       'memory suggest-links --auto-link --llm-type',
+      'memory suggest-links --auto-link --force  # Update metadata on existing edges',
       'memory suggest-links --agent curator --include-shared',
     ],
     notes: `  Requires embeddings to be generated (run semantic search first).
   --llm-type requires Ollama running locally (uses chat model for relation labels).
+  --force only updates edges when similarity or verifiedRelation differs (smart bypass).
   --include-shared and --all-scopes are mutually exclusive.`,
   },
 

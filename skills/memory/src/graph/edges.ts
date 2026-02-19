@@ -273,6 +273,85 @@ export function validateCrossScopeEdge(edge: GraphEdge): { valid: boolean; error
 }
 
 /**
+ * Update edge metadata (immutable)
+ *
+ * Updates similarity, verifiedRelation, or other metadata fields on an existing edge.
+ * Throws if the edge doesn't exist.
+ *
+ * @param metadata - New metadata to merge into the edge. Undefined fields are left unchanged.
+ */
+export function updateEdge(
+  graph: MemoryGraph,
+  source: string,
+  target: string,
+  label: string,
+  metadata: EdgeMetadata
+): MemoryGraph {
+  // Find the edge
+  const edgeIndex = graph.edges.findIndex(
+    e => e.source === source && e.target === target && e.label === label
+  );
+
+  if (edgeIndex === -1) {
+    throw new Error(`Edge not found: ${source} -> ${target} (${label})`);
+  }
+
+  const existingEdge = graph.edges[edgeIndex]!;
+
+  // Validate and prepare new metadata
+  let newSimilarity = existingEdge.similarity;
+  let newVerifiedRelation = existingEdge.verifiedRelation;
+
+  if (metadata.similarity !== undefined) {
+    const s = metadata.similarity;
+    if (isNaN(s) || s < 0 || s > 1) {
+      throw new Error(`similarity must be in range [0, 1], received ${s}`);
+    }
+    newSimilarity = s;
+  }
+
+  if (metadata.verifiedRelation !== undefined) {
+    newVerifiedRelation = metadata.verifiedRelation;
+  }
+
+  // Create updated edge
+  const updatedEdge: GraphEdge = {
+    source: existingEdge.source,
+    target: existingEdge.target,
+    label: existingEdge.label,
+    ...(existingEdge.sourceScope && { sourceScope: existingEdge.sourceScope }),
+    ...(existingEdge.targetScope && { targetScope: existingEdge.targetScope }),
+    ...(existingEdge.sourceAgent && { sourceAgent: existingEdge.sourceAgent }),
+    ...(existingEdge.targetAgent && { targetAgent: existingEdge.targetAgent }),
+    ...(newSimilarity !== undefined && { similarity: newSimilarity }),
+    ...(newVerifiedRelation !== undefined && { verifiedRelation: newVerifiedRelation }),
+  };
+
+  // Replace edge in array
+  const newEdges = [...graph.edges];
+  newEdges[edgeIndex] = updatedEdge;
+
+  return {
+    ...graph,
+    edges: newEdges,
+  };
+}
+
+/**
+ * Get an edge by source, target, and label
+ */
+export function getEdge(
+  graph: MemoryGraph,
+  source: string,
+  target: string,
+  label: string
+): GraphEdge | undefined {
+  return graph.edges.find(
+    e => e.source === source && e.target === target && e.label === label
+  );
+}
+
+/**
  * Bulk add edges (immutable)
  */
 export function bulkAddEdges(

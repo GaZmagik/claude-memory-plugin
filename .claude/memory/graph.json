@@ -3630,6 +3630,36 @@
       "type": "decision",
       "title": "Feature 005: IndexEntry optional fields for external file support",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "type": "learning",
+      "title": "Retro - TDD stub-first pattern with hook enforcement accelerates RED-GREEN cycles",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "type": "learning",
+      "title": "TDD stub-file pattern accelerates hook-compliant implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-scope-determination-requires-priority-ordering-gitroot-projectroot-homedir",
+      "type": "learning",
+      "title": "Retro - Scope determination requires priority ordering: gitRoot > projectRoot > homeDir",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "type": "gotcha",
+      "title": "Retro - File discovery tests must use isolated temp directories, not os.homedir()",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "type": "learning",
+      "title": "Retro: Scope resolver params and ordering in discovery module",
+      "scope": "project"
     }
   ],
   "edges": [

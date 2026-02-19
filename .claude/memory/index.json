@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T08:45:21.928Z",
+  "lastUpdated": "2026-02-19T09:53:15.645Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11661,23 +11661,6 @@
       "severity": "high"
     },
     {
-      "id": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
-      "type": "learning",
-      "title": "Retro - Parallel test execution with TDD accelerates red-green cycles",
-      "tags": [
-        "retrospective",
-        "process",
-        "tdd",
-        "parallelisation",
-        "project"
-      ],
-      "created": "2026-02-19T08:43:50.546Z",
-      "updated": "2026-02-19T08:43:50.546Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-tdd-red-phase-requires-verifying-expected-failure-reasons",
       "type": "learning",
       "title": "TDD RED phase requires verifying expected failure reasons",
@@ -11736,6 +11719,106 @@
       "updated": "2026-02-19T08:45:21.893Z",
       "scope": "project",
       "relativePath": "permanent/decision-feature-005-index-entry-optional-fields.md"
+    },
+    {
+      "id": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "type": "learning",
+      "title": "Retro - TDD stub-first pattern with hook enforcement accelerates RED-GREEN cycles",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-19T09:48:36.188Z",
+      "updated": "2026-02-19T09:48:36.188Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "type": "learning",
+      "title": "TDD stub-file pattern accelerates hook-compliant implementation",
+      "tags": [
+        "tdd",
+        "hooks",
+        "typescript",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-19T09:48:58.784Z",
+      "updated": "2026-02-19T09:48:58.784Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation.md"
+    },
+    {
+      "id": "learning-retro-scope-determination-requires-priority-ordering-gitroot-projectroot-homedir",
+      "type": "learning",
+      "title": "Retro - Scope determination requires priority ordering: gitRoot > projectRoot > homeDir",
+      "tags": [
+        "retrospective",
+        "process",
+        "file-discovery",
+        "scope-logic",
+        "project"
+      ],
+      "created": "2026-02-19T09:50:46.851Z",
+      "updated": "2026-02-19T09:50:46.851Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-scope-determination-requires-priority-ordering-gitroot-projectroot-homedir.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "type": "learning",
+      "title": "Retro: Parallel test execution with TDD accelerates red-green cycles",
+      "tags": [
+        "tdd",
+        "testing",
+        "performance",
+        "feedback-loops",
+        "project"
+      ],
+      "created": "2026-02-19T09:51:10.281Z",
+      "updated": "2026-02-19T09:51:10.281Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles.md"
+    },
+    {
+      "id": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "type": "gotcha",
+      "title": "Retro - File discovery tests must use isolated temp directories, not os.homedir()",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "test-isolation",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-19T09:52:57.035Z",
+      "updated": "2026-02-19T09:52:57.035Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "type": "learning",
+      "title": "Retro: Scope resolver params and ordering in discovery module",
+      "tags": [
+        "discovery",
+        "scope-resolution",
+        "file-indexing",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-19T09:53:15.559Z",
+      "updated": "2026-02-19T09:53:15.559Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-scope-resolver-params-and-ordering-in-discovery-module.md"
     }
   ]
 }

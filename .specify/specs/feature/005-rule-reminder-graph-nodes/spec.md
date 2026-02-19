@@ -155,7 +155,7 @@ As a user who has modified CLAUDE.md or agent memory files, I want a fast `memor
 - **FR-020**: System MUST include rule and reminder nodes as candidates in `memory suggest-links` semantic relationship discovery
 - **FR-021**: System MUST auto-exclude rule and reminder nodes from `memory audit` and `memory quality` scoring operations
 - **FR-022**: System MUST remove rule or reminder nodes from the graph when the corresponding external file is deleted (detected during sync)
-- **FR-023**: System MUST resolve symlinks in agent-memory directories to canonical paths for deterministic ID generation
+- **FR-023**: System MUST resolve symlinks in agent-memory directories to canonical paths for deterministic ID generation. When symlink resolution fails (broken symlinks), system MUST log a warning with the symlink path and skip the file, continuing discovery of remaining files
 - **FR-024**: System MUST skip external files larger than 1MB with a warning message, preventing event loop blocking during file I/O. Files within the 1MB limit are read and truncated to 6000 characters for embedding generation
 
 ### Key Entities *(include if feature involves data)*

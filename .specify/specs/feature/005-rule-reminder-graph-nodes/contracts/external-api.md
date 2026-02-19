@@ -86,8 +86,33 @@ export interface ExternalFileEntry {
 - `scope`: Must be valid Scope enum value
 - `agentName`: Required when kind is AgentMemorySummary or AgentMemorySubFile
 - `contentHash`: Must match actual file content SHA-256 (first 16 hex chars)
-- `id`: Must follow deterministic generation scheme (see data-model.md)
+- `id`: Must follow deterministic generation scheme (see examples below)
 - `title`: Non-empty string derived from filename
+
+**ID Generation Scheme Examples**:
+
+Rule file IDs:
+- `CLAUDE.md` at project root → `rule-project-claude-md-root`
+- `.claude/CLAUDE.md` at project root → `rule-project-claude-md-dotclaude`
+- `CLAUDE.local.md` at project root → `rule-local-claude-md-root`
+- `.claude/CLAUDE.local.md` at project root → `rule-local-claude-md-dotclaude-local`
+- `~/.claude/CLAUDE.md` → `rule-global-claude-md`
+- `CLAUDE.md` two dirs up from cwd → `rule-ancestor-2-claude-md-root`
+- `.claude/rules/security.md` → `rule-project-security`
+- `~/.claude/rules/tdd.md` → `rule-global-tdd`
+
+Reminder file IDs:
+- `.claude/agent-memory/curator/MEMORY.md` → `reminder-project-curator-memory`
+- `.claude/agent-memory/curator/patterns.md` → `reminder-project-curator-patterns`
+- `.claude/agent-memory-local/speckit-planner/MEMORY.md` → `reminder-local-speckit-planner-memory`
+- `~/.claude/agent-memory/curator/MEMORY.md` → `reminder-global-curator-memory`
+
+**ID Generation Rules**:
+1. Prefix: `rule-` or `reminder-`
+2. Scope: `project`, `local`, `global`, or `ancestor-N` (where N = levels up from cwd)
+3. Agent name (reminders only): hyphenated lowercase (e.g., `curator`, `speckit-planner`)
+4. File identifier: derived from filename, hyphens for spaces/underscores
+5. Suffix (when needed): `-root` (top-level CLAUDE.md), `-dotclaude` (.claude/ variant), `-dotclaude-local` (.claude/ local variant)
 
 ---
 
@@ -398,6 +423,11 @@ export async function cmdIndexContext(options: {
 **Symlink loop detected**:
 - Log warning
 - Skip path, continue discovery
+- Do NOT throw exception
+
+**Broken symlink** (realpath fails with ENOENT):
+- Log warning with symlink path and error message
+- Skip file, continue discovery
 - Do NOT throw exception
 
 **Invalid vendor path**:

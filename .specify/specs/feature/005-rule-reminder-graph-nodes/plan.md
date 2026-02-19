@@ -114,6 +114,121 @@ tests/
 |-----------|------------|-------------------------------------|
 | New external/ module (P5 concern) | External file discovery has distinct lifecycle from user memories: directory tree walking, symlink resolution, vendor filtering, read-only semantics | Extending sync.ts would bloat a complex 354-line file. Exploration explicitly warns against adding to link.ts (507 lines). Module isolation enables TDD and maintains single responsibility principle. |
 
+## Design Decisions
+
+*Resolving open questions from explore phase and documenting deliberate enhancements*
+
+### Question 1: `memory read <rule-id>` Behaviour
+
+**Decision**: Show full external file content (not metadata only)
+
+**Rationale**: Rule and reminder files ARE the primary value. Users want to see CLAUDE.md content when reading a rule node, not just metadata like file path and timestamps. Metadata is sparse and uninformative.
+
+**Implementation**: cmdRead checks for `externalPath` field and reads from that location when present (see T119, T244).
+
+---
+
+### Question 2: `memory index-context --scope` Flag
+
+**Decision**: Accept `--scope` flag to allow targeted re-indexing
+
+**Rationale**: Performance optimisation. Users who edit only project-scope CLAUDE.md shouldn't wait for global scope re-scan. Common workflow: edit project rule → quick refresh → continue work.
+
+**Implementation**: cmdIndexContext filters discovered files by scope before indexing (see T106, T123, T249).
+
+---
+
+### Question 3: Ancestor CLAUDE.md Scoping
+
+**Decision**: CLAUDE.md files above git root are **global scope**; files within git root are **project scope**
+
+**Rationale**:
+- Files above git root affect multiple projects → global knowledge
+- Files within git root are project-specific → project knowledge
+- Aligns with user mental model: "anything in my repo is project-specific"
+
+**Implementation**: Scope determination checks if canonical path is descendant of git root (see T042, T068, T172).
+
+---
+
+### Question 4: `memory audit` / `memory quality` Exclusions
+
+**Decision**: Auto-exclude rule and reminder nodes from quality scoring
+
+**Rationale**: Quality metrics (tag count, severity, description length) are meaningless for external files. These files are owned by Claude CLI, not the memory plugin. Scoring them pollutes audit reports with noise.
+
+**Implementation**: Filter nodes by type before scoring in assess.ts (see T128-T136, T279-T282).
+
+---
+
+### Question 5: Vendor Directory Exclusion List
+
+**Decision**: Hardcoded sensible defaults (not configurable)
+
+**List**: `node_modules`, `.git`, `vendor`, `dist`, `build`
+
+**Rationale**:
+- YAGNI principle (P5): No evidence users need custom exclusions
+- Simplicity: No additional config surface area
+- Safe defaults cover 99% of projects
+- Can be made configurable in future MINOR version if user requests emerge
+
+**Implementation**: Static array in discoverRuleFiles (see T039, T065, T169).
+
+---
+
+### Enhancement Beyond Explore: 1MB File Size Limit
+
+**Addition**: spec.md FR-024 adds 1MB file size limit with skip-and-warn behaviour
+
+**Rationale**:
+- **Event loop protection**: Reading huge files (multi-MB CLAUDE.md) blocks the event loop during sync
+- **Practical limit**: 1MB = ~250K words of markdown. No legitimate CLAUDE.md should exceed this
+- **Graceful degradation**: Large files skipped with warning, not silent failure
+- **Truncation still applies**: Files under 1MB are read fully, then truncated to 6000 chars for embedding
+
+**Implementation**: Check file size before reading in indexExternalFiles (see spec.md FR-024).
+
+**Note**: This is a deliberate enhancement beyond explore scope. Explore assumed truncateForEmbedding() was sufficient, but didn't consider I/O blocking risk.
+
+---
+
+### Enhancement Beyond Explore: Broken Symlink Handling
+
+**Addition**: Gracefully handle broken symlinks during discovery
+
+**Rationale**:
+- **Robustness**: Broken symlinks shouldn't crash sync
+- **User visibility**: Warning logged, user can fix if needed
+- **Continue discovery**: Skip broken link, continue processing remaining files
+
+**Implementation**: Try-catch around fs.realpathSync(), log warning on ENOENT, continue (see M4 resolution below).
+
+---
+
+### Naming Conventions
+
+*Resolving terminology drift between explore, spec, plan, and implementation*
+
+**Type Names**:
+- `ExternalFileEntry` (singular) - Interface representing one discovered external file
+- `ExternalFileEntry[]` (array notation) - Used when referring to collections
+- Never `ExternalFileEntries` (plural form avoided to prevent confusion)
+
+**Command Naming**:
+- User-facing command: `memory index-context` (kebab-case, appears in CLI help and user docs)
+- Implementation function: `cmdIndexContext` (camelCase, internal TypeScript function)
+- Never mix these in the same context (e.g., don't say "run cmdIndexContext" in user docs)
+
+**Function vs Command Distinction**:
+- `discoverRuleFiles()` - Internal function name with parentheses
+- `memory sync` - User-facing command without parentheses
+- Help text uses command format; code comments use function format
+
+**Consistency Rule**: Explore and spec use user-facing terminology; plan and tasks use implementation terminology; contracts document both with clear labels.
+
+---
+
 ## Phase 0: Research
 
 See [research.md](./research.md) for full research findings.

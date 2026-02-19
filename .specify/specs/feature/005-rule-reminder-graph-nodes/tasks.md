@@ -61,14 +61,14 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Duration**: 0.5 day
 
-- [ ] T001 Review plan.md, research.md, data-model.md and validate technical decisions for external file indexing
-- [ ] T002 [P] Verify existing MemoryType enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T003 [P] Verify existing EdgeType enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T004 [P] Verify existing IndexEntry interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
-- [ ] T005 [P] Verify existing sync system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/maintenance/sync.ts
-- [ ] T006 [P] Verify existing Mermaid renderer in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T007 [P] Verify existing embedding pipeline in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/embedding/
-- [ ] T008 [P] Verify existing quality assessment in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/quality/assess.ts
+- [X] T001 Review plan.md, research.md, data-model.md and validate technical decisions for external file indexing
+- [X] T002 [P] Verify existing MemoryType enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T003 [P] Verify existing EdgeType enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T004 [P] Verify existing IndexEntry interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
+- [X] T005 [P] Verify existing sync system in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/maintenance/sync.ts
+- [X] T006 [P] Verify existing Mermaid renderer in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T007 [P] Verify existing embedding pipeline in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/embedding/
+- [X] T008 [P] Verify existing quality assessment in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/quality/assess.ts
 
 **Checkpoint**: Research validated, existing services confirmed, ready for implementation
 
@@ -138,6 +138,8 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [ ] T038 [P] [US1] Unit test for discoverRuleFiles walking ancestor directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-ancestor-claude.spec.ts
 - [ ] T039 [P] [US1] Unit test for discoverRuleFiles excluding vendor directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-exclude-vendors.spec.ts
 - [ ] T040 [P] [US1] Unit test for discoverRuleFiles resolving symlinks to canonical paths in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-resolve-symlinks.spec.ts
+- [ ] T040A [P] [US1] Unit test for discoverRuleFiles handling symlink loops without infinite recursion in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-symlink-loops.spec.ts
+- [ ] T040B [P] [US1] Unit test for discoverRuleFiles handling broken symlinks gracefully in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-broken-symlinks.spec.ts
 - [ ] T041 [P] [US1] Unit test for deterministic rule ID generation in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-rule-id-generation.spec.ts
 - [ ] T042 [P] [US1] Unit test for rule file scope determination in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-rule-scope-determination.spec.ts
 - [ ] T043 [P] [US2] Unit test for discoverReminderFiles finding MEMORY.md in agent directories in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-discover-memory-md.spec.ts
@@ -169,6 +171,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [ ] T065 [US1] Implement vendor directory filtering in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
 - [ ] T066 [US1] Implement symlink resolution in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
 - [ ] T067 [US1] Implement deterministic rule ID generation in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [ ] T067A [US1] Implement same-level file suffix disambiguation in discoverRuleFiles (handle both CLAUDE.md and .claude/CLAUDE.md at same directory level with -root, -dotclaude, -dotclaude-local suffixes) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
 - [ ] T068 [US1] Implement rule scope determination logic in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
 - [ ] T069 [US2] Implement discoverReminderFiles with agent directory enumeration in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
 - [ ] T070 [US2] Implement agent name extraction in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts

@@ -224,7 +224,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T093 [P] [US3] Unit test for cmdMove rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-reminder.spec.ts
 - [X] T094 [P] [US3] Unit test for cmdPromote rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-rule.spec.ts
 - [X] T095 [P] [US3] Unit test for cmdPromote rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-reminder.spec.ts
-- [ ] T096 [P] [US3] Unit test for cmdRead handling externalPath field in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-read-external-path.spec.ts
+- [X] T096 [P] [US3] Unit test for cmdRead handling externalPath field (implementation already exists in read.ts:109-115, verified with read-external-path.spec.ts)
 - [ ] T097 [P] [US3] Unit test for cmdSearch including rule nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-search-include-rules.spec.ts
 - [ ] T098 [P] [US3] Unit test for cmdSemantic including reminder nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-semantic-include-reminders.spec.ts
 - [ ] T099 [P] [US3] Unit test for cmdLink allowing edges to rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-link-to-rule.spec.ts

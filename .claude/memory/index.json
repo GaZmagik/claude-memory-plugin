@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-18T18:11:30.796Z",
+  "lastUpdated": "2026-02-19T06:33:10.513Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11507,6 +11507,141 @@
       "updated": "2026-02-18T18:11:30.707Z",
       "scope": "project",
       "relativePath": "permanent/learning-stub-first-tdd-across-multiple-coordination-points-accelerates-multi-file-phases.md"
+    },
+    {
+      "id": "gotcha-getscopepath-global-scope-returns-third-argument-directly",
+      "type": "gotcha",
+      "title": "getScopePath Global scope returns third argument directly",
+      "tags": [
+        "scope-resolver",
+        "path-computation",
+        "project"
+      ],
+      "created": "2026-02-18T20:49:34.774Z",
+      "updated": "2026-02-18T20:49:34.774Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-getscopepath-global-scope-returns-third-argument-directly.md"
+    },
+    {
+      "id": "learning-llm-prompts-should-use-semantic-context-titles-not-raw-ids",
+      "type": "learning",
+      "title": "LLM prompts should use semantic context (titles) not raw IDs",
+      "tags": [
+        "llm-prompts",
+        "semantic-context",
+        "user-experience",
+        "project"
+      ],
+      "created": "2026-02-18T20:49:59.478Z",
+      "updated": "2026-02-18T20:49:59.478Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-llm-prompts-should-use-semantic-context-titles-not-raw-ids.md"
+    },
+    {
+      "id": "decision-context-file-graph-nodes-key-decisions",
+      "type": "decision",
+      "title": "Context-file graph nodes — key decisions",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-18T21:37:35.296Z",
+      "updated": "2026-02-18T21:37:35.296Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-context-file-graph-nodes-key-decisions.md"
+    },
+    {
+      "id": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "type": "decision",
+      "title": "Feature 005: Rule and Reminder Graph Nodes - Specification Complete",
+      "tags": [
+        "ready-for-planning",
+        "feature-005",
+        "external-files",
+        "graph-nodes",
+        "project"
+      ],
+      "created": "2026-02-19T04:21:09.741Z",
+      "updated": "2026-02-19T04:21:09.741Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-rule-and-reminder-graph-nodes-specification-complete.md",
+      "severity": "medium"
+    },
+    {
+      "id": "decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design",
+      "type": "decision",
+      "title": "Feature 005 Planning: Rule and Reminder Graph Nodes - Architecture Design",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-19T04:30:35.646Z",
+      "updated": "2026-02-19T04:30:35.646Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design.md"
+    },
+    {
+      "id": "decision-feature-005-implementation-plan-complete",
+      "type": "decision",
+      "title": "Feature 005 Implementation Plan Complete",
+      "tags": [
+        "feature-005",
+        "planning",
+        "ready-for-approval",
+        "rule-reminder-nodes",
+        "project"
+      ],
+      "created": "2026-02-19T04:40:08.370Z",
+      "updated": "2026-02-19T04:40:08.370Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-implementation-plan-complete.md"
+    },
+    {
+      "id": "learning-speckitanalyze-catches-spec-to-code-gaps-systematically",
+      "type": "learning",
+      "title": "speckit:analyze catches spec-to-code gaps systematically",
+      "tags": [
+        "speckit",
+        "analysis",
+        "quality-assurance",
+        "feature-005",
+        "project"
+      ],
+      "created": "2026-02-19T06:32:33.767Z",
+      "updated": "2026-02-19T06:32:33.767Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-speckitanalyze-catches-spec-to-code-gaps-systematically.md"
+    },
+    {
+      "id": "learning-version-bumps-require-updates-across-packagejson-pluginjson-and-changelogmd",
+      "type": "learning",
+      "title": "Version bumps require updates across package.json, plugin.json, and CHANGELOG.md",
+      "tags": [
+        "versioning",
+        "release-process",
+        "maintenance",
+        "project"
+      ],
+      "created": "2026-02-19T06:32:44.899Z",
+      "updated": "2026-02-19T06:32:44.899Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-version-bumps-require-updates-across-packagejson-pluginjson-and-changelogmd.md"
+    },
+    {
+      "id": "learning-update-edge-command-integrates-ollama-for-semantic-relation-labels",
+      "type": "learning",
+      "title": "update-edge command integrates Ollama for semantic relation labels",
+      "tags": [
+        "update-edge",
+        "CLI",
+        "ollama-integration",
+        "edge-metadata",
+        "project"
+      ],
+      "created": "2026-02-19T06:33:10.487Z",
+      "updated": "2026-02-19T06:33:10.487Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-update-edge-command-integrates-ollama-for-semantic-relation-labels.md"
     }
   ]
 }

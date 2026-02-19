@@ -87,7 +87,7 @@ describe('External File Integration Tests', () => {
     expect(baseGraph.nodes).toHaveLength(3);
     const claudeNode = baseGraph.nodes.find(n => n.title === 'CLAUDE.md');
     expect(claudeNode).toBeDefined();
-    expect(claudeNode!.type).toBe(MemoryType.Rule);
+    expect((claudeNode as any)!.type).toBe(MemoryType.Rule);
 
     // Verify index entries
     expect(baseIndex.memories).toHaveLength(3);
@@ -139,8 +139,8 @@ describe('External File Integration Tests', () => {
     expect(baseGraph.nodes).toHaveLength(2);
     const memoryNode = baseGraph.nodes.find(n => n.title === 'curator Agent Memory');
     expect(memoryNode).toBeDefined();
-    expect(memoryNode!.type).toBe(MemoryType.Reminder);
-    expect(memoryNode!.agent).toBe('curator');
+    expect((memoryNode as any)!.type).toBe(MemoryType.Reminder);
+    expect((memoryNode as any)!.agent).toBe('curator');
 
     // Verify index entries
     expect(baseIndex.memories).toHaveLength(2);

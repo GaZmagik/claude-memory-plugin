@@ -3726,6 +3726,24 @@
       "type": "gotcha",
       "title": "TypeScript type mismatch between graph/structure.ts and types/memory.ts",
       "scope": "project"
+    },
+    {
+      "id": "learning-force-flag-enables-smart-edge-metadata-updates",
+      "type": "learning",
+      "title": "Force flag enables smart edge metadata updates",
+      "scope": "project"
+    },
+    {
+      "id": "learning-edge-metadata-updates-use-immutable-pattern-with-getedge-lookup",
+      "type": "learning",
+      "title": "Edge metadata updates use immutable pattern with getEdge lookup",
+      "scope": "project"
+    },
+    {
+      "id": "learning-help-text-auditing-revealed-missing-agent-flags-in-writeread-commands",
+      "type": "learning",
+      "title": "Help text auditing revealed missing --agent flags in write/read commands",
+      "scope": "project"
     }
   ],
   "edges": [

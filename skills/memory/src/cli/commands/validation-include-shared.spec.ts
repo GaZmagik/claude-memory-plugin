@@ -121,8 +121,8 @@ describe('--include-shared validation', () => {
       vi.spyOn(tagModule, 'untagMemory').mockResolvedValue({ status: 'success' });
       vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({
         status: 'success',
-        changes: { addedToGraph: [], addedToIndex: [], removedGhostNodes: [], removedOrphanEdges: 0, removedFromIndex: [], removedOrphanEmbeddings: [] },
-        summary: { filesOnDisk: 0, nodesInGraph: 0, entriesInIndex: 0, entriesInEmbeddings: 0 },
+        changes: { addedToGraph: [], addedToIndex: [], removedGhostNodes: [], removedOrphanEdges: 0, removedFromIndex: [], removedOrphanEmbeddings: [], externalNodesAdded: [], externalNodesUpdated: [], externalNodesRemoved: [] },
+        summary: { filesOnDisk: 0, nodesInGraph: 0, entriesInIndex: 0, entriesInEmbeddings: 0, externalRuleNodes: 0, externalReminderNodes: 0 },
       });
     });
 

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T13:25:05.888Z",
+  "lastUpdated": "2026-02-19T14:50:55.461Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11996,6 +11996,51 @@
       "updated": "2026-02-19T13:25:05.618Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-typescript-type-mismatch-between-graphstructurets-and-typesmemoryts.md"
+    },
+    {
+      "id": "learning-force-flag-enables-smart-edge-metadata-updates",
+      "type": "learning",
+      "title": "Force flag enables smart edge metadata updates",
+      "tags": [
+        "suggest-links",
+        "edge-updates",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-19T14:50:18.842Z",
+      "updated": "2026-02-19T14:50:18.842Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-force-flag-enables-smart-edge-metadata-updates.md"
+    },
+    {
+      "id": "learning-edge-metadata-updates-use-immutable-pattern-with-getedge-lookup",
+      "type": "learning",
+      "title": "Edge metadata updates use immutable pattern with getEdge lookup",
+      "tags": [
+        "edge-updates",
+        "immutable-patterns",
+        "graph-operations",
+        "project"
+      ],
+      "created": "2026-02-19T14:50:31.433Z",
+      "updated": "2026-02-19T14:50:31.433Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-edge-metadata-updates-use-immutable-pattern-with-getedge-lookup.md"
+    },
+    {
+      "id": "learning-help-text-auditing-revealed-missing-agent-flags-in-writeread-commands",
+      "type": "learning",
+      "title": "Help text auditing revealed missing --agent flags in write/read commands",
+      "tags": [
+        "help-text",
+        "documentation",
+        "audit",
+        "project"
+      ],
+      "created": "2026-02-19T14:50:55.133Z",
+      "updated": "2026-02-19T14:50:55.133Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-text-auditing-revealed-missing-agent-flags-in-writeread-commands.md"
     }
   ]
 }

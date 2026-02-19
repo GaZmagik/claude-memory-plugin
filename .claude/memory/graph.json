@@ -3774,6 +3774,24 @@
       "type": "gotcha",
       "title": "TDD parity regex-based function detection misses test coverage",
       "scope": "project"
+    },
+    {
+      "id": "decision-updated-title",
+      "type": "decision",
+      "title": "Updated Title",
+      "scope": "project"
+    },
+    {
+      "id": "rule-project-claude-md-root",
+      "type": "rule",
+      "title": "Updated Title",
+      "scope": "project"
+    },
+    {
+      "id": "reminder-agent-project-typescript-expert-memory-md",
+      "type": "reminder",
+      "title": "Updated Title",
+      "scope": "project"
     }
   ],
   "edges": [

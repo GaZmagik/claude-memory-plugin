@@ -292,7 +292,7 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
   <target>    Target memory ID`,
     flags: `  --similarity <0-1>     Set cosine similarity score (0.0 to 1.0)
   --relation <label>     Update edge label/relation type
-  --verify               Mark edge as LLM-verified
+  --verify               Invoke Ollama to suggest better relation label (stored as verifiedRelation)
   --apply                Apply pending verifiedRelation to label field
   --agent <name>         Source agent scope
   --target-agent <name>  Target agent scope (for cross-scope edges)
@@ -303,15 +303,16 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
       'memory update-edge auto-link-123 manual-verify --verify --relation "implements"',
       'memory update-edge staged-edge approved-edge --apply',
       '# Update cross-scope edge',
-      'memory update-edge --agent typescript-expert local-mem --target-scope project project-mem --similarity 0.92',
+      'memory update-edge --agent typescript-expert local-mem --target-agent frontend-expert project-mem --similarity 0.92',
     ],
     notes: `  The --similarity flag validates that the value is between 0 and 1.
   Use --verify to invoke Ollama LLM for relation label suggestions (stored
   as verifiedRelation staging field). Gracefully degrades if Ollama unavailable.
   Use --apply to promote verifiedRelation to the primary label field.
+  --verify and --apply are mutually exclusive.
 
-  Cross-scope edges: Use --target-agent or --target-scope when updating
-  edges between memories in different scopes.`,
+  Cross-scope edges: Use --target-agent when updating edges between
+  memories in different agent scopes.`,
   },
 
   // Quality Operations

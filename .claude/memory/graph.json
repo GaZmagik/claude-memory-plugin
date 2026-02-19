@@ -15463,6 +15463,18 @@
       "target": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
       "label": "auto-linked-by-similarity",
       "similarity": 0.754210415180679
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "target": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7227660442074909
+    },
+    {
+      "source": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "target": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7227660442074909
     }
   ]
 }

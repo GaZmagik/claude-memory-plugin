@@ -211,6 +211,18 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
   // Update source graph (remove node and edges)
   try {
     let sourceGraph = await loadGraph(sourceBasePath);
+
+    // Check if node is a read-only external node (rule or reminder)
+    const existingNode = sourceGraph.nodes.find((n: any) => n.id === id);
+    if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+      return {
+        status: 'error',
+        id,
+        changes,
+        error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+      };
+    }
+
     sourceGraph = removeNode(sourceGraph, id);
     await saveGraph(sourceBasePath, sourceGraph);
     changes.sourceGraphUpdated = true;

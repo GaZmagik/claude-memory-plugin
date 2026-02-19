@@ -16,6 +16,7 @@
  */
 
 import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
 import {
@@ -32,6 +33,7 @@ import { loadIndex, saveIndex } from '../core/index.js';
 import type { IndexEntry, MemoryIndex } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { discoverExternalFiles, indexExternalFiles } from '../external/index.js';
 
 /**
  * Sync request options
@@ -63,6 +65,12 @@ export interface SyncResponse {
     removedFromIndex: string[];
     /** Orphan embedding entries removed */
     removedOrphanEmbeddings: string[];
+    /** External nodes added (rules and reminders) */
+    externalNodesAdded: string[];
+    /** External nodes updated */
+    externalNodesUpdated: string[];
+    /** External nodes removed (stale) */
+    externalNodesRemoved: string[];
   };
   /** Summary counts */
   summary: {
@@ -70,6 +78,8 @@ export interface SyncResponse {
     nodesInGraph: number;
     entriesInIndex: number;
     entriesInEmbeddings: number;
+    externalRuleNodes: number;
+    externalReminderNodes: number;
   };
   errors?: string[];
 }
@@ -197,6 +207,9 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     removedOrphanEdges: 0,
     removedFromIndex: [] as string[],
     removedOrphanEmbeddings: [] as string[],
+    externalNodesAdded: [] as string[],
+    externalNodesUpdated: [] as string[],
+    externalNodesRemoved: [] as string[],
   };
 
   // Load current state
@@ -324,6 +337,37 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     }
   }
 
+  // 7. Index external files (rules and reminders)
+  // For scoped syncs (agent/project), constrain discovery to basePath
+  // For global syncs, basePath would be ~/.claude/memory, so homeDir is correct
+  try {
+    const externalFiles = discoverExternalFiles({
+      cwd: basePath,
+      homeDir: basePath, // Constrain to scope - prevents walking to real home in tests
+      gitRoot: basePath,
+      projectRoot: basePath,
+    });
+
+    const externalResult = await indexExternalFiles({
+      basePath,
+      graph,
+      index,
+      embeddingsPath,
+      externalFiles,
+      dryRun,
+    });
+
+    if (externalResult.status === 'success') {
+      changes.externalNodesAdded = externalResult.changes.addedNodes;
+      changes.externalNodesUpdated = externalResult.changes.updatedNodes;
+      changes.externalNodesRemoved = externalResult.changes.removedNodes;
+    } else if (externalResult.errors) {
+      errors.push(...externalResult.errors);
+    }
+  } catch (err) {
+    errors.push(`Failed to index external files: ${err}`);
+  }
+
   // Save changes if not dry run
   if (!dryRun) {
     try {
@@ -339,6 +383,10 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     }
   }
 
+  // Count external nodes
+  const externalRuleNodes = graph.nodes.filter((n: any) => n.type === MemoryType.Rule).length;
+  const externalReminderNodes = graph.nodes.filter((n: any) => n.type === MemoryType.Reminder).length;
+
   return {
     status: errors.length > 0 ? 'error' : 'success',
     changes,
@@ -347,6 +395,8 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
       nodesInGraph: graph.nodes.length,
       entriesInIndex: index.memories.length,
       entriesInEmbeddings: embeddingsCount,
+      externalRuleNodes,
+      externalReminderNodes,
     },
     ...(errors.length > 0 && { errors }),
   };

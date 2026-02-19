@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
-import { Scope } from '../types/enums.js';
+import { Scope, MemoryType } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
 import { deleteFile, fileExists, isInsideDir, readFile, writeFileAtomic } from './fs-utils.js';
 import { createLogger } from './logger.js';
@@ -176,6 +176,15 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     // Remove from graph (node and all edges involving it)
     try {
       let graph = await loadGraph(basePath);
+
+      // Check if node is a read-only external node (rule or reminder)
+      const existingNode = graph.nodes.find((n: any) => n.id === request.id);
+      if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+        return {
+          status: 'error',
+          error: `'${request.id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+        };
+      }
 
       // Before removing the node, scan for cross-scope edges to clean up other graphs
       const crossScopeEdges = graph.edges.filter(

@@ -21,6 +21,7 @@ import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph, type MemoryGraph } from '../graph/structure.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { MemoryType } from '../types/enums.js';
 
 /**
  * Rename request options
@@ -184,6 +185,18 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
 
   // Update graph
   let graph = await loadGraph(basePath);
+
+  // Check if node is a read-only external node (rule or reminder)
+  const existingNode = graph.nodes.find((n: any) => n.id === oldId);
+  if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+    return {
+      status: 'error',
+      oldId,
+      newId,
+      changes,
+      error: `'${oldId}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+    };
+  }
 
   // Update node ID
   const nodeIndex = graph.nodes.findIndex(n => n.id === oldId);

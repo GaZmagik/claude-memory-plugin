@@ -459,6 +459,16 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Add node to graph if not present
     try {
       let graph = await loadGraph(basePath);
+
+      // Check if node is a read-only external node (rule or reminder)
+      const existingNode = graph.nodes.find((n: any) => n.id === id);
+      if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+        return {
+          status: 'error',
+          error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+        };
+      }
+
       if (!hasNode(graph, id)) {
         graph = addNode(graph, {
           id,

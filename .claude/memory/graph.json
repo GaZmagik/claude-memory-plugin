@@ -3666,6 +3666,48 @@
       "type": "learning",
       "title": "Test isolation: Use tempDir for all filesystem paths, not os.homedir()",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "type": "learning",
+      "title": "Retro - TDD discipline with clear RED-GREEN phases accelerates confidence",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-external-file-discovery-scope-must-be-constrained-upfront-not-debugged-later",
+      "type": "gotcha",
+      "title": "Retro - External file discovery scope must be constrained upfront, not debugged later",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "type": "learning",
+      "title": "Retro - Aspirational tests without integration context cause RED phase delays",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-cycle-for-external-module-core-completed-successfully",
+      "type": "learning",
+      "title": "TDD cycle for external module core completed successfully",
+      "scope": "project"
+    },
+    {
+      "id": "decision-external-file-embedding-cache-persistence",
+      "type": "decision",
+      "title": "External file indexing uses persistent embedding cache with content-hash invalidation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-read-only-guards-prevent-external-node-modification-across-all-write-paths",
+      "type": "learning",
+      "title": "Read-only guards prevent external node modification across all write paths",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories",
+      "type": "gotcha",
+      "title": "External file discovery must constrain to basePath to avoid walking into parent directories",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -15151,6 +15193,90 @@
       "source": "decision-feature-005-implementation-plan-complete",
       "target": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
       "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8317446670843621
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliance",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8317446670843621
+    },
+    {
+      "source": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7926040870214962
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7926040870214962
+    },
+    {
+      "source": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "target": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7741690039736202
+    },
+    {
+      "source": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "target": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7741690039736202
+    },
+    {
+      "source": "artifact-tdd-stub-pattern-for-hooks",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.771803616939319
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "artifact-tdd-stub-pattern-for-hooks",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.771803616939319
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7640972742847536
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7640972742847536
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7588103555931381
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7588103555931381
+    },
+    {
+      "source": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7536758419548762
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7536758419548762
     }
   ]
 }

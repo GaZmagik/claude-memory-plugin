@@ -220,6 +220,20 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
   // Update graph node type
   try {
     const graph = await loadGraph(basePath);
+
+    // Check if node is a read-only external node (rule or reminder)
+    const existingNode = graph.nodes.find((n: any) => n.id === id);
+    if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+      return {
+        status: 'error',
+        id,
+        fromType,
+        toType: targetType,
+        changes,
+        error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+      };
+    }
+
     const nodeIndex = graph.nodes.findIndex(n => n.id === id);
     if (nodeIndex >= 0) {
       const existingNode = graph.nodes[nodeIndex];

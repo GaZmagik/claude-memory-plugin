@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T09:55:26.054Z",
+  "lastUpdated": "2026-02-19T11:03:23.380Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11835,6 +11835,120 @@
       "updated": "2026-02-19T09:55:26.020Z",
       "scope": "project",
       "relativePath": "permanent/learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir.md"
+    },
+    {
+      "id": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "type": "learning",
+      "title": "Retro - TDD discipline with clear RED-GREEN phases accelerates confidence",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-19T11:01:49.649Z",
+      "updated": "2026-02-19T11:01:49.649Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-external-file-discovery-scope-must-be-constrained-upfront-not-debugged-later",
+      "type": "gotcha",
+      "title": "Retro - External file discovery scope must be constrained upfront, not debugged later",
+      "tags": [
+        "retrospective",
+        "process",
+        "external-files",
+        "scope",
+        "project"
+      ],
+      "created": "2026-02-19T11:01:59.802Z",
+      "updated": "2026-02-19T11:01:59.802Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-external-file-discovery-scope-must-be-constrained-upfront-not-debugged-later.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "type": "learning",
+      "title": "Retro - Aspirational tests without integration context cause RED phase delays",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-19T11:02:17.510Z",
+      "updated": "2026-02-19T11:02:17.510Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-cycle-for-external-module-core-completed-successfully",
+      "type": "learning",
+      "title": "TDD cycle for external module core completed successfully",
+      "tags": [
+        "tdd",
+        "external-module",
+        "testing",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-19T11:02:23.282Z",
+      "updated": "2026-02-19T11:02:23.282Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-cycle-for-external-module-core-completed-successfully.md"
+    },
+    {
+      "id": "decision-external-file-embedding-cache-persistence",
+      "type": "decision",
+      "title": "External file indexing uses persistent embedding cache with content-hash invalidation",
+      "tags": [
+        "external-module",
+        "embeddings",
+        "caching",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-19T11:02:57.766Z",
+      "updated": "2026-02-19T11:02:57.766Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-external-file-embedding-cache-persistence.md"
+    },
+    {
+      "id": "learning-read-only-guards-prevent-external-node-modification-across-all-write-paths",
+      "type": "learning",
+      "title": "Read-only guards prevent external node modification across all write paths",
+      "tags": [
+        "external-module",
+        "guards",
+        "architecture",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-19T11:03:07.662Z",
+      "updated": "2026-02-19T11:03:07.662Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-read-only-guards-prevent-external-node-modification-across-all-write-paths.md"
+    },
+    {
+      "id": "gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories",
+      "type": "gotcha",
+      "title": "External file discovery must constrain to basePath to avoid walking into parent directories",
+      "tags": [
+        "external-module",
+        "discovery",
+        "testing",
+        "scope",
+        "project"
+      ],
+      "created": "2026-02-19T11:03:23.347Z",
+      "updated": "2026-02-19T11:03:23.347Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories.md"
     }
   ]
 }

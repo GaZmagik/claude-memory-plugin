@@ -3,8 +3,9 @@ id: learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-
 title: Retro - TDD stub-first pattern with hook enforcement accelerates RED-GREEN cycles
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T09:48:36.188Z"
-updated: "2026-02-19T09:48:36.188Z"
+updated: "2026-02-19T11:03:33.194Z"
 tags:
   - retrospective
   - process

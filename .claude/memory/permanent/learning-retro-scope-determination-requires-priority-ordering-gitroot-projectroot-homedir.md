@@ -3,8 +3,9 @@ id: learning-retro-scope-determination-requires-priority-ordering-gitroot-projec
 title: "Retro - Scope determination requires priority ordering: gitRoot > projectRoot > homeDir"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T09:50:46.851Z"
-updated: "2026-02-19T09:50:46.851Z"
+updated: "2026-02-19T11:03:33.289Z"
 tags:
   - retrospective
   - process

@@ -103,16 +103,24 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     const indexEntry = await findInIndex(basePath, request.id);
 
     let filePath: string;
+    let isExternalFile = false;
 
     if (indexEntry) {
-      filePath = path.join(basePath, indexEntry.relativePath);
+      // Check if this is an external file (rule or reminder)
+      if (indexEntry.externalPath) {
+        filePath = indexEntry.externalPath;
+        isExternalFile = true;
+      } else {
+        filePath = path.join(basePath, indexEntry.relativePath);
+      }
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
     // Security: Validate path stays within basePath (prevent path traversal)
-    if (!isInsideDir(basePath, filePath)) {
+    // Skip validation for external files as they live outside basePath
+    if (!isExternalFile && !isInsideDir(basePath, filePath)) {
       log.warn('Path traversal attempt detected', { id: request.id, filePath });
       return {
         status: 'error',

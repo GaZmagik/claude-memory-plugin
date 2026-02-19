@@ -3,8 +3,9 @@ id: learning-retro-scope-resolver-params-and-ordering-in-discovery-module
 title: "Retro: Scope resolver params and ordering in discovery module"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T09:53:15.559Z"
-updated: "2026-02-19T09:53:15.559Z"
+updated: "2026-02-19T11:03:33.151Z"
 tags:
   - discovery
   - scope-resolution

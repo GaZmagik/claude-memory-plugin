@@ -20,6 +20,10 @@ import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embe
 import { loadIndex } from '../../core/index.js';
 import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
+import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
+import { loadGraph } from '../../graph/structure.js';
+import * as os from 'node:os';
+import * as path from 'node:path';
 
 /**
  * sync - Synchronise graph, index, and disk
@@ -271,5 +275,60 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
       return result;
     },
     dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'
+  );
+}
+
+/**
+ * index-context - Index external context files (CLAUDE.md, agent MEMORY.md)
+ *
+ * Usage: memory index-context [scope] [--dry-run] [--agent <name>]
+ */
+export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
+  const scopeArg = args.positional[0];
+
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
+  const dryRun = args.flags['dry-run'] === true;
+
+  return wrapOperation(
+    async () => {
+      // Load current graph and index
+      let graph = await loadGraph(basePath);
+      let index = await loadIndex({ basePath });
+
+      // Discover external files
+      const externalFiles = discoverExternalFiles({
+        cwd: basePath,
+        homeDir: basePath, // Constrain to scope
+        gitRoot: basePath,
+        projectRoot: basePath,
+      });
+
+      // Index external files
+      const embeddingsPath = path.join(basePath, 'embeddings.json');
+      const result = await indexExternalFiles({
+        basePath,
+        graph,
+        index,
+        embeddingsPath,
+        externalFiles,
+        dryRun,
+      });
+
+      return {
+        status: result.status,
+        changes: result.changes,
+        summary: result.summary,
+        errors: result.errors,
+      };
+    },
+    dryRun ? 'Index context dry run complete' : 'Index context complete'
   );
 }

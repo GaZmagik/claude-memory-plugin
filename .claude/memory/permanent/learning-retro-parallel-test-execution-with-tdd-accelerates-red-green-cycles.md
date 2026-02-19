@@ -3,8 +3,9 @@ id: learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles
 title: "Retro: Parallel test execution with TDD accelerates red-green cycles"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T09:51:10.281Z"
-updated: "2026-02-19T09:51:10.281Z"
+updated: "2026-02-19T11:03:33.027Z"
 tags:
   - tdd
   - testing

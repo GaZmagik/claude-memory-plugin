@@ -15277,6 +15277,144 @@
       "target": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7536758419548762
+    },
+    {
+      "source": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "target": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7389554758871805,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7389554758871805,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "target": "learning-retro-scope-determination-requires-priority-ordering-gitroot-projectroot-homedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7290386040667957,
+      "verifiedRelation": "Ordering"
+    },
+    {
+      "source": "learning-retro-scope-determination-requires-priority-ordering-gitroot-projectroot-homedir",
+      "target": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7290386040667957,
+      "verifiedRelation": "Inheritance"
+    },
+    {
+      "source": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "target": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7240351102932853,
+      "verifiedRelation": "Support"
+    },
+    {
+      "source": "learning-tdd-stub-file-pattern-accelerates-hook-compliant-implementation",
+      "target": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7240351102932853
+    },
+    {
+      "source": "learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150",
+      "target": "learning-speckitanalyze-catches-spec-to-code-gaps-systematically",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7207804990060923
+    },
+    {
+      "source": "learning-speckitanalyze-catches-spec-to-code-gaps-systematically",
+      "target": "learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7207804990060923,
+      "verifiedRelation": "Evolution"
+    },
+    {
+      "source": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "target": "decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7197969866940509,
+      "verifiedRelation": "Planning"
+    },
+    {
+      "source": "decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design",
+      "target": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7197969866940509,
+      "verifiedRelation": "Update"
+    },
+    {
+      "source": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "target": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7178636369124142,
+      "verifiedRelation": "Impact"
+    },
+    {
+      "source": "learning-retro-scope-resolver-params-and-ordering-in-discovery-module",
+      "target": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7178636369124142,
+      "verifiedRelation": "ScopeResolution"
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "target": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7148491975793689,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "target": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7148491975793689,
+      "verifiedRelation": "Paraphrase"
+    },
+    {
+      "source": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "target": "gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7086731881549672,
+      "verifiedRelation": "Contextualization"
+    },
+    {
+      "source": "gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories",
+      "target": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7086731881549672,
+      "verifiedRelation": "Isolation"
+    },
+    {
+      "source": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "target": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7038334701197728,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7038334701197728,
+      "verifiedRelation": "Concept Shift"
+    },
+    {
+      "source": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "target": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7004548196620218,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7004548196620218,
+      "verifiedRelation": "Contrast"
     }
   ]
 }

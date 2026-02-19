@@ -3708,6 +3708,24 @@
       "type": "gotcha",
       "title": "External file discovery must constrain to basePath to avoid walking into parent directories",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "type": "learning",
+      "title": "Retro - TDD cycle with red/green phases accelerated external module confidence",
+      "scope": "project"
+    },
+    {
+      "id": "learning-backend-filtering-automatically-benefits-cli-commands-without-duplication",
+      "type": "learning",
+      "title": "Backend filtering automatically benefits CLI commands without duplication",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-typescript-type-mismatch-between-graphstructurets-and-typesmemoryts",
+      "type": "gotcha",
+      "title": "TypeScript type mismatch between graph/structure.ts and types/memory.ts",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -15415,6 +15433,18 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7004548196620218,
       "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "target": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.754210415180679
+    },
+    {
+      "source": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "target": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.754210415180679
     }
   ]
 }

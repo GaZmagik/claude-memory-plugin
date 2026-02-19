@@ -76,7 +76,8 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     description: 'Create or update a memory from JSON stdin',
     flags: `  --auto-link              Auto-link to similar memories after writing
   --auto-link-threshold <n> Similarity threshold for auto-linking (0-1, default: 0.75)
-  --scope <scope>          Target scope (user, project, local, enterprise)`,
+  --scope <scope>          Target scope (user, project, local, enterprise)
+  --agent <name>           Write to agent-scoped memory`,
     examples: [
       'echo \'{"title":"My Decision","type":"decision","content":"We chose X"}\' | memory write',
       'cat memory.json | memory write --auto-link --auto-link-threshold 0.8',
@@ -560,12 +561,20 @@ export const COMMAND_HELP: Record<string, CommandHelpEntry> = {
     flags: `  --threshold <n>    Minimum similarity (0-1, default: 0.75)
   --limit <n>        Maximum suggestions (default: 20)
   --auto-link        Automatically create suggested links
-  --scope <scope>    Target scope`,
+  --llm-type         Use LLM to suggest relation labels (requires --auto-link)
+  --scope <scope>    Target scope
+  --agent <name>     Suggest links within agent scope
+  --include-shared   Include shared scope memories (requires --agent)
+  --all-scopes       Suggest links across all scopes`,
     examples: [
       'memory suggest-links',
       'memory suggest-links --threshold 0.85 --auto-link',
+      'memory suggest-links --auto-link --llm-type',
+      'memory suggest-links --agent curator --include-shared',
     ],
-    notes: `  Requires embeddings to be generated (run semantic search first).`,
+    notes: `  Requires embeddings to be generated (run semantic search first).
+  --llm-type requires Ollama running locally (uses chat model for relation labels).
+  --include-shared and --all-scopes are mutually exclusive.`,
   },
 
   summarize: {

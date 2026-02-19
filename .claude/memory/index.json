@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T11:03:23.380Z",
+  "lastUpdated": "2026-02-19T13:25:05.888Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -10911,21 +10911,6 @@
       "relativePath": "permanent/artifact-v140-memory-enhancement-suite-plan.md"
     },
     {
-      "id": "learning-help-text-should-highlight-powerful-hidden-features-early",
-      "type": "learning",
-      "title": "Help text should highlight powerful hidden features early",
-      "tags": [
-        "memory-plugin",
-        "cli-documentation",
-        "help-text",
-        "project"
-      ],
-      "created": "2026-02-16T23:28:21.049Z",
-      "updated": "2026-02-16T23:28:21.049Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-help-text-should-highlight-powerful-hidden-features-early.md"
-    },
-    {
       "id": "learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation",
       "type": "learning",
       "title": "Retro - TDD stub-file pattern accelerated hook-compliant implementation",
@@ -11949,6 +11934,68 @@
       "updated": "2026-02-19T11:03:23.347Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories.md"
+    },
+    {
+      "id": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "type": "learning",
+      "title": "Retro - TDD cycle with red/green phases accelerated external module confidence",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-19T13:23:38.068Z",
+      "updated": "2026-02-19T13:23:38.068Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-help-text-should-highlight-powerful-hidden-features-early",
+      "type": "learning",
+      "title": "Help text should highlight powerful hidden features early",
+      "tags": [
+        "help-text",
+        "cli-commands",
+        "feature-discovery",
+        "project"
+      ],
+      "created": "2026-02-19T13:24:13.718Z",
+      "updated": "2026-02-19T13:24:13.718Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-help-text-should-highlight-powerful-hidden-features-early.md"
+    },
+    {
+      "id": "learning-backend-filtering-automatically-benefits-cli-commands-without-duplication",
+      "type": "learning",
+      "title": "Backend filtering automatically benefits CLI commands without duplication",
+      "tags": [
+        "architecture",
+        "cli-design",
+        "data-filtering",
+        "project"
+      ],
+      "created": "2026-02-19T13:24:42.906Z",
+      "updated": "2026-02-19T13:24:42.906Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-backend-filtering-automatically-benefits-cli-commands-without-duplication.md"
+    },
+    {
+      "id": "gotcha-typescript-type-mismatch-between-graphstructurets-and-typesmemoryts",
+      "type": "gotcha",
+      "title": "TypeScript type mismatch between graph/structure.ts and types/memory.ts",
+      "tags": [
+        "typescript",
+        "type-system",
+        "graph-nodes",
+        "project"
+      ],
+      "created": "2026-02-19T13:25:05.618Z",
+      "updated": "2026-02-19T13:25:05.618Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-typescript-type-mismatch-between-graphstructurets-and-typesmemoryts.md"
     }
   ]
 }

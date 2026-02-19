@@ -13,6 +13,7 @@ import { parseMemoryFile } from '../core/frontmatter.js';
 import { getAllMemoryIds } from '../core/fs-utils.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../graph/edges.js';
+import { MemoryType } from '../types/enums.js';
 
 /**
  * Quality assessment request
@@ -68,6 +69,14 @@ function findMemoryFile(basePath: string, id: string): string | null {
   }
 
   return null;
+}
+
+/**
+ * Check if a node is an external node (rule or reminder)
+ */
+function isExternalNode(graph: any, id: string): boolean {
+  const node = graph.nodes.find((n: any) => n.id === id);
+  return node && (node.type === MemoryType.Rule || node.type === MemoryType.Reminder);
 }
 
 /**
@@ -218,6 +227,19 @@ export async function assessQuality(
   const { id, basePath, deep = false } = request;
   const tiersCompleted: number[] = [];
 
+  // Skip external nodes (rules and reminders) - they're read-only and managed externally
+  const graph = await loadGraph(basePath);
+  if (isExternalNode(graph, id)) {
+    return {
+      status: 'success',
+      id,
+      score: 100,
+      rating: 'excellent',
+      issues: [],
+      tiersCompleted: [1],
+    };
+  }
+
   // Find file
   const filePath = findMemoryFile(basePath, id);
   if (!filePath) {
@@ -306,7 +328,12 @@ export interface AuditResponse {
 export async function auditMemories(request: AuditRequest): Promise<AuditResponse> {
   const { basePath, threshold = 100, deep = false } = request;
 
-  const ids = await getAllMemoryIds(basePath);
+  const allIds = await getAllMemoryIds(basePath);
+
+  // Load graph to filter out external nodes (rules and reminders)
+  const graph = await loadGraph(basePath);
+  const ids = allIds.filter(id => !isExternalNode(graph, id));
+
   const results: AuditResult[] = [];
   const summary = {
     excellent: 0,

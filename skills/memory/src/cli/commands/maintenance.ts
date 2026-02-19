@@ -22,7 +22,6 @@ import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
 import { loadGraph } from '../../graph/structure.js';
-import * as os from 'node:os';
 import * as path from 'node:path';
 
 /**

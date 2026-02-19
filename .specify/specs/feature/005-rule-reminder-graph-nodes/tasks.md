@@ -158,7 +158,7 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [ ] T056 [P] [US1] Unit test for indexExternalFiles removing stale external nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-remove-stale.spec.ts
 - [ ] T057 [P] [US1] Unit test for indexExternalFiles handling missing embedding provider gracefully in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-no-ollama.spec.ts
 - [ ] T058 [P] [US1] Unit test for indexExternalFiles respecting dryRun flag in /home/gareth/.vs/claude-memory-plugin/tests/unit/external/test-index-dry-run.spec.ts
-- [ ] T058A [P] [US4] Unit test for suggest-links candidate filtering including rule and reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/graph/test-suggest-links-external.spec.ts
+- [X] T058A [P] [US4] Unit test for suggest-links candidate filtering including rule and reminder nodes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/suggest/suggest-links-external.spec.ts
 - [ ] T059 [US1] Integration test for end-to-end rule discovery and indexing in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-rule-discovery-to-index.spec.ts
 - [ ] T060 [US2] Integration test for end-to-end reminder discovery and indexing in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-reminder-discovery-to-index.spec.ts
 
@@ -190,9 +190,9 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T083 [US1] Implement graceful Ollama fallback in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
 - [X] T084 [P] [US1] Create external-file-indexer.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.spec.ts
 - [X] T085 [P] [US1] Create external module index.ts with public API exports in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/index.ts
-- [ ] T085A [P] [US4] Modify suggest-links filtering to include type='rule' and type='reminder' nodes in candidate set in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
+- [X] T085A [P] [US4] Modify suggest-links filtering to include type='rule' and type='reminder' nodes in candidate set in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/suggest/suggest-links.ts (Note: No changes needed - suggest-links already includes all non-thought nodes by default)
 
-**Checkpoint**: ✅ External module core complete, discovery and indexing functional, tests passing (Note: T033-T060 individual unit tests replaced by comprehensive co-located test files; T085A, T058A-T060 pending)
+**Checkpoint**: ✅ Phase 2B complete - External node filtering verified, suggest-links includes rule/reminder nodes (Note: T033-T060 individual unit tests replaced by comprehensive co-located test files; T059-T060 integration tests pending)
 
 ---
 

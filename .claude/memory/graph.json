@@ -3744,6 +3744,36 @@
       "type": "learning",
       "title": "Help text auditing revealed missing --agent flags in write/read commands",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-systematic-verification-workflow-lint-test-coverage-is-effective",
+      "type": "learning",
+      "title": "Retro - Systematic verification workflow (lint → test → coverage) is effective",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures",
+      "type": "gotcha",
+      "title": "Retro - Test embedding normalization mismatch causes silent test failures",
+      "scope": "project"
+    },
+    {
+      "id": "learning-config-values-must-be-read-and-passed-to-apis-not-hardcoded",
+      "type": "learning",
+      "title": "Config values must be read and passed to APIs, not hardcoded",
+      "scope": "project"
+    },
+    {
+      "id": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
+      "type": "learning",
+      "title": "TypeScript cosine similarity tests require normalised embedding vectors",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "type": "gotcha",
+      "title": "TDD parity regex-based function detection misses test coverage",
+      "scope": "project"
     }
   ],
   "edges": [

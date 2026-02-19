@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T14:50:55.461Z",
+  "lastUpdated": "2026-02-19T17:13:56.698Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -12041,6 +12041,84 @@
       "updated": "2026-02-19T14:50:55.133Z",
       "scope": "project",
       "relativePath": "permanent/learning-help-text-auditing-revealed-missing-agent-flags-in-writeread-commands.md"
+    },
+    {
+      "id": "learning-retro-systematic-verification-workflow-lint-test-coverage-is-effective",
+      "type": "learning",
+      "title": "Retro - Systematic verification workflow (lint → test → coverage) is effective",
+      "tags": [
+        "retrospective",
+        "process",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-19T17:12:50.001Z",
+      "updated": "2026-02-19T17:12:50.001Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-verification-workflow-lint-test-coverage-is-effective.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures",
+      "type": "gotcha",
+      "title": "Retro - Test embedding normalization mismatch causes silent test failures",
+      "tags": [
+        "retrospective",
+        "testing",
+        "embeddings",
+        "project"
+      ],
+      "created": "2026-02-19T17:13:13.552Z",
+      "updated": "2026-02-19T17:13:13.552Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-config-values-must-be-read-and-passed-to-apis-not-hardcoded",
+      "type": "learning",
+      "title": "Config values must be read and passed to APIs, not hardcoded",
+      "tags": [
+        "ollama",
+        "configuration",
+        "api-integration",
+        "project"
+      ],
+      "created": "2026-02-19T17:13:20.390Z",
+      "updated": "2026-02-19T17:13:20.390Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-config-values-must-be-read-and-passed-to-apis-not-hardcoded.md"
+    },
+    {
+      "id": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
+      "type": "learning",
+      "title": "TypeScript cosine similarity tests require normalised embedding vectors",
+      "tags": [
+        "testing",
+        "embeddings",
+        "cosine-similarity",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-19T17:13:38.751Z",
+      "updated": "2026-02-19T17:13:38.751Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors.md"
+    },
+    {
+      "id": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "type": "gotcha",
+      "title": "TDD parity regex-based function detection misses test coverage",
+      "tags": [
+        "tdd-parity",
+        "testing",
+        "typescript",
+        "project"
+      ],
+      "created": "2026-02-19T17:13:56.668Z",
+      "updated": "2026-02-19T17:13:56.668Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage.md"
     }
   ]
 }

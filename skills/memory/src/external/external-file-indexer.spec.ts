@@ -9,7 +9,6 @@ import * as path from 'node:path';
 import {
   indexExternalFiles,
   type IndexExternalFilesRequest,
-  type IndexExternalFilesResponse,
 } from './external-file-indexer.js';
 import { ExternalFileKind, type ExternalFileEntry } from './external-file-types.js';
 import { MemoryType, Scope } from '../types/enums.js';
@@ -74,8 +73,8 @@ describe('indexExternalFiles', () => {
     expect(response.status).toBe('success');
     expect(baseGraph.nodes).toHaveLength(1);
     expect(baseGraph.nodes[0]?.id).toBe('rule-project-claude-md-root');
-    expect(baseGraph.nodes[0]?.type).toBe(MemoryType.Rule);
-    expect(baseGraph.nodes[0]?.title).toBe('CLAUDE.md');
+    expect((baseGraph.nodes[0] as any)?.type).toBe(MemoryType.Rule);
+    expect((baseGraph.nodes[0] as any)?.title).toBe('CLAUDE.md');
   });
 
   // T051: Unit test for indexExternalFiles creating GraphNode for reminder
@@ -105,8 +104,8 @@ describe('indexExternalFiles', () => {
     expect(response.status).toBe('success');
     expect(baseGraph.nodes).toHaveLength(1);
     expect(baseGraph.nodes[0]?.id).toBe('reminder-project-curator-memory');
-    expect(baseGraph.nodes[0]?.type).toBe(MemoryType.Reminder);
-    expect(baseGraph.nodes[0]?.title).toBe('Curator Agent Memory');
+    expect((baseGraph.nodes[0] as any)?.type).toBe(MemoryType.Reminder);
+    expect((baseGraph.nodes[0] as any)?.title).toBe('Curator Agent Memory');
   });
 
   // T052: Unit test for indexExternalFiles creating IndexEntry with externalPath
@@ -265,10 +264,10 @@ describe('indexExternalFiles', () => {
   it('should remove stale external nodes that no longer exist', async () => {
     // Add an external node to the graph
     baseGraph.nodes.push({
-      id: 'rule-project-old-file',
+      id: 'rule-project-old-file' as any,
       type: MemoryType.Rule,
       title: 'Old File',
-    });
+    } as any);
 
     baseIndex.memories.push({
       id: 'rule-project-old-file' as any,

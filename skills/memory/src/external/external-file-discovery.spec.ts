@@ -51,9 +51,9 @@ describe('discoverRuleFiles', () => {
     const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     expect(results).toHaveLength(1);
-    expect(results[0].kind).toBe(ExternalFileKind.ClaudeLocalInstructions);
-    expect(results[0].absolutePath).toBe(claudeLocalPath);
-    expect(results[0].scope).toBe(Scope.Local);
+    expect(results[0]!.kind).toBe(ExternalFileKind.ClaudeLocalInstructions);
+    expect(results[0]!.absolutePath).toBe(claudeLocalPath);
+    expect(results[0]!.scope).toBe(Scope.Local);
   });
 
   // T037: Unit test for discoverRuleFiles finding rules directory files
@@ -94,7 +94,7 @@ describe('discoverRuleFiles', () => {
       r.absolutePath === parentClaudePath
     );
     expect(ancestorFiles).toHaveLength(1);
-    expect(ancestorFiles[0].id).toContain('ancestor');
+    expect(ancestorFiles[0]!.id).toContain('ancestor');
   });
 
   // T039: Unit test for discoverRuleFiles excluding vendor directories
@@ -120,7 +120,7 @@ describe('discoverRuleFiles', () => {
 
     // Should only find the root CLAUDE.md, not the ones in vendor directories
     expect(results).toHaveLength(1);
-    expect(results[0].absolutePath).toBe(path.join(tempDir, 'CLAUDE.md'));
+    expect(results[0]!.absolutePath).toBe(path.join(tempDir, 'CLAUDE.md'));
   });
 
   // T040: Unit test for discoverRuleFiles resolving symlinks to canonical paths
@@ -135,7 +135,7 @@ describe('discoverRuleFiles', () => {
 
     // Should resolve to canonical path
     expect(results).toHaveLength(1);
-    expect(results[0].absolutePath).toBe(fs.realpathSync(symlinkFile));
+    expect(results[0]!.absolutePath).toBe(fs.realpathSync(symlinkFile));
   });
 
   // T040A: Unit test for discoverRuleFiles handling symlink loops without infinite recursion
@@ -238,9 +238,9 @@ describe('discoverReminderFiles', () => {
     const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     expect(results).toHaveLength(1);
-    expect(results[0].kind).toBe(ExternalFileKind.AgentMemorySummary);
-    expect(results[0].absolutePath).toBe(memoryPath);
-    expect(results[0].agentName).toBe('curator');
+    expect(results[0]!.kind).toBe(ExternalFileKind.AgentMemorySummary);
+    expect(results[0]!.absolutePath).toBe(memoryPath);
+    expect(results[0]!.agentName).toBe('curator');
   });
 
   // T044: Unit test for discoverReminderFiles finding sub-files in agent directories
@@ -284,7 +284,7 @@ describe('discoverReminderFiles', () => {
 
     const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
-    expect(results[0].agentName).toBe('speckit-planner');
+    expect(results[0]!.agentName).toBe('speckit-planner');
   });
 
   // T047: Unit test for deterministic reminder ID generation
@@ -298,9 +298,9 @@ describe('discoverReminderFiles', () => {
     const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     // IDs should follow pattern: reminder-{scope}-{agent}-{file}
-    expect(results[0].id).toMatch(/^reminder-\w+-curator-/);
-    expect(results[1].id).toMatch(/^reminder-\w+-curator-/);
-    expect(results[0].id).not.toBe(results[1].id);
+    expect(results[0]!.id).toMatch(/^reminder-\w+-curator-/);
+    expect(results[1]!.id).toMatch(/^reminder-\w+-curator-/);
+    expect(results[0]!.id).not.toBe(results[1]!.id);
   });
 
   // T048: Unit test for reminder scope determination
@@ -312,7 +312,7 @@ describe('discoverReminderFiles', () => {
 
     const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
-    expect(results[0].scope).toBe(Scope.AgentProject);
+    expect(results[0]!.scope).toBe(Scope.AgentProject);
   });
 
   it('should return empty array when no reminder files found', () => {

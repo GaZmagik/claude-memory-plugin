@@ -12,13 +12,11 @@ import type { MemoryGraph, MemoryIndex } from '../types/memory.js';
 
 describe('Suggest Links - External Node Integration', () => {
   let tempDir: string;
-  let basePath: string;
   let graph: MemoryGraph;
   let index: MemoryIndex;
 
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'suggest-links-external-test-'));
-    basePath = tempDir;
 
     graph = {
       version: 1,
@@ -90,9 +88,9 @@ describe('Suggest Links - External Node Integration', () => {
 
     // Verify both external nodes have embeddings in cache
     expect(cache.memories[ruleNodeId!]).toBeDefined();
-    expect(cache.memories[ruleNodeId!].embedding).toBeDefined();
+    expect(cache.memories[ruleNodeId!]!.embedding).toBeDefined();
     expect(cache.memories[reminderNodeId!]).toBeDefined();
-    expect(cache.memories[reminderNodeId!].embedding).toBeDefined();
+    expect(cache.memories[reminderNodeId!]!.embedding).toBeDefined();
 
     // Verify embeddings are not skipped by thought- filter
     expect(ruleNodeId!.startsWith('thought-')).toBe(false);

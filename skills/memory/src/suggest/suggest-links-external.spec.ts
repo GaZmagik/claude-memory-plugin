@@ -103,8 +103,11 @@ describe('Suggest Links - External Node Integration', () => {
 
   // T085A: Test that suggestLinks() actually includes external nodes in suggestions
   it('should include rule and reminder nodes in suggest-links results', async () => {
+    // Define basePath following the pattern from other tests
+    const basePath = path.join(tempDir, '.claude', 'memory');
+
     // Create a regular memory
-    const memoryDir = path.join(tempDir, '.claude', 'memory', 'permanent');
+    const memoryDir = path.join(basePath, 'permanent');
     fs.mkdirSync(memoryDir, { recursive: true });
     fs.writeFileSync(
       path.join(memoryDir, 'decision-tdd-approach.md'),
@@ -116,7 +119,7 @@ describe('Suggest Links - External Node Integration', () => {
     fs.writeFileSync(claudePath, '# Project Rules\nAlways use Test-Driven Development for all features');
 
     // Create graph and index
-    await saveGraph(tempDir, {
+    await saveGraph(basePath, {
       version: 1,
       nodes: [
         {
@@ -128,7 +131,7 @@ describe('Suggest Links - External Node Integration', () => {
       edges: [],
     } as any);
 
-    await saveIndex(tempDir, {
+    await saveIndex(basePath, {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       memories: [
@@ -153,7 +156,7 @@ describe('Suggest Links - External Node Integration', () => {
       projectRoot: tempDir,
     });
 
-    const embeddingsPath = path.join(tempDir, '.claude', 'memory', 'embeddings.json');
+    const embeddingsPath = path.join(basePath, 'embeddings.json');
 
     // Normalized embedding for TDD-related content (magnitude ≈ 1.0)
     // [1, 0, 0, 0, 0] normalized = [1, 0, 0, 0, 0] (already unit length)
@@ -162,8 +165,9 @@ describe('Suggest Links - External Node Integration', () => {
     // Mock embedding provider that returns the same normalized embedding for TDD content
     const mockProvider = {
       getEmbedding: async (text: string) => {
-        // Return same embedding for TDD-related content (will be normalized by indexExternalFiles)
-        if (text.includes('Test-Driven Development') || text.includes('TDD')) {
+        // Return same embedding for TDD-related content
+        // Note: indexExternalFiles passes entry.title, not content, so check for title "CLAUDE.md"
+        if (text.includes('Test-Driven Development') || text.includes('TDD') || text.includes('CLAUDE.md')) {
           return tddEmbedding; // Returns [1, 0, 0, 0, 0] which is already normalized
         }
         return [0, 1, 0, 0, 0]; // Different embedding for non-TDD content
@@ -186,12 +190,12 @@ describe('Suggest Links - External Node Integration', () => {
     // Load graph and index to pass to indexExternalFiles
     const { loadGraph } = await import('../graph/structure.js');
     const { loadIndex } = await import('../core/index.js');
-    const loadedGraph = await loadGraph(tempDir);
-    const loadedIndex = await loadIndex({ basePath: tempDir });
+    const loadedGraph = await loadGraph(basePath);
+    const loadedIndex = await loadIndex({ basePath });
 
     // Index external files
     await indexExternalFiles({
-      basePath: tempDir,
+      basePath,
       graph: loadedGraph as any,
       index: loadedIndex,
       embeddingsPath,
@@ -200,8 +204,8 @@ describe('Suggest Links - External Node Integration', () => {
     });
 
     // Save the updated graph and index
-    await saveGraph(tempDir, loadedGraph as any);
-    await saveIndex(tempDir, loadedIndex);
+    await saveGraph(basePath, loadedGraph as any);
+    await saveIndex(basePath, loadedIndex);
 
     // Debug: verify external files were discovered and indexed
     expect(externalFiles.length).toBeGreaterThan(0);
@@ -215,21 +219,13 @@ describe('Suggest Links - External Node Integration', () => {
 
     // Now call suggestLinks and verify external nodes appear in suggestions
     const result = await suggestLinks({
-      basePath: tempDir,
+      basePath,
       threshold: 0.7,
       limit: 10,
       autoLink: false,
     });
 
     expect(result.status).toBe('success');
-
-    // Debug output if no suggestions
-    if (result.suggestions.length === 0) {
-      console.log('Graph nodes:', loadedGraph.nodes.map(n => ({ id: n.id, title: n.title })));
-      console.log('Embeddings:', Object.keys(finalCache.memories));
-      console.log('Result:', result);
-    }
-
     expect(result.suggestions.length).toBeGreaterThan(0);
 
     // Find the rule node in suggestions

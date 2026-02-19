@@ -212,12 +212,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [ ] T087 [P] [US3] Unit test for cmdWrite rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-write-reject-reminder.spec.ts
 - [ ] T088 [P] [US3] Unit test for cmdDelete rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-delete-reject-rule.spec.ts
 - [ ] T089 [P] [US3] Unit test for cmdDelete rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-delete-reject-reminder.spec.ts
-- [ ] T090 [P] [US3] Unit test for cmdRename rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-rule.spec.ts
-- [ ] T091 [P] [US3] Unit test for cmdRename rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-reminder.spec.ts
-- [ ] T092 [P] [US3] Unit test for cmdMove rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-rule.spec.ts
-- [ ] T093 [P] [US3] Unit test for cmdMove rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-reminder.spec.ts
-- [ ] T094 [P] [US3] Unit test for cmdPromote rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-rule.spec.ts
-- [ ] T095 [P] [US3] Unit test for cmdPromote rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-reminder.spec.ts
+- [X] T090 [P] [US3] Unit test for cmdRename rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-rule.spec.ts
+- [X] T091 [P] [US3] Unit test for cmdRename rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-reminder.spec.ts
+- [X] T092 [P] [US3] Unit test for cmdMove rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-rule.spec.ts
+- [X] T093 [P] [US3] Unit test for cmdMove rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-reminder.spec.ts
+- [X] T094 [P] [US3] Unit test for cmdPromote rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-rule.spec.ts
+- [X] T095 [P] [US3] Unit test for cmdPromote rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-reminder.spec.ts
 - [ ] T096 [P] [US3] Unit test for cmdRead handling externalPath field in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-read-external-path.spec.ts
 - [ ] T097 [P] [US3] Unit test for cmdSearch including rule nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-search-include-rules.spec.ts
 - [ ] T098 [P] [US3] Unit test for cmdSemantic including reminder nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-semantic-include-reminders.spec.ts

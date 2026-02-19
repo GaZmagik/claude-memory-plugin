@@ -57,6 +57,17 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));
 
+  // Read-only guard: Reject writes to external nodes (rule/reminder types)
+  if (input.id) {
+    const { loadIndex } = await import('../../core/index.js');
+    const index = await loadIndex({ basePath });
+    const existingEntry = index.memories.find(m => m.id === input.id);
+
+    if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+      return error(`'${input.id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+    }
+  }
+
   // Parse type - default to Decision if not specified
   const typeStr = getFlagString(args.flags, 'type') ?? (input.type as string | undefined);
   const type = parseMemoryType(typeStr) ?? MemoryType.Decision;

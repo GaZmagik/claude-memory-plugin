@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T09:53:15.645Z",
+  "lastUpdated": "2026-02-19T09:55:26.054Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11819,6 +11819,22 @@
       "updated": "2026-02-19T09:53:15.559Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-scope-resolver-params-and-ordering-in-discovery-module.md"
+    },
+    {
+      "id": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "type": "learning",
+      "title": "Test isolation: Use tempDir for all filesystem paths, not os.homedir()",
+      "tags": [
+        "testing",
+        "discovery",
+        "file-indexing",
+        "test-isolation",
+        "project"
+      ],
+      "created": "2026-02-19T09:55:26.020Z",
+      "updated": "2026-02-19T09:55:26.020Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir.md"
     }
   ]
 }

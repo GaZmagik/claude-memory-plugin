@@ -3660,6 +3660,12 @@
       "type": "learning",
       "title": "Retro: Scope resolver params and ordering in discovery module",
       "scope": "project"
+    },
+    {
+      "id": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "type": "learning",
+      "title": "Test isolation: Use tempDir for all filesystem paths, not os.homedir()",
+      "scope": "project"
     }
   ],
   "edges": [

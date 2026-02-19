@@ -14,6 +14,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const DEFAULT_CHAT_MODEL = 'gemma3:4b';
+const DEFAULT_CONTEXT_WINDOW = 16384;
 const TIMEOUT_MS = 15_000;
 const AVAILABILITY_TIMEOUT_MS = 5_000;
 
@@ -34,12 +35,23 @@ export function configureClient(host: string): void {
 /** Module-level cache for the resolved chat model name. Populated on first read. */
 let cachedChatModel: string | undefined;
 
+/** Module-level cache for the resolved context window size. Populated on first read. */
+let cachedContextWindow: number | undefined;
+
 /**
  * Reset the cached chat model name.
  * Exported for testing only — production code should not call this.
  */
 export function resetChatModelCache(): void {
   cachedChatModel = undefined;
+}
+
+/**
+ * Reset the cached context window size.
+ * Exported for testing only — production code should not call this.
+ */
+export function resetContextWindowCache(): void {
+  cachedContextWindow = undefined;
 }
 
 function getClient(): Ollama {
@@ -73,6 +85,36 @@ function readChatModel(): string {
   return cachedChatModel;
 }
 
+/**
+ * Read context_window from .claude/memory.local.md YAML frontmatter.
+ * Result is cached after the first successful read so subsequent generate()
+ * calls do not hit the filesystem. Call resetContextWindowCache() in tests to
+ * force a re-read.
+ * Falls back to DEFAULT_CONTEXT_WINDOW if file is missing or field absent.
+ */
+function readContextWindow(): number {
+  if (cachedContextWindow !== undefined) return cachedContextWindow;
+  try {
+    const settingsPath = join(process.cwd(), '.claude', 'memory.local.md');
+    const content = readFileSync(settingsPath, 'utf-8');
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    if (match?.[1]) {
+      const line = match[1].split('\n').find(l => l.trimStart().startsWith('context_window:'));
+      if (line) {
+        const value = Number.parseInt(line.split(':').slice(1).join(':').trim(), 10);
+        if (!Number.isNaN(value) && value > 0) {
+          cachedContextWindow = value;
+          return cachedContextWindow;
+        }
+      }
+    }
+  } catch {
+    // File not found or unreadable — use default
+  }
+  cachedContextWindow = DEFAULT_CONTEXT_WINDOW;
+  return cachedContextWindow;
+}
+
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
   let handle: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<never>((_, reject) => {
@@ -97,9 +139,15 @@ async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T
  */
 export async function generate(prompt: string, model?: string, timeoutMs = TIMEOUT_MS): Promise<string> {
   const resolvedModel = model ?? readChatModel();
+  const contextWindow = readContextWindow();
   try {
     const response = await withTimeout(
-      getClient().generate({ model: resolvedModel, prompt, stream: false }),
+      getClient().generate({
+        model: resolvedModel,
+        prompt,
+        stream: false,
+        options: { num_ctx: contextWindow }
+      }),
       timeoutMs
     );
     return response.response?.trim() ?? '';

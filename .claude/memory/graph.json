@@ -3594,6 +3594,42 @@
       "type": "learning",
       "title": "update-edge command integrates Ollama for semantic relation labels",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-speckit-analyze-prevents-implementation-rework",
+      "type": "learning",
+      "title": "Retro - Speckit analyze prevents implementation rework",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "type": "learning",
+      "title": "Retro - Parallel test execution with TDD accelerates red-green cycles",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-red-phase-requires-verifying-expected-failure-reasons",
+      "type": "learning",
+      "title": "TDD RED phase requires verifying expected failure reasons",
+      "scope": "project"
+    },
+    {
+      "id": "learning-co-locate-typescript-tests-with-source-files-and-append-to-existing-specs",
+      "type": "learning",
+      "title": "Co-locate TypeScript tests with source files and append to existing specs",
+      "scope": "project"
+    },
+    {
+      "id": "decision-feature-005-enum-extension-string-literals",
+      "type": "decision",
+      "title": "Feature 005: Enum extension using string literals pattern",
+      "scope": "project"
+    },
+    {
+      "id": "decision-feature-005-index-entry-optional-fields",
+      "type": "decision",
+      "title": "Feature 005: IndexEntry optional fields for external file support",
+      "scope": "project"
     }
   ],
   "edges": [

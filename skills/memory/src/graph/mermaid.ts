@@ -50,6 +50,8 @@ const NODE_SHAPES: Record<string, { open: string; close: string }> = {
   learning: { open: '([', close: '])' },     // Stadium
   hub: { open: '((', close: '))' },          // Circle
   session: { open: '[/', close: '/]' },      // Parallelogram
+  rule: { open: '{{', close: '}}' },         // Hexagon (formal/authoritative)
+  reminder: { open: '[(', close: ')]' },     // Cylinder (stored knowledge)
   default: { open: '[', close: ']' },
 };
 
@@ -62,6 +64,8 @@ const NODE_STYLES: Record<string, string> = {
   learning: 'fill:#fff3e0,stroke:#f57c00',
   hub: 'fill:#e8f5e9,stroke:#388e3c,stroke-width:3px',
   session: 'fill:#fce4ec,stroke:#c2185b',
+  rule: 'fill:#fff8e1,stroke:#f57f17',
+  reminder: 'fill:#e0f7fa,stroke:#00838f',
   agentNode: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
   agentNodeProject: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
   agentNodeGlobal: 'fill:#bbdefb,stroke:#0d47a1,stroke-width:2px',

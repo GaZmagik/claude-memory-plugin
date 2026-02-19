@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T06:33:10.513Z",
+  "lastUpdated": "2026-02-19T08:45:21.928Z",
   "memories": [
     {
       "id": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
@@ -11642,6 +11642,100 @@
       "updated": "2026-02-19T06:33:10.487Z",
       "scope": "project",
       "relativePath": "permanent/learning-update-edge-command-integrates-ollama-for-semantic-relation-labels.md"
+    },
+    {
+      "id": "learning-retro-speckit-analyze-prevents-implementation-rework",
+      "type": "learning",
+      "title": "Retro - Speckit analyze prevents implementation rework",
+      "tags": [
+        "retrospective",
+        "process",
+        "speckit",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-19T08:43:42.257Z",
+      "updated": "2026-02-19T08:43:42.257Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-speckit-analyze-prevents-implementation-rework.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "type": "learning",
+      "title": "Retro - Parallel test execution with TDD accelerates red-green cycles",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "parallelisation",
+        "project"
+      ],
+      "created": "2026-02-19T08:43:50.546Z",
+      "updated": "2026-02-19T08:43:50.546Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-red-phase-requires-verifying-expected-failure-reasons",
+      "type": "learning",
+      "title": "TDD RED phase requires verifying expected failure reasons",
+      "tags": [
+        "tdd",
+        "testing",
+        "red-phase",
+        "project"
+      ],
+      "created": "2026-02-19T08:44:35.645Z",
+      "updated": "2026-02-19T08:44:35.645Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-red-phase-requires-verifying-expected-failure-reasons.md"
+    },
+    {
+      "id": "learning-co-locate-typescript-tests-with-source-files-and-append-to-existing-specs",
+      "type": "learning",
+      "title": "Co-locate TypeScript tests with source files and append to existing specs",
+      "tags": [
+        "testing",
+        "typescript",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-19T08:44:43.593Z",
+      "updated": "2026-02-19T08:44:43.593Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-co-locate-typescript-tests-with-source-files-and-append-to-existing-specs.md"
+    },
+    {
+      "id": "decision-feature-005-enum-extension-string-literals",
+      "type": "decision",
+      "title": "Feature 005: Enum extension using string literals pattern",
+      "tags": [
+        "feature-005",
+        "enum",
+        "type-system",
+        "project"
+      ],
+      "created": "2026-02-19T08:45:16.782Z",
+      "updated": "2026-02-19T08:45:16.782Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-enum-extension-string-literals.md"
+    },
+    {
+      "id": "decision-feature-005-index-entry-optional-fields",
+      "type": "decision",
+      "title": "Feature 005: IndexEntry optional fields for external file support",
+      "tags": [
+        "feature-005",
+        "type-system",
+        "backwards-compatibility",
+        "project"
+      ],
+      "created": "2026-02-19T08:45:21.893Z",
+      "updated": "2026-02-19T08:45:21.893Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-index-entry-optional-fields.md"
     }
   ]
 }

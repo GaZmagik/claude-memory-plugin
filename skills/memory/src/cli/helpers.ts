@@ -138,6 +138,10 @@ export function parseMemoryType(typeStr: string | undefined): MemoryType | undef
       return MemoryType.Breadcrumb;
     case 'hub':
       return MemoryType.Hub;
+    case 'rule':
+      return MemoryType.Rule;
+    case 'reminder':
+      return MemoryType.Reminder;
     default:
       return undefined;
   }

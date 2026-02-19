@@ -79,6 +79,10 @@ export interface IndexEntry {
   relativePath: string;
   /** Severity if applicable */
   severity?: Severity;
+  /** Sub-kind of external file (only present for type=rule or type=reminder) */
+  externalFileKind?: string;
+  /** Absolute path to external file (only present for type=rule or type=reminder) */
+  externalPath?: string;
 }
 
 /**

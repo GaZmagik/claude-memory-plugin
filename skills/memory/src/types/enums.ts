@@ -16,6 +16,10 @@ export enum MemoryType {
   Breadcrumb = 'breadcrumb',
   /** A hub node that links related memories together */
   Hub = 'hub',
+  /** A prescriptive rule file (CLAUDE.md, rules/*.md) governing agent behaviour */
+  Rule = 'rule',
+  /** A descriptive reminder file (agent MEMORY.md) carrying agent state */
+  Reminder = 'reminder',
 }
 
 /**
@@ -112,4 +116,8 @@ export enum EdgeType {
   Exemplifies = 'exemplifies',
   /** Memory A is related context for Memory B */
   RelatedContext = 'related-context',
+  /** Memory is governed by a rule (direction: memory → rule) */
+  GovernedBy = 'governed-by',
+  /** Memory is contextualised by a reminder (direction: memory → reminder) */
+  RemindedBy = 'reminded-by',
 }

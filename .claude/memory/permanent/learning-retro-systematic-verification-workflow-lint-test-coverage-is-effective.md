@@ -3,8 +3,9 @@ id: learning-retro-systematic-verification-workflow-lint-test-coverage-is-effect
 title: Retro - Systematic verification workflow (lint → test → coverage) is effective
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T17:12:50.001Z"
-updated: "2026-02-19T17:12:50.001Z"
+updated: "2026-02-19T18:01:26.788Z"
 tags:
   - retrospective
   - process

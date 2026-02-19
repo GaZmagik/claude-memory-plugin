@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T17:34:56.836Z",
+  "lastUpdated": "2026-02-19T17:59:56.765Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -13,6 +13,85 @@
       "updated": "2026-02-19T17:34:56.822Z",
       "scope": "project",
       "relativePath": "permanent/reminder-agent-project-typescript-expert-memory-md.md"
+    },
+    {
+      "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "Retro - TDD pattern replication accelerates guard implementation across CLI commands",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-19T17:58:17.887Z",
+      "updated": "2026-02-19T17:58:17.887Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
+      "type": "gotcha",
+      "title": "Gotcha - ParsedArgs test structure confusion causes timeouts when command name included in positional array",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "cli",
+        "project"
+      ],
+      "created": "2026-02-19T17:58:33.896Z",
+      "updated": "2026-02-19T17:58:33.896Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "type": "gotcha",
+      "title": "Mock embeddings test mismatch on actual API input",
+      "tags": [
+        "testing",
+        "mocking",
+        "embeddings",
+        "project"
+      ],
+      "created": "2026-02-19T17:59:03.379Z",
+      "updated": "2026-02-19T17:59:03.379Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-mock-embeddings-test-mismatch-on-actual-api-input.md"
+    },
+    {
+      "id": "learning-cosine-similarity-requires-normalized-embedding-vectors",
+      "type": "learning",
+      "title": "Cosine similarity requires normalized embedding vectors",
+      "tags": [
+        "testing",
+        "embeddings",
+        "mathematics",
+        "project"
+      ],
+      "created": "2026-02-19T17:59:21.271Z",
+      "updated": "2026-02-19T17:59:21.271Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cosine-similarity-requires-normalized-embedding-vectors.md"
+    },
+    {
+      "id": "decision-read-only-guards-system-nodes",
+      "type": "decision",
+      "title": "Read-only guards for system-generated nodes",
+      "tags": [
+        "architecture",
+        "cli-operations",
+        "access-control",
+        "project"
+      ],
+      "created": "2026-02-19T17:59:56.743Z",
+      "updated": "2026-02-19T17:59:56.743Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-read-only-guards-system-nodes.md"
     }
   ]
 }

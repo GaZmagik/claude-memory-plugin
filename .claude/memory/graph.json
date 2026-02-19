@@ -3792,6 +3792,36 @@
       "type": "reminder",
       "title": "Updated Title",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "Retro - TDD pattern replication accelerates guard implementation across CLI commands",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
+      "type": "gotcha",
+      "title": "Gotcha - ParsedArgs test structure confusion causes timeouts when command name included in positional array",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "type": "gotcha",
+      "title": "Mock embeddings test mismatch on actual API input",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cosine-similarity-requires-normalized-embedding-vectors",
+      "type": "learning",
+      "title": "Cosine similarity requires normalized embedding vectors",
+      "scope": "project"
+    },
+    {
+      "id": "decision-read-only-guards-system-nodes",
+      "type": "decision",
+      "title": "Read-only guards for system-generated nodes",
+      "scope": "project"
     }
   ],
   "edges": [

@@ -116,6 +116,16 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
     sourceBasePath = found.basePath;
   }
 
+  // Read-only guard: Reject moves on external nodes (rule/reminder types)
+  const { loadIndex } = await import('../../core/index.js');
+  const { MemoryType } = await import('../../types/enums.js');
+  const index = await loadIndex({ basePath: sourceBasePath });
+  const existingEntry = index.memories.find(m => m.id === id);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
+
   return wrapOperation(
     async () => {
       const result = await moveMemory({
@@ -158,6 +168,16 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
+
+  // Read-only guard: Reject promotes on external nodes (rule/reminder types)
+  const { loadIndex } = await import('../../core/index.js');
+  const { MemoryType } = await import('../../types/enums.js');
+  const index = await loadIndex({ basePath });
+  const existingEntry = index.memories.find(m => m.id === id);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
 
   return wrapOperation(
     async () => {

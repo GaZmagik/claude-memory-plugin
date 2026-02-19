@@ -3,8 +3,9 @@ id: learning-config-values-must-be-read-and-passed-to-apis-not-hardcoded
 title: Config values must be read and passed to APIs, not hardcoded
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T17:13:20.390Z"
-updated: "2026-02-19T17:13:20.390Z"
+updated: "2026-02-19T18:01:27.371Z"
 tags:
   - ollama
   - configuration

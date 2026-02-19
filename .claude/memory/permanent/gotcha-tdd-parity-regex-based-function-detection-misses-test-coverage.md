@@ -3,8 +3,9 @@ id: gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage
 title: TDD parity regex-based function detection misses test coverage
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T17:13:56.668Z"
-updated: "2026-02-19T17:13:56.668Z"
+updated: "2026-02-19T18:01:27.217Z"
 tags:
   - tdd-parity
   - testing

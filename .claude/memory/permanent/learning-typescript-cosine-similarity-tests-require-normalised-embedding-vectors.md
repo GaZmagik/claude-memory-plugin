@@ -3,8 +3,9 @@ id: learning-typescript-cosine-similarity-tests-require-normalised-embedding-vec
 title: TypeScript cosine similarity tests require normalised embedding vectors
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T17:13:38.751Z"
-updated: "2026-02-19T17:13:38.751Z"
+updated: "2026-02-19T18:01:26.278Z"
 tags:
   - testing
   - embeddings

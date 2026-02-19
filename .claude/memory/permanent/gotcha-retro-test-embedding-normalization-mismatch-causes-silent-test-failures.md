@@ -3,8 +3,9 @@ id: gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failur
 title: Retro - Test embedding normalization mismatch causes silent test failures
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-19T17:13:13.552Z"
-updated: "2026-02-19T17:13:13.552Z"
+updated: "2026-02-19T18:01:27.640Z"
 tags:
   - retrospective
   - testing

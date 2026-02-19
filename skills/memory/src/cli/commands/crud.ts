@@ -243,6 +243,15 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));
 
+  // Read-only guard: Reject deletes on external nodes (rule/reminder types)
+  const { loadIndex } = await import('../../core/index.js');
+  const index = await loadIndex({ basePath });
+  const existingEntry = index.memories.find(m => m.id === id);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
+
   return wrapOperation(
     async () => {
       const result = await deleteMemory({ id, basePath, agent: agentName });

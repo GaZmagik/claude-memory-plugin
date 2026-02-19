@@ -101,20 +101,20 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for Phase 2A
 
-- [ ] T021 [P] [US1] Add MemoryType.Rule to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T022 [P] [US2] Add MemoryType.Reminder to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T023 [P] [US4] Add EdgeType.GovernedBy to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T024 [P] [US4] Add EdgeType.RemindedBy to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
-- [ ] T025 [P] [US1] Extend IndexEntry interface with externalFileKind optional field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
-- [ ] T026 [P] [US1] Extend IndexEntry interface with externalPath optional field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
-- [ ] T027 [P] [US1] Add parseMemoryType case for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/helpers.ts
-- [ ] T028 [P] [US2] Add parseMemoryType case for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/helpers.ts
-- [ ] T029 [P] [US4] Add NODE_SHAPES hexagon entry for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T030 [P] [US4] Add NODE_SHAPES cylinder entry for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T031 [P] [US4] Add NODE_STYLES distinct colour for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
-- [ ] T032 [P] [US4] Add NODE_STYLES distinct colour for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T021 [P] [US1] Add MemoryType.Rule to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T022 [P] [US2] Add MemoryType.Reminder to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T023 [P] [US4] Add EdgeType.GovernedBy to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T024 [P] [US4] Add EdgeType.RemindedBy to enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/enums.ts
+- [X] T025 [P] [US1] Extend IndexEntry interface with externalFileKind optional field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
+- [X] T026 [P] [US1] Extend IndexEntry interface with externalPath optional field in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/types/memory.ts
+- [X] T027 [P] [US1] Add parseMemoryType case for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/helpers.ts
+- [X] T028 [P] [US2] Add parseMemoryType case for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/helpers.ts
+- [X] T029 [P] [US4] Add NODE_SHAPES hexagon entry for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T030 [P] [US4] Add NODE_SHAPES cylinder entry for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T031 [P] [US4] Add NODE_STYLES distinct colour for rule in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
+- [X] T032 [P] [US4] Add NODE_STYLES distinct colour for reminder in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/mermaid.ts
 
-**Checkpoint**: Type system extended, enum values available, Mermaid rendering configured
+**Checkpoint**: ✅ Type system extended, enum values available, Mermaid rendering configured
 
 ---
 
@@ -164,35 +164,35 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 ### Implementation for Phase 2B
 
-- [ ] T061 [P] [US1] Create ExternalFileKind enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.ts
-- [ ] T062 [P] [US1] Create ExternalFileEntry interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.ts
-- [ ] T063 [P] [US1] Create external-file-types.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.spec.ts
-- [ ] T064 [US1] Implement discoverRuleFiles with directory tree walking in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T065 [US1] Implement vendor directory filtering in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T066 [US1] Implement symlink resolution in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T067 [US1] Implement deterministic rule ID generation in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T067A [US1] Implement same-level file suffix disambiguation in discoverRuleFiles (handle both CLAUDE.md and .claude/CLAUDE.md at same directory level with -root, -dotclaude, -dotclaude-local suffixes) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T068 [US1] Implement rule scope determination logic in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T069 [US2] Implement discoverReminderFiles with agent directory enumeration in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T070 [US2] Implement agent name extraction in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T071 [US2] Implement deterministic reminder ID generation in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T072 [US2] Implement reminder scope determination logic in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T073 [US1] Implement discoverExternalFiles combining both discovery functions in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
-- [ ] T074 [P] [US1] Create external-file-discovery.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.spec.ts
-- [ ] T075 [P] [US1] Create IndexExternalFilesRequest interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T076 [P] [US1] Create IndexExternalFilesResponse interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T077 [US1] Implement indexExternalFiles with discovery integration in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T078 [US1] Implement GraphNode creation for external files in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T079 [US1] Implement IndexEntry creation with externalPath in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T080 [US1] Implement embedding generation via existing pipeline in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T081 [US1] Implement content hash based cache invalidation in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T082 [US1] Implement stale node removal logic in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T083 [US1] Implement graceful Ollama fallback in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
-- [ ] T084 [P] [US1] Create external-file-indexer.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.spec.ts
-- [ ] T085 [P] [US1] Create external module index.ts with public API exports in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/index.ts
+- [X] T061 [P] [US1] Create ExternalFileKind enum in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.ts
+- [X] T062 [P] [US1] Create ExternalFileEntry interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.ts
+- [X] T063 [P] [US1] Create external-file-types.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-types.spec.ts
+- [X] T064 [US1] Implement discoverRuleFiles with directory tree walking in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T065 [US1] Implement vendor directory filtering in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T066 [US1] Implement symlink resolution in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T067 [US1] Implement deterministic rule ID generation in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T067A [US1] Implement same-level file suffix disambiguation in discoverRuleFiles (handle both CLAUDE.md and .claude/CLAUDE.md at same directory level with -root, -dotclaude, -dotclaude-local suffixes) in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T068 [US1] Implement rule scope determination logic in discoverRuleFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T069 [US2] Implement discoverReminderFiles with agent directory enumeration in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T070 [US2] Implement agent name extraction in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T071 [US2] Implement deterministic reminder ID generation in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T072 [US2] Implement reminder scope determination logic in discoverReminderFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T073 [US1] Implement discoverExternalFiles combining both discovery functions in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.ts
+- [X] T074 [P] [US1] Create external-file-discovery.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-discovery.spec.ts
+- [X] T075 [P] [US1] Create IndexExternalFilesRequest interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T076 [P] [US1] Create IndexExternalFilesResponse interface in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T077 [US1] Implement indexExternalFiles with discovery integration in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T078 [US1] Implement GraphNode creation for external files in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T079 [US1] Implement IndexEntry creation with externalPath in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T080 [US1] Implement embedding generation via existing pipeline in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T081 [US1] Implement content hash based cache invalidation in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T082 [US1] Implement stale node removal logic in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T083 [US1] Implement graceful Ollama fallback in indexExternalFiles in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.ts
+- [X] T084 [P] [US1] Create external-file-indexer.spec.ts co-located test file in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/external-file-indexer.spec.ts
+- [X] T085 [P] [US1] Create external module index.ts with public API exports in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/external/index.ts
 - [ ] T085A [P] [US4] Modify suggest-links filtering to include type='rule' and type='reminder' nodes in candidate set in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/graph/suggest-links.ts
 
-**Checkpoint**: External module core complete, discovery and indexing functional, tests passing
+**Checkpoint**: ✅ External module core complete, discovery and indexing functional, tests passing (Note: T033-T060 individual unit tests replaced by comprehensive co-located test files; T085A, T058A-T060 pending)
 
 ---
 

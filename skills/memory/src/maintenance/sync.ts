@@ -15,7 +15,7 @@
  * - Remove orphan embedding entries (embeddings without files)
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
 import {
@@ -33,6 +33,7 @@ import type { IndexEntry, MemoryIndex } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { EmbeddingCache } from '../search/embedding.js';
 import { discoverExternalFiles, indexExternalFiles } from '../external/index.js';
+import { fileExists, readFile } from '../core/fs-utils.js';
 
 /**
  * Sync request options
@@ -84,16 +85,17 @@ export interface SyncResponse {
 }
 
 /**
- * Get all memory files from disk
+ * Get all memory files from disk (async)
  */
-function getFilesOnDisk(basePath: string): Map<string, string> {
+async function getFilesOnDisk(basePath: string): Promise<Map<string, string>> {
   const files = new Map<string, string>();
 
   for (const subdir of ['permanent', 'temporary']) {
     const dir = path.join(basePath, subdir);
-    if (!fs.existsSync(dir)) continue;
+    if (!(await fileExists(dir))) continue;
 
-    const mdFiles = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+    const entries = await fsp.readdir(dir);
+    const mdFiles = entries.filter(f => f.endsWith('.md'));
     for (const file of mdFiles) {
       const id = file.replace('.md', '');
       files.set(id, path.join(dir, file));
@@ -104,11 +106,11 @@ function getFilesOnDisk(basePath: string): Map<string, string> {
 }
 
 /**
- * Parse a memory file to extract node info
+ * Parse a memory file to extract node info (async)
  */
-function parseFileToNode(id: string, filePath: string): GraphNode | null {
+async function parseFileToNode(id: string, filePath: string): Promise<GraphNode | null> {
   try {
-    const content = fs.readFileSync(filePath, 'utf8');
+    const content = await readFile(filePath);
     const parsed = parseMemoryFile(content);
     // Note: parseMemoryFile throws on invalid input, caught below
 
@@ -123,11 +125,11 @@ function parseFileToNode(id: string, filePath: string): GraphNode | null {
 }
 
 /**
- * Parse a memory file to extract index entry
+ * Parse a memory file to extract index entry (async)
  */
-function parseFileToIndexEntry(id: string, filePath: string): IndexEntry | null {
+async function parseFileToIndexEntry(id: string, filePath: string): Promise<IndexEntry | null> {
   try {
-    const content = fs.readFileSync(filePath, 'utf8');
+    const content = await readFile(filePath);
     const parsed = parseMemoryFile(content);
     // Note: parseMemoryFile throws on invalid input, caught below
 
@@ -212,7 +214,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   };
 
   // Load current state
-  const filesOnDisk = getFilesOnDisk(basePath);
+  const filesOnDisk = await getFilesOnDisk(basePath);
   let graph: MemoryGraph;
   let index: MemoryIndex;
 
@@ -239,7 +241,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
     if (!existingNode) {
       // Node missing entirely - add it
-      const node = parseFileToNode(id, filePath);
+      const node = await parseFileToNode(id, filePath);
       if (node) {
         changes.addedToGraph.push(id);
         if (!dryRun) {
@@ -248,7 +250,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
       }
     } else if (!existingNode.title) {
       // Node exists but missing title - refresh it
-      const node = parseFileToNode(id, filePath);
+      const node = await parseFileToNode(id, filePath);
       if (node && !dryRun) {
         graph = addNode(graph, node); // addNode updates existing nodes
       }
@@ -258,7 +260,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 2. Find files not in index - add them
   for (const [id, filePath] of filesOnDisk) {
     if (!indexIds.has(unsafeAsMemoryId(id))) {
-      const entry = parseFileToIndexEntry(id, filePath);
+      const entry = await parseFileToIndexEntry(id, filePath);
       if (entry) {
         changes.addedToIndex.push(id);
         if (!dryRun) {
@@ -311,9 +313,9 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 6. Find orphan embedding entries (in embeddings.json but no file) - remove them
   let embeddingsCount = 0;
   const embeddingsPath = path.join(basePath, 'embeddings.json');
-  if (fs.existsSync(embeddingsPath)) {
+  if (await fileExists(embeddingsPath)) {
     try {
-      const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      const content = await readFile(embeddingsPath);
       const cache = JSON.parse(content) as EmbeddingCache;
 
       if (cache.memories) {
@@ -331,7 +333,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
         // Save cleaned embeddings if changes were made
         if (!dryRun && changes.removedOrphanEmbeddings.length > 0) {
-          fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+          await fsp.writeFile(embeddingsPath, JSON.stringify(cache, null, 2), 'utf-8');
           embeddingsCount = Object.keys(cache.memories).length;
         }
       }

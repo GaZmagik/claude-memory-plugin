@@ -15649,6 +15649,20 @@
       "target": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7533522343247168
+    },
+    {
+      "source": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
+      "target": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7091514270761338,
+      "verifiedRelation": "Abbreviation"
+    },
+    {
+      "source": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "target": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7091514270761338,
+      "verifiedRelation": "Paraphrase"
     }
   ]
 }

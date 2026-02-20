@@ -3,8 +3,9 @@ id: learning-nodejs-code-review-sync-file-ops-block-event-loop
 title: Node.js Code Review - Sync File Ops Block Event Loop
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-20T16:47:04.003Z"
-updated: "2026-02-20T16:47:04.003Z"
+updated: "2026-02-20T17:46:02.353Z"
 tags:
   - nodejs
   - performance

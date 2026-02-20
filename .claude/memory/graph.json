@@ -3906,6 +3906,42 @@
       "type": "gotcha",
       "title": "TypeScript code review findings for feature/005-rule-reminder-graph-nodes",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "type": "learning",
+      "title": "Retro - Multi-agent review orchestration scales code quality insights",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-quick-win-prioritization-validates-review-findings-early",
+      "type": "learning",
+      "title": "Retro - Quick-win prioritization validates review findings early",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-skipped-pre-work-memory-check-violated-protocol",
+      "type": "gotcha",
+      "title": "Retro - Skipped pre-work memory check violated protocol",
+      "scope": "project"
+    },
+    {
+      "id": "learning-toctou-security-fix-move-guards-before-file-operations",
+      "type": "learning",
+      "title": "TOCTOU Security Fix: Move Guards Before File Operations",
+      "scope": "project"
+    },
+    {
+      "id": "learning-fr-024-implement-file-size-limits-for-discovery",
+      "type": "learning",
+      "title": "FR-024: Implement File Size Limits for Discovery",
+      "scope": "project"
+    },
+    {
+      "id": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "type": "learning",
+      "title": "Sanitise Agent Names from Filesystem Discovery",
+      "scope": "project"
     }
   ],
   "edges": [

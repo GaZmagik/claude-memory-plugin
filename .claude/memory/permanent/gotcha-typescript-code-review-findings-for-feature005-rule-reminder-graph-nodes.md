@@ -3,8 +3,9 @@ id: gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-no
 title: TypeScript code review findings for feature/005-rule-reminder-graph-nodes
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-20T16:52:30.704Z"
-updated: "2026-02-20T16:52:30.704Z"
+updated: "2026-02-20T17:46:02.167Z"
 tags:
   - promoted-from-think
   - project

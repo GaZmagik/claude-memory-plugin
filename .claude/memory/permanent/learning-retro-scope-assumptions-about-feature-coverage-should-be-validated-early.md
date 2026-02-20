@@ -3,8 +3,9 @@ id: learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-
 title: "Retro: Scope assumptions about feature coverage should be validated early"
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-20T15:02:30.604Z"
-updated: "2026-02-20T15:02:30.604Z"
+updated: "2026-02-20T17:46:01.836Z"
 tags:
   - retrospective
   - scope

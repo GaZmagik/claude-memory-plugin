@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-20T16:52:30.708Z",
+  "lastUpdated": "2026-02-20T17:45:54.284Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -315,6 +315,105 @@
       "updated": "2026-02-20T16:52:30.704Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes.md"
+    },
+    {
+      "id": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "type": "learning",
+      "title": "Retro - Multi-agent review orchestration scales code quality insights",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "multi-agent",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:12.884Z",
+      "updated": "2026-02-20T17:45:12.884Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-agent-review-orchestration-scales-code-quality-insights.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-quick-win-prioritization-validates-review-findings-early",
+      "type": "learning",
+      "title": "Retro - Quick-win prioritization validates review findings early",
+      "tags": [
+        "retrospective",
+        "process",
+        "prioritization",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:20.304Z",
+      "updated": "2026-02-20T17:45:20.304Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-quick-win-prioritization-validates-review-findings-early.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-skipped-pre-work-memory-check-violated-protocol",
+      "type": "gotcha",
+      "title": "Retro - Skipped pre-work memory check violated protocol",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory-hygiene",
+        "protocol",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:40.598Z",
+      "updated": "2026-02-20T17:45:40.598Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-skipped-pre-work-memory-check-violated-protocol.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-toctou-security-fix-move-guards-before-file-operations",
+      "type": "learning",
+      "title": "TOCTOU Security Fix: Move Guards Before File Operations",
+      "tags": [
+        "security",
+        "pattern",
+        "toctou",
+        "file-operations",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:43.900Z",
+      "updated": "2026-02-20T17:45:43.900Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-toctou-security-fix-move-guards-before-file-operations.md"
+    },
+    {
+      "id": "learning-fr-024-implement-file-size-limits-for-discovery",
+      "type": "learning",
+      "title": "FR-024: Implement File Size Limits for Discovery",
+      "tags": [
+        "requirement",
+        "discovery",
+        "file-handling",
+        "performance",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:48.468Z",
+      "updated": "2026-02-20T17:45:48.468Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-fr-024-implement-file-size-limits-for-discovery.md"
+    },
+    {
+      "id": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "type": "learning",
+      "title": "Sanitise Agent Names from Filesystem Discovery",
+      "tags": [
+        "security",
+        "sanitisation",
+        "injection-prevention",
+        "filesystem",
+        "project"
+      ],
+      "created": "2026-02-20T17:45:54.267Z",
+      "updated": "2026-02-20T17:45:54.267Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-sanitise-agent-names-from-filesystem-discovery.md"
     }
   ]
 }

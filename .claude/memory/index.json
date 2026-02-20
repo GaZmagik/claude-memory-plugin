@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-20T17:45:54.284Z",
+  "lastUpdated": "2026-02-20T22:00:22.522Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -30,21 +30,6 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands.md",
       "severity": "medium"
-    },
-    {
-      "id": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
-      "type": "gotcha",
-      "title": "Mock embeddings test mismatch on actual API input",
-      "tags": [
-        "testing",
-        "mocking",
-        "embeddings",
-        "project"
-      ],
-      "created": "2026-02-19T17:59:03.379Z",
-      "updated": "2026-02-19T17:59:03.379Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-mock-embeddings-test-mismatch-on-actual-api-input.md"
     },
     {
       "id": "learning-cosine-similarity-requires-normalized-embedding-vectors",
@@ -414,6 +399,101 @@
       "updated": "2026-02-20T17:45:54.267Z",
       "scope": "project",
       "relativePath": "permanent/learning-sanitise-agent-names-from-filesystem-discovery.md"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-catches-regressions-early-in-large-refactors",
+      "type": "learning",
+      "title": "Retro - Test-driven validation catches regressions early in large refactors",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-20T19:22:32.721Z",
+      "updated": "2026-02-20T19:22:32.721Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-driven-validation-catches-regressions-early-in-large-refactors.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "type": "gotcha",
+      "title": "Retro - Define security constraint scope before implementation",
+      "tags": [
+        "retrospective",
+        "process",
+        "security",
+        "project"
+      ],
+      "created": "2026-02-20T19:22:45.485Z",
+      "updated": "2026-02-20T19:22:45.485Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-define-security-constraint-scope-before-implementation.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallel-embedding-generation-major-speedup",
+      "type": "learning",
+      "title": "parallel-embedding-generation-major-speedup",
+      "tags": [
+        "performance",
+        "embeddings",
+        "parallel",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-20T21:59:37.612Z",
+      "updated": "2026-02-20T21:59:37.612Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallel-embedding-generation-major-speedup.md"
+    },
+    {
+      "id": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "type": "gotcha",
+      "title": "mock-embeddings-test-mismatch-on-actual-api-input",
+      "tags": [
+        "testing",
+        "mocking",
+        "embeddings",
+        "api-integration",
+        "project"
+      ],
+      "created": "2026-02-20T22:00:10.725Z",
+      "updated": "2026-02-20T22:00:10.725Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-mock-embeddings-test-mismatch-on-actual-api-input.md"
+    },
+    {
+      "id": "gotcha-bun-test-vi-mocked-incompatibility",
+      "type": "gotcha",
+      "title": "bun-test-vi-mocked-incompatibility",
+      "tags": [
+        "testing",
+        "bun",
+        "vitest",
+        "compatibility",
+        "project"
+      ],
+      "created": "2026-02-20T22:00:18.597Z",
+      "updated": "2026-02-20T22:00:18.597Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bun-test-vi-mocked-incompatibility.md"
+    },
+    {
+      "id": "learning-test-file-size-limit-enforcement",
+      "type": "learning",
+      "title": "test-file-size-limit-enforcement",
+      "tags": [
+        "testing",
+        "file-limits",
+        "coverage",
+        "project"
+      ],
+      "created": "2026-02-20T22:00:22.503Z",
+      "updated": "2026-02-20T22:00:22.503Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-file-size-limit-enforcement.md"
     }
   ]
 }

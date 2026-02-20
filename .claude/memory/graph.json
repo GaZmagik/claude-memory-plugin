@@ -3942,6 +3942,36 @@
       "type": "learning",
       "title": "Sanitise Agent Names from Filesystem Discovery",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-catches-regressions-early-in-large-refactors",
+      "type": "learning",
+      "title": "Retro - Test-driven validation catches regressions early in large refactors",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "type": "gotcha",
+      "title": "Retro - Define security constraint scope before implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-parallel-embedding-generation-major-speedup",
+      "type": "learning",
+      "title": "parallel-embedding-generation-major-speedup",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-bun-test-vi-mocked-incompatibility",
+      "type": "gotcha",
+      "title": "bun-test-vi-mocked-incompatibility",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-file-size-limit-enforcement",
+      "type": "learning",
+      "title": "test-file-size-limit-enforcement",
+      "scope": "project"
     }
   ],
   "edges": [

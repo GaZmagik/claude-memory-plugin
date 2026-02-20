@@ -1,16 +1,17 @@
 ---
 id: gotcha-mock-embeddings-test-mismatch-on-actual-api-input
-title: Mock embeddings test mismatch on actual API input
+title: mock-embeddings-test-mismatch-on-actual-api-input
 type: gotcha
 scope: project
 project: claude-memory-plugin
-created: "2026-02-19T17:59:03.379Z"
-updated: "2026-02-19T18:01:27.568Z"
+created: "2026-02-20T22:00:10.725Z"
+updated: "2026-02-20T22:00:33.188Z"
 tags:
   - testing
   - mocking
   - embeddings
+  - api-integration
   - project
 ---
 
-When mocking getEmbedding() in tests, the mock must return embeddings based on the *actual* text passed to the API, not assumed text. indexExternalFiles passes entry.title, not file content. Mismatched input caused silent test failures (analysed: 0) where semantic similarity checks found no pairs.
+Mock embedding tests must return embeddings with correct dimensions matching actual API. If mock returns wrong shape/size, tests pass but real code fails. Always verify mock shape matches actual provider (e.g., 1536 dims for OpenAI).

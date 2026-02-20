@@ -165,7 +165,9 @@ export async function indexExternalFiles(
 
     const discoveredIds = new Set(externalFiles.map(f => f.id));
 
-    // 4. Process each discovered file
+    // 4. Process each discovered file (metadata updates only)
+    const filesToEmbed: Array<{ nodeId: string; absolutePath: string; hash: string }> = [];
+
     for (const entry of externalFiles) {
       try {
         const nodeId = entry.id;
@@ -184,20 +186,13 @@ export async function indexExternalFiles(
           }
           changes.addedNodes.push(nodeId);
 
-          // Generate embedding if provider available
+          // Queue for embedding generation if provider available
           if (embeddingProvider && contentChanged) {
-            if (!dryRun) {
-              // Read file content and truncate for embedding (6000 char limit)
-              const fileContent = await readFile(entry.absolutePath);
-              const truncatedContent = truncateForEmbedding(fileContent);
-              const embedding = await embeddingProvider.getEmbedding(truncatedContent);
-              embeddingCache.memories[nodeId] = {
-                embedding,
-                hash: entry.contentHash,
-                timestamp: new Date().toISOString(),
-              };
-            }
-            changes.embeddingsGenerated++;
+            filesToEmbed.push({
+              nodeId,
+              absolutePath: entry.absolutePath,
+              hash: entry.contentHash,
+            });
           }
         } else if (contentChanged) {
           // Existing node with content change
@@ -213,20 +208,13 @@ export async function indexExternalFiles(
           }
           changes.updatedNodes.push(nodeId);
 
-          // Regenerate embedding
+          // Queue for embedding regeneration
           if (embeddingProvider) {
-            if (!dryRun) {
-              // Read file content and truncate for embedding (6000 char limit)
-              const fileContent = await readFile(entry.absolutePath);
-              const truncatedContent = truncateForEmbedding(fileContent);
-              const embedding = await embeddingProvider.getEmbedding(truncatedContent);
-              embeddingCache.memories[nodeId] = {
-                embedding,
-                hash: entry.contentHash,
-                timestamp: new Date().toISOString(),
-              };
-            }
-            changes.embeddingsGenerated++;
+            filesToEmbed.push({
+              nodeId,
+              absolutePath: entry.absolutePath,
+              hash: entry.contentHash,
+            });
           }
         } else {
           // Node exists and content unchanged - reuse cache
@@ -237,6 +225,47 @@ export async function indexExternalFiles(
       } catch (error) {
         errors.push(`Failed to process ${entry.id}: ${error}`);
       }
+    }
+
+    // 4b. Generate all embeddings in parallel (performance optimization)
+    if (!dryRun && filesToEmbed.length > 0 && embeddingProvider) {
+      try {
+        const embeddingPromises = filesToEmbed.map(async ({ nodeId, absolutePath, hash }) => {
+          try {
+            const fileContent = await readFile(absolutePath);
+            const truncatedContent = truncateForEmbedding(fileContent);
+            const embedding = await embeddingProvider!.getEmbedding(truncatedContent);
+            return {
+              nodeId,
+              embedding,
+              hash,
+              timestamp: new Date().toISOString(),
+            };
+          } catch (error) {
+            errors.push(`Failed to generate embedding for ${nodeId}: ${error}`);
+            return null;
+          }
+        });
+
+        const embeddingResults = await Promise.all(embeddingPromises);
+
+        // Store successful embeddings
+        for (const result of embeddingResults) {
+          if (result) {
+            embeddingCache.memories[result.nodeId] = {
+              embedding: result.embedding,
+              hash: result.hash,
+              timestamp: result.timestamp,
+            };
+            changes.embeddingsGenerated++;
+          }
+        }
+      } catch (error) {
+        errors.push(`Parallel embedding generation failed: ${error}`);
+      }
+    } else {
+      // Dry run - just count what would be generated
+      changes.embeddingsGenerated = filesToEmbed.length;
     }
 
     // 5. Remove stale external nodes (exist in graph but not discovered)

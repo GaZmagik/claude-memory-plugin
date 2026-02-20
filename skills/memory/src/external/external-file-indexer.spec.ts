@@ -432,4 +432,46 @@ describe('indexExternalFiles', () => {
     expect(response.status).toBe('success');
     expect(baseGraph.nodes).toHaveLength(1);
   });
+
+  // M4: Test embedding truncation (6000 char limit)
+  it('should truncate file content to 6000 chars before generating embedding', async () => {
+    // Create a file with content larger than 6000 chars
+    const largeContent = 'x'.repeat(7000);
+    vi.spyOn(fsUtils, 'readFile').mockResolvedValue(largeContent);
+
+    let embeddingInput: string | undefined;
+    const mockProvider = {
+      getEmbedding: async (text: string) => {
+        embeddingInput = text;
+        return [0.1, 0.2, 0.3];
+      },
+    };
+
+    const ruleFile: ExternalFileEntry = {
+      absolutePath: '/test/large-file.md',
+      kind: ExternalFileKind.ClaudeInstructions,
+      scope: Scope.Project,
+      contentHash: 'abc123',
+      id: 'rule-project-large-file',
+      title: 'Large File',
+      modifiedTime: '2026-02-20T09:00:00Z',
+    };
+
+    const request: IndexExternalFilesRequest = {
+      basePath,
+      graph: baseGraph,
+      index: baseIndex,
+      embeddingsPath,
+      embeddingProvider: mockProvider as any,
+      externalFiles: [ruleFile],
+      dryRun: false,
+    };
+
+    await indexExternalFiles(request);
+
+    // Verify truncation occurred (allows small buffer for word boundary)
+    expect(embeddingInput).toBeDefined();
+    expect(embeddingInput!.length).toBeLessThan(largeContent.length);
+    expect(embeddingInput!.length).toBeLessThanOrEqual(6010); // Allow word boundary buffer
+  });
 });

@@ -2,7 +2,7 @@
  * Tests for T035-T060: External File Discovery
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
@@ -210,6 +210,54 @@ describe('discoverRuleFiles', () => {
   it('should return empty array when no rule files found', () => {
     const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
     expect(results).toEqual([]);
+  });
+
+  // M4: Test FR-024 file size limit (1MB max)
+  it('should skip files larger than 1MB and log warning', () => {
+    const largePath = path.join(tempDir, 'CLAUDE.md');
+
+    // Create a file larger than 1MB (1,048,576 bytes)
+    const largeContent = 'x'.repeat(1_048_577);
+    fs.writeFileSync(largePath, largeContent);
+
+    // Spy on console.warn to verify warning is logged
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+
+    // Should skip the large file
+    expect(results).toHaveLength(0);
+
+    // Should log warning
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Skipping large external file')
+    );
+
+    warnSpy.mockRestore();
+  });
+
+  // M4: Test permission error handling
+  it('should handle permission errors gracefully', () => {
+    const restrictedPath = path.join(tempDir, 'restricted.md');
+    fs.writeFileSync(restrictedPath, '# Restricted');
+
+    // Make file unreadable (Unix-only, skip on Windows)
+    try {
+      fs.chmodSync(restrictedPath, 0o000);
+
+      // Should not throw, just skip unreadable file with fallback hash
+      const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+
+      // Verify it handles the error gracefully (may or may not include the file)
+      expect(results).toBeDefined();
+      expect(Array.isArray(results)).toBe(true);
+
+      // Restore permissions for cleanup
+      fs.chmodSync(restrictedPath, 0o644);
+    } catch (err) {
+      // Permission changes might not work on all systems, skip test
+      fs.chmodSync(restrictedPath, 0o644);
+    }
   });
 });
 

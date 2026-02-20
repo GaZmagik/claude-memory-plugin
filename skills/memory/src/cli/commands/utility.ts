@@ -101,6 +101,25 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
   const targetScope = parseScope(targetScopeStr);
   const targetBasePath = getResolvedScopePath(targetScope);
 
+  // Read-only guard: Check all scopes for external nodes BEFORE file lookup
+  const { loadIndex } = await import('../../core/index.js');
+  const { MemoryType } = await import('../../types/enums.js');
+  const { Scope } = await import('../../types/enums.js');
+
+  // Check all scopes for external nodes (which don't have files on disk)
+  for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
+    const checkBasePath = getResolvedScopePath(checkScope);
+    try {
+      const index = await loadIndex({ basePath: checkBasePath });
+      const existingEntry = index.memories.find(m => m.id === id);
+      if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+        return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+      }
+    } catch {
+      // Index doesn't exist in this scope, continue
+    }
+  }
+
   // If --scope is explicitly provided, use it; otherwise auto-detect
   const explicitScope = getFlagString(args.flags, 'scope');
   let sourceBasePath: string;
@@ -114,16 +133,6 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
       return error(`Memory not found in any scope: ${id}`);
     }
     sourceBasePath = found.basePath;
-  }
-
-  // Read-only guard: Reject moves on external nodes (rule/reminder types)
-  const { loadIndex } = await import('../../core/index.js');
-  const { MemoryType } = await import('../../types/enums.js');
-  const index = await loadIndex({ basePath: sourceBasePath });
-  const existingEntry = index.memories.find(m => m.id === id);
-
-  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
-    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
   }
 
   return wrapOperation(
@@ -166,18 +175,25 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
     return error(`Invalid type: ${targetTypeStr}. Valid types: ${validTypes.join(', ')}`);
   }
 
+  // Read-only guard: Check all scopes for external nodes BEFORE proceeding
+  const { loadIndex } = await import('../../core/index.js');
+  const { MemoryType, Scope } = await import('../../types/enums.js');
+
+  for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
+    const checkBasePath = getResolvedScopePath(checkScope);
+    try {
+      const index = await loadIndex({ basePath: checkBasePath });
+      const existingEntry = index.memories.find(m => m.id === id);
+      if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+        return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+      }
+    } catch {
+      // Index doesn't exist in this scope, continue
+    }
+  }
+
   const scope = parseScope(getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
-
-  // Read-only guard: Reject promotes on external nodes (rule/reminder types)
-  const { loadIndex } = await import('../../core/index.js');
-  const { MemoryType } = await import('../../types/enums.js');
-  const index = await loadIndex({ basePath });
-  const existingEntry = index.memories.find(m => m.id === id);
-
-  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
-    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
-  }
 
   return wrapOperation(
     async () => {

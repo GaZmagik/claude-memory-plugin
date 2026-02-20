@@ -40,14 +40,14 @@ describe('cmdMove - Read-Only Protection', () => {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       memories: [{
-        id: unsafeAsMemoryId('rule-project-claude-md-root'),
+        id: unsafeAsMemoryId('rule-project-claude-root'),
         type: MemoryType.Rule,
         title: 'CLAUDE.md',
         tags: [],
         created: '2026-02-19T10:00:00Z',
         updated: '2026-02-19T10:00:00Z',
         scope: Scope.Project,
-        relativePath: 'external/rule-project-claude-md-root',
+        relativePath: 'external/rule-project-claude-root',
         externalPath: '/home/user/project/CLAUDE.md',
         externalFileKind: 'claude-instructions',
       }],
@@ -55,10 +55,10 @@ describe('cmdMove - Read-Only Protection', () => {
 
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue(mockIndex);
 
-    const result = await cmdMove({ positional: ['rule-project-claude-md-root', 'global'], flags: {} });
+    const result = await cmdMove({ positional: ['rule-project-claude-root', 'global'], flags: {} });
     expect(result.status).toBe('error');
     expect(result.error).toContain('read-only');
-    expect(result.error).toContain('rule-project-claude-md-root');
+    expect(result.error).toContain('rule-project-claude-root');
   });
 
   it('rejects move attempts on reminder nodes with clear error', async () => {
@@ -66,7 +66,7 @@ describe('cmdMove - Read-Only Protection', () => {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       memories: [{
-        id: unsafeAsMemoryId('reminder-agent-project-typescript-expert-memory-md'),
+        id: unsafeAsMemoryId('reminder-project-typescript-expert-memory'),
         type: MemoryType.Reminder,
         title: 'MEMORY.md',
         tags: [],
@@ -74,7 +74,7 @@ describe('cmdMove - Read-Only Protection', () => {
         updated: '2026-02-19T10:00:00Z',
         scope: Scope.AgentProject,
         agent: 'typescript-expert',
-        relativePath: 'external/reminder-agent-project-typescript-expert-memory-md',
+        relativePath: 'external/reminder-project-typescript-expert-memory',
         externalPath: '/home/user/project/.claude/agent-memory/typescript-expert/MEMORY.md',
         externalFileKind: 'agent-memory-summary',
       }],
@@ -82,7 +82,7 @@ describe('cmdMove - Read-Only Protection', () => {
 
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue(mockIndex);
 
-    const result = await cmdMove({ positional: ['reminder-agent-project-typescript-expert-memory-md', 'global'], flags: {} });
+    const result = await cmdMove({ positional: ['reminder-project-typescript-expert-memory', 'global'], flags: {} });
     expect(result.status).toBe('error');
     expect(result.error).toContain('read-only');
   });
@@ -136,14 +136,14 @@ describe('cmdPromote - Read-Only Protection', () => {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       memories: [{
-        id: unsafeAsMemoryId('rule-project-claude-md-root'),
+        id: unsafeAsMemoryId('rule-project-claude-root'),
         type: MemoryType.Rule,
         title: 'CLAUDE.md',
         tags: [],
         created: '2026-02-19T10:00:00Z',
         updated: '2026-02-19T10:00:00Z',
         scope: Scope.Project,
-        relativePath: 'external/rule-project-claude-md-root',
+        relativePath: 'external/rule-project-claude-root',
         externalPath: '/home/user/project/CLAUDE.md',
         externalFileKind: 'claude-instructions',
       }],
@@ -151,7 +151,7 @@ describe('cmdPromote - Read-Only Protection', () => {
 
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue(mockIndex);
 
-    const result = await cmdPromote({ positional: ['rule-project-claude-md-root', 'learning'], flags: {} });
+    const result = await cmdPromote({ positional: ['rule-project-claude-root', 'learning'], flags: {} });
     expect(result.status).toBe('error');
     expect(result.error).toContain('read-only');
   });
@@ -161,7 +161,7 @@ describe('cmdPromote - Read-Only Protection', () => {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       memories: [{
-        id: unsafeAsMemoryId('reminder-agent-project-typescript-expert-memory-md'),
+        id: unsafeAsMemoryId('reminder-project-typescript-expert-memory'),
         type: MemoryType.Reminder,
         title: 'MEMORY.md',
         tags: [],
@@ -169,7 +169,7 @@ describe('cmdPromote - Read-Only Protection', () => {
         updated: '2026-02-19T10:00:00Z',
         scope: Scope.AgentProject,
         agent: 'typescript-expert',
-        relativePath: 'external/reminder-agent-project-typescript-expert-memory-md',
+        relativePath: 'external/reminder-project-typescript-expert-memory',
         externalPath: '/home/user/project/.claude/agent-memory/typescript-expert/MEMORY.md',
         externalFileKind: 'agent-memory-summary',
       }],
@@ -177,7 +177,7 @@ describe('cmdPromote - Read-Only Protection', () => {
 
     vi.spyOn(indexModule, 'loadIndex').mockResolvedValue(mockIndex);
 
-    const result = await cmdPromote({ positional: ['reminder-agent-project-typescript-expert-memory-md', 'learning'], flags: {} });
+    const result = await cmdPromote({ positional: ['reminder-project-typescript-expert-memory', 'learning'], flags: {} });
     expect(result.status).toBe('error');
   });
 

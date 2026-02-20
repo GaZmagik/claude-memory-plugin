@@ -3840,6 +3840,36 @@
       "type": "learning",
       "title": "Co-located comprehensive test files replace individual unit tests for entire phase",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-pattern-replication-with-early-validation-prevents-iteration-cycles",
+      "type": "learning",
+      "title": "Retro - Pattern replication with early validation prevents iteration cycles",
+      "scope": "project"
+    },
+    {
+      "id": "learning-external-node-ids-use-hyphens-not-underscores",
+      "type": "learning",
+      "title": "External node IDs use hyphens not underscores",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early",
+      "type": "learning",
+      "title": "Retro - Scope assumptions about feature coverage should be validated early",
+      "scope": "project"
+    },
+    {
+      "id": "learning-external-nodes-verified-via-graph-queries-not-search-api",
+      "type": "learning",
+      "title": "External nodes verified via graph queries, not search API",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mermaid-shapes-for-rule-and-reminder-nodes",
+      "type": "learning",
+      "title": "Mermaid shapes for rule and reminder nodes",
+      "scope": "project"
     }
   ],
   "edges": [

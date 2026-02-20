@@ -22,18 +22,13 @@ import type { MemoryGraph, MemoryIndex } from '../../skills/memory/src/types/mem
 
 describe('Phase 2C Integration: External Nodes', () => {
   let tempDir: string;
-  let memoryDir: string;
   let baseGraph: MemoryGraph;
   let baseIndex: MemoryIndex;
   let embeddingsPath: string;
 
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase-2c-'));
-    memoryDir = path.join(tempDir, '.claude', 'memory');
-    fs.mkdirSync(memoryDir, { recursive: true });
-    fs.mkdirSync(path.join(memoryDir, 'permanent'), { recursive: true });
-
-    embeddingsPath = path.join(memoryDir, 'embeddings.json');
+    embeddingsPath = path.join(tempDir, 'embeddings.json');
 
     // Initialize in-memory structures
     baseGraph = {
@@ -47,9 +42,6 @@ describe('Phase 2C Integration: External Nodes', () => {
       lastUpdated: new Date().toISOString(),
       memories: [],
     };
-
-    // Create empty files
-    fs.writeFileSync(embeddingsPath, JSON.stringify({}));
 
     // Create CLAUDE.md
     fs.writeFileSync(path.join(tempDir, 'CLAUDE.md'), '# Rules\nFollow TDD.');
@@ -69,7 +61,7 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     await indexExternalFiles({
-      basePath: memoryDir,
+      basePath: tempDir,
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
@@ -78,8 +70,8 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     // Save graph and index to disk
-    await saveGraph(memoryDir, baseGraph as any);
-    await saveIndex(memoryDir, baseIndex);
+    await saveGraph(tempDir, baseGraph as any);
+    await saveIndex(tempDir, baseIndex);
 
     const ruleId = discovered[0]?.id;
     expect(ruleId).toBeDefined();
@@ -92,7 +84,7 @@ describe('Phase 2C Integration: External Nodes', () => {
       type: MemoryType.Rule,
       scope: Scope.Project,
       tags: [],
-      basePath: memoryDir,
+      basePath: tempDir,
     });
 
     expect(result.status).toBe('error');
@@ -109,11 +101,14 @@ describe('Phase 2C Integration: External Nodes', () => {
     // Discover and index reminder files
     const discovered = discoverReminderFiles({
       projectRoot: tempDir,
-      homeDir: os.homedir(),
+      homeDir: tempDir,
     });
 
+    expect(discovered.length).toBeGreaterThan(0);
+    expect(discovered[0]?.agentName).toBe('test-agent');
+
     await indexExternalFiles({
-      basePath: memoryDir,
+      basePath: tempDir,
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
@@ -122,16 +117,21 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     // Save graph and index to disk
-    await saveGraph(memoryDir, baseGraph as any);
-    await saveIndex(memoryDir, baseIndex);
+    await saveGraph(tempDir, baseGraph as any);
+    await saveIndex(tempDir, baseIndex);
 
     const reminderId = discovered[0]?.id;
     expect(reminderId).toBeDefined();
 
+    // Verify the reminder is in the index
+    const indexEntry = baseIndex.memories.find(m => m.id === reminderId);
+    expect(indexEntry).toBeDefined();
+    expect(indexEntry?.type).toBe(MemoryType.Reminder);
+
     // Attempt to delete reminder node
     const result = await deleteMemory({
       id: reminderId!,
-      basePath: memoryDir,
+      basePath: tempDir,
     });
 
     expect(result.status).toBe('error');
@@ -147,7 +147,7 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     await indexExternalFiles({
-      basePath: memoryDir,
+      basePath: tempDir,
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
@@ -156,15 +156,15 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     // Save graph and index to disk
-    await saveGraph(memoryDir, baseGraph as any);
-    await saveIndex(memoryDir, baseIndex);
+    await saveGraph(tempDir, baseGraph as any);
+    await saveIndex(tempDir, baseIndex);
 
     const ruleId = discovered[0]?.id;
     expect(ruleId).toBeDefined();
 
     const result = await readMemory({
       id: ruleId!,
-      basePath: memoryDir,
+      basePath: tempDir,
     });
 
     expect(result.status).toBe('success');
@@ -174,7 +174,7 @@ describe('Phase 2C Integration: External Nodes', () => {
 
   // T112: Sync indexes external files
   it('T112: should index external files during sync', async () => {
-    const result = await syncMemories({ basePath: memoryDir });
+    const result = await syncMemories({ basePath: tempDir });
 
     expect(result.status).toBe('success');
     expect(result.changes.externalNodesAdded.length).toBeGreaterThan(0);
@@ -190,7 +190,7 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     const result = await indexExternalFiles({
-      basePath: memoryDir,
+      basePath: tempDir,
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,

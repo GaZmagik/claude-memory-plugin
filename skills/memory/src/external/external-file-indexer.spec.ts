@@ -2,7 +2,7 @@
  * Tests for T050-T058A: External File Indexer
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
@@ -13,6 +13,7 @@ import {
 import { ExternalFileKind, type ExternalFileEntry } from './external-file-types.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { MemoryGraph, MemoryIndex } from '../types/memory.js';
+import * as fsUtils from '../core/fs-utils.js';
 
 describe('indexExternalFiles', () => {
   let baseGraph: MemoryGraph;
@@ -38,6 +39,11 @@ describe('indexExternalFiles', () => {
       lastUpdated: new Date().toISOString(),
       memories: [],
     };
+
+    // Mock readFile to return test content for external files
+    vi.spyOn(fsUtils, 'readFile').mockResolvedValue(
+      '# Test Content\n\nThis is test content for embedding generation.\n\nIt has multiple paragraphs to ensure truncation works correctly.'
+    );
   });
 
   afterEach(() => {
@@ -45,6 +51,8 @@ describe('indexExternalFiles', () => {
     if (tempDir && fs.existsSync(tempDir)) {
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
+    // Restore mocks
+    vi.restoreAllMocks();
   });
 
   // T050: Unit test for indexExternalFiles creating GraphNode for rule

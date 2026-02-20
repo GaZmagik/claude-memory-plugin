@@ -138,20 +138,38 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
   }
 
   try {
+    // Check if node is a read-only external node BEFORE any deletion
+    let graph = await loadGraph(basePath);
+    const existingNode = graph.nodes.find((n: any) => n.id === request.id);
+    if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+      return {
+        status: 'error',
+        error: `'${request.id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+      };
+    }
+
     // Find in index first
     const indexEntry = await findInIndex(basePath, request.id);
 
     let filePath: string;
+    let isExternalFile = false;
 
     if (indexEntry) {
-      filePath = path.join(basePath, indexEntry.relativePath);
+      // Check if this is an external file (rule or reminder)
+      if (indexEntry.externalPath) {
+        filePath = indexEntry.externalPath;
+        isExternalFile = true;
+      } else {
+        filePath = path.join(basePath, indexEntry.relativePath);
+      }
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
     // Security: Validate path stays within basePath (prevent path traversal)
-    if (!isInsideDir(basePath, filePath)) {
+    // Skip validation for external files as they live outside basePath
+    if (!isExternalFile && !isInsideDir(basePath, filePath)) {
       log.warn('Path traversal attempt detected', { id: request.id, filePath });
       return {
         status: 'error',
@@ -175,16 +193,6 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
 
     // Remove from graph (node and all edges involving it)
     try {
-      let graph = await loadGraph(basePath);
-
-      // Check if node is a read-only external node (rule or reminder)
-      const existingNode = graph.nodes.find((n: any) => n.id === request.id);
-      if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
-        return {
-          status: 'error',
-          error: `'${request.id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
-        };
-      }
 
       // Before removing the node, scan for cross-scope edges to clean up other graphs
       const crossScopeEdges = graph.edges.filter(

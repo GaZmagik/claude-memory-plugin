@@ -7,6 +7,7 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import type { ReadMemoryRequest, ReadMemoryResponse } from '../types/api.js';
+import type { MemoryFrontmatter } from '../types/memory.js';
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
 import { readFile, fileExists, isInsideDir } from './fs-utils.js';
@@ -137,7 +138,29 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
 
     // Read and parse file
     const fileContent = await readFile(filePath);
-    const { frontmatter, content } = parseMemoryFile(fileContent);
+
+    let frontmatter: MemoryFrontmatter;
+    let content: string;
+
+    if (isExternalFile && indexEntry) {
+      // External files don't have frontmatter - build it from index entry
+      frontmatter = {
+        id: indexEntry.id,
+        title: indexEntry.title,
+        type: indexEntry.type,
+        tags: indexEntry.tags || [],
+        created: indexEntry.created,
+        updated: indexEntry.updated,
+        scope: indexEntry.scope,
+        agent: indexEntry.agent,
+      };
+      content = fileContent; // Raw content without frontmatter
+    } else {
+      // Regular memory file with frontmatter
+      const parsed = parseMemoryFile(fileContent);
+      frontmatter = parsed.frontmatter;
+      content = parsed.content;
+    }
 
     log.debug('Read memory', { id: request.id, path: filePath });
 

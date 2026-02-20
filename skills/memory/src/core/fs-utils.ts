@@ -408,6 +408,105 @@ export function isInsideDir(dirPath: string, targetPath: string): boolean {
 }
 
 /**
+ * Validates that an external file path is within allowed directories.
+ *
+ * External files (CLAUDE.md, rules/*.md, agent MEMORY.md) must be within:
+ * - Project tree (projectRoot or cwd if provided)
+ * - Home `.claude/` directory
+ * - Ancestor directories between projectRoot and homeDir
+ *
+ * This prevents path traversal attacks where a compromised index.json could
+ * point externalPath to sensitive system files like /etc/passwd.
+ *
+ * @param externalPath - The absolute path to validate
+ * @param options - Validation options
+ * @param options.projectRoot - Project root directory (optional, defaults to cwd)
+ * @param options.homeDir - Home directory (optional, defaults to os.homedir())
+ * @returns `true` if the path is within allowed directories, `false` otherwise
+ *
+ * @example
+ * ```typescript
+ * import * as os from 'node:os';
+ *
+ * // Valid: File in project CLAUDE.md
+ * isValidExternalPath('/home/user/project/CLAUDE.md', {
+ *   projectRoot: '/home/user/project',
+ *   homeDir: '/home/user'
+ * });
+ * // Returns: true
+ *
+ * // Valid: File in home .claude directory
+ * isValidExternalPath('/home/user/.claude/CLAUDE.md', {
+ *   homeDir: '/home/user'
+ * });
+ * // Returns: true
+ *
+ * // Valid: File in ancestor directory between project and home
+ * isValidExternalPath('/home/user/parent-project/CLAUDE.md', {
+ *   projectRoot: '/home/user/parent-project/subfolder',
+ *   homeDir: '/home/user'
+ * });
+ * // Returns: true
+ *
+ * // Invalid: System file
+ * isValidExternalPath('/etc/passwd', {
+ *   projectRoot: '/home/user/project',
+ *   homeDir: '/home/user'
+ * });
+ * // Returns: false
+ *
+ * // Invalid: Path traversal attempt
+ * isValidExternalPath('/home/user/project/../../../etc/shadow', {
+ *   projectRoot: '/home/user/project',
+ *   homeDir: '/home/user'
+ * });
+ * // Returns: false
+ * ```
+ */
+export function isValidExternalPath(
+  externalPath: string,
+  options?: {
+    projectRoot?: string;
+    homeDir?: string;
+  }
+): boolean {
+  // Normalize the path to resolve .. and symlinks
+  const normalizedPath = path.resolve(externalPath);
+
+  const homeDir = options?.homeDir || require('node:os').homedir();
+  const projectRoot = options?.projectRoot;
+
+  // Check if within home .claude directory (global scope)
+  const homeClaudeDir = path.join(homeDir, '.claude');
+  if (isInsideDir(homeClaudeDir, normalizedPath)) {
+    return true;
+  }
+
+  // If projectRoot provided, check project tree and ancestors
+  if (projectRoot) {
+    const normalizedProject = path.resolve(projectRoot);
+
+    // Check if within project tree
+    if (isInsideDir(normalizedProject, normalizedPath)) {
+      return true;
+    }
+
+    // Check ancestors between projectRoot and homeDir
+    let current = normalizedProject;
+    const normalizedHome = path.resolve(homeDir);
+
+    while (current !== normalizedHome && current !== path.dirname(current)) {
+      if (isInsideDir(current, normalizedPath)) {
+        return true;
+      }
+      current = path.dirname(current);
+    }
+  }
+
+  return false;
+}
+
+/**
  * Checks whether a path is a symbolic link.
  *
  * Uses `lstat` to examine the link itself rather than following it.

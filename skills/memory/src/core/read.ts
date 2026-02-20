@@ -10,7 +10,7 @@ import type { ReadMemoryRequest, ReadMemoryResponse } from '../types/api.js';
 import type { MemoryFrontmatter } from '../types/memory.js';
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
-import { readFile, fileExists, isInsideDir } from './fs-utils.js';
+import { readFile, fileExists, isInsideDir, isValidExternalPath } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
@@ -119,14 +119,29 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
-    // Security: Validate path stays within basePath (prevent path traversal)
-    // Skip validation for external files as they live outside basePath
-    if (!isExternalFile && !isInsideDir(basePath, filePath)) {
-      log.warn('Path traversal attempt detected', { id: request.id, filePath });
-      return {
-        status: 'error',
-        error: 'Invalid memory ID: path traversal not allowed',
-      };
+    // Security: Validate path stays within allowed directories (prevent path traversal)
+    if (isExternalFile) {
+      // External files must be within project tree, home .claude/, or ancestor dirs
+      // Use basePath as projectRoot to support test environments with temp dirs
+      if (!isValidExternalPath(filePath, {
+        projectRoot: basePath,
+        homeDir: os.homedir(),
+      })) {
+        log.warn('External path outside allowlist detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid external file path: must be within project tree or home .claude/ directory',
+        };
+      }
+    } else {
+      // Regular memory files must stay within basePath
+      if (!isInsideDir(basePath, filePath)) {
+        log.warn('Path traversal attempt detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid memory ID: path traversal not allowed',
+        };
+      }
     }
 
     if (!(await fileExists(filePath))) {

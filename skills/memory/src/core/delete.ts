@@ -9,7 +9,7 @@ import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
 import { Scope, MemoryType } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
-import { deleteFile, fileExists, isInsideDir, readFile, writeFileAtomic } from './fs-utils.js';
+import { deleteFile, fileExists, isInsideDir, isValidExternalPath, readFile, writeFileAtomic } from './fs-utils.js';
 import { createLogger } from './logger.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
 import { isCrossScopeEdge } from '../graph/edges.js';
@@ -167,14 +167,29 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
-    // Security: Validate path stays within basePath (prevent path traversal)
-    // Skip validation for external files as they live outside basePath
-    if (!isExternalFile && !isInsideDir(basePath, filePath)) {
-      log.warn('Path traversal attempt detected', { id: request.id, filePath });
-      return {
-        status: 'error',
-        error: 'Invalid memory ID: path traversal not allowed',
-      };
+    // Security: Validate path stays within allowed directories (prevent path traversal)
+    if (isExternalFile) {
+      // External files must be within project tree, home .claude/, or ancestor dirs
+      // Use basePath as projectRoot to support test environments with temp dirs
+      if (!isValidExternalPath(filePath, {
+        projectRoot: basePath,
+        homeDir: os.homedir(),
+      })) {
+        log.warn('External path outside allowlist detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid external file path: must be within project tree or home .claude/ directory',
+        };
+      }
+    } else {
+      // Regular memory files must stay within basePath
+      if (!isInsideDir(basePath, filePath)) {
+        log.warn('Path traversal attempt detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid memory ID: path traversal not allowed',
+        };
+      }
     }
 
     // Check if file exists

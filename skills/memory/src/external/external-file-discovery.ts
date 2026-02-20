@@ -11,6 +11,13 @@ import * as path from 'node:path';
 import * as crypto from 'node:crypto';
 import { ExternalFileKind, type ExternalFileEntry } from './external-file-types.js';
 import { Scope } from '../types/enums.js';
+import { sanitiseAgentName } from '../scope/sanitise-agent-name.js';
+
+/**
+ * Maximum external file size (1MB) per FR-024
+ * Files larger than this will be skipped with a warning to prevent event loop blocking
+ */
+const MAX_EXTERNAL_FILE_SIZE = 1_048_576; // 1MB
 
 /**
  * Vendor directories to exclude from discovery
@@ -19,9 +26,19 @@ const VENDOR_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'vendor', 
 
 /**
  * Calculate content hash (SHA-256 first 16 chars) for cache invalidation
+ * Returns null if file exceeds size limit (FR-024)
  */
-function calculateContentHash(filePath: string): string {
+function calculateContentHash(filePath: string): string | null {
   try {
+    // FR-024: Check file size before reading to prevent event loop blocking
+    const stats = fs.statSync(filePath);
+    if (stats.size > MAX_EXTERNAL_FILE_SIZE) {
+      console.warn(
+        `Skipping large external file (${stats.size} bytes, limit ${MAX_EXTERNAL_FILE_SIZE}): ${filePath}`
+      );
+      return null;
+    }
+
     const content = fs.readFileSync(filePath, 'utf-8');
     const hash = crypto.createHash('sha256').update(content).digest('hex');
     return hash.substring(0, 16);
@@ -255,6 +272,10 @@ export function discoverRuleFiles(options?: {
       const id = generateRuleId(realPath, kind, scope, cwd, homeDir);
       const title = path.basename(realPath);
       const contentHash = calculateContentHash(realPath);
+
+      // Skip if file exceeds size limit (FR-024)
+      if (contentHash === null) return;
+
       const modifiedTime = getModifiedTime(realPath);
 
       results.push({
@@ -347,8 +368,12 @@ export function discoverReminderFiles(options?: {
     try {
       const agentDirs = fs.readdirSync(agentMemoryBase).sort();
 
-      for (const agentName of agentDirs) {
-        const agentDir = path.join(agentMemoryBase, agentName);
+      for (const rawAgentName of agentDirs) {
+        // Sanitise agent name to prevent injection and ensure valid IDs
+        const agentName = sanitiseAgentName(rawAgentName);
+        if (!agentName) continue; // Skip if sanitisation resulted in empty string
+
+        const agentDir = path.join(agentMemoryBase, rawAgentName);
 
         try {
           const stats = fs.statSync(agentDir);
@@ -382,6 +407,10 @@ export function discoverReminderFiles(options?: {
               const id = generateReminderId(realPath, kind, scope, agentName);
               const title = isMemoryMd ? `${agentName} Agent Memory` : file;
               const contentHash = calculateContentHash(realPath);
+
+              // Skip if file exceeds size limit (FR-024)
+              if (contentHash === null) continue;
+
               const modifiedTime = getModifiedTime(realPath);
 
               results.push({
@@ -389,7 +418,7 @@ export function discoverReminderFiles(options?: {
                 kind,
                 scope,
                 agentName,
-                contentHash,
+                contentHash: contentHash as string, // Safe: null case handled above
                 id,
                 title,
                 modifiedTime,

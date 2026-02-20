@@ -269,8 +269,10 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 3. Find ghost nodes (in graph but no file) - remove them
+  // Skip external nodes (Rule/Reminder) as they don't have files in permanent/temporary
   for (const node of graph.nodes) {
-    if (!fileIds.has(node.id)) {
+    const isExternalNode = (node as any).type === MemoryType.Rule || (node as any).type === MemoryType.Reminder;
+    if (!fileIds.has(node.id) && !isExternalNode) {
       changes.removedGhostNodes.push(node.id);
       if (!dryRun) {
         graph = removeNode(graph, node.id);
@@ -291,9 +293,11 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 5. Find index entries without files - remove them
+  // Skip external entries (have externalPath set) as they don't have files in permanent/temporary
   const memoriesToKeep: IndexEntry[] = [];
   for (const entry of index.memories) {
-    if (!fileIds.has(entry.id)) {
+    const isExternalEntry = !!entry.externalPath;
+    if (!fileIds.has(entry.id) && !isExternalEntry) {
       changes.removedFromIndex.push(entry.id);
     } else {
       memoriesToKeep.push(entry);

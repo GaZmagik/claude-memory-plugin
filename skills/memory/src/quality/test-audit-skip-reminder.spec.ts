@@ -26,7 +26,7 @@ describe('T131: Audit Command - Skip Reminder Nodes', () => {
       version: 1,
       nodes: [
         {
-          id: unsafeAsMemoryId('reminder-agent-project-typescript-expert-memory-md'),
+          id: unsafeAsMemoryId('reminder-project-typescript-expert-memory'),
           type: MemoryType.Reminder,
           title: 'TypeScript Expert Memory',
           scope: Scope.AgentProject,
@@ -75,7 +75,7 @@ Always enable strict mode.
     expect(result.status).toBe('success');
 
     // Should only audit the gotcha node, not the reminder node
-    const reminderResult = result.results.find(r => r.id === 'reminder-agent-project-typescript-expert-memory-md');
+    const reminderResult = result.results.find(r => r.id === 'reminder-project-typescript-expert-memory');
     expect(reminderResult).toBeUndefined();
   });
 

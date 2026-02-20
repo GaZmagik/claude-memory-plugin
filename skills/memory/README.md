@@ -348,7 +348,7 @@ memory sync
 memory semantic "validation patterns" --agent curator
 
 # Link agent memories to project memories
-memory link decision-validation-strategy reminder-agent-project-curator-memory-md reminded-by
+memory link decision-validation-strategy reminder-project-curator-memory reminded-by
 ```
 
 **Commands:**
@@ -384,9 +384,9 @@ External files use deterministic ID generation to ensure consistency across sync
 **Reminder IDs:**
 - Format: `reminder-{scope}-{agent}-{filename-slug}`
 - Examples:
-  - `.claude/agent-memory/curator/MEMORY.md` → `reminder-agent-project-curator-memory-md`
-  - `~/.claude/agent-memory/speckit-expert/MEMORY.md` → `reminder-agent-global-speckit-expert-memory-md`
-  - `.claude/agent-memory/curator/patterns.md` → `reminder-agent-project-curator-patterns-md`
+  - `.claude/agent-memory/curator/MEMORY.md` → `reminder-project-curator-memory`
+  - `~/.claude/agent-memory/speckit-expert/MEMORY.md` → `reminder-global-speckit-expert-memory`
+  - `.claude/agent-memory/curator/patterns.md` → `reminder-project-curator-patterns`
 
 **Scope Determination:**
 - Files in project `.claude/` → `project` scope
@@ -807,4 +807,4 @@ memory sync project
 
 ## Version
 
-1.3.1
+1.6.0

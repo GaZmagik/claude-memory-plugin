@@ -23,7 +23,7 @@ describe('T129: Quality Assess - Exclude Reminder Nodes', () => {
       version: 1,
       nodes: [
         {
-          id: unsafeAsMemoryId('reminder-agent-project-typescript-expert-memory-md'),
+          id: unsafeAsMemoryId('reminder-project-typescript-expert-memory'),
           type: MemoryType.Reminder,
           title: 'TypeScript Expert Memory',
           scope: Scope.AgentProject,
@@ -42,7 +42,7 @@ describe('T129: Quality Assess - Exclude Reminder Nodes', () => {
 
   it('should return perfect score for reminder nodes without assessment', async () => {
     const result = await assessQuality({
-      id: 'reminder-agent-project-typescript-expert-memory-md',
+      id: 'reminder-project-typescript-expert-memory',
       basePath: tempDir,
       deep: false,
     });
@@ -57,7 +57,7 @@ describe('T129: Quality Assess - Exclude Reminder Nodes', () => {
   it('should skip quality assessment for reminder nodes', async () => {
     // Reminder nodes should get perfect score immediately without file checks
     const result = await assessQuality({
-      id: 'reminder-agent-project-typescript-expert-memory-md',
+      id: 'reminder-project-typescript-expert-memory',
       basePath: tempDir,
       deep: false,
     });

@@ -225,12 +225,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T094 [P] [US3] Unit test for cmdPromote rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-rule.spec.ts
 - [X] T095 [P] [US3] Unit test for cmdPromote rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-promote-reject-reminder.spec.ts
 - [X] T096 [P] [US3] Unit test for cmdRead handling externalPath field (implementation already exists in read.ts:109-115, verified with read-external-path.spec.ts)
-- [ ] T097 [P] [US3] Unit test for cmdSearch including rule nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-search-include-rules.spec.ts
-- [ ] T098 [P] [US3] Unit test for cmdSemantic including reminder nodes in results in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-semantic-include-reminders.spec.ts
-- [ ] T099 [P] [US3] Unit test for cmdLink allowing edges to rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-link-to-rule.spec.ts
-- [ ] T100 [P] [US3] Unit test for cmdLink allowing edges to reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-link-to-reminder.spec.ts
-- [ ] T101 [P] [US3] Unit test for cmdUnlink allowing edge removal from rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-unlink-from-rule.spec.ts
-- [ ] T102 [P] [US3] Unit test for cmdEdges showing edges for rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-edges-for-rule.spec.ts
+- [X] T097 [P] [US3] Unit test for cmdSearch including rule nodes in results (covered by external-node-command-compatibility.spec.ts)
+- [X] T098 [P] [US3] Unit test for cmdSemantic including reminder nodes in results (covered by external-node-command-compatibility.spec.ts)
+- [X] T099 [P] [US3] Unit test for cmdLink allowing edges to rule nodes (covered by external-node-command-compatibility.spec.ts)
+- [X] T100 [P] [US3] Unit test for cmdLink allowing edges to reminder nodes (covered by external-node-command-compatibility.spec.ts)
+- [X] T101 [P] [US3] Unit test for cmdUnlink allowing edge removal from rule nodes (covered by external-node-command-compatibility.spec.ts)
+- [X] T102 [P] [US3] Unit test for cmdEdges showing edges for rule nodes (covered by external-node-command-compatibility.spec.ts)
 - [ ] T103 [P] [US5] Unit test for syncMemories integrating external indexer as final pass in /home/gareth/.vs/claude-memory-plugin/tests/unit/maintenance/test-sync-external-integration.spec.ts
 - [ ] T104 [P] [US5] Unit test for syncMemories reporting external node changes in /home/gareth/.vs/claude-memory-plugin/tests/unit/maintenance/test-sync-external-reporting.spec.ts
 - [ ] T105 [P] [US5] Unit test for cmdIndexContext discovering and indexing external files in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-index-context-basic.spec.ts

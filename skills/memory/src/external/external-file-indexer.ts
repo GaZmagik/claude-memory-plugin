@@ -12,7 +12,9 @@ import { unsafeAsMemoryId } from '../types/branded.js';
 import {
   loadEmbeddingCache,
   saveEmbeddingCache,
+  truncateForEmbedding,
 } from '../search/embedding.js';
+import { readFile } from '../core/fs-utils.js';
 
 /**
  * Embedding provider interface (simplified)
@@ -185,7 +187,10 @@ export async function indexExternalFiles(
           // Generate embedding if provider available
           if (embeddingProvider && contentChanged) {
             if (!dryRun) {
-              const embedding = await embeddingProvider.getEmbedding(entry.title);
+              // Read file content and truncate for embedding (6000 char limit)
+              const fileContent = await readFile(entry.absolutePath);
+              const truncatedContent = truncateForEmbedding(fileContent);
+              const embedding = await embeddingProvider.getEmbedding(truncatedContent);
               embeddingCache.memories[nodeId] = {
                 embedding,
                 hash: entry.contentHash,
@@ -211,7 +216,10 @@ export async function indexExternalFiles(
           // Regenerate embedding
           if (embeddingProvider) {
             if (!dryRun) {
-              const embedding = await embeddingProvider.getEmbedding(entry.title);
+              // Read file content and truncate for embedding (6000 char limit)
+              const fileContent = await readFile(entry.absolutePath);
+              const truncatedContent = truncateForEmbedding(fileContent);
+              const embedding = await embeddingProvider.getEmbedding(truncatedContent);
               embeddingCache.memories[nodeId] = {
                 embedding,
                 hash: entry.contentHash,

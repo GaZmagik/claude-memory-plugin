@@ -38,7 +38,7 @@ describe('Interactive Prompt Triggering', () => {
       const prompts = await import('prompts');
 
       // Mock user accepting
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -57,7 +57,7 @@ describe('Interactive Prompt Triggering', () => {
       const questionThought = 'Should we migrate to microservices?';
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: false,
       });
 
@@ -87,7 +87,7 @@ describe('Interactive Prompt Triggering', () => {
       const questionThought = 'What are the trade-offs?';
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -96,14 +96,14 @@ describe('Interactive Prompt Triggering', () => {
         command: 'think:add',
       });
 
-      const promptCall = vi.mocked(prompts.default).mock.calls[0]?.[0] as { message?: string };
+      const promptCall = (prompts.default as any).mock.calls[0]?.[0] as { message?: string };
       expect(promptCall?.message).toContain('complex');
     });
 
     it('should offer AI assistance options', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -112,7 +112,7 @@ describe('Interactive Prompt Triggering', () => {
         command: 'think:add',
       });
 
-      const promptCall = vi.mocked(prompts.default).mock.calls[0]?.[0] as { type?: string };
+      const promptCall = (prompts.default as any).mock.calls[0]?.[0] as { type?: string };
       // Should be a confirm-style prompt
       expect(promptCall?.type).toBe('confirm');
     });
@@ -120,7 +120,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should default to "no" (y/N) for safety', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: false,
       });
 
@@ -129,7 +129,7 @@ describe('Interactive Prompt Triggering', () => {
         command: 'think:add',
       });
 
-      const promptCall = vi.mocked(prompts.default).mock.calls[0]?.[0] as { initial?: boolean };
+      const promptCall = (prompts.default as any).mock.calls[0]?.[0] as { initial?: boolean };
       expect(promptCall?.initial).toBe(false);
     });
   });
@@ -138,7 +138,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should return proceed: true when user accepts', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -154,7 +154,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should return proceed: false when user declines', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: false,
       });
 
@@ -170,7 +170,7 @@ describe('Interactive Prompt Triggering', () => {
       const prompts = await import('prompts');
 
       // Prompts returns undefined/empty on abort
-      vi.mocked(prompts.default).mockResolvedValueOnce({});
+      (prompts.default as any).mockResolvedValueOnce({});
 
       const result = await promptForAiAssistance({
         thought: 'Complex thought?',
@@ -186,7 +186,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should suggest --call claude by default', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
         suggestion: '--call claude',
       });
@@ -202,7 +202,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should include style suggestion for question-type thoughts', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
         suggestion: '--style Devils-Advocate',
       });
@@ -224,7 +224,7 @@ describe('Interactive Prompt Triggering', () => {
       const stderrSpy = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
       const stdoutSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -244,7 +244,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should work with think:add command', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -259,7 +259,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should work with think:counter command', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: true,
       });
 
@@ -274,7 +274,7 @@ describe('Interactive Prompt Triggering', () => {
     it('should work with think:branch command', async () => {
       const prompts = await import('prompts');
 
-      vi.mocked(prompts.default).mockResolvedValueOnce({
+      (prompts.default as any).mockResolvedValueOnce({
         proceed: false,
       });
 

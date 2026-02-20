@@ -214,10 +214,10 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T086 [P] [US3] Unit test for cmdWrite rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-write-reject-rule.spec.ts
-- [ ] T087 [P] [US3] Unit test for cmdWrite rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-write-reject-reminder.spec.ts
-- [ ] T088 [P] [US3] Unit test for cmdDelete rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-delete-reject-rule.spec.ts
-- [ ] T089 [P] [US3] Unit test for cmdDelete rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-delete-reject-reminder.spec.ts
+- [x] T086 [P] [US3] Unit test for cmdWrite rejecting rule nodes ✅ **COMPLETE** - Implemented in skills/memory/src/cli/commands/write-read-only-guards.spec.ts
+- [x] T087 [P] [US3] Unit test for cmdWrite rejecting reminder nodes ✅ **COMPLETE** - Implemented in skills/memory/src/cli/commands/write-read-only-guards.spec.ts
+- [x] T088 [P] [US3] Unit test for cmdDelete rejecting rule nodes ✅ **COMPLETE** - Implemented in skills/memory/src/cli/commands/delete-read-only-guards.spec.ts
+- [x] T089 [P] [US3] Unit test for cmdDelete rejecting reminder nodes ✅ **COMPLETE** - Implemented in skills/memory/src/cli/commands/delete-read-only-guards.spec.ts
 - [X] T090 [P] [US3] Unit test for cmdRename rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-rule.spec.ts
 - [X] T091 [P] [US3] Unit test for cmdRename rejecting reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-rename-reject-reminder.spec.ts
 - [X] T092 [P] [US3] Unit test for cmdMove rejecting rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-move-reject-rule.spec.ts

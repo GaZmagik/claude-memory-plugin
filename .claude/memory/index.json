@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-20T11:52:49.565Z",
+  "lastUpdated": "2026-02-20T15:07:30.855Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -161,35 +161,6 @@
       "severity": "medium"
     },
     {
-      "id": "learning-external-node-ids-use-hyphens-not-underscores",
-      "type": "learning",
-      "title": "External node IDs use hyphens not underscores",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-20T11:52:05.168Z",
-      "updated": "2026-02-20T11:52:05.168Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-external-node-ids-use-hyphens-not-underscores.md"
-    },
-    {
-      "id": "learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early",
-      "type": "learning",
-      "title": "Retro - Scope assumptions about feature coverage should be validated early",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "scope",
-        "project"
-      ],
-      "created": "2026-02-20T11:52:08.805Z",
-      "updated": "2026-02-20T11:52:08.805Z",
-      "scope": "project",
-      "relativePath": "permanent/learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early.md",
-      "severity": "medium"
-    },
-    {
       "id": "learning-external-nodes-verified-via-graph-queries-not-search-api",
       "type": "learning",
       "title": "External nodes verified via graph queries, not search API",
@@ -202,16 +173,118 @@
       "relativePath": "permanent/learning-external-nodes-verified-via-graph-queries-not-search-api.md"
     },
     {
+      "id": "learning-retro-task-driven-tdd-with-retrospective-validation-prevents-duplicate-work",
+      "type": "learning",
+      "title": "Retro - Task-driven TDD with retrospective validation prevents duplicate work",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "task-driven",
+        "project"
+      ],
+      "created": "2026-02-20T14:52:36.625Z",
+      "updated": "2026-02-20T14:52:36.625Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-task-driven-tdd-with-retrospective-validation-prevents-duplicate-work.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-tdd-retropattern-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "TDD retropattern accelerates guard implementation across CLI commands",
+      "tags": [
+        "tdd",
+        "guards",
+        "testing",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-20T14:53:16.849Z",
+      "updated": "2026-02-20T14:53:16.849Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tdd-retropattern-accelerates-guard-implementation-across-cli-commands.md"
+    },
+    {
+      "id": "learning-retro-spec-artifact-audits-surface-pre-existing-documentation",
+      "type": "learning",
+      "title": "Retro - Spec artifact audits surface pre-existing documentation",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "project"
+      ],
+      "created": "2026-02-20T14:54:44.113Z",
+      "updated": "2026-02-20T14:54:44.113Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-spec-artifact-audits-surface-pre-existing-documentation.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-external-node-ids-use-hyphens-not-underscores",
+      "type": "learning",
+      "title": "External node IDs use hyphens not underscores",
+      "tags": [
+        "external-nodes",
+        "id-scheme",
+        "graph-nodes",
+        "api",
+        "project"
+      ],
+      "created": "2026-02-20T14:55:23.322Z",
+      "updated": "2026-02-20T14:55:23.322Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-external-node-ids-use-hyphens-not-underscores.md"
+    },
+    {
       "id": "learning-mermaid-shapes-for-rule-and-reminder-nodes",
       "type": "learning",
       "title": "Mermaid shapes for rule and reminder nodes",
       "tags": [
+        "mermaid",
+        "graph-nodes",
+        "visualisation",
+        "rule",
+        "reminder",
         "project"
       ],
-      "created": "2026-02-20T11:52:49.542Z",
-      "updated": "2026-02-20T11:52:49.542Z",
+      "created": "2026-02-20T14:57:30.309Z",
+      "updated": "2026-02-20T14:57:30.309Z",
       "scope": "project",
       "relativePath": "permanent/learning-mermaid-shapes-for-rule-and-reminder-nodes.md"
+    },
+    {
+      "id": "learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early",
+      "type": "learning",
+      "title": "Retro: Scope assumptions about feature coverage should be validated early",
+      "tags": [
+        "retrospective",
+        "scope",
+        "validation",
+        "feature-coverage",
+        "project"
+      ],
+      "created": "2026-02-20T15:02:30.604Z",
+      "updated": "2026-02-20T15:02:30.604Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early.md"
+    },
+    {
+      "id": "learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "type": "learning",
+      "title": "Gotcha: Mock embeddings test mismatch on actual API input",
+      "tags": [
+        "testing",
+        "mocks",
+        "embeddings",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-20T15:07:30.850Z",
+      "updated": "2026-02-20T15:07:30.850Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input.md"
     }
   ]
 }

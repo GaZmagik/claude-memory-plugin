@@ -71,7 +71,7 @@ describe('cmdRead - External Path Handling', () => {
   });
 
   it('should read reminder node content correctly', async () => {
-    vi.mocked(readModule.readMemory).mockResolvedValueOnce({
+    vi.spyOn(readModule, 'readMemory').mockResolvedValueOnce({
       status: 'success',
       memory: {
         frontmatter: {

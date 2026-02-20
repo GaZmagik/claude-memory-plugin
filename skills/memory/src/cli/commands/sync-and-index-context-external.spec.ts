@@ -287,8 +287,11 @@ describe('Sync and Index-Context with External Files', () => {
 
       expect(result.status).toBe('success');
       // Verify dryRun was passed
-      const mockCall = vi.mocked(externalModule.indexExternalFiles).mock.calls[0]?.[0];
-      expect(mockCall?.dryRun).toBe(true);
+      expect(externalModule.indexExternalFiles).toHaveBeenCalledWith(
+        expect.objectContaining({
+          dryRun: true,
+        })
+      );
     });
   });
 });

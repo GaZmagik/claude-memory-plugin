@@ -3870,6 +3870,30 @@
       "type": "learning",
       "title": "Mermaid shapes for rule and reminder nodes",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-task-driven-tdd-with-retrospective-validation-prevents-duplicate-work",
+      "type": "learning",
+      "title": "Retro - Task-driven TDD with retrospective validation prevents duplicate work",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tdd-retropattern-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "TDD retropattern accelerates guard implementation across CLI commands",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-spec-artifact-audits-surface-pre-existing-documentation",
+      "type": "learning",
+      "title": "Retro - Spec artifact audits surface pre-existing documentation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "type": "learning",
+      "title": "Gotcha: Mock embeddings test mismatch on actual API input",
+      "scope": "project"
     }
   ],
   "edges": [

@@ -31,6 +31,7 @@ COMMANDS:
   help                Show this help (use 'help <cmd>' for details)
   impact <id>         Show what depends on a memory
   import <file>       Import memories from JSON (--merge or --replace)
+  index-context       Re-index external files (rules, reminders) without full sync
   link <from> <to>    Create a relationship between memories
   list [type] [tag]   List memories (optionally filter by type or tag)
   mermaid [options]   Generate Mermaid diagram of memory graph

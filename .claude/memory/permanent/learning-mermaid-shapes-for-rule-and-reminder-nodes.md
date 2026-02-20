@@ -4,10 +4,15 @@ title: Mermaid shapes for rule and reminder nodes
 type: learning
 scope: project
 project: claude-memory-plugin
-created: "2026-02-20T11:52:49.542Z"
-updated: "2026-02-20T11:53:04.265Z"
+created: "2026-02-20T14:57:30.309Z"
+updated: "2026-02-20T14:59:43.464Z"
 tags:
+  - mermaid
+  - graph-nodes
+  - visualisation
+  - rule
+  - reminder
   - project
 ---
 
-Rule nodes render as hexagons using {{}} syntax and reminder nodes render as subroutines using [[]] syntax in Mermaid diagrams. These shapes are applied via node classes during diagram generation, not by explicit shape syntax in node IDs.
+Rule nodes render as hexagons {{}} in Mermaid diagrams. Reminder nodes render as subroutines [[]] in Mermaid. These shapes distinguish external nodes from standard memory nodes in graph visualisations.

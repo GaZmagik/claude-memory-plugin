@@ -276,18 +276,18 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 
 **Execute ALL tests first. Verify ALL fail before proceeding to implementation.**
 
-- [ ] T128 [P] [US4] Unit test for quality assess excluding rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/quality/test-assess-exclude-rule.spec.ts
-- [ ] T129 [P] [US4] Unit test for quality assess excluding reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/quality/test-assess-exclude-reminder.spec.ts
-- [ ] T130 [P] [US4] Unit test for audit command skipping rule nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/quality/test-audit-skip-rule.spec.ts
-- [ ] T131 [P] [US4] Unit test for audit command skipping reminder nodes in /home/gareth/.vs/claude-memory-plugin/tests/unit/quality/test-audit-skip-reminder.spec.ts
-- [ ] T132 [US4] Integration test for audit excluding all external nodes from report in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-audit-exclude-external.spec.ts
+- [X] T128 [P] [US4] Unit test for quality assess excluding rule nodes (skills/memory/src/quality/test-assess-exclude-rule.spec.ts)
+- [X] T129 [P] [US4] Unit test for quality assess excluding reminder nodes (skills/memory/src/quality/test-assess-exclude-reminder.spec.ts)
+- [X] T130 [P] [US4] Unit test for audit command skipping rule nodes (skills/memory/src/quality/test-audit-skip-rule.spec.ts)
+- [X] T131 [P] [US4] Unit test for audit command skipping reminder nodes (skills/memory/src/quality/test-audit-skip-reminder.spec.ts)
+- [X] T132 [US4] Integration test for audit excluding all external nodes from report (tests/integration/test-audit-exclude-external.spec.ts)
 
 ### Implementation for Phase 2D
 
-- [ ] T133 [P] [US4] Add type check to exclude rule nodes in assess function in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/quality/assess.ts
-- [ ] T134 [P] [US4] Add type check to exclude reminder nodes in assess function in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/quality/assess.ts
-- [ ] T135 [US4] Update audit command to skip external nodes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/quality.ts
-- [ ] T136 [US4] Update audit-quick command to skip external nodes in /home/gareth/.vs/claude-memory-plugin/skills/memory/src/cli/commands/quality.ts
+- [X] T133 [P] [US4] Add type check to exclude rule nodes in assess function (ALREADY IMPLEMENTED - assessQuality line 230-241)
+- [X] T134 [P] [US4] Add type check to exclude reminder nodes in assess function (ALREADY IMPLEMENTED - assessQuality line 230-241)
+- [X] T135 [US4] Update audit command to skip external nodes (ALREADY IMPLEMENTED - auditMemories line 335)
+- [X] T136 [US4] Update audit-quick command to skip external nodes (ALREADY IMPLEMENTED - uses auditMemories)
 
 **Checkpoint**: Quality scoring excludes external nodes, audit reports accurate
 

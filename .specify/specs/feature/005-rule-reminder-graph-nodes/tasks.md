@@ -237,11 +237,11 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T106 [P] [US5] Unit test for cmdIndexContext respecting scope flag (covered by sync-and-index-context-external.spec.ts)
 - [X] T107 [P] [US5] Unit test for cmdIndexContext respecting agent flag (covered by sync-and-index-context-external.spec.ts)
 - [X] T108 [P] [US5] Unit test for cmdIndexContext respecting dryRun flag (covered by sync-and-index-context-external.spec.ts)
-- [X] T109 [US3] Integration test for write command rejecting rule node with clear error (PASS - tests/integration/phase-2c-external-nodes-integration.spec.ts)
-- [~] T110 [US3] Integration test for delete command rejecting reminder node with clear error (FAIL - requires deleteMemory fixes: externalPath check + guard before deletion - tests/integration/phase-2c-external-nodes-integration.spec.ts)
-- [~] T111 [US3] Integration test for read command displaying external file content (FAIL - requires T119: readMemory to handle external files without frontmatter - tests/integration/phase-2c-external-nodes-integration.spec.ts)
-- [X] T112 [US5] Integration test for sync command indexing external files (PASS - tests/integration/phase-2c-external-nodes-integration.spec.ts)
-- [X] T113 [US5] Integration test for index-context command quick refresh (PASS - tests/integration/phase-2c-external-nodes-integration.spec.ts)
+- [X] T109 [US3] Integration test for write command rejecting rule node with clear error (tests/integration/phase-2c-external-nodes-integration.spec.ts)
+- [X] T110 [US3] Integration test for delete command rejecting reminder node with clear error (tests/integration/phase-2c-external-nodes-integration.spec.ts)
+- [X] T111 [US3] Integration test for read command displaying external file content (tests/integration/phase-2c-external-nodes-integration.spec.ts)
+- [X] T112 [US5] Integration test for sync command indexing external files (tests/integration/phase-2c-external-nodes-integration.spec.ts)
+- [X] T113 [US5] Integration test for index-context command quick refresh (tests/integration/phase-2c-external-nodes-integration.spec.ts)
 
 ### Implementation for Phase 2C
 

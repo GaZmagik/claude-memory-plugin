@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-20T15:07:30.855Z",
+  "lastUpdated": "2026-02-20T16:52:30.708Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -285,6 +285,36 @@
       "updated": "2026-02-20T15:07:30.850Z",
       "scope": "project",
       "relativePath": "permanent/learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input.md"
+    },
+    {
+      "id": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "type": "learning",
+      "title": "Node.js Code Review - Sync File Ops Block Event Loop",
+      "tags": [
+        "nodejs",
+        "performance",
+        "async",
+        "event-loop",
+        "file-system",
+        "project"
+      ],
+      "created": "2026-02-20T16:47:04.003Z",
+      "updated": "2026-02-20T16:47:04.003Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-nodejs-code-review-sync-file-ops-block-event-loop.md"
+    },
+    {
+      "id": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "type": "gotcha",
+      "title": "TypeScript code review findings for feature/005-rule-reminder-graph-nodes",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-20T16:52:30.704Z",
+      "updated": "2026-02-20T16:52:30.704Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes.md"
     }
   ]
 }

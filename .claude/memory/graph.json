@@ -3822,6 +3822,24 @@
       "type": "decision",
       "title": "Read-only guards for system-generated nodes",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "type": "learning",
+      "title": "Retro - Systematic TDD guard implementation across CLI commands reduces iteration",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "Retro TDD pattern accelerates guard implementation across CLI commands",
+      "scope": "project"
+    },
+    {
+      "id": "learning-co-located-comprehensive-test-files-replace-individual-unit-tests-for-entire-phase",
+      "type": "learning",
+      "title": "Co-located comprehensive test files replace individual unit tests for entire phase",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -15553,6 +15571,30 @@
       "target": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7227660442074909
+    },
+    {
+      "source": "decision-read-only-guards-system-nodes",
+      "target": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7746945880182192
+    },
+    {
+      "source": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "target": "decision-read-only-guards-system-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7746945880182192
+    },
+    {
+      "source": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "target": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533522343247168
+    },
+    {
+      "source": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "target": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533522343247168
     }
   ]
 }

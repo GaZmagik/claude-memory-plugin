@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-19T17:59:56.765Z",
+  "lastUpdated": "2026-02-20T06:47:46.377Z",
   "memories": [
     {
       "id": "reminder-agent-project-typescript-expert-memory-md",
@@ -29,23 +29,6 @@
       "updated": "2026-02-19T17:58:17.887Z",
       "scope": "project",
       "relativePath": "permanent/learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands.md",
-      "severity": "medium"
-    },
-    {
-      "id": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
-      "type": "gotcha",
-      "title": "Gotcha - ParsedArgs test structure confusion causes timeouts when command name included in positional array",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "cli",
-        "project"
-      ],
-      "created": "2026-02-19T17:58:33.896Z",
-      "updated": "2026-02-19T17:58:33.896Z",
-      "scope": "project",
-      "relativePath": "permanent/gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array.md",
       "severity": "medium"
     },
     {
@@ -92,6 +75,73 @@
       "updated": "2026-02-19T17:59:56.743Z",
       "scope": "project",
       "relativePath": "permanent/decision-read-only-guards-system-nodes.md"
+    },
+    {
+      "id": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "type": "learning",
+      "title": "Retro - Systematic TDD guard implementation across CLI commands reduces iteration",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "pattern-replication",
+        "project"
+      ],
+      "created": "2026-02-20T06:46:58.344Z",
+      "updated": "2026-02-20T06:46:58.344Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "type": "learning",
+      "title": "Retro TDD pattern accelerates guard implementation across CLI commands",
+      "tags": [
+        "TDD",
+        "guards",
+        "cli-commands",
+        "pattern",
+        "phase-2c",
+        "project"
+      ],
+      "created": "2026-02-20T06:47:23.889Z",
+      "updated": "2026-02-20T06:47:23.889Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands.md"
+    },
+    {
+      "id": "learning-co-located-comprehensive-test-files-replace-individual-unit-tests-for-entire-phase",
+      "type": "learning",
+      "title": "Co-located comprehensive test files replace individual unit tests for entire phase",
+      "tags": [
+        "TDD",
+        "co-located-tests",
+        "integration",
+        "phase-2b",
+        "test-organization",
+        "project"
+      ],
+      "created": "2026-02-20T06:47:32.187Z",
+      "updated": "2026-02-20T06:47:32.187Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-co-located-comprehensive-test-files-replace-individual-unit-tests-for-entire-phase.md"
+    },
+    {
+      "id": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
+      "type": "gotcha",
+      "title": "ParsedArgs test structure confusion causes timeouts when command name included in positional array",
+      "tags": [
+        "testing",
+        "cli-commands",
+        "ParsedArgs",
+        "debug",
+        "project"
+      ],
+      "created": "2026-02-20T06:47:46.360Z",
+      "updated": "2026-02-20T06:47:46.360Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array.md"
     }
   ]
 }

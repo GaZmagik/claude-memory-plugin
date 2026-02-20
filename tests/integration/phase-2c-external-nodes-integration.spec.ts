@@ -62,21 +62,31 @@ describe('Phase 2C Integration: External Nodes', () => {
   // T109: Write command rejects rule nodes
   it('T109: should reject write attempts on rule nodes', async () => {
     // Discover and index external files
-    const discovered = discoverExternalFiles({ cwd: tempDir, homeDir: os.homedir(), gitRoot: tempDir });
-    const graph = await loadGraph(memoryDir);
-    const index = await loadIndex({ basePath: memoryDir });
+    const discovered = discoverRuleFiles({
+      cwd: tempDir,
+      homeDir: os.homedir(),
+      gitRoot: tempDir,
+    });
 
     await indexExternalFiles({
       basePath: memoryDir,
-      graph: graph as any,
-      index,
-      embeddingsPath: path.join(memoryDir, 'embeddings.json'),
+      graph: baseGraph,
+      index: baseIndex,
+      embeddingsPath,
       externalFiles: discovered,
+      dryRun: false,
     });
+
+    // Save graph and index to disk
+    await saveGraph(memoryDir, baseGraph as any);
+    await saveIndex(memoryDir, baseIndex);
+
+    const ruleId = discovered[0]?.id;
+    expect(ruleId).toBeDefined();
 
     // Attempt to write to rule node
     const result = await writeMemory({
-      id: 'rule-project-claude-md-root',
+      id: ruleId!,
       title: 'Updated',
       content: 'Updated content',
       type: MemoryType.Rule,
@@ -86,7 +96,7 @@ describe('Phase 2C Integration: External Nodes', () => {
     });
 
     expect(result.status).toBe('error');
-    expect(result.error).toContain('read-only');
+    expect(result.error).toContain('read-only external node');
   });
 
   // T110: Delete command rejects reminder nodes
@@ -94,53 +104,66 @@ describe('Phase 2C Integration: External Nodes', () => {
     // Create agent MEMORY.md
     const agentDir = path.join(tempDir, '.claude', 'agent-memory', 'test-agent');
     fs.mkdirSync(agentDir, { recursive: true });
-    fs.writeFileSync(path.join(agentDir, 'MEMORY.md'), '# Memory\nTest.');
+    fs.writeFileSync(path.join(agentDir, 'MEMORY.md'), '# Memory\nTest agent memory.');
 
-    const agentMemoryDir = path.join(tempDir, '.claude', 'memory', 'agents', 'test-agent');
-    fs.mkdirSync(agentMemoryDir, { recursive: true });
-    fs.mkdirSync(path.join(agentMemoryDir, 'permanent'), { recursive: true });
-    fs.writeFileSync(path.join(agentMemoryDir, 'graph.json'), JSON.stringify({ version: 1, nodes: [], edges: [] }));
-    fs.writeFileSync(path.join(agentMemoryDir, 'index.json'), JSON.stringify({ version: '1.0.0', lastUpdated: new Date().toISOString(), memories: [] }));
-    fs.writeFileSync(path.join(agentMemoryDir, 'embeddings.json'), JSON.stringify({}));
-
-    const discovered = discoverExternalFiles({ cwd: tempDir, homeDir: os.homedir(), gitRoot: tempDir });
-    const graph = await loadGraph(agentMemoryDir);
-    const index = await loadIndex({ basePath: agentMemoryDir });
+    // Discover and index reminder files
+    const discovered = discoverReminderFiles({
+      projectRoot: tempDir,
+      homeDir: os.homedir(),
+    });
 
     await indexExternalFiles({
-      basePath: agentMemoryDir,
-      graph: graph as any,
-      index,
-      embeddingsPath: path.join(agentMemoryDir, 'embeddings.json'),
+      basePath: memoryDir,
+      graph: baseGraph,
+      index: baseIndex,
+      embeddingsPath,
       externalFiles: discovered,
+      dryRun: false,
     });
+
+    // Save graph and index to disk
+    await saveGraph(memoryDir, baseGraph as any);
+    await saveIndex(memoryDir, baseIndex);
+
+    const reminderId = discovered[0]?.id;
+    expect(reminderId).toBeDefined();
 
     // Attempt to delete reminder node
     const result = await deleteMemory({
-      id: 'reminder-agent-project-test-agent-memory-md',
-      basePath: agentMemoryDir,
+      id: reminderId!,
+      basePath: memoryDir,
     });
 
     expect(result.status).toBe('error');
-    expect(result.error).toContain('read-only');
+    expect(result.error).toContain('read-only external node');
   });
 
   // T111: Read command displays external file content
   it('T111: should read external file content via externalPath', async () => {
-    const discovered = discoverExternalFiles({ cwd: tempDir, homeDir: os.homedir(), gitRoot: tempDir });
-    const graph = await loadGraph(memoryDir);
-    const index = await loadIndex({ basePath: memoryDir });
+    const discovered = discoverRuleFiles({
+      cwd: tempDir,
+      homeDir: os.homedir(),
+      gitRoot: tempDir,
+    });
 
     await indexExternalFiles({
       basePath: memoryDir,
-      graph: graph as any,
-      index,
-      embeddingsPath: path.join(memoryDir, 'embeddings.json'),
+      graph: baseGraph,
+      index: baseIndex,
+      embeddingsPath,
       externalFiles: discovered,
+      dryRun: false,
     });
 
+    // Save graph and index to disk
+    await saveGraph(memoryDir, baseGraph as any);
+    await saveIndex(memoryDir, baseIndex);
+
+    const ruleId = discovered[0]?.id;
+    expect(ruleId).toBeDefined();
+
     const result = await readMemory({
-      id: 'rule-project-claude-md-root',
+      id: ruleId!,
       basePath: memoryDir,
     });
 
@@ -160,16 +183,19 @@ describe('Phase 2C Integration: External Nodes', () => {
 
   // T113: Index-context refreshes external index
   it('T113: should refresh external file index', async () => {
-    const discovered = discoverExternalFiles({ cwd: tempDir, homeDir: os.homedir(), gitRoot: tempDir });
-    const graph = await loadGraph(memoryDir);
-    const index = await loadIndex({ basePath: memoryDir });
+    const discovered = discoverRuleFiles({
+      cwd: tempDir,
+      homeDir: os.homedir(),
+      gitRoot: tempDir,
+    });
 
     const result = await indexExternalFiles({
       basePath: memoryDir,
-      graph,
-      index,
-      embeddingsPath: path.join(memoryDir, 'embeddings.json'),
+      graph: baseGraph,
+      index: baseIndex,
+      embeddingsPath,
       externalFiles: discovered,
+      dryRun: false,
     });
 
     expect(result.status).toBe('success');

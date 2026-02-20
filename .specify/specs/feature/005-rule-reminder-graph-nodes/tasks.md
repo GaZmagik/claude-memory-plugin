@@ -231,12 +231,12 @@ TDD: test first? ✅/❌ | seen failing? ✅/❌ | now passing? ✅/❌
 - [X] T100 [P] [US3] Unit test for cmdLink allowing edges to reminder nodes (covered by external-node-command-compatibility.spec.ts)
 - [X] T101 [P] [US3] Unit test for cmdUnlink allowing edge removal from rule nodes (covered by external-node-command-compatibility.spec.ts)
 - [X] T102 [P] [US3] Unit test for cmdEdges showing edges for rule nodes (covered by external-node-command-compatibility.spec.ts)
-- [ ] T103 [P] [US5] Unit test for syncMemories integrating external indexer as final pass in /home/gareth/.vs/claude-memory-plugin/tests/unit/maintenance/test-sync-external-integration.spec.ts
-- [ ] T104 [P] [US5] Unit test for syncMemories reporting external node changes in /home/gareth/.vs/claude-memory-plugin/tests/unit/maintenance/test-sync-external-reporting.spec.ts
-- [ ] T105 [P] [US5] Unit test for cmdIndexContext discovering and indexing external files in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-index-context-basic.spec.ts
-- [ ] T106 [P] [US5] Unit test for cmdIndexContext respecting scope flag in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-index-context-scope.spec.ts
-- [ ] T107 [P] [US5] Unit test for cmdIndexContext respecting agent flag in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-index-context-agent.spec.ts
-- [ ] T108 [P] [US5] Unit test for cmdIndexContext respecting dryRun flag in /home/gareth/.vs/claude-memory-plugin/tests/unit/commands/test-index-context-dry-run.spec.ts
+- [X] T103 [P] [US5] Unit test for syncMemories integrating external indexer as final pass (covered by sync-and-index-context-external.spec.ts)
+- [X] T104 [P] [US5] Unit test for syncMemories reporting external node changes (covered by sync-and-index-context-external.spec.ts)
+- [X] T105 [P] [US5] Unit test for cmdIndexContext discovering and indexing external files (covered by sync-and-index-context-external.spec.ts)
+- [X] T106 [P] [US5] Unit test for cmdIndexContext respecting scope flag (covered by sync-and-index-context-external.spec.ts)
+- [X] T107 [P] [US5] Unit test for cmdIndexContext respecting agent flag (covered by sync-and-index-context-external.spec.ts)
+- [X] T108 [P] [US5] Unit test for cmdIndexContext respecting dryRun flag (covered by sync-and-index-context-external.spec.ts)
 - [ ] T109 [US3] Integration test for write command rejecting rule node with clear error in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-write-reject-rule-integration.spec.ts
 - [ ] T110 [US3] Integration test for delete command rejecting reminder node with clear error in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-delete-reject-reminder-integration.spec.ts
 - [ ] T111 [US3] Integration test for read command displaying external file content in /home/gareth/.vs/claude-memory-plugin/tests/integration/test-read-external-content.spec.ts

@@ -17,12 +17,14 @@ import { syncFrontmatter } from '../../maintenance/sync-frontmatter.js';
 import { refreshFrontmatter } from '../../maintenance/refresh-frontmatter.js';
 import { checkHealth } from '../../quality/health.js';
 import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embedding.js';
-import { loadIndex } from '../../core/index.js';
+import { loadIndex, saveIndex } from '../../core/index.js';
 import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
-import { loadGraph } from '../../graph/structure.js';
+import { loadGraph, saveGraph } from '../../graph/structure.js';
+import { findGitRoot } from '../../scope/git-utils.js';
 import * as path from 'node:path';
+import * as os from 'node:os';
 
 /**
  * sync - Synchronise graph, index, and disk
@@ -302,12 +304,16 @@ export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
       let graph = await loadGraph(basePath);
       let index = await loadIndex({ basePath });
 
-      // Discover external files
+      // Discover external files from actual project/home directories
+      // Note: basePath is the memory storage dir (.claude/memory/), not the project root
+      const cwd = process.cwd();
+      const homeDir = os.homedir();
+      const gitRoot = findGitRoot(cwd) || cwd;
+
       const externalFiles = discoverExternalFiles({
-        cwd: basePath,
-        homeDir: basePath, // Constrain to scope
-        gitRoot: basePath,
-        projectRoot: basePath,
+        cwd,
+        homeDir,
+        gitRoot,
       });
 
       // Index external files
@@ -320,6 +326,12 @@ export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
         externalFiles,
         dryRun,
       });
+
+      // Save graph and index to disk (unless dry-run)
+      if (!dryRun && result.status === 'success') {
+        await saveGraph(basePath, graph);
+        await saveIndex(basePath, index);
+      }
 
       return {
         status: result.status,

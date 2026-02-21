@@ -2637,123 +2637,153 @@
     },
     {
       "id": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase E TDD Red phase completion yields 2465 lines of comprehensive test coverage"
     },
     {
       "id": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Post-compaction session restore with parallel restoration agents accelerates memory recovery"
     },
     {
       "id": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "TDD hook requires co-located test stubs for new source files despite project test directory structure"
     },
     {
       "id": "decision-graph-node-extended-for-agent-scope",
-      "type": "decision"
+      "type": "decision",
+      "title": "Extended GraphNode interface with scope and agent properties for agent-scoped memory support"
     },
     {
       "id": "artifact-bun-test-mocking-pattern-without-vi-mocked",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Bun test framework mocking pattern without vi.mocked() compatibility"
     },
     {
       "id": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Session restore with parallel agents achieved perfect memory graph health in minutes"
     },
     {
       "id": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD stub test files bypass hook while keeping tests DRY"
     },
     {
       "id": "gotcha-retro-check-api-contracts-before-debugging-validation-errors",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Check API contracts before debugging validation errors"
     },
     {
       "id": "learning-agentsummary-interface-requires-path-field-for-cli-discovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "AgentSummary interface requires path field for CLI discovery"
     },
     {
       "id": "learning-memory-writememory-requires-tags-field-in-request-payload",
-      "type": "learning"
+      "type": "learning",
+      "title": "Memory writeMemory requires tags field in request payload"
     },
     {
       "id": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
-      "type": "decision"
+      "type": "decision",
+      "title": "Parallel restoration agents accelerate post-compaction recovery"
     },
     {
       "id": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase E agent-scoped memories feature complete with 67 passing tests"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents with curator linking prevents orphaned nodes"
     },
     {
       "id": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Bun test mocking without vi.mocked() requires module-level direct references"
     },
     {
       "id": "learning-integration-test-import-paths-must-match-export-locations-verify-before-test-writing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Learning - Integration test import paths must match export locations; verify before test writing"
     },
     {
       "id": "learning-memory-curator-linking-prevents-orphaned-graph-nodes",
-      "type": "learning"
+      "type": "learning",
+      "title": "Memory-curator linking prevents orphaned graph nodes"
     },
     {
       "id": "learning-phase-e-tdd-red-phase-yields-2465-lines-of-comprehensive-test-coverage",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase E TDD red-phase yields 2,465 lines of comprehensive test coverage"
     },
     {
       "id": "gotcha-writememory-ids-auto-prefix-with-type-dont-double-prefix",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "writeMemory IDs auto-prefix with type - don't double-prefix"
     },
     {
       "id": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - GraphNode enrichment critical for agent-scoped Mermaid generation"
     },
     {
       "id": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test assertions should be validated against implementation before marking complete"
     },
     {
       "id": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Post-compaction context restoration with parallel agents is effective"
     },
     {
       "id": "learning-phase-e-integration-tests-require-careful-assertion-alignment-with-implementation-details",
-      "type": "learning"
+      "type": "learning",
+      "title": "Phase E integration tests require careful assertion alignment with implementation details"
     },
     {
       "id": "gotcha-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "GraphNode enrichment critical for agent-scoped Mermaid generation"
     },
     {
       "id": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent flag implementation pattern for CLI commands with scope resolution"
     },
     {
       "id": "learning-linkmemories-requires-agent-aware-basepath-resolution",
-      "type": "learning"
+      "type": "learning",
+      "title": "linkMemories requires agent-aware basePath resolution"
     },
     {
       "id": "learning-hub-threshold-tuning-affects-memory-connectivity-scoring",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hub threshold tuning affects memory connectivity scoring"
     },
     {
       "id": "gotcha-graphnode-enrichment-required-for-agent-filtering",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "GraphNode enrichment required for agent filtering"
     },
     {
       "id": "gotcha-resolveSharedScopePaths-global-scope-pollution",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "resolveSharedScopePaths global scope loads entire user memory"
     },
     {
       "id": "decision-cross-scope-linking-deferred-to-phase-d",
-      "type": "decision"
+      "type": "decision",
+      "title": "Cross-scope memory linking deferred to Phase D"
     },
     {
       "id": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Memory curator analysis - 2026-02-05 Phase E linking and quality audit"
     },
     {
       "id": "learning-retro-composite-scoring-resolves-legacy-penalty-system-conflicts",
@@ -2955,303 +2985,378 @@
     },
     {
       "id": "learning-tdd-red-phase-requires-actual-test-execution",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD Red Phase Requires Actual Test Execution"
     },
     {
       "id": "learning-getflagbool-returns-false-not-undefined",
-      "type": "learning"
+      "type": "learning",
+      "title": "getFlagBool Returns False Not Undefined"
     },
     {
       "id": "learning-cross-scope-edges-are-read-only-in-suggest-links",
-      "type": "learning"
+      "type": "learning",
+      "title": "Cross-Scope Edges Are Read-Only in Suggest-Links"
     },
     {
       "id": "artifact-scope-path-resolution-pattern",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Scope Path Resolution Pattern"
     },
     {
       "id": "learning-getflagbool-returns-false-not-undefined-for-absent-flags",
-      "type": "learning"
+      "type": "learning",
+      "title": "getFlagBool returns false not undefined for absent flags"
     },
     {
       "id": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
-      "type": "learning"
+      "type": "learning",
+      "title": "Cross-scope edges are read-only for auto-link in suggest-links"
     },
     {
       "id": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parallel restoration agents effective but require sequential approval key checking"
     },
     {
       "id": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parallel restoration agents unlock tools faster than sequential"
     },
     {
       "id": "learning-conversation-summaries-lag-behind-implementation-during-compaction-cycles",
-      "type": "learning"
+      "type": "learning",
+      "title": "Conversation summaries lag behind implementation during compaction cycles"
     },
     {
       "id": "decision-phase-e-agent-scoped-memories-complete",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase E agent-scoped memories implementation complete"
     },
     {
       "id": "learning-retro-conversation-summaries-lag-behind-implementation-during-rapid-compaction-cycles",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Conversation summaries lag behind implementation during rapid compaction cycles"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents unlock tools faster than sequential approval workflows"
     },
     {
       "id": "gotcha-retro-fifth-compaction-in-one-session-id-indicates-context-window-exhaustion-pattern",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Fifth compaction in one session ID indicates context window exhaustion pattern"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents significantly more efficient than sequential workflows"
     },
     {
       "id": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent identity detection via invocation markers - practical implementation approach"
     },
     {
       "id": "learning-agent-invocation-marker-format-standardization-html-comment-syntax",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent invocation marker format standardization - HTML comment syntax"
     },
     {
       "id": "learning-hook-integration-for-agent-context-hookinput-extension-strategy",
-      "type": "learning"
+      "type": "learning",
+      "title": "Hook integration for agent context - HookInput extension strategy"
     },
     {
       "id": "artifact-research-documentation-agent-scoped-pattern",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Agent-Scoped Research Documentation Pattern"
     },
     {
       "id": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parallel restoration agents significantly more efficient than sequential workflows"
     },
     {
       "id": "learning-retro-tdd-for-type-level-changes-validates-at-compile-time",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD for type-level changes validates at compile time"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents (3 agents, 300s total) restore context faster than sequential"
     },
     {
       "id": "learning-tdd-for-type-level-changes-uses-typescript-compilation-as-assertion",
-      "type": "learning"
+      "type": "learning",
+      "title": "TDD for type-level changes uses TypeScript compilation as assertion"
     },
     {
       "id": "decision-agent-context-placeholder-type-only-no-runtime",
-      "type": "decision"
+      "type": "decision",
+      "title": "AgentContext field added to HookInput as compile-clean placeholder"
     },
     {
       "id": "artifact-hooks-readme-agent-context-workflow-documentation",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "hooks/README.md: Agent context injection workflow documentation"
     },
     {
       "id": "gotcha-agent-context-serialisation-chain-propagation",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Agent context must survive full serialisation chain: TypeScript → JSON → subprocess stdin → parseHookInput"
     },
     {
       "id": "learning-retro-vitest-workers-forbid-processchdir-use-basepath-instead",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Vitest workers forbid process.chdir, use basePath instead"
     },
     {
       "id": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Vitest include config covers skills/memory/src not tests subdirs"
     },
     {
       "id": "learning-graph-edge-stores-label-not-relation",
-      "type": "learning"
+      "type": "learning",
+      "title": "graph-edge-stores-label-not-relation"
     },
     {
       "id": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Restoring flag remained active across multiple restoration cycles, creating repetitive re-launches"
     },
     {
       "id": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Parallel restoration agents with proper subagent_type handling accelerates context recovery significantly"
     },
     {
       "id": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Session consumed entirely by restoration ceremony, zero implementation time despite T137 marked in_progress"
     },
     {
       "id": "gotcha-restoring-flag-remains-active-across-restoration-cycles",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Restoring flag remains active across restoration cycles"
     },
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Pre-compact session consumed entirely by restoration ceremony"
     },
     {
       "id": "learning-parallel-restoration-agents-with-correct-subagenttype-accelerates-recovery",
-      "type": "learning"
+      "type": "learning",
+      "title": "Parallel restoration agents with correct subagent_type accelerates recovery"
     },
     {
       "id": "decision-disable-clear-restoring-flag-hooks",
-      "type": "decision"
+      "type": "decision",
+      "title": "Disabled clear/restoring flag hooks and approval key system"
     },
     {
       "id": "learning-dual-graphedge-definitions-typed-vs-untyped-variants",
-      "type": "learning"
+      "type": "learning",
+      "title": "Dual GraphEdge Definitions: Typed vs Untyped Variants"
     },
     {
       "id": "learning-cross-scope-graph-non-atomicity-risk",
-      "type": "learning"
+      "type": "learning",
+      "title": "Cross-Scope Graph Non-Atomicity Risk"
     },
     {
       "id": "gotcha-baserequest-already-supports-agent-override",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "BaseRequest Already Supports Agent Override"
     },
     {
       "id": "decision-replan-phase-d-deferred-25-tasks",
-      "type": "decision"
+      "type": "decision",
+      "title": "Re-Plan Phase D-DEFERRED Rather Than Implement Original"
     },
     {
       "id": "artifact-phase-d-edge-mirroring-pattern",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Edge Mirroring Pattern: Bidirectional Storage Without Reversal"
     },
     {
       "id": "learning-retro-tdd-across-multi-phase-implementation-maintains-test-first-discipline-despite-complexity",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - TDD across multi-phase implementation maintains test-first discipline despite complexity"
     },
     {
       "id": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Test file size limits require early separation strategy for multi-feature phases"
     },
     {
       "id": "learning-retro-explicit-task-dependency-graphs-enable-parallel-sub-phase-planning-despite-sequential-execution",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Explicit task dependency graphs enable parallel sub-phase planning despite sequential execution"
     },
     {
       "id": "learning-cross-scope-edge-metadata-design-optional-fields-on-graphedge",
-      "type": "learning"
+      "type": "learning",
+      "title": "Cross-scope edge metadata design: optional fields on GraphEdge"
     },
     {
       "id": "learning-bidirectional-edge-storage-without-reversal-pattern",
-      "type": "learning"
+      "type": "learning",
+      "title": "Bidirectional edge storage without reversal pattern"
     },
     {
       "id": "gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Cross-scope edge cleanup on delete must scan for matching edges"
     },
     {
       "id": "artifact-cross-scope-link-api-contract",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "Cross-Scope Link API Contract"
     },
     {
       "id": "decision-phase-d-tdd-with-25-tasks",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase D: TDD with 25 tasks across 5 sub-phases"
     },
     {
       "id": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase D-DEFERRED Cross-Scope Graph Operations Complete"
     },
     {
       "id": "gotcha-outdated-validation-tests-cmdlinkcmdunlink-no-longer-reject-include-shared",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Outdated validation tests: cmdLink/cmdUnlink no longer reject --include-shared"
     },
     {
       "id": "decision-phase-d-deferred-complete-all-25-tasks",
-      "type": "decision"
+      "type": "decision",
+      "title": "Phase D-DEFERRED: Cross-Scope Graph Operations Complete"
     },
     {
       "id": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
-      "type": "learning"
+      "type": "learning",
+      "title": "Test isolation: process.chdir contamination solved with os.homedir()"
     },
     {
       "id": "artifact-loadMergedGraph-utility",
-      "type": "artifact"
+      "type": "artifact",
+      "title": "loadMergedGraph() utility extracted from mermaid merge pattern"
     },
     {
       "id": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Multi-agent review orchestration validates findings through independence"
     },
     {
       "id": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
-      "type": "learning"
+      "type": "learning",
+      "title": "Multi-expert code review: consensus confirms genuine bugs"
     },
     {
       "id": "gotcha-retro-expert-report-persistence-during-multi-phase-reviews",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Expert report persistence during multi-phase reviews"
     },
     {
       "id": "gotcha-empty-test-files-created-by-hooks-provide-false-coverage-assurance",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Empty test files created by hooks provide false coverage assurance"
     },
     {
       "id": "learning-sync-io-in-async-functions-silently-blocks-entire-event-loop",
-      "type": "learning"
+      "type": "learning",
+      "title": "Sync I/O in async functions silently blocks entire event loop"
     },
     {
       "id": "learning-n1-file-reads-in-search-without-early-exit-validation",
-      "type": "learning"
+      "type": "learning",
+      "title": "N+1 file reads in search without early exit validation"
     },
     {
       "id": "learning-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
-      "type": "learning"
+      "type": "learning",
+      "title": "Incomplete mock types in tests generate cascading TypeScript errors"
     },
     {
       "id": "gotcha-retro-cascade-failure-in-test-mock-types-blocks-entire-build",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Retro - Cascade failure in test mock types blocks entire build"
     },
     {
       "id": "learning-retro-systematic-type-error-reduction-more-efficient-than-scatter-fix-approach",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Systematic type error reduction more efficient than scatter-fix approach"
     },
     {
       "id": "learning-retro-all-6-critical-issues-resolved-through-systematic-review-phases",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - All 6 critical issues resolved through systematic review phases"
     },
     {
       "id": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Incomplete mock types in tests generate cascading TypeScript errors"
     },
     {
       "id": "learning-type-safety-fix-pattern-unused-imports-mock-properties-assertions",
-      "type": "learning"
+      "type": "learning",
+      "title": "Type safety fix pattern: unused imports → mock properties → assertions"
     },
     {
       "id": "learning-generic-cliresponse-typing-in-tests-requires-explicit-type-assertion",
-      "type": "learning"
+      "type": "learning",
+      "title": "Generic CliResponse typing in tests requires explicit type assertion"
     },
     {
       "id": "learning-retro-warnings-first-approach-resolved-11-items-in-single-focused-pass",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Warnings-first approach resolved 11 items in single focused pass"
     },
     {
       "id": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
-      "type": "learning"
+      "type": "learning",
+      "title": "Retro - Test suite went from 5 failures→0 by fixing mocks and test isolation"
     },
     {
       "id": "gotcha-vi-mock-global-pollution-test-state",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "vi.mock() persists globally across test files causing test pollution"
     },
     {
       "id": "learning-agent-scope-detection-homedir-check",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent scope detection requires os.homedir() check, not path.includes()"
     },
     {
       "id": "learning-agent-graph-tests-require-fsutils-mocks",
-      "type": "learning"
+      "type": "learning",
+      "title": "Agent graph tests must mock fsUtils functions, not fs module directly"
     },
     {
       "id": "learning-test-aspirational-markers-should-be-removed",
-      "type": "learning"
+      "type": "learning",
+      "title": "Aspirational it.skip and it.todo markers indicate incomplete work and should be removed"
     },
     {
       "id": "learning-type-guard-pattern-for-scope-narrowing",
-      "type": "learning"
+      "type": "learning",
+      "title": "Type guard pattern for scope narrowing"
     },
     {
       "id": "learning-cross-platform-home-directory-handling-with-oshomedir",
-      "type": "learning"
+      "type": "learning",
+      "title": "Cross-platform home directory handling with os.homedir()"
     },
     {
       "id": "gotcha-partial-failures-in-bulk-operations-need-explicit-surfacing",
-      "type": "gotcha"
+      "type": "gotcha",
+      "title": "Partial failures in bulk operations need explicit surfacing"
     },
     {
       "id": "learning-oshomedir-replaced-processenvhome-in-production-code",
@@ -3782,18 +3887,6 @@
       "scope": "project"
     },
     {
-      "id": "rule-project-claude-md-root",
-      "type": "rule",
-      "title": "Updated Title",
-      "scope": "project"
-    },
-    {
-      "id": "reminder-agent-project-typescript-expert-memory-md",
-      "type": "reminder",
-      "title": "Updated Title",
-      "scope": "project"
-    },
-    {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
       "type": "learning",
       "title": "Retro - TDD pattern replication accelerates guard implementation across CLI commands",
@@ -3972,6 +4065,95 @@
       "type": "learning",
       "title": "test-file-size-limit-enforcement",
       "scope": "project"
+    },
+    {
+      "id": "thought-20260220-165044018",
+      "type": "breadcrumb",
+      "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes"
+    },
+    {
+      "id": "thought-20260219-042927105",
+      "type": "breadcrumb",
+      "title": "Think: Feature 005 Planning: Rule and Reminder Graph Nodes - Architecture Design"
+    },
+    {
+      "id": "thought-20260218-213709243",
+      "type": "breadcrumb",
+      "title": "Think: Context-file graph nodes — key decisions"
+    },
+    {
+      "id": "rule-project-claude-md-root",
+      "type": "rule",
+      "title": "CLAUDE.md",
+      "scope": "project"
+    },
+    {
+      "id": "rule-global-claude-md-dotclaude",
+      "type": "rule",
+      "title": "CLAUDE.md",
+      "scope": "global"
+    },
+    {
+      "id": "rule-project-security",
+      "type": "rule",
+      "title": "security.md",
+      "scope": "project"
+    },
+    {
+      "id": "rule-project-testing",
+      "type": "rule",
+      "title": "testing.md",
+      "scope": "project"
+    },
+    {
+      "id": "reminder-project-speckit-explorer-memory",
+      "type": "reminder",
+      "title": "speckit-explorer Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-explorer"
+    },
+    {
+      "id": "reminder-project-speckit-specifier-memory",
+      "type": "reminder",
+      "title": "speckit-specifier Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-specifier"
+    },
+    {
+      "id": "learning-external-file-discovery-uses-wrong-base-path",
+      "type": "learning",
+      "title": "External file discovery uses wrong base path",
+      "scope": "project"
+    },
+    {
+      "id": "learning-graph-modifications-not-persisted-without-explicit-save",
+      "type": "learning",
+      "title": "Graph modifications not persisted without explicit save",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-cross-scope-linking-via-target-scope-flag-not-implemented",
+      "type": "gotcha",
+      "title": "Cross-scope linking via --target-scope flag not implemented",
+      "scope": "project"
+    },
+    {
+      "id": "learning-external-nodes-excluded-from-semantic-search-due-to-missing-filepath",
+      "type": "learning",
+      "title": "External nodes excluded from semantic search due to missing filePath",
+      "scope": "project"
+    },
+    {
+      "id": "decision-project-test",
+      "type": "decision",
+      "title": "Project Test",
+      "scope": "project"
+    },
+    {
+      "id": "learning-local-test",
+      "type": "learning",
+      "title": "Local Test",
+      "scope": "local"
     }
   ],
   "edges": [
@@ -15741,6 +15923,18 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7091514270761338,
       "verifiedRelation": "Paraphrase"
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-local-test",
+      "target": "decision-project-test",
+      "label": "relates-to",
+      "sourceScope": "local",
+      "targetScope": "project"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-21T05:10:19.696Z",
+  "lastUpdated": "2026-02-21T06:09:15.650Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -3681,18 +3681,6 @@
       "updated": "2026-01-13T18:49:49.826Z",
       "scope": "local",
       "relativePath": "permanent/learning-test-naming-convention-spec-ts.md"
-    },
-    {
-      "id": "decision-updated-title",
-      "title": "Updated Title",
-      "type": "decision",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-19T17:30:51.720Z",
-      "updated": "2026-02-19T18:01:26.701Z",
-      "scope": "project",
-      "relativePath": "permanent/decision-updated-title.md"
     },
     {
       "id": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
@@ -12504,16 +12492,51 @@
       "relativePath": "permanent/learning-external-nodes-excluded-from-semantic-search-due-to-missing-filepath.md"
     },
     {
-      "id": "decision-project-test",
-      "type": "decision",
-      "title": "Project Test",
+      "id": "gotcha-external-files-must-be-read-raw-without-frontmatter-parsing",
+      "type": "gotcha",
+      "title": "External files must be read raw without frontmatter parsing",
       "tags": [
+        "external-nodes",
+        "search",
+        "frontmatter",
         "project"
       ],
-      "created": "2026-02-21T05:10:19.688Z",
-      "updated": "2026-02-21T05:10:19.688Z",
+      "created": "2026-02-21T05:31:24.522Z",
+      "updated": "2026-02-21T05:31:24.522Z",
       "scope": "project",
-      "relativePath": "permanent/decision-project-test.md"
+      "relativePath": "permanent/gotcha-external-files-must-be-read-raw-without-frontmatter-parsing.md"
+    },
+    {
+      "id": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "type": "learning",
+      "title": "External file discovery uses wrong base path - must use scopePath",
+      "tags": [
+        "external-nodes",
+        "maintenance",
+        "scope-resolution",
+        "bug-fix",
+        "project"
+      ],
+      "created": "2026-02-21T05:31:47.301Z",
+      "updated": "2026-02-21T05:31:47.301Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath.md"
+    },
+    {
+      "id": "learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands",
+      "type": "learning",
+      "title": "Cross-scope linking requires targetScope flag parsing in CLI commands",
+      "tags": [
+        "graph-operations",
+        "cross-scope",
+        "cli-design",
+        "flag-parsing",
+        "project"
+      ],
+      "created": "2026-02-21T05:31:59.496Z",
+      "updated": "2026-02-21T05:31:59.496Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands.md"
     }
   ]
 }

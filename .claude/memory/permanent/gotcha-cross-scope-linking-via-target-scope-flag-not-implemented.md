@@ -3,8 +3,9 @@ id: gotcha-cross-scope-linking-via-target-scope-flag-not-implemented
 title: Cross-scope linking via --target-scope flag not implemented
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-21T03:50:10.882Z"
-updated: "2026-02-21T03:50:10.882Z"
+updated: "2026-02-21T05:32:13.997Z"
 tags:
   - cross-scope-linking
   - cli-design

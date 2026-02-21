@@ -3881,12 +3881,6 @@
       "scope": "project"
     },
     {
-      "id": "decision-updated-title",
-      "type": "decision",
-      "title": "Updated Title",
-      "scope": "project"
-    },
-    {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
       "type": "learning",
       "title": "Retro - TDD pattern replication accelerates guard implementation across CLI commands",
@@ -4144,16 +4138,28 @@
       "scope": "project"
     },
     {
-      "id": "decision-project-test",
-      "type": "decision",
-      "title": "Project Test",
-      "scope": "project"
-    },
-    {
       "id": "learning-local-test",
       "type": "learning",
       "title": "Local Test",
       "scope": "local"
+    },
+    {
+      "id": "gotcha-external-files-must-be-read-raw-without-frontmatter-parsing",
+      "type": "gotcha",
+      "title": "External files must be read raw without frontmatter parsing",
+      "scope": "project"
+    },
+    {
+      "id": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "type": "learning",
+      "title": "External file discovery uses wrong base path - must use scopePath",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands",
+      "type": "learning",
+      "title": "Cross-scope linking requires targetScope flag parsing in CLI commands",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -15930,11 +15936,386 @@
       "label": "relates-to"
     },
     {
-      "source": "learning-local-test",
-      "target": "decision-project-test",
-      "label": "relates-to",
-      "sourceScope": "local",
-      "targetScope": "project"
+      "source": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "target": "decision-feature-005-implementation-plan-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands",
+      "target": "decision-feature-005-implementation-plan-complete",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8351251484317888
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8281516388172444
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8058129174841908
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.79949395872567
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7971623366523534
+    },
+    {
+      "source": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7920262620245013
+    },
+    {
+      "source": "learning-regex-based-language-parsing-tradeoff",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7879584394597259
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-regex-based-language-parsing-tradeoff",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7879584394597259
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7869618273609734
+    },
+    {
+      "source": "retro-parallel-expert-review",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.785837180373691
+    },
+    {
+      "source": "decision-async-fs-conversion-required",
+      "target": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7815452694383358
+    },
+    {
+      "source": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "target": "decision-async-fs-conversion-required",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7815452694383358
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7808724250978406
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7808724250978406
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7703768951444891
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7685298780419098
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.762640400745012
+    },
+    {
+      "source": "learning-test-positional-array-structure-in-cli-command-tests",
+      "target": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7550984016983235
+    },
+    {
+      "source": "gotcha-parsedargs-test-structure-confusion-causes-timeouts-when-command-name-included-in-positional-array",
+      "target": "learning-test-positional-array-structure-in-cli-command-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7550984016983235
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.75055533298296
+    },
+    {
+      "source": "gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures",
+      "target": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7430435389850687,
+      "verifiedRelation": "Cause-Effect"
+    },
+    {
+      "source": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
+      "target": "gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7430435389850687,
+      "verifiedRelation": "Normalization"
+    },
+    {
+      "source": "learning-retro-typescript-tooling-parity",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7408475633894928,
+      "verifiedRelation": "Coverage"
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7408475633894928,
+      "verifiedRelation": "Coverage"
+    },
+    {
+      "source": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
+      "target": "learning-cosine-similarity-requires-normalized-embedding-vectors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.740526728430322,
+      "verifiedRelation": "Elaboration"
+    },
+    {
+      "source": "retro-multi-agent-review-effectiveness",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7397869292907879,
+      "verifiedRelation": "Evolution"
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "rule-project-testing",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7314429654412186,
+      "verifiedRelation": "Documentation"
+    },
+    {
+      "source": "learning-tdd-parity-typescript-support",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.730055294750659,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.730055294750659,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7256852658156048,
+      "verifiedRelation": "Concept Similarity"
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7256852658156048,
+      "verifiedRelation": "Transformation"
+    },
+    {
+      "source": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7253363581891857,
+      "verifiedRelation": "Output\nTransition"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7223965717982204,
+      "verifiedRelation": "Incompatibility"
+    },
+    {
+      "source": "artifact-v150-memory-graph-enhancement-suite-spec",
+      "target": "reminder-project-speckit-specifier-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7216297628583062,
+      "verifiedRelation": "Extends"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7143492007437345,
+      "verifiedRelation": "Incompatibility"
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7069444454801691,
+      "verifiedRelation": "Coverage"
+    },
+    {
+      "source": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7069444454801691,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-retrospective-memory-refactor-session",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7067890634906844,
+      "verifiedRelation": "Refactor"
+    },
+    {
+      "source": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7022531660878507,
+      "verifiedRelation": "Update"
+    },
+    {
+      "source": "retro-parallel-expert-review-effective",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7016776336076358,
+      "verifiedRelation": "Transformation"
+    },
+    {
+      "source": "rule-global-claude-md-dotclaude",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7352273935545347,
+      "verifiedRelation": "Context"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "rule-global-claude-md-dotclaude",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7352273935545347,
+      "verifiedRelation": "Export"
+    },
+    {
+      "source": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "target": "learning-graph-modifications-not-persisted-without-explicit-save",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7321077208817945,
+      "verifiedRelation": "Impact"
+    },
+    {
+      "source": "learning-graph-modifications-not-persisted-without-explicit-save",
+      "target": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7321077208817945,
+      "verifiedRelation": "Dependency"
+    },
+    {
+      "source": "gotcha-cross-scope-linking-via-target-scope-flag-not-implemented",
+      "target": "learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7287422794255654,
+      "verifiedRelation": "Requirement"
+    },
+    {
+      "source": "learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands",
+      "target": "gotcha-cross-scope-linking-via-target-scope-flag-not-implemented",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7287422794255654,
+      "verifiedRelation": "Contradiction"
+    },
+    {
+      "source": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "target": "learning-external-file-discovery-uses-wrong-base-path",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7129044371252846,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-external-file-discovery-uses-wrong-base-path",
+      "target": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7129044371252846,
+      "verifiedRelation": "Fix"
+    },
+    {
+      "source": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "target": "learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7125013907971777,
+      "verifiedRelation": "Summary"
+    },
+    {
+      "source": "learning-gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "target": "gotcha-mock-embeddings-test-mismatch-on-actual-api-input",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7125013907971777,
+      "verifiedRelation": "Summary"
+    },
+    {
+      "source": "learning-fr-024-implement-file-size-limits-for-discovery",
+      "target": "learning-test-file-size-limit-enforcement",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7100019799250532,
+      "verifiedRelation": "Implementation"
+    },
+    {
+      "source": "learning-test-file-size-limit-enforcement",
+      "target": "learning-fr-024-implement-file-size-limits-for-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7100019799250532,
+      "verifiedRelation": "Implementation"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "reminder-project-speckit-specifier-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7088557517743612,
+      "verifiedRelation": "Transformation"
+    },
+    {
+      "source": "reminder-project-speckit-specifier-memory",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7088557517743612,
+      "verifiedRelation": "Transfer"
+    },
+    {
+      "source": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "target": "learning-tdd-retropattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7014251504607281,
+      "verifiedRelation": "Paraphrase"
+    },
+    {
+      "source": "learning-tdd-retropattern-accelerates-guard-implementation-across-cli-commands",
+      "target": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7014251504607281,
+      "verifiedRelation": "Reordering"
     }
   ]
 }

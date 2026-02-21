@@ -196,10 +196,13 @@ function isAgentNode(node: GraphNode): boolean {
 function generateNode(node: GraphNode, options: MermaidOptions): string {
   const id = sanitiseId(node.id);
 
-  // Use double bracket shape [[text]] for agent nodes
-  const shape = isAgentNode(node)
-    ? { open: '[[', close: ']]' }
-    : getNodeShape(node.type);
+  // Prioritize external types over agent scope
+  const isExternalType = node.type === 'rule' || node.type === 'reminder';
+  const shape = isExternalType
+    ? getNodeShape(node.type)  // Use type-specific shape (hexagon/cylinder)
+    : isAgentNode(node)
+      ? { open: '[[', close: ']]' }
+      : getNodeShape(node.type);
 
   let label = escapeLabel(node.id);
 

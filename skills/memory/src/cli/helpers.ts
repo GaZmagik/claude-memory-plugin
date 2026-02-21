@@ -228,3 +228,25 @@ export function validateIncludeShared(
   }
   return { valid: true };
 }
+
+/**
+ * Convert Scope enum to scope identifier string for graph metadata
+ */
+export function scopeToIdentifier(scope: Scope): string {
+  switch (scope) {
+    case Scope.Global:
+      return 'global';
+    case Scope.Project:
+      return 'project';
+    case Scope.Local:
+      return 'local';
+    case Scope.Enterprise:
+      return 'enterprise';
+    case Scope.AgentProject:
+      return 'agent-project';
+    case Scope.AgentGlobal:
+      return 'agent-global';
+    default:
+      return 'project';
+  }
+}

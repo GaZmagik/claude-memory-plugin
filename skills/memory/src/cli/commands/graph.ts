@@ -14,7 +14,7 @@ import { updateEdgeMetadata } from '../../graph/link-update.js';
 import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, scopeToIdentifier } from '../helpers.js';
 
 /**
  * link - Create a relationship between memories
@@ -37,26 +37,37 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const targetScopeStr = getFlagString(args.flags, 'target-scope');
   const relation = getFlagString(args.flags, 'relation');
 
-  // Detect cross-scope: --agent XOR --target-agent, or both with different values
-  const isCrossScope = (agentName && !targetAgentName) ||
+  // Parse scopes for comparison
+  const sourceScope = parseScope(scopeStr);
+  const targetScope = parseScope(targetScopeStr);
+
+  // Detect cross-scope: agent flags OR different scopes
+  const hasAgentCrossScope = (agentName && !targetAgentName) ||
     (!agentName && targetAgentName) ||
     (agentName && targetAgentName && agentName !== targetAgentName);
+
+  const hasNonAgentCrossScope = !agentName && !targetAgentName &&
+    targetScopeStr !== undefined &&
+    sourceScope !== targetScope;
+
+  const isCrossScope = hasAgentCrossScope || hasNonAgentCrossScope;
 
   if (isCrossScope) {
     // Resolve source base path
     const sourceBasePath = agentName
       ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      : getResolvedScopePath(sourceScope);  // Use parsed scope
 
     // Resolve target base path
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : getResolvedScopePath(targetScope);  // Use parsed scope
 
-    const sourceScope = agentName ? 'agent-project' : 'project';
-    const targetScope = targetAgentName ? 'agent-project' : 'project';
+    const sourceScopeId = agentName ? 'agent-project' : scopeToIdentifier(sourceScope);
+    const targetScopeId = targetAgentName ? 'agent-project' : scopeToIdentifier(targetScope);
 
     return wrapOperation(
       async () => {
@@ -68,8 +79,8 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
           agent: agentName,
           targetAgent: targetAgentName,
           targetBasePath,
-          sourceScope,
-          targetScope,
+          sourceScope: sourceScopeId,
+          targetScope: targetScopeId,
           sourceAgent: agentName,
         });
         return result;
@@ -108,20 +119,31 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const targetScopeStr = getFlagString(args.flags, 'target-scope');
 
-  // Detect cross-scope
-  const isCrossScope = (agentName && !targetAgentName) ||
+  // Parse scopes for comparison
+  const sourceScope = parseScope(scopeStr);
+  const targetScope = parseScope(targetScopeStr);
+
+  // Detect cross-scope: agent flags OR different scopes
+  const hasAgentCrossScope = (agentName && !targetAgentName) ||
     (!agentName && targetAgentName) ||
     (agentName && targetAgentName && agentName !== targetAgentName);
+
+  const hasNonAgentCrossScope = !agentName && !targetAgentName &&
+    targetScopeStr !== undefined &&
+    sourceScope !== targetScope;
+
+  const isCrossScope = hasAgentCrossScope || hasNonAgentCrossScope;
 
   if (isCrossScope) {
     const sourceBasePath = agentName
       ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      : getResolvedScopePath(sourceScope);  // Use parsed scope
 
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : getResolvedScopePath(targetScope);  // Use parsed scope
 
     return wrapOperation(
       async () => {

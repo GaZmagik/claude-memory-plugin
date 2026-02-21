@@ -53,7 +53,7 @@ describe('Suggest Links - External Node Integration', () => {
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Curator Memory\nGraph integrity patterns');
 
     // Discover and index external files
-    const externalFiles = discoverExternalFiles({
+    const externalFiles = await discoverExternalFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -149,7 +149,7 @@ describe('Suggest Links - External Node Integration', () => {
     });
 
     // Discover and index external files
-    const externalFiles = discoverExternalFiles({
+    const externalFiles = await discoverExternalFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,

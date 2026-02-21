@@ -273,7 +273,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 3. Find ghost nodes (in graph but no file) - remove them
   // Skip external nodes (Rule/Reminder) as they don't have files in permanent/temporary
   for (const node of graph.nodes) {
-    const isExternalNode = (node as any).type === MemoryType.Rule || (node as any).type === MemoryType.Reminder;
+    const isExternalNode = (node.id as string).startsWith('rule-') || (node.id as string).startsWith('reminder-');
     if (!fileIds.has(node.id) && !isExternalNode) {
       changes.removedGhostNodes.push(node.id);
       if (!dryRun) {
@@ -346,7 +346,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // For scoped syncs (agent/project), constrain discovery to basePath
   // For global syncs, basePath would be ~/.claude/memory, so homeDir is correct
   try {
-    const externalFiles = discoverExternalFiles({
+    const externalFiles = await discoverExternalFiles({
       cwd: basePath,
       homeDir: basePath, // Constrain to scope - prevents walking to real home in tests
       gitRoot: basePath,

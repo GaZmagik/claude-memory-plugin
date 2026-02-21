@@ -310,7 +310,7 @@ export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
       const homeDir = os.homedir();
       const gitRoot = findGitRoot(cwd) || cwd;
 
-      const externalFiles = discoverExternalFiles({
+      const externalFiles = await discoverExternalFiles({
         cwd,
         homeDir,
         gitRoot,

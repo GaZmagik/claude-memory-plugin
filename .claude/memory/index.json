@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-21T06:09:15.650Z",
+  "lastUpdated": "2026-02-21T08:57:48.999Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12537,6 +12537,133 @@
       "updated": "2026-02-21T05:31:59.496Z",
       "scope": "project",
       "relativePath": "permanent/learning-cross-scope-linking-requires-targetscope-flag-parsing-in-cli-commands.md"
+    },
+    {
+      "id": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "type": "gotcha",
+      "title": "Feature 005: Synchronous file I/O blocks event loop in external discovery",
+      "tags": [
+        "feature-005",
+        "event-loop",
+        "performance",
+        "regression",
+        "blocking-io",
+        "project"
+      ],
+      "created": "2026-02-21T07:48:50.375Z",
+      "updated": "2026-02-21T07:48:50.375Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery.md"
+    },
+    {
+      "id": "gotcha-feature-005-518-tests-failing-on-feature-branch",
+      "type": "gotcha",
+      "title": "Feature 005: 518 tests failing on feature branch",
+      "tags": [
+        "feature-005",
+        "tests",
+        "regression",
+        "critical",
+        "blocking",
+        "project"
+      ],
+      "created": "2026-02-21T07:49:03.375Z",
+      "updated": "2026-02-21T07:49:03.375Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-feature-005-518-tests-failing-on-feature-branch.md"
+    },
+    {
+      "id": "learning-feature-005-pervasive-as-any-casts-bypass-typescript-type-safety",
+      "type": "learning",
+      "title": "Feature 005: Pervasive 'as any' casts bypass TypeScript type safety",
+      "tags": [
+        "feature-005",
+        "typescript",
+        "type-safety",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-02-21T07:49:18.563Z",
+      "updated": "2026-02-21T07:49:18.563Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-feature-005-pervasive-as-any-casts-bypass-typescript-type-safety.md"
+    },
+    {
+      "id": "gotcha-feature-005-readme-documents-incorrect-reminder-node-shape",
+      "type": "gotcha",
+      "title": "Feature 005: README documents incorrect Reminder node shape",
+      "tags": [
+        "feature-005",
+        "documentation",
+        "accuracy",
+        "project"
+      ],
+      "created": "2026-02-21T07:49:27.634Z",
+      "updated": "2026-02-21T07:49:27.634Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-feature-005-readme-documents-incorrect-reminder-node-shape.md"
+    },
+    {
+      "id": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "type": "learning",
+      "title": "Async file I/O blocks event loop - external discovery needed conversion",
+      "tags": [
+        "async",
+        "file-io",
+        "performance",
+        "external-files",
+        "project"
+      ],
+      "created": "2026-02-21T08:57:34.625Z",
+      "updated": "2026-02-21T08:57:34.625Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion.md"
+    },
+    {
+      "id": "learning-type-safety-as-any-casts-hide-real-type-guard-opportunities",
+      "type": "learning",
+      "title": "Type safety: as any casts hide real type guard opportunities",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "type-guards",
+        "project"
+      ],
+      "created": "2026-02-21T08:57:39.155Z",
+      "updated": "2026-02-21T08:57:39.155Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-safety-as-any-casts-hide-real-type-guard-opportunities.md"
+    },
+    {
+      "id": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "type": "learning",
+      "title": "Embedding generation needs concurrency limiting for Ollama stability",
+      "tags": [
+        "ollama",
+        "embeddings",
+        "concurrency",
+        "resource-management",
+        "project"
+      ],
+      "created": "2026-02-21T08:57:44.355Z",
+      "updated": "2026-02-21T08:57:44.355Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability.md"
+    },
+    {
+      "id": "learning-security-mermaid-output-paths-need-boundary-validation",
+      "type": "learning",
+      "title": "Security: Mermaid output paths need boundary validation",
+      "tags": [
+        "security",
+        "file-operations",
+        "path-validation",
+        "project"
+      ],
+      "created": "2026-02-21T08:57:48.959Z",
+      "updated": "2026-02-21T08:57:48.959Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-security-mermaid-output-paths-need-boundary-validation.md"
     }
   ]
 }

@@ -4,7 +4,7 @@
  * Generate and cache embeddings for semantic search.
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
 import { createLogger } from '../core/logger.js';
@@ -80,12 +80,14 @@ export async function generateEmbedding(
  * Load embedding cache from file
  */
 export async function loadEmbeddingCache(cachePath: string): Promise<EmbeddingCache> {
-  if (!fs.existsSync(cachePath)) {
+  try {
+    await fsp.access(cachePath);
+  } catch {
     return { version: 1, memories: {} };
   }
 
   try {
-    const content = fs.readFileSync(cachePath, 'utf-8');
+    const content = await fsp.readFile(cachePath, 'utf-8');
     return JSON.parse(content) as EmbeddingCache;
   } catch {
     log.warn('Failed to load embedding cache, starting fresh', { path: cachePath });
@@ -100,12 +102,8 @@ export async function saveEmbeddingCache(
   cachePath: string,
   cache: EmbeddingCache
 ): Promise<void> {
-  const dir = path.dirname(cachePath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
   // Use atomic write to prevent cache corruption during concurrent writes
+  // writeFileAtomic handles directory creation internally
   await writeFileAtomic(cachePath, JSON.stringify(cache, null, 2));
   log.debug('Saved embedding cache', { path: cachePath, memories: Object.keys(cache.memories).length });
 }

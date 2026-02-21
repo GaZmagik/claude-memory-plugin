@@ -5,7 +5,7 @@
  * for indexing as read-only graph nodes.
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
@@ -28,10 +28,10 @@ const VENDOR_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'vendor', 
  * Calculate content hash (SHA-256 first 16 chars) for cache invalidation
  * Returns null if file exceeds size limit (FR-024)
  */
-function calculateContentHash(filePath: string): string | null {
+async function calculateContentHash(filePath: string): Promise<string | null> {
   try {
     // FR-024: Check file size before reading to prevent event loop blocking
-    const stats = fs.statSync(filePath);
+    const stats = await fsp.stat(filePath);
     if (stats.size > MAX_EXTERNAL_FILE_SIZE) {
       console.warn(
         `Skipping large external file (${stats.size} bytes, limit ${MAX_EXTERNAL_FILE_SIZE}): ${filePath}`
@@ -39,7 +39,7 @@ function calculateContentHash(filePath: string): string | null {
       return null;
     }
 
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = await fsp.readFile(filePath, 'utf-8');
     const hash = crypto.createHash('sha256').update(content).digest('hex');
     return hash.substring(0, 16);
   } catch {
@@ -50,9 +50,9 @@ function calculateContentHash(filePath: string): string | null {
 /**
  * Get file modification time as ISO 8601 string
  */
-function getModifiedTime(filePath: string): string {
+async function getModifiedTime(filePath: string): Promise<string> {
   try {
-    const stats = fs.statSync(filePath);
+    const stats = await fsp.stat(filePath);
     return stats.mtime.toISOString();
   } catch {
     return new Date().toISOString(); // Fallback
@@ -70,9 +70,9 @@ function isVendorPath(filePath: string): boolean {
 /**
  * Resolve symlink to canonical path, handling errors gracefully
  */
-function resolveSymlink(filePath: string, visited: Set<string>): string | null {
+async function resolveSymlink(filePath: string, visited: Set<string>): Promise<string | null> {
   try {
-    const realPath = fs.realpathSync(filePath);
+    const realPath = await fsp.realpath(filePath);
 
     // Detect symlink loops
     if (visited.has(realPath)) {
@@ -240,11 +240,11 @@ function determineReminderScope(
 /**
  * Discover all rule files (CLAUDE.md, CLAUDE.local.md, rules/*.md) in known paths
  */
-export function discoverRuleFiles(options?: {
+export async function discoverRuleFiles(options?: {
   cwd?: string;
   homeDir?: string;
   gitRoot?: string;
-}): ExternalFileEntry[] {
+}): Promise<ExternalFileEntry[]> {
   const cwd = options?.cwd || process.cwd();
   const homeDir = options?.homeDir || os.homedir();
   const gitRoot = options?.gitRoot;
@@ -253,30 +253,34 @@ export function discoverRuleFiles(options?: {
   const visited = new Set<string>();
 
   // Helper to add file if valid
-  const addFile = (filePath: string, kind: ExternalFileKind) => {
-    if (!fs.existsSync(filePath)) return;
+  const addFile = async (filePath: string, kind: ExternalFileKind) => {
+    try {
+      await fsp.access(filePath);
+    } catch {
+      return;
+    }
     if (isVendorPath(filePath)) return;
 
     // Resolve symlinks
-    const realPath = resolveSymlink(filePath, visited);
+    const realPath = await resolveSymlink(filePath, visited);
     if (!realPath) return;
 
     if (visited.has(realPath)) return;
     visited.add(realPath);
 
     try {
-      const stats = fs.statSync(realPath);
+      const stats = await fsp.stat(realPath);
       if (!stats.isFile()) return;
 
       const scope = determineRuleScope(realPath, kind, gitRoot, homeDir);
       const id = generateRuleId(realPath, kind, scope, cwd, homeDir);
       const title = path.basename(realPath);
-      const contentHash = calculateContentHash(realPath);
+      const contentHash = await calculateContentHash(realPath);
 
       // Skip if file exceeds size limit (FR-024)
       if (contentHash === null) return;
 
-      const modifiedTime = getModifiedTime(realPath);
+      const modifiedTime = await getModifiedTime(realPath);
 
       results.push({
         absolutePath: realPath,
@@ -296,16 +300,16 @@ export function discoverRuleFiles(options?: {
   let current = cwd;
   do {
     // Check for CLAUDE.md in current directory
-    addFile(path.join(current, 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
+    await addFile(path.join(current, 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
 
     // Check for CLAUDE.local.md in current directory
-    addFile(path.join(current, 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
+    await addFile(path.join(current, 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
 
     // Check for .claude/CLAUDE.md
-    addFile(path.join(current, '.claude', 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
+    await addFile(path.join(current, '.claude', 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
 
     // Check for .claude/CLAUDE.local.md
-    addFile(path.join(current, '.claude', 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
+    await addFile(path.join(current, '.claude', 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
 
     // Stop if we've reached homeDir or root
     if (current === homeDir || current === path.dirname(current)) {
@@ -316,18 +320,22 @@ export function discoverRuleFiles(options?: {
   } while (true);
 
   // 2. Check home directory
-  addFile(path.join(homeDir, '.claude', 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
-  addFile(path.join(homeDir, '.claude', 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
+  await addFile(path.join(homeDir, '.claude', 'CLAUDE.md'), ExternalFileKind.ClaudeInstructions);
+  await addFile(path.join(homeDir, '.claude', 'CLAUDE.local.md'), ExternalFileKind.ClaudeLocalInstructions);
 
   // 3. Scan rules directories
-  const scanRulesDir = (rulesDir: string) => {
-    if (!fs.existsSync(rulesDir)) return;
+  const scanRulesDir = async (rulesDir: string) => {
+    try {
+      await fsp.access(rulesDir);
+    } catch {
+      return;
+    }
 
     try {
-      const entries = fs.readdirSync(rulesDir);
+      const entries = await fsp.readdir(rulesDir);
       for (const entry of entries.sort()) {
         if (entry.endsWith('.md')) {
-          addFile(path.join(rulesDir, entry), ExternalFileKind.RulesFile);
+          await addFile(path.join(rulesDir, entry), ExternalFileKind.RulesFile);
         }
       }
     } catch {
@@ -337,13 +345,13 @@ export function discoverRuleFiles(options?: {
 
   // Project rules directory
   if (gitRoot) {
-    scanRulesDir(path.join(gitRoot, '.claude', 'rules'));
+    await scanRulesDir(path.join(gitRoot, '.claude', 'rules'));
   } else {
-    scanRulesDir(path.join(cwd, '.claude', 'rules'));
+    await scanRulesDir(path.join(cwd, '.claude', 'rules'));
   }
 
   // Global rules directory
-  scanRulesDir(path.join(homeDir, '.claude', 'rules'));
+  await scanRulesDir(path.join(homeDir, '.claude', 'rules'));
 
   return results;
 }
@@ -351,10 +359,10 @@ export function discoverRuleFiles(options?: {
 /**
  * Discover all reminder files (MEMORY.md and sub-files) in agent-memory directories
  */
-export function discoverReminderFiles(options?: {
+export async function discoverReminderFiles(options?: {
   projectRoot?: string;
   homeDir?: string;
-}): ExternalFileEntry[] {
+}): Promise<ExternalFileEntry[]> {
   const projectRoot = options?.projectRoot || process.cwd();
   const homeDir = options?.homeDir || os.homedir();
 
@@ -362,11 +370,15 @@ export function discoverReminderFiles(options?: {
   const visited = new Set<string>();
 
   // Helper to scan agent directory
-  const scanAgentDir = (agentMemoryBase: string) => {
-    if (!fs.existsSync(agentMemoryBase)) return;
+  const scanAgentDir = async (agentMemoryBase: string) => {
+    try {
+      await fsp.access(agentMemoryBase);
+    } catch {
+      return;
+    }
 
     try {
-      const agentDirs = fs.readdirSync(agentMemoryBase).sort();
+      const agentDirs = (await fsp.readdir(agentMemoryBase)).sort();
 
       for (const rawAgentName of agentDirs) {
         // Sanitise agent name to prevent injection and ensure valid IDs
@@ -376,11 +388,11 @@ export function discoverReminderFiles(options?: {
         const agentDir = path.join(agentMemoryBase, rawAgentName);
 
         try {
-          const stats = fs.statSync(agentDir);
+          const stats = await fsp.stat(agentDir);
           if (!stats.isDirectory()) continue;
 
           // Scan all .md files in agent directory
-          const files = fs.readdirSync(agentDir).sort();
+          const files = (await fsp.readdir(agentDir)).sort();
 
           for (const file of files) {
             if (!file.endsWith('.md')) continue;
@@ -388,14 +400,14 @@ export function discoverReminderFiles(options?: {
             const filePath = path.join(agentDir, file);
 
             // Resolve symlinks
-            const realPath = resolveSymlink(filePath, visited);
+            const realPath = await resolveSymlink(filePath, visited);
             if (!realPath) continue;
 
             if (visited.has(realPath)) continue;
             visited.add(realPath);
 
             try {
-              const fileStats = fs.statSync(realPath);
+              const fileStats = await fsp.stat(realPath);
               if (!fileStats.isFile()) continue;
 
               const isMemoryMd = file === 'MEMORY.md';
@@ -406,12 +418,12 @@ export function discoverReminderFiles(options?: {
               const scope = determineReminderScope(realPath, projectRoot, homeDir);
               const id = generateReminderId(realPath, kind, scope, agentName);
               const title = isMemoryMd ? `${agentName} Agent Memory` : file;
-              const contentHash = calculateContentHash(realPath);
+              const contentHash = await calculateContentHash(realPath);
 
               // Skip if file exceeds size limit (FR-024)
               if (contentHash === null) continue;
 
-              const modifiedTime = getModifiedTime(realPath);
+              const modifiedTime = await getModifiedTime(realPath);
 
               results.push({
                 absolutePath: realPath,
@@ -437,11 +449,11 @@ export function discoverReminderFiles(options?: {
   };
 
   // Scan project agent-memory directories
-  scanAgentDir(path.join(projectRoot, '.claude', 'agent-memory'));
-  scanAgentDir(path.join(projectRoot, '.claude', 'agent-memory-local'));
+  await scanAgentDir(path.join(projectRoot, '.claude', 'agent-memory'));
+  await scanAgentDir(path.join(projectRoot, '.claude', 'agent-memory-local'));
 
   // Scan global agent-memory directory
-  scanAgentDir(path.join(homeDir, '.claude', 'agent-memory'));
+  await scanAgentDir(path.join(homeDir, '.claude', 'agent-memory'));
 
   return results;
 }
@@ -449,19 +461,19 @@ export function discoverReminderFiles(options?: {
 /**
  * Discover all external files (rules + reminders) in one operation
  */
-export function discoverExternalFiles(options?: {
+export async function discoverExternalFiles(options?: {
   cwd?: string;
   homeDir?: string;
   gitRoot?: string;
   projectRoot?: string;
-}): ExternalFileEntry[] {
-  const rules = discoverRuleFiles({
+}): Promise<ExternalFileEntry[]> {
+  const rules = await discoverRuleFiles({
     cwd: options?.cwd,
     homeDir: options?.homeDir,
     gitRoot: options?.gitRoot,
   });
 
-  const reminders = discoverReminderFiles({
+  const reminders = await discoverReminderFiles({
     projectRoot: options?.projectRoot,
     homeDir: options?.homeDir,
   });

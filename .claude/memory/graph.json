@@ -4160,6 +4160,54 @@
       "type": "learning",
       "title": "Cross-scope linking requires targetScope flag parsing in CLI commands",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "type": "gotcha",
+      "title": "Feature 005: Synchronous file I/O blocks event loop in external discovery",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-feature-005-518-tests-failing-on-feature-branch",
+      "type": "gotcha",
+      "title": "Feature 005: 518 tests failing on feature branch",
+      "scope": "project"
+    },
+    {
+      "id": "learning-feature-005-pervasive-as-any-casts-bypass-typescript-type-safety",
+      "type": "learning",
+      "title": "Feature 005: Pervasive 'as any' casts bypass TypeScript type safety",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-feature-005-readme-documents-incorrect-reminder-node-shape",
+      "type": "gotcha",
+      "title": "Feature 005: README documents incorrect Reminder node shape",
+      "scope": "project"
+    },
+    {
+      "id": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "type": "learning",
+      "title": "Async file I/O blocks event loop - external discovery needed conversion",
+      "scope": "project"
+    },
+    {
+      "id": "learning-type-safety-as-any-casts-hide-real-type-guard-opportunities",
+      "type": "learning",
+      "title": "Type safety: as any casts hide real type guard opportunities",
+      "scope": "project"
+    },
+    {
+      "id": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "type": "learning",
+      "title": "Embedding generation needs concurrency limiting for Ollama stability",
+      "scope": "project"
+    },
+    {
+      "id": "learning-security-mermaid-output-paths-need-boundary-validation",
+      "type": "learning",
+      "title": "Security: Mermaid output paths need boundary validation",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -16316,6 +16364,138 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7014251504607281,
       "verifiedRelation": "Reordering"
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "decision-colocate-unit-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6811350656833612
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-typescript-tdd-hook-naming-enforcement",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6693721795516099
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6572598748985025
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "artifact-tdd-stub-pattern-for-hooks",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.653159393307554
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6508803039659918
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6461128975473057
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6301572091903331
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6289442393398164
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6237058331286407
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6174888578560513
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6152098312861262
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "retro-test-quality-audit-2026-01-13",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6151552245910332
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6147568831503083
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.612860429841147
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-retro-typescript-tooling-parity",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6128504519093384
+    },
+    {
+      "source": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "target": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6115383172374825
+    },
+    {
+      "source": "learning-typescript-overload-detection-bias-tests",
+      "target": "retro-duplicate-test-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.609489203842727
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.609054688585158
+    },
+    {
+      "source": "learning-scope-isolation-architecture-design",
+      "target": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6087740927815389
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6083530582924183
+    },
+    {
+      "source": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "target": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7765933319525041
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7765933319525041
     }
   ]
 }

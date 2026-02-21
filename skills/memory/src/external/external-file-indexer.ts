@@ -7,7 +7,7 @@
 import type { ExternalFileEntry } from './external-file-types.js';
 import { discoverExternalFiles } from './external-file-discovery.js';
 import type { MemoryGraph, MemoryIndex, GraphNode, IndexEntry } from '../types/memory.js';
-import { MemoryType } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import {
   loadEmbeddingCache,
@@ -83,11 +83,27 @@ export interface IndexExternalFilesResponse {
   errors?: string[];
 }
 
+/**
+ * External graph nodes have guaranteed non-optional fields
+ */
+interface ExternalGraphNode extends GraphNode {
+  title: string;
+  scope: Scope;
+  agent?: string;
+  type: MemoryType.Rule | MemoryType.Reminder;
+}
+
+/**
+ * Type guard for external nodes
+ */
+function isExternalNode(node: GraphNode): node is ExternalGraphNode {
+  return node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
+}
 
 /**
  * Create GraphNode from ExternalFileEntry
  */
-function createGraphNode(entry: ExternalFileEntry): GraphNode {
+function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
   const type = entry.id.startsWith('rule-') ? MemoryType.Rule : MemoryType.Reminder;
 
   return {
@@ -96,7 +112,7 @@ function createGraphNode(entry: ExternalFileEntry): GraphNode {
     title: entry.title,
     scope: entry.scope,
     agent: entry.agentName,
-  } as any;
+  };
 }
 
 /**
@@ -120,12 +136,6 @@ function createIndexEntry(entry: ExternalFileEntry): IndexEntry {
   };
 }
 
-/**
- * Check if node is an external node (rule or reminder)
- */
-function isExternalNode(node: GraphNode): boolean {
-  return (node as any).type === MemoryType.Rule || (node as any).type === MemoryType.Reminder;
-}
 
 /**
  * Index discovered external files into graph, index, and embeddings
@@ -153,7 +163,7 @@ export async function indexExternalFiles(
 
   try {
     // 1. Discover external files (if not provided)
-    const externalFiles = providedFiles || discoverExternalFiles();
+    const externalFiles = providedFiles || await discoverExternalFiles();
 
     // 2. Load existing embedding cache
     const embeddingCache = await loadEmbeddingCache(embeddingsPath);
@@ -227,27 +237,34 @@ export async function indexExternalFiles(
       }
     }
 
-    // 4b. Generate all embeddings in parallel (performance optimization)
+    // 4b. Generate embeddings in batches to avoid overwhelming Ollama
     if (!dryRun && filesToEmbed.length > 0 && embeddingProvider) {
       try {
-        const embeddingPromises = filesToEmbed.map(async ({ nodeId, absolutePath, hash }) => {
-          try {
-            const fileContent = await readFile(absolutePath);
-            const truncatedContent = truncateForEmbedding(fileContent);
-            const embedding = await embeddingProvider!.getEmbedding(truncatedContent);
-            return {
-              nodeId,
-              embedding,
-              hash,
-              timestamp: new Date().toISOString(),
-            };
-          } catch (error) {
-            errors.push(`Failed to generate embedding for ${nodeId}: ${error}`);
-            return null;
-          }
-        });
+        const CONCURRENT_EMBEDDINGS = 10;
+        const embeddingResults: Array<{ nodeId: string; embedding: number[]; hash: string; timestamp: string } | null> = [];
 
-        const embeddingResults = await Promise.all(embeddingPromises);
+        // Process embeddings in batches of 10
+        for (let i = 0; i < filesToEmbed.length; i += CONCURRENT_EMBEDDINGS) {
+          const batch = filesToEmbed.slice(i, i + CONCURRENT_EMBEDDINGS);
+          const batchPromises = batch.map(async ({ nodeId, absolutePath, hash }) => {
+            try {
+              const fileContent = await readFile(absolutePath);
+              const truncatedContent = truncateForEmbedding(fileContent);
+              const embedding = await embeddingProvider!.getEmbedding(truncatedContent);
+              return {
+                nodeId,
+                embedding,
+                hash,
+                timestamp: new Date().toISOString(),
+              };
+            } catch (error) {
+              errors.push(`Failed to generate embedding for ${nodeId}: ${error}`);
+              return null;
+            }
+          });
+          const batchResults = await Promise.all(batchPromises);
+          embeddingResults.push(...batchResults);
+        }
 
         // Store successful embeddings
         for (const result of embeddingResults) {
@@ -297,10 +314,10 @@ export async function indexExternalFiles(
       : graph.nodes.filter(isExternalNode);
 
     const ruleNodes = externalNodes.filter(n =>
-      (n as any).type === MemoryType.Rule || (n as any).id?.startsWith('rule-')
+      (n.id as string).startsWith('rule-')
     );
     const reminderNodes = externalNodes.filter(n =>
-      (n as any).type === MemoryType.Reminder || (n as any).id?.startsWith('reminder-')
+      (n.id as string).startsWith('reminder-')
     );
 
     // 7. Save embedding cache (unless dry run)

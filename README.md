@@ -225,7 +225,7 @@ The memory system now automatically discovers and indexes external Claude config
 | Type | ID Format | Mermaid Shape | Purpose |
 |------|-----------|---------------|---------|
 | **Rule** | `rule-project-claude-md-root` | Hexagon `{{}}` | Project rules and guidelines from CLAUDE.md |
-| **Reminder** | `reminder-project-{agent}-memory` | Subroutine `[[]]` | Agent memory summaries and knowledge |
+| **Reminder** | `reminder-project-{agent}-memory` | Cylinder `[( )]` | Agent memory summaries and knowledge |
 
 **New Edge Types**:
 

@@ -58,7 +58,7 @@ describe('External File Integration Tests', () => {
     fs.writeFileSync(path.join(rulesDir, 'tdd.md'), '# TDD rules');
 
     // Phase 1: Discovery
-    const discoveredRules = discoverRuleFiles({
+    const discoveredRules = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -110,7 +110,7 @@ describe('External File Integration Tests', () => {
     fs.writeFileSync(patternsPath, '# Code patterns');
 
     // Phase 1: Discovery
-    const discoveredReminders = discoverReminderFiles({
+    const discoveredReminders = await discoverReminderFiles({
       projectRoot: tempDir,
       homeDir: tempDir,
     });
@@ -158,7 +158,7 @@ describe('External File Integration Tests', () => {
     fs.writeFileSync(claudePath, '# Project rules\nAlways use TDD');
 
     // Discover and index the rule
-    const discoveredRules = discoverRuleFiles({
+    const discoveredRules = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -218,7 +218,7 @@ describe('External File Integration Tests', () => {
     const claudePath = path.join(tempDir, 'CLAUDE.md');
     fs.writeFileSync(claudePath, '# Rules');
 
-    const discoveredRules = discoverRuleFiles({
+    const discoveredRules = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -261,7 +261,7 @@ describe('External File Integration Tests', () => {
     fs.writeFileSync(claudePath, '# Version 1\nOriginal content');
 
     // Initial discovery and indexing
-    const discoveredRules1 = discoverRuleFiles({
+    const discoveredRules1 = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -283,7 +283,7 @@ describe('External File Integration Tests', () => {
     fs.writeFileSync(claudePath, '# Version 2\nUpdated content');
 
     // Re-discover and re-index
-    const discoveredRules2 = discoverRuleFiles({
+    const discoveredRules2 = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,

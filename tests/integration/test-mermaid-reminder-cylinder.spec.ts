@@ -1,8 +1,8 @@
 /**
- * T146: Integration test for Mermaid rendering reminder nodes as subroutines
+ * T146: Integration test for Mermaid rendering reminder nodes as cylinders
  *
- * Verifies that reminder nodes are rendered with subroutine shapes [[node]] in
- * Mermaid diagrams (double square brackets).
+ * Verifies that reminder nodes are rendered with cylinder shapes [(node)] in
+ * Mermaid diagrams.
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -13,7 +13,7 @@ import { syncMemories } from '../../skills/memory/src/maintenance/sync.js';
 import { generateMermaid } from '../../skills/memory/src/graph/mermaid.js';
 import { loadGraph } from '../../skills/memory/src/graph/structure.js';
 
-describe('T146: Mermaid renders reminder nodes as subroutines', () => {
+describe('T146: Mermaid renders reminder nodes as cylinders', () => {
   let tempDir: string;
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  it('should render agent MEMORY.md reminder node with subroutine shape', async () => {
+  it('should render agent MEMORY.md reminder node with cylinder shape', async () => {
     // Create and index agent MEMORY.md
     const agentDir = path.join(tempDir, '.claude', 'agent-memory', 'test-agent');
     fs.mkdirSync(agentDir, { recursive: true });
@@ -36,12 +36,12 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     const graph = await loadGraph(tempDir);
     const mermaid = generateMermaid(graph);
 
-    // Verify subroutine syntax [[node)] for reminder node
-    expect(mermaid).toContain('reminder-project-test-agent-memory[[');
-    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\[.*\]\]/);
+    // Verify cylinder syntax [(node)] for reminder node
+    expect(mermaid).toContain('reminder-project-test-agent-memory[(');
+    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\(.*\)\]/);
   });
 
-  it('should render agent sub-file reminder node with subroutine shape', async () => {
+  it('should render agent sub-file reminder node with cylinder shape', async () => {
     // Create agent sub-file
     const agentDir = path.join(tempDir, '.claude', 'agent-memory', 'typescript-expert');
     fs.mkdirSync(agentDir, { recursive: true });
@@ -53,12 +53,12 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     const graph = await loadGraph(tempDir);
     const mermaid = generateMermaid(graph);
 
-    // Verify subroutine shape for agent sub-file
-    expect(mermaid).toContain('reminder-project-typescript-expert-patterns[[');
-    expect(mermaid).toMatch(/reminder-project-typescript-expert-patterns\[\[.*\]\]/);
+    // Verify cylinder shape for agent sub-file
+    expect(mermaid).toContain('reminder-project-typescript-expert-patterns[(');
+    expect(mermaid).toMatch(/reminder-project-typescript-expert-patterns\[\(.*\)\]/);
   });
 
-  it('should render multiple reminder nodes with subroutine shapes', async () => {
+  it('should render multiple reminder nodes with cylinder shapes', async () => {
     // Create multiple reminders
     const agents = ['agent-a', 'agent-b', 'agent-c'];
 
@@ -74,14 +74,14 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     const graph = await loadGraph(tempDir);
     const mermaid = generateMermaid(graph);
 
-    // Verify all reminder nodes use subroutines
-    expect(mermaid).toMatch(/reminder-project-agent-a-memory\[\[.*\]\]/);
-    expect(mermaid).toMatch(/reminder-project-agent-b-memory\[\[.*\]\]/);
-    expect(mermaid).toMatch(/reminder-project-agent-c-memory\[\[.*\]\]/);
+    // Verify all reminder nodes use cylinders
+    expect(mermaid).toMatch(/reminder-project-agent-a-memory\[\(.*\)\]/);
+    expect(mermaid).toMatch(/reminder-project-agent-b-memory\[\(.*\)\]/);
+    expect(mermaid).toMatch(/reminder-project-agent-c-memory\[\(.*\)\]/);
 
-    // Count subroutine shapes - should be at least 3
-    const subroutineCount = (mermaid.match(/\[\[.*?\]\]/g) || []).length;
-    expect(subroutineCount).toBeGreaterThanOrEqual(3);
+    // Count cylinder shapes - should be at least 3
+    const cylinderCount = (mermaid.match(/\[\(.*?\)\]/g) || []).length;
+    expect(cylinderCount).toBeGreaterThanOrEqual(3);
   });
 
   it('should apply reminder-specific styling to reminder nodes', async () => {
@@ -96,8 +96,8 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     const graph = await loadGraph(tempDir);
     const mermaid = generateMermaid(graph);
 
-    // Reminder node should use subroutine [[)]
-    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\[.*\]\]/);
+    // Reminder node should use cylinder [()]
+    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\(.*\)\]/);
 
     // Should have reminder class definition
     expect(mermaid).toContain('classDef reminder');
@@ -124,8 +124,8 @@ describe('T146: Mermaid renders reminder nodes as subroutines', () => {
     // Rule should use hexagon {{}}
     expect(mermaid).toMatch(/rule-project-claude-md-root\{\{.*\}\}/);
 
-    // Reminder should use subroutine [[)]
-    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\[.*\]\]/);
+    // Reminder should use cylinder [()]
+    expect(mermaid).toMatch(/reminder-project-test-agent-memory\[\(.*\)\]/);
 
     // Should have both class definitions
     expect(mermaid).toContain('classDef rule');

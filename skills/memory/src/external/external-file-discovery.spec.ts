@@ -28,11 +28,11 @@ describe('discoverRuleFiles', () => {
   });
 
   // T035: Unit test for discoverRuleFiles finding CLAUDE.md in project root
-  it('should find CLAUDE.md in project root', () => {
+  it('should find CLAUDE.md in project root', async () => {
     const claudePath = path.join(tempDir, 'CLAUDE.md');
     fs.writeFileSync(claudePath, '# Project instructions');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     expect(results).toHaveLength(1);
     expect(results[0]?.kind).toBe(ExternalFileKind.ClaudeInstructions);
@@ -41,11 +41,11 @@ describe('discoverRuleFiles', () => {
   });
 
   // T036: Unit test for discoverRuleFiles finding CLAUDE.local.md
-  it('should find CLAUDE.local.md in project root', () => {
+  it('should find CLAUDE.local.md in project root', async () => {
     const claudeLocalPath = path.join(tempDir, 'CLAUDE.local.md');
     fs.writeFileSync(claudeLocalPath, '# Local instructions');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     expect(results).toHaveLength(1);
     expect(results[0]!.kind).toBe(ExternalFileKind.ClaudeLocalInstructions);
@@ -54,7 +54,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T037: Unit test for discoverRuleFiles finding rules directory files
-  it('should find files in .claude/rules/ directory', () => {
+  it('should find files in .claude/rules/ directory', async () => {
     const rulesDir = path.join(tempDir, '.claude', 'rules');
     fs.mkdirSync(rulesDir, { recursive: true });
 
@@ -63,7 +63,7 @@ describe('discoverRuleFiles', () => {
     fs.writeFileSync(securityPath, '# Security rules');
     fs.writeFileSync(tddPath, '# TDD rules');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
 
     const rulesFiles = results.filter(r => r.kind === ExternalFileKind.RulesFile);
     expect(rulesFiles).toHaveLength(2);
@@ -72,7 +72,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T038: Unit test for discoverRuleFiles walking ancestor directories
-  it('should walk ancestor directories to find CLAUDE.md files', () => {
+  it('should walk ancestor directories to find CLAUDE.md files', async () => {
     // Create nested structure: tempDir/parent/child/grandchild
     const parentDir = path.join(tempDir, 'parent');
     const childDir = path.join(parentDir, 'child');
@@ -84,7 +84,7 @@ describe('discoverRuleFiles', () => {
     fs.writeFileSync(parentClaudePath, '# Parent instructions');
 
     // Run discovery from grandchild directory
-    const results = discoverRuleFiles({ cwd: grandchildDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: grandchildDir, homeDir: tempDir });
 
     const ancestorFiles = results.filter(r =>
       r.kind === ExternalFileKind.ClaudeInstructions &&
@@ -95,7 +95,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T039: Unit test for discoverRuleFiles excluding vendor directories
-  it('should exclude vendor directories (node_modules, .git, dist, build, vendor)', () => {
+  it('should exclude vendor directories (node_modules, .git, dist, build, vendor)', async () => {
     // Create vendor directories
     const nodeModulesDir = path.join(tempDir, 'node_modules', '.claude');
     const gitDir = path.join(tempDir, '.git', '.claude');
@@ -113,7 +113,7 @@ describe('discoverRuleFiles', () => {
     // Place valid CLAUDE.md in root
     fs.writeFileSync(path.join(tempDir, 'CLAUDE.md'), '# Valid');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     // Should only find the root CLAUDE.md, not the ones in vendor directories
     expect(results).toHaveLength(1);
@@ -121,14 +121,14 @@ describe('discoverRuleFiles', () => {
   });
 
   // T040: Unit test for discoverRuleFiles resolving symlinks to canonical paths
-  it('should resolve symlinks to canonical paths', () => {
+  it('should resolve symlinks to canonical paths', async () => {
     const realFile = path.join(tempDir, 'real-CLAUDE.md');
     const symlinkFile = path.join(tempDir, 'CLAUDE.md');
 
     fs.writeFileSync(realFile, '# Real file');
     fs.symlinkSync(realFile, symlinkFile);
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     // Should resolve to canonical path
     expect(results).toHaveLength(1);
@@ -136,7 +136,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T040A: Unit test for discoverRuleFiles handling symlink loops without infinite recursion
-  it('should handle symlink loops without infinite recursion', () => {
+  it('should handle symlink loops without infinite recursion', async () => {
     const dirA = path.join(tempDir, 'dirA');
     const dirB = path.join(tempDir, 'dirB');
 
@@ -151,7 +151,7 @@ describe('discoverRuleFiles', () => {
       fs.writeFileSync(path.join(dirA, 'CLAUDE.md'), '# Instructions');
 
       // Should not hang or throw
-      const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+      const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
       expect(results.length).toBeGreaterThanOrEqual(0);
     } catch (err) {
       // Symlink creation might fail on some systems, skip test
@@ -160,7 +160,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T040B: Unit test for discoverRuleFiles handling broken symlinks gracefully
-  it('should handle broken symlinks gracefully', () => {
+  it('should handle broken symlinks gracefully', async () => {
     const brokenLink = path.join(tempDir, 'CLAUDE.md');
 
     // Create symlink to non-existent target
@@ -168,7 +168,7 @@ describe('discoverRuleFiles', () => {
       fs.symlinkSync('/non/existent/path', brokenLink);
 
       // Should not throw, just skip broken symlink
-      const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+      const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
       expect(results).toHaveLength(0);
     } catch (err) {
       // Symlink creation might fail on some systems, skip test
@@ -177,7 +177,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // T041: Unit test for deterministic rule ID generation
-  it('should generate deterministic IDs for rule files', () => {
+  it('should generate deterministic IDs for rule files', async () => {
     const claudePath = path.join(tempDir, 'CLAUDE.md');
     const dotClaudePath = path.join(tempDir, '.claude', 'CLAUDE.md');
 
@@ -185,7 +185,7 @@ describe('discoverRuleFiles', () => {
     fs.mkdirSync(path.join(tempDir, '.claude'));
     fs.writeFileSync(dotClaudePath, '# Dot claude');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
 
     // Should have distinct IDs with suffixes
     expect(results).toHaveLength(2);
@@ -196,24 +196,24 @@ describe('discoverRuleFiles', () => {
   });
 
   // T042: Unit test for rule scope determination
-  it('should determine scope correctly (project, local, global, ancestor)', () => {
+  it('should determine scope correctly (project, local, global, ancestor)', async () => {
     // Project scope: in gitRoot
     const projectPath = path.join(tempDir, 'CLAUDE.md');
     fs.writeFileSync(projectPath, '# Project');
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
 
     const projectFile = results.find(r => r.absolutePath === projectPath);
     expect(projectFile?.scope).toBe(Scope.Project);
   });
 
-  it('should return empty array when no rule files found', () => {
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+  it('should return empty array when no rule files found', async () => {
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
     expect(results).toEqual([]);
   });
 
   // M4: Test FR-024 file size limit (1MB max)
-  it('should skip files larger than 1MB and log warning', () => {
+  it('should skip files larger than 1MB and log warning', async () => {
     const largePath = path.join(tempDir, 'CLAUDE.md');
 
     // Create a file larger than 1MB (1,048,576 bytes)
@@ -223,7 +223,7 @@ describe('discoverRuleFiles', () => {
     // Spy on console.warn to verify warning is logged
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
-    const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+    const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
     // Should skip the large file
     expect(results).toHaveLength(0);
@@ -237,7 +237,7 @@ describe('discoverRuleFiles', () => {
   });
 
   // M4: Test permission error handling
-  it('should handle permission errors gracefully', () => {
+  it('should handle permission errors gracefully', async () => {
     const restrictedPath = path.join(tempDir, 'restricted.md');
     fs.writeFileSync(restrictedPath, '# Restricted');
 
@@ -246,7 +246,7 @@ describe('discoverRuleFiles', () => {
       fs.chmodSync(restrictedPath, 0o000);
 
       // Should not throw, just skip unreadable file with fallback hash
-      const results = discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
+      const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir });
 
       // Verify it handles the error gracefully (may or may not include the file)
       expect(results).toBeDefined();
@@ -273,14 +273,14 @@ describe('discoverReminderFiles', () => {
   });
 
   // T043: Unit test for discoverReminderFiles finding MEMORY.md in agent directories
-  it('should find MEMORY.md in agent directories', () => {
+  it('should find MEMORY.md in agent directories', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
     const memoryPath = path.join(agentMemoryDir, 'MEMORY.md');
     fs.writeFileSync(memoryPath, '# Curator memory');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     expect(results).toHaveLength(1);
     expect(results[0]!.kind).toBe(ExternalFileKind.AgentMemorySummary);
@@ -289,7 +289,7 @@ describe('discoverReminderFiles', () => {
   });
 
   // T044: Unit test for discoverReminderFiles finding sub-files in agent directories
-  it('should find sub-files in agent directories', () => {
+  it('should find sub-files in agent directories', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
@@ -298,7 +298,7 @@ describe('discoverReminderFiles', () => {
     fs.writeFileSync(patternsPath, '# Patterns');
     fs.writeFileSync(debuggingPath, '# Debugging');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     const subFiles = results.filter(r => r.kind === ExternalFileKind.AgentMemorySubFile);
     expect(subFiles).toHaveLength(2);
@@ -307,40 +307,40 @@ describe('discoverReminderFiles', () => {
   });
 
   // T045: Unit test for discoverReminderFiles handling missing MEMORY.md gracefully
-  it('should handle missing MEMORY.md gracefully', () => {
+  it('should handle missing MEMORY.md gracefully', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
     // Only sub-files, no MEMORY.md
     fs.writeFileSync(path.join(agentMemoryDir, 'patterns.md'), '# Patterns');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     // Should still find the sub-file
     expect(results.length).toBeGreaterThanOrEqual(1);
   });
 
   // T046: Unit test for discoverReminderFiles extracting agent name correctly
-  it('should extract agent name correctly from directory', () => {
+  it('should extract agent name correctly from directory', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'speckit-planner');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Memory');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     expect(results[0]!.agentName).toBe('speckit-planner');
   });
 
   // T047: Unit test for deterministic reminder ID generation
-  it('should generate deterministic IDs for reminder files', () => {
+  it('should generate deterministic IDs for reminder files', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Memory');
     fs.writeFileSync(path.join(agentMemoryDir, 'patterns.md'), '# Patterns');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     // IDs should follow pattern: reminder-{scope}-{agent}-{file}
     expect(results[0]!.id).toMatch(/^reminder-\w+-curator-/);
@@ -349,19 +349,19 @@ describe('discoverReminderFiles', () => {
   });
 
   // T048: Unit test for reminder scope determination
-  it('should determine scope correctly (agent-project, local, agent-global)', () => {
+  it('should determine scope correctly (agent-project, local, agent-global)', async () => {
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
 
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Memory');
 
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
 
     expect(results[0]!.scope).toBe(Scope.AgentProject);
   });
 
-  it('should return empty array when no reminder files found', () => {
-    const results = discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+  it('should return empty array when no reminder files found', async () => {
+    const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
     expect(results).toEqual([]);
   });
 });
@@ -378,7 +378,7 @@ describe('discoverExternalFiles', () => {
   });
 
   // T049: Unit test for discoverExternalFiles combining rules and reminders
-  it('should combine rule and reminder discovery', () => {
+  it('should combine rule and reminder discovery', async () => {
     // Create rule file
     fs.writeFileSync(path.join(tempDir, 'CLAUDE.md'), '# Rules');
 
@@ -387,7 +387,7 @@ describe('discoverExternalFiles', () => {
     fs.mkdirSync(agentMemoryDir, { recursive: true });
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Memory');
 
-    const results = discoverExternalFiles({
+    const results = await discoverExternalFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
@@ -402,14 +402,14 @@ describe('discoverExternalFiles', () => {
     expect(results).toHaveLength(2);
   });
 
-  it('should return rules first, then reminders', () => {
+  it('should return rules first, then reminders', async () => {
     fs.writeFileSync(path.join(tempDir, 'CLAUDE.md'), '# Rules');
 
     const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
     fs.mkdirSync(agentMemoryDir, { recursive: true });
     fs.writeFileSync(path.join(agentMemoryDir, 'MEMORY.md'), '# Memory');
 
-    const results = discoverExternalFiles({
+    const results = await discoverExternalFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,

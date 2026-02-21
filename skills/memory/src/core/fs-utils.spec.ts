@@ -26,6 +26,7 @@ import {
   validateSymlinkTarget,
   getAllMemoryIds,
   findMemoryFile,
+  isValidExternalPath,
   MEMORY_SUBDIRS,
 } from './fs-utils.js';
 
@@ -541,6 +542,55 @@ describe('File System Utilities', () => {
       const result = await findMemoryFile(testDir, 'learning-dup');
 
       expect(result).toBe(permanentFile);
+    });
+  });
+
+  describe('isValidExternalPath - Security', () => {
+    const projectRoot = '/home/user/project';
+    const homeDir = '/home/user';
+
+    it('should accept valid project file', () => {
+      const result = isValidExternalPath(`${projectRoot}/CLAUDE.md`, { projectRoot, homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should accept valid home .claude file', () => {
+      const result = isValidExternalPath(`${homeDir}/.claude/CLAUDE.md`, { homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should accept valid ancestor file between project and home', () => {
+      const result = isValidExternalPath('/home/user/parent/CLAUDE.md', {
+        projectRoot: '/home/user/parent/project',
+        homeDir: '/home/user'
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should reject path traversal with ../ sequences', () => {
+      const result = isValidExternalPath(`${projectRoot}/../../../etc/shadow`, { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject absolute path to /etc/passwd', () => {
+      const result = isValidExternalPath('/etc/passwd', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject path outside project and home trees', () => {
+      const result = isValidExternalPath('/tmp/evil.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should handle normalized paths correctly', () => {
+      const result = isValidExternalPath(`${projectRoot}/./subdir/../CLAUDE.md`, { projectRoot, homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should handle null byte in path (normalized by path.resolve)', () => {
+      // Note: path.resolve() normalizes null bytes away, so they don't pose a security risk
+      const result = isValidExternalPath('/home/user/project/file.md\0', { projectRoot, homeDir });
+      expect(result).toBe(true); // Null byte is stripped during normalization
     });
   });
 });

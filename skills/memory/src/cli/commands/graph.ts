@@ -15,6 +15,7 @@ import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/s
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, scopeToIdentifier } from '../helpers.js';
+import { isInsideDir, writeFileAtomic } from '../../core/fs-utils.js';
 
 /**
  * link - Create a relationship between memories
@@ -325,13 +326,14 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
         ? (outputPath.endsWith('.md') ? outputPath : `${outputPath}.md`)
         : path.join(basePath, 'graph.md');
 
-      // Write to file (ensure directory exists)
-      const fs = await import('node:fs');
-      const outputDir = path.dirname(finalPath);
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
+      // Validate output path is within basePath (security: prevent arbitrary file writes)
+      const normalizedOutput = path.resolve(finalPath);
+      if (!isInsideDir(basePath, normalizedOutput)) {
+        throw new Error(`Output path must be within memory directory: ${basePath}`);
       }
-      fs.writeFileSync(finalPath, markdownOutput);
+
+      // Write to file atomically (writeFileAtomic handles directory creation)
+      await writeFileAtomic(finalPath, markdownOutput);
 
       return {
         diagram: markdownOutput,

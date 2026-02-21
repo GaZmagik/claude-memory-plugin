@@ -210,7 +210,9 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
       const tagMatch = entry.tags.some(t => t.toLowerCase().includes(queryLower));
 
       // Read content only if title/tags didn't match (avoid unnecessary I/O)
-      const filePath = path.join(basePath, entry.relativePath);
+      const filePath = entry.externalPath
+        ? entry.externalPath
+        : path.join(basePath, entry.relativePath);
       let content = '';
       let contentMatch = false;
 

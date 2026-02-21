@@ -150,7 +150,8 @@ describe('indexExternalFiles', () => {
   // T053: Unit test for indexExternalFiles generating embedding via provider
   it('should generate embedding when provider is available', async () => {
     const mockProvider = {
-      getEmbedding: async () => [0.1, 0.2, 0.3],
+      name: 'mock-provider',
+      generate: async () => [0.1, 0.2, 0.3],
     };
 
     const ruleFile: ExternalFileEntry = {
@@ -198,7 +199,7 @@ describe('indexExternalFiles', () => {
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
-      embeddingProvider: { getEmbedding: async () => [0.1, 0.2, 0.3] } as any,
+      embeddingProvider: { name: 'mock', generate: async () => [0.1, 0.2, 0.3] },
       externalFiles: [ruleFile],
       dryRun: false,
     };
@@ -212,7 +213,7 @@ describe('indexExternalFiles', () => {
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
-      embeddingProvider: { getEmbedding: async () => [0.1, 0.2, 0.3] } as any,
+      embeddingProvider: { name: 'mock', generate: async () => [0.1, 0.2, 0.3] },
       externalFiles: [ruleFile],
       dryRun: false,
     };
@@ -240,7 +241,7 @@ describe('indexExternalFiles', () => {
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
-      embeddingProvider: { getEmbedding: async () => [0.1, 0.2, 0.3] } as any,
+      embeddingProvider: { name: 'mock', generate: async () => [0.1, 0.2, 0.3] },
       externalFiles: [ruleFile1],
       dryRun: false,
     };
@@ -258,7 +259,7 @@ describe('indexExternalFiles', () => {
       graph: baseGraph,
       index: baseIndex,
       embeddingsPath,
-      embeddingProvider: { getEmbedding: async () => [0.4, 0.5, 0.6] } as any,
+      embeddingProvider: { name: 'mock', generate: async () => [0.4, 0.5, 0.6] },
       externalFiles: [ruleFile2],
       dryRun: false,
     };
@@ -441,7 +442,8 @@ describe('indexExternalFiles', () => {
 
     let embeddingInput: string | undefined;
     const mockProvider = {
-      getEmbedding: async (text: string) => {
+      name: 'mock-provider',
+      generate: async (text: string) => {
         embeddingInput = text;
         return [0.1, 0.2, 0.3];
       },
@@ -473,5 +475,302 @@ describe('indexExternalFiles', () => {
     expect(embeddingInput).toBeDefined();
     expect(embeddingInput!.length).toBeLessThan(largeContent.length);
     expect(embeddingInput!.length).toBeLessThanOrEqual(6010); // Allow word boundary buffer
+  });
+
+  // B2: Embedding batch processing tests
+  describe('Embedding Batch Processing', () => {
+    it('should process exactly 10 files in one batch', async () => {
+      let callCount = 0;
+
+      const trackingProvider = {
+        name: 'tracking-provider',
+        generate: async (_text: string) => {
+          callCount++;
+          return [0.1, 0.2, 0.3];
+        },
+      };
+
+      // Create 10 files
+      const files: ExternalFileEntry[] = Array.from({ length: 10 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('test content');
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: trackingProvider,
+        dryRun: false,
+      });
+
+      // Should call generate 10 times (all in one batch since batch size is 10)
+      expect(callCount).toBe(10);
+    });
+
+    it('should split 25 files into 3 batches (10, 10, 5)', async () => {
+      let currentBatchCalls = 0;
+
+      const trackingProvider = {
+        name: 'tracking-provider',
+        generate: async (_text: string) => {
+          currentBatchCalls++;
+          // Simulate some delay to make batches more distinct
+          await new Promise(resolve => setTimeout(resolve, 1));
+          return [0.1, 0.2, 0.3];
+        },
+      };
+
+      // Create 25 files
+      const files: ExternalFileEntry[] = Array.from({ length: 25 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('test content');
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: trackingProvider,
+        dryRun: false,
+      });
+
+      // Should process all 25 files (in 3 batches: 10, 10, 5)
+      expect(currentBatchCalls).toBe(25);
+    });
+
+    it('should process 11 files in 2 batches (10, 1)', async () => {
+      let callCount = 0;
+
+      const trackingProvider = {
+        name: 'tracking-provider',
+        generate: async (_text: string) => {
+          callCount++;
+          return [0.1, 0.2, 0.3];
+        },
+      };
+
+      // Create 11 files (edge case: just over batch size)
+      const files: ExternalFileEntry[] = Array.from({ length: 11 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('test content');
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: trackingProvider,
+        dryRun: false,
+      });
+
+      // Should process all 11 files in 2 batches
+      expect(callCount).toBe(11);
+    });
+
+    it('should handle embedding provider failure in mid-batch', async () => {
+      let callCount = 0;
+
+      const failingProvider = {
+        name: 'failing-provider',
+        generate: async (_text: string) => {
+          callCount++;
+          if (callCount === 5) {
+            throw new Error('Simulated embedding failure');
+          }
+          return [0.1, 0.2, 0.3];
+        },
+      };
+
+      // Create 10 files
+      const files: ExternalFileEntry[] = Array.from({ length: 10 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('test content');
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      const response = await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: failingProvider,
+        dryRun: false,
+      });
+
+      // Should continue processing despite one failure
+      expect(callCount).toBe(10);
+      expect(response.changes.embeddingsGenerated).toBe(9); // 9 successful, 1 failed
+      expect(response.errors).toBeDefined();
+      expect(response.errors!.length).toBeGreaterThan(0);
+    });
+
+    it('should store successful embeddings even when some files fail', async () => {
+      const partialFailProvider = {
+        name: 'partial-fail-provider',
+        generate: async (text: string) => {
+          // Simulate failure for specific files
+          if (text.includes('fail-me')) {
+            throw new Error('Intentional failure');
+          }
+          return [0.4, 0.5, 0.6];
+        },
+      };
+
+      const files: ExternalFileEntry[] = Array.from({ length: 10 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockImplementation(async (path: string) => {
+        if (path.includes('file-3') || path.includes('file-7')) {
+          return 'fail-me';
+        }
+        return 'success content';
+      });
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      const response = await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: partialFailProvider,
+        dryRun: false,
+      });
+
+      // Should have some successful embeddings despite failures
+      expect(response.changes.embeddingsGenerated).toBeGreaterThan(0);
+      expect(response.changes.embeddingsGenerated).toBeLessThan(10);
+      expect(response.errors).toBeDefined();
+      expect(response.errors!.length).toBeGreaterThan(0);
+    });
+
+    it('should not block event loop during batch processing', async () => {
+      let maxConcurrent = 0;
+      let currentConcurrent = 0;
+
+      const slowProvider = {
+        name: 'slow-provider',
+        generate: async (_text: string) => {
+          currentConcurrent++;
+          maxConcurrent = Math.max(maxConcurrent, currentConcurrent);
+
+          // Simulate Ollama latency
+          await new Promise(resolve => setTimeout(resolve, 10));
+
+          currentConcurrent--;
+          return [0.1, 0.2, 0.3];
+        },
+      };
+
+      // Create 30 files to test multiple batches
+      const files: ExternalFileEntry[] = Array.from({ length: 30 }, (_, i) => ({
+        id: `rule-project-file-${i}`,
+        title: `file-${i}.md`,
+        absolutePath: `/test/file-${i}.md`,
+        kind: ExternalFileKind.RulesFile,
+        scope: Scope.Project,
+        contentHash: `hash-${i}`,
+        modifiedTime: '2026-02-21T10:00:00Z',
+      }));
+
+      vi.spyOn(fsUtils, 'readFile').mockResolvedValue('test content');
+
+      const baseGraph: MemoryGraph = { version: 1, nodes: [], edges: [] };
+      const baseIndex: MemoryIndex = {
+        version: '1.0.0',
+        lastUpdated: new Date().toISOString(),
+        memories: [],
+      };
+
+      await indexExternalFiles({
+        basePath: '/test',
+        graph: baseGraph,
+        index: baseIndex,
+        embeddingsPath: '/test/embeddings.json',
+        externalFiles: files,
+        embeddingProvider: slowProvider,
+        dryRun: false,
+      });
+
+      // Max concurrent should not exceed batch size (10)
+      expect(maxConcurrent).toBeLessThanOrEqual(10);
+      expect(maxConcurrent).toBeGreaterThan(0);
+    });
   });
 });

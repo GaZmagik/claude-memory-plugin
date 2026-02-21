@@ -470,6 +470,13 @@ export function isValidExternalPath(
     homeDir?: string;
   }
 ): boolean {
+  // Reject null bytes explicitly (H2 - CWE-158: Null Byte Injection Prevention)
+  // Node.js does NOT strip null bytes in path.resolve()
+  // On Linux, kernel treats null bytes as string terminators, allowing extension bypass
+  if (externalPath.includes('\0')) {
+    return false;
+  }
+
   // Normalize the path to resolve .. and symlinks
   const normalizedPath = path.resolve(externalPath);
 

@@ -15,7 +15,6 @@ export {
   indexExternalFiles,
   type IndexExternalFilesRequest,
   type IndexExternalFilesResponse,
-  type EmbeddingProvider,
 } from './external-file-indexer.js';
 
 export {

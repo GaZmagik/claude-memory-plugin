@@ -389,8 +389,8 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // Count external nodes
-  const externalRuleNodes = graph.nodes.filter((n: any) => n.type === MemoryType.Rule).length;
-  const externalReminderNodes = graph.nodes.filter((n: any) => n.type === MemoryType.Reminder).length;
+  const externalRuleNodes = graph.nodes.filter((n: GraphNode) => n.type === MemoryType.Rule).length;
+  const externalReminderNodes = graph.nodes.filter((n: GraphNode) => n.type === MemoryType.Reminder).length;
 
   return {
     status: errors.length > 0 ? 'error' : 'success',

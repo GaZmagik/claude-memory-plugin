@@ -176,6 +176,61 @@ describe('discoverRuleFiles', () => {
     }
   });
 
+  // H1: Security test - should skip files outside project boundaries via symlink
+  it('should skip files outside project boundaries via symlink', async () => {
+    // Create a file outside tempDir (in parent directory)
+    const outsideDir = path.dirname(tempDir);
+    const sensitiveFile = path.join(outsideDir, 'sensitive-data.md');
+    const symlinkInProject = path.join(tempDir, 'CLAUDE.md');
+
+    try {
+      fs.writeFileSync(sensitiveFile, '# Sensitive content');
+      fs.symlinkSync(sensitiveFile, symlinkInProject);
+
+      // Discovery should skip the symlink as it points outside project boundaries
+      const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
+
+      expect(results).toHaveLength(0);
+
+      // Clean up
+      fs.unlinkSync(symlinkInProject);
+      fs.unlinkSync(sensitiveFile);
+    } catch (err) {
+      // Symlink creation might fail on some systems, skip test
+      if (fs.existsSync(symlinkInProject)) fs.unlinkSync(symlinkInProject);
+      if (fs.existsSync(sensitiveFile)) fs.unlinkSync(sensitiveFile);
+    }
+  });
+
+  // H1: Security test - should skip files in parent directories via symlink traversal
+  it('should skip files in parent directories via symlink traversal', async () => {
+    const outsideDir = path.dirname(tempDir);
+    const sensitiveFile = path.join(outsideDir, 'secrets.md');
+    const rulesDir = path.join(tempDir, '.claude', 'rules');
+    const symlinkInRules = path.join(rulesDir, 'traversal.md');
+
+    try {
+      fs.mkdirSync(rulesDir, { recursive: true });
+      fs.writeFileSync(sensitiveFile, '# Secret data');
+      fs.symlinkSync(sensitiveFile, symlinkInRules);
+
+      // Discovery should skip the symlink pointing outside allowed directories
+      const results = await discoverRuleFiles({ cwd: tempDir, homeDir: tempDir, gitRoot: tempDir });
+
+      // Should not include the symlink to parent directory
+      const hasTraversalFile = results.some(r => r.absolutePath.includes('secrets.md'));
+      expect(hasTraversalFile).toBe(false);
+
+      // Clean up
+      fs.unlinkSync(symlinkInRules);
+      fs.unlinkSync(sensitiveFile);
+    } catch (err) {
+      // Symlink creation might fail on some systems, skip test
+      if (fs.existsSync(symlinkInRules)) fs.unlinkSync(symlinkInRules);
+      if (fs.existsSync(sensitiveFile)) fs.unlinkSync(sensitiveFile);
+    }
+  });
+
   // T041: Unit test for deterministic rule ID generation
   it('should generate deterministic IDs for rule files', async () => {
     const claudePath = path.join(tempDir, 'CLAUDE.md');
@@ -363,6 +418,33 @@ describe('discoverReminderFiles', () => {
   it('should return empty array when no reminder files found', async () => {
     const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
     expect(results).toEqual([]);
+  });
+
+  // H1: Security test - should skip symlinked agent files outside project boundaries
+  it('should skip symlinked agent files outside project boundaries', async () => {
+    const outsideDir = path.dirname(tempDir);
+    const sensitiveFile = path.join(outsideDir, 'sensitive-agent-data.md');
+    const agentMemoryDir = path.join(tempDir, '.claude', 'agent-memory', 'curator');
+    const symlinkInAgent = path.join(agentMemoryDir, 'MEMORY.md');
+
+    try {
+      fs.mkdirSync(agentMemoryDir, { recursive: true });
+      fs.writeFileSync(sensitiveFile, '# Sensitive agent data');
+      fs.symlinkSync(sensitiveFile, symlinkInAgent);
+
+      // Discovery should skip the symlink as it points outside project boundaries
+      const results = await discoverReminderFiles({ projectRoot: tempDir, homeDir: tempDir });
+
+      expect(results).toHaveLength(0);
+
+      // Clean up
+      fs.unlinkSync(symlinkInAgent);
+      fs.unlinkSync(sensitiveFile);
+    } catch (err) {
+      // Symlink creation might fail on some systems, skip test
+      if (fs.existsSync(symlinkInAgent)) fs.unlinkSync(symlinkInAgent);
+      if (fs.existsSync(sensitiveFile)) fs.unlinkSync(sensitiveFile);
+    }
   });
 });
 

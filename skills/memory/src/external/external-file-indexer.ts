@@ -13,15 +13,9 @@ import {
   loadEmbeddingCache,
   saveEmbeddingCache,
   truncateForEmbedding,
+  type EmbeddingProvider,
 } from '../search/embedding.js';
 import { readFile } from '../core/fs-utils.js';
-
-/**
- * Embedding provider interface (simplified)
- */
-export interface EmbeddingProvider {
-  getEmbedding(text: string): Promise<number[]>;
-}
 
 /**
  * Request parameters for indexing external files
@@ -95,15 +89,17 @@ interface ExternalGraphNode extends GraphNode {
 
 /**
  * Type guard for external nodes
+ * @internal Exported for testing
  */
-function isExternalNode(node: GraphNode): node is ExternalGraphNode {
+export function isExternalNode(node: GraphNode): node is ExternalGraphNode {
   return node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
 }
 
 /**
  * Create GraphNode from ExternalFileEntry
+ * @internal Exported for testing
  */
-function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
+export function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
   const type = entry.id.startsWith('rule-') ? MemoryType.Rule : MemoryType.Reminder;
 
   return {
@@ -117,8 +113,9 @@ function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
 
 /**
  * Create IndexEntry from ExternalFileEntry
+ * @internal Exported for testing
  */
-function createIndexEntry(entry: ExternalFileEntry): IndexEntry {
+export function createIndexEntry(entry: ExternalFileEntry): IndexEntry {
   const type = entry.id.startsWith('rule-') ? MemoryType.Rule : MemoryType.Reminder;
 
   return {
@@ -250,7 +247,7 @@ export async function indexExternalFiles(
             try {
               const fileContent = await readFile(absolutePath);
               const truncatedContent = truncateForEmbedding(fileContent);
-              const embedding = await embeddingProvider!.getEmbedding(truncatedContent);
+              const embedding = await embeddingProvider!.generate(truncatedContent);
               return {
                 nodeId,
                 embedding,

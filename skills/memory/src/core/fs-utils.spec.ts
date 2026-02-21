@@ -587,10 +587,25 @@ describe('File System Utilities', () => {
       expect(result).toBe(true);
     });
 
-    it('should handle null byte in path (normalized by path.resolve)', () => {
-      // Note: path.resolve() normalizes null bytes away, so they don't pose a security risk
+    it('should reject paths containing null bytes', () => {
+      // H2: CWE-158 - Node.js does NOT strip null bytes, kernel treats them as string terminators
       const result = isValidExternalPath('/home/user/project/file.md\0', { projectRoot, homeDir });
-      expect(result).toBe(true); // Null byte is stripped during normalization
+      expect(result).toBe(false); // Null bytes are explicitly rejected
+    });
+
+    it('should reject null bytes with injected extensions', () => {
+      const result = isValidExternalPath('/home/user/project/file.md\0injected.txt', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject null bytes at start of filename', () => {
+      const result = isValidExternalPath('/home/user/project/\0file.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject null bytes in middle of path', () => {
+      const result = isValidExternalPath('/home/user/project/path/\0/file.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
     });
   });
 });

@@ -379,9 +379,9 @@ describe('generateDot', () => {
 
     const result = generateDot(graph);
 
-    // Should escape special characters in labels
-    expect(result).toContain('"node[with]brackets"');
-    expect(result).toContain('[label=');
+    // B3: Should sanitise node IDs and escape labels
+    expect(result).toContain('"node_with_brackets"'); // Sanitised ID
+    expect(result).toContain('[label="node(with)brackets"]'); // Escaped label
   });
 
   it('should include edge labels when present', () => {

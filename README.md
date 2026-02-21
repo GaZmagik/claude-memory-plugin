@@ -225,7 +225,7 @@ The memory system now automatically discovers and indexes external Claude config
 | Type | ID Format | Mermaid Shape | Purpose |
 |------|-----------|---------------|---------|
 | **Rule** | `rule-project-claude-md-root` | Hexagon `{{}}` | Project rules and guidelines from CLAUDE.md |
-| **Reminder** | `reminder-project-{agent}-memory` | Cylinder `[( )]` | Agent memory summaries and knowledge |
+| **Reminder** | `reminder-project-{agent}-memory` | Cylinder `[()]` | Agent memory summaries and knowledge |
 
 **New Edge Types**:
 
@@ -294,7 +294,7 @@ memory link gotcha-async-pitfall reminder-project-typescript-expert-memory --rel
 # Search across regular memories AND external files
 memory semantic "testing best practices"
 
-# View Mermaid diagram with rules (hexagons) and reminders (subroutines)
+# View Mermaid diagram with rules (hexagons) and reminders (cylinders)
 memory mermaid --scope project
 ```
 

@@ -16,6 +16,38 @@ import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, scopeToIdentifier } from '../helpers.js';
 import { isInsideDir, writeFileAtomic } from '../../core/fs-utils.js';
+import { Scope } from '../../types/enums.js';
+
+/**
+ * Parameters for cross-scope detection
+ */
+interface CrossScopeDetectionParams {
+  agentName?: string;
+  targetAgentName?: string;
+  targetScopeStr?: string;
+  sourceScope: Scope;
+  targetScope: Scope;
+}
+
+/**
+ * Detect if a link operation crosses scope boundaries
+ * C2: Extracted helper to eliminate code duplication in cmdLink/cmdUnlink
+ */
+function detectCrossScope(params: CrossScopeDetectionParams): boolean {
+  const { agentName, targetAgentName, targetScopeStr, sourceScope, targetScope } = params;
+
+  const hasAgentCrossScope: boolean =
+    Boolean(agentName && !targetAgentName) ||
+    Boolean(!agentName && targetAgentName) ||
+    Boolean(agentName && targetAgentName && agentName !== targetAgentName);
+
+  const hasNonAgentCrossScope: boolean =
+    Boolean(!agentName && !targetAgentName &&
+      targetScopeStr !== undefined &&
+      sourceScope !== targetScope);
+
+  return hasAgentCrossScope || hasNonAgentCrossScope;
+}
 
 /**
  * link - Create a relationship between memories

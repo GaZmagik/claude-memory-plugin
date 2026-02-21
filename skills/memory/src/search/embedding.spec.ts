@@ -466,6 +466,62 @@ describe('Embedding Generation', () => {
     });
   });
 
+  describe('createOllamaProvider URL validation', () => {
+    it('should reject AWS metadata endpoint', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'http://169.254.169.254/api')
+      ).toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject GCP metadata endpoint', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'http://metadata.google.internal')
+      ).toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject Azure metadata endpoint (IPv6)', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'http://[fd00::]/api')
+      ).toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject localhost IP address', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'http://127.0.0.1:11434')
+      ).toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject file:// protocol', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'file:///etc/passwd')
+      ).toThrow('Ollama base URL must use http or https protocol');
+    });
+
+    it('should reject ftp:// protocol', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'ftp://example.com')
+      ).toThrow('Ollama base URL must use http or https protocol');
+    });
+
+    it('should accept http://localhost with hostname string', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'http://localhost:11434')
+      ).not.toThrow();
+    });
+
+    it('should accept https:// URLs', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'https://ollama.example.com')
+      ).not.toThrow();
+    });
+
+    it('should reject invalid URL format', () => {
+      expect(() =>
+        createOllamaProvider('test-model', 'not-a-valid-url')
+      ).toThrow('Invalid Ollama base URL');
+    });
+  });
+
   describe('createOllamaProvider', () => {
     it('should create provider with default model and URL', () => {
       const provider = createOllamaProvider();
@@ -561,6 +617,44 @@ describe('Embedding Generation', () => {
 
       expect(result.length).toBe(6003); // 6000 + '...'
       expect(result.endsWith('...')).toBe(true);
+    });
+  });
+
+  describe('createOllamaProviderWithHealthCheck URL validation', () => {
+    it('should reject AWS metadata endpoint before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'http://169.254.169.254/api')
+      ).rejects.toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject GCP metadata endpoint before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'http://metadata.google.internal')
+      ).rejects.toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject Azure metadata endpoint before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'http://[fd00::]/api')
+      ).rejects.toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject localhost IP before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'http://127.0.0.1:11434')
+      ).rejects.toThrow('Ollama base URL must not point to cloud metadata services or blocked hosts');
+    });
+
+    it('should reject file:// protocol before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'file:///etc/passwd')
+      ).rejects.toThrow('Ollama base URL must use http or https protocol');
+    });
+
+    it('should reject invalid URL format before health check', async () => {
+      await expect(
+        createOllamaProviderWithHealthCheck('test-model', 'not-a-valid-url')
+      ).rejects.toThrow('Invalid Ollama base URL');
     });
   });
 

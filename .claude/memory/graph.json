@@ -4220,6 +4220,42 @@
       "type": "learning",
       "title": "Async I/O conversion resolved event loop blocking",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-type-safety-refactoring-requires-union-type-design-before-wholesale-as-any-replacement",
+      "type": "learning",
+      "title": "Retro - Type safety refactoring requires union type design before wholesale 'as any' replacement",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-token-velocity-was-higher-than-estimated-66-used-in-25-hours",
+      "type": "learning",
+      "title": "Retro - Token velocity was higher than estimated (66% used in 2.5 hours)",
+      "scope": "project"
+    },
+    {
+      "id": "learning-helper-function-testing-via-isolated-spec-files",
+      "type": "learning",
+      "title": "Helper function testing via isolated spec files",
+      "scope": "project"
+    },
+    {
+      "id": "learning-embedding-batch-processing-with-error-resilience",
+      "type": "learning",
+      "title": "Embedding batch processing with error resilience",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-cli-command-type-safety-multiple-result-types-require-union-handling",
+      "type": "gotcha",
+      "title": "CLI command type safety: multiple result types require union handling",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mermaid-dot-output-sanitisation-for-node-ids",
+      "type": "learning",
+      "title": "Mermaid DOT output sanitisation for node IDs",
+      "scope": "project"
     }
   ],
   "edges": [

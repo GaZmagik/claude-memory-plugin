@@ -152,7 +152,8 @@ function escapeLabel(text: string): string {
     .replace(/\{/g, '(')
     .replace(/\}/g, ')')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/`/g, '&#96;'); // B3: Escape backticks for Mermaid
 }
 
 /**
@@ -499,15 +500,18 @@ export function generateDot(graph: MemoryGraph): string {
   lines.push('');
 
   for (const node of graph.nodes) {
+    const sanitisedId = sanitiseId(node.id);
     const label = escapeLabel(node.id);
-    lines.push(`  "${node.id}" [label="${label}"];`);
+    lines.push(`  "${sanitisedId}" [label="${label}"];`);
   }
 
   lines.push('');
 
   for (const edge of graph.edges) {
+    const fromId = sanitiseId(edge.source);
+    const toId = sanitiseId(edge.target);
     const label = edge.label ? ` [label="${escapeLabel(edge.label)}"]` : '';
-    lines.push(`  "${edge.source}" -> "${edge.target}"${label};`);
+    lines.push(`  "${fromId}" -> "${toId}"${label};`);
   }
 
   lines.push('}');

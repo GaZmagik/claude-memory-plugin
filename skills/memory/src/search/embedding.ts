@@ -19,6 +19,46 @@ const log = createLogger('embedding');
 const OLLAMA_HEALTH_CHECK_TIMEOUT_MS = 2000;
 
 /**
+ * Blocklist for Ollama base URLs to prevent SSRF attacks
+ * Blocks cloud metadata endpoints and localhost IP (use 'localhost' string instead)
+ */
+const OLLAMA_URL_BLOCKLIST = [
+  '169.254.169.254',      // AWS metadata
+  'metadata.google.internal', // GCP metadata
+  'fd00::',               // Azure metadata (IPv6)
+  '127.0.0.1',            // Localhost IP (use 'localhost' instead)
+];
+
+/**
+ * Validate Ollama base URL to prevent SSRF attacks
+ *
+ * @param baseUrl - The Ollama API base URL to validate
+ * @throws Error if URL is invalid, uses blocked hostname, or non-http/https protocol
+ */
+function validateOllamaUrl(baseUrl: string): void {
+  try {
+    const url = new URL(baseUrl);
+
+    // Check against blocklist
+    if (OLLAMA_URL_BLOCKLIST.some(blocked => url.hostname.includes(blocked))) {
+      throw new Error(
+        `Ollama base URL must not point to cloud metadata services or blocked hosts: ${url.hostname}`
+      );
+    }
+
+    // Only allow http/https protocols
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error(`Ollama base URL must use http or https protocol, got: ${url.protocol}`);
+    }
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(`Invalid Ollama base URL: ${baseUrl}`);
+    }
+    throw error;
+  }
+}
+
+/**
  * Embedding provider interface
  */
 export interface EmbeddingProvider {
@@ -274,6 +314,9 @@ export function createOllamaProvider(
   model: string = 'embeddinggemma:latest',
   baseUrl: string = 'http://localhost:11434'
 ): EmbeddingProvider {
+  // Validate URL before use (B4: SSRF prevention)
+  validateOllamaUrl(baseUrl);
+
   return {
     name: `ollama:${model}`,
     generate: async (text: string) => {
@@ -323,6 +366,9 @@ export async function createOllamaProviderWithHealthCheck(
   model: string = 'embeddinggemma:latest',
   baseUrl: string = 'http://localhost:11434'
 ): Promise<EmbeddingProvider | undefined> {
+  // Validate URL before health check (B4: SSRF prevention)
+  validateOllamaUrl(baseUrl);
+
   try {
     // Quick health check with fast timeout to avoid blocking
     const response = await fetch(`${baseUrl}/api/tags`, {

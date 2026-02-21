@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-21T08:57:48.999Z",
+  "lastUpdated": "2026-02-21T09:29:39.007Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12664,6 +12664,35 @@
       "updated": "2026-02-21T08:57:48.959Z",
       "scope": "project",
       "relativePath": "permanent/learning-security-mermaid-output-paths-need-boundary-validation.md"
+    },
+    {
+      "id": "learning-typescript-code-quality-review-for-feature005",
+      "type": "learning",
+      "title": "TypeScript code quality review for feature/005",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-21T09:11:45.645Z",
+      "updated": "2026-02-21T09:11:45.645Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-code-quality-review-for-feature005.md"
+    },
+    {
+      "id": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "type": "learning",
+      "title": "Async I/O conversion resolved event loop blocking",
+      "tags": [
+        "async",
+        "event-loop",
+        "performance",
+        "nodejs",
+        "project"
+      ],
+      "created": "2026-02-21T09:29:38.944Z",
+      "updated": "2026-02-21T09:29:38.944Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-async-io-conversion-resolved-event-loop-blocking.md"
     }
   ]
 }

@@ -4208,6 +4208,18 @@
       "type": "learning",
       "title": "Security: Mermaid output paths need boundary validation",
       "scope": "project"
+    },
+    {
+      "id": "learning-typescript-code-quality-review-for-feature005",
+      "type": "learning",
+      "title": "TypeScript code quality review for feature/005",
+      "scope": "project"
+    },
+    {
+      "id": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "type": "learning",
+      "title": "Async I/O conversion resolved event loop blocking",
+      "scope": "project"
     }
   ],
   "edges": [

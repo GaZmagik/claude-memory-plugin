@@ -4256,6 +4256,30 @@
       "type": "learning",
       "title": "Mermaid DOT output sanitisation for node IDs",
       "scope": "project"
+    },
+    {
+      "id": "learning-batch-processing-error-resilience-requires-promiseallsettled",
+      "type": "learning",
+      "title": "Batch processing error resilience requires Promise.allSettled",
+      "scope": "project"
+    },
+    {
+      "id": "learning-dot-output-sanitisation-must-handle-backticks-for-mermaid-graphs",
+      "type": "learning",
+      "title": "DOT output sanitisation must handle backticks for Mermaid graphs",
+      "scope": "project"
+    },
+    {
+      "id": "learning-ssrf-prevention-requires-blocklist-validation-of-ollama-baseurl",
+      "type": "learning",
+      "title": "SSRF prevention requires blocklist validation of Ollama baseUrl",
+      "scope": "project"
+    },
+    {
+      "id": "learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70",
+      "type": "learning",
+      "title": "Parallelized file discovery via Promise.all improves performance 60-70%",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -16544,6 +16568,132 @@
       "target": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7765933319525041
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7918126997188949,
+      "verifiedRelation": "Resolution"
+    },
+    {
+      "source": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "target": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7918126997188949,
+      "verifiedRelation": "Transformation"
+    },
+    {
+      "source": "learning-mermaid-dot-output-sanitisation-for-node-ids",
+      "target": "learning-dot-output-sanitisation-must-handle-backticks-for-mermaid-graphs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7629222082521897,
+      "verifiedRelation": "Requirement"
+    },
+    {
+      "source": "learning-dot-output-sanitisation-must-handle-backticks-for-mermaid-graphs",
+      "target": "learning-mermaid-dot-output-sanitisation-for-node-ids",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7629222082521897,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "target": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7479286368074467,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "target": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7479286368074467,
+      "verifiedRelation": "Topic Relation"
+    },
+    {
+      "source": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "target": "learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7428911071180243,
+      "verifiedRelation": "Improvement"
+    },
+    {
+      "source": "learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70",
+      "target": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7428911071180243,
+      "verifiedRelation": "Optimization"
+    },
+    {
+      "source": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "target": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7306186008748214,
+      "verifiedRelation": "Conversion"
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7306186008748214,
+      "verifiedRelation": "Transformation"
+    },
+    {
+      "source": "learning-parallel-embedding-generation-major-speedup",
+      "target": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7297405780387876,
+      "verifiedRelation": "Concurrency"
+    },
+    {
+      "source": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "target": "learning-parallel-embedding-generation-major-speedup",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7297405780387876,
+      "verifiedRelation": "Improvement"
+    },
+    {
+      "source": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "target": "learning-typescript-code-quality-review-for-feature005",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7278349089558882,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-typescript-code-quality-review-for-feature005",
+      "target": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7278349089558882,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "decision-async-fs-conversion-required",
+      "target": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7227299251362999,
+      "verifiedRelation": "Conversion"
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "decision-async-fs-conversion-required",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7227299251362999,
+      "verifiedRelation": "Conversion"
+    },
+    {
+      "source": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "target": "learning-embedding-batch-processing-with-error-resilience",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7005895602481467,
+      "verifiedRelation": "Subtask-Solution"
+    },
+    {
+      "source": "learning-embedding-batch-processing-with-error-resilience",
+      "target": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7005895602481467,
+      "verifiedRelation": "Concurrency"
     }
   ]
 }

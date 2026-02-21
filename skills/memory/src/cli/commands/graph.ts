@@ -22,9 +22,9 @@ import { Scope } from '../../types/enums.js';
  * Parameters for cross-scope detection
  */
 interface CrossScopeDetectionParams {
-  agentName?: string;
-  targetAgentName?: string;
-  targetScopeStr?: string;
+  agentName?: string | boolean;
+  targetAgentName?: string | boolean;
+  targetScopeStr?: string | boolean;
   sourceScope: Scope;
   targetScope: Scope;
 }
@@ -77,16 +77,14 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const sourceScope = parseScope(scopeStr);
   const targetScope = parseScope(targetScopeStr);
 
-  // Detect cross-scope: agent flags OR different scopes
-  const hasAgentCrossScope = (agentName && !targetAgentName) ||
-    (!agentName && targetAgentName) ||
-    (agentName && targetAgentName && agentName !== targetAgentName);
-
-  const hasNonAgentCrossScope = !agentName && !targetAgentName &&
-    targetScopeStr !== undefined &&
-    sourceScope !== targetScope;
-
-  const isCrossScope = hasAgentCrossScope || hasNonAgentCrossScope;
+  // C2: Use extracted helper to detect cross-scope
+  const isCrossScope = detectCrossScope({
+    agentName,
+    targetAgentName,
+    targetScopeStr,
+    sourceScope,
+    targetScope,
+  });
 
   if (isCrossScope) {
     // Resolve source base path
@@ -158,16 +156,14 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const sourceScope = parseScope(scopeStr);
   const targetScope = parseScope(targetScopeStr);
 
-  // Detect cross-scope: agent flags OR different scopes
-  const hasAgentCrossScope = (agentName && !targetAgentName) ||
-    (!agentName && targetAgentName) ||
-    (agentName && targetAgentName && agentName !== targetAgentName);
-
-  const hasNonAgentCrossScope = !agentName && !targetAgentName &&
-    targetScopeStr !== undefined &&
-    sourceScope !== targetScope;
-
-  const isCrossScope = hasAgentCrossScope || hasNonAgentCrossScope;
+  // C2: Use extracted helper to detect cross-scope
+  const isCrossScope = detectCrossScope({
+    agentName,
+    targetAgentName,
+    targetScopeStr,
+    sourceScope,
+    targetScope,
+  });
 
   if (isCrossScope) {
     const sourceBasePath = agentName

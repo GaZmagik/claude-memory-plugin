@@ -13,6 +13,7 @@ import { saveGraph } from '../graph/structure.js';
 import { saveIndex } from '../core/index.js';
 import type { MemoryGraph, MemoryIndex } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
+import type { EmbeddingProvider } from '../search/embedding.js';
 
 describe('Suggest Links - External Node Integration', () => {
   let tempDir: string;
@@ -63,8 +64,9 @@ describe('Suggest Links - External Node Integration', () => {
     expect(externalFiles.length).toBeGreaterThan(0);
 
     const embeddingsPath = path.join(tempDir, 'embeddings.json');
-    const mockProvider = {
-      getEmbedding: async (_text: string) => [0.9, 0.1, 0.1],
+    const mockProvider: EmbeddingProvider = {
+      name: 'test-mock',
+      generate: async (_text: string) => [0.9, 0.1, 0.1],
     };
 
     await indexExternalFiles({
@@ -73,7 +75,7 @@ describe('Suggest Links - External Node Integration', () => {
       index,
       embeddingsPath,
       externalFiles,
-      embeddingProvider: mockProvider as any,
+      embeddingProvider: mockProvider,
     });
 
     // Verify embeddings cache contains external nodes
@@ -158,28 +160,33 @@ describe('Suggest Links - External Node Integration', () => {
 
     const embeddingsPath = path.join(basePath, 'embeddings.json');
 
-    // Normalized embedding for TDD-related content (magnitude ≈ 1.0)
-    // [1, 0, 0, 0, 0] normalized = [1, 0, 0, 0, 0] (already unit length)
-    const tddEmbedding = [1, 0, 0, 0, 0];
+    // C3: Use realistic mock embeddings with similarity patterns and noise
+    // Base embedding for TDD-related content (similar but not identical)
+    const mockProvider: EmbeddingProvider = {
+      name: 'realistic-mock',
+      generate: async (text: string) => {
+        // Base embeddings with realistic similarity patterns
+        const baseEmbedding = (text.includes('Test-Driven Development') ||
+                               text.includes('TDD') ||
+                               text.includes('CLAUDE.md'))
+          ? [0.9, 0.1, 0.05, 0.02, 0.01]  // Similar but not identical for TDD content
+          : [0.1, 0.9, 0.05, 0.02, 0.01]; // Different pattern for non-TDD content
 
-    // Mock embedding provider that returns the same normalized embedding for TDD content
-    const mockProvider = {
-      getEmbedding: async (text: string) => {
-        // Return same embedding for TDD-related content
-        // Note: indexExternalFiles passes entry.title, not content, so check for title "CLAUDE.md"
-        if (text.includes('Test-Driven Development') || text.includes('TDD') || text.includes('CLAUDE.md')) {
-          return tddEmbedding; // Returns [1, 0, 0, 0, 0] which is already normalized
-        }
-        return [0, 1, 0, 0, 0]; // Different embedding for non-TDD content
+        // Add realistic noise to prevent exact matches (±2.5% variation)
+        return baseEmbedding.map(v => {
+          const noise = (Math.random() * 0.05) - 0.025; // ±2.5% variation
+          return Math.max(0, Math.min(1, v + noise)); // Clamp to [0, 1]
+        });
       },
     };
 
-    // Create initial embeddings for regular memory (already normalized)
+    // Create initial embeddings for regular memory with realistic similarity
+    // C3: Use realistic embedding similar to TDD content (not identical)
     const initialCache = {
       version: 1,
       memories: {
         'decision-tdd-approach': {
-          embedding: tddEmbedding,
+          embedding: [0.88, 0.12, 0.06, 0.03, 0.015], // Similar to mock TDD pattern but with variation
           hash: 'abc123',
           timestamp: new Date().toISOString(),
         },

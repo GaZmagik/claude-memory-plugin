@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-21T12:23:47.357Z",
+  "lastUpdated": "2026-02-21T12:52:34.316Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12774,6 +12774,66 @@
       "updated": "2026-02-21T12:23:47.323Z",
       "scope": "project",
       "relativePath": "permanent/learning-mermaid-dot-output-sanitisation-for-node-ids.md"
+    },
+    {
+      "id": "learning-batch-processing-error-resilience-requires-promiseallsettled",
+      "type": "learning",
+      "title": "Batch processing error resilience requires Promise.allSettled",
+      "tags": [
+        "batch-processing",
+        "error-handling",
+        "concurrency",
+        "project"
+      ],
+      "created": "2026-02-21T12:52:23.963Z",
+      "updated": "2026-02-21T12:52:23.963Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-batch-processing-error-resilience-requires-promiseallsettled.md"
+    },
+    {
+      "id": "learning-dot-output-sanitisation-must-handle-backticks-for-mermaid-graphs",
+      "type": "learning",
+      "title": "DOT output sanitisation must handle backticks for Mermaid graphs",
+      "tags": [
+        "mermaid",
+        "security",
+        "output-sanitisation",
+        "project"
+      ],
+      "created": "2026-02-21T12:52:29.611Z",
+      "updated": "2026-02-21T12:52:29.611Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-dot-output-sanitisation-must-handle-backticks-for-mermaid-graphs.md"
+    },
+    {
+      "id": "learning-ssrf-prevention-requires-blocklist-validation-of-ollama-baseurl",
+      "type": "learning",
+      "title": "SSRF prevention requires blocklist validation of Ollama baseUrl",
+      "tags": [
+        "security",
+        "ssrf",
+        "url-validation",
+        "project"
+      ],
+      "created": "2026-02-21T12:52:32.563Z",
+      "updated": "2026-02-21T12:52:32.563Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-ssrf-prevention-requires-blocklist-validation-of-ollama-baseurl.md"
+    },
+    {
+      "id": "learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70",
+      "type": "learning",
+      "title": "Parallelized file discovery via Promise.all improves performance 60-70%",
+      "tags": [
+        "performance",
+        "parallelisation",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-21T12:52:34.298Z",
+      "updated": "2026-02-21T12:52:34.298Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70.md"
     }
   ]
 }

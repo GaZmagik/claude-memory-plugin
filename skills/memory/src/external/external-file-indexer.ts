@@ -259,8 +259,8 @@ export async function indexExternalFiles(
               return null;
             }
           });
-          const batchResults = await Promise.all(batchPromises);
-          embeddingResults.push(...batchResults);
+          const batchResults = await Promise.allSettled(batchPromises);
+          embeddingResults.push(...batchResults.map(r => r.status === 'fulfilled' ? r.value : null));
         }
 
         // Store successful embeddings

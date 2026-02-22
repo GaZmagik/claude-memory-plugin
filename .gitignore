@@ -61,6 +61,11 @@ temp/
 # Embedding cache
 .embedding-cache/
 
+# Temporary atomic write files
+.claude/memory/embeddings.json.tmp.*
+.claude/memory/graph.json.tmp.*
+.claude/memory/index.json.tmp.*
+
 # Lock files
 package-lock.json
 yarn.lock

@@ -7,6 +7,7 @@
 import * as fs from 'node:fs';
 import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { createLogger } from './logger.js';
 
 const log = createLogger('fs-utils');
@@ -480,7 +481,7 @@ export function isValidExternalPath(
   // Normalize the path to resolve .. and symlinks
   const normalizedPath = path.resolve(externalPath);
 
-  const homeDir = options?.homeDir || require('node:os').homedir();
+  const homeDir = options?.homeDir || os.homedir();
   const projectRoot = options?.projectRoot;
 
   // Check if within home .claude directory (global scope)

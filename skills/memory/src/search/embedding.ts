@@ -27,6 +27,10 @@ const OLLAMA_URL_BLOCKLIST = [
   'metadata.google.internal', // GCP metadata
   'fd00::',               // Azure metadata (IPv6)
   '127.0.0.1',            // Localhost IP (use 'localhost' instead)
+  '0.0.0.0',              // Wildcard/unspecified address
+  '::1',                  // IPv6 loopback
+  '[::1]',                // IPv6 loopback (bracket notation)
+  'fe80::',               // Link-local IPv6
 ];
 
 /**

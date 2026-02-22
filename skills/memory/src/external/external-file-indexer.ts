@@ -7,8 +7,10 @@
 import type { ExternalFileEntry } from './external-file-types.js';
 import { ExternalFileKind } from './external-file-types.js';
 import { discoverExternalFiles } from './external-file-discovery.js';
-import type { MemoryGraph, MemoryIndex, GraphNode, IndexEntry } from '../types/memory.js';
-import { MemoryType, Scope } from '../types/enums.js';
+import type { MemoryGraph, MemoryIndex, IndexEntry } from '../types/memory.js';
+import { MemoryType } from '../types/enums.js';
+import { isExternalNode, type ExternalGraphNode } from '../types/guards.js';
+export { isExternalNode }; // Re-export for backward compatibility (tests import from this module)
 import { unsafeAsMemoryId } from '../types/branded.js';
 import {
   loadEmbeddingCache,
@@ -76,24 +78,6 @@ export interface IndexExternalFilesResponse {
   };
 
   errors?: string[];
-}
-
-/**
- * External graph nodes have guaranteed non-optional fields
- */
-interface ExternalGraphNode extends GraphNode {
-  title: string;
-  scope: Scope;
-  agent?: string;
-  type: MemoryType.Rule | MemoryType.Reminder;
-}
-
-/**
- * Type guard for external nodes
- * @internal Exported for testing
- */
-export function isExternalNode(node: GraphNode): node is ExternalGraphNode {
-  return node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
 }
 
 /**
@@ -330,10 +314,10 @@ export async function indexExternalFiles(
 
     const ruleNodes = dryRun
       ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Rule)
-      : externalNodes.filter(n => n.type === MemoryType.Rule);
+      : (externalNodes as ExternalGraphNode[]).filter(n => n.type === MemoryType.Rule);
     const reminderNodes = dryRun
       ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Reminder)
-      : externalNodes.filter(n => n.type === MemoryType.Reminder);
+      : (externalNodes as ExternalGraphNode[]).filter(n => n.type === MemoryType.Reminder);
 
     // 7. Save embedding cache (unless dry run)
     if (!dryRun) {

@@ -19,6 +19,8 @@ import { promoteMemory } from '../../maintenance/promote.js';
 import { archiveMemory } from '../../maintenance/archive.js';
 import { MemoryType } from '../../types/enums.js';
 import { getResolvedScopePath, getGlobalMemoryPath, parseScope } from '../helpers.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
+import { getAgentDirectoryPath } from '../../scope/get-agent-directory-path.js';
 import { checkRelevance, formatTable, formatJson } from '../../maintenance/check-relevance.js';
 
 /**
@@ -119,6 +121,30 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
     }
   }
 
+  // Also check agent scope indices (reminder nodes can live in AgentProject/AgentGlobal scopes)
+  try {
+    const agents = await discoverAgents({ projectRoot: process.cwd(), globalRoot: getGlobalMemoryPath() });
+    for (const agent of agents) {
+      const agentPath = getAgentDirectoryPath({
+        scope: agent.scope,
+        agentName: agent.name,
+        projectRoot: process.cwd(),
+        globalRoot: getGlobalMemoryPath(),
+      });
+      try {
+        const index = await loadIndex({ basePath: agentPath });
+        const existingEntry = index.memories.find(m => m.id === id);
+        if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+          return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+        }
+      } catch {
+        // Index doesn't exist for this agent, continue
+      }
+    }
+  } catch {
+    // Agent discovery failed, continue
+  }
+
   // If --scope is explicitly provided, use it; otherwise auto-detect
   const explicitScope = getFlagString(args.flags, 'scope');
   let sourceBasePath: string;
@@ -189,6 +215,30 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
     } catch {
       // Index doesn't exist in this scope, continue
     }
+  }
+
+  // Also check agent scope indices (reminder nodes can live in AgentProject/AgentGlobal scopes)
+  try {
+    const agents = await discoverAgents({ projectRoot: process.cwd(), globalRoot: getGlobalMemoryPath() });
+    for (const agent of agents) {
+      const agentPath = getAgentDirectoryPath({
+        scope: agent.scope,
+        agentName: agent.name,
+        projectRoot: process.cwd(),
+        globalRoot: getGlobalMemoryPath(),
+      });
+      try {
+        const index = await loadIndex({ basePath: agentPath });
+        const existingEntry = index.memories.find(m => m.id === id);
+        if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+          return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+        }
+      } catch {
+        // Index doesn't exist for this agent, continue
+      }
+    }
+  } catch {
+    // Agent discovery failed, continue
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));

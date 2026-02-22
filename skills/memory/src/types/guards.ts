@@ -6,7 +6,7 @@
 
 import type { GraphNode } from '../graph/structure.js';
 import type { IndexEntry } from './memory.js';
-import { MemoryType } from './enums.js';
+import { MemoryType, type Scope } from './enums.js';
 
 /**
  * Type guard for GraphNode
@@ -23,9 +23,19 @@ export function isGraphNode(obj: unknown): obj is GraphNode {
 }
 
 /**
+ * External graph nodes have guaranteed non-optional fields
+ */
+export interface ExternalGraphNode extends GraphNode {
+  title: string;
+  scope: Scope;
+  agent?: string;
+  type: MemoryType.Rule | MemoryType.Reminder;
+}
+
+/**
  * Type guard for external nodes (rule/reminder)
  */
-export function isExternalNode(node: GraphNode): node is GraphNode & { type: MemoryType.Rule | MemoryType.Reminder } {
+export function isExternalNode(node: GraphNode): node is ExternalGraphNode {
   return node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
 }
 

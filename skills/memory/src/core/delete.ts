@@ -7,9 +7,9 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
-import { Scope } from '../types/enums.js';
+import { Scope, MemoryType } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
-import { deleteFile, fileExists, isInsideDir, readFile, writeFileAtomic } from './fs-utils.js';
+import { deleteFile, fileExists, isInsideDir, isValidExternalPath, readFile, writeFileAtomic } from './fs-utils.js';
 import { createLogger } from './logger.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
 import { isCrossScopeEdge } from '../graph/edges.js';
@@ -138,25 +138,58 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
   }
 
   try {
+    // Check if node is a read-only external node BEFORE any deletion
+    let graph = await loadGraph(basePath);
+    const existingNode = graph.nodes.find((n: any) => n.id === request.id);
+    if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+      return {
+        status: 'error',
+        error: `'${request.id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+      };
+    }
+
     // Find in index first
     const indexEntry = await findInIndex(basePath, request.id);
 
     let filePath: string;
+    let isExternalFile = false;
 
     if (indexEntry) {
-      filePath = path.join(basePath, indexEntry.relativePath);
+      // Check if this is an external file (rule or reminder)
+      if (indexEntry.externalPath) {
+        filePath = indexEntry.externalPath;
+        isExternalFile = true;
+      } else {
+        filePath = path.join(basePath, indexEntry.relativePath);
+      }
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
-    // Security: Validate path stays within basePath (prevent path traversal)
-    if (!isInsideDir(basePath, filePath)) {
-      log.warn('Path traversal attempt detected', { id: request.id, filePath });
-      return {
-        status: 'error',
-        error: 'Invalid memory ID: path traversal not allowed',
-      };
+    // Security: Validate path stays within allowed directories (prevent path traversal)
+    if (isExternalFile) {
+      // External files must be within project tree, home .claude/, or ancestor dirs
+      // Use basePath as projectRoot to support test environments with temp dirs
+      if (!isValidExternalPath(filePath, {
+        projectRoot: basePath,
+        homeDir: os.homedir(),
+      })) {
+        log.warn('External path outside allowlist detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid external file path: must be within project tree or home .claude/ directory',
+        };
+      }
+    } else {
+      // Regular memory files must stay within basePath
+      if (!isInsideDir(basePath, filePath)) {
+        log.warn('Path traversal attempt detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid memory ID: path traversal not allowed',
+        };
+      }
     }
 
     // Check if file exists
@@ -175,7 +208,6 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
 
     // Remove from graph (node and all edges involving it)
     try {
-      let graph = await loadGraph(basePath);
 
       // Before removing the node, scan for cross-scope edges to clean up other graphs
       const crossScopeEdges = graph.edges.filter(

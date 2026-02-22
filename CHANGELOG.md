@@ -5,6 +5,73 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-02-20
+
+### Added
+
+#### External File Indexing: Rule and Reminder Nodes (Feature 005)
+- **Automatic discovery and indexing of external Claude configuration files** as read-only graph nodes
+  - CLAUDE.md files (project root, .claude/, ancestor directories)
+  - .claude/rules/*.md files (rules directory)
+  - .claude/agent-memory/{agent}/MEMORY.md files (agent memory summaries)
+  - .claude/agent-memory/{agent}/*.md files (agent sub-files like patterns.md, gotchas.md)
+- **New memory types**: `MemoryType.Rule` and `MemoryType.Reminder` for external file classification
+- **New edge types**: `EdgeType.GovernedBy` (decision → rule) and `EdgeType.RemindedBy` (gotcha/learning → reminder)
+- **Read-only protection**: External nodes cannot be modified via write, delete, rename, move, or promote commands
+  - Clear error messages guide users to edit source files and run `memory sync`
+  - Read operations fully supported via `memory read` command
+- **Content hash-based change detection**: Only regenerates embeddings for modified files during incremental updates
+- **Deterministic ID generation**: Stable IDs based on file location, scope, and type
+  - Rules: `rule-project-claude-md-root`, `rule-project-security`, `rule-global-api-design`
+  - Reminders: `reminder-project-{agent}-memory`, `reminder-project-{agent}-patterns`
+- **Mermaid visualisation enhancements**:
+  - Rule nodes render as hexagons `{{}}` with distinct yellow styling
+  - Reminder nodes render as subroutines `[[]]` with agent-specific styling
+- **`memory index-context` command**: Fast incremental re-indexing of external files without full sync
+  - Scope filtering: `--scope project|global`
+  - Agent filtering: `--agent {name}`
+  - Dry-run mode: `--dry-run`
+  - Performance: <5s for typical projects vs full sync overhead
+- **Semantic search integration**: External files participate in all search operations
+  - `memory search` includes rule/reminder nodes in keyword results
+  - `memory semantic` includes rule/reminder nodes in embedding-based results
+  - `memory suggest-links` suggests connections between memories and external files
+- **Quality audit exclusion**: Rule and reminder nodes automatically excluded from quality scoring
+- **Graceful Ollama fallback**: External files indexed even when Ollama unavailable (embeddings skipped, keyword search still works)
+
+#### External File Module
+- New `skills/memory/src/external/` module with discovery and indexing logic:
+  - `external-file-types.ts`: ExternalFileKind enum and ExternalFileEntry interface
+  - `external-file-discovery.ts`: Tree-walking discovery with vendor filtering and symlink resolution
+  - `external-file-indexer.ts`: Hash-based indexing with embedding generation and stale node removal
+  - `index.ts`: Public API exports
+- **Vendor directory filtering**: Excludes node_modules, .git, dist, build, .venv, etc.
+- **Symlink resolution**: Follows symlinks with loop detection for safety
+
+#### Integration
+- `syncMemories()` now calls `indexExternalFiles()` as final pass
+- Sync response includes `externalNodesAdded`, `externalNodesUpdated`, `externalNodesRemoved` counts
+- Summary includes `externalRuleNodes` and `externalReminderNodes` counts
+
+### Changed
+- `IndexEntry` interface extended with optional `externalPath` and `externalFileKind` fields
+- `cmdRead` now checks `externalPath` field and reads from source file for external nodes
+- All mutating commands (write, delete, rename, move, promote) now guard against external node modification
+- `parseMemoryType` extended to parse "rule" and "reminder" type strings
+- Mermaid `NODE_SHAPES` and `NODE_STYLES` extended with rule (hexagon) and reminder (subroutine) entries
+- Help text updated with `index-context` command documentation
+- Version bumped to 1.6.0
+
+### Performance
+- **Discovery**: 10 files <500ms, 50 files <2s, 100 files <5s
+- **Indexing** (excluding embeddings): 10 files <1s, 50 files <3s
+- **Embedding generation** (Ollama): Single file ~200ms, batch of 10 ~2-3s
+- **index-context**: Completes in <5s for typical projects (10 external files)
+
+### Testing
+- 48 integration tests covering all external file workflows (discovery, indexing, updates, deletion, linking, Mermaid rendering, suggest-links, performance)
+- Comprehensive unit test coverage for guards, discovery, indexing, and command compatibility
+
 ## [1.5.1] - 2026-02-19
 
 ### Fixed

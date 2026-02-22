@@ -8,7 +8,7 @@ import type { ParsedArgs } from '../parser.js';
 import { readStdinJson, getFlagString, getFlagBool, getFlagNumber } from '../parser.js';
 import type { CliResponse } from '../response.js';
 import { error, wrapOperation } from '../response.js';
-import type { WriteMemoryRequest } from '../../types/api.js';
+import type { WriteMemoryRequest, MemorySummary, SearchResult, SemanticSearchResultItem } from '../../types/api.js';
 import { writeMemory } from '../../core/write.js';
 import { readMemory } from '../../core/read.js';
 import { listMemories } from '../../core/list.js';
@@ -56,6 +56,17 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
   const basePath = agentName
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));
+
+  // Read-only guard: Reject writes to external nodes (rule/reminder types)
+  if (input.id) {
+    const { loadIndex } = await import('../../core/index.js');
+    const index = await loadIndex({ basePath });
+    const existingEntry = index.memories.find(m => m.id === input.id);
+
+    if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+      return error(`'${input.id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+    }
+  }
 
   // Parse type - default to Decision if not specified
   const typeStr = getFlagString(args.flags, 'type') ?? (input.type as string | undefined);
@@ -149,7 +160,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
       // Multi-scope list if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
-        const allResults: Array<{ scope: string; memories: any[] }> = [];
+        const allResults: Array<{ scope: string; memories: MemorySummary[] }> = [];
 
         // List across all scope paths
         for (const scopePath of scopePaths) {
@@ -169,7 +180,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
 
         // Merge results with scope indicators
         const mergedMemories = allResults.flatMap(({ scope, memories }) =>
-          memories.map((memory: any) => ({
+          memories.map((memory: MemorySummary) => ({
             ...memory,
             id: formatScopedResult(memory.id, scope),
             scope, // Add scope field for reference
@@ -232,6 +243,15 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
     ? resolveAgentScopePath(agentName, scopeStr)
     : getResolvedScopePath(parseScope(scopeStr));
 
+  // Read-only guard: Reject deletes on external nodes (rule/reminder types)
+  const { loadIndex } = await import('../../core/index.js');
+  const index = await loadIndex({ basePath });
+  const existingEntry = index.memories.find(m => m.id === id);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
+
   return wrapOperation(
     async () => {
       const result = await deleteMemory({ id, basePath, agent: agentName });
@@ -287,7 +307,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
           globalRoot: getGlobalMemoryPath(),
         });
 
-        const allResults: Array<{ agent: string; results: any[] }> = [];
+        const allResults: Array<{ agent: string; results: SearchResult[] }> = [];
 
         // Search across all agents
         for (const agent of agents) {
@@ -313,7 +333,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 
         // Merge results with agent indicators
         const mergedResults = allResults.flatMap(({ agent, results }) =>
-          results.map((result: any) => ({
+          results.map((result: SearchResult) => ({
             ...result,
             id: formatScopedResult(result.id, `agent:${agent}`),
             agent, // Add agent field for reference
@@ -334,7 +354,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
       // Multi-scope search if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
-        const allResults: Array<{ scope: string; results: any[] }> = [];
+        const allResults: Array<{ scope: string; results: SearchResult[] }> = [];
 
         // Search across all scope paths
         for (const scopePath of scopePaths) {
@@ -354,7 +374,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 
         // Merge results with scope indicators
         const mergedResults = allResults.flatMap(({ scope, results }) =>
-          results.map((result: any) => ({
+          results.map((result: SearchResult) => ({
             ...result,
             id: formatScopedResult(result.id, scope),
             scope, // Add scope field for reference
@@ -436,7 +456,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
       // Multi-scope semantic search if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
-        const allResults: Array<{ scope: string; results: any[] }> = [];
+        const allResults: Array<{ scope: string; results: SemanticSearchResultItem[] }> = [];
 
         // Search across all scope paths
         for (const scopePath of scopePaths) {
@@ -457,7 +477,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
 
         // Merge results with scope indicators
         const mergedResults = allResults.flatMap(({ scope, results }) =>
-          results.map((result: any) => ({
+          results.map((result: SemanticSearchResultItem) => ({
             ...result,
             id: formatScopedResult(result.id, scope),
             scope, // Add scope field for reference
@@ -465,7 +485,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
         );
 
         // Sort by similarity and apply limit
-        mergedResults.sort((a, b) => (b.similarity ?? 0) - (a.similarity ?? 0));
+        mergedResults.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
         const limitedResults = limit ? mergedResults.slice(0, limit) : mergedResults;
 
         return {

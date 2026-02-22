@@ -210,7 +210,9 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
       const tagMatch = entry.tags.some(t => t.toLowerCase().includes(queryLower));
 
       // Read content only if title/tags didn't match (avoid unnecessary I/O)
-      const filePath = path.join(basePath, entry.relativePath);
+      const filePath = entry.externalPath
+        ? entry.externalPath
+        : path.join(basePath, entry.relativePath);
       let content = '';
       let contentMatch = false;
 
@@ -219,8 +221,13 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
         if (await fileExists(filePath)) {
           try {
             const fileContent = await readFile(filePath);
-            const parsed = parseMemoryFile(fileContent);
-            content = parsed.content;
+            // External files are plain markdown without frontmatter
+            if (entry.externalPath) {
+              content = fileContent;
+            } else {
+              const parsed = parseMemoryFile(fileContent);
+              content = parsed.content;
+            }
           } catch {
             // Use empty content for scoring if file can't be parsed
           }
@@ -231,8 +238,13 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
         if (await fileExists(filePath)) {
           try {
             const fileContent = await readFile(filePath);
-            const parsed = parseMemoryFile(fileContent);
-            content = parsed.content;
+            // External files are plain markdown without frontmatter
+            if (entry.externalPath) {
+              content = fileContent;
+            } else {
+              const parsed = parseMemoryFile(fileContent);
+              content = parsed.content;
+            }
           } catch {
             // Skip files that can't be parsed
             continue;

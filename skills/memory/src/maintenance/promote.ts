@@ -156,6 +156,19 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
     };
   }
 
+  // SECURITY: Check if node is read-only external node BEFORE any file operations (prevent TOCTOU)
+  const graph = await loadGraph(basePath);
+  const existingNode = graph.nodes.find((n: any) => n.id === id);
+  if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+    return {
+      status: 'error',
+      id,
+      toType: targetType,
+      changes,
+      error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+    };
+  }
+
   // Read current file
   const content = fs.readFileSync(currentPath, 'utf8');
   const parsed = parseMemoryFile(content);
@@ -219,7 +232,6 @@ export async function promoteMemory(request: PromoteRequest): Promise<PromoteRes
 
   // Update graph node type
   try {
-    const graph = await loadGraph(basePath);
     const nodeIndex = graph.nodes.findIndex(n => n.id === id);
     if (nodeIndex >= 0) {
       const existingNode = graph.nodes[nodeIndex];

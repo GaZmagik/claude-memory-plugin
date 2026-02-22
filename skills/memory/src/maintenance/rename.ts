@@ -21,6 +21,7 @@ import { loadIndex, saveIndex } from '../core/index.js';
 import { loadGraph, saveGraph, type MemoryGraph } from '../graph/structure.js';
 import { unsafeAsMemoryId } from '../types/branded.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { MemoryType } from '../types/enums.js';
 
 /**
  * Rename request options
@@ -135,6 +136,19 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
     };
   }
 
+  // SECURITY: Check if node is read-only external node BEFORE any file operations (prevent TOCTOU)
+  const graph = await loadGraph(basePath);
+  const existingNode = graph.nodes.find((n: any) => n.id === oldId);
+  if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+    return {
+      status: 'error',
+      oldId,
+      newId,
+      changes,
+      error: `'${oldId}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+    };
+  }
+
   // Determine new path (same directory)
   const dir = path.dirname(oldPath);
   const newPath = path.join(dir, `${newId}.md`);
@@ -182,9 +196,7 @@ export async function renameMemory(request: RenameRequest): Promise<RenameRespon
   fs.unlinkSync(oldPath);
   changes.fileRenamed = true;
 
-  // Update graph
-  let graph = await loadGraph(basePath);
-
+  // Update graph (already loaded earlier for security check)
   // Update node ID
   const nodeIndex = graph.nodes.findIndex(n => n.id === oldId);
   if (nodeIndex >= 0) {

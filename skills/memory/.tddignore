@@ -18,6 +18,7 @@ src/types/index.ts
 src/bulk/index.ts
 src/maintenance/index.ts
 src/suggest/index.ts
+src/external/index.ts
 
 # Known "orphaned" test files (false positives - they test real code):
 # - maintenance.spec.ts: Integration tests for rename/move/promote/archive modules

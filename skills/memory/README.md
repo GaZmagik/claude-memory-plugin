@@ -288,10 +288,117 @@ JSON input for `memory write` (via stdin):
 | `gotcha` | permanent/ | Warnings, pitfalls, things that can go wrong | Yes |
 | `breadcrumb` | temporary/ | Ephemeral markers for session continuity, work-in-progress notes | No |
 | `hub` | permanent/ | High-connectivity nodes that organise related memories (e.g., "Decisions Hub") | No |
+| `rule` | external | Read-only instructions from CLAUDE.md, .claude/rules/*.md | No |
+| `reminder` | external | Read-only agent context from .claude/agent-memory/*/MEMORY.md | No |
 
 **Breadcrumb**: Temporary memories stored in `temporary/` subdirectory. Used by the `think` subsystem for deliberation documents. Breadcrumbs are personal markers that help maintain context during a session but are not meant for long-term storage. They can be promoted to permanent types via `memory think conclude --promote <type>`.
 
 **Hub**: Organisational nodes with high inbound link counts. Hubs serve as central connection points in the knowledge graph, making it easier to navigate related memories. Examples: "Architecture Decisions Hub", "Testing Patterns Hub". Hubs cannot be created via promotion - use `memory write` with `type: hub`.
+
+**Rule**: Read-only nodes automatically indexed from external instruction files (CLAUDE.md, .claude/rules/*.md). Rules represent directives that govern how Claude should behave in the current project. They're discovered and indexed during `memory sync` and cannot be modified via memory commands.
+
+**Reminder**: Read-only nodes automatically indexed from agent memory files (.claude/agent-memory/*/MEMORY.md and sub-files). Reminders capture context that specific agents carry between sessions. They're agent-scoped and indexed during `memory sync`.
+
+### External File Indexing
+
+The memory system automatically discovers and indexes two categories of external files as read-only graph nodes:
+
+#### Rules (CLAUDE.md and .claude/rules/*.md)
+
+Rules are project instructions that prescribe how Claude must behave. The following files are auto-indexed:
+
+- `CLAUDE.md` in current directory and all ancestor directories up to home
+- `~/.claude/CLAUDE.md` (global rules)
+- `.claude/CLAUDE.local.md` (local, gitignored)
+- `.claude/rules/*.md` (project rules directory)
+- `~/.claude/rules/*.md` (global rules directory)
+
+**Example:**
+```bash
+# Sync discovers and indexes rule files
+memory sync
+
+# Rules appear in searches
+memory semantic "no wrapper abstractions"
+
+# Rules can be linked to regular memories
+memory link learning-tdd-practices rule-project-claude-md governed-by
+
+# View rule content
+memory read rule-project-claude-md
+```
+
+**Note:** Rule nodes cannot be created, modified, or deleted via memory commands. To update a rule, edit the source file and run `memory sync` or `memory index-context`.
+
+#### Reminders (Agent MEMORY.md files)
+
+Reminders are agent-specific context files that persist between sessions. The following files are auto-indexed:
+
+- `.claude/agent-memory/{name}/MEMORY.md` (project-scoped agent memory)
+- `.claude/agent-memory/{name}/*.md` (additional agent files)
+- `.claude/agent-memory-local/{name}/*.md` (local, gitignored)
+- `~/.claude/agent-memory/{name}/*.md` (global agent memory)
+
+**Example:**
+```bash
+# Sync discovers agent memory files
+memory sync
+
+# Reminders appear in agent-scoped queries
+memory semantic "validation patterns" --agent curator
+
+# Link agent memories to project memories
+memory link decision-validation-strategy reminder-project-curator-memory reminded-by
+```
+
+**Commands:**
+
+```bash
+# Index all external files (rules + reminders)
+memory index-context
+
+# Dry-run to preview what would be indexed
+memory index-context --dry-run
+
+# Re-sync a specific scope
+memory sync project
+```
+
+#### External File ID Generation
+
+External files use deterministic ID generation to ensure consistency across syncs:
+
+**Rule IDs:**
+- Format: `rule-{scope}-{filename-slug}`
+- Examples:
+  - `CLAUDE.md` at project root → `rule-project-claude-md`
+  - `CLAUDE.md` at ~/.claude/ → `rule-global-claude-md`
+  - `.claude/CLAUDE.local.md` → `rule-local-claude-local-md`
+  - `.claude/rules/typescript-style.md` → `rule-project-typescript-style`
+  - `~/.claude/rules/security.md` → `rule-global-security`
+
+**Ancestor CLAUDE.md files** (in directories above project root):
+- Format: `rule-ancestor-{level}-claude-md-{location}`
+- Example: CLAUDE.md two directories up → `rule-ancestor-2-claude-md-root`
+
+**Reminder IDs:**
+- Format: `reminder-{scope}-{agent}-{filename-slug}`
+- Examples:
+  - `.claude/agent-memory/curator/MEMORY.md` → `reminder-project-curator-memory`
+  - `~/.claude/agent-memory/speckit-expert/MEMORY.md` → `reminder-global-speckit-expert-memory`
+  - `.claude/agent-memory/curator/patterns.md` → `reminder-project-curator-patterns`
+
+**Scope Determination:**
+- Files in project `.claude/` → `project` scope
+- Files in project `.claude/agent-memory-local/` → `local` scope (gitignored)
+- Files in `~/.claude/` → `global` scope
+- CLAUDE.md walk: starts at `cwd`, walks up to `homeDir`, assigns scope based on location
+
+**Filename Slugification:**
+- Lowercase transformation
+- `.md` extension → `-md` suffix
+- Dots, spaces, underscores → hyphens
+- Example: `TypeScript_Style.md` → `typescript-style`
 
 ## Storage Layout
 
@@ -700,4 +807,4 @@ memory sync project
 
 ## Version
 
-1.3.1
+1.6.0

@@ -26,6 +26,7 @@ import {
   validateSymlinkTarget,
   getAllMemoryIds,
   findMemoryFile,
+  isValidExternalPath,
   MEMORY_SUBDIRS,
 } from './fs-utils.js';
 
@@ -541,6 +542,70 @@ describe('File System Utilities', () => {
       const result = await findMemoryFile(testDir, 'learning-dup');
 
       expect(result).toBe(permanentFile);
+    });
+  });
+
+  describe('isValidExternalPath - Security', () => {
+    const projectRoot = '/home/user/project';
+    const homeDir = '/home/user';
+
+    it('should accept valid project file', () => {
+      const result = isValidExternalPath(`${projectRoot}/CLAUDE.md`, { projectRoot, homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should accept valid home .claude file', () => {
+      const result = isValidExternalPath(`${homeDir}/.claude/CLAUDE.md`, { homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should accept valid ancestor file between project and home', () => {
+      const result = isValidExternalPath('/home/user/parent/CLAUDE.md', {
+        projectRoot: '/home/user/parent/project',
+        homeDir: '/home/user'
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should reject path traversal with ../ sequences', () => {
+      const result = isValidExternalPath(`${projectRoot}/../../../etc/shadow`, { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject absolute path to /etc/passwd', () => {
+      const result = isValidExternalPath('/etc/passwd', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject path outside project and home trees', () => {
+      const result = isValidExternalPath('/tmp/evil.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should handle normalized paths correctly', () => {
+      const result = isValidExternalPath(`${projectRoot}/./subdir/../CLAUDE.md`, { projectRoot, homeDir });
+      expect(result).toBe(true);
+    });
+
+    it('should reject paths containing null bytes', () => {
+      // H2: CWE-158 - Node.js does NOT strip null bytes, kernel treats them as string terminators
+      const result = isValidExternalPath('/home/user/project/file.md\0', { projectRoot, homeDir });
+      expect(result).toBe(false); // Null bytes are explicitly rejected
+    });
+
+    it('should reject null bytes with injected extensions', () => {
+      const result = isValidExternalPath('/home/user/project/file.md\0injected.txt', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject null bytes at start of filename', () => {
+      const result = isValidExternalPath('/home/user/project/\0file.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
+    });
+
+    it('should reject null bytes in middle of path', () => {
+      const result = isValidExternalPath('/home/user/project/path/\0/file.md', { projectRoot, homeDir });
+      expect(result).toBe(false);
     });
   });
 });

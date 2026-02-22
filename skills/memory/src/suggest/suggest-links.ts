@@ -86,6 +86,8 @@ export interface SuggestLinksRequest {
   scopeStr?: string;
   /** Invoke LLM to verify relation type on auto-linked same-scope edges (requires Ollama) */
   llmType?: boolean;
+  /** Force update existing edge metadata (smart bypass: only updates if metadata differs) */
+  force?: boolean;
 }
 
 /**
@@ -114,7 +116,7 @@ export interface SuggestLinksResponse {
 export async function suggestLinks(
   request: SuggestLinksRequest
 ): Promise<SuggestLinksResponse> {
-  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, allScopes = false, agentName, scopeStr, llmType = false } = request;
+  const { basePath, threshold = 0.75, limit = 20, autoLink = false, includeShared = false, allScopes = false, agentName, scopeStr, llmType = false, force = false } = request;
 
   const suggestions: SuggestedLink[] = [];
   let created = 0;
@@ -432,6 +434,7 @@ export async function suggestLinks(
             agent: agentName,
             similarity: suggestion.similarity,
             verifiedRelation,
+            force,
           });
           createdSameScope++;
         }

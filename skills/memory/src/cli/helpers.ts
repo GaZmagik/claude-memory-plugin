@@ -138,6 +138,10 @@ export function parseMemoryType(typeStr: string | undefined): MemoryType | undef
       return MemoryType.Breadcrumb;
     case 'hub':
       return MemoryType.Hub;
+    case 'rule':
+      return MemoryType.Rule;
+    case 'reminder':
+      return MemoryType.Reminder;
     default:
       return undefined;
   }
@@ -223,4 +227,26 @@ export function validateIncludeShared(
     };
   }
   return { valid: true };
+}
+
+/**
+ * Convert Scope enum to scope identifier string for graph metadata
+ */
+export function scopeToIdentifier(scope: Scope): string {
+  switch (scope) {
+    case Scope.Global:
+      return 'global';
+    case Scope.Project:
+      return 'project';
+    case Scope.Local:
+      return 'local';
+    case Scope.Enterprise:
+      return 'enterprise';
+    case Scope.AgentProject:
+      return 'agent-project';
+    case Scope.AgentGlobal:
+      return 'agent-global';
+    default:
+      return 'project';
+  }
 }

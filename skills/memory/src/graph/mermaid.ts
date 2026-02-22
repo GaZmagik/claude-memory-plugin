@@ -50,6 +50,8 @@ const NODE_SHAPES: Record<string, { open: string; close: string }> = {
   learning: { open: '([', close: '])' },     // Stadium
   hub: { open: '((', close: '))' },          // Circle
   session: { open: '[/', close: '/]' },      // Parallelogram
+  rule: { open: '{{', close: '}}' },         // Hexagon (formal/authoritative)
+  reminder: { open: '[(', close: ')]' },     // Cylinder (stored knowledge)
   default: { open: '[', close: ']' },
 };
 
@@ -62,6 +64,8 @@ const NODE_STYLES: Record<string, string> = {
   learning: 'fill:#fff3e0,stroke:#f57c00',
   hub: 'fill:#e8f5e9,stroke:#388e3c,stroke-width:3px',
   session: 'fill:#fce4ec,stroke:#c2185b',
+  rule: 'fill:#fff8e1,stroke:#f57f17',
+  reminder: 'fill:#e0f7fa,stroke:#00838f',
   agentNode: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
   agentNodeProject: 'fill:#e3f2fd,stroke:#1976d2,stroke-width:2px',
   agentNodeGlobal: 'fill:#bbdefb,stroke:#0d47a1,stroke-width:2px',
@@ -148,7 +152,8 @@ function escapeLabel(text: string): string {
     .replace(/\{/g, '(')
     .replace(/\}/g, ')')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/`/g, '&#96;'); // B3: Escape backticks for Mermaid
 }
 
 /**
@@ -192,10 +197,13 @@ function isAgentNode(node: GraphNode): boolean {
 function generateNode(node: GraphNode, options: MermaidOptions): string {
   const id = sanitiseId(node.id);
 
-  // Use double bracket shape [[text]] for agent nodes
-  const shape = isAgentNode(node)
-    ? { open: '[[', close: ']]' }
-    : getNodeShape(node.type);
+  // Prioritize external types over agent scope
+  const isExternalType = node.type === 'rule' || node.type === 'reminder';
+  const shape = isExternalType
+    ? getNodeShape(node.type)  // Use type-specific shape (hexagon/cylinder)
+    : isAgentNode(node)
+      ? { open: '[[', close: ']]' }
+      : getNodeShape(node.type);
 
   let label = escapeLabel(node.id);
 
@@ -492,15 +500,18 @@ export function generateDot(graph: MemoryGraph): string {
   lines.push('');
 
   for (const node of graph.nodes) {
+    const sanitisedId = sanitiseId(node.id);
     const label = escapeLabel(node.id);
-    lines.push(`  "${node.id}" [label="${label}"];`);
+    lines.push(`  "${sanitisedId}" [label="${label}"];`);
   }
 
   lines.push('');
 
   for (const edge of graph.edges) {
+    const fromId = sanitiseId(edge.source);
+    const toId = sanitiseId(edge.target);
     const label = edge.label ? ` [label="${escapeLabel(edge.label)}"]` : '';
-    lines.push(`  "${edge.source}" -> "${edge.target}"${label};`);
+    lines.push(`  "${fromId}" -> "${toId}"${label};`);
   }
 
   lines.push('}');

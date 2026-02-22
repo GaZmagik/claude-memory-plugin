@@ -15,7 +15,7 @@
  * - Remove orphan embedding entries (embeddings without files)
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
 import {
@@ -32,6 +32,8 @@ import { loadIndex, saveIndex } from '../core/index.js';
 import type { IndexEntry, MemoryIndex } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { EmbeddingCache } from '../search/embedding.js';
+import { discoverExternalFiles, indexExternalFiles } from '../external/index.js';
+import { fileExists, readFile } from '../core/fs-utils.js';
 
 /**
  * Sync request options
@@ -63,6 +65,12 @@ export interface SyncResponse {
     removedFromIndex: string[];
     /** Orphan embedding entries removed */
     removedOrphanEmbeddings: string[];
+    /** External nodes added (rules and reminders) */
+    externalNodesAdded: string[];
+    /** External nodes updated */
+    externalNodesUpdated: string[];
+    /** External nodes removed (stale) */
+    externalNodesRemoved: string[];
   };
   /** Summary counts */
   summary: {
@@ -70,21 +78,24 @@ export interface SyncResponse {
     nodesInGraph: number;
     entriesInIndex: number;
     entriesInEmbeddings: number;
+    externalRuleNodes: number;
+    externalReminderNodes: number;
   };
   errors?: string[];
 }
 
 /**
- * Get all memory files from disk
+ * Get all memory files from disk (async)
  */
-function getFilesOnDisk(basePath: string): Map<string, string> {
+async function getFilesOnDisk(basePath: string): Promise<Map<string, string>> {
   const files = new Map<string, string>();
 
   for (const subdir of ['permanent', 'temporary']) {
     const dir = path.join(basePath, subdir);
-    if (!fs.existsSync(dir)) continue;
+    if (!(await fileExists(dir))) continue;
 
-    const mdFiles = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+    const entries = await fsp.readdir(dir);
+    const mdFiles = entries.filter(f => f.endsWith('.md'));
     for (const file of mdFiles) {
       const id = file.replace('.md', '');
       files.set(id, path.join(dir, file));
@@ -95,11 +106,11 @@ function getFilesOnDisk(basePath: string): Map<string, string> {
 }
 
 /**
- * Parse a memory file to extract node info
+ * Parse a memory file to extract node info (async)
  */
-function parseFileToNode(id: string, filePath: string): GraphNode | null {
+async function parseFileToNode(id: string, filePath: string): Promise<GraphNode | null> {
   try {
-    const content = fs.readFileSync(filePath, 'utf8');
+    const content = await readFile(filePath);
     const parsed = parseMemoryFile(content);
     // Note: parseMemoryFile throws on invalid input, caught below
 
@@ -114,11 +125,11 @@ function parseFileToNode(id: string, filePath: string): GraphNode | null {
 }
 
 /**
- * Parse a memory file to extract index entry
+ * Parse a memory file to extract index entry (async)
  */
-function parseFileToIndexEntry(id: string, filePath: string): IndexEntry | null {
+async function parseFileToIndexEntry(id: string, filePath: string): Promise<IndexEntry | null> {
   try {
-    const content = fs.readFileSync(filePath, 'utf8');
+    const content = await readFile(filePath);
     const parsed = parseMemoryFile(content);
     // Note: parseMemoryFile throws on invalid input, caught below
 
@@ -197,10 +208,13 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     removedOrphanEdges: 0,
     removedFromIndex: [] as string[],
     removedOrphanEmbeddings: [] as string[],
+    externalNodesAdded: [] as string[],
+    externalNodesUpdated: [] as string[],
+    externalNodesRemoved: [] as string[],
   };
 
   // Load current state
-  const filesOnDisk = getFilesOnDisk(basePath);
+  const filesOnDisk = await getFilesOnDisk(basePath);
   let graph: MemoryGraph;
   let index: MemoryIndex;
 
@@ -227,7 +241,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
     if (!existingNode) {
       // Node missing entirely - add it
-      const node = parseFileToNode(id, filePath);
+      const node = await parseFileToNode(id, filePath);
       if (node) {
         changes.addedToGraph.push(id);
         if (!dryRun) {
@@ -236,7 +250,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
       }
     } else if (!existingNode.title) {
       // Node exists but missing title - refresh it
-      const node = parseFileToNode(id, filePath);
+      const node = await parseFileToNode(id, filePath);
       if (node && !dryRun) {
         graph = addNode(graph, node); // addNode updates existing nodes
       }
@@ -246,7 +260,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 2. Find files not in index - add them
   for (const [id, filePath] of filesOnDisk) {
     if (!indexIds.has(unsafeAsMemoryId(id))) {
-      const entry = parseFileToIndexEntry(id, filePath);
+      const entry = await parseFileToIndexEntry(id, filePath);
       if (entry) {
         changes.addedToIndex.push(id);
         if (!dryRun) {
@@ -257,8 +271,10 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 3. Find ghost nodes (in graph but no file) - remove them
+  // Skip external nodes (Rule/Reminder) as they don't have files in permanent/temporary
   for (const node of graph.nodes) {
-    if (!fileIds.has(node.id)) {
+    const isExternal = node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
+    if (!fileIds.has(node.id) && !isExternal) {
       changes.removedGhostNodes.push(node.id);
       if (!dryRun) {
         graph = removeNode(graph, node.id);
@@ -279,9 +295,11 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 5. Find index entries without files - remove them
+  // Skip external entries (have externalPath set) as they don't have files in permanent/temporary
   const memoriesToKeep: IndexEntry[] = [];
   for (const entry of index.memories) {
-    if (!fileIds.has(entry.id)) {
+    const isExternalEntry = !!entry.externalPath;
+    if (!fileIds.has(entry.id) && !isExternalEntry) {
       changes.removedFromIndex.push(entry.id);
     } else {
       memoriesToKeep.push(entry);
@@ -295,9 +313,9 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 6. Find orphan embedding entries (in embeddings.json but no file) - remove them
   let embeddingsCount = 0;
   const embeddingsPath = path.join(basePath, 'embeddings.json');
-  if (fs.existsSync(embeddingsPath)) {
+  if (await fileExists(embeddingsPath)) {
     try {
-      const content = fs.readFileSync(embeddingsPath, 'utf-8');
+      const content = await readFile(embeddingsPath);
       const cache = JSON.parse(content) as EmbeddingCache;
 
       if (cache.memories) {
@@ -315,13 +333,44 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
         // Save cleaned embeddings if changes were made
         if (!dryRun && changes.removedOrphanEmbeddings.length > 0) {
-          fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+          await fsp.writeFile(embeddingsPath, JSON.stringify(cache, null, 2), 'utf-8');
           embeddingsCount = Object.keys(cache.memories).length;
         }
       }
     } catch (err) {
       errors.push(`Failed to clean embeddings: ${err}`);
     }
+  }
+
+  // 7. Index external files (rules and reminders)
+  // For scoped syncs (agent/project), constrain discovery to basePath
+  // For global syncs, basePath would be ~/.claude/memory, so homeDir is correct
+  try {
+    const externalFiles = await discoverExternalFiles({
+      cwd: basePath,
+      homeDir: basePath, // Constrain to scope - prevents walking to real home in tests
+      gitRoot: basePath,
+      projectRoot: basePath,
+    });
+
+    const externalResult = await indexExternalFiles({
+      basePath,
+      graph,
+      index,
+      embeddingsPath,
+      externalFiles,
+      dryRun,
+    });
+
+    if (externalResult.status === 'success') {
+      changes.externalNodesAdded = externalResult.changes.addedNodes;
+      changes.externalNodesUpdated = externalResult.changes.updatedNodes;
+      changes.externalNodesRemoved = externalResult.changes.removedNodes;
+    } else if (externalResult.errors) {
+      errors.push(...externalResult.errors);
+    }
+  } catch (err) {
+    errors.push(`Failed to index external files: ${err}`);
   }
 
   // Save changes if not dry run
@@ -339,6 +388,10 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
     }
   }
 
+  // Count external nodes
+  const externalRuleNodes = graph.nodes.filter((n: GraphNode) => n.type === MemoryType.Rule).length;
+  const externalReminderNodes = graph.nodes.filter((n: GraphNode) => n.type === MemoryType.Reminder).length;
+
   return {
     status: errors.length > 0 ? 'error' : 'success',
     changes,
@@ -347,6 +400,8 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
       nodesInGraph: graph.nodes.length,
       entriesInIndex: index.memories.length,
       entriesInEmbeddings: embeddingsCount,
+      externalRuleNodes,
+      externalReminderNodes,
     },
     ...(errors.length > 0 && { errors }),
   };

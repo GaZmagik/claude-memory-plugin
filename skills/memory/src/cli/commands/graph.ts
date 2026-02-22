@@ -14,7 +14,40 @@ import { updateEdgeMetadata } from '../../graph/link-update.js';
 import { loadGraph, loadMergedGraph, saveGraph, removeNode } from '../../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../../graph/edges.js';
 import { generateMermaid } from '../../graph/mermaid.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths, scopeToIdentifier } from '../helpers.js';
+import { isInsideDir, writeFileAtomic } from '../../core/fs-utils.js';
+import { Scope } from '../../types/enums.js';
+
+/**
+ * Parameters for cross-scope detection
+ */
+interface CrossScopeDetectionParams {
+  agentName?: string | boolean;
+  targetAgentName?: string | boolean;
+  targetScopeStr?: string | boolean;
+  sourceScope: Scope;
+  targetScope: Scope;
+}
+
+/**
+ * Detect if a link operation crosses scope boundaries
+ * C2: Extracted helper to eliminate code duplication in cmdLink/cmdUnlink
+ */
+function detectCrossScope(params: CrossScopeDetectionParams): boolean {
+  const { agentName, targetAgentName, targetScopeStr, sourceScope, targetScope } = params;
+
+  const hasAgentCrossScope: boolean =
+    Boolean(agentName && !targetAgentName) ||
+    Boolean(!agentName && targetAgentName) ||
+    Boolean(agentName && targetAgentName && agentName !== targetAgentName);
+
+  const hasNonAgentCrossScope: boolean =
+    Boolean(!agentName && !targetAgentName &&
+      targetScopeStr !== undefined &&
+      sourceScope !== targetScope);
+
+  return hasAgentCrossScope || hasNonAgentCrossScope;
+}
 
 /**
  * link - Create a relationship between memories
@@ -37,26 +70,35 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const targetScopeStr = getFlagString(args.flags, 'target-scope');
   const relation = getFlagString(args.flags, 'relation');
 
-  // Detect cross-scope: --agent XOR --target-agent, or both with different values
-  const isCrossScope = (agentName && !targetAgentName) ||
-    (!agentName && targetAgentName) ||
-    (agentName && targetAgentName && agentName !== targetAgentName);
+  // Parse scopes for comparison
+  const sourceScope = parseScope(scopeStr);
+  const targetScope = parseScope(targetScopeStr);
+
+  // C2: Use extracted helper to detect cross-scope
+  const isCrossScope = detectCrossScope({
+    agentName,
+    targetAgentName,
+    targetScopeStr,
+    sourceScope,
+    targetScope,
+  });
 
   if (isCrossScope) {
     // Resolve source base path
     const sourceBasePath = agentName
       ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      : getResolvedScopePath(sourceScope);  // Use parsed scope
 
     // Resolve target base path
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : getResolvedScopePath(targetScope);  // Use parsed scope
 
-    const sourceScope = agentName ? 'agent-project' : 'project';
-    const targetScope = targetAgentName ? 'agent-project' : 'project';
+    const sourceScopeId = agentName ? 'agent-project' : scopeToIdentifier(sourceScope);
+    const targetScopeId = targetAgentName ? 'agent-project' : scopeToIdentifier(targetScope);
 
     return wrapOperation(
       async () => {
@@ -68,8 +110,8 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
           agent: agentName,
           targetAgent: targetAgentName,
           targetBasePath,
-          sourceScope,
-          targetScope,
+          sourceScope: sourceScopeId,
+          targetScope: targetScopeId,
           sourceAgent: agentName,
         });
         return result;
@@ -108,20 +150,29 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
   const agentName = getFlagString(args.flags, 'agent');
   const targetAgentName = getFlagString(args.flags, 'target-agent');
   const scopeStr = getFlagString(args.flags, 'scope');
+  const targetScopeStr = getFlagString(args.flags, 'target-scope');
 
-  // Detect cross-scope
-  const isCrossScope = (agentName && !targetAgentName) ||
-    (!agentName && targetAgentName) ||
-    (agentName && targetAgentName && agentName !== targetAgentName);
+  // Parse scopes for comparison
+  const sourceScope = parseScope(scopeStr);
+  const targetScope = parseScope(targetScopeStr);
+
+  // C2: Use extracted helper to detect cross-scope
+  const isCrossScope = detectCrossScope({
+    agentName,
+    targetAgentName,
+    targetScopeStr,
+    sourceScope,
+    targetScope,
+  });
 
   if (isCrossScope) {
     const sourceBasePath = agentName
       ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      : getResolvedScopePath(sourceScope);  // Use parsed scope
 
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, scopeStr)
-      : getResolvedScopePath(parseScope(scopeStr));
+      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : getResolvedScopePath(targetScope);  // Use parsed scope
 
     return wrapOperation(
       async () => {
@@ -303,13 +354,14 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
         ? (outputPath.endsWith('.md') ? outputPath : `${outputPath}.md`)
         : path.join(basePath, 'graph.md');
 
-      // Write to file (ensure directory exists)
-      const fs = await import('node:fs');
-      const outputDir = path.dirname(finalPath);
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
+      // Validate output path is within basePath (security: prevent arbitrary file writes)
+      const normalizedOutput = path.resolve(finalPath);
+      if (!isInsideDir(basePath, normalizedOutput)) {
+        throw new Error(`Output path must be within memory directory: ${basePath}`);
       }
-      fs.writeFileSync(finalPath, markdownOutput);
+
+      // Write to file atomically (writeFileAtomic handles directory creation)
+      await writeFileAtomic(finalPath, markdownOutput);
 
       return {
         diagram: markdownOutput,

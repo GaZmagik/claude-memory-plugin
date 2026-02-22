@@ -170,7 +170,8 @@ describe('Mermaid with --agent flag', () => {
   });
 
   it('saves diagram to file when requested', async () => {
-    const outputFile = path.join(testDir, 'typescript-pro-graph.md');
+    // Use output path within agent's memory directory to pass security check
+    const outputFile = path.join(testDir, '.claude/memory/agents/typescript-pro/typescript-pro-graph.md');
     const args: ParsedArgs = {
       positional: [],
       flags: { agent: 'typescript-pro', output: outputFile },

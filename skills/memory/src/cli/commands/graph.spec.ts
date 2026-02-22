@@ -9,6 +9,7 @@ import * as linkUpdateModule from '../../graph/link-update.js';
 import * as structureModule from '../../graph/structure.js';
 import * as edgesModule from '../../graph/edges.js';
 import * as mermaidModule from '../../graph/mermaid.js';
+import * as fsUtilsModule from '../../core/fs-utils.js';
 import type { ParsedArgs } from '../parser.js';
 
 // Note: Removed module-level vi.mock('node:fs') to prevent global test pollution.
@@ -158,9 +159,8 @@ describe('cmdMermaid', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart TB\n  A --> B');
 
-    // Spy on fs.writeFileSync for this test only
-    const fs = await import('node:fs');
-    const writeFileSpy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+    // Spy on writeFileAtomic for this test only
+    const writeFileSpy = vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockResolvedValue(undefined);
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdMermaid(args);
@@ -176,9 +176,8 @@ describe('cmdMermaid', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue(mockGraph as any);
     vi.spyOn(mermaidModule, 'generateMermaid').mockReturnValue('flowchart LR');
 
-    // Spy on fs.writeFileSync for this test only
-    const fs = await import('node:fs');
-    vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+    // Spy on writeFileAtomic for this test only
+    vi.spyOn(fsUtilsModule, 'writeFileAtomic').mockResolvedValue(undefined);
 
     const args: ParsedArgs = { positional: [], flags: { direction: 'LR', all: true, hub: 'test-hub', depth: '2' } };
     await cmdMermaid(args);

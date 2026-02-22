@@ -87,6 +87,14 @@ describe('CLI Helpers', () => {
       expect(parseMemoryType('hub')).toBe(MemoryType.Hub);
     });
 
+    it('should parse "rule" to MemoryType.Rule', () => {
+      expect(parseMemoryType('rule')).toBe(MemoryType.Rule);
+    });
+
+    it('should parse "reminder" to MemoryType.Reminder', () => {
+      expect(parseMemoryType('reminder')).toBe(MemoryType.Reminder);
+    });
+
     it('should return undefined for undefined input', () => {
       expect(parseMemoryType(undefined)).toBeUndefined();
     });

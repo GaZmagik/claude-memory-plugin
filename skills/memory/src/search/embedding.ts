@@ -4,7 +4,7 @@
  * Generate and cache embeddings for semantic search.
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
 import { createLogger } from '../core/logger.js';
@@ -17,6 +17,50 @@ const log = createLogger('embedding');
  * Fast failure to avoid 30-second default timeout
  */
 const OLLAMA_HEALTH_CHECK_TIMEOUT_MS = 2000;
+
+/**
+ * Blocklist for Ollama base URLs to prevent SSRF attacks
+ * Blocks cloud metadata endpoints and localhost IP (use 'localhost' string instead)
+ */
+const OLLAMA_URL_BLOCKLIST = [
+  '169.254.169.254',      // AWS metadata
+  'metadata.google.internal', // GCP metadata
+  'fd00::',               // Azure metadata (IPv6)
+  '127.0.0.1',            // Localhost IP (use 'localhost' instead)
+  '0.0.0.0',              // Wildcard/unspecified address
+  '::1',                  // IPv6 loopback
+  '[::1]',                // IPv6 loopback (bracket notation)
+  'fe80::',               // Link-local IPv6
+];
+
+/**
+ * Validate Ollama base URL to prevent SSRF attacks
+ *
+ * @param baseUrl - The Ollama API base URL to validate
+ * @throws Error if URL is invalid, uses blocked hostname, or non-http/https protocol
+ */
+function validateOllamaUrl(baseUrl: string): void {
+  try {
+    const url = new URL(baseUrl);
+
+    // Check against blocklist
+    if (OLLAMA_URL_BLOCKLIST.some(blocked => url.hostname.includes(blocked))) {
+      throw new Error(
+        `Ollama base URL must not point to cloud metadata services or blocked hosts: ${url.hostname}`
+      );
+    }
+
+    // Only allow http/https protocols
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error(`Ollama base URL must use http or https protocol, got: ${url.protocol}`);
+    }
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(`Invalid Ollama base URL: ${baseUrl}`);
+    }
+    throw error;
+  }
+}
 
 /**
  * Embedding provider interface
@@ -80,12 +124,14 @@ export async function generateEmbedding(
  * Load embedding cache from file
  */
 export async function loadEmbeddingCache(cachePath: string): Promise<EmbeddingCache> {
-  if (!fs.existsSync(cachePath)) {
+  try {
+    await fsp.access(cachePath);
+  } catch {
     return { version: 1, memories: {} };
   }
 
   try {
-    const content = fs.readFileSync(cachePath, 'utf-8');
+    const content = await fsp.readFile(cachePath, 'utf-8');
     return JSON.parse(content) as EmbeddingCache;
   } catch {
     log.warn('Failed to load embedding cache, starting fresh', { path: cachePath });
@@ -100,12 +146,8 @@ export async function saveEmbeddingCache(
   cachePath: string,
   cache: EmbeddingCache
 ): Promise<void> {
-  const dir = path.dirname(cachePath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
   // Use atomic write to prevent cache corruption during concurrent writes
+  // writeFileAtomic handles directory creation internally
   await writeFileAtomic(cachePath, JSON.stringify(cache, null, 2));
   log.debug('Saved embedding cache', { path: cachePath, memories: Object.keys(cache.memories).length });
 }
@@ -181,6 +223,7 @@ export async function batchGenerateEmbeddings(
   const cache = await loadEmbeddingCache(cachePath);
   const results: BatchEmbeddingResult[] = [];
 
+  // Sequential (not parallel) — avoids Ollama rate limits and keeps cache writes atomic
   for (let i = 0; i < memories.length; i++) {
     const memory = memories[i];
     if (!memory) continue;
@@ -276,6 +319,9 @@ export function createOllamaProvider(
   model: string = 'embeddinggemma:latest',
   baseUrl: string = 'http://localhost:11434'
 ): EmbeddingProvider {
+  // Validate URL before use (B4: SSRF prevention)
+  validateOllamaUrl(baseUrl);
+
   return {
     name: `ollama:${model}`,
     generate: async (text: string) => {
@@ -325,6 +371,9 @@ export async function createOllamaProviderWithHealthCheck(
   model: string = 'embeddinggemma:latest',
   baseUrl: string = 'http://localhost:11434'
 ): Promise<EmbeddingProvider | undefined> {
+  // Validate URL before health check (B4: SSRF prevention)
+  validateOllamaUrl(baseUrl);
+
   try {
     // Quick health check with fast timeout to avoid blocking
     const response = await fetch(`${baseUrl}/api/tags`, {

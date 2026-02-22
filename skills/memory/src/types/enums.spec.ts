@@ -15,9 +15,17 @@ describe('MemoryType enum', () => {
     expect(MemoryType.Hub).toBe('hub');
   });
 
-  it('should have exactly 6 memory types', () => {
+  it('should have exactly 8 memory types', () => {
     const types = Object.values(MemoryType);
-    expect(types).toHaveLength(6);
+    expect(types).toHaveLength(8);
+  });
+
+  it('should have Rule memory type', () => {
+    expect(MemoryType.Rule).toBe('rule');
+  });
+
+  it('should have Reminder memory type', () => {
+    expect(MemoryType.Reminder).toBe('reminder');
   });
 });
 
@@ -55,5 +63,13 @@ describe('EdgeType enum', () => {
     expect(EdgeType.Informs).toBe('informs');
     expect(EdgeType.Exemplifies).toBe('exemplifies');
     expect(EdgeType.RelatedContext).toBe('related-context');
+  });
+
+  it('should have GovernedBy edge type for external rule nodes', () => {
+    expect(EdgeType.GovernedBy).toBe('governed-by');
+  });
+
+  it('should have RemindedBy edge type for external reminder nodes', () => {
+    expect(EdgeType.RemindedBy).toBe('reminded-by');
   });
 });

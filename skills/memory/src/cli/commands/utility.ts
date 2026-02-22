@@ -19,6 +19,8 @@ import { promoteMemory } from '../../maintenance/promote.js';
 import { archiveMemory } from '../../maintenance/archive.js';
 import { MemoryType } from '../../types/enums.js';
 import { getResolvedScopePath, getGlobalMemoryPath, parseScope } from '../helpers.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
+import { getAgentDirectoryPath } from '../../scope/get-agent-directory-path.js';
 import { checkRelevance, formatTable, formatJson } from '../../maintenance/check-relevance.js';
 
 /**
@@ -59,6 +61,16 @@ export async function cmdRename(args: ParsedArgs): Promise<CliResponse> {
   const scope = parseScope(getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
 
+  // Read-only guard: Reject renames on external nodes (rule/reminder types)
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
+  const { loadIndex } = await import('../../core/index.js');
+  const index = await loadIndex({ basePath });
+  const existingEntry = index.memories.find(m => m.id === oldId);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${oldId}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
+
   return wrapOperation(
     async () => {
       const result = await renameMemory({ oldId, newId, basePath });
@@ -90,6 +102,48 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
 
   const targetScope = parseScope(targetScopeStr);
   const targetBasePath = getResolvedScopePath(targetScope);
+
+  // Read-only guard: Check all scopes for external nodes BEFORE file lookup
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
+  const { loadIndex } = await import('../../core/index.js');
+
+  // Check all scopes for external nodes (which don't have files on disk)
+  for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
+    const checkBasePath = getResolvedScopePath(checkScope);
+    try {
+      const index = await loadIndex({ basePath: checkBasePath });
+      const existingEntry = index.memories.find(m => m.id === id);
+      if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+        return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+      }
+    } catch {
+      // Index doesn't exist in this scope, continue
+    }
+  }
+
+  // Also check agent scope indices (reminder nodes can live in AgentProject/AgentGlobal scopes)
+  try {
+    const agents = await discoverAgents({ projectRoot: process.cwd(), globalRoot: getGlobalMemoryPath() });
+    for (const agent of agents) {
+      const agentPath = getAgentDirectoryPath({
+        scope: agent.scope,
+        agentName: agent.name,
+        projectRoot: process.cwd(),
+        globalRoot: getGlobalMemoryPath(),
+      });
+      try {
+        const index = await loadIndex({ basePath: agentPath });
+        const existingEntry = index.memories.find(m => m.id === id);
+        if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+          return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+        }
+      } catch {
+        // Index doesn't exist for this agent, continue
+      }
+    }
+  } catch {
+    // Agent discovery failed, continue
+  }
 
   // If --scope is explicitly provided, use it; otherwise auto-detect
   const explicitScope = getFlagString(args.flags, 'scope');
@@ -146,6 +200,47 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
     return error(`Invalid type: ${targetTypeStr}. Valid types: ${validTypes.join(', ')}`);
   }
 
+  // Read-only guard: Check all scopes for external nodes BEFORE proceeding
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
+  const { loadIndex } = await import('../../core/index.js');
+
+  for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
+    const checkBasePath = getResolvedScopePath(checkScope);
+    try {
+      const index = await loadIndex({ basePath: checkBasePath });
+      const existingEntry = index.memories.find(m => m.id === id);
+      if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+        return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+      }
+    } catch {
+      // Index doesn't exist in this scope, continue
+    }
+  }
+
+  // Also check agent scope indices (reminder nodes can live in AgentProject/AgentGlobal scopes)
+  try {
+    const agents = await discoverAgents({ projectRoot: process.cwd(), globalRoot: getGlobalMemoryPath() });
+    for (const agent of agents) {
+      const agentPath = getAgentDirectoryPath({
+        scope: agent.scope,
+        agentName: agent.name,
+        projectRoot: process.cwd(),
+        globalRoot: getGlobalMemoryPath(),
+      });
+      try {
+        const index = await loadIndex({ basePath: agentPath });
+        const existingEntry = index.memories.find(m => m.id === id);
+        if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+          return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+        }
+      } catch {
+        // Index doesn't exist for this agent, continue
+      }
+    }
+  } catch {
+    // Agent discovery failed, continue
+  }
+
   const scope = parseScope(getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
 
@@ -179,6 +274,16 @@ export async function cmdArchive(args: ParsedArgs): Promise<CliResponse> {
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
   const basePath = getResolvedScopePath(scope);
+
+  // Read-only guard: Reject archives on external nodes (rule/reminder types)
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
+  const { loadIndex } = await import('../../core/index.js');
+  const index = await loadIndex({ basePath });
+  const existingEntry = index.memories.find(m => m.id === id);
+
+  if (existingEntry && (existingEntry.type === MemoryType.Rule || existingEntry.type === MemoryType.Reminder)) {
+    return error(`'${id}' is a read-only external node. Run 'memory sync' to refresh it.`);
+  }
 
   return wrapOperation(
     async () => {

@@ -13,6 +13,7 @@ import { findOrphanedNodes, getInboundEdges, getOutboundEdges } from '../../grap
 import { calculateImpact } from '../../graph/traversal.js';
 import { loadIndex } from '../../core/index.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared, resolveSharedScopePaths } from '../helpers.js';
+import type { IndexEntry } from '../../types/memory.js';
 import { getScopeNameFromPath, formatScopedResult } from '../../core/scope-indicators.js';
 
 /**
@@ -53,7 +54,7 @@ export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
       // Multi-scope query if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
-        const allResults: any[] = [];
+        const allResults: Array<Omit<IndexEntry, 'id' | 'scope'> & { id: string; scope: string; edges: { inbound: number; outbound: number } }> = [];
 
         // Query across all scope paths
         for (const scopePath of scopePaths) {
@@ -235,7 +236,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
       // Multi-scope stats if --include-shared is used with --agent
       if (includeShared && agentName) {
         const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
-        const scopeStats: any[] = [];
+        const scopeStats: Array<{ scope: string; nodes: number; edges: number; orphans: number }> = [];
 
         let totalNodes = 0;
         let totalEdges = 0;

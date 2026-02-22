@@ -11,7 +11,7 @@ import { join, dirname } from 'node:path';
 import { mkdtempSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { Ollama } from 'ollama';
-import { generate, isAvailable, configureClient, resetChatModelCache } from './ollama.js';
+import { generate, isAvailable, configureClient, resetChatModelCache, resetContextWindowCache } from './ollama.js';
 
 vi.mock('ollama', () => ({
   Ollama: vi.fn(),
@@ -25,7 +25,7 @@ function mockOllamaClient(overrides: {
   generate?: ReturnType<typeof vi.fn>;
   list?: ReturnType<typeof vi.fn>;
 }) {
-  vi.mocked(Ollama).mockImplementation(() => ({
+  (Ollama as any).mockImplementation(() => ({
     generate: overrides.generate ?? vi.fn().mockRejectedValue(new Error('Not set')),
     list:     overrides.list     ?? vi.fn().mockRejectedValue(new Error('Not set')),
   } as any));
@@ -37,7 +37,7 @@ function mockOllamaClient(overrides: {
 
 describe('isAvailable', () => {
   beforeEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
   });
 
   afterEach(() => {
@@ -73,7 +73,7 @@ describe('isAvailable', () => {
 
 describe('generate', () => {
   beforeEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
   });
 
   afterEach(() => {
@@ -125,6 +125,60 @@ describe('generate', () => {
     await generate('prompt', 'llama3.2');
     expect(mockGen).toHaveBeenCalledWith(expect.objectContaining({ model: 'llama3.2' }));
   });
+
+  it('passes context window from config to Ollama API', async () => {
+    const tmpDir = mkdtempSync(join(tmpdir(), 'context-window-test-'));
+    mkdirSync(join(tmpDir, '.claude'), { recursive: true });
+    writeFileSync(
+      join(tmpDir, '.claude', 'memory.local.md'),
+      '---\nchat_model: gemma3:4b\ncontext_window: 16384\n---\n'
+    );
+    vi.spyOn(process, 'cwd').mockReturnValue(tmpDir);
+    resetChatModelCache();
+    resetContextWindowCache();
+
+    const mockGen = vi.fn().mockResolvedValue({ response: 'ok' });
+    mockOllamaClient({ generate: mockGen });
+    configureClient('http://localhost:11434');
+
+    await generate('test prompt');
+
+    expect(mockGen).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: { num_ctx: 16384 }
+      })
+    );
+
+    vi.restoreAllMocks();
+    rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it('uses default context window when not configured', async () => {
+    const tmpDir = mkdtempSync(join(tmpdir(), 'default-context-test-'));
+    mkdirSync(join(tmpDir, '.claude'), { recursive: true });
+    writeFileSync(
+      join(tmpDir, '.claude', 'memory.local.md'),
+      '---\nchat_model: gemma3:4b\n---\n'
+    );
+    vi.spyOn(process, 'cwd').mockReturnValue(tmpDir);
+    resetChatModelCache();
+    resetContextWindowCache();
+
+    const mockGen = vi.fn().mockResolvedValue({ response: 'ok' });
+    mockOllamaClient({ generate: mockGen });
+    configureClient('http://localhost:11434');
+
+    await generate('test prompt');
+
+    expect(mockGen).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: { num_ctx: 16384 } // DEFAULT_CONTEXT_WINDOW
+      })
+    );
+
+    vi.restoreAllMocks();
+    rmSync(tmpDir, { recursive: true, force: true });
+  });
 });
 
 // ============================================================================
@@ -133,7 +187,7 @@ describe('generate', () => {
 
 describe('configureClient', () => {
   afterEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
     // Reset to default host
     configureClient('http://localhost:11434');
   });

@@ -7,9 +7,10 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import type { ReadMemoryRequest, ReadMemoryResponse } from '../types/api.js';
+import type { MemoryFrontmatter } from '../types/memory.js';
 import { Scope } from '../types/enums.js';
 import { findInIndex } from './index.js';
-import { readFile, fileExists, isInsideDir } from './fs-utils.js';
+import { readFile, fileExists, isInsideDir, isValidExternalPath } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
 import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
@@ -103,21 +104,44 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     const indexEntry = await findInIndex(basePath, request.id);
 
     let filePath: string;
+    let isExternalFile = false;
 
     if (indexEntry) {
-      filePath = path.join(basePath, indexEntry.relativePath);
+      // Check if this is an external file (rule or reminder)
+      if (indexEntry.externalPath) {
+        filePath = indexEntry.externalPath;
+        isExternalFile = true;
+      } else {
+        filePath = path.join(basePath, indexEntry.relativePath);
+      }
     } else {
       // Fall back to direct file lookup
       filePath = path.join(basePath, `${request.id}.md`);
     }
 
-    // Security: Validate path stays within basePath (prevent path traversal)
-    if (!isInsideDir(basePath, filePath)) {
-      log.warn('Path traversal attempt detected', { id: request.id, filePath });
-      return {
-        status: 'error',
-        error: 'Invalid memory ID: path traversal not allowed',
-      };
+    // Security: Validate path stays within allowed directories (prevent path traversal)
+    if (isExternalFile) {
+      // External files must be within project tree, home .claude/, or ancestor dirs
+      // Use basePath as projectRoot to support test environments with temp dirs
+      if (!isValidExternalPath(filePath, {
+        projectRoot: basePath,
+        homeDir: os.homedir(),
+      })) {
+        log.warn('External path outside allowlist detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid external file path: must be within project tree or home .claude/ directory',
+        };
+      }
+    } else {
+      // Regular memory files must stay within basePath
+      if (!isInsideDir(basePath, filePath)) {
+        log.warn('Path traversal attempt detected', { id: request.id, filePath });
+        return {
+          status: 'error',
+          error: 'Invalid memory ID: path traversal not allowed',
+        };
+      }
     }
 
     if (!(await fileExists(filePath))) {
@@ -129,7 +153,29 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
 
     // Read and parse file
     const fileContent = await readFile(filePath);
-    const { frontmatter, content } = parseMemoryFile(fileContent);
+
+    let frontmatter: MemoryFrontmatter;
+    let content: string;
+
+    if (isExternalFile && indexEntry) {
+      // External files don't have frontmatter - build it from index entry
+      frontmatter = {
+        id: indexEntry.id,
+        title: indexEntry.title,
+        type: indexEntry.type,
+        tags: indexEntry.tags || [],
+        created: indexEntry.created,
+        updated: indexEntry.updated,
+        scope: indexEntry.scope,
+        agent: indexEntry.agent,
+      };
+      content = fileContent; // Raw content without frontmatter
+    } else {
+      // Regular memory file with frontmatter
+      const parsed = parseMemoryFile(fileContent);
+      frontmatter = parsed.frontmatter;
+      content = parsed.content;
+    }
 
     log.debug('Read memory', { id: request.id, path: filePath });
 

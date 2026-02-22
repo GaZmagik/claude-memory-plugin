@@ -93,6 +93,8 @@ export interface LinkMemoriesRequest extends BaseRequest {
   similarity?: number;
   /** LLM-verified relation label to store as verifiedRelation on the created edge. */
   verifiedRelation?: string;
+  /** Force update existing edge metadata (smart bypass: only updates if metadata differs) */
+  force?: boolean;
 }
 
 /**

@@ -207,6 +207,124 @@ memory suggest-links --all-scopes --auto-link
 
 This ensures memories are connected across the entire knowledge graph, not just within their own scope.
 
+### v1.5.0 Features
+
+#### External File Indexing (Rules & Reminders)
+
+The memory system now automatically discovers and indexes external Claude configuration files as read-only graph nodes, making project rules and agent reminders searchable and linkable:
+
+**Discovered Files**:
+- **CLAUDE.md** (project root and ancestor directories)
+- **.claude/CLAUDE.md** (dotfile variant)
+- **.claude/rules/*.md** (rules directory files)
+- **.claude/agent-memory/{agent}/MEMORY.md** (agent memory summaries)
+- **.claude/agent-memory/{agent}/*.md** (agent sub-files like patterns.md, gotchas.md)
+
+**New Node Types**:
+
+| Type | ID Format | Mermaid Shape | Purpose |
+|------|-----------|---------------|---------|
+| **Rule** | `rule-project-claude-md-root` | Hexagon `{{}}` | Project rules and guidelines from CLAUDE.md |
+| **Reminder** | `reminder-project-{agent}-memory` | Cylinder `[()]` | Agent memory summaries and knowledge |
+
+**New Edge Types**:
+
+| Type | Direction | Purpose | Example |
+|------|-----------|---------|---------|
+| **governed-by** | Decision → Rule | Links decisions to governing rules | Decision to use TDD → CLAUDE.md TDD rule |
+| **reminded-by** | Gotcha/Learning → Reminder | Links insights to agent memories | TypeScript gotcha → typescript-expert MEMORY.md |
+
+**Read-Only Protection**:
+
+External nodes cannot be modified via memory commands - they must be edited at their source:
+
+```bash
+# ✗ Blocked - cannot modify rule nodes
+memory write rule-project-claude-md-root --content "new content"
+# Error: Cannot modify read-only external node 'rule-project-claude-md-root'
+# External nodes are synced from source files via 'memory sync'
+
+# ✓ Allowed - read external content
+memory read rule-project-claude-md-root
+
+# ✓ Allowed - link to external nodes
+memory link decision-use-tdd rule-project-claude-md-root --relation governed-by
+
+# ✓ Allowed - search includes external nodes
+memory search "TDD"  # Returns both regular memories AND rule nodes
+```
+
+**Automatic Indexing**:
+
+External files are indexed automatically during sync:
+
+```bash
+# Full sync - indexes all files (project memories + external files)
+memory sync
+
+# Quick refresh - only re-indexes changed external files
+memory index-context
+
+# Dry run - preview what would be indexed
+memory index-context --dry-run
+```
+
+**Performance Optimisation**:
+
+The `index-context` command uses content hash-based change detection:
+- Only regenerates embeddings for modified files
+- Reuses cached embeddings for unchanged files
+- Much faster than full sync for incremental updates
+
+**Usage Examples**:
+
+```bash
+# Discover what rules exist in your project
+memory list --type rule
+
+# Find which decisions are governed by project rules
+memory edges rule-project-claude-md-root
+
+# Link a decision to a governing rule
+memory link decision-authentication-approach rule-project-security --relation governed-by
+
+# Link a gotcha to an agent's memory
+memory link gotcha-async-pitfall reminder-project-typescript-expert-memory --relation reminded-by
+
+# Search across regular memories AND external files
+memory semantic "testing best practices"
+
+# View Mermaid diagram with rules (hexagons) and reminders (cylinders)
+memory mermaid --scope project
+```
+
+**Scope Behaviour**:
+
+External files are indexed at the scope where they're discovered:
+- CLAUDE.md in project root → `rule-project-*` (Project scope)
+- CLAUDE.md in home directory → `rule-global-*` (Global scope)
+- Agent MEMORY.md files → `reminder-project-{agent}-*` (Agent-Project scope)
+
+**Auto-Discovery**:
+
+External files are discovered via:
+1. **Tree walking**: CLAUDE.md files from current directory up to git root and home
+2. **Directory scanning**: `.claude/rules/` and `.claude/agent-memory/` directories
+3. **Vendor filtering**: Excludes `node_modules`, `.git`, `dist`, etc.
+4. **Symlink resolution**: Follows symlinks with loop detection
+
+**Integration with Suggest-Links**:
+
+Rule and reminder nodes participate in semantic link suggestions:
+
+```bash
+# Rules and reminders appear as candidates when semantically similar
+memory suggest-links --auto-link
+
+# Example: A decision about TDD might suggest linking to the TDD rule in CLAUDE.md
+# Suggestion: decision-use-tdd → rule-project-claude-md-root (similarity: 0.87)
+```
+
 ### Architecture
 
 ```

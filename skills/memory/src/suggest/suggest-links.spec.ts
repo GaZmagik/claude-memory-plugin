@@ -401,4 +401,110 @@ describe('suggestLinks --llm-type', () => {
     // generate() may have been called for same-scope pairs but not for cross-scope writes
     void generateSpy;
   });
+
+  // T064
+  it('force flag updates existing edge metadata when different', async () => {
+    vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue({
+      memories: {
+        'mem-1': { embedding: [0.1, 0.2, 0.3] },
+        'mem-2': { embedding: [0.15, 0.25, 0.35] },
+      },
+    } as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      memories: [
+        { id: 'mem-1', title: 'Memory One' },
+        { id: 'mem-2', title: 'Memory Two' },
+      ],
+    } as any);
+
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1,
+      nodes: [{ id: 'mem-1' }, { id: 'mem-2' }],
+      edges: [],
+    } as any);
+
+    vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+      { id: 'mem-2', similarity: 0.88 },
+    ]);
+
+    const linkSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
+      status: 'success',
+      alreadyExists: false,
+    });
+
+    const result = await suggestLinks({
+      basePath: '/test',
+      autoLink: true,
+      force: true,
+    });
+
+    expect(result.status).toBe('success');
+    expect(linkSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        source: 'mem-1',
+        target: 'mem-2',
+        similarity: 0.88,
+        force: true,
+      })
+    );
+  });
+
+  // T065
+  it('force flag passes through to linkMemories correctly', async () => {
+    vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockResolvedValue({
+      memories: {
+        'mem-1': { embedding: [0.1, 0.2, 0.3] },
+        'mem-2': { embedding: [0.15, 0.25, 0.35] },
+      },
+    } as any);
+
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
+      memories: [
+        { id: 'mem-1', title: 'Memory One' },
+        { id: 'mem-2', title: 'Memory Two' },
+      ],
+    } as any);
+
+    vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
+      version: 1,
+      nodes: [{ id: 'mem-1' }, { id: 'mem-2' }],
+      edges: [],
+    } as any);
+
+    vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
+    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
+      { id: 'mem-2', similarity: 0.88 },
+    ]);
+
+    const linkSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
+      status: 'success',
+      alreadyExists: true, // Edge already exists
+    });
+
+    // Without force, should skip
+    await suggestLinks({
+      basePath: '/test',
+      autoLink: true,
+      force: false,
+    });
+
+    expect(linkSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ force: false })
+    );
+
+    linkSpy.mockClear();
+
+    // With force, should attempt update
+    await suggestLinks({
+      basePath: '/test',
+      autoLink: true,
+      force: true,
+    });
+
+    expect(linkSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ force: true })
+    );
+  });
 });

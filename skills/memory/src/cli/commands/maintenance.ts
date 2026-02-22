@@ -17,9 +17,14 @@ import { syncFrontmatter } from '../../maintenance/sync-frontmatter.js';
 import { refreshFrontmatter } from '../../maintenance/refresh-frontmatter.js';
 import { checkHealth } from '../../quality/health.js';
 import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embedding.js';
-import { loadIndex } from '../../core/index.js';
+import { loadIndex, saveIndex } from '../../core/index.js';
 import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
+import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
+import { loadGraph, saveGraph } from '../../graph/structure.js';
+import { findGitRoot } from '../../scope/git-utils.js';
+import * as path from 'node:path';
+import * as os from 'node:os';
 
 /**
  * sync - Synchronise graph, index, and disk
@@ -271,5 +276,70 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
       return result;
     },
     dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'
+  );
+}
+
+/**
+ * index-context - Index external context files (CLAUDE.md, agent MEMORY.md)
+ *
+ * Usage: memory index-context [scope] [--dry-run] [--agent <name>]
+ */
+export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
+  const scopeArg = args.positional[0];
+
+  // Extract agent name if provided
+  const agentName = getFlagString(args.flags, 'agent');
+  const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
+
+  // Choose helper based on agent context
+  const basePath = agentName
+    ? resolveAgentScopePath(agentName, scopeStr)
+    : getResolvedScopePath(parseScope(scopeStr));
+
+  const dryRun = args.flags['dry-run'] === true;
+
+  return wrapOperation(
+    async () => {
+      // Load current graph and index
+      let graph = await loadGraph(basePath);
+      let index = await loadIndex({ basePath });
+
+      // Discover external files from actual project/home directories
+      // Note: basePath is the memory storage dir (.claude/memory/), not the project root
+      const cwd = process.cwd();
+      const homeDir = os.homedir();
+      const gitRoot = findGitRoot(cwd) || cwd;
+
+      const externalFiles = await discoverExternalFiles({
+        cwd,
+        homeDir,
+        gitRoot,
+      });
+
+      // Index external files
+      const embeddingsPath = path.join(basePath, 'embeddings.json');
+      const result = await indexExternalFiles({
+        basePath,
+        graph,
+        index,
+        embeddingsPath,
+        externalFiles,
+        dryRun,
+      });
+
+      // Save graph and index to disk (unless dry-run)
+      if (!dryRun && result.status === 'success') {
+        await saveGraph(basePath, graph);
+        await saveIndex(basePath, index);
+      }
+
+      return {
+        status: result.status,
+        changes: result.changes,
+        summary: result.summary,
+        errors: result.errors,
+      };
+    },
+    dryRun ? 'Index context dry run complete' : 'Index context complete'
   );
 }

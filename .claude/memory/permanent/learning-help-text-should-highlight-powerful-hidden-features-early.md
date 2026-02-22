@@ -4,13 +4,13 @@ title: Help text should highlight powerful hidden features early
 type: learning
 scope: project
 project: claude-memory-plugin
-created: "2026-02-16T23:28:21.049Z"
-updated: "2026-02-17T08:02:05.388Z"
+created: "2026-02-19T13:24:13.718Z"
+updated: "2026-02-19T13:25:37.508Z"
 tags:
-  - memory-plugin
-  - cli-documentation
   - help-text
+  - cli-commands
+  - feature-discovery
   - project
 ---
 
-Cross-scope linking discovery revealed that powerful features can be fully implemented but hidden in command-specific help. Comprehensive help.ts updates added agent-scope flags to command list, new CROSS-SCOPE LINKING section with examples, and agent retrospective hints. Version consistency checks across package.json, SKILL.md, README.md needed to catch documentation drift (1.3.0 vs 2.0.0 mismatch).
+Discovered late in Feature 005 that suggest-links has powerful flags like --llm-type and --force-update missing from help text. Help text incompleteness can hide critical functionality until very late in feature completion. Audit help text early in CLI feature development.

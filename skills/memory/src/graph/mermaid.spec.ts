@@ -108,6 +108,62 @@ describe('generateMermaid', () => {
       expect(result).toContain('((');
       expect(result).toContain('))');
     });
+
+    it('should use hexagon for rule nodes', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'rule-project-claude-md', type: 'rule' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Hexagon uses {{}} brackets (same as decision)
+      expect(result).toContain('{{');
+      expect(result).toContain('}}');
+    });
+
+    it('should use cylinder for reminder nodes', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'reminder-project-curator-memory', type: 'reminder' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Cylinder uses [()] brackets
+      expect(result).toContain('[(');
+      expect(result).toContain(')]');
+    });
+  });
+
+  describe('node styles', () => {
+    it('should apply distinct style for rule nodes', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'rule-project-claude-md', type: 'rule' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Rule nodes should have a style definition
+      expect(result).toContain('classDef rule');
+    });
+
+    it('should apply distinct style for reminder nodes', () => {
+      const graph: MemoryGraph = {
+        version: 1,
+        nodes: [{ id: 'reminder-project-curator-memory', type: 'reminder' }],
+        edges: [],
+      };
+
+      const result = generateMermaid(graph);
+
+      // Reminder nodes should have a style definition
+      expect(result).toContain('classDef reminder');
+    });
   });
 
   describe('node labels', () => {
@@ -323,9 +379,9 @@ describe('generateDot', () => {
 
     const result = generateDot(graph);
 
-    // Should escape special characters in labels
-    expect(result).toContain('"node[with]brackets"');
-    expect(result).toContain('[label=');
+    // B3: Should sanitise node IDs and escape labels
+    expect(result).toContain('"node_with_brackets"'); // Sanitised ID
+    expect(result).toContain('[label="node(with)brackets"]'); // Escaped label
   });
 
   it('should include edge labels when present', () => {

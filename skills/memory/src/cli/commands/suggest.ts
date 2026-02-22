@@ -48,6 +48,7 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
   const limit = getFlagNumber(args.flags, 'limit') ?? 20;
   const autoLink = getFlagBool(args.flags, 'auto-link');
   const llmType = getFlagBool(args.flags, 'llm-type');
+  const force = getFlagBool(args.flags, 'force');
 
   return wrapOperation(
     async () => {
@@ -61,6 +62,7 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
         agentName,
         scopeStr,
         llmType,
+        force,
       });
       return result;
     },

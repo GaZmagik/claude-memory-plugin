@@ -14,8 +14,9 @@ import {
   isValidTitle,
   isValidTags,
 } from '../core/validation.js';
-import { MemoryType, Severity } from './enums.js';
-import type { MemoryFrontmatter } from './memory.js';
+import { MemoryType, Severity, Scope } from './enums.js';
+import type { MemoryFrontmatter, IndexEntry } from './memory.js';
+import { unsafeAsMemoryId } from './branded.js';
 
 describe('isValidMemoryType', () => {
   it('should return true for valid memory types', () => {
@@ -246,5 +247,74 @@ describe('validateMemory', () => {
     const result = validateMemory('decision-test', frontmatter, 123 as unknown as string);
     expect(result.valid).toBe(false);
     expect(result.errors.some(e => e.field === 'content')).toBe(true);
+  });
+});
+
+describe('IndexEntry interface', () => {
+  it('should accept externalFileKind optional field', () => {
+    const entry: IndexEntry = {
+      id: unsafeAsMemoryId('rule-project-claude-md'),
+      type: MemoryType.Rule,
+      title: 'CLAUDE.md',
+      tags: [],
+      created: '2026-02-19T08:00:00Z',
+      updated: '2026-02-19T08:00:00Z',
+      scope: Scope.Project,
+      relativePath: 'external/rule-project-claude-md',
+      externalFileKind: 'claude-instructions',
+    };
+
+    expect(entry.externalFileKind).toBe('claude-instructions');
+  });
+
+  it('should accept externalPath optional field', () => {
+    const entry: IndexEntry = {
+      id: unsafeAsMemoryId('rule-project-claude-md'),
+      type: MemoryType.Rule,
+      title: 'CLAUDE.md',
+      tags: [],
+      created: '2026-02-19T08:00:00Z',
+      updated: '2026-02-19T08:00:00Z',
+      scope: Scope.Project,
+      relativePath: 'external/rule-project-claude-md',
+      externalPath: '/home/user/project/.claude/CLAUDE.md',
+    };
+
+    expect(entry.externalPath).toBe('/home/user/project/.claude/CLAUDE.md');
+  });
+
+  it('should work without external fields for regular memories', () => {
+    const entry: IndexEntry = {
+      id: unsafeAsMemoryId('decision-test'),
+      type: MemoryType.Decision,
+      title: 'Test Decision',
+      tags: ['test'],
+      created: '2026-02-19T08:00:00Z',
+      updated: '2026-02-19T08:00:00Z',
+      scope: Scope.Project,
+      relativePath: 'permanent/decision-test.md',
+    };
+
+    expect(entry.externalFileKind).toBeUndefined();
+    expect(entry.externalPath).toBeUndefined();
+  });
+
+  it('should accept both external fields together', () => {
+    const entry: IndexEntry = {
+      id: unsafeAsMemoryId('reminder-project-curator-memory'),
+      type: MemoryType.Reminder,
+      title: 'Curator Agent Memory',
+      tags: [],
+      created: '2026-02-19T08:00:00Z',
+      updated: '2026-02-19T08:00:00Z',
+      scope: Scope.AgentProject,
+      agent: 'curator',
+      relativePath: 'external/reminder-project-curator-memory',
+      externalFileKind: 'agent-memory-summary',
+      externalPath: '/home/user/project/.claude/agent-memory/curator/MEMORY.md',
+    };
+
+    expect(entry.externalFileKind).toBe('agent-memory-summary');
+    expect(entry.externalPath).toBe('/home/user/project/.claude/agent-memory/curator/MEMORY.md');
   });
 });

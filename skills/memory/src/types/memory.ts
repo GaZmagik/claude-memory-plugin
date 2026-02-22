@@ -79,6 +79,10 @@ export interface IndexEntry {
   relativePath: string;
   /** Severity if applicable */
   severity?: Severity;
+  /** Sub-kind of external file (only present for type=rule or type=reminder) */
+  externalFileKind?: string;
+  /** Absolute path to external file (only present for type=rule or type=reminder) */
+  externalPath?: string;
 }
 
 /**
@@ -94,58 +98,14 @@ export interface MemoryIndex {
 }
 
 /**
- * Graph node representation
+ * Graph types re-exported from implementation layer (graph/structure.ts)
+ * This ensures a single source of truth while maintaining backwards compatibility
  */
-export interface GraphNode {
-  /** Memory ID */
-  id: MemoryId;
-  /** Display title */
-  title: string;
-}
-
-/**
- * Graph edge representation
- * Note: Uses source/target to match D3.js and graph library conventions
- *
- * Cross-scope fields are optional and only present on edges spanning scope boundaries.
- * Keep in sync with GraphEdge in graph/structure.ts (implementation layer).
- */
-export interface GraphEdge {
-  /** Source memory ID */
-  source: MemoryId;
-  /** Target memory ID */
-  target: MemoryId;
-  /** Relationship label */
-  label: string;
-  /** Source scope identifier (e.g. 'agent-project', 'project', 'global') */
-  sourceScope?: string;
-  /** Target scope identifier (e.g. 'agent-project', 'project', 'global') */
-  targetScope?: string;
-  /** Source agent name (required when sourceScope is agent-project or agent-global) */
-  sourceAgent?: string;
-  /** Target agent name (required when targetScope is agent-project or agent-global) */
-  targetAgent?: string;
-  /** Cosine similarity score [0–1] when edge was created by suggest-links --auto-link.
-   *  Optional: absent on edges created before v1.5.0 or via manual link command.
-   *  Keep in sync with GraphEdge in graph/structure.ts (implementation layer). */
-  similarity?: number;
-  /** LLM-verified relation label staging area. Written by --llm-type (suggest-links) or
-   *  --verify (update-edge). Removed entirely after update-edge --apply promotes it to label. */
-  verifiedRelation?: string;
-}
-
-/**
- * Complete graph structure (adjacency list)
- * Note: Matches implementation in graph/structure.ts
- */
-export interface MemoryGraph {
-  /** Schema version (numeric for semantic versioning) */
-  version: number;
-  /** All nodes in the graph */
-  nodes: GraphNode[];
-  /** All edges in the graph */
-  edges: GraphEdge[];
-}
+export type {
+  GraphNode,
+  GraphEdge,
+  MemoryGraph,
+} from '../graph/structure.js';
 
 /**
  * Configuration for memory system

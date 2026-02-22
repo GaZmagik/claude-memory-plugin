@@ -308,16 +308,14 @@ export async function indexExternalFiles(
     }
 
     // 6. Calculate summary
-    const externalNodes = dryRun
-      ? externalFiles
-      : graph.nodes.filter(isExternalNode);
-
+    const graphExternalNodes = graph.nodes.filter(isExternalNode);
+    const totalExternalNodes = dryRun ? externalFiles.length : graphExternalNodes.length;
     const ruleNodes = dryRun
       ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Rule)
-      : (externalNodes as ExternalGraphNode[]).filter(n => n.type === MemoryType.Rule);
+      : graphExternalNodes.filter(n => n.type === MemoryType.Rule);
     const reminderNodes = dryRun
       ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Reminder)
-      : (externalNodes as ExternalGraphNode[]).filter(n => n.type === MemoryType.Reminder);
+      : graphExternalNodes.filter(n => n.type === MemoryType.Reminder);
 
     // 7. Save embedding cache (unless dry run)
     if (!dryRun) {
@@ -328,7 +326,7 @@ export async function indexExternalFiles(
       status: 'success',
       changes,
       summary: {
-        totalExternalNodes: externalNodes.length,
+        totalExternalNodes,
         ruleNodes: ruleNodes.length,
         reminderNodes: reminderNodes.length,
       },

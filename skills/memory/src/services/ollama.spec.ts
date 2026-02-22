@@ -25,7 +25,7 @@ function mockOllamaClient(overrides: {
   generate?: ReturnType<typeof vi.fn>;
   list?: ReturnType<typeof vi.fn>;
 }) {
-  vi.mocked(Ollama).mockImplementation(() => ({
+  (Ollama as any).mockImplementation(() => ({
     generate: overrides.generate ?? vi.fn().mockRejectedValue(new Error('Not set')),
     list:     overrides.list     ?? vi.fn().mockRejectedValue(new Error('Not set')),
   } as any));
@@ -37,7 +37,7 @@ function mockOllamaClient(overrides: {
 
 describe('isAvailable', () => {
   beforeEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
   });
 
   afterEach(() => {
@@ -73,7 +73,7 @@ describe('isAvailable', () => {
 
 describe('generate', () => {
   beforeEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
   });
 
   afterEach(() => {
@@ -187,7 +187,7 @@ describe('generate', () => {
 
 describe('configureClient', () => {
   afterEach(() => {
-    vi.mocked(Ollama).mockClear();
+    (Ollama as any).mockClear();
     // Reset to default host
     configureClient('http://localhost:11434');
   });

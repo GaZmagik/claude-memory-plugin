@@ -311,7 +311,8 @@ describe('Mermaid with --agent --include-shared', () => {
   });
 
   it('exports to file with agent and shared content', async () => {
-    const outputFile = path.join(testDir, 'agent-shared-graph.md');
+    // Use output path within agent's memory directory to pass security check
+    const outputFile = path.join(testDir, '.claude/memory/agents/test-agent/agent-shared-graph.md');
     const args: ParsedArgs = {
       positional: [],
       flags: {

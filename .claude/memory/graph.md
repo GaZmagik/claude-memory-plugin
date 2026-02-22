@@ -1,3 +1,4 @@
 ```mermaid
-flowchart LR
+flowchart TB
+  A --> B
 ```

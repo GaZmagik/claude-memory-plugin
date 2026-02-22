@@ -72,6 +72,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 48 integration tests covering all external file workflows (discovery, indexing, updates, deletion, linking, Mermaid rendering, suggest-links, performance)
 - Comprehensive unit test coverage for guards, discovery, indexing, and command compatibility
 
+## [1.5.1] - 2026-02-19
+
+### Fixed
+- **`memory update-edge` help text** — Added missing command-specific help entry in `command-help.ts`. Users running `memory help update-edge` or `memory update-edge --help` now receive comprehensive documentation including usage syntax, all flags (`--similarity`, `--relation`, `--verify`, `--apply`), cross-scope examples, and notes on Ollama integration for `--verify` flag.
+
+### Documentation
+- Clarified that `--verify` flag invokes Ollama to suggest better relation labels (previously undocumented in help text)
+- Added 6 usage examples covering similarity updates, relation changes, verification workflow, and cross-scope edge updates
+
 ## [1.5.0] - 2026-02-18
 
 ### Added

@@ -223,6 +223,7 @@ export async function batchGenerateEmbeddings(
   const cache = await loadEmbeddingCache(cachePath);
   const results: BatchEmbeddingResult[] = [];
 
+  // Sequential (not parallel) — avoids Ollama rate limits and keeps cache writes atomic
   for (let i = 0; i < memories.length; i++) {
     const memory = memories[i];
     if (!memory) continue;

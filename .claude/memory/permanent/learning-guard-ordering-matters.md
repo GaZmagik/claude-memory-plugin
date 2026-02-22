@@ -3,8 +3,9 @@ id: learning-guard-ordering-matters
 title: Guard ordering matters - deleteMemory had critical timing bug
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-22T10:23:24.797Z"
-updated: "2026-02-22T10:23:24.797Z"
+updated: "2026-02-22T10:26:20.815Z"
 tags:
   - feature-005
   - guards

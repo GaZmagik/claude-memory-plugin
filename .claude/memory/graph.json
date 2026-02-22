@@ -4310,6 +4310,36 @@
       "type": "learning",
       "title": "Guard ordering matters - deleteMemory had critical timing bug",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "type": "learning",
+      "title": "Retro - Systematic fix prioritization accelerates code review resolution",
+      "scope": "project"
+    },
+    {
+      "id": "learning-claude-code-review-identified-critical-ssrf-and-guard-gaps",
+      "type": "learning",
+      "title": "Claude code review identified critical SSRF and guard gaps",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-early-triage-prevents-flaky-test-investigation-rabbit-holes",
+      "type": "learning",
+      "title": "Retro - Early triage prevents flaky test investigation rabbit holes",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "type": "learning",
+      "title": "Test isolation and flaky test handling - AutoSelector heuristics",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-code-review-fix-checklist",
+      "type": "artifact",
+      "title": "Code review fix checklist - Security and performance issues",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -16724,6 +16754,30 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7005895602481467,
       "verifiedRelation": "Concurrency"
+    },
+    {
+      "source": "learning-claude-code-review-identified-critical-ssrf-and-guard-gaps",
+      "target": "artifact-code-review-fix-checklist",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8233292609129544
+    },
+    {
+      "source": "artifact-code-review-fix-checklist",
+      "target": "learning-claude-code-review-identified-critical-ssrf-and-guard-gaps",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8233292609129544
+    },
+    {
+      "source": "learning-retro-early-triage-prevents-flaky-test-investigation-rabbit-holes",
+      "target": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7960820075303494
+    },
+    {
+      "source": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "target": "learning-retro-early-triage-prevents-flaky-test-investigation-rabbit-holes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7960820075303494
     }
   ]
 }

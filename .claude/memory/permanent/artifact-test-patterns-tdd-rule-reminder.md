@@ -3,8 +3,9 @@ id: artifact-test-patterns-tdd-rule-reminder
 title: TDD test patterns for rule/reminder feature
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-22T10:22:31.175Z"
-updated: "2026-02-22T10:22:31.175Z"
+updated: "2026-02-22T10:26:21.131Z"
 tags:
   - feature-005
   - tdd

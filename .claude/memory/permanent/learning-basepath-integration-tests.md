@@ -3,8 +3,9 @@ id: learning-basepath-integration-tests
 title: Integration tests revealed critical basePath setup pattern
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-22T10:22:55.503Z"
-updated: "2026-02-22T10:22:55.503Z"
+updated: "2026-02-22T10:26:21.070Z"
 tags:
   - feature-005
   - testing

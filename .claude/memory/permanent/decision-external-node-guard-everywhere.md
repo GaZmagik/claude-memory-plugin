@@ -3,8 +3,9 @@ id: decision-external-node-guard-everywhere
 title: Guard all write/delete operations against external nodes
 type: decision
 scope: project
+project: claude-memory-plugin
 created: "2026-02-22T10:22:44.156Z"
-updated: "2026-02-22T10:22:44.156Z"
+updated: "2026-02-22T10:26:20.907Z"
 tags:
   - feature-005
   - guards

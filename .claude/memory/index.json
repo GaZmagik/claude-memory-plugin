@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-22T10:23:24.851Z",
+  "lastUpdated": "2026-02-22T10:25:50.675Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12918,6 +12918,86 @@
       "updated": "2026-02-22T10:23:24.797Z",
       "scope": "project",
       "relativePath": "permanent/learning-guard-ordering-matters.md"
+    },
+    {
+      "id": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "type": "learning",
+      "title": "Retro - Systematic fix prioritization accelerates code review resolution",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-22T10:25:10.153Z",
+      "updated": "2026-02-22T10:25:10.153Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-claude-code-review-identified-critical-ssrf-and-guard-gaps",
+      "type": "learning",
+      "title": "Claude code review identified critical SSRF and guard gaps",
+      "tags": [
+        "feature-005",
+        "security",
+        "code-review",
+        "patterns",
+        "project"
+      ],
+      "created": "2026-02-22T10:25:18.171Z",
+      "updated": "2026-02-22T10:25:18.171Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-claude-code-review-identified-critical-ssrf-and-guard-gaps.md"
+    },
+    {
+      "id": "learning-retro-early-triage-prevents-flaky-test-investigation-rabbit-holes",
+      "type": "learning",
+      "title": "Retro - Early triage prevents flaky test investigation rabbit holes",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-22T10:25:23.040Z",
+      "updated": "2026-02-22T10:25:23.040Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-early-triage-prevents-flaky-test-investigation-rabbit-holes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "type": "learning",
+      "title": "Test isolation and flaky test handling - AutoSelector heuristics",
+      "tags": [
+        "feature-005",
+        "testing",
+        "gotcha",
+        "flaky-tests",
+        "project"
+      ],
+      "created": "2026-02-22T10:25:36.758Z",
+      "updated": "2026-02-22T10:25:36.758Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-isolation-and-flaky-test-handling-autoselector-heuristics.md"
+    },
+    {
+      "id": "artifact-code-review-fix-checklist",
+      "type": "artifact",
+      "title": "Code review fix checklist - Security and performance issues",
+      "tags": [
+        "feature-005",
+        "code-review",
+        "security",
+        "patterns",
+        "project"
+      ],
+      "created": "2026-02-22T10:25:50.654Z",
+      "updated": "2026-02-22T10:25:50.654Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-code-review-fix-checklist.md"
     }
   ]
 }

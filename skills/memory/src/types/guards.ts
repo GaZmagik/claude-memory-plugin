@@ -25,7 +25,7 @@ export function isGraphNode(obj: unknown): obj is GraphNode {
 /**
  * Type guard for external nodes (rule/reminder)
  */
-export function isExternalNode(node: GraphNode): boolean {
+export function isExternalNode(node: GraphNode): node is GraphNode & { type: MemoryType.Rule | MemoryType.Reminder } {
   return node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
 }
 

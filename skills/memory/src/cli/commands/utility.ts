@@ -60,8 +60,8 @@ export async function cmdRename(args: ParsedArgs): Promise<CliResponse> {
   const basePath = getResolvedScopePath(scope);
 
   // Read-only guard: Reject renames on external nodes (rule/reminder types)
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
   const { loadIndex } = await import('../../core/index.js');
-  const { MemoryType } = await import('../../types/enums.js');
   const index = await loadIndex({ basePath });
   const existingEntry = index.memories.find(m => m.id === oldId);
 
@@ -102,9 +102,8 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
   const targetBasePath = getResolvedScopePath(targetScope);
 
   // Read-only guard: Check all scopes for external nodes BEFORE file lookup
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
   const { loadIndex } = await import('../../core/index.js');
-  const { MemoryType } = await import('../../types/enums.js');
-  const { Scope } = await import('../../types/enums.js');
 
   // Check all scopes for external nodes (which don't have files on disk)
   for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
@@ -176,8 +175,8 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
   }
 
   // Read-only guard: Check all scopes for external nodes BEFORE proceeding
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
   const { loadIndex } = await import('../../core/index.js');
-  const { MemoryType, Scope } = await import('../../types/enums.js');
 
   for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
     const checkBasePath = getResolvedScopePath(checkScope);
@@ -227,6 +226,7 @@ export async function cmdArchive(args: ParsedArgs): Promise<CliResponse> {
   const basePath = getResolvedScopePath(scope);
 
   // Read-only guard: Reject archives on external nodes (rule/reminder types)
+  // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
   const { loadIndex } = await import('../../core/index.js');
   const index = await loadIndex({ basePath });
   const existingEntry = index.memories.find(m => m.id === id);

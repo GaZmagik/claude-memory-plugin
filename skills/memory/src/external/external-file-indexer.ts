@@ -5,6 +5,7 @@
  */
 
 import type { ExternalFileEntry } from './external-file-types.js';
+import { ExternalFileKind } from './external-file-types.js';
 import { discoverExternalFiles } from './external-file-discovery.js';
 import type { MemoryGraph, MemoryIndex, GraphNode, IndexEntry } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
@@ -96,15 +97,32 @@ export function isExternalNode(node: GraphNode): node is ExternalGraphNode {
 }
 
 /**
+ * Convert ExternalFileKind to MemoryType
+ */
+function kindToMemoryType(kind: ExternalFileKind): MemoryType.Rule | MemoryType.Reminder {
+  switch (kind) {
+    case ExternalFileKind.ClaudeInstructions:
+    case ExternalFileKind.ClaudeLocalInstructions:
+    case ExternalFileKind.RulesFile:
+      return MemoryType.Rule;
+    case ExternalFileKind.AgentMemorySummary:
+    case ExternalFileKind.AgentMemorySubFile:
+      return MemoryType.Reminder;
+    default:
+      // Exhaustive check - all ExternalFileKind values are covered
+      const _exhaustive: never = kind;
+      throw new Error(`Unexpected ExternalFileKind: ${_exhaustive}`);
+  }
+}
+
+/**
  * Create GraphNode from ExternalFileEntry
  * @internal Exported for testing
  */
 export function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
-  const type = entry.id.startsWith('rule-') ? MemoryType.Rule : MemoryType.Reminder;
-
   return {
     id: unsafeAsMemoryId(entry.id),
-    type,
+    type: kindToMemoryType(entry.kind),
     title: entry.title,
     scope: entry.scope,
     agent: entry.agentName,
@@ -116,7 +134,7 @@ export function createGraphNode(entry: ExternalFileEntry): ExternalGraphNode {
  * @internal Exported for testing
  */
 export function createIndexEntry(entry: ExternalFileEntry): IndexEntry {
-  const type = entry.id.startsWith('rule-') ? MemoryType.Rule : MemoryType.Reminder;
+  const type = kindToMemoryType(entry.kind);
 
   return {
     id: unsafeAsMemoryId(entry.id),
@@ -310,12 +328,12 @@ export async function indexExternalFiles(
       ? externalFiles
       : graph.nodes.filter(isExternalNode);
 
-    const ruleNodes = externalNodes.filter(n =>
-      (n.id as string).startsWith('rule-')
-    );
-    const reminderNodes = externalNodes.filter(n =>
-      (n.id as string).startsWith('reminder-')
-    );
+    const ruleNodes = dryRun
+      ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Rule)
+      : externalNodes.filter(n => n.type === MemoryType.Rule);
+    const reminderNodes = dryRun
+      ? externalFiles.filter(e => kindToMemoryType(e.kind) === MemoryType.Reminder)
+      : externalNodes.filter(n => n.type === MemoryType.Reminder);
 
     // 7. Save embedding cache (unless dry run)
     if (!dryRun) {

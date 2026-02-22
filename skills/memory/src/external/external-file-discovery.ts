@@ -6,6 +6,7 @@
  */
 
 import * as fsp from 'node:fs/promises';
+import type { Stats } from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
@@ -28,11 +29,11 @@ const VENDOR_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'vendor', 
 /**
  * Calculate content hash (SHA-256 first 16 chars) for cache invalidation
  * Returns null if file exceeds size limit (FR-024)
+ * @param stats - pre-fetched file stats to avoid a redundant syscall
  */
-async function calculateContentHash(filePath: string): Promise<string | null> {
+async function calculateContentHash(filePath: string, stats: Stats): Promise<string | null> {
   try {
     // FR-024: Check file size before reading to prevent event loop blocking
-    const stats = await fsp.stat(filePath);
     if (stats.size > MAX_EXTERNAL_FILE_SIZE) {
       console.warn(
         `Skipping large external file (${stats.size} bytes, limit ${MAX_EXTERNAL_FILE_SIZE}): ${filePath}`
@@ -50,14 +51,10 @@ async function calculateContentHash(filePath: string): Promise<string | null> {
 
 /**
  * Get file modification time as ISO 8601 string
+ * @param stats - pre-fetched file stats to avoid a redundant syscall
  */
-async function getModifiedTime(filePath: string): Promise<string> {
-  try {
-    const stats = await fsp.stat(filePath);
-    return stats.mtime.toISOString();
-  } catch {
-    return new Date().toISOString(); // Fallback
-  }
+function getModifiedTime(stats: Stats): string {
+  return stats.mtime.toISOString();
 }
 
 /**
@@ -281,12 +278,12 @@ export async function discoverRuleFiles(options?: {
       const scope = determineRuleScope(realPath, kind, gitRoot, homeDir);
       const id = generateRuleId(realPath, kind, scope, cwd, homeDir);
       const title = path.basename(realPath);
-      const contentHash = await calculateContentHash(realPath);
+      const contentHash = await calculateContentHash(realPath, stats);
 
       // Skip if file exceeds size limit (FR-024)
       if (contentHash === null) return;
 
-      const modifiedTime = await getModifiedTime(realPath);
+      const modifiedTime = getModifiedTime(stats);
 
       results.push({
         absolutePath: realPath,
@@ -429,12 +426,12 @@ export async function discoverReminderFiles(options?: {
               const scope = determineReminderScope(realPath, projectRoot, homeDir);
               const id = generateReminderId(realPath, kind, scope, agentName);
               const title = isMemoryMd ? `${agentName} Agent Memory` : file;
-              const contentHash = await calculateContentHash(realPath);
+              const contentHash = await calculateContentHash(realPath, fileStats);
 
               // Skip if file exceeds size limit (FR-024)
               if (contentHash === null) continue;
 
-              const modifiedTime = await getModifiedTime(realPath);
+              const modifiedTime = getModifiedTime(fileStats);
 
               results.push({
                 absolutePath: realPath,

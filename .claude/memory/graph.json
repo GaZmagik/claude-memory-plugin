@@ -4280,6 +4280,36 @@
       "type": "learning",
       "title": "Parallelized file discovery via Promise.all improves performance 60-70%",
       "scope": "project"
+    },
+    {
+      "id": "artifact-test-patterns-tdd-rule-reminder",
+      "type": "artifact",
+      "title": "TDD test patterns for rule/reminder feature",
+      "scope": "project"
+    },
+    {
+      "id": "decision-external-node-guard-everywhere",
+      "type": "decision",
+      "title": "Guard all write/delete operations against external nodes",
+      "scope": "project"
+    },
+    {
+      "id": "learning-basepath-integration-tests",
+      "type": "learning",
+      "title": "Integration tests revealed critical basePath setup pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-external-files-without-frontmatter",
+      "type": "learning",
+      "title": "External files require special parsing without frontmatter",
+      "scope": "project"
+    },
+    {
+      "id": "learning-guard-ordering-matters",
+      "type": "learning",
+      "title": "Guard ordering matters - deleteMemory had critical timing bug",
+      "scope": "project"
     }
   ],
   "edges": [

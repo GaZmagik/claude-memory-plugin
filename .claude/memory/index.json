@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-21T12:52:34.316Z",
+  "lastUpdated": "2026-02-22T10:23:24.851Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12834,6 +12834,90 @@
       "updated": "2026-02-21T12:52:34.298Z",
       "scope": "project",
       "relativePath": "permanent/learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70.md"
+    },
+    {
+      "id": "artifact-test-patterns-tdd-rule-reminder",
+      "type": "artifact",
+      "title": "TDD test patterns for rule/reminder feature",
+      "tags": [
+        "feature-005",
+        "tdd",
+        "testing",
+        "patterns",
+        "phase-2",
+        "project"
+      ],
+      "created": "2026-02-22T10:22:31.175Z",
+      "updated": "2026-02-22T10:22:31.175Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-test-patterns-tdd-rule-reminder.md"
+    },
+    {
+      "id": "decision-external-node-guard-everywhere",
+      "type": "decision",
+      "title": "Guard all write/delete operations against external nodes",
+      "tags": [
+        "feature-005",
+        "guards",
+        "external-nodes",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-22T10:22:44.156Z",
+      "updated": "2026-02-22T10:22:44.156Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-external-node-guard-everywhere.md"
+    },
+    {
+      "id": "learning-basepath-integration-tests",
+      "type": "learning",
+      "title": "Integration tests revealed critical basePath setup pattern",
+      "tags": [
+        "feature-005",
+        "testing",
+        "integration",
+        "basePath",
+        "test-pattern",
+        "project"
+      ],
+      "created": "2026-02-22T10:22:55.503Z",
+      "updated": "2026-02-22T10:22:55.503Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-basepath-integration-tests.md"
+    },
+    {
+      "id": "learning-external-files-without-frontmatter",
+      "type": "learning",
+      "title": "External files require special parsing without frontmatter",
+      "tags": [
+        "feature-005",
+        "external-nodes",
+        "frontmatter",
+        "parsing",
+        "implementation",
+        "project"
+      ],
+      "created": "2026-02-22T10:23:07.861Z",
+      "updated": "2026-02-22T10:23:07.861Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-external-files-without-frontmatter.md"
+    },
+    {
+      "id": "learning-guard-ordering-matters",
+      "type": "learning",
+      "title": "Guard ordering matters - deleteMemory had critical timing bug",
+      "tags": [
+        "feature-005",
+        "guards",
+        "external-nodes",
+        "testing",
+        "bug-pattern",
+        "project"
+      ],
+      "created": "2026-02-22T10:23:24.797Z",
+      "updated": "2026-02-22T10:23:24.797Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-guard-ordering-matters.md"
     }
   ]
 }

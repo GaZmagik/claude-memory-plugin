@@ -86,7 +86,7 @@ Run `memory help` for quick reference, or `memory <command> -h` for command-spec
 | | `rebuild [scope]` | Rebuild from disk (use with caution) |
 | | `reindex <id>` | Re-index an orphan file |
 | | `bulk-delete [options]` | Delete memories by pattern/type/tags (--dry-run) |
-| | `refresh [scope]` | Backfill missing frontmatter fields |
+| | `refresh [scope]` | Backfill missing frontmatter fields and edge similarity scores |
 | | `setup [--force]` | Create local settings file from template |
 | **Bulk** | `bulk-move [options]` | Move memories matching pattern |
 | | `bulk-promote [options]` | Promote memories to type |
@@ -235,6 +235,7 @@ See `.claude/memory.example.md` for full documentation.
   - `write --auto-link` automatic linking
   - `suggest-links` relationship suggestions
   - `refresh --embeddings` embedding generation
+  - `refresh --score-edges` batch edge similarity scoring
 
   Install: `ollama pull embeddinggemma` (see [Ollama docs](https://ollama.ai/))
 

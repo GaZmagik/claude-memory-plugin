@@ -82,13 +82,30 @@ export const MAINTENANCE_HELP: Record<string, CommandHelpEntry> = {
 
   refresh: {
     usage: 'memory refresh [scope]',
-    description: 'Backfill missing frontmatter fields (id, project, scope)',
+    description: 'Backfill missing frontmatter fields and edge similarity scores',
     arguments: `  [scope]    Scope to refresh (project, local, user). Default: project`,
+    flags: `  --score-edges    Compute cosine similarity for all edges with available embeddings
+  --verify         (requires --score-edges) LLM-suggest relation label → verifiedRelation staging
+  --apply          (requires --score-edges) Promote verifiedRelation → label on scored edges
+  --force          (requires --score-edges) Re-score edges that already have similarity
+  --dry-run        Preview what would change, no writes`,
     examples: [
       'memory refresh',
       'memory refresh project',
+      'memory refresh --score-edges --dry-run',
+      'memory refresh --score-edges',
+      'memory refresh --score-edges --verify',
+      'memory refresh --score-edges --force --apply',
     ],
     notes: `  Adds missing frontmatter fields to memory files.
-  Safe to run - only adds fields, never removes.`,
+  Safe to run - only adds fields, never removes.
+
+  --score-edges backfills cosine similarity onto edges created by 'memory link'
+  or 'bulk-link' that have no similarity score. Requires embeddings to be
+  generated first (memory refresh --embeddings).
+
+  --verify calls Ollama to suggest a relation label and stores it in the
+  verifiedRelation staging field. --apply promotes staged labels to edge.label.
+  Use --force to re-score edges that already have a similarity value.`,
   },
 };

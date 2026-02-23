@@ -22,6 +22,7 @@ import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
 import { loadGraph, saveGraph } from '../../graph/structure.js';
+import { scoreEdges } from '../../graph/score-edges.js';
 import { findGitRoot } from '../../scope/git-utils.js';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -224,6 +225,10 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const idFlag = getFlagString(args.flags, 'id');
   const ids = idFlag ? [idFlag] : undefined;
   const generateEmbeddings = args.flags['embeddings'] === true;
+  const scoreEdgesFlag = args.flags['score-edges'] === true;
+  const verifyEdges = args.flags['verify'] === true;
+  const applyEdges = args.flags['apply'] === true;
+  const forceFlag = args.flags['force'] === true;
 
   return wrapOperation(
     async () => {
@@ -270,6 +275,24 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
           embeddingsGenerated: embeddingResults.filter(r => !r.fromCache).length,
           embeddingsCached: embeddingResults.filter(r => r.fromCache).length,
           embeddingsTotal: embeddingResults.length,
+        };
+      }
+
+      if (scoreEdgesFlag) {
+        const scoreResult = await scoreEdges({
+          basePath,
+          dryRun,
+          verify: verifyEdges,
+          apply: applyEdges,
+          force: forceFlag,
+        });
+        return {
+          ...result,
+          edgesScored: scoreResult.scored,
+          edgesSkipped: scoreResult.skipped,
+          edgesNoEmbedding: scoreResult.noEmbedding,
+          edgesVerified: scoreResult.verified,
+          edgesApplied: scoreResult.applied,
         };
       }
 

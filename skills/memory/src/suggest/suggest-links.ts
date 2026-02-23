@@ -133,13 +133,13 @@ function sanitiseTitleForPrompt(title: string): string {
 }
 
 /** Pattern for a safe relation label: lowercase alphanumeric + hyphens, 1–64 chars. */
-const VALID_LABEL_RE = /^[a-z0-9][a-z0-9-]{0,62}[a-z0-9]$|^[a-z0-9]$/;
+export const VALID_LABEL_RE = /^[a-z0-9][a-z0-9-]{0,62}[a-z0-9]$|^[a-z0-9]$/;
 
 /**
  * Validate and normalise an LLM-generated relation label.
  * Returns undefined if the response does not conform to a safe label format.
  */
-function validateLlmLabel(response: string): string | undefined {
+export function validateLlmLabel(response: string): string | undefined {
   const cleaned = response.trim().toLowerCase().replace(/\s+/g, '-').replace(/-{2,}/g, '-');
   return VALID_LABEL_RE.test(cleaned) ? cleaned : undefined;
 }

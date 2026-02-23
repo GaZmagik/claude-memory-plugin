@@ -231,12 +231,12 @@ After saving memories, generate embeddings and create cross-scope links:
 memory refresh --embeddings --agent $AGENT_NAME
 
 # Auto-link within agent scope AND to shared scopes
-memory suggest-links --agent $AGENT_NAME --include-shared --auto-link
+memory suggest-links --agent $AGENT_NAME --all-scopes --auto-link
 ```
 
 **What this does:**
 - `refresh --embeddings`: Enables semantic search on your memories
-- `suggest-links --include-shared --auto-link`: Creates links between your agent memories AND discovers/creates links to relevant project/global memories
+- `suggest-links --all-scopes --auto-link`: Creates links between your agent memories AND discovers/creates links to relevant project/global memories
 
 ---
 
@@ -266,7 +266,7 @@ Agent memory commit complete:
 - **Always dual-save**: Memory plugin (A) + native tags (B1) + agent directory files (B2)
 - **Use --agent flag**: Keeps your knowledge in your namespace
 - **Generate embeddings**: Enables semantic search and auto-linking
-- **Auto-link with --include-shared**: Discovers connections to project knowledge
+- **Auto-link with --all-scopes**: Discovers connections to project knowledge
 - **Agent name priority**: `agent-name=` arg > `CLAUDE_AGENT_NAME` env var > infer from context
 - **Keep MEMORY.md concise**: Under 200 lines — move detailed notes to topical files
 
@@ -306,7 +306,7 @@ mkdir -p .claude/agent-memory/$AGENT_NAME
 memory refresh --embeddings --agent $AGENT_NAME
 
 # Step 4: Auto-link across scopes
-memory suggest-links --agent $AGENT_NAME --include-shared --auto-link
+memory suggest-links --agent $AGENT_NAME --all-scopes --auto-link
 
 # Step 5: Verify
 memory list --agent $AGENT_NAME | tail -3

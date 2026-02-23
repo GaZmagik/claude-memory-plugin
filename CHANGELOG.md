@@ -11,9 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`SubagentRegistry`** (`hooks/src/agent/subagent-registry.ts`): per-subagent isolated temp files prevent concurrent agents from overwriting each other's capture entries
   - `writeSubagentEntry()`: writes a unique temp file per `(agentType, agentId)` pair
   - `findAndClaimSubagent()`: atomically claims the first unclaimed entry for a given agent type via `rename()` (POSIX-atomic on Linux)
-  - `findAnyUnclaimedSubagent()`: claims any unclaimed entry regardless of type — used by `PostToolUse:Task`
-  - `listUnclaimedSubagents()`: read-only sweep for `SessionEnd` safety-net pass
-  - Input sanitisation strips path-unsafe characters from `agentId`/`agentType` values
+  - `findAnyUnclaimedSubagent()`: claims any unclaimed entry regardless of type — used by `PostToolUse:Task` and `SessionEnd` sweep
+  - `cleanupClaimedEntry()`: deletes the claimed marker file after successful processing to prevent `/tmp` accumulation
+  - Input sanitisation strips path-unsafe characters and caps length to 64 chars to prevent `ENAMETOOLONG`
 - **`SubagentStop` hook** (`hooks/subagent-stop/extract-agent-id.ts`): new `SubagentStop` event hook — registers each completed subagent in the registry immediately on exit
 
 ### Changed

@@ -13,8 +13,14 @@
 import { runHook, allow } from '../src/core/error-handler.ts';
 import { writeSubagentEntry } from '../src/agent/subagent-registry.ts';
 
+interface SubagentStopInput {
+  agent_id?: string;
+  session_id?: string;
+}
+
 runHook(async (input) => {
-  const agentId = (input as any)?.agent_id || '';
+  const hookInput = input as SubagentStopInput;
+  const agentId = hookInput?.agent_id ?? '';
 
   if (agentId) {
     writeSubagentEntry(agentId, 'subagent', '');

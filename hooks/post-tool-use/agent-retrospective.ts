@@ -16,7 +16,7 @@ import {
   spawnSessionWithContext,
   findPluginDir,
 } from '../src/session/spawn-session.js';
-import { findAnyUnclaimedSubagent } from '../src/agent/subagent-registry.js';
+import { findAnyUnclaimedSubagent, cleanupClaimedEntry } from '../src/agent/subagent-registry.js';
 
 interface HookInput {
   tool_name?: string;
@@ -74,7 +74,7 @@ async function main() {
 
     const subagentEntry = findAnyUnclaimedSubagent();
     const agentId = subagentEntry?.agentId ?? null;
-    if (agentId) {
+    if (agentId && subagentEntry) {
       const contextPrompt = extractContextAsSystemPrompt(agentId, cwd);
       if (contextPrompt) {
         const agentPreamble = `=== AGENT IDENTITY ===\nAgent Name: ${agentName}\nCLAUDE_AGENT_NAME=${agentName}\n=== END AGENT IDENTITY ===\n\n`;
@@ -82,11 +82,13 @@ async function main() {
         const memoryPluginDir = findPluginDir('claude-memory-plugin');
         if (memoryPluginDir) pluginDirs.push(memoryPluginDir);
 
+        const safeAgentName = (agentName ?? '').replace(/[^a-zA-Z0-9_-]/g, '_');
+
         try {
           const result = await spawnSessionWithContext({
             sessionId: agentId,
             cwd,
-            prompt: `/claude-memory-plugin:agent-commit agent-name=${agentName}`,
+            prompt: `/claude-memory-plugin:agent-commit agent-name=${safeAgentName}`,
             contextPrompt: agentPreamble + contextPrompt,
             logPrefix: 'agent-commit',
             timeoutSecs: 300,
@@ -96,6 +98,9 @@ async function main() {
           });
           captureStarted = result.started;
           logFile = result.logFile;
+          if (result.started) {
+            cleanupClaimedEntry(subagentEntry.agentType, subagentEntry.agentId);
+          }
         } catch {
           // Spawn failure is non-fatal — fall back to reminder
         }

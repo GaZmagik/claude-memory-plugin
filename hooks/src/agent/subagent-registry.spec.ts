@@ -7,17 +7,18 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import {
   SUBAGENT_TEMP_PREFIX,
   SUBAGENT_CLAIMED_PREFIX,
   buildSubagentTempPath,
+  buildClaimedPath,
   writeSubagentEntry,
   findAndClaimSubagent,
   findAnyUnclaimedSubagent,
-  listUnclaimedSubagents,
+  cleanupClaimedEntry,
 } from './subagent-registry.ts';
 import type { SubagentEntry } from './subagent-registry.ts';
 
@@ -80,6 +81,43 @@ describe('subagent-registry', () => {
       const result = buildSubagentTempPath('safe-agent', '../../etc/passwd');
       expect(result).not.toContain('..');
     });
+
+    it('truncates agentType longer than 64 characters', () => {
+      const long = 'a'.repeat(100);
+      const result = buildSubagentTempPath(long, 'abc');
+      const filename = result.split('/').pop()!;
+      // filename = '.claude-memory-plugin-subagent-{64 chars}-abc'
+      // agentType portion must be at most 64 chars
+      expect(filename.length).toBeLessThanOrEqual(
+        '.claude-memory-plugin-subagent-'.length + 64 + '-'.length + 'abc'.length
+      );
+    });
+
+    it('truncates agentId longer than 64 characters', () => {
+      const long = 'b'.repeat(200);
+      const result = buildSubagentTempPath('agent', long);
+      const filename = result.split('/').pop()!;
+      expect(filename.length).toBeLessThanOrEqual(
+        '.claude-memory-plugin-subagent-'.length + 'agent'.length + '-'.length + 64
+      );
+    });
+  });
+
+  // ─── buildClaimedPath ───────────────────────────────────────────────────────
+
+  describe('buildClaimedPath', () => {
+    it('builds path with claimed prefix', () => {
+      const result = buildClaimedPath('python-expert', 'abc-123');
+      expect(result).toBe(
+        join(tmpdir(), '.claude-memory-plugin-claimed-python-expert-abc-123')
+      );
+    });
+
+    it('produces a different path than buildSubagentTempPath for the same inputs', () => {
+      const temp = buildSubagentTempPath('agent', 'id');
+      const claimed = buildClaimedPath('agent', 'id');
+      expect(temp).not.toBe(claimed);
+    });
   });
 
   // ─── writeSubagentEntry ─────────────────────────────────────────────────────
@@ -106,6 +144,10 @@ describe('subagent-registry', () => {
       writeSubagentEntry('uuid-b', 'typescript-expert', 'parent-b');
       expect(existsSync(buildSubagentTempPath('python-expert', 'uuid-a'))).toBe(true);
       expect(existsSync(buildSubagentTempPath('typescript-expert', 'uuid-b'))).toBe(true);
+    });
+
+    it('does not throw when called with valid arguments', () => {
+      expect(() => writeSubagentEntry('id', 'type', 'session')).not.toThrow();
     });
   });
 
@@ -188,38 +230,20 @@ describe('subagent-registry', () => {
     });
   });
 
-  // ─── listUnclaimedSubagents ─────────────────────────────────────────────────
+  // ─── cleanupClaimedEntry ────────────────────────────────────────────────────
 
-  describe('listUnclaimedSubagents', () => {
-    it('returns empty array when no unclaimed entries exist', () => {
-      const result = listUnclaimedSubagents();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBe(0);
+  describe('cleanupClaimedEntry', () => {
+    it('removes the claimed file after processing', () => {
+      writeSubagentEntry('uuid-c1', 'python-expert', 'parent-c1');
+      findAndClaimSubagent('python-expert'); // creates claimed file
+      const claimedPath = buildClaimedPath('python-expert', 'uuid-c1');
+      expect(existsSync(claimedPath)).toBe(true);
+      cleanupClaimedEntry('python-expert', 'uuid-c1');
+      expect(existsSync(claimedPath)).toBe(false);
     });
 
-    it('returns all unclaimed entries across agent types', () => {
-      writeSubagentEntry('uuid-8a', 'python-expert', 'parent-8a');
-      writeSubagentEntry('uuid-8b', 'typescript-expert', 'parent-8b');
-      const result = listUnclaimedSubagents();
-      expect(result.length).toBe(2);
-    });
-
-    it('excludes already-claimed entries', () => {
-      writeSubagentEntry('uuid-9a', 'python-expert', 'parent-9a');
-      writeSubagentEntry('uuid-9b', 'typescript-expert', 'parent-9b');
-      findAndClaimSubagent('python-expert');
-      const result = listUnclaimedSubagents();
-      expect(result.length).toBe(1);
-      expect(result[0]?.agentType).toBe('typescript-expert');
-    });
-
-    it('skips malformed JSON files without throwing', () => {
-      // Manually write a broken file
-      writeFileSync(
-        join(tmpdir(), '.claude-memory-plugin-subagent-broken-agent-bad-uuid'),
-        'not-valid-json'
-      );
-      expect(() => listUnclaimedSubagents()).not.toThrow();
+    it('does not throw when claimed file does not exist', () => {
+      expect(() => cleanupClaimedEntry('ghost-agent', 'non-existent-id')).not.toThrow();
     });
   });
 });

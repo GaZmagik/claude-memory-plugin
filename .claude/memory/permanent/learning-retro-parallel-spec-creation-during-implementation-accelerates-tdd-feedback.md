@@ -3,8 +3,9 @@ id: learning-retro-parallel-spec-creation-during-implementation-accelerates-tdd-
 title: Retro - Parallel spec creation during implementation accelerates TDD feedback
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-23T14:49:37.348Z"
-updated: "2026-02-23T14:49:37.348Z"
+updated: "2026-02-23T17:29:22.658Z"
 tags:
   - retrospective
   - process

@@ -11,6 +11,12 @@
 
 import { detectAgent, extractSubagentType } from '../src/agent/detect-agent.js';
 import { classifyWork, WorkSignificance } from '../src/agent/work-classifier.js';
+import { extractContextAsSystemPrompt } from '../src/session/extract-context.js';
+import {
+  spawnSessionWithContext,
+  findPluginDir,
+} from '../src/session/spawn-session.js';
+import { findAnyUnclaimedSubagent, cleanupClaimedEntry } from '../src/agent/subagent-registry.js';
 
 interface HookInput {
   tool_name?: string;
@@ -19,6 +25,8 @@ interface HookInput {
     prompt?: string;
     subagent_type?: string;
   };
+  session_id?: string;
+  cwd?: string;
 }
 
 async function main() {
@@ -57,9 +65,58 @@ async function main() {
       process.exit(0);
     }
 
-    // Meaningful work by an agent - inject retrospective guidance
+    // Meaningful work by an agent — attempt automatic background capture
     const agentName = agentDetection.name;
-    const message = `
+    const cwd = hookInput.cwd || process.cwd();
+
+    let captureStarted = false;
+    let logFile: string | undefined;
+
+    const subagentEntry = findAnyUnclaimedSubagent();
+    const agentId = subagentEntry?.agentId ?? null;
+    if (agentId && subagentEntry) {
+      const contextPrompt = extractContextAsSystemPrompt(agentId, cwd);
+      if (contextPrompt) {
+        const safeAgentName = (agentName ?? '').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const agentPreamble = `=== AGENT IDENTITY ===\nAgent Name: ${safeAgentName}\nCLAUDE_AGENT_NAME=${safeAgentName}\n=== END AGENT IDENTITY ===\n\n`;
+        const pluginDirs: string[] = [];
+        const memoryPluginDir = findPluginDir('claude-memory-plugin');
+        if (memoryPluginDir) pluginDirs.push(memoryPluginDir);
+
+        try {
+          const result = await spawnSessionWithContext({
+            sessionId: agentId,
+            cwd,
+            prompt: `/claude-memory-plugin:agent-commit agent-name=${safeAgentName}`,
+            contextPrompt: agentPreamble + contextPrompt,
+            logPrefix: 'agent-commit',
+            timeoutSecs: 300,
+            trigger: 'task-complete',
+            tools: 'Read,Skill,Bash,Write',
+            pluginDirs,
+          });
+          captureStarted = result.started;
+          logFile = result.logFile;
+          if (result.started) {
+            cleanupClaimedEntry(subagentEntry.agentType, subagentEntry.agentId);
+          }
+        } catch {
+          // Spawn failure is non-fatal — fall back to reminder
+        }
+      }
+    }
+
+    let message: string;
+    if (captureStarted) {
+      message = `
+📸 **Agent Memory Capture Started**
+
+Capturing memories from **${agentName}** in background.
+Log: ${logFile}
+
+`;
+    } else {
+      message = `
 
 📚 **Agent Retrospective Reminder**
 
@@ -76,6 +133,7 @@ You've completed meaningful work as **${agentName}**. Consider capturing key lea
 **Important**: Use \`--agent ${agentName}\` flag to save to your agent scope.
 
 `;
+    }
 
     // Output as systemMessage to inject into conversation
     const output = {

@@ -3,8 +3,9 @@ id: gotcha-retro-error-swallowing-as-explicit-code-review-category
 title: Retro - Error swallowing as explicit code review category
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-23T14:49:32.746Z"
-updated: "2026-02-23T14:49:32.746Z"
+updated: "2026-02-23T17:29:22.666Z"
 tags:
   - retrospective
   - process

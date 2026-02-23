@@ -1,7 +1,7 @@
 ---
 description: Guided workflow for agents to capture learnings in agent-scoped memory
-version: "1.4.0"
-allowed-tools: Bash(memory:*)
+version: "1.5.0"
+allowed-tools: Bash(memory:*), Bash(mkdir:*), Write
 ---
 
 # Agent Memory Commit
@@ -25,7 +25,11 @@ You **MUST** save memories using **BOTH** methods:
 echo '{"type":"learning","title":"Brief title","content":"Description","tags":"tag1,tag2"}' | memory write --agent $AGENT_NAME --auto-link
 ```
 
-### B. Claude's MEMORY.md (Backup - Session Persistence)
+### B. Agent Memory Files (Backup - Session Persistence)
+
+Two sub-approaches — use both for maximum redundancy:
+
+**B1. Native memory tags** (Claude's built-in memory, brief learnings):
 ```
 <save_memory>
 Agent: {agent-name}
@@ -34,24 +38,58 @@ Learning: {summary}
 </save_memory>
 ```
 
-**Why both?**
-- Memory plugin: Semantic search, graph relationships, structured queries
-- MEMORY.md: Survives plugin changes, loads into system prompt
+**B2. Agent memory directory** (file-based, for detailed or structured notes):
+
+Create or append to files under `.claude/agent-memory/{agent-name}/`:
+
+```bash
+# Ensure directory exists
+mkdir -p .claude/agent-memory/$AGENT_NAME
+```
+
+- **`MEMORY.md`** — primary memory file, brief session summaries:
+  ```
+  # Example path: .claude/agent-memory/speckit-explorer/MEMORY.md
+  ```
+- **Topical files** — detailed notes by subject area:
+  ```
+  # Examples:
+  # .claude/agent-memory/speckit-explorer/researching-ideas.md
+  # .claude/agent-memory/speckit-explorer/patterns.md
+  # .claude/agent-memory/typescript-expert/type-system-notes.md
+  ```
+
+Use the **Write tool** to create/update these files. Keep `MEMORY.md` under 200 lines — move detail into topical files.
+
+**Why both methods?**
+- Memory plugin (A): Semantic search, graph relationships, structured queries
+- Native tags (B1): Survives plugin changes, loads into system prompt automatically
+- Directory files (B2): Human-readable, git-tracked, organise by topic, persist across plugin updates
 - Redundancy ensures critical knowledge isn't lost
 
 ---
 
 ## Step 1: Identify Your Agent Name
 
-Check for `CLAUDE_AGENT_NAME` environment variable, or extract from your task invocation:
+Check in priority order:
+
+1. **Invocation argument** — the prompt may contain `agent-name={name}`:
+   ```
+   # Example invocation: /claude-memory-plugin:agent-commit agent-name=speckit-explorer
+   AGENT_NAME="speckit-explorer"   # extracted from agent-name= arg
+   ```
+
+2. **Environment variable** — `CLAUDE_AGENT_NAME` if set:
+   ```bash
+   AGENT_NAME="${CLAUDE_AGENT_NAME:-}"
+   ```
+
+3. **Infer from context** — if neither is present, use a descriptive name based on your role
+   (e.g., `typescript-expert`, `security-reviewer`, `speckit-explorer`).
 
 ```bash
-# If set in environment
-AGENT_NAME="${CLAUDE_AGENT_NAME:-unknown-agent}"
 echo "Agent: $AGENT_NAME"
 ```
-
-If unknown, use a descriptive name (e.g., `typescript-expert`, `security-reviewer`).
 
 ---
 
@@ -193,12 +231,12 @@ After saving memories, generate embeddings and create cross-scope links:
 memory refresh --embeddings --agent $AGENT_NAME
 
 # Auto-link within agent scope AND to shared scopes
-memory suggest-links --agent $AGENT_NAME --include-shared --auto-link
+memory suggest-links --agent $AGENT_NAME --all-scopes --auto-link
 ```
 
 **What this does:**
 - `refresh --embeddings`: Enables semantic search on your memories
-- `suggest-links --include-shared --auto-link`: Creates links between your agent memories AND discovers/creates links to relevant project/global memories
+- `suggest-links --all-scopes --auto-link`: Creates links between your agent memories AND discovers/creates links to relevant project/global memories
 
 ---
 
@@ -225,20 +263,25 @@ Agent memory commit complete:
 - **Be selective**: 1-3 high-signal items max. Quality over quantity.
 - **Be concise**: 1-2 sentences per memory. Details can be reconstructed from git history.
 - **Be specific**: "TypeScript keyof needs extends" not "Found a type issue"
-- **Always dual-save**: Memory plugin + MEMORY.md (both required)
+- **Always dual-save**: Memory plugin (A) + native tags (B1) + agent directory files (B2)
 - **Use --agent flag**: Keeps your knowledge in your namespace
 - **Generate embeddings**: Enables semantic search and auto-linking
-- **Auto-link with --include-shared**: Discovers connections to project knowledge
+- **Auto-link with --all-scopes**: Discovers connections to project knowledge
+- **Agent name priority**: `agent-name=` arg > `CLAUDE_AGENT_NAME` env var > infer from context
+- **Keep MEMORY.md concise**: Under 200 lines — move detailed notes to topical files
 
 ---
 
 ## Example Full Workflow
 
 ```bash
-# Step 1: Identify agent
+# Step 1: Identify agent (check invocation arg, then env var, then infer)
+# If invoked as: /claude-memory-plugin:agent-commit agent-name=typescript-expert
 AGENT_NAME="typescript-expert"
 
-# Step 2: Save learning (dual-save)
+# Step 2: Save learning (dual-save: A + B1 + B2)
+
+# A. Memory plugin (structured storage)
 echo '{
   "type": "learning",
   "title": "Readonly tuple types prevent mutation",
@@ -246,17 +289,24 @@ echo '{
   "tags": "typescript,tuples,immutability"
 }' | memory write --agent $AGENT_NAME --auto-link
 
+# B1. Native memory tag (session persistence)
 <save_memory>
 Agent: typescript-expert
 Topic: Readonly tuples
 Learning: Readonly tuple types more restrictive than ReadonlyArray - prevent all mutations
 </save_memory>
 
+# B2. Agent memory directory (file-based, git-tracked)
+mkdir -p .claude/agent-memory/$AGENT_NAME
+# Use Write tool to update MEMORY.md and topical files, e.g.:
+# .claude/agent-memory/typescript-expert/MEMORY.md
+# .claude/agent-memory/typescript-expert/type-system-notes.md
+
 # Step 3: Generate embeddings
 memory refresh --embeddings --agent $AGENT_NAME
 
 # Step 4: Auto-link across scopes
-memory suggest-links --agent $AGENT_NAME --include-shared --auto-link
+memory suggest-links --agent $AGENT_NAME --all-scopes --auto-link
 
 # Step 5: Verify
 memory list --agent $AGENT_NAME | tail -3

@@ -3,8 +3,9 @@ id: learning-retro-security-tests-may-require-threat-model-adjustment-post-imple
 title: Retro - Security tests may require threat model adjustment post-implementation
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-23T14:49:24.818Z"
-updated: "2026-02-23T14:49:24.818Z"
+updated: "2026-02-23T17:29:22.680Z"
 tags:
   - retrospective
   - process

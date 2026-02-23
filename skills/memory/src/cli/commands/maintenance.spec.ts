@@ -8,7 +8,7 @@ import * as syncModule from '../../maintenance/sync.js';
 import * as pruneModule from '../../maintenance/prune.js';
 import * as reindexModule from '../../maintenance/reindex.js';
 import * as syncFrontmatterModule from '../../maintenance/sync-frontmatter.js';
-import * as refreshFrontmatterModule from '../../maintenance/refresh-frontmatter.js';
+import * as refreshFrontmatterModule from '../../maintenance/refresh-frontmatter/index.js';
 import * as indexModule from '../../core/index.js';
 import * as healthModule from '../../quality/health.js';
 import * as readModule from '../../core/read.js';

@@ -11,7 +11,7 @@ import {
   hasCommandHelp,
   formatCommandHelp,
   type CommandHelpEntry,
-} from './command-help.js';
+} from './index.js';
 
 describe('COMMAND_HELP registry', () => {
   it('has help for all major commands', () => {

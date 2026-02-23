@@ -17,13 +17,42 @@ src/think/index.ts
 src/types/index.ts
 src/bulk/index.ts
 src/maintenance/index.ts
+src/maintenance/agent-operations/index.ts
 src/suggest/index.ts
 src/external/index.ts
 
-# Known "orphaned" test files (false positives - they test real code):
-# - maintenance.spec.ts: Integration tests for rename/move/promote/archive modules
-# - similarity.property.spec.ts: Property-based tests for similarity.ts
-# These don't follow 1:1 naming but are legitimate test files.
+# Integration test specs - multi-module pipeline tests, not mapped 1:1 to a source file
+src/integration/agent-read-delete.spec.ts
+src/integration/agent-search.spec.ts
+src/integration/agent-write.spec.ts
+src/external/external-file-integration.spec.ts
+
+# Cross-cutting feature specs - test behaviours spanning multiple source files
+# Named after the feature/ticket (e.g. T027, T094) rather than a single source module
+src/cli/commands/archive-read-only-guards.spec.ts
+src/cli/commands/delete-read-only-guards.spec.ts
+src/cli/commands/external-node-command-compatibility.spec.ts
+src/cli/commands/move-promote-read-only-guards.spec.ts
+src/cli/commands/read-external-path.spec.ts
+src/cli/commands/rename-read-only-guards.spec.ts
+src/cli/commands/search-include-shared.spec.ts
+src/cli/commands/sync-and-index-context-external.spec.ts
+src/cli/commands/validation-include-shared.spec.ts
+src/cli/commands/write-read-only-guards.spec.ts
+src/external/external-file-indexer-helpers.spec.ts
+src/graph/agent-graph.spec.ts
+src/graph/cross-scope-edges.spec.ts
+src/graph/cross-scope-link.spec.ts
+src/quality/test-assess-exclude-reminder.spec.ts
+src/quality/test-assess-exclude-rule.spec.ts
+src/quality/test-audit-skip-reminder.spec.ts
+src/quality/test-audit-skip-rule.spec.ts
+src/storage/agent-directory.spec.ts
+src/suggest/suggest-links-cross-scope.spec.ts
+src/suggest/suggest-links-external.spec.ts
+src/suggest/suggest-links-llm.spec.ts
+src/suggest/suggest-links-security.spec.ts
+src/think/thoughts-ai.spec.ts
 
 # Pure type definition files - no runtime code
 src/types/api.ts
@@ -34,3 +63,102 @@ src/types/provider-config.ts
 
 # CLI subprocess execution - requires actual CLI binaries
 src/think/ai-invoke.ts:invokeProvider
+
+# command-help module internals - covered by command-help/index.spec.ts
+src/cli/command-help/types.ts
+# formatCommandHelp is tested via index.spec.ts which imports it through the re-export in index.ts
+src/cli/command-help/formatter.ts:formatCommandHelp
+
+# command-help entries - pure data objects, covered by index.spec.ts via assembled registry
+src/cli/command-help/entries/crud.ts
+src/cli/command-help/entries/graph.ts
+src/cli/command-help/entries/quality.ts
+src/cli/command-help/entries/maintenance.ts
+src/cli/command-help/entries/utility.ts
+src/cli/command-help/entries/bulk.ts
+src/cli/command-help/entries/analysis.ts
+src/cli/command-help/entries/agents.ts
+src/cli/command-help/entries/think.ts
+src/cli/command-help/entries/help.ts
+
+# refresh-frontmatter types - pure interface definitions
+src/maintenance/refresh-frontmatter/types.ts
+
+# Agent directory storage utilities - covered by storage/agent-directory.spec.ts
+src/storage/create-agent-directory.ts:createAgentDirectory
+src/storage/agent-directory-exists.ts:agentDirectoryExists
+
+# deriveScope - covered by suggest-links-security.spec.ts (cross-cutting security spec)
+src/suggest/suggest-links.ts:deriveScope
+
+# Cross-scope graph functions - covered by graph/cross-scope-link.spec.ts
+src/graph/link.ts:storeCrossScopeEdge
+src/graph/link.ts:removeCrossScopeEdge
+
+# Cross-scope edge functions - covered by graph/cross-scope-edges.spec.ts
+src/graph/edges.ts:isCrossScopeEdge
+src/graph/edges.ts:validateCrossScopeEdge
+src/graph/edges.ts:updateEdge
+src/graph/edges.ts:getEdge
+
+# External file indexer helpers - covered by external/external-file-indexer-helpers.spec.ts
+src/external/external-file-indexer.ts:createGraphNode
+src/external/external-file-indexer.ts:createIndexEntry
+
+# Multi-scope graph loading - covered by include-shared integration specs
+src/graph/structure.ts:loadMergedGraph
+
+# Provider thought invocation - requires actual provider CLIs (Codex, Gemini)
+src/think/ai-invoke.ts:invokeProviderThought
+
+# Process.stderr output - writes directly to process handle, not unit testable
+src/cli/hint-output.ts:outputHintToStderr
+
+# CLI agent command handlers - orchestration, covered by agent-graph.spec.ts integration
+src/cli/commands/agents.ts:cmdAgents
+src/cli/commands/agents.ts:cmdAgentsList
+src/cli/commands/agents.ts:cmdAgentsStats
+src/cli/commands/agents.ts:cmdAgentsCreate
+src/cli/commands/agents.ts:cmdAgentsDelete
+src/cli/commands/agents.ts:cmdAgentsCopy
+src/cli/commands/agents.ts:cmdAgentsRename
+
+# CLI maintenance handlers - orchestration, covered by sync-and-index-context-external.spec.ts
+src/cli/commands/maintenance.ts:cmdIndexContext
+
+# CLI setup handler - orchestration, covered by end-to-end setup flow
+src/cli/commands/utility.ts:cmdSetup
+
+# Private Spinner class in think CLI - not exported, not independently testable
+src/cli/commands/think.ts:Spinner.start
+src/cli/commands/think.ts:Spinner.stop
+
+# Agent scan/info functions - tested via stub re-export to tests/unit/agents/
+src/agents/scan-agent-directories.ts:scanAgentDirectories
+src/agents/scan-agent-directories.ts:getAgentInfo
+src/agents/validate-agent-info.ts:validateAgentInfo
+
+# formatScopeIndicator - tested via stub re-export to tests/unit/display/
+src/display/format-scope-indicator.ts:formatScopeIndicator
+
+# getAgentSummary - tested in agent-discovery.spec.ts; TypeScript import-chain not detected
+src/core/agent-discovery.ts:getAgentSummary
+
+# HintTracker methods - tested in hint-tracker.spec.ts; TypeScript import-chain not detected
+src/cli/hint-tracker.ts:HintTracker.getCount
+src/cli/hint-tracker.ts:HintTracker.increment
+src/cli/hint-tracker.ts:HintTracker.clear
+src/cli/hint-tracker.ts:HintTracker.getTotalCount
+
+# AutoSelector methods - tested in auto-selector.spec.ts; TypeScript import-chain not detected
+src/think/auto-selector.ts:AutoSelector.setAvailable
+src/think/auto-selector.ts:AutoSelector.select
+
+# CircuitBreaker methods - tested in circuit-breaker.spec.ts; TypeScript import-chain not detected
+src/think/circuit-breaker.ts:CircuitBreaker.isOpen
+src/think/circuit-breaker.ts:CircuitBreaker.isHalfOpen
+src/think/circuit-breaker.ts:CircuitBreaker.canExecute
+src/think/circuit-breaker.ts:CircuitBreaker.getFailureCount
+src/think/circuit-breaker.ts:CircuitBreaker.recordSuccess
+src/think/circuit-breaker.ts:CircuitBreaker.recordFailure
+src/think/circuit-breaker.ts:CircuitBreaker.reset

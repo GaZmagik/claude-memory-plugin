@@ -8,7 +8,7 @@
 import { parseArgs, type ParsedArgs } from './parser.js';
 import { type CliResponse, error, outputResponse } from './response.js';
 import { getHelpText } from './help.js';
-import { getCommandHelp } from './command-help.js';
+import { getCommandHelp } from './command-help/index.js';
 
 // Command handlers - will be populated as we implement them
 import { cmdWrite, cmdRead, cmdList, cmdDelete, cmdSearch, cmdSemantic } from './commands/crud.js';

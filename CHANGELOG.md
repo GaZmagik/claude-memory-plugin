@@ -5,6 +5,28 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.2] - 2026-02-23
+
+### Security
+- `suggest-links`: sanitise memory titles before LLM prompt interpolation — strip quotes and control characters, wrap in structural delimiters (CWE-77 / OWASP LLM01)
+- `suggest-links`: validate `basePath` against the memory hierarchy before any I/O (CWE-22)
+- `suggest-links`: replace `includes()` substring check with `startsWith()` prefix check in scope classification to prevent crafted-path spoofing (CWE-706)
+- `suggest-links`: validate LLM-generated relation labels against an allowlist regex before storing as edge metadata — rejects multi-line, overlong, or malformed responses
+- `suggest-links`: all auto-link `catch` blocks now write to `process.stderr` instead of silently swallowing errors
+- `suggest-links`: capture `process.cwd()` once at function entry to prevent TOCTOU inconsistency (CWE-362)
+- `suggest-links`: export `deriveScope` for direct unit testing
+
+### Refactored
+- `cli/command-help.ts` (902 lines) extracted into `cli/command-help/` directory — `types.ts`, `formatter.ts`, `index.ts`, and `entries/` subdirectory with one file per command group
+- `maintenance/refresh-frontmatter.ts` (459 lines) extracted into `maintenance/refresh-frontmatter/` directory — `types.ts`, `think-migration.ts`, `project-detection.ts`, `embeddings.ts`, `index.ts`
+
+### Tests
+- `helpers.spec.ts`: replaced 14 vacuous `toBeDefined()` assertions on arrow function literals with real path assertions; added unit tests for `validateIncludeShared`, `scopeToIdentifier`, `getResolvedScopePath`, and `resolveSharedScopePaths`
+- `suggest-links-security.spec.ts`: new cross-cutting security spec covering basePath validation, deriveScope prefix-check, LLM prompt injection, LLM response validation, and stderr error logging
+- `suggest-links-llm.spec.ts`: LLM tests extracted from main spec into a dedicated file
+- `formatter.spec.ts`: new unit tests for `formatDiscoveredList`
+- `suggest-links-cross-scope.spec.ts`, `suggest-links-external.spec.ts`: updated to use valid memory hierarchy paths for M2 basePath validation compatibility
+
 ## [1.6.1] - 2026-02-23
 
 ### Changed

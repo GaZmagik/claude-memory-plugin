@@ -14,211 +14,18 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { execFileSync } from 'node:child_process';
 import {
   parseMemoryFile,
   serialiseMemoryFile,
   updateFrontmatter,
-} from '../core/frontmatter.js';
-import { getAllMemoryIds, findMemoryFile } from '../core/fs-utils.js';
-import type { EmbeddingCache } from '../search/embedding.js';
+} from '../../core/frontmatter.js';
+import { getAllMemoryIds, findMemoryFile } from '../../core/fs-utils.js';
+import { migrateThinkId, migrateThoughtJsonState, migrateGraphJson, migrateIndexJson } from './think-migration.js';
+import { detectProjectName } from './project-detection.js';
+import { loadEmbeddingsCache, saveEmbeddingsCache } from './embeddings.js';
+import type { RefreshFrontmatterRequest, RefreshFrontmatterResponse } from './types.js';
 
-/**
- * Refresh frontmatter request options
- */
-export interface RefreshFrontmatterRequest {
-  /** Base path for memory storage */
-  basePath: string;
-  /** Dry run - report changes without applying */
-  dryRun?: boolean;
-  /** Only refresh specific IDs (optional) */
-  ids?: string[];
-  /** Project name to use (optional - auto-detected if not provided) */
-  project?: string;
-}
-
-/**
- * Refresh frontmatter response
- */
-export interface RefreshFrontmatterResponse {
-  status: 'success' | 'error';
-  /** Number of files updated */
-  updated: number;
-  /** IDs of files updated */
-  updatedIds: string[];
-  /** Files that would be updated (dry run only) */
-  wouldUpdate?: string[];
-  /** Files skipped (no changes needed) */
-  skipped: number;
-  /** Number of embeddings migrated */
-  embeddingsMigrated: number;
-  /** Number of think→thought ID migrations */
-  thinkToThoughtMigrated: number;
-  /** Number of graph node types updated */
-  graphTypesUpdated: number;
-  /** Project name used */
-  project?: string;
-  /** Any errors encountered */
-  errors?: string[];
-}
-
-/**
- * Migrate a think- prefixed ID to thought- prefix
- */
-function migrateThinkId(id: string): string {
-  if (id.startsWith('think-')) {
-    return 'thought-' + id.slice(6);
-  }
-  return id;
-}
-
-/**
- * Update thought.json state file with migrated IDs
- */
-function migrateThoughtJsonState(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
-  const statePath = path.join(basePath, 'thought.json');
-  if (!fs.existsSync(statePath)) {
-    return false;
-  }
-
-  try {
-    const content = fs.readFileSync(statePath, 'utf-8');
-    const state = JSON.parse(content);
-
-    if (state.currentDocumentId === oldId) {
-      if (!dryRun) {
-        state.currentDocumentId = newId;
-        fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
-      }
-      return true;
-    }
-  } catch {
-    // Ignore errors
-  }
-  return false;
-}
-
-/**
- * Update graph.json with migrated IDs
- */
-function migrateGraphJson(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
-  const graphPath = path.join(basePath, 'graph.json');
-  if (!fs.existsSync(graphPath)) {
-    return false;
-  }
-
-  try {
-    const content = fs.readFileSync(graphPath, 'utf-8');
-    if (!content.includes(`"${oldId}"`)) {
-      return false;
-    }
-
-    if (!dryRun) {
-      const updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
-      fs.writeFileSync(graphPath, updated);
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Update index.json with migrated IDs and paths
- */
-function migrateIndexJson(basePath: string, oldId: string, newId: string, dryRun: boolean): boolean {
-  const indexPath = path.join(basePath, 'index.json');
-  if (!fs.existsSync(indexPath)) {
-    return false;
-  }
-
-  try {
-    const content = fs.readFileSync(indexPath, 'utf-8');
-    if (!content.includes(`"${oldId}"`)) {
-      return false;
-    }
-
-    if (!dryRun) {
-      // Replace ID and file paths
-      let updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
-      updated = updated.replace(
-        new RegExp(`temporary/${oldId}\\.md`, 'g'),
-        `temporary/${newId}.md`
-      );
-      fs.writeFileSync(indexPath, updated);
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Detect project name from git repo or directory
- */
-function detectProjectName(basePath: string): string | undefined {
-  // Find the project root from .claude/memory path
-  let projectRoot = basePath;
-  if (basePath.includes('.claude/memory')) {
-    projectRoot = basePath.split('.claude/memory')[0]!.replace(/\/$/, '');
-  }
-
-  // Try to get git repo name (using execFileSync for security)
-  try {
-    const remote = execFileSync('git', ['remote', 'get-url', 'origin'], {
-      cwd: projectRoot,
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-    }).trim();
-
-    if (remote) {
-      // Extract repo name from URL
-      const match = remote.match(/\/([^/]+?)(\.git)?$/);
-      if (match) {
-        return match[1];
-      }
-    }
-  } catch {
-    // Not a git repo or no remote
-  }
-
-  // Fall back to directory name
-  try {
-    return path.basename(projectRoot);
-  } catch {
-    return undefined;
-  }
-}
-
-/**
- * Load or create embeddings cache
- */
-function loadEmbeddingsCache(basePath: string): EmbeddingCache {
-  const cachePath = path.join(basePath, 'embeddings.json');
-  if (!fs.existsSync(cachePath)) {
-    return { version: 1, memories: {} };
-  }
-
-  try {
-    const content = fs.readFileSync(cachePath, 'utf-8');
-    const cache = JSON.parse(content) as EmbeddingCache;
-    // Ensure memories property exists
-    if (!cache.memories) {
-      cache.memories = {};
-    }
-    return cache;
-  } catch {
-    return { version: 1, memories: {} };
-  }
-}
-
-/**
- * Save embeddings cache
- */
-function saveEmbeddingsCache(basePath: string, cache: EmbeddingCache): void {
-  const cachePath = path.join(basePath, 'embeddings.json');
-  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
-}
+export type { RefreshFrontmatterRequest, RefreshFrontmatterResponse } from './types.js';
 
 /**
  * Backfills missing frontmatter fields and migrates legacy data in memory files.
@@ -245,7 +52,7 @@ function saveEmbeddingsCache(basePath: string, cache: EmbeddingCache): void {
  *
  * @example
  * ```typescript
- * import { refreshFrontmatter } from './maintenance/refresh-frontmatter.js';
+ * import { refreshFrontmatter } from './maintenance/refresh-frontmatter/index.js';
  *
  * // Preview what would be updated
  * const preview = await refreshFrontmatter({

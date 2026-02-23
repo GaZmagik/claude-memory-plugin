@@ -2,7 +2,7 @@
  * Test T085A: Verify suggest-links includes external nodes (rules and reminders)
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
@@ -37,6 +37,7 @@ describe('Suggest Links - External Node Integration', () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     if (tempDir && fs.existsSync(tempDir)) {
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
@@ -105,6 +106,9 @@ describe('Suggest Links - External Node Integration', () => {
 
   // T085A: Test that suggestLinks() actually includes external nodes in suggestions
   it('should include rule and reminder nodes in suggest-links results', async () => {
+    // Mock process.cwd() so M2 basePath validation accepts tempDir-rooted paths
+    vi.spyOn(process, 'cwd').mockReturnValue(tempDir);
+
     // Define basePath following the pattern from other tests
     const basePath = path.join(tempDir, '.claude', 'memory');
 

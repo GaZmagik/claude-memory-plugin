@@ -77,12 +77,11 @@ async function main() {
     if (agentId && subagentEntry) {
       const contextPrompt = extractContextAsSystemPrompt(agentId, cwd);
       if (contextPrompt) {
-        const agentPreamble = `=== AGENT IDENTITY ===\nAgent Name: ${agentName}\nCLAUDE_AGENT_NAME=${agentName}\n=== END AGENT IDENTITY ===\n\n`;
+        const safeAgentName = (agentName ?? '').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const agentPreamble = `=== AGENT IDENTITY ===\nAgent Name: ${safeAgentName}\nCLAUDE_AGENT_NAME=${safeAgentName}\n=== END AGENT IDENTITY ===\n\n`;
         const pluginDirs: string[] = [];
         const memoryPluginDir = findPluginDir('claude-memory-plugin');
         if (memoryPluginDir) pluginDirs.push(memoryPluginDir);
-
-        const safeAgentName = (agentName ?? '').replace(/[^a-zA-Z0-9_-]/g, '_');
 
         try {
           const result = await spawnSessionWithContext({

@@ -226,7 +226,8 @@ describe('SessionEnd Memory Cleanup Hook', () => {
       expect(existsSync(buildSubagentTempPath('subagent', 'sweep-test-uuid-2'))).toBe(false);
     });
 
-    it('creates claimed marker file after sweep', () => {
+    it('cleans up claimed marker file after sweep (no-context path)', () => {
+      // No JSONL context file → extractContextAsSystemPrompt returns null → cleanup still runs
       writeFileSync(
         buildSubagentTempPath('subagent', 'sweep-test-uuid-3'),
         JSON.stringify({
@@ -242,11 +243,40 @@ describe('SessionEnd Memory Cleanup Hook', () => {
         { CLAUDE_AGENT_NAME: '' }
       );
 
-      // Claimed prefix path check — file name starts with .claude-memory-plugin-claimed-
+      // Both unclaimed and claimed files must be absent — cleanup is unconditional
+      expect(existsSync(buildSubagentTempPath('subagent', 'sweep-test-uuid-3'))).toBe(false);
       const claimedFiles = readdirSync(tmpdir()).filter((f) =>
         f.startsWith('.claude-memory-plugin-claimed-subagent-sweep-test-uuid-3')
       );
-      expect(claimedFiles.length).toBe(1);
+      expect(claimedFiles.length).toBe(0);
+    });
+
+    it('stops sweeping after MAX_SUBAGENT_SWEEP entries, leaving remainder untouched', () => {
+      // Write 12 entries — cap is 10, so at least 2 must remain after the hook runs
+      for (let i = 0; i < 12; i++) {
+        writeFileSync(
+          buildSubagentTempPath('subagent', `cap-test-uuid-${i}`),
+          JSON.stringify({
+            agentId: `cap-test-uuid-${i}`,
+            agentType: 'subagent',
+            sessionId: '',
+            timestamp: new Date().toISOString(),
+          })
+        );
+      }
+
+      runHook(
+        { session_id: 'cap-test-session', cwd: testDir, reason: 'exit' },
+        { CLAUDE_AGENT_NAME: '' }
+      );
+
+      // At least 2 entries (unclaimed or claimed) should remain — sweep capped at 10
+      const remaining = readdirSync(tmpdir()).filter(
+        (f) =>
+          f.startsWith('.claude-memory-plugin-subagent-subagent-cap-test-uuid-') ||
+          f.startsWith('.claude-memory-plugin-claimed-subagent-cap-test-uuid-')
+      );
+      expect(remaining.length).toBeGreaterThanOrEqual(2);
     });
   });
 });

@@ -86,7 +86,7 @@ runHook(async (input) => {
           subagentEntry.agentType !== 'subagent' ? subagentEntry.agentType : 'unknown-agent';
         const safeAgentLabel = agentLabel.replace(/[^a-zA-Z0-9_-]/g, '_');
         const preamble = `=== AGENT IDENTITY ===\nAgent Name: ${agentLabel}\nCLAUDE_AGENT_NAME=${agentLabel}\n=== END AGENT IDENTITY ===\n\n`;
-        const spawnResult = await spawnSessionWithContext({
+        await spawnSessionWithContext({
           sessionId: subagentEntry.agentId,
           cwd,
           prompt: `/claude-memory-plugin:agent-commit agent-name=${safeAgentLabel} session-end-trigger=${safeReason}`,
@@ -97,10 +97,10 @@ runHook(async (input) => {
           tools: 'Read,Skill,Bash,Write',
           pluginDirs: subagentPluginDirs,
         });
-        if (spawnResult.started) {
-          cleanupClaimedEntry(subagentEntry.agentType, subagentEntry.agentId);
-        }
       }
+      // Always clean up the claimed marker — covers no-context, spawn-failure, and
+      // spawn-success paths so /tmp doesn't accumulate stale claimed-* files.
+      cleanupClaimedEntry(subagentEntry.agentType, subagentEntry.agentId);
       subagentEntry = findAnyUnclaimedSubagent();
     }
   }

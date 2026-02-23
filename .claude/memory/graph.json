@@ -4592,12 +4592,9 @@
       "scope": "project"
     },
     {
-      "id": "reminder-agent-project-typescript-expert-memory-md",
-      "type": "reminder"
-    },
-    {
       "id": "rule-project-claude-md-root",
-      "type": "rule"
+      "type": "rule",
+      "title": "CLAUDE.md"
     },
     {
       "id": "learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase",
@@ -4669,6 +4666,98 @@
       "id": "decision-subagent-memory-isolation-via-per-agent-registry",
       "type": "decision",
       "title": "Subagent Memory Isolation via Per-Agent Registry",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands",
+      "type": "gotcha",
+      "title": "Command injection via unsanitized agent names in prompts and shell commands",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-unbounded-loops-in-background-operations-accumulate-work-and-hit-timeouts",
+      "type": "gotcha",
+      "title": "Unbounded loops in background operations accumulate work and hit timeouts",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-file-cleanup-obligations-must-be-enforced-in-all-code-paths-not-just-happy-path",
+      "type": "gotcha",
+      "title": "File cleanup obligations must be enforced in all code paths, not just happy path",
+      "scope": "project"
+    },
+    {
+      "id": "learning-atomic-rename-based-temp-file-operations-prevent-toctou-races-in-concurrent-systems",
+      "type": "learning",
+      "title": "Atomic rename-based temp file operations prevent TOCTOU races in concurrent systems",
+      "scope": "project"
+    },
+    {
+      "id": "learning-categorise-and-prioritise-pr-review-findings-before-addressing-to-parallelise-work-efficiently",
+      "type": "learning",
+      "title": "Categorise and prioritise PR review findings before addressing to parallelise work efficiently",
+      "scope": "project"
+    },
+    {
+      "id": "rule-global-claude-md-dotclaude",
+      "type": "rule",
+      "title": "CLAUDE.md",
+      "scope": "global"
+    },
+    {
+      "id": "rule-project-security",
+      "type": "rule",
+      "title": "security.md",
+      "scope": "project"
+    },
+    {
+      "id": "rule-project-testing",
+      "type": "rule",
+      "title": "testing.md",
+      "scope": "project"
+    },
+    {
+      "id": "reminder-project-speckit-explorer-memory",
+      "type": "reminder",
+      "title": "speckit-explorer Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-explorer"
+    },
+    {
+      "id": "reminder-project-speckit-specifier-memory",
+      "type": "reminder",
+      "title": "speckit-specifier Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-specifier"
+    },
+    {
+      "id": "learning-rulereminder-nodes-need-embeddings-before-suggest-links-works",
+      "type": "learning",
+      "title": "Rule/reminder nodes need embeddings before suggest-links works",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "type": "gotcha",
+      "title": "No batch mechanism to backfill similarity scores on pre-existing edges",
+      "scope": "project"
+    },
+    {
+      "id": "decision-batch-edge-similarity-command-shape",
+      "type": "decision",
+      "title": "Batch edge similarity: flag on refresh vs new command",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-batch-similarity-scoring-pattern",
+      "type": "artifact",
+      "title": "Batch similarity scoring pattern: embeddings → cosine → optional LLM verify",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "type": "artifact",
+      "title": "score-edges: batch cosine similarity backfill for graph edges",
       "scope": "project"
     }
   ],
@@ -17802,6 +17891,78 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7045716936051819,
       "verifiedRelation": "comparison"
+    },
+    {
+      "source": "gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-excludes-orphaned-test-files",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-test-patterns-tdd-rule-reminder",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-batch-edge-similarity-command-shape",
+      "target": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-batch-similarity-scoring-pattern",
+      "target": "decision-batch-edge-similarity-command-shape",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.75055533298296
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.75055533298296
     }
   ]
 }

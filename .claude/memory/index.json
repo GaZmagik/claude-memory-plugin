@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-23T19:13:16.656Z",
+  "lastUpdated": "2026-02-23T22:09:49.626Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -7254,18 +7254,6 @@
       "severity": "high"
     },
     {
-      "id": "reminder-agent-project-typescript-expert-memory-md",
-      "type": "reminder",
-      "title": "Updated Title",
-      "tags": [
-        "project"
-      ],
-      "created": "2026-02-19T17:34:56.822Z",
-      "updated": "2026-02-19T18:01:26.993Z",
-      "scope": "global",
-      "relativePath": "permanent/reminder-agent-project-typescript-expert-memory-md.md"
-    },
-    {
       "id": "gotcha-phase-e-scope-is-substantial-10-tests-15-implementation-files-green-phase-needs-careful-pacing",
       "type": "gotcha",
       "title": "Gotcha - Phase E scope is substantial (10 tests + ~15 implementation files); Green phase needs careful pacing",
@@ -13542,12 +13530,12 @@
     {
       "id": "rule-project-claude-md-root",
       "type": "rule",
-      "title": "Updated Title",
+      "title": "CLAUDE.md",
       "tags": [
         "project"
       ],
       "created": "2026-02-19T17:34:51.492Z",
-      "updated": "2026-02-19T18:01:27.639Z",
+      "updated": "2026-02-22T17:29:17.947Z",
       "scope": "global",
       "relativePath": "permanent/rule-project-claude-md-root.md"
     },
@@ -14217,6 +14205,234 @@
       "updated": "2026-02-23T19:13:16.649Z",
       "scope": "project",
       "relativePath": "permanent/decision-subagent-memory-isolation-via-per-agent-registry.md"
+    },
+    {
+      "id": "gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands",
+      "type": "gotcha",
+      "title": "Command injection via unsanitized agent names in prompts and shell commands",
+      "tags": [
+        "security",
+        "command-injection",
+        "agent-names",
+        "pr-043",
+        "project"
+      ],
+      "created": "2026-02-23T20:53:03.816Z",
+      "updated": "2026-02-23T20:53:03.816Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands.md"
+    },
+    {
+      "id": "gotcha-unbounded-loops-in-background-operations-accumulate-work-and-hit-timeouts",
+      "type": "gotcha",
+      "title": "Unbounded loops in background operations accumulate work and hit timeouts",
+      "tags": [
+        "concurrency",
+        "performance",
+        "background-jobs",
+        "resource-management",
+        "pr-043",
+        "project"
+      ],
+      "created": "2026-02-23T20:53:08.906Z",
+      "updated": "2026-02-23T20:53:08.906Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-unbounded-loops-in-background-operations-accumulate-work-and-hit-timeouts.md"
+    },
+    {
+      "id": "gotcha-file-cleanup-obligations-must-be-enforced-in-all-code-paths-not-just-happy-path",
+      "type": "gotcha",
+      "title": "File cleanup obligations must be enforced in all code paths, not just happy path",
+      "tags": [
+        "file-management",
+        "resource-cleanup",
+        "error-handling",
+        "pr-043",
+        "project"
+      ],
+      "created": "2026-02-23T20:53:18.674Z",
+      "updated": "2026-02-23T20:53:18.674Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-file-cleanup-obligations-must-be-enforced-in-all-code-paths-not-just-happy-path.md"
+    },
+    {
+      "id": "learning-atomic-rename-based-temp-file-operations-prevent-toctou-races-in-concurrent-systems",
+      "type": "learning",
+      "title": "Atomic rename-based temp file operations prevent TOCTOU races in concurrent systems",
+      "tags": [
+        "concurrency",
+        "atomicity",
+        "filesystem",
+        "TOCTOU",
+        "pr-043",
+        "project"
+      ],
+      "created": "2026-02-23T20:53:23.046Z",
+      "updated": "2026-02-23T20:53:23.046Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-atomic-rename-based-temp-file-operations-prevent-toctou-races-in-concurrent-systems.md"
+    },
+    {
+      "id": "learning-categorise-and-prioritise-pr-review-findings-before-addressing-to-parallelise-work-efficiently",
+      "type": "learning",
+      "title": "Categorise and prioritise PR review findings before addressing to parallelise work efficiently",
+      "tags": [
+        "code-review",
+        "project-workflow",
+        "task-management",
+        "pr-043",
+        "project"
+      ],
+      "created": "2026-02-23T20:53:27.804Z",
+      "updated": "2026-02-23T20:53:27.804Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-categorise-and-prioritise-pr-review-findings-before-addressing-to-parallelise-work-efficiently.md"
+    },
+    {
+      "id": "rule-global-claude-md-dotclaude",
+      "type": "rule",
+      "title": "CLAUDE.md",
+      "tags": [],
+      "created": "2026-01-25T12:03:29.842Z",
+      "updated": "2026-01-25T12:03:29.842Z",
+      "scope": "global",
+      "relativePath": "external/rule-global-claude-md-dotclaude",
+      "externalPath": "/home/gareth/.claude/CLAUDE.md",
+      "externalFileKind": "claude-instructions"
+    },
+    {
+      "id": "rule-project-security",
+      "type": "rule",
+      "title": "security.md",
+      "tags": [],
+      "created": "2026-02-22T17:29:17.943Z",
+      "updated": "2026-02-22T17:29:17.943Z",
+      "scope": "project",
+      "relativePath": "external/rule-project-security",
+      "externalPath": "/home/gareth/.vs/claude-memory-plugin/.claude/rules/security.md",
+      "externalFileKind": "rules-file"
+    },
+    {
+      "id": "rule-project-testing",
+      "type": "rule",
+      "title": "testing.md",
+      "tags": [],
+      "created": "2026-02-22T17:29:17.943Z",
+      "updated": "2026-02-22T17:29:17.943Z",
+      "scope": "project",
+      "relativePath": "external/rule-project-testing",
+      "externalPath": "/home/gareth/.vs/claude-memory-plugin/.claude/rules/testing.md",
+      "externalFileKind": "rules-file"
+    },
+    {
+      "id": "reminder-project-speckit-explorer-memory",
+      "type": "reminder",
+      "title": "speckit-explorer Agent Memory",
+      "tags": [],
+      "created": "2026-02-22T17:29:17.847Z",
+      "updated": "2026-02-22T17:29:17.847Z",
+      "scope": "agent-project",
+      "agent": "speckit-explorer",
+      "relativePath": "external/reminder-project-speckit-explorer-memory",
+      "externalPath": "/home/gareth/.vs/claude-memory-plugin/.claude/agent-memory/speckit-explorer/MEMORY.md",
+      "externalFileKind": "agent-memory-summary"
+    },
+    {
+      "id": "reminder-project-speckit-specifier-memory",
+      "type": "reminder",
+      "title": "speckit-specifier Agent Memory",
+      "tags": [],
+      "created": "2026-02-22T17:29:17.847Z",
+      "updated": "2026-02-22T17:29:17.847Z",
+      "scope": "agent-project",
+      "agent": "speckit-specifier",
+      "relativePath": "external/reminder-project-speckit-specifier-memory",
+      "externalPath": "/home/gareth/.vs/claude-memory-plugin/.claude/agent-memory/speckit-specifier/MEMORY.md",
+      "externalFileKind": "agent-memory-summary"
+    },
+    {
+      "id": "learning-rulereminder-nodes-need-embeddings-before-suggest-links-works",
+      "type": "learning",
+      "title": "Rule/reminder nodes need embeddings before suggest-links works",
+      "tags": [
+        "suggest-links",
+        "rule",
+        "reminder",
+        "embeddings",
+        "external-files",
+        "project"
+      ],
+      "created": "2026-02-23T21:20:18.395Z",
+      "updated": "2026-02-23T21:20:18.395Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-rulereminder-nodes-need-embeddings-before-suggest-links-works.md"
+    },
+    {
+      "id": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "type": "gotcha",
+      "title": "No batch mechanism to backfill similarity scores on pre-existing edges",
+      "tags": [
+        "suggest-links",
+        "similarity",
+        "edges",
+        "update-edge",
+        "missing-feature",
+        "project"
+      ],
+      "created": "2026-02-23T21:26:34.592Z",
+      "updated": "2026-02-23T21:26:34.592Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges.md"
+    },
+    {
+      "id": "decision-batch-edge-similarity-command-shape",
+      "type": "decision",
+      "title": "Batch edge similarity: flag on refresh vs new command",
+      "tags": [
+        "CLI shape",
+        "batch operations",
+        "memory refresh",
+        "feature design",
+        "project"
+      ],
+      "created": "2026-02-23T21:46:00.898Z",
+      "updated": "2026-02-23T21:46:00.898Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-batch-edge-similarity-command-shape.md"
+    },
+    {
+      "id": "artifact-batch-similarity-scoring-pattern",
+      "type": "artifact",
+      "title": "Batch similarity scoring pattern: embeddings → cosine → optional LLM verify",
+      "tags": [
+        "batch operations",
+        "similarity",
+        "graph operations",
+        "pattern",
+        "testable-design",
+        "project"
+      ],
+      "created": "2026-02-23T21:46:01.997Z",
+      "updated": "2026-02-23T21:46:01.997Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-batch-similarity-scoring-pattern.md"
+    },
+    {
+      "id": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "type": "artifact",
+      "title": "score-edges: batch cosine similarity backfill for graph edges",
+      "tags": [
+        "score-edges",
+        "refresh",
+        "similarity",
+        "edges",
+        "maintenance",
+        "project"
+      ],
+      "created": "2026-02-23T22:09:49.621Z",
+      "updated": "2026-02-23T22:09:49.621Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges.md"
     }
   ]
 }

@@ -14,7 +14,7 @@ import { pruneMemories } from '../../maintenance/prune.js';
 import { syncMemories } from '../../maintenance/sync.js';
 import { reindexMemory } from '../../maintenance/reindex.js';
 import { syncFrontmatter } from '../../maintenance/sync-frontmatter.js';
-import { refreshFrontmatter } from '../../maintenance/refresh-frontmatter.js';
+import { refreshFrontmatter } from '../../maintenance/refresh-frontmatter/index.js';
 import { checkHealth } from '../../quality/health.js';
 import { createOllamaProvider, batchGenerateEmbeddings } from '../../search/embedding.js';
 import { loadIndex, saveIndex } from '../../core/index.js';

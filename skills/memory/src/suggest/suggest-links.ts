@@ -29,20 +29,31 @@ interface MemoryMetadata {
 
 /**
  * Derive scope type from a target path by comparing it to known scope paths.
- * Used during multi-scope loading to determine the scope of shared memories.
+ * Uses prefix-based matching so that crafted paths containing '/.claude/agents/'
+ * as a substring cannot spoof agent-project classification (CWE-706).
  */
-function deriveScope(targetPath: string, projectBase: string, globalBase: string): string {
-  // Normalize paths for comparison
+export function deriveScope(targetPath: string, projectBase: string, globalBase: string): string {
   const normalizedTarget = path.resolve(targetPath);
   const normalizedProject = path.resolve(projectBase);
   const normalizedGlobal = path.resolve(globalBase);
+
+  const agentsInProject = path.join(normalizedProject, 'agents');
+  const agentsInGlobal = path.join(normalizedGlobal, 'agents');
 
   if (normalizedTarget === normalizedGlobal) {
     return 'global';
   } else if (normalizedTarget === normalizedProject) {
     return 'project';
-  } else if (normalizedTarget.includes('/.claude/agents/')) {
+  } else if (
+    normalizedTarget === agentsInProject ||
+    normalizedTarget.startsWith(agentsInProject + path.sep)
+  ) {
     return 'agent-project';
+  } else if (
+    normalizedTarget === agentsInGlobal ||
+    normalizedTarget.startsWith(agentsInGlobal + path.sep)
+  ) {
+    return 'agent-global';
   } else {
     return 'local';
   }
@@ -110,12 +121,60 @@ export interface SuggestLinksResponse {
 }
 
 /**
+ * Sanitise a memory title before interpolating it into an LLM prompt.
+ * Strips quotes and control characters, truncates to 100 chars (CWE-77).
+ */
+function sanitiseTitleForPrompt(title: string): string {
+  return title
+    .replace(/['"]/g, '')
+    .replace(/[\x00-\x1f\x7f]/g, '')
+    .slice(0, 100)
+    .trim();
+}
+
+/** Pattern for a safe relation label: lowercase alphanumeric + hyphens, 1–64 chars. */
+const VALID_LABEL_RE = /^[a-z0-9][a-z0-9-]{0,62}[a-z0-9]$|^[a-z0-9]$/;
+
+/**
+ * Validate and normalise an LLM-generated relation label.
+ * Returns undefined if the response does not conform to a safe label format.
+ */
+function validateLlmLabel(response: string): string | undefined {
+  const cleaned = response.trim().toLowerCase().replace(/\s+/g, '-');
+  return VALID_LABEL_RE.test(cleaned) ? cleaned : undefined;
+}
+
+/**
  * Suggest potential links between memories
  */
 export async function suggestLinks(
   request: SuggestLinksRequest
 ): Promise<SuggestLinksResponse> {
   const { basePath, threshold = 0.75, limit = 20, autoLink = false, allScopes = false, agentName, llmType = false, force = false } = request;
+
+  // Capture cwd once — scope resolution must be consistent within a single call (CWE-362)
+  const cwd = process.cwd();
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
+
+  // Validate basePath is within the expected memory hierarchy (M2 / CWE-22)
+  const resolvedBasePath = path.resolve(basePath);
+  const projectMemoryRoot = path.join(cwd, '.claude', 'memory');
+  const withinGlobal =
+    resolvedBasePath === globalPath ||
+    resolvedBasePath.startsWith(globalPath + path.sep);
+  const withinProject =
+    resolvedBasePath === projectMemoryRoot ||
+    resolvedBasePath.startsWith(projectMemoryRoot + path.sep);
+  if (!withinGlobal && !withinProject) {
+    return {
+      status: 'error',
+      suggestions: [],
+      created: 0,
+      skipped: 0,
+      analysed: 0,
+      error: 'Invalid basePath: path must be within the memory directory hierarchy',
+    };
+  }
 
   const suggestions: SuggestedLink[] = [];
   let created = 0;
@@ -130,9 +189,6 @@ export async function suggestLinks(
   const metadataMap = new Map<string, MemoryMetadata>();
   let graph = await loadGraph(basePath);
   const existingLinks = new Set<string>();
-
-  // Get global path for scope detection
-  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   // Load primary (agent or project) embeddings
   const cachePath = path.join(basePath, 'embeddings.json');
@@ -168,7 +224,7 @@ export async function suggestLinks(
   }
 
   // Determine primary scope type
-  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, getScopePath(Scope.Project, process.cwd(), ''), globalPath);
+  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, getScopePath(Scope.Project, cwd, ''), globalPath);
 
   // Build embeddings map from primary scope (excluding thoughts)
   // AND track metadata for each memory
@@ -193,7 +249,7 @@ export async function suggestLinks(
   // When --all-scopes, load embeddings from ALL scopes (project, global, all agents)
   if (allScopes) {
     try {
-      const projectPath = getScopePath(Scope.Project, process.cwd(), '');
+      const projectPath = getScopePath(Scope.Project, cwd, '');
       const scopePaths = new Set<string>([projectPath, globalPath]);
 
       // Scan for all agent scopes
@@ -212,8 +268,8 @@ export async function suggestLinks(
             )
           : [];
         agentDirs.forEach(p => scopePaths.add(p));
-      } catch {
-        // Agent scanning failed, continue with project + global only
+      } catch (err) {
+        process.stderr.write(`[suggest-links] Agent directory scanning failed, continuing with project + global: ${err instanceof Error ? err.message : String(err)}\n`);
       }
 
       // Load embeddings from all scopes
@@ -237,7 +293,7 @@ export async function suggestLinks(
             metadataMap.set(id, {
               basePath: scopePath,
               scope: scopeType,
-              agent: scopePath.includes('/.claude/agents/') ? path.basename(scopePath) : undefined,
+              agent: (scopeType === 'agent-project' || scopeType === 'agent-global') ? path.basename(scopePath) : undefined,
             });
           }
         }
@@ -255,8 +311,8 @@ export async function suggestLinks(
           existingLinks.add(`${edge.target}:${edge.source}`);
         }
       }
-    } catch {
-      // All-scopes loading failed, continue with primary scope
+    } catch (err) {
+      process.stderr.write(`[suggest-links] All-scopes loading failed, continuing with primary scope: ${err instanceof Error ? err.message : String(err)}\n`);
     }
   }
   // Filter out temporary memories (thoughts)
@@ -339,12 +395,27 @@ export async function suggestLinks(
   if (autoLink && finalSuggestions.length > 0) {
     for (const suggestion of finalSuggestions) {
       try {
+        // LLM type verification applies to both same-scope and cross-scope links
+        let verifiedRelation: string | undefined;
+        if (llmType) {
+          const available = await isAvailable();
+          if (available) {
+            const safeSource = sanitiseTitleForPrompt(suggestion.sourceTitle);
+            const safeTarget = sanitiseTitleForPrompt(suggestion.targetTitle);
+            const prompt = `Given source memory [${safeSource}] and target memory [${safeTarget}], what is the best relation label for their link? Reply with a single short label only, using lowercase letters, digits, and hyphens.`;
+            const llmResult = await generate(prompt, undefined, 300_000);
+            verifiedRelation = validateLlmLabel(llmResult);
+          } else {
+            process.stderr.write('[Ollama] Unavailable — skipping LLM type verification\n');
+          }
+        }
+
         if (suggestion.isCrossScope && suggestion.sourceMetadata && suggestion.targetMetadata) {
           // Cross-scope link: use storeCrossScopeEdge()
           await storeCrossScopeEdge({
             sourceId: suggestion.source,
             targetId: suggestion.target,
-            relation: 'auto-linked-by-similarity',
+            relation: verifiedRelation ?? 'auto-linked-by-similarity',
             sourceBasePath: suggestion.sourceMetadata.basePath,
             targetBasePath: suggestion.targetMetadata.basePath,
             sourceScope: suggestion.sourceMetadata.scope,
@@ -355,17 +426,6 @@ export async function suggestLinks(
           createdCrossScope++;
         } else {
           // Same-scope link: use linkMemories()
-          let verifiedRelation: string | undefined;
-          if (llmType) {
-            const available = await isAvailable();
-            if (available) {
-              const prompt = `Given source memory "${suggestion.sourceTitle}" and target memory "${suggestion.targetTitle}", what is the best relation label for their link? Reply with a single short label only.`;
-              const llmResult = await generate(prompt, undefined, 300_000);
-              verifiedRelation = llmResult.trim() || undefined;
-            } else {
-              process.stderr.write('[Ollama] Unavailable — skipping LLM type verification\n');
-            }
-          }
           await linkMemories({
             source: suggestion.source,
             target: suggestion.target,
@@ -379,8 +439,8 @@ export async function suggestLinks(
           createdSameScope++;
         }
         created++;
-      } catch {
-        // Link failed, skip
+      } catch (err) {
+        process.stderr.write(`[suggest-links] Auto-link failed for ${suggestion.source}→${suggestion.target}: ${err instanceof Error ? err.message : String(err)}\n`);
       }
     }
   }

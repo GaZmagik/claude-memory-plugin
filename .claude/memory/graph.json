@@ -4076,44 +4076,6 @@
       "title": "Think: Context-file graph nodes — key decisions"
     },
     {
-      "id": "rule-project-claude-md-root",
-      "type": "rule",
-      "title": "CLAUDE.md",
-      "scope": "project"
-    },
-    {
-      "id": "rule-global-claude-md-dotclaude",
-      "type": "rule",
-      "title": "CLAUDE.md",
-      "scope": "global"
-    },
-    {
-      "id": "rule-project-security",
-      "type": "rule",
-      "title": "security.md",
-      "scope": "project"
-    },
-    {
-      "id": "rule-project-testing",
-      "type": "rule",
-      "title": "testing.md",
-      "scope": "project"
-    },
-    {
-      "id": "reminder-project-speckit-explorer-memory",
-      "type": "reminder",
-      "title": "speckit-explorer Agent Memory",
-      "scope": "agent-project",
-      "agent": "speckit-explorer"
-    },
-    {
-      "id": "reminder-project-speckit-specifier-memory",
-      "type": "reminder",
-      "title": "speckit-specifier Agent Memory",
-      "scope": "agent-project",
-      "agent": "speckit-specifier"
-    },
-    {
       "id": "learning-external-file-discovery-uses-wrong-base-path",
       "type": "learning",
       "title": "External file discovery uses wrong base path",
@@ -4136,12 +4098,6 @@
       "type": "learning",
       "title": "External nodes excluded from semantic search due to missing filePath",
       "scope": "project"
-    },
-    {
-      "id": "learning-local-test",
-      "type": "learning",
-      "title": "Local Test",
-      "scope": "local"
     },
     {
       "id": "gotcha-external-files-must-be-read-raw-without-frontmatter-parsing",
@@ -4453,6 +4409,156 @@
       "id": "gotcha-vitest-spy-leak-without-aftereach-restore",
       "type": "gotcha",
       "title": "Gotcha: Vitest spy leaks previous test values without afterEach restore",
+      "scope": "project"
+    },
+    {
+      "id": "learning-silent-failures-in-cross-scope-graph-loading-mask-root-causes",
+      "type": "learning",
+      "title": "Silent failures in cross-scope graph loading mask root causes"
+    },
+    {
+      "id": "learning-multi-pass-code-review-required-for-refactoring-six-issues-across-four-passes",
+      "type": "learning",
+      "title": "Multi-pass code review required for refactoring: six issues across four passes"
+    },
+    {
+      "id": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "type": "learning",
+      "title": "Feature 005 - Comprehensive 7-expert review complete with B+ grade"
+    },
+    {
+      "id": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "type": "gotcha",
+      "title": "getScopePath returns third argument directly for Global scope"
+    },
+    {
+      "id": "decision-multi-scope-stats-return-field-parity",
+      "type": "decision",
+      "title": "Multi-scope stats returns must include all expected fields (nodes alias)"
+    },
+    {
+      "id": "thought-20260221-091111177",
+      "type": "breadcrumb",
+      "title": "Think: TypeScript code quality review for feature/005"
+    },
+    {
+      "id": "learning-llm-verification-now-applies-to-cross-scope-auto-link-suggestions-v140",
+      "type": "learning",
+      "title": "LLM verification now applies to cross-scope auto-link suggestions (v1.4.0+)",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-stale-test-descriptions-mask-implementation-changes-and-guide-developers-wrong",
+      "type": "gotcha",
+      "title": "Stale test descriptions mask implementation changes and guide developers wrong",
+      "scope": "project"
+    },
+    {
+      "id": "decision-file-size-refactoring-candidates-identified",
+      "type": "decision",
+      "title": "Identified refactoring candidates: command-help.ts (902 lines) and refresh-frontmatter.spec.ts (934 lines)",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-tdd-workflow-for-suggest-links-fixes-failing-test-extract-update-descriptions-verify",
+      "type": "artifact",
+      "title": "TDD workflow for suggest-links fixes: failing test → extract → update descriptions → verify",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "type": "learning",
+      "title": "Retro - Parallel agent delegation for independent refactors reduces session time",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "type": "gotcha",
+      "title": "Gotcha - tdd-parity tool does not exclude orphaned test files",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-systematic-file-analysis-prevents-false-tddignore-entries",
+      "type": "learning",
+      "title": "Retro - Systematic file analysis prevents false .tddignore entries",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-tdd-parity-tool-excludes-orphaned-test-files",
+      "type": "gotcha",
+      "title": "tdd-parity-tool-excludes-orphaned-test-files",
+      "scope": "project"
+    },
+    {
+      "id": "learning-orphaned-test-files-are-legitimate-integration-specs",
+      "type": "learning",
+      "title": "orphaned-test-files-are-legitimate-integration-specs",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-large-file-refactoring-pattern",
+      "type": "artifact",
+      "title": "large-file-refactoring-pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-tool-invocation-accelerates-information-gathering-phases",
+      "type": "learning",
+      "title": "Retro - Parallel tool invocation accelerates information gathering phases",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-write-tool-must-read-first-constraint-causes-friction-with-new-files",
+      "type": "gotcha",
+      "title": "Retro - Write tool 'must read first' constraint causes friction with new files",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "type": "gotcha",
+      "title": "Retro - Tool configuration defaults can create friction with project layouts",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "type": "gotcha",
+      "title": "TDD parity tool misreports missing tests with default config",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-stub-re-export-pattern-maintains-colocated-parity-while-keeping-tests-in-integration-directory",
+      "type": "learning",
+      "title": "Test stub re-export pattern maintains colocated parity while keeping tests in integration directory",
+      "scope": "project"
+    },
+    {
+      "id": "decision-create-tddparity-json-for-colocated-tests",
+      "type": "decision",
+      "title": "Create .tddparity.json to configure TDD parity tool for colocated tests",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-security-tests-may-require-threat-model-adjustment-post-implementation",
+      "type": "learning",
+      "title": "Retro - Security tests may require threat model adjustment post-implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-spec-file-refactoring-timing",
+      "type": "learning",
+      "title": "Retro - Spec file refactoring timing",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-error-swallowing-as-explicit-code-review-category",
+      "type": "gotcha",
+      "title": "Retro - Error swallowing as explicit code review category",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-spec-creation-during-implementation-accelerates-tdd-feedback",
+      "type": "learning",
+      "title": "Retro - Parallel spec creation during implementation accelerates TDD feedback",
       "scope": "project"
     }
   ],
@@ -16354,12 +16460,6 @@
       "similarity": 0.7550984016983235
     },
     {
-      "source": "decision-memory-hook-enhancement-plan-review",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.75055533298296
-    },
-    {
       "source": "gotcha-retro-test-embedding-normalization-mismatch-causes-silent-test-failures",
       "target": "learning-typescript-cosine-similarity-tests-require-normalised-embedding-vectors",
       "label": "auto-linked-by-similarity",
@@ -16402,13 +16502,6 @@
       "verifiedRelation": "Evolution"
     },
     {
-      "source": "artifact-tdd-testing-patterns-catalogue",
-      "target": "rule-project-testing",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7314429654412186,
-      "verifiedRelation": "Documentation"
-    },
-    {
       "source": "learning-tdd-parity-typescript-support",
       "target": "gotcha-tdd-parity-regex-based-function-detection-misses-test-coverage",
       "label": "auto-linked-by-similarity",
@@ -16437,25 +16530,11 @@
       "verifiedRelation": "Transformation"
     },
     {
-      "source": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7253363581891857,
-      "verifiedRelation": "Output\nTransition"
-    },
-    {
       "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
       "target": "gotcha-bun-test-vi-mocked-incompatibility",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7223965717982204,
       "verifiedRelation": "Incompatibility"
-    },
-    {
-      "source": "artifact-v150-memory-graph-enhancement-suite-spec",
-      "target": "reminder-project-speckit-specifier-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7216297628583062,
-      "verifiedRelation": "Extends"
     },
     {
       "source": "learning-test-setup-validation-prevents-false-failures",
@@ -16479,39 +16558,11 @@
       "verifiedRelation": "Refinement"
     },
     {
-      "source": "learning-retrospective-memory-refactor-session",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7067890634906844,
-      "verifiedRelation": "Refactor"
-    },
-    {
-      "source": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7022531660878507,
-      "verifiedRelation": "Update"
-    },
-    {
       "source": "retro-parallel-expert-review-effective",
       "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7016776336076358,
       "verifiedRelation": "Transformation"
-    },
-    {
-      "source": "rule-global-claude-md-dotclaude",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7352273935545347,
-      "verifiedRelation": "Context"
-    },
-    {
-      "source": "reminder-project-speckit-explorer-memory",
-      "target": "rule-global-claude-md-dotclaude",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7352273935545347,
-      "verifiedRelation": "Export"
     },
     {
       "source": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
@@ -16582,20 +16633,6 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7100019799250532,
       "verifiedRelation": "Implementation"
-    },
-    {
-      "source": "reminder-project-speckit-explorer-memory",
-      "target": "reminder-project-speckit-specifier-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7088557517743612,
-      "verifiedRelation": "Transformation"
-    },
-    {
-      "source": "reminder-project-speckit-specifier-memory",
-      "target": "reminder-project-speckit-explorer-memory",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7088557517743612,
-      "verifiedRelation": "Transfer"
     },
     {
       "source": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
@@ -17214,6 +17251,258 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7043656722316863,
       "verifiedRelation": "Fix"
+    },
+    {
+      "source": "learning-llm-verification-now-applies-to-cross-scope-auto-link-suggestions-v140",
+      "target": "learning-cross-scope-edges-are-read-only-in-suggest-links",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-getscopepath-global-scope-returns-third-argument-directly",
+      "target": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8673049567992078
+    },
+    {
+      "source": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "target": "gotcha-getscopepath-global-scope-returns-third-argument-directly",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8673049567992078
+    },
+    {
+      "source": "decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design",
+      "target": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7238103998035725,
+      "verifiedRelation": "Outcome"
+    },
+    {
+      "source": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "target": "decision-feature-005-planning-rule-and-reminder-graph-nodes-architecture-design",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7238103998035725,
+      "verifiedRelation": "Outcome"
+    },
+    {
+      "source": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "target": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.71040725944434,
+      "verifiedRelation": "ReviewResult"
+    },
+    {
+      "source": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "target": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.71040725944434,
+      "verifiedRelation": "Review"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-excludes-orphaned-test-files",
+      "target": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "label": "auto-linked-by-similarity"
+    },
+    {
+      "source": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8164497442473261
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8164497442473261
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "decision-create-tddparity-json-for-colocated-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7802132994409
+    },
+    {
+      "source": "decision-create-tddparity-json-for-colocated-tests",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7802132994409
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7722103895535691
+    },
+    {
+      "source": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "target": "learning-tool-defaults-need-project-aware-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7722103895535691
+    },
+    {
+      "source": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "target": "decision-create-tddparity-json-for-colocated-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593306636736513
+    },
+    {
+      "source": "decision-create-tddparity-json-for-colocated-tests",
+      "target": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593306636736513
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "decision-create-tddparity-json-for-colocated-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7415209229169486,
+      "verifiedRelation": "Configuration"
+    },
+    {
+      "source": "decision-create-tddparity-json-for-colocated-tests",
+      "target": "learning-tool-defaults-need-project-aware-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7415209229169486,
+      "verifiedRelation": "Contextualization"
+    },
+    {
+      "source": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "target": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.737618022513573,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "gotcha-retro-tool-configuration-defaults-can-create-friction-with-project-layouts",
+      "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.737618022513573,
+      "verifiedRelation": "Contrast"
+    },
+    {
+      "source": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7354844922846882,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "target": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7354844922846882,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "retro-duplicate-test-discovery",
+      "target": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7252821106135126,
+      "verifiedRelation": "Conflict"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "target": "retro-duplicate-test-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7252821106135126,
+      "verifiedRelation": "Conflict"
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7209006702662265,
+      "verifiedRelation": "Refinement"
+    },
+    {
+      "source": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7209006702662265,
+      "verifiedRelation": "Evolution"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.719530179252262,
+      "verifiedRelation": "Misreporting"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.719530179252262,
+      "verifiedRelation": "Bug-Fix"
+    },
+    {
+      "source": "learning-tool-defaults-need-project-aware-discovery",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7138280328323164,
+      "verifiedRelation": "Cause-Effect"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "learning-tool-defaults-need-project-aware-discovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7138280328323164,
+      "verifiedRelation": "Cause-Effect"
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7101013879505813,
+      "verifiedRelation": "Change"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7101013879505813,
+      "verifiedRelation": "Dependency"
+    },
+    {
+      "source": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7095749545155267,
+      "verifiedRelation": "Cause-Effect"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7095749545155267,
+      "verifiedRelation": "Explanation\nThe source memory describes a problem with the TDD parity tool (misreporting missing tests). The target memory provides the solution - explicitly configuring colocated vs centralized tests. This suggests the source issue is related to the default configuration of the TDD parity tool, which the target memory addresses.\n\nLabel: **Resolution**"
+    },
+    {
+      "source": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.707038742786969,
+      "verifiedRelation": "Cause-Effect"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "learning-tdd-parity-colocated-tests-reveal-true-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.707038742786969,
+      "verifiedRelation": "Resolution"
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "target": "learning-test-stub-re-export-pattern-maintains-colocated-parity-while-keeping-tests-in-integration-directory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7049406628121624,
+      "verifiedRelation": "Abstraction"
+    },
+    {
+      "source": "learning-test-stub-re-export-pattern-maintains-colocated-parity-while-keeping-tests-in-integration-directory",
+      "target": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7049406628121624,
+      "verifiedRelation": "Similarities"
     }
   ]
 }

@@ -20,6 +20,7 @@ src/types/api.ts
 src/types/operations.ts
 src/types/think.ts
 src/maintenance/agent-operations/types.ts
+src/maintenance/refresh-frontmatter/types.ts
 
 # Functions tested in different files (cross-file coverage)
 # slugify - tested indirectly via generateSlug in slug.spec.ts

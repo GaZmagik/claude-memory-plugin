@@ -455,7 +455,7 @@ describe('Suggest-links with agent scope', () => {
     expect(hasProjectLink).toBe(false);
   });
 
-  it('includes shared memories when --include-shared flag used', async () => {
+  it('includes shared memories when --all-scopes flag used', async () => {
     // Create project-level memory
     const projectBasePath = path.join(testDir, '.claude', 'memory');
     await writeMemory({
@@ -481,7 +481,7 @@ describe('Suggest-links with agent scope', () => {
       positional: [],
       flags: {
         agent: 'typescript-pro',
-        'include-shared': true,
+        'all-scopes': true,
         threshold: '0.3',
       },
     };
@@ -500,15 +500,19 @@ describe('Suggest-links with agent scope', () => {
     expect(hasProjectLink).toBe(true);
   });
 
-  it('validates --include-shared requires --agent', async () => {
+  it('does not validate --include-shared (flag removed from suggest-links)', async () => {
+    // --include-shared is no longer supported by suggest-links; it is silently ignored.
+    // Without --agent, the command falls back to project scope.
+    // Without embeddings at project scope, it returns a cache error — NOT an --agent error.
     const args: ParsedArgs = {
       positional: [],
-      flags: { 'include-shared': true }, // Missing --agent
+      flags: { 'include-shared': true }, // Unrecognised flag, silently ignored
     };
 
     const result = await cmdSuggestLinks(args);
 
-    expect(result.status).toBe('error');
-    expect(result.error).toContain('--agent');
+    // Should not return a validation error about --agent
+    expect(result.status).toBe('success');
+    expect(result.error ?? '').not.toContain('--agent');
   });
 });

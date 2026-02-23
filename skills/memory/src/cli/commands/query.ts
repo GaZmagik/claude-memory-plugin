@@ -293,6 +293,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
         return {
           scope: 'multi-scope',
           scopes: scopeStats,
+          nodes: totalNodes,
           totalNodes: totalNodes,
           totalEdges: totalEdges,
           orphans: totalOrphans,
@@ -363,6 +364,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
 
       return {
         scope: scopeIndicator,
+        nodes: nodeCount,
         totalNodes: nodeCount,
         totalEdges: edgeCount,
         orphans: orphanCount,

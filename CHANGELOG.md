@@ -5,6 +5,19 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-02-23
+
+### Changed
+- `suggest-links`: removed deprecated `--include-shared` flag — use `--all-scopes` instead
+- `suggest-links --all-scopes`: fixed global scope path resolution (was silently resolving to empty string, global scope never loaded)
+- `suggest-links --all-scopes`: fixed agent directory scan path (`projectPath/agents` not `projectPath/.claude/agents`)
+- `suggest-links --all-scopes`: removed redundant shadowed `globalPath` declaration inside try block
+- `cmdStats`: added `nodes` alias to both single-scope and multi-scope response objects for consistency
+- `cmdSummarize`: replaced fragile `void getResolvedScopePath(scope)` suppression with `void scope`
+
+### Fixed
+- `suggest-links` cross-scope test: `--include-shared` removal test now also asserts `result.status === 'success'`
+
 ## [1.6.0] - 2026-02-20
 
 ### Added

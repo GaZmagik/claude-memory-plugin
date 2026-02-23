@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-22T13:35:09.438Z",
+  "lastUpdated": "2026-02-23T06:32:27.417Z",
   "memories": [
     {
       "id": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
@@ -12998,6 +12998,365 @@
       "updated": "2026-02-22T10:25:50.654Z",
       "scope": "project",
       "relativePath": "permanent/artifact-code-review-fix-checklist.md"
+    },
+    {
+      "id": "learning-retro-file-reading-before-editing-prevents-context-dependent-mistakes",
+      "type": "learning",
+      "title": "Retro - File reading before editing prevents context-dependent mistakes",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-quality",
+        "project"
+      ],
+      "created": "2026-02-22T16:51:28.606Z",
+      "updated": "2026-02-22T16:51:28.606Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-file-reading-before-editing-prevents-context-dependent-mistakes.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-proper-type-safety-catches-hidden-bugs-in-existing-code",
+      "type": "learning",
+      "title": "Retro - Proper type safety catches hidden bugs in existing code",
+      "tags": [
+        "retrospective",
+        "process",
+        "type-safety",
+        "bug-discovery",
+        "project"
+      ],
+      "created": "2026-02-22T16:51:33.419Z",
+      "updated": "2026-02-22T16:51:33.419Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-proper-type-safety-catches-hidden-bugs-in-existing-code.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-github-api-endpoint-discovery-requires-trial-and-error-when-cli-has-issues",
+      "type": "gotcha",
+      "title": "Gotcha: GitHub API endpoint discovery requires trial-and-error when CLI has issues",
+      "tags": [
+        "retrospective",
+        "process",
+        "github-api",
+        "troubleshooting",
+        "project"
+      ],
+      "created": "2026-02-22T16:51:38.331Z",
+      "updated": "2026-02-22T16:51:38.331Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-github-api-endpoint-discovery-requires-trial-and-error-when-cli-has-issues.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-immediate-test-verification-after-each-change-maintains-confidence",
+      "type": "learning",
+      "title": "Retro - Immediate test verification after each change maintains confidence",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-22T16:51:42.716Z",
+      "updated": "2026-02-22T16:51:42.716Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-immediate-test-verification-after-each-change-maintains-confidence.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-iterative-code-review-progressive-issues",
+      "type": "learning",
+      "title": "Six-pass iterative code review catches progressive issues",
+      "tags": [
+        "code-review",
+        "typescript",
+        "quality",
+        "project"
+      ],
+      "created": "2026-02-22T17:31:30.495Z",
+      "updated": "2026-02-22T17:31:30.495Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-iterative-code-review-progressive-issues.md"
+    },
+    {
+      "id": "learning-baseline-test-failures-before-success",
+      "type": "learning",
+      "title": "Always baseline test failures before claiming success",
+      "tags": [
+        "testing",
+        "validation",
+        "quality-assurance",
+        "project"
+      ],
+      "created": "2026-02-22T17:31:31.352Z",
+      "updated": "2026-02-22T17:31:31.352Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-baseline-test-failures-before-success.md"
+    },
+    {
+      "id": "learning-typescript-omit-pattern-intersections",
+      "type": "learning",
+      "title": "Use Omit pattern for complex TypeScript intersections",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "patterns",
+        "project"
+      ],
+      "created": "2026-02-22T17:31:32.097Z",
+      "updated": "2026-02-22T17:31:32.097Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-omit-pattern-intersections.md"
+    },
+    {
+      "id": "learning-post-merge-remote-branch-cleanup",
+      "type": "learning",
+      "title": "Post-merge remote branch cleanup with git prune",
+      "tags": [
+        "git",
+        "workflow",
+        "maintenance",
+        "project"
+      ],
+      "created": "2026-02-22T17:31:32.858Z",
+      "updated": "2026-02-22T17:31:32.858Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-post-merge-remote-branch-cleanup.md"
+    },
+    {
+      "id": "decision-feature-005-rule-reminder-graph-nodes-completed",
+      "type": "decision",
+      "title": "Feature 005 Rule and Reminder Graph Nodes merged to main",
+      "tags": [
+        "feature-005",
+        "merged",
+        "decision",
+        "project"
+      ],
+      "created": "2026-02-22T17:31:39.406Z",
+      "updated": "2026-02-22T17:31:39.406Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-feature-005-rule-reminder-graph-nodes-completed.md"
+    },
+    {
+      "id": "learning-cross-scope-similarity-scores-use-identical-calculations",
+      "type": "learning",
+      "title": "cross-scope similarity scores use identical calculations",
+      "tags": [
+        "suggest-links",
+        "cross-scope",
+        "similarity",
+        "embeddings",
+        "project"
+      ],
+      "created": "2026-02-22T21:49:22.680Z",
+      "updated": "2026-02-22T21:49:22.680Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-scope-similarity-scores-use-identical-calculations.md"
+    },
+    {
+      "id": "decision-suggest-links-consolidate-scopes-into-all-scopes",
+      "type": "decision",
+      "title": "consolidate --include-shared and --all-scopes flags",
+      "tags": [
+        "suggest-links",
+        "api-design",
+        "consolidation",
+        "project"
+      ],
+      "created": "2026-02-22T21:49:32.979Z",
+      "updated": "2026-02-22T21:49:32.979Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-suggest-links-consolidate-scopes-into-all-scopes.md"
+    },
+    {
+      "id": "learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection",
+      "type": "learning",
+      "title": "Retro - Baseline testing strategy with clean HEAD comparison prevents false regression detection",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-02-22T22:45:16.134Z",
+      "updated": "2026-02-22T22:45:16.134Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-integration-tests-reveal-path-resolution-bugs-unit-tests-miss",
+      "type": "learning",
+      "title": "Retro - Integration tests reveal path resolution bugs unit tests miss",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "integration",
+        "project"
+      ],
+      "created": "2026-02-22T22:45:17.434Z",
+      "updated": "2026-02-22T22:45:17.434Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-integration-tests-reveal-path-resolution-bugs-unit-tests-miss.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-reading-full-context-before-batch-edits-reduces-iterative-fix-cycles",
+      "type": "learning",
+      "title": "Retro - Reading full context before batch edits reduces iterative fix cycles",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "efficiency",
+        "project"
+      ],
+      "created": "2026-02-22T22:45:19.669Z",
+      "updated": "2026-02-22T22:45:19.669Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-reading-full-context-before-batch-edits-reduces-iterative-fix-cycles.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-task-tracking-with-todowrite-sustained-momentum-across-multi-issue-debugging",
+      "type": "learning",
+      "title": "Retro - Task tracking with TodoWrite sustained momentum across multi-issue debugging",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-management",
+        "project"
+      ],
+      "created": "2026-02-22T23:11:23.322Z",
+      "updated": "2026-02-22T23:11:23.322Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-task-tracking-with-todowrite-sustained-momentum-across-multi-issue-debugging.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-test-pollution-isolated-tests-pass-but-fail-in-full-suite",
+      "type": "gotcha",
+      "title": "Retro - Test pollution: isolated tests pass but fail in full suite",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "test-pollution",
+        "project"
+      ],
+      "created": "2026-02-22T23:11:27.910Z",
+      "updated": "2026-02-22T23:11:27.910Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-pollution-isolated-tests-pass-but-fail-in-full-suite.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-reading-code-before-editing-prevented-wrong-imports-and-type-mismatches-on-first-try",
+      "type": "learning",
+      "title": "Retro - Reading code before editing prevented wrong imports and type mismatches on first try",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-reading",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-22T23:11:33.191Z",
+      "updated": "2026-02-22T23:11:33.191Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-reading-code-before-editing-prevented-wrong-imports-and-type-mismatches-on-first-try.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "type": "gotcha",
+      "title": "Gotcha: bun:test mock.module uses live bindings that leak across test files in same process",
+      "tags": [
+        "testing",
+        "bun",
+        "mock",
+        "test-pollution",
+        "live-bindings",
+        "project"
+      ],
+      "created": "2026-02-22T23:23:06.819Z",
+      "updated": "2026-02-22T23:23:06.819Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files.md"
+    },
+    {
+      "id": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "type": "gotcha",
+      "title": "Gotcha: Vitest spy leaks previous test values without afterEach restore",
+      "tags": [
+        "test-isolation",
+        "vitest",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-23T06:32:27.410Z",
+      "updated": "2026-02-23T06:32:27.410Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vitest-spy-leak-without-aftereach-restore.md"
+    }
+  ],
+  "gotchas": [
+    {
+      "id": "gotcha-any-types-hide-type-mismatches",
+      "title": "any types hide type mismatches until runtime",
+      "content": "During type narrowing in crud.ts, replacing any[] with proper types revealed a latent bug: .similarity used instead of .score. The any cast had hidden this mismatch. Properly typing fields catches real bugs.",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "hidden-bugs"
+      ],
+      "date": "2026-02-22"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "artifact-type-guard-consolidation",
+      "title": "Type guard consolidation—guards.ts as hub",
+      "content": "Consolidate shared type predicates into types/guards.ts with proper interfaces (e.g., ExternalGraphNode). Re-export from originating module for test compatibility. Allows isExternalNode to function as type predicate across codebase without duplication.",
+      "tags": [
+        "typescript",
+        "patterns",
+        "type-guards"
+      ],
+      "date": "2026-02-22"
+    }
+  ],
+  "learnings": [
+    {
+      "id": "learning-external-node-guard-test-pattern",
+      "title": "External node read-only guard testing pattern",
+      "content": "Each mutation operation (delete, move, promote, archive) needs dedicated guard test file (*-read-only-guards.spec.ts). Use vi.spyOn(indexModule, loadIndex) mock to inject external nodes; verify operations reject Rule/Reminder access.",
+      "tags": [
+        "testing",
+        "guards",
+        "external-nodes",
+        "tdd"
+      ],
+      "date": "2026-02-22"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision-agent-scope-guard-requirements",
+      "title": "Agent scopes require dynamic discovery in mutation guards",
+      "content": "cmdMove and cmdPromote guards must check Scope.AgentProject and Scope.AgentGlobal using discoverAgents(). Local/Project/Global checks alone are insufficient for external nodes.",
+      "tags": [
+        "guards",
+        "agent-scopes",
+        "external-nodes"
+      ],
+      "date": "2026-02-22"
     }
   ]
 }

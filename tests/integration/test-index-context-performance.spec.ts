@@ -15,7 +15,7 @@ import { indexExternalFiles, ExternalFileKind, type ExternalFileEntry } from '..
 import { loadGraph } from '../../skills/memory/src/graph/structure.js';
 import { loadIndex } from '../../skills/memory/src/core/index.js';
 import { Scope } from '../../skills/memory/src/types/enums.js';
-import type { EmbeddingProvider } from '../../skills/memory/src/external/index.js';
+import type { EmbeddingProvider } from '../../skills/memory/src/search/embedding.js';
 
 /**
  * Helper to calculate content hash
@@ -83,7 +83,8 @@ describe('T148: Index-context performance optimization', () => {
     // Track embedding generation calls
     let generateCallCount = 0;
     const mockProvider: EmbeddingProvider = {
-      getEmbedding: async (_text: string) => {
+      name: 'mock',
+      generate: async (_text: string) => {
         generateCallCount++;
         return [0.1, 0.2, 0.3, 0.4];
       },
@@ -170,7 +171,8 @@ describe('T148: Index-context performance optimization', () => {
     let index = await loadIndex({ basePath: tempDir });
 
     const mockProvider: EmbeddingProvider = {
-      getEmbedding: async (_text: string) => [0.1, 0.2, 0.3],
+      name: 'mock',
+      generate: async (_text: string) => [0.1, 0.2, 0.3],
     };
 
     // Initial indexing
@@ -228,7 +230,8 @@ describe('T148: Index-context performance optimization', () => {
 
     let generateCallCount = 0;
     const mockProvider: EmbeddingProvider = {
-      getEmbedding: async (_text: string) => {
+      name: 'mock',
+      generate: async (_text: string) => {
         generateCallCount++;
         return [0.1, 0.2, 0.3];
       },
@@ -328,7 +331,8 @@ describe('T148: Index-context performance optimization', () => {
     const originalIndexCount = index.memories.length;
 
     const mockProvider: EmbeddingProvider = {
-      getEmbedding: async (_text: string) => [0.1, 0.2, 0.3],
+      name: 'mock',
+      generate: async (_text: string) => [0.1, 0.2, 0.3],
     };
 
     // Dry run

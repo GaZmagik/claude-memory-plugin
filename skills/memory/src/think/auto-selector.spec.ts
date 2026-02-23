@@ -51,7 +51,7 @@ describe('AutoSelector', () => {
       expect(result.style).toBe('Concise');
     });
 
-    it.skip('uses heuristics for security keywords', async () => {
+    it('uses heuristics for security keywords', async () => {
       // First verify matchHeuristics itself works correctly
       const heuristicsMatch = matchHeuristics('check for security vulnerability and injection risks');
       expect(heuristicsMatch).not.toBeNull();

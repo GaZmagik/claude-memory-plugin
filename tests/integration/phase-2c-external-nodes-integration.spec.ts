@@ -54,7 +54,7 @@ describe('Phase 2C Integration: External Nodes', () => {
   // T109: Write command rejects rule nodes
   it('T109: should reject write attempts on rule nodes', async () => {
     // Discover and index external files
-    const discovered = discoverRuleFiles({
+    const discovered = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: os.homedir(),
       gitRoot: tempDir,
@@ -99,7 +99,7 @@ describe('Phase 2C Integration: External Nodes', () => {
     fs.writeFileSync(path.join(agentDir, 'MEMORY.md'), '# Memory\nTest agent memory.');
 
     // Discover and index reminder files
-    const discovered = discoverReminderFiles({
+    const discovered = await discoverReminderFiles({
       projectRoot: tempDir,
       homeDir: tempDir,
     });
@@ -140,7 +140,7 @@ describe('Phase 2C Integration: External Nodes', () => {
 
   // T111: Read command displays external file content
   it('T111: should read external file content via externalPath', async () => {
-    const discovered = discoverRuleFiles({
+    const discovered = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: os.homedir(),
       gitRoot: tempDir,
@@ -183,7 +183,7 @@ describe('Phase 2C Integration: External Nodes', () => {
 
   // T113: Index-context refreshes external index
   it('T113: should refresh external file index', async () => {
-    const discovered = discoverRuleFiles({
+    const discovered = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: os.homedir(),
       gitRoot: tempDir,

@@ -9,6 +9,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { ThoughtType } from '../types/enums.js';
+// Capture real module exports BEFORE mock replaces the registry entry.
+// Spreading these into mock.module ensures other test files that import
+// named exports (e.g. buildUserPrompt) via live bindings still find them.
+import * as aiInvokeReal from './ai-invoke.js';
 
 // Mock ai-invoke module BEFORE importing thoughts.js
 const mockInvokeAI = mock(async () => ({
@@ -24,6 +28,7 @@ const mockInvokeProviderThought = mock(async () => ({
 }));
 
 mock.module('./ai-invoke.js', () => ({
+  ...aiInvokeReal,
   invokeAI: mockInvokeAI,
   invokeProviderThought: mockInvokeProviderThought,
 }));

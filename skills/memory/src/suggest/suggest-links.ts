@@ -126,7 +126,7 @@ export interface SuggestLinksResponse {
  */
 function sanitiseTitleForPrompt(title: string): string {
   return title
-    .replace(/['"]/g, '')
+    .replace(/['"`]/g, '')
     .replace(/[\x00-\x1f\x7f]/g, '')
     .slice(0, 100)
     .trim();
@@ -140,7 +140,7 @@ const VALID_LABEL_RE = /^[a-z0-9][a-z0-9-]{0,62}[a-z0-9]$|^[a-z0-9]$/;
  * Returns undefined if the response does not conform to a safe label format.
  */
 function validateLlmLabel(response: string): string | undefined {
-  const cleaned = response.trim().toLowerCase().replace(/\s+/g, '-');
+  const cleaned = response.trim().toLowerCase().replace(/\s+/g, '-').replace(/-{2,}/g, '-');
   return VALID_LABEL_RE.test(cleaned) ? cleaned : undefined;
 }
 

@@ -43,8 +43,8 @@ export function migrateThoughtJsonState(
       }
       return true;
     }
-  } catch {
-    // Ignore errors
+  } catch (err) {
+    process.stderr.write(`[think-migration] Failed to update thought.json (${statePath}): ${err instanceof Error ? err.message : String(err)}\n`);
   }
   return false;
 }
@@ -70,7 +70,8 @@ export function migrateGraphJson(
     }
 
     if (!dryRun) {
-      const updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
+      const escaped = oldId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const updated = content.replace(new RegExp(`"${escaped}"`, 'g'), `"${newId}"`);
       fs.writeFileSync(graphPath, updated);
     }
     return true;
@@ -101,9 +102,10 @@ export function migrateIndexJson(
 
     if (!dryRun) {
       // Replace ID and file paths
-      let updated = content.replace(new RegExp(`"${oldId}"`, 'g'), `"${newId}"`);
+      const escaped = oldId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      let updated = content.replace(new RegExp(`"${escaped}"`, 'g'), `"${newId}"`);
       updated = updated.replace(
-        new RegExp(`temporary/${oldId}\\.md`, 'g'),
+        new RegExp(`temporary/${escaped}\\.md`, 'g'),
         `temporary/${newId}.md`
       );
       fs.writeFileSync(indexPath, updated);

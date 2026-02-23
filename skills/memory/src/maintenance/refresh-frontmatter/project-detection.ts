@@ -11,8 +11,10 @@ import * as path from 'node:path';
 export function detectProjectName(basePath: string): string | undefined {
   // Find the project root from .claude/memory path
   let projectRoot = basePath;
-  if (basePath.includes('.claude/memory')) {
-    projectRoot = basePath.split('.claude/memory')[0]!.replace(/\/$/, '');
+  const parts = path.resolve(basePath).split(path.sep);
+  const idx = parts.findIndex((p, i) => p === '.claude' && parts[i + 1] === 'memory');
+  if (idx >= 0) {
+    projectRoot = parts.slice(0, idx).join(path.sep) || path.sep;
   }
 
   // Try to get git repo name (using execFileSync for security)

@@ -6,6 +6,7 @@
  */
 
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { loadEmbeddingCache } from '../search/embedding.js';
 import { findSimilarMemories } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
@@ -131,7 +132,7 @@ export async function suggestLinks(
   const existingLinks = new Set<string>();
 
   // Get global path for scope detection
-  const globalPath = getScopePath(Scope.Global, process.cwd(), '');
+  const globalPath = path.join(os.homedir(), '.claude', 'memory');
 
   // Load primary (agent or project) embeddings
   const cachePath = path.join(basePath, 'embeddings.json');
@@ -193,7 +194,7 @@ export async function suggestLinks(
   if (allScopes) {
     try {
       const projectPath = getScopePath(Scope.Project, process.cwd(), '');
-      const globalPath = getScopePath(Scope.Global, process.cwd(), '');
+      const globalPath = path.join(os.homedir(), '.claude', 'memory');
       const scopePaths = new Set<string>([projectPath, globalPath]);
 
       // Scan for all agent scopes
@@ -202,9 +203,7 @@ export async function suggestLinks(
         const agentDirs = await Bun.file(agentsPath).exists()
           ? await Array.fromAsync(
               (async function* () {
-                const dir = Bun.file(agentsPath).name ? agentsPath : '';
-                if (!dir) return;
-                for await (const entry of new Bun.Glob('*').scan(dir)) {
+                for await (const entry of new Bun.Glob('*').scan(agentsPath)) {
                   const agentMemoryPath = path.join(agentsPath, entry);
                   if (await Bun.file(path.join(agentMemoryPath, 'index.json')).exists()) {
                     yield agentMemoryPath;

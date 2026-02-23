@@ -512,6 +512,7 @@ describe('Suggest-links with agent scope', () => {
     const result = await cmdSuggestLinks(args);
 
     // Should not return a validation error about --agent
+    expect(result.status).toBe('success');
     expect(result.error ?? '').not.toContain('--agent');
   });
 });

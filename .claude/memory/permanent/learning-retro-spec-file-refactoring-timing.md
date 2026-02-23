@@ -3,8 +3,9 @@ id: learning-retro-spec-file-refactoring-timing
 title: Retro - Spec file refactoring timing
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-23T14:49:28.673Z"
-updated: "2026-02-23T14:49:28.673Z"
+updated: "2026-02-23T17:29:22.656Z"
 tags:
   - retrospective
   - process

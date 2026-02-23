@@ -5,6 +5,22 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.3] - 2026-02-23
+
+### Added
+- **`SubagentRegistry`** (`hooks/src/agent/subagent-registry.ts`): per-subagent isolated temp files prevent concurrent agents from overwriting each other's capture entries
+  - `writeSubagentEntry()`: writes a unique temp file per `(agentType, agentId)` pair
+  - `findAndClaimSubagent()`: atomically claims the first unclaimed entry for a given agent type via `rename()` (POSIX-atomic on Linux)
+  - `findAnyUnclaimedSubagent()`: claims any unclaimed entry regardless of type — used by `PostToolUse:Task`
+  - `listUnclaimedSubagents()`: read-only sweep for `SessionEnd` safety-net pass
+  - Input sanitisation strips path-unsafe characters from `agentId`/`agentType` values
+- **`SubagentStop` hook** (`hooks/subagent-stop/extract-agent-id.ts`): new `SubagentStop` event hook — registers each completed subagent in the registry immediately on exit
+
+### Changed
+- `agent-retrospective.ts`: replaced shared temp-file lookup with `findAnyUnclaimedSubagent()` — eliminates data loss when concurrent `Task` subagents complete simultaneously
+- `memory-cleanup.ts`: sweeps all unclaimed subagent entries via `findAnyUnclaimedSubagent()` loop at session end — safety net for entries missed by `PostToolUse:Task`
+- `hooks.json`: registered `SubagentStop` → `extract-agent-id.ts` hook (5 s timeout)
+
 ## [1.6.2] - 2026-02-23
 
 ### Security

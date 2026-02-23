@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-23T15:02:46.233Z",
+  "lastUpdated": "2026-02-23T19:13:16.656Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -13941,6 +13941,282 @@
       "updated": "2026-02-19T06:33:18.844Z",
       "scope": "global",
       "relativePath": "temporary/thought-20260218-213709243.md"
+    },
+    {
+      "id": "learning-base-path-validation-rejects-fictional-test-paths",
+      "type": "learning",
+      "title": "Base path validation rejects fictional test paths",
+      "tags": [
+        "suggest-links",
+        "security",
+        "testing",
+        "validation",
+        "project"
+      ],
+      "created": "2026-02-23T17:28:54.200Z",
+      "updated": "2026-02-23T17:28:54.200Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-base-path-validation-rejects-fictional-test-paths.md"
+    },
+    {
+      "id": "learning-mock-processcwd-for-temp-directory-integration-tests",
+      "type": "learning",
+      "title": "Mock process.cwd() for temp directory integration tests",
+      "tags": [
+        "suggest-links",
+        "security",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-23T17:28:58.273Z",
+      "updated": "2026-02-23T17:28:58.273Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mock-processcwd-for-temp-directory-integration-tests.md"
+    },
+    {
+      "id": "gotcha-silent-error-swallowing-exposed-by-l2-fix",
+      "type": "gotcha",
+      "title": "Silent error swallowing exposed by L2 fix",
+      "tags": [
+        "suggest-links",
+        "security",
+        "error-handling",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-23T17:29:02.443Z",
+      "updated": "2026-02-23T17:29:02.443Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-silent-error-swallowing-exposed-by-l2-fix.md"
+    },
+    {
+      "id": "decision-regex-injection-prevention-via-escaperegeexp",
+      "type": "decision",
+      "title": "Use escapeRegExp for user input in regex patterns",
+      "tags": [
+        "suggest-links",
+        "security",
+        "regex",
+        "injection",
+        "project"
+      ],
+      "created": "2026-02-23T17:29:15.277Z",
+      "updated": "2026-02-23T17:29:15.277Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-regex-injection-prevention-via-escaperegeexp.md"
+    },
+    {
+      "id": "learning-title-sanitization-for-llm-prompt-injection-prevention",
+      "type": "learning",
+      "title": "Title sanitization for LLM prompt injection prevention",
+      "tags": [
+        "suggest-links",
+        "security",
+        "llm",
+        "prompt-injection",
+        "project"
+      ],
+      "created": "2026-02-23T17:29:19.654Z",
+      "updated": "2026-02-23T17:29:19.654Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-title-sanitization-for-llm-prompt-injection-prevention.md"
+    },
+    {
+      "id": "learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase",
+      "type": "learning",
+      "title": "Retro - TDD pre-tool hooks expose edge cases earlier in design phase",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-23T18:26:38.442Z",
+      "updated": "2026-02-23T18:26:38.442Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "type": "gotcha",
+      "title": "Gotcha - Shared temp file patterns require explicit race condition analysis",
+      "tags": [
+        "retrospective",
+        "process",
+        "concurrency",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-02-23T18:26:46.863Z",
+      "updated": "2026-02-23T18:26:46.863Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-verbose-infrastructure-exploration-phase-clarified-architecture-before-design",
+      "type": "learning",
+      "title": "Retro - Verbose infrastructure exploration phase clarified architecture before design",
+      "tags": [
+        "retrospective",
+        "process",
+        "architecture",
+        "exploration",
+        "project"
+      ],
+      "created": "2026-02-23T18:26:53.184Z",
+      "updated": "2026-02-23T18:26:53.184Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verbose-infrastructure-exploration-phase-clarified-architecture-before-design.md",
+      "severity": "medium"
+    },
+    {
+      "id": "decision-subagent-memory-capture-phases",
+      "type": "decision",
+      "title": "Subagent Memory Capture: Phase 2 (env vars + temp files) vs Phase 3 (hook metadata)",
+      "tags": [
+        "architecture",
+        "subagents",
+        "memory-capture",
+        "project"
+      ],
+      "created": "2026-02-23T18:27:34.776Z",
+      "updated": "2026-02-23T18:27:34.776Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-subagent-memory-capture-phases.md"
+    },
+    {
+      "id": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "type": "gotcha",
+      "title": "Shared Temp File Race: Simultaneous Task Subagents Conflict",
+      "tags": [
+        "concurrency",
+        "race-condition",
+        "subagents",
+        "temp-files",
+        "project"
+      ],
+      "created": "2026-02-23T18:27:37.364Z",
+      "updated": "2026-02-23T18:27:37.364Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict.md"
+    },
+    {
+      "id": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "type": "learning",
+      "title": "SubagentStop Hook Receives Only agent_id—Session Context Must Be Extracted Later",
+      "tags": [
+        "hooks",
+        "subagents",
+        "session-context",
+        "project"
+      ],
+      "created": "2026-02-23T18:27:40.579Z",
+      "updated": "2026-02-23T18:27:40.579Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later.md"
+    },
+    {
+      "id": "learning-agent-flag-sessions-do-not-auto-export-claudeagentname-env-var",
+      "type": "learning",
+      "title": "--agent Flag Sessions Do Not Auto-Export CLAUDE_AGENT_NAME Env Var",
+      "tags": [
+        "environment",
+        "agents",
+        "session-end",
+        "project"
+      ],
+      "created": "2026-02-23T18:27:47.523Z",
+      "updated": "2026-02-23T18:27:47.523Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-agent-flag-sessions-do-not-auto-export-claudeagentname-env-var.md"
+    },
+    {
+      "id": "artifact-subagent-registry-utility-pattern",
+      "type": "artifact",
+      "title": "Subagent Registry: Utility for Temp File Management & Race Prevention",
+      "tags": [
+        "patterns",
+        "subagents",
+        "race-prevention",
+        "project"
+      ],
+      "created": "2026-02-23T18:27:50.505Z",
+      "updated": "2026-02-23T18:27:50.505Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-subagent-registry-utility-pattern.md"
+    },
+    {
+      "id": "artifact-subagent-registry-concurrent-isolation",
+      "type": "artifact",
+      "title": "Subagent Registry - Concurrent Isolation Pattern",
+      "tags": [
+        "subagent",
+        "concurrency",
+        "temp-files",
+        "registry",
+        "isolation",
+        "atomic-ops",
+        "project"
+      ],
+      "created": "2026-02-23T19:12:58.829Z",
+      "updated": "2026-02-23T19:12:58.829Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-subagent-registry-concurrent-isolation.md"
+    },
+    {
+      "id": "learning-three-phase-subagent-memory-capture",
+      "type": "learning",
+      "title": "Three-Phase Subagent Memory Capture Pattern",
+      "tags": [
+        "subagent",
+        "memory",
+        "hooks",
+        "phases",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-23T19:13:06.057Z",
+      "updated": "2026-02-23T19:13:06.057Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-three-phase-subagent-memory-capture.md"
+    },
+    {
+      "id": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "type": "gotcha",
+      "title": "Shared Temp File Patterns with Concurrent Subagents Cause Silent Data Loss",
+      "tags": [
+        "subagent",
+        "concurrency",
+        "race-condition",
+        "temp-files",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-23T19:13:11.757Z",
+      "updated": "2026-02-23T19:13:11.757Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-shared-temp-file-concurrent-subagents-data-loss.md"
+    },
+    {
+      "id": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "type": "decision",
+      "title": "Subagent Memory Isolation via Per-Agent Registry",
+      "tags": [
+        "subagent",
+        "architecture",
+        "concurrency",
+        "registry",
+        "isolation",
+        "project"
+      ],
+      "created": "2026-02-23T19:13:16.649Z",
+      "updated": "2026-02-23T19:13:16.649Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-subagent-memory-isolation-via-per-agent-registry.md"
     }
   ]
 }

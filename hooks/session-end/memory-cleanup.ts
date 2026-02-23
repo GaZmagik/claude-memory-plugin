@@ -17,6 +17,7 @@ import {
   findPluginDir,
 } from '../src/session/spawn-session.ts';
 import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts';
+import { findAnyUnclaimedSubagent } from '../src/agent/subagent-registry.ts';
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
@@ -28,7 +29,73 @@ runHook(async (input) => {
   const cwd = input?.cwd || process.cwd();
   const reason = input?.reason || 'unknown';
 
-  // Only trigger on "clear" - other exit reasons don't need memory capture
+  // Agent session path: CLAUDE_AGENT_NAME is set → run agent-commit on any exit reason
+  const agentName = (process.env.CLAUDE_AGENT_NAME ?? '').trim();
+  if (agentName.length > 0) {
+    if (!sessionId) {
+      return allow('No session ID - skipping agent memory capture');
+    }
+
+    const agentContextPrompt = extractContextAsSystemPrompt(sessionId, cwd);
+    if (!agentContextPrompt) {
+      return allow('No session context found - skipping agent memory capture');
+    }
+
+    const agentPreamble = `=== AGENT IDENTITY ===\nAgent Name: ${agentName}\nCLAUDE_AGENT_NAME=${agentName}\n=== END AGENT IDENTITY ===\n\n`;
+
+    const pluginDirs: string[] = [];
+    const memoryPluginDir = findPluginDir('claude-memory-plugin');
+    if (memoryPluginDir) pluginDirs.push(memoryPluginDir);
+
+    const result = await spawnSessionWithContext({
+      sessionId,
+      cwd,
+      prompt: `/claude-memory-plugin:agent-commit agent-name=${agentName} session-end-trigger=${reason}`,
+      contextPrompt: agentPreamble + agentContextPrompt,
+      logPrefix: 'agent-session-end-memory',
+      timeoutSecs: 300,
+      trigger: reason,
+      tools: 'Read,Skill,Bash,Write',
+      pluginDirs,
+    });
+
+    if (result.started) {
+      return allow(`Agent memory capture started in background (log: ${result.logFile})`);
+    }
+    return allow(result.error || 'Agent memory capture failed to start');
+  }
+
+  // Sweep any unclaimed subagent entries left by SubagentStop + PostToolUse.
+  // Runs on any exit reason so no capture is lost regardless of how the session ends.
+  {
+    const subagentPluginDirs: string[] = [];
+    const subagentPluginDir = findPluginDir('claude-memory-plugin');
+    if (subagentPluginDir) subagentPluginDirs.push(subagentPluginDir);
+
+    let subagentEntry = findAnyUnclaimedSubagent();
+    while (subagentEntry) {
+      const subagentContextPrompt = extractContextAsSystemPrompt(subagentEntry.agentId, cwd);
+      if (subagentContextPrompt) {
+        const agentLabel =
+          subagentEntry.agentType !== 'subagent' ? subagentEntry.agentType : 'unknown-agent';
+        const preamble = `=== AGENT IDENTITY ===\nAgent Name: ${agentLabel}\nCLAUDE_AGENT_NAME=${agentLabel}\n=== END AGENT IDENTITY ===\n\n`;
+        await spawnSessionWithContext({
+          sessionId: subagentEntry.agentId,
+          cwd,
+          prompt: `/claude-memory-plugin:agent-commit agent-name=${agentLabel} session-end-trigger=${reason}`,
+          contextPrompt: preamble + subagentContextPrompt,
+          logPrefix: 'subagent-session-end-memory',
+          timeoutSecs: 300,
+          trigger: reason,
+          tools: 'Read,Skill,Bash,Write',
+          pluginDirs: subagentPluginDirs,
+        });
+      }
+      subagentEntry = findAnyUnclaimedSubagent();
+    }
+  }
+
+  // Non-agent sessions: only trigger on "clear"
   if (reason !== 'clear') {
     return allow();
   }

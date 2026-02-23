@@ -4560,6 +4560,116 @@
       "type": "learning",
       "title": "Retro - Parallel spec creation during implementation accelerates TDD feedback",
       "scope": "project"
+    },
+    {
+      "id": "learning-base-path-validation-rejects-fictional-test-paths",
+      "type": "learning",
+      "title": "Base path validation rejects fictional test paths",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mock-processcwd-for-temp-directory-integration-tests",
+      "type": "learning",
+      "title": "Mock process.cwd() for temp directory integration tests",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-silent-error-swallowing-exposed-by-l2-fix",
+      "type": "gotcha",
+      "title": "Silent error swallowing exposed by L2 fix",
+      "scope": "project"
+    },
+    {
+      "id": "decision-regex-injection-prevention-via-escaperegeexp",
+      "type": "decision",
+      "title": "Use escapeRegExp for user input in regex patterns",
+      "scope": "project"
+    },
+    {
+      "id": "learning-title-sanitization-for-llm-prompt-injection-prevention",
+      "type": "learning",
+      "title": "Title sanitization for LLM prompt injection prevention",
+      "scope": "project"
+    },
+    {
+      "id": "reminder-agent-project-typescript-expert-memory-md",
+      "type": "reminder"
+    },
+    {
+      "id": "rule-project-claude-md-root",
+      "type": "rule"
+    },
+    {
+      "id": "learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase",
+      "type": "learning",
+      "title": "Retro - TDD pre-tool hooks expose edge cases earlier in design phase",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "type": "gotcha",
+      "title": "Gotcha - Shared temp file patterns require explicit race condition analysis",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verbose-infrastructure-exploration-phase-clarified-architecture-before-design",
+      "type": "learning",
+      "title": "Retro - Verbose infrastructure exploration phase clarified architecture before design",
+      "scope": "project"
+    },
+    {
+      "id": "decision-subagent-memory-capture-phases",
+      "type": "decision",
+      "title": "Subagent Memory Capture: Phase 2 (env vars + temp files) vs Phase 3 (hook metadata)",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "type": "gotcha",
+      "title": "Shared Temp File Race: Simultaneous Task Subagents Conflict",
+      "scope": "project"
+    },
+    {
+      "id": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "type": "learning",
+      "title": "SubagentStop Hook Receives Only agent_id—Session Context Must Be Extracted Later",
+      "scope": "project"
+    },
+    {
+      "id": "learning-agent-flag-sessions-do-not-auto-export-claudeagentname-env-var",
+      "type": "learning",
+      "title": "--agent Flag Sessions Do Not Auto-Export CLAUDE_AGENT_NAME Env Var",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-subagent-registry-utility-pattern",
+      "type": "artifact",
+      "title": "Subagent Registry: Utility for Temp File Management & Race Prevention",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-subagent-registry-concurrent-isolation",
+      "type": "artifact",
+      "title": "Subagent Registry - Concurrent Isolation Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-three-phase-subagent-memory-capture",
+      "type": "learning",
+      "title": "Three-Phase Subagent Memory Capture Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "type": "gotcha",
+      "title": "Shared Temp File Patterns with Concurrent Subagents Cause Silent Data Loss",
+      "scope": "project"
+    },
+    {
+      "id": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "type": "decision",
+      "title": "Subagent Memory Isolation via Per-Agent Registry",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -17503,6 +17613,195 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7049406628121624,
       "verifiedRelation": "Similarities"
+    },
+    {
+      "source": "reminder-agent-project-typescript-expert-memory-md",
+      "target": "rule-project-claude-md-root",
+      "label": "auto-linked-by-similarity",
+      "similarity": 1
+    },
+    {
+      "source": "rule-project-claude-md-root",
+      "target": "reminder-agent-project-typescript-expert-memory-md",
+      "label": "auto-linked-by-similarity",
+      "similarity": 1
+    },
+    {
+      "source": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "target": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8336351860065363
+    },
+    {
+      "source": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "target": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8336351860065363
+    },
+    {
+      "source": "artifact-subagent-registry-concurrent-isolation",
+      "target": "hub-core-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-subagent-registry-concurrent-isolation",
+      "target": "hub-scope-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-three-phase-subagent-memory-capture",
+      "target": "hub-core-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "target": "hub-core-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "target": "hub-core-module-hub",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "target": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8093890925635318,
+      "verifiedRelation": "data-corruption"
+    },
+    {
+      "source": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "target": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8093890925635318,
+      "verifiedRelation": "conflict-resolution"
+    },
+    {
+      "source": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "target": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8058583151199417,
+      "verifiedRelation": "7-data-loss"
+    },
+    {
+      "source": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "target": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8058583151199417,
+      "verifiedRelation": "causation-result"
+    },
+    {
+      "source": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "target": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7973580539653928,
+      "verifiedRelation": "isolation-improvement"
+    },
+    {
+      "source": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "target": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7973580539653928,
+      "verifiedRelation": "7-data-loss"
+    },
+    {
+      "source": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "target": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7751325928490684,
+      "verifiedRelation": "isolation-defense"
+    },
+    {
+      "source": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "target": "gotcha-shared-temp-file-patterns-require-explicit-race-condition-analysis",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7751325928490684,
+      "verifiedRelation": "7-gotcha"
+    },
+    {
+      "source": "artifact-subagent-registry-concurrent-isolation",
+      "target": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7692659472688832,
+      "verifiedRelation": "causality-data-loss"
+    },
+    {
+      "source": "gotcha-shared-temp-file-concurrent-subagents-data-loss",
+      "target": "artifact-subagent-registry-concurrent-isolation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7692659472688832,
+      "verifiedRelation": "causality-1"
+    },
+    {
+      "source": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "target": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7530072141512089,
+      "verifiedRelation": "isolation-conflict"
+    },
+    {
+      "source": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "target": "gotcha-shared-temp-file-race-simultaneous-task-subagents-conflict",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7530072141512089,
+      "verifiedRelation": "conflict-isolation"
+    },
+    {
+      "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "target": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7409318210742043,
+      "verifiedRelation": "context-extraction"
+    },
+    {
+      "source": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "target": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7409318210742043,
+      "verifiedRelation": "context-deficit"
+    },
+    {
+      "source": "artifact-subagent-registry-concurrent-isolation",
+      "target": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7353775118918402,
+      "verifiedRelation": "migration-strategy"
+    },
+    {
+      "source": "decision-subagent-memory-isolation-via-per-agent-registry",
+      "target": "artifact-subagent-registry-concurrent-isolation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7353775118918402,
+      "verifiedRelation": "adaptation"
+    },
+    {
+      "source": "learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture",
+      "target": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7112312065875454,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "target": "learning-posttoolusetask-hook-preferred-over-subagentstop-for-agent-context-capture",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7112312065875454,
+      "verifiedRelation": "preference-override"
+    },
+    {
+      "source": "decision-subagent-memory-capture-phases",
+      "target": "learning-agent-flag-sessions-do-not-auto-export-claudeagentname-env-var",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7045716936051819,
+      "verifiedRelation": "env-var-dependency"
+    },
+    {
+      "source": "learning-agent-flag-sessions-do-not-auto-export-claudeagentname-env-var",
+      "target": "decision-subagent-memory-capture-phases",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7045716936051819,
+      "verifiedRelation": "comparison"
     }
   ]
 }

@@ -2,9 +2,13 @@
  * Unit tests for ollama-selector.ts
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { buildSelectionPrompt, parseSelectionResponse } from './ollama-selector.js';
 import * as sanitiseModule from './sanitise.js';
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('buildSelectionPrompt', () => {
   describe('basic prompt structure', () => {

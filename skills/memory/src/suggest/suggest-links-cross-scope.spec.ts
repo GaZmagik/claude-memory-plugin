@@ -9,7 +9,6 @@ import * as similarityModule from '../search/similarity.js';
 import * as indexModule from '../core/index.js';
 import * as structureModule from '../graph/structure.js';
 import * as linkModule from '../graph/link.js';
-import * as helpersModule from '../cli/helpers.js';
 import * as resolverModule from '../scope/resolver.js';
 
 describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
@@ -89,13 +88,16 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         ],
       };
 
-      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
-        .mockResolvedValueOnce(primaryCache as any)
-        .mockResolvedValueOnce(sharedCache as any);
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockImplementation(async (cachePath) => {
+        if (cachePath.includes('/agent/path')) return primaryCache as any;
+        if (cachePath.includes('/home/user/.claude/memory')) return sharedCache as any;
+        throw new Error('no embeddings');
+      });
 
-      vi.spyOn(indexModule, 'loadIndex')
-        .mockResolvedValueOnce(primaryIndex as any)
-        .mockResolvedValueOnce(sharedIndex as any);
+      vi.spyOn(indexModule, 'loadIndex').mockImplementation(async ({ basePath }: any) => {
+        if (basePath === '/agent/path') return primaryIndex as any;
+        return sharedIndex as any;
+      });
 
       vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
         version: 1,
@@ -109,19 +111,13 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         { id: 'project-memory', similarity: 0.88 },
       ]);
 
-      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
-        '/test/agent',
-        '/test/project',
-      ]);
-
       vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/home/user/.claude/memory');
 
       const result = await suggestLinks({
-        basePath: '/test/agent',
+        basePath: '/agent/path',
         threshold: 0.7,
-        includeShared: true,
+        allScopes: true,
         agentName: 'test-agent',
-        scopeStr: 'agent-project',
       });
 
       expect(result.status).toBe('success');
@@ -129,8 +125,8 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
       const suggestion = result.suggestions[0]!;
       expect(suggestion.sourceMetadata).toBeDefined();
       expect(suggestion.targetMetadata).toBeDefined();
-      expect(suggestion.sourceMetadata?.basePath).toBe('/test/agent');
-      expect(suggestion.targetMetadata?.basePath).toBe('/test/project');
+      expect(suggestion.sourceMetadata?.basePath).toBe('/agent/path');
+      expect(suggestion.targetMetadata?.basePath).toBe('/home/user/.claude/memory');
     });
   });
 
@@ -148,9 +144,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         },
       };
 
-      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
-        .mockResolvedValueOnce(primaryCache as any)
-        .mockResolvedValueOnce(sharedCache as any);
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockImplementation(async (cachePath) => {
+        if (cachePath.includes('/agent/path')) return primaryCache as any;
+        if (cachePath.includes('/global/path')) return sharedCache as any;
+        throw new Error('no embeddings');
+      });
 
       vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
         memories: [
@@ -171,17 +169,12 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         { id: 'project-decision', similarity: 0.92 },
       ]);
 
-      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
-        '/agent/path',
-        '/project/path',
-      ]);
-
       vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
 
       const result = await suggestLinks({
         basePath: '/agent/path',
         threshold: 0.7,
-        includeShared: true,
+        allScopes: true,
         agentName: 'test-agent',
       });
 
@@ -246,9 +239,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         },
       };
 
-      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
-        .mockResolvedValueOnce(primaryCache as any)
-        .mockResolvedValueOnce(sharedCache as any);
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockImplementation(async (cachePath) => {
+        if (cachePath.includes('/agent/path')) return primaryCache as any;
+        if (cachePath.includes('/global/path')) return sharedCache as any;
+        throw new Error('no embeddings');
+      });
 
       vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
         memories: [
@@ -269,11 +264,6 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         { id: 'project-mem', similarity: 0.88 },
       ]);
 
-      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
-        '/agent/path',
-        '/project/path',
-      ]);
-
       vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
 
       const storeCrossScopeEdgeSpy = vi.spyOn(linkModule, 'storeCrossScopeEdge').mockResolvedValue({
@@ -285,7 +275,7 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         basePath: '/agent/path',
         threshold: 0.7,
         autoLink: true,
-        includeShared: true,
+        allScopes: true,
         agentName: 'test-agent',
       });
 
@@ -297,7 +287,7 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
           targetId: 'project-mem',
           relation: 'auto-linked-by-similarity',
           sourceBasePath: '/agent/path',
-          targetBasePath: '/project/path',
+          targetBasePath: '/global/path',
         })
       );
     });
@@ -371,9 +361,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         },
       };
 
-      vi.spyOn(embeddingModule, 'loadEmbeddingCache')
-        .mockResolvedValueOnce(primaryCache as any)
-        .mockResolvedValueOnce(sharedCache as any);
+      vi.spyOn(embeddingModule, 'loadEmbeddingCache').mockImplementation(async (cachePath) => {
+        if (cachePath.includes('/agent/path')) return primaryCache as any;
+        if (cachePath.includes('/global/path')) return sharedCache as any;
+        throw new Error('no embeddings');
+      });
 
       vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
         memories: [
@@ -402,11 +394,6 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         .mockReturnValueOnce([])
         .mockReturnValueOnce([]);
 
-      vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockReturnValue([
-        '/agent/path',
-        '/project/path',
-      ]);
-
       vi.spyOn(resolverModule, 'getScopePath').mockReturnValue('/global/path');
 
       vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
@@ -424,7 +411,7 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         basePath: '/agent/path',
         threshold: 0.7,
         autoLink: true,
-        includeShared: true,
+        allScopes: true,
         agentName: 'test-agent',
         limit: 10,
       });

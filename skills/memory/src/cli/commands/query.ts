@@ -363,6 +363,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
 
       return {
         scope: scopeIndicator,
+        nodes: nodeCount,
         totalNodes: nodeCount,
         totalEdges: edgeCount,
         orphans: orphanCount,

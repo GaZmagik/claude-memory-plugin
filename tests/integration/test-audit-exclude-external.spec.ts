@@ -90,13 +90,13 @@ We will use Vitest for testing.
 
   it('should exclude all external nodes (rules and reminders) from audit', async () => {
     // Index external files
-    const rules = discoverRuleFiles({
+    const rules = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
     });
 
-    const reminders = discoverReminderFiles({
+    const reminders = await discoverReminderFiles({
       projectRoot: tempDir,
       homeDir: tempDir,
     });
@@ -138,13 +138,13 @@ We will use Vitest for testing.
 
   it('should correctly count memory types excluding external nodes', async () => {
     // Index external files
-    const rules = discoverRuleFiles({
+    const rules = await discoverRuleFiles({
       cwd: tempDir,
       homeDir: tempDir,
       gitRoot: tempDir,
     });
 
-    const reminders = discoverReminderFiles({
+    const reminders = await discoverReminderFiles({
       projectRoot: tempDir,
       homeDir: tempDir,
     });

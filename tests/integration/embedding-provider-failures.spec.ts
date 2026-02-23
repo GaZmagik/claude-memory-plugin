@@ -326,29 +326,29 @@ describe('Embedding Provider Failures', () => {
       expect(fs.existsSync(path.dirname(cachePath))).toBe(true);
     });
 
-    it('should handle read-only cache file', async () => {
+    it('should handle read-only cache directory', async () => {
       const cachePath = path.join(testDir, 'embeddings.json');
       const provider = createMockProvider();
 
       // Create cache
       await getEmbeddingForMemory('mem-1', 'Content 1', cachePath, provider);
 
-      // Make read-only
-      fs.chmodSync(cachePath, 0o444);
+      // Make directory read-only — atomic writes require creating a temp file
+      // in the same directory, so this triggers EACCES on the write attempt
+      fs.chmodSync(testDir, 0o555);
 
       try {
-        // Should still read from cache (cached embedding)
+        // Should still read from cache (file is still readable)
         const result = await getEmbeddingForMemory('mem-1', 'Content 1', cachePath, provider);
         expect(result).toBeDefined();
 
-        // New embedding will fail because cache can't be written
-        // Implementation throws EACCES when saveEmbeddingCache fails
+        // New embedding fails because temp file can't be created in read-only dir
         await expect(
           getEmbeddingForMemory('mem-2', 'Content 2', cachePath, provider)
         ).rejects.toThrow('EACCES');
       } finally {
-        // Restore permissions
-        fs.chmodSync(cachePath, 0o644);
+        // Restore permissions so afterEach cleanup can proceed
+        fs.chmodSync(testDir, 0o755);
       }
     });
   });

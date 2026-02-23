@@ -87,6 +87,20 @@ describe('cmdSuggestLinks', () => {
       expect.objectContaining({ llmType: true })
     );
   });
+
+  it('passes all-scopes flag', async () => {
+    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
+      suggestions: [],
+      created: 0,
+    } as any);
+
+    const args: ParsedArgs = { positional: [], flags: { 'all-scopes': true } };
+    await cmdSuggestLinks(args);
+
+    expect(suggestLinksModule.suggestLinks).toHaveBeenCalledWith(
+      expect.objectContaining({ allScopes: true })
+    );
+  });
 });
 
 describe('cmdSummarize', () => {

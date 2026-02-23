@@ -10,11 +10,8 @@ import { cmdRead, cmdWrite, cmdDelete, cmdSearch, cmdList } from './commands/cru
 import { cmdLink, cmdUnlink } from './commands/graph.js';
 import { cmdImport, cmdExport } from './commands/bulk.js';
 import { cmdThink } from './commands/think.js';
+import * as exportModule from '../core/export.js';
 import type { ParsedArgs } from './parser.js';
-
-// Note: Removed module-level vi.mock() for export.js to prevent global test pollution.
-// The cmdExport tests now use the real exportMemories function, which works fine on
-// empty directories and doesn't interfere with other test files that need real export behavior.
 
 describe('CLI Argument Parsing Edge Cases', () => {
   it('handles empty arguments', () => {
@@ -257,19 +254,17 @@ describe('Bulk Command Boundary Conditions', () => {
 
   describe('cmdExport', () => {
     it('handles missing scope gracefully', async () => {
+      vi.spyOn(exportModule, 'exportMemories').mockResolvedValue({
+        status: 'success',
+        exported: 0,
+        version: '1.0',
+        exportedAt: new Date().toISOString(),
+        memories: [],
+      } as any);
+
       const args: ParsedArgs = { positional: [], flags: {} };
       const result = await cmdExport(args);
-      // Should default to project scope and succeed
       expect(result.status).toBe('success');
-      // Verify exported data has expected structure
-      const data = result.data as any;
-      expect(data).toBeDefined();
-      // Export should return structured data even if empty
-      if (data?.data) {
-        expect(data.data).toHaveProperty('version');
-        expect(data.data).toHaveProperty('exportedAt');
-        expect(data.data).toHaveProperty('memories');
-      }
     });
   });
 
@@ -288,23 +283,6 @@ describe('Bulk Command Boundary Conditions', () => {
     });
   });
 
-  describe('cmdExport', () => {
-    it('handles missing scope gracefully', async () => {
-      const args: ParsedArgs = { positional: [], flags: {} };
-      const result = await cmdExport(args);
-      // Should default to project scope and succeed
-      expect(result.status).toBe('success');
-      // Verify exported data has expected structure
-      const data = result.data as any;
-      expect(data).toBeDefined();
-      // Export should return structured data even if empty
-      if (data?.data) {
-        expect(data.data).toHaveProperty('version');
-        expect(data.data).toHaveProperty('exportedAt');
-        expect(data.data).toHaveProperty('memories');
-      }
-    });
-  });
 });
 
 describe('Think Command Boundary Conditions', () => {

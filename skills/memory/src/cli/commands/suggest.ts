@@ -8,14 +8,14 @@
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
-import { success, wrapOperation, error } from '../response.js';
+import { success, wrapOperation } from '../response.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateIncludeShared } from '../helpers.js';
+import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
  *
- * Usage: memory suggest-links [--threshold <n>] [--limit <n>] [--auto-link] [--scope <scope>] [--agent <agent>] [--include-shared]
+ * Usage: memory suggest-links [--threshold <n>] [--limit <n>] [--auto-link] [--scope <scope>] [--agent <agent>] [--all-scopes]
  *
  * Uses semantic similarity to find memories that might be related.
  * Requires embeddings cache (generated via semantic search).
@@ -23,21 +23,9 @@ import { getResolvedScopePath, parseScope, resolveAgentScopePath, validateInclud
 export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
   const scopeStr = getFlagString(args.flags, 'scope');
   
-  // Parse agent, include-shared, and all-scopes flags
+  // Parse agent and all-scopes flags
   const agentName = getFlagString(args.flags, 'agent');
-  const includeShared = getFlagBool(args.flags, 'include-shared');
   const allScopes = getFlagBool(args.flags, 'all-scopes');
-
-  // Validate --include-shared requires --agent
-  const validation = validateIncludeShared(includeShared, agentName);
-  if (!validation.valid) {
-    return error(validation.error || '--include-shared requires --agent flag');
-  }
-
-  // Validate --all-scopes and --include-shared are mutually exclusive
-  if (allScopes && includeShared) {
-    return error('--all-scopes and --include-shared are mutually exclusive');
-  }
 
   // Determine base path based on agent context
   const basePath = agentName
@@ -57,7 +45,6 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
         threshold,
         limit,
         autoLink,
-        includeShared,
         allScopes,
         agentName,
         scopeStr,

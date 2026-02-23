@@ -68,7 +68,7 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
   const typeArg = args.positional[0];
   const scope = parseScope(getFlagString(args.flags, 'scope'));
 
-  void getResolvedScopePath(scope); // Suppress unused warning
+  void scope; // Suppress unused warning (cmdSummarize is a stub)
 
   // TODO: Implement summarize in Phase 6 (requires LLM integration)
   return success(

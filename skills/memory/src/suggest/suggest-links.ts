@@ -194,7 +194,6 @@ export async function suggestLinks(
   if (allScopes) {
     try {
       const projectPath = getScopePath(Scope.Project, process.cwd(), '');
-      const globalPath = path.join(os.homedir(), '.claude', 'memory');
       const scopePaths = new Set<string>([projectPath, globalPath]);
 
       // Scan for all agent scopes

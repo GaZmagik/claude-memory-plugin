@@ -168,7 +168,7 @@ export async function suggestLinks(
   }
 
   // Determine primary scope type
-  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, process.cwd(), globalPath);
+  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, getScopePath(Scope.Project, process.cwd(), ''), globalPath);
 
   // Build embeddings map from primary scope (excluding thoughts)
   // AND track metadata for each memory

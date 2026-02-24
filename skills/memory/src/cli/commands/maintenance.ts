@@ -240,6 +240,8 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         ids,
       });
 
+      let combinedResult: Record<string, unknown> = { ...result };
+
       // If --embeddings flag, generate embeddings for all memories
       if (generateEmbeddings && !dryRun) {
         const index = await loadIndex({ basePath });
@@ -270,8 +272,8 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
           provider
         );
 
-        return {
-          ...result,
+        combinedResult = {
+          ...combinedResult,
           embeddingsGenerated: embeddingResults.filter(r => !r.fromCache).length,
           embeddingsCached: embeddingResults.filter(r => r.fromCache).length,
           embeddingsTotal: embeddingResults.length,
@@ -286,8 +288,11 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
           apply: applyEdges,
           force: forceFlag,
         });
-        return {
-          ...result,
+        if (scoreResult.status === 'error') {
+          throw new Error(scoreResult.error ?? 'score-edges failed');
+        }
+        combinedResult = {
+          ...combinedResult,
           edgesScored: scoreResult.scored,
           edgesSkipped: scoreResult.skipped,
           edgesNoEmbedding: scoreResult.noEmbedding,
@@ -296,7 +301,7 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         };
       }
 
-      return result;
+      return combinedResult;
     },
     dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'
   );

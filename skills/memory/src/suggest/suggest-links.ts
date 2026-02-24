@@ -124,7 +124,7 @@ export interface SuggestLinksResponse {
  * Sanitise a memory title before interpolating it into an LLM prompt.
  * Strips quotes and control characters, truncates to 100 chars (CWE-77).
  */
-function sanitiseTitleForPrompt(title: string): string {
+export function sanitiseTitleForPrompt(title: string): string {
   return title
     .replace(/['"`]/g, '')
     .replace(/[\x00-\x1f\x7f]/g, '')

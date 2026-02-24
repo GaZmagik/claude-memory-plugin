@@ -8,10 +8,10 @@
 import * as path from 'node:path';
 import { loadEmbeddingCache } from '../search/embedding.js';
 import { cosineSimilarity } from '../search/similarity.js';
-import { loadGraph, saveGraph } from './structure.js';
+import { loadGraph, saveGraph, GraphNode } from './structure.js';
 import { getEdges } from './edges.js';
 import { generate, isAvailable } from '../services/ollama.js';
-import { validateLlmLabel } from '../suggest/suggest-links.js';
+import { validateLlmLabel, sanitiseTitleForPrompt } from '../suggest/suggest-links.js';
 
 // ============================================================================
 // Types
@@ -70,6 +70,12 @@ export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdges
     // getEdges returns shallow copy of array — edge objects are same references as graph.edges
     const edges = getEdges(graph);
 
+    // Build node lookup map once for O(1) access per edge (avoids O(E×N) find() calls)
+    const nodeMap = new Map<string, GraphNode>(graph.nodes.map(n => [n.id, n]));
+
+    // Check Ollama availability once before the loop — not per-edge
+    const ollamaReady = (verify && !dryRun) ? await isAvailable() : false;
+
     let scored = 0;
     let skipped = 0;
     let noEmbedding = 0;
@@ -98,20 +104,17 @@ export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdges
         edge.similarity = similarity;
 
         // --verify: ask Ollama for a relation label and stage it
-        if (verify) {
-          const available = await isAvailable();
-          if (available) {
-            const sourceNode = graph.nodes.find(n => n.id === edge.source);
-            const targetNode = graph.nodes.find(n => n.id === edge.target);
-            const sourceLabel = (sourceNode as any)?.title ?? edge.source;
-            const targetLabel = (targetNode as any)?.title ?? edge.target;
-            const prompt = `Given source memory [${sourceLabel}] and target memory [${targetLabel}], what is the best relation label for their link? Reply with a single short label only, using lowercase letters, digits, and hyphens.`;
-            const llmResult = await generate(prompt, undefined, 60_000);
-            const candidate = validateLlmLabel(llmResult);
-            if (candidate) {
-              edge.verifiedRelation = candidate;
-              verified++;
-            }
+        if (verify && ollamaReady) {
+          const sourceNode = nodeMap.get(edge.source);
+          const targetNode = nodeMap.get(edge.target);
+          const sourceLabel = sanitiseTitleForPrompt(sourceNode?.title ?? edge.source);
+          const targetLabel = sanitiseTitleForPrompt(targetNode?.title ?? edge.target);
+          const prompt = `Given source memory [${sourceLabel}] and target memory [${targetLabel}], what is the best relation label for their link? Reply with a single short label only, using lowercase letters, digits, and hyphens.`;
+          const llmResult = await generate(prompt, undefined, 60_000);
+          const candidate = validateLlmLabel(llmResult);
+          if (candidate) {
+            edge.verifiedRelation = candidate;
+            verified++;
           }
         }
 

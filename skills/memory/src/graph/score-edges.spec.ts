@@ -189,6 +189,21 @@ describe('scoreEdges', () => {
       applied: 0,
     });
   });
+
+  // T14: returns error status when loadGraph throws
+  it('returns error status with zero counts when loadGraph throws', async () => {
+    vi.spyOn(structureModule, 'loadGraph').mockRejectedValue(new Error('disk read failure'));
+
+    const result = await scoreEdges({ basePath: testDir });
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('disk read failure');
+    expect(result.scored).toBe(0);
+    expect(result.skipped).toBe(0);
+    expect(result.noEmbedding).toBe(0);
+    expect(result.verified).toBe(0);
+    expect(result.applied).toBe(0);
+  });
 });
 
 // ============================================================================
@@ -253,6 +268,17 @@ describe('scoreEdges --verify', () => {
     const graph = readGraph(testDir);
     expect(typeof graph.edges[0].similarity).toBe('number');
     expect(graph.edges[0].verifiedRelation).toBeUndefined();
+  });
+
+  // T15: --verify + --dry-run never calls Ollama generate()
+  it('does not invoke Ollama generate() when --verify and --dry-run are both set', async () => {
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('relates-to');
+
+    const result = await scoreEdges({ basePath: testDir, verify: true, dryRun: true });
+
+    expect(result.scored).toBe(1);
+    expect(generateSpy).not.toHaveBeenCalled();
   });
 });
 

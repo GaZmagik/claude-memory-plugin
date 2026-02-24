@@ -60,6 +60,9 @@ export interface ScoreEdgesResponse {
 export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdgesResponse> {
   const { basePath, dryRun = false, verify = false, apply = false, force = false } = request;
 
+  // basePath validation is enforced at the CLI layer via getResolvedScopePath().
+  // Direct callers are responsible for supplying a valid memory directory path.
+
   try {
     const cachePath = path.join(basePath, 'embeddings.json');
     const [cache, graph] = await Promise.all([
@@ -93,41 +96,41 @@ export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdges
 
       if (edge.similarity !== undefined && !force) {
         skipped++;
-        continue;
-      }
+      } else {
+        const similarity = cosineSimilarity(sourceEntry.embedding, targetEntry.embedding);
+        scored++;
 
-      const similarity = cosineSimilarity(sourceEntry.embedding, targetEntry.embedding);
-      scored++;
+        if (!dryRun) {
+          // Mutate the edge in-place (edge IS the same object as graph.edges[i])
+          edge.similarity = similarity;
 
-      if (!dryRun) {
-        // Mutate the edge in-place (edge IS the same object as graph.edges[i])
-        edge.similarity = similarity;
-
-        // --verify: ask Ollama for a relation label and stage it
-        if (verify && ollamaReady) {
-          const sourceNode = nodeMap.get(edge.source);
-          const targetNode = nodeMap.get(edge.target);
-          const sourceLabel = sanitiseTitleForPrompt(sourceNode?.title ?? edge.source);
-          const targetLabel = sanitiseTitleForPrompt(targetNode?.title ?? edge.target);
-          const prompt = `Given source memory [${sourceLabel}] and target memory [${targetLabel}], what is the best relation label for their link? Reply with a single short label only, using lowercase letters, digits, and hyphens.`;
-          const llmResult = await generate(prompt, undefined, 60_000);
-          const candidate = validateLlmLabel(llmResult);
-          if (candidate) {
-            edge.verifiedRelation = candidate;
-            verified++;
+          // --verify: ask Ollama for a relation label and stage it
+          if (verify && ollamaReady) {
+            const sourceNode = nodeMap.get(edge.source);
+            const targetNode = nodeMap.get(edge.target);
+            const sourceLabel = sanitiseTitleForPrompt(sourceNode?.title ?? edge.source);
+            const targetLabel = sanitiseTitleForPrompt(targetNode?.title ?? edge.target);
+            const prompt = `Given source memory [${sourceLabel}] and target memory [${targetLabel}], what is the best relation label for their link? Reply with a single short label only, using lowercase letters, digits, and hyphens.`;
+            const llmResult = await generate(prompt, undefined, 60_000);
+            const candidate = validateLlmLabel(llmResult);
+            if (candidate) {
+              edge.verifiedRelation = candidate;
+              verified++;
+            }
           }
         }
+      }
 
-        // --apply: promote verifiedRelation (pre-existing or freshly set) to label
-        if (apply && edge.verifiedRelation) {
-          edge.label = edge.verifiedRelation;
-          delete edge.verifiedRelation;
-          applied++;
-        }
+      // --apply: runs on all edges with embeddings, not just those scored in this pass.
+      // This allows promoting staged verifiedRelation labels without needing --force.
+      if (!dryRun && apply && edge.verifiedRelation) {
+        edge.label = edge.verifiedRelation;
+        delete edge.verifiedRelation;
+        applied++;
       }
     }
 
-    if (!dryRun && scored > 0) {
+    if (!dryRun && (scored > 0 || applied > 0)) {
       await saveGraph(basePath, graph);
     }
 

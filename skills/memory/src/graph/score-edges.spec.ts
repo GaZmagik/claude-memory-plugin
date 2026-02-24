@@ -192,6 +192,7 @@ describe('scoreEdges', () => {
 
   // T14: returns error status when loadGraph throws
   it('returns error status with zero counts when loadGraph throws', async () => {
+    writeEmbeddingCache(testDir, {}); // ensure loadEmbeddingCache doesn't race the mock rejection
     vi.spyOn(structureModule, 'loadGraph').mockRejectedValue(new Error('disk read failure'));
 
     const result = await scoreEdges({ basePath: testDir });
@@ -296,6 +297,25 @@ describe('scoreEdges --apply', () => {
   afterEach(() => {
     fs.rmSync(testDir, { recursive: true, force: true });
     vi.restoreAllMocks();
+  });
+
+  // T10b: --apply promotes verifiedRelation on a pre-scored edge without --force
+  it('promotes verifiedRelation on an already-scored edge without needing --force', async () => {
+    writeGraph(testDir, NODES_AB, [
+      { source: 'mem-a', target: 'mem-b', label: 'relates-to', similarity: 0.5, verifiedRelation: 'superseded-by' },
+    ]);
+    writeEmbeddingCache(testDir, {
+      'mem-a': { embedding: EMB_A, hash: 'h1', timestamp: '2024-01-01' },
+      'mem-b': { embedding: EMB_B, hash: 'h2', timestamp: '2024-01-01' },
+    });
+
+    const result = await scoreEdges({ basePath: testDir, apply: true });
+
+    expect(result.skipped).toBe(1);   // not re-scored — similarity already present
+    expect(result.applied).toBe(1);   // verifiedRelation promoted regardless
+    const graph = readGraph(testDir);
+    expect(graph.edges[0].label).toBe('superseded-by');
+    expect(Object.prototype.hasOwnProperty.call(graph.edges[0], 'verifiedRelation')).toBe(false);
   });
 
   // T10: promotes existing verifiedRelation → label, clears field

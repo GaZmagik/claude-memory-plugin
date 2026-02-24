@@ -554,4 +554,52 @@ describe('cmdRefresh', () => {
       edgesApplied: 0,
     });
   });
+
+  // T15: scoreEdges error status is surfaced as CLI error
+  it('surfaces scoreEdges error status as CLI error', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    vi.spyOn(scoreEdgesModule, 'scoreEdges').mockResolvedValue({
+      status: 'error',
+      error: 'disk fail',
+      scored: 0,
+      skipped: 0,
+      noEmbedding: 0,
+      verified: 0,
+      applied: 0,
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { 'score-edges': true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('error');
+  });
+
+  // T16: --embeddings and --score-edges both run when passed together
+  it('runs both embedding generation and edge scoring when both flags are passed', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ version: '1.0.0', lastUpdated: '', memories: [] } as any);
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({} as any);
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([
+      { id: 'decision-one', fromCache: false },
+    ] as any);
+    vi.spyOn(scoreEdgesModule, 'scoreEdges').mockResolvedValue({
+      status: 'success',
+      scored: 2,
+      skipped: 0,
+      noEmbedding: 0,
+      verified: 0,
+      applied: 0,
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true, 'score-edges': true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalled();
+    expect(scoreEdgesModule.scoreEdges).toHaveBeenCalled();
+    expect(result.data).toMatchObject({
+      embeddingsGenerated: 1,
+      edgesScored: 2,
+    });
+  });
 });

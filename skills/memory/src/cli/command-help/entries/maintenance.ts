@@ -84,7 +84,8 @@ export const MAINTENANCE_HELP: Record<string, CommandHelpEntry> = {
     usage: 'memory refresh [scope]',
     description: 'Backfill missing frontmatter fields and edge similarity scores',
     arguments: `  [scope]    Scope to refresh (project, local, user). Default: project`,
-    flags: `  --score-edges    Compute cosine similarity for all edges with available embeddings
+    flags: `  --embeddings     Generate/update embeddings for all memories (requires Ollama)
+  --score-edges    Compute cosine similarity for all edges with available embeddings
   --verify         (requires --score-edges) LLM-suggest relation label → verifiedRelation staging
   --apply          (requires --score-edges) Promote verifiedRelation → label on scored edges
   --force          (requires --score-edges) Re-score edges that already have similarity

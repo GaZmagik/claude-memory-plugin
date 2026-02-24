@@ -298,7 +298,7 @@ describe('scoreEdges --verify', () => {
 
   // T15: --verify + --dry-run never calls Ollama generate()
   it('does not invoke Ollama generate() when --verify and --dry-run are both set', async () => {
-    const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('relates-to');
+    const generateSpy = vi.spyOn(ollamaModule, 'generate');
 
     const result = await scoreEdges({ basePath: testDir, verify: true, dryRun: true });
 

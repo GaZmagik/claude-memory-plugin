@@ -14,8 +14,6 @@ import { tmpdir } from 'node:os';
 import {
   parseInjectionConfig,
   DEFAULT_INJECTION_CONFIG,
-  type InjectionConfig,
-  type TypeConfig,
 } from '../../../hooks/src/settings/injection-settings.js';
 
 describe('InjectionConfig Parsing', () => {
@@ -334,7 +332,7 @@ injection:
       expect(config.enabled).toBe(true);
       expect(config.types.gotcha.enabled).toBe(true);
       // Unknown fields ignored
-      expect((config as Record<string, unknown>).unknown_field).toBeUndefined();
+      expect((config as unknown as Record<string, unknown>).unknown_field).toBeUndefined();
     });
   });
 

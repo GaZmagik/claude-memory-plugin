@@ -22,6 +22,7 @@ import { readMemory } from '../../core/read.js';
 import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
 import { discoverExternalFiles, indexExternalFiles } from '../../external/index.js';
 import { loadGraph, saveGraph } from '../../graph/structure.js';
+import { scoreEdges } from '../../graph/score-edges.js';
 import { findGitRoot } from '../../scope/git-utils.js';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -208,12 +209,20 @@ export async function cmdSyncFrontmatter(args: ParsedArgs): Promise<CliResponse>
  * refresh - Backfill missing frontmatter fields and migrate legacy data
  *
  * Usage: memory refresh [scope] [--dry-run] [--project <name>] [--id <id>]
+ *        [--embeddings] [--score-edges [--verify] [--apply] [--force]]
  *
  * Updates memory files to include:
  * - id: Memory ID (from filename)
  * - project: Project name (from git repo or directory)
  *
  * Also migrates legacy embedding hashes from frontmatter to embeddings.json.
+ *
+ * Flags:
+ * --embeddings   Generate/update embeddings for all memories (requires Ollama)
+ * --score-edges  Batch-compute cosine similarity for all graph edges
+ * --verify       (with --score-edges) Ask Ollama to suggest a relation label → verifiedRelation
+ * --apply        (with --score-edges) Promote verifiedRelation → label on all embeddable edges
+ * --force        (with --score-edges) Re-score edges that already have similarity set
  */
 export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
@@ -224,6 +233,10 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const idFlag = getFlagString(args.flags, 'id');
   const ids = idFlag ? [idFlag] : undefined;
   const generateEmbeddings = args.flags['embeddings'] === true;
+  const scoreEdgesFlag = args.flags['score-edges'] === true;
+  const verifyEdges = args.flags['verify'] === true;
+  const applyEdges = args.flags['apply'] === true;
+  const forceFlag = args.flags['force'] === true;
 
   return wrapOperation(
     async () => {
@@ -234,6 +247,8 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         project,
         ids,
       });
+
+      let combinedResult: Record<string, unknown> = { ...result };
 
       // If --embeddings flag, generate embeddings for all memories
       if (generateEmbeddings && !dryRun) {
@@ -265,15 +280,36 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
           provider
         );
 
-        return {
-          ...result,
+        combinedResult = {
+          ...combinedResult,
           embeddingsGenerated: embeddingResults.filter(r => !r.fromCache).length,
           embeddingsCached: embeddingResults.filter(r => r.fromCache).length,
           embeddingsTotal: embeddingResults.length,
         };
       }
 
-      return result;
+      if (scoreEdgesFlag) {
+        const scoreResult = await scoreEdges({
+          basePath,
+          dryRun,
+          verify: verifyEdges,
+          apply: applyEdges,
+          force: forceFlag,
+        });
+        if (scoreResult.status === 'error') {
+          throw new Error(scoreResult.error ?? 'score-edges failed');
+        }
+        combinedResult = {
+          ...combinedResult,
+          edgesScored: scoreResult.scored,
+          edgesSkipped: scoreResult.skipped,
+          edgesNoEmbedding: scoreResult.noEmbedding,
+          edgesVerified: scoreResult.verified,
+          edgesApplied: scoreResult.applied,
+        };
+      }
+
+      return combinedResult;
     },
     dryRun ? 'Refresh frontmatter dry run complete' : 'Refresh frontmatter complete'
   );

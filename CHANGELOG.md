@@ -5,6 +5,23 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-02-23
+
+### Added
+- **`memory refresh --score-edges`**: batch cosine similarity backfill for graph edges — computes similarity scores for edges created via `memory link` or `bulk-link` that previously had `similarity: undefined`
+  - `--score-edges`: compute cosine similarity for all edges with available embeddings
+  - `--verify`: LLM-suggest a relation label via Ollama → staged in `verifiedRelation` field
+  - `--apply`: promote `verifiedRelation` → `edge.label` and clear the staging field
+  - `--force`: re-score edges that already have a similarity value
+  - `--dry-run`: preview counts without writing
+  - Graph saved once after all mutations — not per-edge
+- **`graph/score-edges.ts`**: `scoreEdges()` core function (new module)
+- **`suggest/suggest-links.ts`**: exported `VALID_LABEL_RE` and `validateLlmLabel` for reuse
+
+### Tests
+- `graph/score-edges.spec.ts`: 13 unit tests (T1–T13) covering all flag combinations, dry-run, Ollama availability, and single-save behaviour
+- `cli/commands/maintenance.spec.ts`: T14 CLI integration test for `--score-edges` flag delegation
+
 ## [1.6.3] - 2026-02-23
 
 ### Added

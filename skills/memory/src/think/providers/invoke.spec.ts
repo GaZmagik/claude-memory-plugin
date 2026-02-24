@@ -282,7 +282,7 @@ describe('invokeProviderCli', () => {
         timeout: 120000
       };
 
-      const result = invokeProviderCli(command, 'gemini');
+      invokeProviderCli(command, 'gemini');
 
       expect(errors.formatProviderError).toHaveBeenCalledWith(
         'gemini',

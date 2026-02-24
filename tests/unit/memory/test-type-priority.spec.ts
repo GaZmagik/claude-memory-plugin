@@ -14,12 +14,12 @@ import {
 describe('Memory Type Prioritisation', () => {
   describe('MEMORY_TYPE_PRIORITY', () => {
     it('should rank gotcha highest (lowest number)', () => {
-      expect(MEMORY_TYPE_PRIORITY.gotcha).toBeLessThan(MEMORY_TYPE_PRIORITY.decision);
-      expect(MEMORY_TYPE_PRIORITY.gotcha).toBeLessThan(MEMORY_TYPE_PRIORITY.learning);
+      expect(MEMORY_TYPE_PRIORITY.gotcha!).toBeLessThan(MEMORY_TYPE_PRIORITY.decision!);
+      expect(MEMORY_TYPE_PRIORITY.gotcha!).toBeLessThan(MEMORY_TYPE_PRIORITY.learning!);
     });
 
     it('should rank decision higher than learning', () => {
-      expect(MEMORY_TYPE_PRIORITY.decision).toBeLessThan(MEMORY_TYPE_PRIORITY.learning);
+      expect(MEMORY_TYPE_PRIORITY.decision!).toBeLessThan(MEMORY_TYPE_PRIORITY.learning!);
     });
   });
 

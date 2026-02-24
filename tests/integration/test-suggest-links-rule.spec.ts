@@ -4,7 +4,7 @@
  * Verifies that rule nodes appear as link candidates in suggest-links results.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
@@ -15,23 +15,28 @@ import { MemoryType, Scope } from '../../skills/memory/src/types/enums.js';
 
 describe('T147: Suggest-links includes rule nodes', () => {
   let tempDir: string;
+  let memBasePath: string;
 
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'suggest-links-rule-test-'));
+    memBasePath = path.join(tempDir, '.claude', 'memory');
+    fs.mkdirSync(memBasePath, { recursive: true });
+    vi.spyOn(process, 'cwd').mockReturnValue(tempDir);
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
   it('should include rule nodes in suggest-links when embeddings cache exists', async () => {
     // Create rule with TDD content
     fs.writeFileSync(
-      path.join(tempDir, 'CLAUDE.md'),
+      path.join(memBasePath, 'CLAUDE.md'),
       '# Project Rules\n\nAlways follow Test-Driven Development principles.'
     );
 
-    await syncMemories({ basePath: tempDir });
+    await syncMemories({ basePath: memBasePath });
 
     // Create a decision about TDD
     const decision = await writeMemory({
@@ -40,7 +45,7 @@ describe('T147: Suggest-links includes rule nodes', () => {
       content: 'We decided to use TDD for all new features.',
       tags: ['tdd', 'testing'],
       scope: Scope.Project,
-      basePath: tempDir,
+      basePath: memBasePath,
     });
 
     expect(decision.status).toBe('success');
@@ -58,13 +63,13 @@ describe('T147: Suggest-links includes rule nodes', () => {
     };
 
     fs.writeFileSync(
-      path.join(tempDir, 'embeddings.json'),
+      path.join(memBasePath, 'embeddings.json'),
       JSON.stringify(embeddingsCache, null, 2)
     );
 
     // Run suggest-links
     const result = await suggestLinks({
-      basePath: tempDir,
+      basePath: memBasePath,
       threshold: 0.5,
       limit: 10,
     });
@@ -84,14 +89,14 @@ describe('T147: Suggest-links includes rule nodes', () => {
 
   it('should include rules files in suggest-links suggestions', async () => {
     // Create rules file
-    const rulesDir = path.join(tempDir, '.claude', 'rules');
+    const rulesDir = path.join(memBasePath, '.claude', 'rules');
     fs.mkdirSync(rulesDir, { recursive: true });
     fs.writeFileSync(
       path.join(rulesDir, 'security.md'),
       '# Security Rules\n\nValidate all user input.'
     );
 
-    await syncMemories({ basePath: tempDir });
+    await syncMemories({ basePath: memBasePath });
 
     // Create a gotcha about security
     const gotcha = await writeMemory({
@@ -100,7 +105,7 @@ describe('T147: Suggest-links includes rule nodes', () => {
       content: 'Never concatenate user input into SQL queries.',
       tags: ['security'],
       scope: Scope.Project,
-      basePath: tempDir,
+      basePath: memBasePath,
     });
 
     // Create embeddings cache
@@ -116,13 +121,13 @@ describe('T147: Suggest-links includes rule nodes', () => {
     };
 
     fs.writeFileSync(
-      path.join(tempDir, 'embeddings.json'),
+      path.join(memBasePath, 'embeddings.json'),
       JSON.stringify(embeddingsCache, null, 2)
     );
 
     // Suggest links
     const result = await suggestLinks({
-      basePath: tempDir,
+      basePath: memBasePath,
       threshold: 0.5,
     });
 
@@ -138,8 +143,8 @@ describe('T147: Suggest-links includes rule nodes', () => {
 
   it('should not suggest self-links for rule nodes', async () => {
     // Create rule
-    fs.writeFileSync(path.join(tempDir, 'CLAUDE.md'), '# Rules');
-    await syncMemories({ basePath: tempDir });
+    fs.writeFileSync(path.join(memBasePath, 'CLAUDE.md'), '# Rules');
+    await syncMemories({ basePath: memBasePath });
 
     // Create embeddings cache with only the rule
     const embeddingsCache = {
@@ -151,13 +156,13 @@ describe('T147: Suggest-links includes rule nodes', () => {
     };
 
     fs.writeFileSync(
-      path.join(tempDir, 'embeddings.json'),
+      path.join(memBasePath, 'embeddings.json'),
       JSON.stringify(embeddingsCache, null, 2)
     );
 
     // Try to suggest links
     const result = await suggestLinks({
-      basePath: tempDir,
+      basePath: memBasePath,
       threshold: 0.5,
     });
 
@@ -169,14 +174,14 @@ describe('T147: Suggest-links includes rule nodes', () => {
 
   it('should include reminder nodes in suggest-links suggestions', async () => {
     // Create agent reminder
-    const agentDir = path.join(tempDir, '.claude', 'agent-memory', 'test-agent');
+    const agentDir = path.join(memBasePath, '.claude', 'agent-memory', 'test-agent');
     fs.mkdirSync(agentDir, { recursive: true });
     fs.writeFileSync(
       path.join(agentDir, 'MEMORY.md'),
       '# Test Agent Memory\n\nCommon patterns and practices.'
     );
 
-    await syncMemories({ basePath: tempDir });
+    await syncMemories({ basePath: memBasePath });
 
     // Create a learning
     const learning = await writeMemory({
@@ -185,7 +190,7 @@ describe('T147: Suggest-links includes rule nodes', () => {
       content: 'This pattern simplifies the code.',
       tags: ['patterns'],
       scope: Scope.Project,
-      basePath: tempDir,
+      basePath: memBasePath,
     });
 
     // Create embeddings cache
@@ -201,13 +206,13 @@ describe('T147: Suggest-links includes rule nodes', () => {
     };
 
     fs.writeFileSync(
-      path.join(tempDir, 'embeddings.json'),
+      path.join(memBasePath, 'embeddings.json'),
       JSON.stringify(embeddingsCache, null, 2)
     );
 
     // Suggest links
     const result = await suggestLinks({
-      basePath: tempDir,
+      basePath: memBasePath,
       threshold: 0.5,
     });
 

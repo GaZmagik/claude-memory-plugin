@@ -13,6 +13,7 @@ import * as indexModule from '../../core/index.js';
 import * as healthModule from '../../quality/health.js';
 import * as readModule from '../../core/read.js';
 import * as embeddingModule from '../../search/embedding.js';
+import * as scoreEdgesModule from '../../graph/score-edges.js';
 import type { ParsedArgs } from '../parser.js';
 
 describe('cmdSync', () => {
@@ -521,5 +522,84 @@ describe('cmdRefresh', () => {
 
     // Should not load index since dry-run skips embedding generation
     expect(loadIndexSpy).not.toHaveBeenCalled();
+  });
+
+  // T14: CLI integration — --score-edges delegates to scoreEdges()
+  it('calls scoreEdges with correct params and merges edge counts into result', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    vi.spyOn(scoreEdgesModule, 'scoreEdges').mockResolvedValue({
+      status: 'success',
+      scored: 3,
+      skipped: 1,
+      noEmbedding: 2,
+      verified: 0,
+      applied: 0,
+    });
+
+    const args: ParsedArgs = {
+      positional: [],
+      flags: { 'score-edges': true, verify: true, apply: false, force: false },
+    };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    expect(scoreEdgesModule.scoreEdges).toHaveBeenCalledWith(
+      expect.objectContaining({ dryRun: false, verify: true, apply: false, force: false })
+    );
+    expect(result.data).toMatchObject({
+      edgesScored: 3,
+      edgesSkipped: 1,
+      edgesNoEmbedding: 2,
+      edgesVerified: 0,
+      edgesApplied: 0,
+    });
+  });
+
+  // T15: scoreEdges error status is surfaced as CLI error
+  it('surfaces scoreEdges error status as CLI error', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    vi.spyOn(scoreEdgesModule, 'scoreEdges').mockResolvedValue({
+      status: 'error',
+      error: 'disk fail',
+      scored: 0,
+      skipped: 0,
+      noEmbedding: 0,
+      verified: 0,
+      applied: 0,
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { 'score-edges': true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('error');
+  });
+
+  // T16: --embeddings and --score-edges both run when passed together
+  it('runs both embedding generation and edge scoring when both flags are passed', async () => {
+    vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({} as any);
+    vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ version: '1.0.0', lastUpdated: '', memories: [] } as any);
+    vi.spyOn(embeddingModule, 'createOllamaProvider').mockReturnValue({} as any);
+    vi.spyOn(embeddingModule, 'batchGenerateEmbeddings').mockResolvedValue([
+      { id: 'decision-one', fromCache: false },
+    ] as any);
+    vi.spyOn(scoreEdgesModule, 'scoreEdges').mockResolvedValue({
+      status: 'success',
+      scored: 2,
+      skipped: 0,
+      noEmbedding: 0,
+      verified: 0,
+      applied: 0,
+    });
+
+    const args: ParsedArgs = { positional: [], flags: { embeddings: true, 'score-edges': true } };
+    const result = await cmdRefresh(args);
+
+    expect(result.status).toBe('success');
+    expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalled();
+    expect(scoreEdgesModule.scoreEdges).toHaveBeenCalled();
+    expect(result.data).toMatchObject({
+      embeddingsGenerated: 1,
+      edgesScored: 2,
+    });
   });
 });

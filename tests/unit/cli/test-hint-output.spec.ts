@@ -218,7 +218,7 @@ describe('Hint Output Formatting', () => {
         { type: 'agent', text: 'Agent hint' },
       ];
 
-      const formatted = hints.map(formatHint);
+      const formatted = hints.map(hint => formatHint(hint));
 
       // All should start with the same prefix
       for (const f of formatted) {

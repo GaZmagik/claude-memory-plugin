@@ -4592,12 +4592,9 @@
       "scope": "project"
     },
     {
-      "id": "reminder-agent-project-typescript-expert-memory-md",
-      "type": "reminder"
-    },
-    {
       "id": "rule-project-claude-md-root",
-      "type": "rule"
+      "type": "rule",
+      "title": "CLAUDE.md"
     },
     {
       "id": "learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase",
@@ -4669,6 +4666,158 @@
       "id": "decision-subagent-memory-isolation-via-per-agent-registry",
       "type": "decision",
       "title": "Subagent Memory Isolation via Per-Agent Registry",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands",
+      "type": "gotcha",
+      "title": "Command injection via unsanitized agent names in prompts and shell commands",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-unbounded-loops-in-background-operations-accumulate-work-and-hit-timeouts",
+      "type": "gotcha",
+      "title": "Unbounded loops in background operations accumulate work and hit timeouts",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-file-cleanup-obligations-must-be-enforced-in-all-code-paths-not-just-happy-path",
+      "type": "gotcha",
+      "title": "File cleanup obligations must be enforced in all code paths, not just happy path",
+      "scope": "project"
+    },
+    {
+      "id": "learning-atomic-rename-based-temp-file-operations-prevent-toctou-races-in-concurrent-systems",
+      "type": "learning",
+      "title": "Atomic rename-based temp file operations prevent TOCTOU races in concurrent systems",
+      "scope": "project"
+    },
+    {
+      "id": "learning-categorise-and-prioritise-pr-review-findings-before-addressing-to-parallelise-work-efficiently",
+      "type": "learning",
+      "title": "Categorise and prioritise PR review findings before addressing to parallelise work efficiently",
+      "scope": "project"
+    },
+    {
+      "id": "rule-global-claude-md-dotclaude",
+      "type": "rule",
+      "title": "CLAUDE.md",
+      "scope": "global"
+    },
+    {
+      "id": "rule-project-security",
+      "type": "rule",
+      "title": "security.md",
+      "scope": "project"
+    },
+    {
+      "id": "rule-project-testing",
+      "type": "rule",
+      "title": "testing.md",
+      "scope": "project"
+    },
+    {
+      "id": "reminder-project-speckit-explorer-memory",
+      "type": "reminder",
+      "title": "speckit-explorer Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-explorer"
+    },
+    {
+      "id": "reminder-project-speckit-specifier-memory",
+      "type": "reminder",
+      "title": "speckit-specifier Agent Memory",
+      "scope": "agent-project",
+      "agent": "speckit-specifier"
+    },
+    {
+      "id": "learning-rulereminder-nodes-need-embeddings-before-suggest-links-works",
+      "type": "learning",
+      "title": "Rule/reminder nodes need embeddings before suggest-links works",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "type": "gotcha",
+      "title": "No batch mechanism to backfill similarity scores on pre-existing edges",
+      "scope": "project"
+    },
+    {
+      "id": "decision-batch-edge-similarity-command-shape",
+      "type": "decision",
+      "title": "Batch edge similarity: flag on refresh vs new command",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-batch-similarity-scoring-pattern",
+      "type": "artifact",
+      "title": "Batch similarity scoring pattern: embeddings → cosine → optional LLM verify",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "type": "artifact",
+      "title": "score-edges: batch cosine similarity backfill for graph edges",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-file-edits-on-coordinated-version-bumps-accelerated-release-workflow",
+      "type": "learning",
+      "title": "Retro - Parallel file edits on coordinated version bumps accelerated release workflow",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-t147-test-failures-could-have-been-fixed-with-targeted-basepath-validation-fix",
+      "type": "gotcha",
+      "title": "Retro - T147 test failures could have been fixed with targeted basePath validation fix",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-memory-artifacts-created-but-relationship-edges-not-established",
+      "type": "learning",
+      "title": "Retro - Memory artifacts created but relationship edges not established",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-scoreedges-batch-cosine-similarity-backfill-implementation",
+      "type": "artifact",
+      "title": "scoreEdges: batch cosine similarity backfill implementation",
+      "scope": "project"
+    },
+    {
+      "id": "decision-direct-mutable-edge-mutation-vs-immutable-updateedge-pattern",
+      "type": "decision",
+      "title": "direct mutable edge mutation vs immutable updateEdge pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-export-validation-utilities-for-cross-module-reuse",
+      "type": "learning",
+      "title": "export validation utilities for cross-module reuse",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-syncmemories-projectroot-path-mismatch-in-integration-tests",
+      "type": "gotcha",
+      "title": "syncMemories projectRoot path mismatch in integration tests",
+      "scope": "project"
+    },
+    {
+      "id": "learning-typescript-nouncheckedindexedaccess-requires-defensive-coding-for-record-access",
+      "type": "learning",
+      "title": "TypeScript noUncheckedIndexedAccess requires defensive coding for Record access",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "type": "learning",
+      "title": "Mocking process.cwd() isolates file discovery tests from filesystem state",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-bun-test-enum-cast-workaround",
+      "type": "artifact",
+      "title": "bun:test enum casting workaround for typed toBe() matchers",
       "scope": "project"
     }
   ],
@@ -17802,6 +17951,230 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.7045716936051819,
       "verifiedRelation": "comparison"
+    },
+    {
+      "source": "gotcha-command-injection-via-unsanitized-agent-names-in-prompts-and-shell-commands",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "retro-subprocess-security-audit",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-security-fix-required-proper-architectural-change-not-quick-patch",
+      "target": "rule-project-security",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-excludes-orphaned-test-files",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-test-patterns-tdd-rule-reminder",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "rule-project-testing",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-batch-edge-similarity-command-shape",
+      "target": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "label": "relates-to"
+    },
+    {
+      "source": "artifact-batch-similarity-scoring-pattern",
+      "target": "decision-batch-edge-similarity-command-shape",
+      "label": "relates-to"
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.75055533298296
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.75055533298296
+    },
+    {
+      "source": "decision-batch-edge-similarity-command-shape",
+      "target": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7649002594482571
+    },
+    {
+      "source": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "target": "decision-batch-edge-similarity-command-shape",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7649002594482571
+    },
+    {
+      "source": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "target": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7376790873059087,
+      "verifiedRelation": "isolation-strategy"
+    },
+    {
+      "source": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "target": "learning-test-isolation-use-tempdir-for-all-filesystem-paths-not-oshomedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7376790873059087,
+      "verifiedRelation": "isolation-strategy"
+    },
+    {
+      "source": "rule-global-claude-md-dotclaude",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7352273935545347,
+      "verifiedRelation": "update-info"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "rule-global-claude-md-dotclaude",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7352273935545347,
+      "verifiedRelation": "update-reflection"
+    },
+    {
+      "source": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "target": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7331546046582007,
+      "verifiedRelation": "related-similarity"
+    },
+    {
+      "source": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "target": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7331546046582007,
+      "verifiedRelation": "relevance-similarity"
+    },
+    {
+      "source": "learning-end-to-end-smoke-testing-with-real-data-validates-the-full-linking-lifecycle",
+      "target": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7295795908249258,
+      "verifiedRelation": "discrepancy-7"
+    },
+    {
+      "source": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "target": "learning-end-to-end-smoke-testing-with-real-data-validates-the-full-linking-lifecycle",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7295795908249258,
+      "verifiedRelation": "evidence-link"
+    },
+    {
+      "source": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7253363581891857,
+      "verifiedRelation": "7-inclusion"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7253363581891857,
+      "verifiedRelation": "integration-flow"
+    },
+    {
+      "source": "artifact-v150-memory-graph-enhancement-suite-spec",
+      "target": "reminder-project-speckit-specifier-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7216297628583062,
+      "verifiedRelation": "integration"
+    },
+    {
+      "source": "reminder-project-speckit-specifier-memory",
+      "target": "artifact-v150-memory-graph-enhancement-suite-spec",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7216297628583062,
+      "verifiedRelation": "migration-refinement"
+    },
+    {
+      "source": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
+      "target": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7152907275413847,
+      "verifiedRelation": "solution-isolation"
+    },
+    {
+      "source": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "target": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7152907275413847,
+      "verifiedRelation": "solution-replacement"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "reminder-project-speckit-specifier-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7088557517743612,
+      "verifiedRelation": "representation"
+    },
+    {
+      "source": "reminder-project-speckit-specifier-memory",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7088557517743612,
+      "verifiedRelation": "transfer"
+    },
+    {
+      "source": "learning-retrospective-memory-refactor-session",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7067890634906844,
+      "verifiedRelation": "update-recall"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "learning-retrospective-memory-refactor-session",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7067890634906844,
+      "verifiedRelation": "refactor-memory"
+    },
+    {
+      "source": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7022531660878507,
+      "verifiedRelation": "specification-details"
+    },
+    {
+      "source": "reminder-project-speckit-explorer-memory",
+      "target": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7022531660878507,
+      "verifiedRelation": "update-graph"
     }
   ]
 }

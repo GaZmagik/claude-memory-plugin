@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-23T22:09:49.626Z",
+  "lastUpdated": "2026-02-24T07:59:32.210Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14433,6 +14433,169 @@
       "updated": "2026-02-23T22:09:49.621Z",
       "scope": "project",
       "relativePath": "permanent/artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges.md"
+    },
+    {
+      "id": "learning-retro-parallel-file-edits-on-coordinated-version-bumps-accelerated-release-workflow",
+      "type": "learning",
+      "title": "Retro - Parallel file edits on coordinated version bumps accelerated release workflow",
+      "tags": [
+        "retrospective",
+        "process",
+        "workflow",
+        "parallelisation",
+        "project"
+      ],
+      "created": "2026-02-23T22:34:31.372Z",
+      "updated": "2026-02-23T22:34:31.372Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-file-edits-on-coordinated-version-bumps-accelerated-release-workflow.md",
+      "severity": "low"
+    },
+    {
+      "id": "gotcha-retro-t147-test-failures-could-have-been-fixed-with-targeted-basepath-validation-fix",
+      "type": "gotcha",
+      "title": "Retro - T147 test failures could have been fixed with targeted basePath validation fix",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "T147",
+        "project"
+      ],
+      "created": "2026-02-23T22:34:40.821Z",
+      "updated": "2026-02-23T22:34:40.821Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-t147-test-failures-could-have-been-fixed-with-targeted-basepath-validation-fix.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-memory-artifacts-created-but-relationship-edges-not-established",
+      "type": "learning",
+      "title": "Retro - Memory artifacts created but relationship edges not established",
+      "tags": [
+        "retrospective",
+        "process",
+        "memory",
+        "knowledge-graph",
+        "project"
+      ],
+      "created": "2026-02-23T22:34:41.909Z",
+      "updated": "2026-02-23T22:34:41.909Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-memory-artifacts-created-but-relationship-edges-not-established.md",
+      "severity": "low"
+    },
+    {
+      "id": "artifact-scoreedges-batch-cosine-similarity-backfill-implementation",
+      "type": "artifact",
+      "title": "scoreEdges: batch cosine similarity backfill implementation",
+      "tags": [
+        "score-edges",
+        "refresh",
+        "batch",
+        "similarity",
+        "graph",
+        "edges",
+        "project"
+      ],
+      "created": "2026-02-23T22:36:00.811Z",
+      "updated": "2026-02-23T22:36:00.811Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-scoreedges-batch-cosine-similarity-backfill-implementation.md"
+    },
+    {
+      "id": "decision-direct-mutable-edge-mutation-vs-immutable-updateedge-pattern",
+      "type": "decision",
+      "title": "direct mutable edge mutation vs immutable updateEdge pattern",
+      "tags": [
+        "score-edges",
+        "design",
+        "mutations",
+        "project"
+      ],
+      "created": "2026-02-23T22:36:02.275Z",
+      "updated": "2026-02-23T22:36:02.275Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-direct-mutable-edge-mutation-vs-immutable-updateedge-pattern.md"
+    },
+    {
+      "id": "learning-export-validation-utilities-for-cross-module-reuse",
+      "type": "learning",
+      "title": "export validation utilities for cross-module reuse",
+      "tags": [
+        "exports",
+        "validation",
+        "reusable-patterns",
+        "project"
+      ],
+      "created": "2026-02-23T22:36:04.046Z",
+      "updated": "2026-02-23T22:36:04.046Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-export-validation-utilities-for-cross-module-reuse.md"
+    },
+    {
+      "id": "gotcha-syncmemories-projectroot-path-mismatch-in-integration-tests",
+      "type": "gotcha",
+      "title": "syncMemories projectRoot path mismatch in integration tests",
+      "tags": [
+        "testing",
+        "path-resolution",
+        "integration-tests",
+        "t147",
+        "project"
+      ],
+      "created": "2026-02-24T07:59:24.445Z",
+      "updated": "2026-02-24T07:59:24.445Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-syncmemories-projectroot-path-mismatch-in-integration-tests.md"
+    },
+    {
+      "id": "learning-typescript-nouncheckedindexedaccess-requires-defensive-coding-for-record-access",
+      "type": "learning",
+      "title": "TypeScript noUncheckedIndexedAccess requires defensive coding for Record access",
+      "tags": [
+        "typescript",
+        "strict-mode",
+        "testing",
+        "patterns",
+        "project"
+      ],
+      "created": "2026-02-24T07:59:24.952Z",
+      "updated": "2026-02-24T07:59:24.952Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-nouncheckedindexedaccess-requires-defensive-coding-for-record-access.md"
+    },
+    {
+      "id": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "type": "learning",
+      "title": "Mocking process.cwd() isolates file discovery tests from filesystem state",
+      "tags": [
+        "testing",
+        "isolation",
+        "file-discovery",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-24T07:59:25.438Z",
+      "updated": "2026-02-24T07:59:25.438Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state.md"
+    },
+    {
+      "id": "artifact-bun-test-enum-cast-workaround",
+      "type": "artifact",
+      "title": "bun:test enum casting workaround for typed toBe() matchers",
+      "tags": [
+        "bun",
+        "testing",
+        "enums",
+        "type-system",
+        "project"
+      ],
+      "created": "2026-02-24T07:59:32.203Z",
+      "updated": "2026-02-24T07:59:32.203Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-bun-test-enum-cast-workaround.md"
     }
   ]
 }

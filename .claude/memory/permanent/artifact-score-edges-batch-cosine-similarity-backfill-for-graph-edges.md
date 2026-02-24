@@ -3,8 +3,9 @@ id: artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges
 title: "score-edges: batch cosine similarity backfill for graph edges"
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-23T22:09:49.621Z"
-updated: "2026-02-23T22:09:49.621Z"
+updated: "2026-02-23T22:36:09.639Z"
 tags:
   - score-edges
   - refresh

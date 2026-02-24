@@ -35,7 +35,7 @@ describe('injection-latency', () => {
 
     const start = performance.now();
     memories.sort((a, b) => {
-      const typeDiff = typePriority[a.type] - typePriority[b.type];
+      const typeDiff = (typePriority[a.type] ?? 0) - (typePriority[b.type] ?? 0);
       if (typeDiff !== 0) return typeDiff;
       return b.score - a.score;
     });
@@ -67,7 +67,7 @@ describe('injection-latency', () => {
     };
 
     const memories = Array.from({ length: 10 }, (_, i) => ({
-      type: ['gotcha', 'decision', 'learning'][i % 3],
+      type: ['gotcha', 'decision', 'learning'][i % 3]!,
       title: `Memory ${i}`,
       content: 'Some content here',
     }));

@@ -5,7 +5,7 @@ describe('Scope enum - Agent scope extension', () => {
   describe('AgentProject scope', () => {
     it('should have AgentProject value', () => {
       expect(Scope.AgentProject).toBeDefined();
-      expect(Scope.AgentProject).toBe('agent-project');
+      expect(Scope.AgentProject as string).toBe('agent-project');
     });
 
     it('should be distinct from Project scope', () => {
@@ -16,7 +16,7 @@ describe('Scope enum - Agent scope extension', () => {
   describe('AgentGlobal scope', () => {
     it('should have AgentGlobal value', () => {
       expect(Scope.AgentGlobal).toBeDefined();
-      expect(Scope.AgentGlobal).toBe('agent-global');
+      expect(Scope.AgentGlobal as string).toBe('agent-global');
     });
 
     it('should be distinct from Global scope', () => {
@@ -31,15 +31,15 @@ describe('Scope enum - Agent scope extension', () => {
     });
 
     it('should include all existing scopes', () => {
-      expect(Scope.Enterprise).toBe('enterprise');
-      expect(Scope.Local).toBe('local');
-      expect(Scope.Project).toBe('project');
-      expect(Scope.Global).toBe('global');
+      expect(Scope.Enterprise as string).toBe('enterprise');
+      expect(Scope.Local as string).toBe('local');
+      expect(Scope.Project as string).toBe('project');
+      expect(Scope.Global as string).toBe('global');
     });
 
     it('should support type-safe enum member access', () => {
       const testScope: Scope = Scope.AgentProject;
-      expect(testScope).toBe('agent-project');
+      expect(testScope as string).toBe('agent-project');
     });
   });
 

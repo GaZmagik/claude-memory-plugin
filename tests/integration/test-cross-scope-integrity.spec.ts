@@ -351,7 +351,7 @@ describe('Cross-scope link bidirectional integrity', () => {
       graph = await loadGraph(basePath);
       expect(graph.edges.length).toBe(1);
 
-      const remainingEdge = graph.edges[0];
+      const remainingEdge = graph.edges[0]!;
       expect(remainingEdge.source).toBe('decision-unlink-a');
       expect(remainingEdge.target).toBe('gotcha-unlink-c');
     });

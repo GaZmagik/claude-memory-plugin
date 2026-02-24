@@ -46,6 +46,11 @@ const NODES_AB = [
   { id: 'mem-b', type: 'learning' },
 ];
 
+const NODES_AB_TITLED = [
+  { id: 'mem-a', type: 'decision', title: 'Decision about caching strategy' },
+  { id: 'mem-b', type: 'learning', title: 'Learning "about" control\x00chars' },
+];
+
 // ============================================================================
 // Core scoring behaviour
 // ============================================================================
@@ -271,9 +276,28 @@ describe('scoreEdges --verify', () => {
     expect(graph.edges[0].verifiedRelation).toBeUndefined();
   });
 
+  // T16: node titles are sanitised before LLM prompt interpolation
+  it('sanitises node titles (strips quotes and control chars) before inserting into LLM prompt', async () => {
+    // Override graph with titled nodes; embeddings from beforeEach still apply
+    writeGraph(testDir, NODES_AB_TITLED, [
+      { source: 'mem-a', target: 'mem-b', label: 'relates-to' },
+    ]);
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('relates-to');
+
+    await scoreEdges({ basePath: testDir, verify: true });
+
+    expect(generateSpy).toHaveBeenCalledOnce();
+    const prompt = generateSpy.mock.calls[0]?.[0] as string;
+    // Raw title: 'Learning "about" control\x00chars' — quotes and NUL stripped
+    expect(prompt).toContain('Decision about caching strategy');
+    expect(prompt).toContain('Learning about controlchars');
+    expect(prompt).not.toMatch(/['"]/);
+    expect(prompt).not.toMatch(/[\x00-\x1f]/);
+  });
+
   // T15: --verify + --dry-run never calls Ollama generate()
   it('does not invoke Ollama generate() when --verify and --dry-run are both set', async () => {
-    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
     const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('relates-to');
 
     const result = await scoreEdges({ basePath: testDir, verify: true, dryRun: true });

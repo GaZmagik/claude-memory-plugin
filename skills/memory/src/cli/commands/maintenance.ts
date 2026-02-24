@@ -209,12 +209,20 @@ export async function cmdSyncFrontmatter(args: ParsedArgs): Promise<CliResponse>
  * refresh - Backfill missing frontmatter fields and migrate legacy data
  *
  * Usage: memory refresh [scope] [--dry-run] [--project <name>] [--id <id>]
+ *        [--embeddings] [--score-edges [--verify] [--apply] [--force]]
  *
  * Updates memory files to include:
  * - id: Memory ID (from filename)
  * - project: Project name (from git repo or directory)
  *
  * Also migrates legacy embedding hashes from frontmatter to embeddings.json.
+ *
+ * Flags:
+ * --embeddings   Generate/update embeddings for all memories (requires Ollama)
+ * --score-edges  Batch-compute cosine similarity for all graph edges
+ * --verify       (with --score-edges) Ask Ollama to suggest a relation label → verifiedRelation
+ * --apply        (with --score-edges) Promote verifiedRelation → label on all embeddable edges
+ * --force        (with --score-edges) Re-score edges that already have similarity set
  */
 export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];

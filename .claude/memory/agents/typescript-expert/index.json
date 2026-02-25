@@ -1,5 +1,22 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-23T11:43:49.638Z",
-  "memories": []
+  "lastUpdated": "2026-02-25T21:26:44.826Z",
+  "memories": [
+    {
+      "id": "gotcha-vitest-vihoisted-required-for-mock-fns-referenced-in-vimock-factories",
+      "type": "gotcha",
+      "title": "vitest vi.hoisted() required for mock fns referenced in vi.mock() factories",
+      "tags": [
+        "vitest",
+        "mocking",
+        "hoisting",
+        "bun-migration",
+        "project"
+      ],
+      "created": "2026-02-25T21:26:44.813Z",
+      "updated": "2026-02-25T21:26:44.813Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vitest-vihoisted-required-for-mock-fns-referenced-in-vimock-factories.md"
+    }
+  ]
 }

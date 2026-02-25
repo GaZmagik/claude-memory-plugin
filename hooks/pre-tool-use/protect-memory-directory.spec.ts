@@ -6,7 +6,7 @@
  * Includes both unit tests for path detection and E2E tests that spawn the actual hook.
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { join } from 'path';
 import { spawn } from '../src/core/subprocess.ts';
 

@@ -155,7 +155,7 @@ export class ProgressReporter {
 
     let line: string;
     if (this.total > 0) {
-      const pct = Math.round((this.current / this.total) * 100);
+      const pct = Math.min(100, Math.round((this.current / this.total) * 100));
       line = `${this.operation} [${this.current}/${this.total}] ${pct}%`;
     } else if (this.current > 0) {
       line = `${this.operation} [${this.current}]`;
@@ -188,9 +188,10 @@ export class ProgressReporter {
 export function createMultiPhaseProgress(
   operationName: string,
   phases: string[],
-  output?: (text: string) => void
+  output?: (text: string) => void,
+  options?: { showElapsed?: boolean }
 ): MultiPhaseProgress {
-  return new MultiPhaseProgress(operationName, phases, output);
+  return new MultiPhaseProgress(operationName, phases, output, options);
 }
 
 /**
@@ -201,17 +202,20 @@ export class MultiPhaseProgress {
   private currentPhase: number = -1;
   private reporter: ProgressReporter | null = null;
   private operationName: string;
-  private output: ((text: string) => void) | undefined;
+  private output: (text: string) => void;
+  private showElapsed: boolean;
   private startTime: number;
 
   constructor(
     operationName: string,
     phases: string[],
-    output?: (text: string) => void
+    output?: (text: string) => void,
+    options?: { showElapsed?: boolean }
   ) {
     this.operationName = operationName;
     this.phases = phases;
-    this.output = output;
+    this.output = output ?? ((text: string) => process.stderr.write(text));
+    this.showElapsed = options?.showElapsed ?? true;
     this.startTime = Date.now();
   }
 
@@ -253,9 +257,9 @@ export class MultiPhaseProgress {
       this.reporter = null;
     }
 
-    const elapsed = formatElapsed(Date.now() - this.startTime);
     const msg = summary ?? `${this.operationName} complete`;
-    const out = this.output ?? ((text: string) => process.stderr.write(text));
-    out(`${msg} (${elapsed})\n`);
+    const elapsed = formatElapsed(Date.now() - this.startTime);
+    const line = this.showElapsed ? `${msg} (${elapsed})` : msg;
+    this.output(`${line}\n`);
   }
 }

@@ -425,4 +425,5 @@ describe('reindexMemory mocked edge cases', () => {
 
   // Note: Removed phantom test 'should return error when frontmatter is null'
   // parseMemoryFile throws on invalid input, never returns null frontmatter
+  it.todo('needs implementation');
 });

@@ -6,7 +6,7 @@
  * SubagentStop only exposes agent_id.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { existsSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';

@@ -6,7 +6,7 @@
  * based on git branch context at session start.
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { spawn } from '../src/core/subprocess.ts';

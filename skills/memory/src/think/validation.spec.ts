@@ -2,7 +2,7 @@
  * Tests for Think Validation
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import {
   validateThinkCreate,
   validateThinkAdd,

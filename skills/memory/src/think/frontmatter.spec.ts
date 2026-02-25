@@ -2,7 +2,7 @@
  * Tests for Think Frontmatter Utilities
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { memoryId, sessionId } from '../test-utils/branded-helpers.js';
 import {
   parseThinkDocument,

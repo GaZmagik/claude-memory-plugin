@@ -3,7 +3,7 @@
  * TDD: Tests written first to define expected behaviour
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { join } from 'path';
 import { mkdirSync, writeFileSync, rmSync, existsSync, readFileSync } from 'fs';
 import {
@@ -12,7 +12,7 @@ import {
   validateSettings,
   DEFAULT_SETTINGS,
   checkAndMigrateSettingsVersion,
-} from './plugin-settings.ts';
+} from './plugin-settings.js';
 
 describe('plugin-settings', () => {
   const testDir = join(process.cwd(), '.test-settings');

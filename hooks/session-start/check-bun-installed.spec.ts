@@ -12,7 +12,7 @@
  * 3. Test actual script behaviour via spawn
  */
 
-import { describe, it, expect, beforeAll, afterAll } from 'bun:test';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { join } from 'path';
 import { mkdirSync, rmSync, writeFileSync } from 'fs';
 import { spawn } from '../src/core/subprocess.ts';

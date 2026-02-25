@@ -2,7 +2,6 @@
  * Tests for CLI Bulk Commands
  */
 
-import * as fs from 'node:fs';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { cmdBulkLink, cmdBulkDelete, cmdExport, cmdImport, cmdBulkMove, cmdBulkTag, cmdBulkUnlink, cmdBulkPromote } from './bulk.js';
 import * as bulkModule from '../../bulk/index.js';
@@ -10,6 +9,15 @@ import * as exportModule from '../../core/export.js';
 import * as importModule from '../../core/import.js';
 import * as parserModule from '../parser.js';
 import type { ParsedArgs } from '../parser.js';
+
+const { mockReadFileSync } = vi.hoisted(() => ({
+  mockReadFileSync: vi.fn(),
+}));
+
+vi.mock('node:fs', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:fs')>()),
+  readFileSync: mockReadFileSync,
+}));
 
 describe('cmdBulkLink', () => {
   afterEach(() => {
@@ -200,7 +208,7 @@ describe('cmdImport', () => {
   });
 
   it('calls importMemories with file content', async () => {
-    vi.spyOn(fs, 'readFileSync').mockReturnValue('{"version":"1.0","memories":[]}');
+    mockReadFileSync.mockReturnValue('{"version":"1.0","memories":[]}');
     vi.spyOn(importModule, 'importMemories').mockResolvedValue({
       status: 'success',
       importedCount: 5,
@@ -210,12 +218,12 @@ describe('cmdImport', () => {
     const result = await cmdImport(args);
 
     expect(result.status).toBe('success');
-    expect(fs.readFileSync).toHaveBeenCalledWith('backup.json', 'utf8');
+    expect(mockReadFileSync).toHaveBeenCalledWith('backup.json', 'utf8');
     expect(importModule.importMemories).toHaveBeenCalled();
   });
 
   it('passes merge strategy by default', async () => {
-    vi.spyOn(fs, 'readFileSync').mockReturnValue('{"version":"1.0","memories":[]}');
+    mockReadFileSync.mockReturnValue('{"version":"1.0","memories":[]}');
     vi.spyOn(importModule, 'importMemories').mockResolvedValue({
       status: 'success',
     } as any);
@@ -229,7 +237,7 @@ describe('cmdImport', () => {
   });
 
   it('passes replace strategy when flag set', async () => {
-    vi.spyOn(fs, 'readFileSync').mockReturnValue('{"version":"1.0","memories":[]}');
+    mockReadFileSync.mockReturnValue('{"version":"1.0","memories":[]}');
     vi.spyOn(importModule, 'importMemories').mockResolvedValue({
       status: 'success',
     } as any);

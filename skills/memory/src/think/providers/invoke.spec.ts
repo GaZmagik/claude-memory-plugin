@@ -5,10 +5,18 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { invokeProviderCli, DEFAULT_TIMEOUT_MS } from './invoke.js';
 import type { ProviderCommand } from '../../types/provider-config.js';
-import * as childProcess from 'node:child_process';
 import * as codexParser from './codex-parser.js';
 import * as geminiParser from './gemini-parser.js';
 import * as errors from './errors.js';
+
+const { mockExecFileSync } = vi.hoisted(() => ({
+  mockExecFileSync: vi.fn(),
+}));
+
+vi.mock('node:child_process', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:child_process')>()),
+  execFileSync: mockExecFileSync,
+}));
 
 describe('invokeProviderCli', () => {
   beforeEach(() => {
@@ -18,7 +26,7 @@ describe('invokeProviderCli', () => {
   describe('successful execution', () => {
     it('executes command and returns result for claude provider', () => {
       const mockOutput = 'Claude response';
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue(mockOutput);
+      mockExecFileSync.mockReturnValue(mockOutput);
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -28,7 +36,7 @@ describe('invokeProviderCli', () => {
 
       const result = invokeProviderCli(command, 'claude', 'claude-sonnet-4');
 
-      expect(childProcess.execFileSync).toHaveBeenCalledWith(
+      expect(mockExecFileSync).toHaveBeenCalledWith(
         'claude',
         ['--print', 'test'],
         expect.objectContaining({
@@ -46,7 +54,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('uses DEFAULT_TIMEOUT_MS when command.timeout not provided', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('output');
+      mockExecFileSync.mockReturnValue('output');
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -55,7 +63,7 @@ describe('invokeProviderCli', () => {
 
       invokeProviderCli(command, 'claude');
 
-      expect(childProcess.execFileSync).toHaveBeenCalledWith(
+      expect(mockExecFileSync).toHaveBeenCalledWith(
         'claude',
         ['--print', 'test'],
         expect.objectContaining({
@@ -65,7 +73,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('parses codex output when provider is codex', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('raw codex output');
+      mockExecFileSync.mockReturnValue('raw codex output');
       vi.spyOn(codexParser, 'parseCodexOutput').mockReturnValue('parsed codex');
 
       const command: ProviderCommand = {
@@ -82,7 +90,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('parses gemini output when provider is gemini', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('raw gemini output');
+      mockExecFileSync.mockReturnValue('raw gemini output');
       vi.spyOn(geminiParser, 'parseGeminiOutput').mockReturnValue('parsed gemini');
 
       const command: ProviderCommand = {
@@ -99,7 +107,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('trims whitespace from output', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('  output with spaces  \n');
+      mockExecFileSync.mockReturnValue('  output with spaces  \n');
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -113,7 +121,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('passes custom environment variables when provided', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('output');
+      mockExecFileSync.mockReturnValue('output');
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -124,7 +132,7 @@ describe('invokeProviderCli', () => {
 
       invokeProviderCli(command, 'claude');
 
-      expect(childProcess.execFileSync).toHaveBeenCalledWith(
+      expect(mockExecFileSync).toHaveBeenCalledWith(
         'claude',
         ['--print', 'test'],
         expect.objectContaining({
@@ -134,7 +142,7 @@ describe('invokeProviderCli', () => {
     });
 
     it('omits env when not provided', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('output');
+      mockExecFileSync.mockReturnValue('output');
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -144,7 +152,7 @@ describe('invokeProviderCli', () => {
 
       invokeProviderCli(command, 'claude');
 
-      expect(childProcess.execFileSync).toHaveBeenCalledWith(
+      expect(mockExecFileSync).toHaveBeenCalledWith(
         'claude',
         ['--print', 'test'],
         expect.objectContaining({
@@ -161,7 +169,7 @@ describe('invokeProviderCli', () => {
         status: null,
         stderr: Buffer.from('timeout error')
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw timeoutError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Provider timeout after 30s');
@@ -188,7 +196,7 @@ describe('invokeProviderCli', () => {
         status: null,
         stderr: ''
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw timeoutError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Timeout');
@@ -212,7 +220,7 @@ describe('invokeProviderCli', () => {
         stderr: 'Command not found',
         killed: false
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw execError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Provider error: Command not found');
@@ -244,7 +252,7 @@ describe('invokeProviderCli', () => {
         stderr: Buffer.from('Buffer error message'),
         killed: false
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw execError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Provider error');
@@ -271,7 +279,7 @@ describe('invokeProviderCli', () => {
         status: 1,
         killed: false
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw execError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Unknown error');
@@ -298,7 +306,7 @@ describe('invokeProviderCli', () => {
         stderr: '',
         killed: false
       };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw execError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Unknown error');
@@ -322,7 +330,7 @@ describe('invokeProviderCli', () => {
 
   describe('duration tracking', () => {
     it('tracks execution duration for successful calls', () => {
-      vi.spyOn(childProcess, 'execFileSync').mockReturnValue('output');
+      mockExecFileSync.mockReturnValue('output');
 
       const command: ProviderCommand = {
         binary: 'claude',
@@ -338,7 +346,7 @@ describe('invokeProviderCli', () => {
 
     it('tracks execution duration for timeouts', () => {
       const timeoutError = { killed: true, status: null, stderr: '' };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw timeoutError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Timeout');
@@ -357,7 +365,7 @@ describe('invokeProviderCli', () => {
 
     it('tracks execution duration for errors', () => {
       const execError = { status: 1, stderr: 'error', killed: false };
-      vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      mockExecFileSync.mockImplementation(() => {
         throw execError;
       });
       vi.spyOn(errors, 'formatProviderError').mockReturnValue('Error');

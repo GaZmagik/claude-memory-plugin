@@ -2,7 +2,7 @@
  * Tests for Think Conclude Operations
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach, setSystemTime } from 'bun:test';
+import { describe, it, expect, vi, beforeEach, afterEach, setSystemTime } from 'vitest';
 import * as documentModule from './document.js';
 import * as stateModule from './state.js';
 import * as fsUtilsModule from '../core/fs-utils.js';

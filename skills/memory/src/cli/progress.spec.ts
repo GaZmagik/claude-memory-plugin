@@ -2,7 +2,7 @@
  * Tests for Progress Reporting Utility
  */
 
-import { describe, it, expect, beforeEach } from 'bun:test';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { ProgressReporter, MultiPhaseProgress, createMultiPhaseProgress } from './progress.js';
 import type { ProgressCallback } from './progress.js';
 
@@ -110,10 +110,9 @@ describe('ProgressReporter', () => {
 
     reporter.update(1);
 
-    // The output should not contain time patterns beyond the initial render
-    // Just check that "Quick" is present
     const allOutput = output.join('');
     expect(allOutput).toContain('Quick');
+    expect(allOutput).not.toMatch(/\d+(ms|s)/);
   });
 
   it('should support complete with summary', () => {
@@ -146,6 +145,22 @@ describe('ProgressReporter', () => {
     reporter.complete('Again');
 
     expect(output.length).toBe(countAfterComplete);
+  });
+
+  it('should clamp percentage to 100% when current exceeds total', () => {
+    const reporter = new ProgressReporter({
+      operation: 'Overflow',
+      total: 10,
+      output: outputFn,
+      throttleMs: 0,
+    });
+
+    reporter.update(12);
+
+    const allOutput = output.join('');
+    expect(allOutput).toContain('[12/10]');
+    expect(allOutput).toContain('100%');
+    expect(allOutput).not.toContain('120%');
   });
 
   it('should support setTotal to update total mid-operation', () => {
@@ -290,6 +305,19 @@ describe('MultiPhaseProgress', () => {
 
     const allOutput = output.join('');
     expect(allOutput).toContain('All done');
+  });
+
+  it('should respect showElapsed: false in complete()', () => {
+    const progress = createMultiPhaseProgress('Silent Timer', [
+      'Step 1',
+    ], outputFn, { showElapsed: false });
+
+    progress.nextPhase();
+    progress.complete('Done quietly');
+
+    const allOutput = output.join('');
+    expect(allOutput).toContain('Done quietly');
+    expect(allOutput).not.toMatch(/Done quietly \(\d+(ms|s|m)/);
   });
 
   it('should expose current reporter', () => {

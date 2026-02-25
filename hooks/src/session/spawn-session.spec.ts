@@ -4,43 +4,51 @@
  * Tests the background Claude session spawning infrastructure
  * used for memory capture in PreCompact and SessionEnd hooks.
  *
- * Note: Uses bun:test mock.module() to be compatible with other
- * isolated tests that mock node modules.
+ * Note: Uses vitest vi.mock() to mock node modules.
  *
  * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level mock.module() for fs and child_process which creates
- * global state. Must run separately with: bun test <this-file>
+ * Uses module-level vi.mock() for fs and child_process which creates
+ * global state. Must run separately with: vitest run <this-file>
  * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
-import { describe, it, expect, mock, beforeEach, afterAll } from 'bun:test';
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
-import * as originalFs from 'fs';
-import * as originalChildProcess from 'node:child_process';
+import type * as OriginalFs from 'fs';
+import type * as OriginalChildProcess from 'node:child_process';
 
-// Create mock functions
-const mockExistsSync = mock(() => false);
-const mockMkdirSync = mock(() => undefined);
-const mockWriteFileSync = mock(() => undefined);
-const mockSpawn = mock(() => ({ unref: mock(() => undefined) }));
+// Hoist mock functions so they can be referenced inside vi.mock() factories
+const {
+  mockExistsSync,
+  mockMkdirSync,
+  mockWriteFileSync,
+  mockSpawn,
+} = vi.hoisted(() => {
+  const mockUnref = vi.fn(() => undefined);
+  return {
+    mockExistsSync: vi.fn(() => false),
+    mockMkdirSync: vi.fn(() => undefined),
+    mockWriteFileSync: vi.fn(() => undefined),
+    mockSpawn: vi.fn(() => ({ unref: mockUnref })),
+  };
+});
 
 // Mock fs - spread original and override only what we need
-mock.module('fs', () => ({
-  ...originalFs,
+vi.mock('fs', async (importOriginal) => ({
+  ...(await importOriginal<typeof OriginalFs>()),
   existsSync: mockExistsSync,
   mkdirSync: mockMkdirSync,
   writeFileSync: mockWriteFileSync,
 }));
 
 // Mock child_process - spread original and override only what we need
-mock.module('node:child_process', () => ({
-  ...originalChildProcess,
+vi.mock('node:child_process', async (importOriginal) => ({
+  ...(await importOriginal<typeof OriginalChildProcess>()),
   spawn: mockSpawn,
 }));
 
-// Import after mocking
-const {
+import {
   getLogDir,
   getTimestamp,
   isMemoryCaptureSession,
@@ -48,9 +56,9 @@ const {
   spawnSessionWithContext,
   validateShellSafe,
   validatePathSafe,
-} = await import('../../../hooks/src/session/spawn-session.js');
-const fs = await import('fs');
-const childProcess = await import('node:child_process');
+} from '../../../hooks/src/session/spawn-session.js';
+import * as fs from 'fs';
+import * as childProcess from 'node:child_process';
 
 describe('spawn-session', () => {
   beforeEach(() => {
@@ -61,9 +69,7 @@ describe('spawn-session', () => {
   });
 
   afterAll(() => {
-    // Restore original modules
-    mock.module('fs', () => originalFs);
-    mock.module('node:child_process', () => originalChildProcess);
+    vi.restoreAllMocks();
   });
 
   describe('getTimestamp', () => {

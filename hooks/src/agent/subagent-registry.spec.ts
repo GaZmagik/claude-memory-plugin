@@ -6,7 +6,7 @@
  * atomically claimed by the first consumer (PostToolUse or SessionEnd).
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { existsSync, readFileSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';

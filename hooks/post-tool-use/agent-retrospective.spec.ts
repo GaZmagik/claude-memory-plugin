@@ -7,7 +7,7 @@
  *   - The hook gracefully falls back to the reminder message
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { spawnSync } from 'child_process';
 import { readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';

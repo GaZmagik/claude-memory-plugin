@@ -61,8 +61,8 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
         dryRun,
         agent: agentName,
         onProgress: (phase, current, total) => {
-          progress.update(current, `${phase}`);
           progress.setTotal(total);
+          progress.update(current, `${phase}`);
         },
       });
       progress.complete(
@@ -108,8 +108,8 @@ export async function cmdRepair(args: ParsedArgs): Promise<CliResponse> {
         dryRun,
         agent: agentName,
         onProgress: (phase, current, total) => {
-          syncProgress.update(current, phase);
           syncProgress.setTotal(total);
+          syncProgress.update(current, phase);
         },
       });
       syncProgress.complete('Sync phase complete');
@@ -270,6 +270,7 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         dryRun,
         project,
         ids,
+        onProgress: refreshProgress.toCallback(),
       });
       refreshProgress.complete(
         `Frontmatter refresh: ${result.updated} updated, ${result.skipped} skipped`
@@ -282,23 +283,24 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         const index = await loadIndex({ basePath });
         const provider = createOllamaProvider();
 
+        // Pre-filter to only eligible memories (exclude thoughts, temporaries, and non-matching IDs)
+        const eligibleMemories = index.memories.filter(entry => {
+          if (!entry) return false;
+          if (ids && !ids.includes(entry.id)) return false;
+          if (entry.id.startsWith('thought-') || entry.relativePath?.includes('temporary/')) return false;
+          return true;
+        });
+
         // Build memory list for embedding
         const collectProgress = new ProgressReporter({
           operation: 'Collecting memories for embedding',
-          total: index.memories.length,
+          total: eligibleMemories.length,
         });
         const memoriesToEmbed: Array<{ id: string; content: string; hash?: string }> = [];
-        for (let i = 0; i < index.memories.length; i++) {
-          const entry = index.memories[i];
-          if (!entry) continue;
+        for (let i = 0; i < eligibleMemories.length; i++) {
+          const entry = eligibleMemories[i]!;
 
           collectProgress.update(i + 1, entry.id);
-
-          // Skip if filtering by IDs and this one isn't included
-          if (ids && !ids.includes(entry.id)) continue;
-
-          // Skip temporary memories (thoughts) - they're ephemeral and often too large
-          if (entry.id.startsWith('thought-') || entry.relativePath?.includes('temporary/')) continue;
 
           const memoryResult = await readMemory({ id: entry.id, basePath });
           if (memoryResult.status === 'success' && memoryResult.memory?.content) {

@@ -5,7 +5,7 @@
  * For agent sessions (CLAUDE_AGENT_NAME set), triggers on any exit reason.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { existsSync, mkdirSync, writeFileSync, rmSync, readdirSync, unlinkSync } from 'fs';
 import { spawnSync } from 'child_process';
 import { join } from 'path';

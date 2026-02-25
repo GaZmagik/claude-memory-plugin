@@ -9,7 +9,15 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { getScopeNameFromPath, formatScopedResult } from './scope-indicators.js';
 import * as path from 'node:path';
-import * as os from 'node:os';
+
+const { mockHomedir } = vi.hoisted(() => ({
+  mockHomedir: vi.fn(),
+}));
+
+vi.mock('node:os', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:os')>()),
+  homedir: mockHomedir,
+}));
 
 describe('getScopeNameFromPath', () => {
   const mockHome = '/home/testuser';
@@ -17,7 +25,7 @@ describe('getScopeNameFromPath', () => {
 
   beforeEach(() => {
     // Mock os.homedir() to return consistent home directory
-    vi.spyOn(os, 'homedir').mockReturnValue(mockHome);
+    mockHomedir.mockReturnValue(mockHome);
   });
 
   afterEach(() => {
@@ -118,7 +126,7 @@ describe('getScopeNameFromPath', () => {
     });
 
     it('uses actual home directory for detection', () => {
-      const actualHome = os.homedir();
+      const actualHome = mockHome; // uses the mocked value
       const globalPath = path.join(actualHome, '.claude/memory');
       const scopeName = getScopeNameFromPath(globalPath);
 

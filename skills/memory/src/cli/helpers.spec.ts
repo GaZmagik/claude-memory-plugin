@@ -2,7 +2,7 @@
  * Tests for CLI helpers module
  */
 
-import { describe, expect, it, beforeEach, afterEach } from 'bun:test';
+import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import {
   parseScope,
   parseMemoryType,

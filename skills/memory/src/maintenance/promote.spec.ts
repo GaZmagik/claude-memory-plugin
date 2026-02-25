@@ -10,11 +10,32 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 
+const { mockExistsSync, mockMkdirSync, mockReadFileSync } = vi.hoisted(() => ({
+  mockExistsSync: vi.fn(),
+  mockMkdirSync: vi.fn(),
+  mockReadFileSync: vi.fn(),
+}));
+
+vi.mock('node:fs', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('node:fs')>();
+  return {
+    ...actual,
+    existsSync: mockExistsSync,
+    mkdirSync: mockMkdirSync,
+    readFileSync: mockReadFileSync,
+  };
+});
+
 describe('promoteMemory', () => {
   let tempDir: string;
   let basePath: string;
 
   beforeEach(() => {
+    // Pass through to real implementations for filesystem setup tests
+    mockExistsSync.mockImplementation(fs.existsSync);
+    mockMkdirSync.mockImplementation(fs.mkdirSync as any);
+    mockReadFileSync.mockImplementation(fs.readFileSync as any);
+
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'promote-test-'));
     basePath = path.join(tempDir, '.claude', 'memory');
     fs.mkdirSync(basePath, { recursive: true });
@@ -272,7 +293,7 @@ describe('promoteMemory mocked edge cases', () => {
     let permanentFileChecks = 0;
 
     // Mock existsSync with call-counting for race condition simulation
-    vi.spyOn(fs, 'existsSync').mockImplementation((p: fs.PathLike) => {
+    mockExistsSync.mockImplementation((p: fs.PathLike) => {
       const pathStr = String(p);
 
       // permanent directory check (line 162) - exists
@@ -297,9 +318,9 @@ describe('promoteMemory mocked edge cases', () => {
     });
 
     // Mock mkdirSync to prevent actual directory creation
-    vi.spyOn(fs, 'mkdirSync').mockImplementation(() => undefined);
+    mockMkdirSync.mockImplementation(() => undefined);
 
-    vi.spyOn(fs, 'readFileSync').mockReturnValue(`---
+    mockReadFileSync.mockReturnValue(`---
 type: breadcrumb
 title: Test
 created: 2026-01-01T00:00:00.000Z

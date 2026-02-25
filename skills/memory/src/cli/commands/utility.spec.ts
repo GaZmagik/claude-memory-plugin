@@ -2,6 +2,7 @@
  * Tests for CLI Utility Commands
  */
 
+import * as fs from 'node:fs';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { cmdRename, cmdMove, cmdPromote, cmdArchive, cmdStatus, cmdCheckRelevance } from './utility.js';
 import * as renameModule from '../../maintenance/rename.js';
@@ -11,17 +12,6 @@ import * as archiveModule from '../../maintenance/archive.js';
 import * as structureModule from '../../graph/structure.js';
 import * as checkRelevanceModule from '../../maintenance/check-relevance.js';
 import type { ParsedArgs } from '../parser.js';
-
-const { mockExistsSync, mockReaddirSync } = vi.hoisted(() => ({
-  mockExistsSync: vi.fn(),
-  mockReaddirSync: vi.fn(),
-}));
-
-vi.mock('node:fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('node:fs')>()),
-  existsSync: mockExistsSync,
-  readdirSync: mockReaddirSync,
-}));
 
 describe('cmdRename', () => {
   afterEach(() => {
@@ -106,7 +96,7 @@ describe('cmdMove', () => {
 
   it('auto-detects source scope when memory exists in different scope', async () => {
     // Mock fs.existsSync to simulate memory found in project scope
-    mockExistsSync.mockImplementation((p: import('node:fs').PathLike) => {
+    vi.spyOn(fs, 'existsSync').mockImplementation((p: fs.PathLike) => {
       const pathStr = String(p);
       // Simulate memory exists in project/permanent
       return pathStr.includes('/permanent/my-id.md') && pathStr.includes('.claude/memory') && !pathStr.includes('/local/');
@@ -135,7 +125,7 @@ describe('cmdMove', () => {
 
   it('returns error when memory not found in any scope', async () => {
     // Mock fs.existsSync to return false for all paths
-    mockExistsSync.mockReturnValue(false);
+    vi.spyOn(fs, 'existsSync').mockReturnValue(false);
 
     const args: ParsedArgs = { positional: ['nonexistent-id', 'global'], flags: {} };
     const result = await cmdMove(args);
@@ -243,8 +233,8 @@ describe('cmdStatus', () => {
   });
 
   it('returns status for all scopes', async () => {
-    mockExistsSync.mockReturnValue(true);
-    mockReaddirSync.mockReturnValue(['a.md', 'b.md'] as any);
+    vi.spyOn(fs, 'existsSync').mockReturnValue(true);
+    vi.spyOn(fs, 'readdirSync').mockReturnValue(['a.md', 'b.md'] as any);
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [],
@@ -263,7 +253,7 @@ describe('cmdStatus', () => {
   });
 
   it('handles missing directories gracefully', async () => {
-    mockExistsSync.mockReturnValue(false);
+    vi.spyOn(fs, 'existsSync').mockReturnValue(false);
     vi.spyOn(structureModule, 'loadGraph').mockRejectedValue(new Error('No graph'));
 
     const args: ParsedArgs = { positional: [], flags: {} };

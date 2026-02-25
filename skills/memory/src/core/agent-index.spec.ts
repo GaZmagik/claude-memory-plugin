@@ -11,6 +11,23 @@ import { Scope, MemoryType } from '../types/enums.js';
 import type { IndexEntry } from '../types/index.js';
 import * as fsUtils from './fs-utils.js';
 
+const { mockWriteFile, mockReadFile, mockAccess, mockRename, mockUnlink } = vi.hoisted(() => ({
+  mockWriteFile: vi.fn(),
+  mockReadFile: vi.fn(),
+  mockAccess: vi.fn(),
+  mockRename: vi.fn(),
+  mockUnlink: vi.fn(),
+}));
+
+vi.mock('node:fs/promises', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:fs/promises')>()),
+  writeFile: mockWriteFile,
+  readFile: mockReadFile,
+  access: mockAccess,
+  rename: mockRename,
+  unlink: mockUnlink,
+}));
+
 describe('Agent index operations', () => {
   const mockAgentPath = '/test/.claude/memory/agents/typescript-expert';
 
@@ -19,10 +36,9 @@ describe('Agent index operations', () => {
     // Mock file system operations to prevent actual file I/O
     vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
 
-    const fsp = await import('node:fs/promises');
-    vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
-    vi.spyOn(fsp, 'rename').mockResolvedValue(undefined);
-    vi.spyOn(fsp, 'unlink').mockResolvedValue(undefined);
+    mockWriteFile.mockResolvedValue(undefined);
+    mockRename.mockResolvedValue(undefined);
+    mockUnlink.mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -49,9 +65,8 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(mockIndexContent));
+      mockAccess.mockResolvedValue(undefined);
+      mockReadFile.mockResolvedValue(JSON.stringify(mockIndexContent));
 
       const result = await loadIndex({ basePath: mockAgentPath });
 
@@ -61,9 +76,8 @@ describe('Agent index operations', () => {
     });
 
     it('should create new index if agent directory has no index', async () => {
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockRejectedValue({ code: 'ENOENT' });
-      vi.spyOn(fsp, 'readFile').mockRejectedValue({ code: 'ENOENT' });
+      mockAccess.mockRejectedValue({ code: 'ENOENT' });
+      mockReadFile.mockRejectedValue({ code: 'ENOENT' });
 
       const result = await loadIndex({ basePath: mockAgentPath });
 
@@ -92,12 +106,11 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      mockWriteFile.mockResolvedValue(undefined);
 
       await saveIndex(mockAgentPath, mockIndex);
 
-      expect(fsp.writeFile).toHaveBeenCalledWith(
+      expect(mockWriteFile).toHaveBeenCalledWith(
         expect.stringContaining('index.json'),
         expect.stringContaining('typescript-expert'),
         'utf-8'
@@ -113,9 +126,8 @@ describe('Agent index operations', () => {
         memories: [],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex));
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      mockReadFile.mockResolvedValue(JSON.stringify(existingIndex));
+      mockWriteFile.mockResolvedValue(undefined);
 
       const newEntry: IndexEntry = {
         id: memoryId('learning-new'),
@@ -132,7 +144,7 @@ describe('Agent index operations', () => {
       await addToIndex(mockAgentPath, newEntry);
 
       // Verify writeFile called with updated index
-      const writeCall = (fsp.writeFile as any).mock.calls[0];
+      const writeCall = mockWriteFile.mock.calls[0];
       const writtenContent = JSON.parse(writeCall[1]);
 
       expect(writtenContent.memories).toHaveLength(1);
@@ -158,10 +170,9 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex));
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
+      mockReadFile.mockResolvedValue(JSON.stringify(existingIndex));
+      mockWriteFile.mockResolvedValue(undefined);
 
       const newEntry: IndexEntry = {
         id: memoryId('learning-new'),
@@ -177,7 +188,7 @@ describe('Agent index operations', () => {
 
       await addToIndex(mockAgentPath, newEntry);
 
-      const writeCall = (fsp.writeFile as any).mock.calls[0];
+      const writeCall = mockWriteFile.mock.calls[0];
       const writtenContent = JSON.parse(writeCall[1]);
 
       expect(writtenContent.memories).toHaveLength(2);
@@ -227,22 +238,20 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      const readFileSpy = vi.spyOn(fsp, 'readFile')
-        .mockImplementation((path) => {
-          if (path.toString().includes('typescript-expert')) {
-            return Promise.resolve(JSON.stringify(tsIndex));
-          }
-          return Promise.resolve(JSON.stringify(rustIndex));
-        });
+      mockAccess.mockResolvedValue(undefined);
+      mockReadFile.mockImplementation((p: Parameters<typeof import('node:fs/promises').readFile>[0]) => {
+        if (p.toString().includes('typescript-expert')) {
+          return Promise.resolve(JSON.stringify(tsIndex));
+        }
+        return Promise.resolve(JSON.stringify(rustIndex));
+      });
 
       const tsResult = await loadIndex({ basePath: tsExpertPath });
       const rustResult = await loadIndex({ basePath: rustExpertPath });
 
       expect(tsResult.memories[0]!.agent).toBe('typescript-expert');
       expect(rustResult.memories[0]!.agent).toBe('rust-expert');
-      expect(readFileSpy).toHaveBeenCalledTimes(2);
+      expect(mockReadFile).toHaveBeenCalledTimes(2);
     });
   });
 });

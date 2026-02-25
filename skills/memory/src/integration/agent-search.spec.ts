@@ -11,6 +11,15 @@ import type { SearchMemoriesRequest } from '../types/api.js';
 import { Scope, MemoryType } from '../types/enums.js';
 import * as indexModule from '../core/index.js';
 
+const { mockReadFile } = vi.hoisted(() => ({
+  mockReadFile: vi.fn(),
+}));
+
+vi.mock('node:fs/promises', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:fs/promises')>()),
+  readFile: mockReadFile,
+}));
+
 describe('Agent-scoped search operations', () => {
   const mockProjectRoot = '/test/project';
   const mockGlobalRoot = '/test/global';
@@ -56,8 +65,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('TypeScript content with pattern keyword');
+      mockReadFile.mockResolvedValue('TypeScript content with pattern keyword');
 
       const request: SearchMemoriesRequest = {
         query: 'pattern',
@@ -100,8 +108,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('API design content');
+      mockReadFile.mockResolvedValue('API design content');
 
       const request: SearchMemoriesRequest = {
         query: 'design',
@@ -148,8 +155,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('test content');
+      mockReadFile.mockResolvedValue('test content');
 
       const request: SearchMemoriesRequest = {
         query: 'test',

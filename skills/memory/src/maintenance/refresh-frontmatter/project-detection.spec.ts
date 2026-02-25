@@ -3,19 +3,11 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import * as childProcess from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { detectProjectName } from './project-detection.js';
-
-const { mockExecFileSync } = vi.hoisted(() => ({
-  mockExecFileSync: vi.fn(),
-}));
-
-vi.mock('node:child_process', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('node:child_process')>()),
-  execFileSync: mockExecFileSync,
-}));
 
 describe('detectProjectName', () => {
   let testDir: string;
@@ -34,7 +26,7 @@ describe('detectProjectName', () => {
   });
 
   it('should detect project name from git remote URL', () => {
-    mockExecFileSync.mockReturnValue(
+    vi.spyOn(childProcess, 'execFileSync').mockReturnValue(
       'https://github.com/user/my-awesome-repo.git\n'
     );
 
@@ -43,7 +35,7 @@ describe('detectProjectName', () => {
   });
 
   it('should extract repo name from SSH git URL', () => {
-    mockExecFileSync.mockReturnValue(
+    vi.spyOn(childProcess, 'execFileSync').mockReturnValue(
       'git@github.com:org/project-name.git\n'
     );
 
@@ -52,7 +44,7 @@ describe('detectProjectName', () => {
   });
 
   it('should fall back to directory name when git fails', () => {
-    mockExecFileSync.mockImplementation(() => {
+    vi.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
       throw new Error('Not a git repository');
     });
 
@@ -65,7 +57,7 @@ describe('detectProjectName', () => {
   });
 
   it('should handle git remote returning empty URL', () => {
-    mockExecFileSync.mockReturnValue('');
+    vi.spyOn(childProcess, 'execFileSync').mockReturnValue('');
 
     const result = detectProjectName(memoryDir);
 

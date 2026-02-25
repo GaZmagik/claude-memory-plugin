@@ -11,6 +11,15 @@ import { Scope } from '../types/enums.js';
 import * as fsUtils from '../core/fs-utils.js';
 import * as path from 'node:path';
 
+const { mockAccess } = vi.hoisted(() => ({
+  mockAccess: vi.fn(),
+}));
+
+vi.mock('node:fs/promises', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('node:fs/promises')>()),
+  access: mockAccess,
+}));
+
 describe('Agent directory utilities', () => {
   const mockProjectRoot = '/test/project';
   const mockGlobalRoot = '/test/global';
@@ -107,8 +116,7 @@ describe('Agent directory utilities', () => {
 
   describe('agentDirectoryExists', () => {
     it('should return true when agent directory exists', async () => {
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       const result = await agentDirectoryExists(
         Scope.AgentProject,
@@ -120,8 +128,7 @@ describe('Agent directory utilities', () => {
     });
 
     it('should return false when agent directory does not exist', async () => {
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'access').mockRejectedValue(new Error('ENOENT'));
+      mockAccess.mockRejectedValue(new Error('ENOENT'));
 
       const result = await agentDirectoryExists(
         Scope.AgentProject,
@@ -133,8 +140,7 @@ describe('Agent directory utilities', () => {
     });
 
     it('should check agent-global directory path', async () => {
-      const fsp = await import('node:fs/promises');
-      const accessSpy = vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       await agentDirectoryExists(
         Scope.AgentGlobal,
@@ -143,7 +149,7 @@ describe('Agent directory utilities', () => {
         mockGlobalRoot
       );
 
-      expect(accessSpy).toHaveBeenCalledWith(
+      expect(mockAccess).toHaveBeenCalledWith(
         path.join(mockGlobalRoot, 'agents/api-architect')
       );
     });

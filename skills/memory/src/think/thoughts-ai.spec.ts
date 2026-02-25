@@ -11,18 +11,22 @@ import * as os from 'node:os';
 import { ThoughtType } from '../types/enums.js';
 
 // Hoist mock functions so they can be referenced inside vi.mock() factories
-const { mockInvokeAI, mockInvokeProviderThought } = vi.hoisted(() => ({
-  mockInvokeAI: vi.fn(async () => ({
-    success: true,
-    content: 'AI generated thought content',
-    sessionId: 'test-session-123',
-  })),
-  mockInvokeProviderThought: vi.fn(async () => ({
-    success: true,
-    content: 'Provider generated thought content',
-    // Note: non-Claude providers don't support session resumption
-  })),
-}));
+const { mockInvokeAI, mockInvokeProviderThought } = vi.hoisted(() => {
+  // Inline result type matching AICallResult — can't import inside vi.hoisted
+  type Result = { success: boolean; content?: string; sessionId?: string; model?: string; error?: string };
+  return {
+    mockInvokeAI: vi.fn(async (): Promise<Result> => ({
+      success: true,
+      content: 'AI generated thought content',
+      sessionId: 'test-session-123',
+    })),
+    mockInvokeProviderThought: vi.fn(async (): Promise<Result> => ({
+      success: true,
+      content: 'Provider generated thought content',
+      // Note: non-Claude providers don't support session resumption
+    })),
+  };
+});
 
 // Mock ai-invoke module BEFORE importing thoughts.js
 vi.mock('./ai-invoke.js', async (importOriginal) => ({

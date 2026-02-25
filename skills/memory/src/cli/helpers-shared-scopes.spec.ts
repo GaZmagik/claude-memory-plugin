@@ -7,17 +7,9 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { resolveSharedScopePaths } from './helpers.js';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import * as gitUtils from '../scope/git-utils.js';
-
-const { mockHomedir } = vi.hoisted(() => ({
-  mockHomedir: vi.fn(),
-}));
-
-vi.mock('node:os', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('node:os')>()),
-  homedir: mockHomedir,
-}));
 
 describe('resolveSharedScopePaths', () => {
   const mockCwd = '/mock/project';
@@ -26,7 +18,7 @@ describe('resolveSharedScopePaths', () => {
   beforeEach(() => {
     // Mock process.cwd() and os.homedir()
     vi.spyOn(process, 'cwd').mockReturnValue(mockCwd);
-    mockHomedir.mockReturnValue(mockHome);
+    vi.spyOn(os, 'homedir').mockReturnValue(mockHome);
 
     // Mock git detection to return true (so we get agent-project, not agent-global)
     vi.spyOn(gitUtils, 'isInGitRepository').mockReturnValue(true);

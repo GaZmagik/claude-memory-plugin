@@ -10,22 +10,10 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { pruneMemories } from './prune.js';
 
-const { mockUnlinkSync } = vi.hoisted(() => ({
-  mockUnlinkSync: vi.fn(),
-}));
-
-vi.mock('node:fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('node:fs')>()),
-  unlinkSync: mockUnlinkSync,
-}));
-
 describe('maintenance/prune', () => {
   let tempDir: string;
 
   beforeEach(() => {
-    // Pass through to real implementation by default
-    mockUnlinkSync.mockImplementation(fs.unlinkSync);
-
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-test-'));
     fs.mkdirSync(path.join(tempDir, 'temporary'), { recursive: true });
     fs.mkdirSync(path.join(tempDir, 'permanent'), { recursive: true });
@@ -451,8 +439,6 @@ describe('prune fallback deletion path', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Pass through to real implementation by default
-    mockUnlinkSync.mockImplementation(fs.unlinkSync);
 
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-mock-test-'));
     fs.mkdirSync(path.join(tempDir, 'temporary'), { recursive: true });
@@ -576,11 +562,11 @@ tags: []
     vi.spyOn(deleteModule, 'deleteMemory').mockRejectedValue(new Error('deleteMemory failed'));
 
     // Mock fs.unlinkSync to throw only for the target file
-    mockUnlinkSync.mockImplementation((p: fs.PathLike) => {
+    vi.spyOn(fs, 'unlinkSync').mockImplementation((p: fs.PathLike) => {
       if (String(p).includes('double-fail-test')) {
         throw new Error('unlinkSync failed');
       }
-      return fs.unlinkSync(p);
+      return (fs.unlinkSync as any).__original?.(p);
     });
 
     const result = await pruneMemories({ basePath: tempDir, dryRun: false });

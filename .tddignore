@@ -142,3 +142,4 @@ src/agents/scan-agents.ts
 # Markdown documentation files for command workflows - no runtime code
 # =============================================================================
 commands/
+tests/setup-bun.ts

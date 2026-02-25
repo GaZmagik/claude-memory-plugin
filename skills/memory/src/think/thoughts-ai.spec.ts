@@ -29,8 +29,7 @@ const { mockInvokeAI, mockInvokeProviderThought } = vi.hoisted(() => {
 });
 
 // Mock ai-invoke module BEFORE importing thoughts.js
-vi.mock('./ai-invoke.js', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('./ai-invoke.js')>()),
+vi.mock('./ai-invoke.js', () => ({
   invokeAI: mockInvokeAI,
   invokeProviderThought: mockInvokeProviderThought,
 }));

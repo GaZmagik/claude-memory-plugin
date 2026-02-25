@@ -133,14 +133,10 @@ describe('think/conclude', () => {
     });
 
     it('concludes specific document by ID', async () => {
-      // Use fake time to avoid ID collision (IDs are per-second)
-      vi.useFakeTimers();
-      const baseTime = new Date('2026-01-12T10:00:00Z');
-      vi.setSystemTime(baseTime);
       const first = await createThinkDocument({ topic: 'First', basePath });
 
-      // Advance time by 1 second to get different ID
-      vi.setSystemTime(new Date('2026-01-12T10:00:01Z'));
+      // Small delay to ensure millisecond-precision IDs differ
+      await new Promise(r => setTimeout(r, 5));
       await createThinkDocument({ topic: 'Second', basePath });
 
       const result = await concludeThinkDocument({
@@ -148,9 +144,6 @@ describe('think/conclude', () => {
         documentId: first.document!.id,
         basePath,
       });
-
-      // Reset system time
-      vi.useRealTimers();
 
       expect(result.status).toBe('success');
       expect(result.concluded?.id).toBe(first.document!.id);

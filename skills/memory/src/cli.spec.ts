@@ -14,7 +14,7 @@ const CLI_PATH = path.join(__dirname, 'cli.ts');
 
 async function runCli(args: string[]): Promise<{ stdout: string; stderr: string; exitCode: number }> {
   return new Promise((resolve) => {
-    execFile('bun', [CLI_PATH, ...args], { timeout: 10000 }, (error, stdout, stderr) => {
+    execFile('bun', [CLI_PATH, ...args], { timeout: 10000, maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
       resolve({
         stdout: stdout ?? '',
         stderr: stderr ?? '',

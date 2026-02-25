@@ -26,6 +26,7 @@ import { scoreEdges } from '../../graph/score-edges.js';
 import { findGitRoot } from '../../scope/git-utils.js';
 import * as path from 'node:path';
 import * as os from 'node:os';
+import { ProgressReporter } from '../progress.js';
 
 /**
  * sync - Synchronise graph, index, and disk
@@ -54,11 +55,19 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
+      const progress = new ProgressReporter({ operation: 'Syncing memories' });
       const result = await syncMemories({
         basePath,
         dryRun,
         agent: agentName,
+        onProgress: (phase, current, total) => {
+          progress.update(current, `${phase}`);
+          progress.setTotal(total);
+        },
       });
+      progress.complete(
+        `Sync: ${result.changes.addedToGraph.length} added, ${result.changes.removedGhostNodes.length} ghosts removed`
+      );
       return result;
     },
     dryRun ? 'Sync dry run complete' : 'Sync complete'
@@ -93,10 +102,22 @@ export async function cmdRepair(args: ParsedArgs): Promise<CliResponse> {
   return wrapOperation(
     async () => {
       // Step 1: Sync
-      const syncResult = await syncMemories({ basePath, dryRun, agent: agentName });
+      const syncProgress = new ProgressReporter({ operation: 'Repairing: syncing' });
+      const syncResult = await syncMemories({
+        basePath,
+        dryRun,
+        agent: agentName,
+        onProgress: (phase, current, total) => {
+          syncProgress.update(current, phase);
+          syncProgress.setTotal(total);
+        },
+      });
+      syncProgress.complete('Sync phase complete');
 
       // Step 2: Health check (validate)
+      const healthProgress = new ProgressReporter({ operation: 'Repairing: health check' });
       const healthResult = await checkHealth({ basePath, agent: agentName });
+      healthProgress.complete('Health check complete');
 
       return {
         sync: syncResult,
@@ -241,12 +262,18 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   return wrapOperation(
     async () => {
       // First run frontmatter refresh
+      const refreshProgress = new ProgressReporter({
+        operation: 'Refreshing frontmatter',
+      });
       const result = await refreshFrontmatter({
         basePath,
         dryRun,
         project,
         ids,
       });
+      refreshProgress.complete(
+        `Frontmatter refresh: ${result.updated} updated, ${result.skipped} skipped`
+      );
 
       let combinedResult: Record<string, unknown> = { ...result };
 
@@ -256,8 +283,17 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
         const provider = createOllamaProvider();
 
         // Build memory list for embedding
+        const collectProgress = new ProgressReporter({
+          operation: 'Collecting memories for embedding',
+          total: index.memories.length,
+        });
         const memoriesToEmbed: Array<{ id: string; content: string; hash?: string }> = [];
-        for (const entry of index.memories) {
+        for (let i = 0; i < index.memories.length; i++) {
+          const entry = index.memories[i];
+          if (!entry) continue;
+
+          collectProgress.update(i + 1, entry.id);
+
           // Skip if filtering by IDs and this one isn't included
           if (ids && !ids.includes(entry.id)) continue;
 
@@ -272,33 +308,54 @@ export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
             });
           }
         }
+        collectProgress.complete(
+          `Found ${memoriesToEmbed.length} memories to embed`
+        );
 
-        // Generate embeddings
+        // Generate embeddings with progress reporting
+        const embedProgress = new ProgressReporter({
+          operation: 'Generating embeddings',
+          total: memoriesToEmbed.length,
+        });
         const embeddingResults = await batchGenerateEmbeddings(
           memoriesToEmbed,
           basePath,
-          provider
+          provider,
+          embedProgress.toCallback()
+        );
+        const generated = embeddingResults.filter(r => !r.fromCache).length;
+        const cached = embeddingResults.filter(r => r.fromCache).length;
+        embedProgress.complete(
+          `Embeddings: ${generated} generated, ${cached} cached`
         );
 
         combinedResult = {
           ...combinedResult,
-          embeddingsGenerated: embeddingResults.filter(r => !r.fromCache).length,
-          embeddingsCached: embeddingResults.filter(r => r.fromCache).length,
+          embeddingsGenerated: generated,
+          embeddingsCached: cached,
           embeddingsTotal: embeddingResults.length,
         };
       }
 
       if (scoreEdgesFlag) {
+        const scoreProgress = new ProgressReporter({
+          operation: verifyEdges ? 'Scoring and verifying edges' : 'Scoring edges',
+        });
         const scoreResult = await scoreEdges({
           basePath,
           dryRun,
           verify: verifyEdges,
           apply: applyEdges,
           force: forceFlag,
+          onProgress: scoreProgress.toCallback(),
         });
         if (scoreResult.status === 'error') {
+          scoreProgress.complete(`Score-edges failed: ${scoreResult.error}`);
           throw new Error(scoreResult.error ?? 'score-edges failed');
         }
+        scoreProgress.complete(
+          `Edges: ${scoreResult.scored} scored, ${scoreResult.skipped} skipped, ${scoreResult.noEmbedding} no embedding`
+        );
         combinedResult = {
           ...combinedResult,
           edgesScored: scoreResult.scored,

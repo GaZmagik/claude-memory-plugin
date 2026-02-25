@@ -279,6 +279,11 @@ export async function assessQuality(
 }
 
 /**
+ * Progress callback for audit operations
+ */
+export type AuditProgressCallback = (current: number, total: number, label?: string) => void;
+
+/**
  * Audit request
  */
 export interface AuditRequest {
@@ -288,6 +293,8 @@ export interface AuditRequest {
   threshold?: number;
   /** Enable deep (LLM) checks */
   deep?: boolean;
+  /** Progress callback for reporting per-memory progress */
+  onProgress?: AuditProgressCallback;
 }
 
 /**
@@ -326,7 +333,7 @@ export interface AuditResponse {
  * Bulk quality audit
  */
 export async function auditMemories(request: AuditRequest): Promise<AuditResponse> {
-  const { basePath, threshold = 100, deep = false } = request;
+  const { basePath, threshold = 100, deep = false, onProgress } = request;
 
   const allIds = await getAllMemoryIds(basePath);
 
@@ -346,7 +353,15 @@ export async function auditMemories(request: AuditRequest): Promise<AuditRespons
 
   let totalScore = 0;
 
-  for (const id of ids) {
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    if (!id) continue;
+
+    // Report progress
+    if (onProgress) {
+      onProgress(i + 1, ids.length, id);
+    }
+
     try {
       const assessment = await assessQuality({ id, basePath, deep });
 

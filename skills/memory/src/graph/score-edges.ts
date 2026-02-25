@@ -17,6 +17,11 @@ import { validateLlmLabel, sanitiseTitleForPrompt } from '../suggest/suggest-lin
 // Types
 // ============================================================================
 
+/**
+ * Progress callback for score-edges operation
+ */
+export type ScoreEdgesProgressCallback = (current: number, total: number, label?: string) => void;
+
 export interface ScoreEdgesRequest {
   basePath: string;
   /** Preview what would change without writing */
@@ -27,6 +32,8 @@ export interface ScoreEdgesRequest {
   apply?: boolean;
   /** Re-score edges that already have similarity */
   force?: boolean;
+  /** Progress callback for reporting per-edge progress */
+  onProgress?: ScoreEdgesProgressCallback;
 }
 
 export interface ScoreEdgesResponse {
@@ -58,7 +65,7 @@ export interface ScoreEdgesResponse {
  * saveGraph is called once after all mutations — not per-edge.
  */
 export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdgesResponse> {
-  const { basePath, dryRun = false, verify = false, apply = false, force = false } = request;
+  const { basePath, dryRun = false, verify = false, apply = false, force = false, onProgress } = request;
 
   // basePath validation is enforced at the CLI layer via getResolvedScopePath().
   // Direct callers are responsible for supplying a valid memory directory path.
@@ -85,7 +92,15 @@ export async function scoreEdges(request: ScoreEdgesRequest): Promise<ScoreEdges
     let verified = 0;
     let applied = 0;
 
-    for (const edge of edges) {
+    for (let i = 0; i < edges.length; i++) {
+      const edge = edges[i];
+      if (!edge) continue;
+
+      // Report progress
+      if (onProgress) {
+        onProgress(i + 1, edges.length, `${edge.source} → ${edge.target}`);
+      }
+
       const sourceEntry = cache.memories[edge.source];
       const targetEntry = cache.memories[edge.target];
 

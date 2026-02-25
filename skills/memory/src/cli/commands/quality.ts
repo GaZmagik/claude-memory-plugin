@@ -17,6 +17,7 @@ import { loadGraph } from '../../graph/structure.js';
 import { loadIndex } from '../../core/index.js';
 import { findOrphanedNodes } from '../../graph/edges.js';
 import { parseFrontmatter } from '../../core/frontmatter.js';
+import { ProgressReporter } from '../progress.js';
 
 /**
  * health - Quick health check with score
@@ -333,7 +334,18 @@ export async function cmdAudit(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      const result = await auditMemories({ basePath, threshold, deep });
+      const progress = new ProgressReporter({
+        operation: deep ? 'Auditing memories (deep)' : 'Auditing memories',
+      });
+      const result = await auditMemories({
+        basePath,
+        threshold,
+        deep,
+        onProgress: progress.toCallback(),
+      });
+      progress.complete(
+        `Audit: ${result.scanned} scanned, ${result.results.length} below threshold`
+      );
       return result;
     },
     `Audit complete for ${scopeArg ?? 'project'} scope`
@@ -355,8 +367,18 @@ export async function cmdAuditQuick(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      // Same as audit but with deep=false (default)
-      const result = await auditMemories({ basePath, threshold, deep: false });
+      const progress = new ProgressReporter({
+        operation: 'Quick audit',
+      });
+      const result = await auditMemories({
+        basePath,
+        threshold,
+        deep: false,
+        onProgress: progress.toCallback(),
+      });
+      progress.complete(
+        `Quick audit: ${result.scanned} scanned, ${result.results.length} below threshold`
+      );
       return result;
     },
     `Quick audit complete for ${scopeArg ?? 'project'} scope`

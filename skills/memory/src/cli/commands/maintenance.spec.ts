@@ -23,9 +23,19 @@ describe('cmdSync', () => {
 
   it('calls syncMemories', async () => {
     vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({
-      added: 0,
-      removed: 0,
-      updated: 0,
+      status: 'success',
+      changes: {
+        addedToGraph: [],
+        addedToIndex: [],
+        removedGhostNodes: [],
+        removedOrphanEdges: 0,
+        removedFromIndex: [],
+        removedOrphanEmbeddings: [],
+        externalNodesAdded: [],
+        externalNodesUpdated: [],
+        externalNodesRemoved: [],
+      },
+      summary: { filesOnDisk: 0, nodesInGraph: 0, entriesInIndex: 0, entriesInEmbeddings: 0, externalRuleNodes: 0, externalReminderNodes: 0 },
     } as any);
 
     const args: ParsedArgs = { positional: [], flags: {} };
@@ -454,7 +464,8 @@ describe('cmdRefresh', () => {
     expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalledWith(
       [],
       expect.any(String),
-      expect.any(Object)
+      expect.any(Object),
+      expect.any(Function)
     );
   });
 

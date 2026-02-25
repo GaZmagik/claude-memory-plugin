@@ -9,7 +9,7 @@
  * - hooks/ -> hooks.json
  */
 
-import { describe, it, expect, beforeAll } from 'bun:test';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 

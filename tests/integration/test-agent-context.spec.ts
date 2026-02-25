@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { createAgentContext, validateAgentContext } from '../../skills/memory/src/scope/agent-context.js';
 import { Scope } from '../../skills/memory/src/types/enums.js';
 

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { Scope } from '../../../skills/memory/src/types/enums.js';
 
 describe('Scope enum - Agent scope extension', () => {

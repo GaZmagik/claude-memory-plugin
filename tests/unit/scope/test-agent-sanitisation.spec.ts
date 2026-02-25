@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { sanitiseAgentName } from '../../../skills/memory/src/scope/sanitise-agent-name.js';
 
 describe('sanitiseAgentName', () => {

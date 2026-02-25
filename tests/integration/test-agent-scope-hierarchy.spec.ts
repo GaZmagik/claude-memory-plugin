@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { resolveScope } from '../../skills/memory/src/scope/resolver.js';
 import { Scope } from '../../skills/memory/src/types/enums.js';
 import fs from 'fs';

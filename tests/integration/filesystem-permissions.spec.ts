@@ -248,6 +248,11 @@ describe('Filesystem Permission Errors', () => {
       // Verify file exists in real directory
       const files = fs.readdirSync(realDir);
       expect(files.length).toBeGreaterThan(0);
+
+      // Restore permissions on realDir so afterEach cleanup succeeds
+      try {
+        fs.chmodSync(realDir, 0o755);
+      } catch {}
     });
   });
 

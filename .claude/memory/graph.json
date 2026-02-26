@@ -4821,6 +4821,36 @@
       "type": "learning",
       "title": "Bun vi.hoisted polyfill enables vitest-style mocking in bun test runner",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "type": "learning",
+      "title": "Retro - Polyfill approach avoids large test infrastructure refactors",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs",
+      "type": "learning",
+      "title": "Retro - Binary search approach efficiently isolates test suite hangs",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "type": "gotcha",
+      "title": "vi.mock() importOriginal parameter not fully supported in Bun",
+      "scope": "project"
+    },
+    {
+      "id": "learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output",
+      "type": "learning",
+      "title": "execFile maxBuffer overflow on CLI commands with verbose output",
+      "scope": "project"
+    },
+    {
+      "id": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "type": "learning",
+      "title": "TypeScript code review findings for claude-memory-plugin",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -19651,6 +19681,126 @@
       "target": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
       "label": "specification-link",
       "similarity": 0.7022531660878507
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.858378380119399
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8576360596816579
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.850098036929173
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8416819253622275
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8416007022168943
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8405529366805155
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8369311986625927
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8269695600727995
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8236789090441737
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7969701349619926
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7849233964943577
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7849233964943577
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7780366900328411
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7717322473175801
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7717322473175801
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7646259651515661
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593297899214742
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593297899214742
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.755899178138346
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7526685995887087
     }
   ]
 }

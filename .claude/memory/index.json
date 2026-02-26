@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T14:10:39.859Z",
+  "lastUpdated": "2026-02-26T17:26:21.057Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14602,6 +14602,87 @@
       "updated": "2026-02-25T23:39:33.994Z",
       "scope": "project",
       "relativePath": "permanent/learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner.md"
+    },
+    {
+      "id": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "type": "learning",
+      "title": "Retro - Polyfill approach avoids large test infrastructure refactors",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:09.601Z",
+      "updated": "2026-02-26T14:11:09.601Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs",
+      "type": "learning",
+      "title": "Retro - Binary search approach efficiently isolates test suite hangs",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:17.730Z",
+      "updated": "2026-02-26T14:11:17.730Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "type": "gotcha",
+      "title": "vi.mock() importOriginal parameter not fully supported in Bun",
+      "tags": [
+        "bun",
+        "vitest",
+        "mocking",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:36.123Z",
+      "updated": "2026-02-26T14:11:36.123Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun.md"
+    },
+    {
+      "id": "learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output",
+      "type": "learning",
+      "title": "execFile maxBuffer overflow on CLI commands with verbose output",
+      "tags": [
+        "bun",
+        "testing",
+        "node",
+        "child-process",
+        "cli",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:41.794Z",
+      "updated": "2026-02-26T14:11:41.794Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output.md"
+    },
+    {
+      "id": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "type": "learning",
+      "title": "TypeScript code review findings for claude-memory-plugin",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-26T17:26:21.050Z",
+      "updated": "2026-02-26T17:26:21.050Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-code-review-findings-for-claude-memory-plugin.md"
     }
   ]
 }

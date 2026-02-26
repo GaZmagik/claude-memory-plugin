@@ -5,10 +5,22 @@
  */
 
 import fsp from 'node:fs/promises';
+import type { Dirent } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import type { AgentInfo } from '../types/agent-info.js';
-import { Scope } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
+
+/**
+ * Raw shape of a memory entry as stored in index.json.
+ * Used to avoid unsafe `as any` casts when iterating index entries.
+ */
+interface RawIndexEntry {
+  type?: string;
+  tags?: string[];
+  created?: string;
+  updated?: string;
+}
 
 /**
  * Options for scanning agent directories
@@ -71,12 +83,12 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
 
     // Gather unique tags
     const tagsSet = new Set<string>();
-    const typesSet = new Set<string>();
+    const typesSet = new Set<MemoryType>();
     let oldestDate: Date | undefined;
     let newestDate: Date | undefined;
 
     for (const memory of Object.values(index.memories || {})) {
-      const mem = memory as any;
+      const mem = memory as RawIndexEntry;
 
       // Collect tags
       if (mem.tags) {
@@ -85,9 +97,9 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
         }
       }
 
-      // Collect types
-      if (mem.type) {
-        typesSet.add(mem.type);
+      // Collect types — only add values that are valid MemoryType members
+      if (mem.type && (Object.values(MemoryType) as string[]).includes(mem.type)) {
+        typesSet.add(mem.type as MemoryType);
       }
 
       // Track dates
@@ -107,7 +119,7 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
     }
 
     stats.tags = Array.from(tagsSet);
-    stats.types = Array.from(typesSet) as any[];
+    stats.types = Array.from(typesSet);
     stats.created = oldestDate;
     stats.updated = newestDate;
 
@@ -141,7 +153,7 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
  * Processes a single agent entry and returns AgentInfo or null if inaccessible
  */
 async function processAgentEntry(
-  entry: { name: string; isDirectory: () => boolean },
+  entry: Dirent,
   agentsDir: string,
   scope: Scope.AgentProject | Scope.AgentGlobal,
   options: ScanAgentOptions

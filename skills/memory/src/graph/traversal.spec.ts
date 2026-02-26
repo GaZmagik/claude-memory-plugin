@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { MemoryType } from '../types/enums.js';
 import {
   buildAdjacencyList,
   bfsTraversal,
@@ -20,7 +21,7 @@ describe('buildAdjacencyList', () => {
   it('builds bidirectional neighbours from edges', () => {
     const graph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'a', type: 'hub' }, { id: 'b', type: 'hub' }],
+      nodes: [{ id: 'a', type: MemoryType.Hub }, { id: 'b', type: MemoryType.Hub }],
       edges: [{ source: 'a', target: 'b', label: '' }],
     };
     const adj = buildAdjacencyList(graph);
@@ -35,9 +36,9 @@ describe('bfsTraversal', () => {
   const linearGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'a', type: 'hub' },
-      { id: 'b', type: 'hub' },
-      { id: 'c', type: 'hub' },
+      { id: 'a', type: MemoryType.Hub },
+      { id: 'b', type: MemoryType.Hub },
+      { id: 'c', type: MemoryType.Hub },
     ],
     edges: [
       { source: 'a', target: 'b', label: '' },
@@ -48,11 +49,11 @@ describe('bfsTraversal', () => {
   const branchingGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'root', type: 'hub' },
-      { id: 'left', type: 'hub' },
-      { id: 'right', type: 'hub' },
-      { id: 'leaf1', type: 'hub' },
-      { id: 'leaf2', type: 'hub' },
+      { id: 'root', type: MemoryType.Hub },
+      { id: 'left', type: MemoryType.Hub },
+      { id: 'right', type: MemoryType.Hub },
+      { id: 'leaf1', type: MemoryType.Hub },
+      { id: 'leaf2', type: MemoryType.Hub },
     ],
     edges: [
       { source: 'root', target: 'left', label: '' },
@@ -109,9 +110,9 @@ describe('bfsTraversal', () => {
     const cyclicGraph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -133,8 +134,8 @@ describe('bfsTraversal', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'isolated', type: 'hub' },
-        { id: 'other', type: 'hub' },
+        { id: 'isolated', type: MemoryType.Hub },
+        { id: 'other', type: MemoryType.Hub },
       ],
       edges: [],
     };
@@ -150,11 +151,11 @@ describe('dfsTraversal', () => {
   const branchingGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'root', type: 'hub' },
-      { id: 'left', type: 'hub' },
-      { id: 'right', type: 'hub' },
-      { id: 'leaf1', type: 'hub' },
-      { id: 'leaf2', type: 'hub' },
+      { id: 'root', type: MemoryType.Hub },
+      { id: 'left', type: MemoryType.Hub },
+      { id: 'right', type: MemoryType.Hub },
+      { id: 'leaf1', type: MemoryType.Hub },
+      { id: 'leaf2', type: MemoryType.Hub },
     ],
     edges: [
       { source: 'root', target: 'left', label: '' },
@@ -187,9 +188,9 @@ describe('dfsTraversal', () => {
     const linearGraph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -216,9 +217,9 @@ describe('dfsTraversal', () => {
     const cyclicGraph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -242,10 +243,10 @@ describe('findReachable', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
-        { id: 'isolated', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
+        { id: 'isolated', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -265,8 +266,8 @@ describe('findReachable', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'isolated', type: 'hub' },
-        { id: 'other', type: 'hub' },
+        { id: 'isolated', type: MemoryType.Hub },
+        { id: 'other', type: MemoryType.Hub },
       ],
       edges: [],
     };
@@ -278,7 +279,7 @@ describe('findReachable', () => {
 
   it('should handle large connected graphs', () => {
     // Create a chain of 100 nodes
-    const nodes = Array.from({ length: 100 }, (_, i) => ({ id: `node${i}`, type: 'hub' }));
+    const nodes = Array.from({ length: 100 }, (_, i) => ({ id: `node${i}`, type: MemoryType.Hub }));
     const edges = Array.from({ length: 99 }, (_, i) => ({
       source: `node${i}`,
       target: `node${i + 1}`,
@@ -300,10 +301,10 @@ describe('findPredecessors', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
-        { id: 'd', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
+        { id: 'd', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'c', label: '' },
@@ -324,8 +325,8 @@ describe('findPredecessors', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -342,8 +343,8 @@ describe('findPredecessors', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'root', type: 'hub' },
-        { id: 'child', type: 'hub' },
+        { id: 'root', type: MemoryType.Hub },
+        { id: 'child', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'root', target: 'child', label: '' },
@@ -361,9 +362,9 @@ describe('findShortestPath', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -379,7 +380,7 @@ describe('findShortestPath', () => {
   it('should return single node path when source equals target', () => {
     const graph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'a', type: 'hub' }],
+      nodes: [{ id: 'a', type: MemoryType.Hub }],
       edges: [],
     };
 
@@ -391,8 +392,8 @@ describe('findShortestPath', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'isolated', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'isolated', type: MemoryType.Hub },
       ],
       edges: [],
     };
@@ -406,10 +407,10 @@ describe('findShortestPath', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
-        { id: 'd', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
+        { id: 'd', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -432,11 +433,11 @@ describe('getSubgraph', () => {
   const largeGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'a', type: 'hub' },
-      { id: 'b', type: 'hub' },
-      { id: 'c', type: 'hub' },
-      { id: 'd', type: 'hub' },
-      { id: 'e', type: 'hub' },
+      { id: 'a', type: MemoryType.Hub },
+      { id: 'b', type: MemoryType.Hub },
+      { id: 'c', type: MemoryType.Hub },
+      { id: 'd', type: MemoryType.Hub },
+      { id: 'e', type: MemoryType.Hub },
     ],
     edges: [
       { source: 'a', target: 'b', label: '' },
@@ -478,9 +479,9 @@ describe('findConnectedComponents', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -500,10 +501,10 @@ describe('findConnectedComponents', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
-        { id: 'd', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
+        { id: 'd', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -530,8 +531,8 @@ describe('findConnectedComponents', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -562,9 +563,9 @@ describe('calculateImpact', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -582,9 +583,9 @@ describe('calculateImpact', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: '' },
@@ -601,8 +602,8 @@ describe('calculateImpact', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'leaf', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'leaf', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'leaf', label: '' },
@@ -619,10 +620,10 @@ describe('calculateImpact', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
-        { id: 'c', type: 'hub' },
-        { id: 'd', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
+        { id: 'c', type: MemoryType.Hub },
+        { id: 'd', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'c', label: '' },
@@ -647,7 +648,7 @@ describe('Graph Traversal Properties', () => {
   function createPropertyGraph(nodeIds: string[], edges: Array<[string, string]>): MemoryGraph {
     return {
       version: 1,
-      nodes: nodeIds.map(id => ({ id, type: 'learning' })),
+      nodes: nodeIds.map(id => ({ id, type: MemoryType.Learning })),
       edges: edges.map(([source, target]) => ({ source, target, label: 'related' })),
     };
   }

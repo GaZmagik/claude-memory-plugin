@@ -313,9 +313,9 @@ describe('exportMemories', () => {
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: memoryId('decision-foo'), type: 'decision' },
-        { id: memoryId('learning-bar'), type: 'learning' },
-        { id: memoryId('external-node'), type: 'artifact' },
+        { id: memoryId('decision-foo'), type: MemoryType.Decision },
+        { id: memoryId('learning-bar'), type: MemoryType.Learning },
+        { id: memoryId('external-node'), type: MemoryType.Artifact },
       ],
       edges: [
         { source: 'decision-foo', target: 'learning-bar', label: 'relates-to' },
@@ -471,8 +471,8 @@ describe('exportMemories', () => {
     vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: memoryId('decision-foo'), type: 'decision' },
-        { id: memoryId('learning-bar'), type: 'learning' },
+        { id: memoryId('decision-foo'), type: MemoryType.Decision },
+        { id: memoryId('learning-bar'), type: MemoryType.Learning },
       ],
       edges: [
         { source: 'decision-foo', target: 'learning-bar', label: 'relates-to' },

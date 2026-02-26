@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { MemoryType } from '../types/enums.js';
 import {
   generateMermaid,
   generateTextGraph,
@@ -20,8 +21,8 @@ describe('generateMermaid', () => {
   const simpleGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'node-1', type: 'decision' },
-      { id: 'node-2', type: 'learning' },
+      { id: 'node-1', type: MemoryType.Decision },
+      { id: 'node-2', type: MemoryType.Learning },
     ],
     edges: [
       { source: 'node-1', target: 'node-2', label: 'leads to' },
@@ -57,7 +58,7 @@ describe('generateMermaid', () => {
     it('should use hexagon for decision nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'decision-node', type: 'decision' }],
+        nodes: [{ id: 'decision-node', type: MemoryType.Decision }],
         edges: [],
       };
 
@@ -71,7 +72,7 @@ describe('generateMermaid', () => {
     it('should use rectangle for artifact nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'artifact-node', type: 'artifact' }],
+        nodes: [{ id: 'artifact-node', type: MemoryType.Artifact }],
         edges: [],
       };
 
@@ -84,7 +85,7 @@ describe('generateMermaid', () => {
     it('should use stadium for learning nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'learning-node', type: 'learning' }],
+        nodes: [{ id: 'learning-node', type: MemoryType.Learning }],
         edges: [],
       };
 
@@ -98,7 +99,7 @@ describe('generateMermaid', () => {
     it('should use circle for hub nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'hub-node', type: 'hub' }],
+        nodes: [{ id: 'hub-node', type: MemoryType.Hub }],
         edges: [],
       };
 
@@ -112,7 +113,7 @@ describe('generateMermaid', () => {
     it('should use hexagon for rule nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'rule-project-claude-md', type: 'rule' }],
+        nodes: [{ id: 'rule-project-claude-md', type: MemoryType.Rule }],
         edges: [],
       };
 
@@ -126,7 +127,7 @@ describe('generateMermaid', () => {
     it('should use cylinder for reminder nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'reminder-project-curator-memory', type: 'reminder' }],
+        nodes: [{ id: 'reminder-project-curator-memory', type: MemoryType.Reminder }],
         edges: [],
       };
 
@@ -142,7 +143,7 @@ describe('generateMermaid', () => {
     it('should apply distinct style for rule nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'rule-project-claude-md', type: 'rule' }],
+        nodes: [{ id: 'rule-project-claude-md', type: MemoryType.Rule }],
         edges: [],
       };
 
@@ -155,7 +156,7 @@ describe('generateMermaid', () => {
     it('should apply distinct style for reminder nodes', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'reminder-project-curator-memory', type: 'reminder' }],
+        nodes: [{ id: 'reminder-project-curator-memory', type: MemoryType.Reminder }],
         edges: [],
       };
 
@@ -170,7 +171,7 @@ describe('generateMermaid', () => {
     it('should escape special characters in labels', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node[with]special{chars}', type: 'hub' }],
+        nodes: [{ id: 'node[with]special{chars}', type: MemoryType.Hub }],
         edges: [],
       };
 
@@ -192,7 +193,7 @@ describe('generateMermaid', () => {
     it('should sanitise node IDs', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node@with#special!chars', type: 'hub' }],
+        nodes: [{ id: 'node@with#special!chars', type: MemoryType.Hub }],
         edges: [],
       };
 
@@ -219,8 +220,8 @@ describe('generateMermaid', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'hub' },
-          { id: 'b', type: 'hub' },
+          { id: 'a', type: MemoryType.Hub },
+          { id: 'b', type: MemoryType.Hub },
         ],
         edges: [
           { source: 'a', target: 'b', label: '' },
@@ -239,8 +240,8 @@ describe('generateMermaid', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node1', type: 'decision' },
-          { id: 'node2', type: 'artifact' },
+          { id: 'node1', type: MemoryType.Decision },
+          { id: 'node2', type: MemoryType.Artifact },
         ],
         edges: [],
       };
@@ -256,8 +257,8 @@ describe('generateMermaid', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node1', type: 'decision' },
-          { id: 'node2', type: 'decision' },
+          { id: 'node1', type: MemoryType.Decision },
+          { id: 'node2', type: MemoryType.Decision },
         ],
         edges: [],
       };
@@ -274,9 +275,9 @@ describe('generateMermaid', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'decision1', type: 'decision' },
-          { id: 'learning1', type: 'learning' },
-          { id: 'artifact1', type: 'artifact' },
+          { id: 'decision1', type: MemoryType.Decision },
+          { id: 'learning1', type: MemoryType.Learning },
+          { id: 'artifact1', type: MemoryType.Artifact },
         ],
         edges: [
           { source: 'decision1', target: 'learning1', label: '' },
@@ -284,7 +285,7 @@ describe('generateMermaid', () => {
         ],
       };
 
-      const result = generateMermaid(graph, { filterType: 'decision' });
+      const result = generateMermaid(graph, { filterType: MemoryType.Decision });
 
       expect(result).toContain('decision1');
       expect(result).not.toContain('learning1');
@@ -295,10 +296,10 @@ describe('generateMermaid', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'root', type: 'hub' },
-          { id: 'child1', type: 'hub' },
-          { id: 'child2', type: 'hub' },
-          { id: 'grandchild', type: 'hub' },
+          { id: 'root', type: MemoryType.Hub },
+          { id: 'child1', type: MemoryType.Hub },
+          { id: 'child2', type: MemoryType.Hub },
+          { id: 'grandchild', type: MemoryType.Hub },
         ],
         edges: [
           { source: 'root', target: 'child1', label: '' },
@@ -322,8 +323,8 @@ describe('generateTextGraph', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-1', type: 'decision' },
-        { id: 'node-2', type: 'learning' },
+        { id: 'node-1', type: MemoryType.Decision },
+        { id: 'node-2', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-1', target: 'node-2', label: 'leads to' },
@@ -340,7 +341,7 @@ describe('generateTextGraph', () => {
   it('should show edge labels in text format', () => {
     const graph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'a', type: 'hub' }, { id: 'b', type: 'hub' }],
+      nodes: [{ id: 'a', type: MemoryType.Hub }, { id: 'b', type: MemoryType.Hub }],
       edges: [{ source: 'a', target: 'b', label: 'connects' }],
     };
 
@@ -354,8 +355,8 @@ describe('generateDot', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-1', type: 'decision' },
-        { id: 'node-2', type: 'learning' },
+        { id: 'node-1', type: MemoryType.Decision },
+        { id: 'node-2', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-1', target: 'node-2', label: 'leads to' },
@@ -373,7 +374,7 @@ describe('generateDot', () => {
   it('should escape labels in DOT format', () => {
     const graph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'node[with]brackets', type: 'hub' }],
+      nodes: [{ id: 'node[with]brackets', type: MemoryType.Hub }],
       edges: [],
     };
 
@@ -388,8 +389,8 @@ describe('generateDot', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'a', type: 'hub' },
-        { id: 'b', type: 'hub' },
+        { id: 'a', type: MemoryType.Hub },
+        { id: 'b', type: MemoryType.Hub },
       ],
       edges: [
         { source: 'a', target: 'b', label: 'connects to' },

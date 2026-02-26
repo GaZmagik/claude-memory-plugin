@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { MemoryType } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -38,8 +39,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -58,8 +59,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -73,8 +74,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [{ source: 'node-1', target: 'node-2', label: 'relates-to' }],
       };
@@ -88,8 +89,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [{ source: 'node-1', target: 'node-2', label: 'relates-to' }],
       };
@@ -102,7 +103,7 @@ describe('Graph Edges', () => {
     it('should throw error if source node does not exist', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node-2', type: 'learning' }],
+        nodes: [{ id: 'node-2', type: MemoryType.Learning }],
         edges: [],
       };
 
@@ -114,7 +115,7 @@ describe('Graph Edges', () => {
     it('should throw error if target node does not exist', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node-1', type: 'decision' }],
+        nodes: [{ id: 'node-1', type: MemoryType.Decision }],
         edges: [],
       };
 
@@ -126,7 +127,7 @@ describe('Graph Edges', () => {
     it('should prevent self-referencing edges', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node-1', type: 'decision' }],
+        nodes: [{ id: 'node-1', type: MemoryType.Decision }],
         edges: [],
       };
 
@@ -140,8 +141,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -156,8 +157,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -171,8 +172,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -187,8 +188,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -201,8 +202,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -220,8 +221,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [{ source: 'node-1', target: 'node-2', label: 'relates-to' }],
       };
@@ -235,8 +236,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'node-1', target: 'node-2', label: 'relates-to' },
@@ -254,8 +255,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'node-1', target: 'node-2', label: 'relates-to' },
@@ -409,7 +410,7 @@ describe('Graph Edges', () => {
     it('should return empty array for unconnected node', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'lonely', type: 'decision' }],
+        nodes: [{ id: 'lonely', type: MemoryType.Decision }],
         edges: [{ source: 'a', target: 'b', label: 'x' }],
       };
 
@@ -499,9 +500,9 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'connected', type: 'decision' },
-          { id: 'orphan1', type: 'learning' },
-          { id: 'orphan2', type: 'gotcha' },
+          { id: 'connected', type: MemoryType.Decision },
+          { id: 'orphan1', type: MemoryType.Learning },
+          { id: 'orphan2', type: MemoryType.Gotcha },
         ],
         edges: [{ source: 'connected', target: 'other', label: 'x' }],
       };
@@ -517,8 +518,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [{ source: 'a', target: 'b', label: 'x' }],
       };
@@ -546,9 +547,9 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
-          { id: 'c', type: 'gotcha' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
+          { id: 'c', type: MemoryType.Gotcha },
         ],
         edges: [],
       };
@@ -565,8 +566,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -600,8 +601,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'a', target: 'b', label: 'relates-to', similarity: 0.75 },
@@ -619,8 +620,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'a', target: 'b', label: 'relates-to' },
@@ -640,8 +641,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'a', target: 'b', label: 'relates-to', similarity: 0.75 },
@@ -662,8 +663,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -678,8 +679,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'a', target: 'b', label: 'relates-to' },
@@ -704,8 +705,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           {
@@ -736,8 +737,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'a', target: 'b', label: 'relates-to', similarity: 0.88 },
@@ -757,8 +758,8 @@ describe('Graph Edges', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'a', type: 'decision' },
-          { id: 'b', type: 'learning' },
+          { id: 'a', type: MemoryType.Decision },
+          { id: 'b', type: MemoryType.Learning },
         ],
         edges: [],
       };

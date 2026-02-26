@@ -63,8 +63,8 @@ describe('Delete with cross-scope edge cleanup', () => {
     if (!agentGraph.nodes.find(n => n.id === 'decision-project-mem')) {
       agentGraph = addNode(agentGraph, {
         id: 'decision-project-mem',
-        type: 'decision',
-        scope: 'project',
+        type: MemoryType.Decision,
+        scope: Scope.Project,
       });
     }
     agentGraph = addEdge(
@@ -78,8 +78,8 @@ describe('Delete with cross-scope edge cleanup', () => {
     if (!projectGraph.nodes.find(n => n.id === 'learning-agent-mem')) {
       projectGraph = addNode(projectGraph, {
         id: 'learning-agent-mem',
-        type: 'learning',
-        scope: 'agent-project',
+        type: MemoryType.Learning,
+        scope: Scope.AgentProject,
         agent: 'ts-expert',
       });
     }

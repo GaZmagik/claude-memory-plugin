@@ -98,8 +98,8 @@ describe('Cross-scope traversal on merged graphs', () => {
     if (!agentGraph.nodes.find(n => n.id === 'decision-project-1')) {
       agentGraph = addNode(agentGraph, {
         id: 'decision-project-1',
-        type: 'decision',
-        scope: 'project',
+        type: MemoryType.Decision,
+        scope: Scope.Project,
       });
     }
     agentGraph = addEdge(agentGraph, 'learning-agent-1', 'decision-project-1', 'informs', crossEdgeMeta);
@@ -109,8 +109,8 @@ describe('Cross-scope traversal on merged graphs', () => {
     if (!projectGraph.nodes.find(n => n.id === 'learning-agent-1')) {
       projectGraph = addNode(projectGraph, {
         id: 'learning-agent-1',
-        type: 'learning',
-        scope: 'agent-project',
+        type: MemoryType.Learning,
+        scope: Scope.AgentProject,
         agent: 'ts-expert',
       });
     }
@@ -182,7 +182,7 @@ describe('Cross-scope traversal on merged graphs', () => {
     it('correctly identifies truly orphaned nodes in merged graph', async () => {
       // Add an isolated node to the agent graph
       let agentGraph = await loadGraph(agentBasePath);
-      agentGraph = addNode(agentGraph, { id: 'isolated-node', type: 'learning' });
+      agentGraph = addNode(agentGraph, { id: 'isolated-node', type: MemoryType.Learning });
       await saveGraph(agentBasePath, agentGraph);
 
       const mergedGraph = await loadMergedGraph([agentBasePath, projectBasePath]);
@@ -196,7 +196,7 @@ describe('Cross-scope traversal on merged graphs', () => {
     it('single-scope view might show node as orphaned but merged view does not', async () => {
       // Add a node to project graph that only has a cross-scope inbound edge
       let projectGraph = await loadGraph(projectBasePath);
-      projectGraph = addNode(projectGraph, { id: 'lonely-project-node', type: 'artifact' });
+      projectGraph = addNode(projectGraph, { id: 'lonely-project-node', type: MemoryType.Artifact });
       await saveGraph(projectBasePath, projectGraph);
 
       // In the project-only view, lonely-project-node is orphaned
@@ -206,7 +206,7 @@ describe('Cross-scope traversal on merged graphs', () => {
 
       // Now add a cross-scope edge in the agent graph pointing to it
       let agentGraph = await loadGraph(agentBasePath);
-      agentGraph = addNode(agentGraph, { id: 'lonely-project-node', type: 'artifact', scope: 'project' });
+      agentGraph = addNode(agentGraph, { id: 'lonely-project-node', type: MemoryType.Artifact, scope: Scope.Project });
       agentGraph = addEdge(agentGraph, 'learning-agent-1', 'lonely-project-node', 'documents', {
         sourceScope: 'agent-project',
         targetScope: 'project',

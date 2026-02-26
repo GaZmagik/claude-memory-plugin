@@ -178,8 +178,8 @@ describe('linkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: memoryId('source-id'), type: 'decision' },
-        { id: memoryId('target-id'), type: 'artifact' },
+        { id: memoryId('source-id'), type: MemoryType.Decision },
+        { id: memoryId('target-id'), type: MemoryType.Artifact },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });
@@ -294,8 +294,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: memoryId('source-id'), type: 'decision' },
-        { id: memoryId('target-id'), type: 'artifact' },
+        { id: memoryId('source-id'), type: MemoryType.Decision },
+        { id: memoryId('target-id'), type: MemoryType.Artifact },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });
@@ -303,8 +303,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(edgesModule, 'removeEdge').mockReturnValue({
       version: 1,
       nodes: [
-        { id: memoryId('source-id'), type: 'decision' },
-        { id: memoryId('target-id'), type: 'artifact' },
+        { id: memoryId('source-id'), type: MemoryType.Decision },
+        { id: memoryId('target-id'), type: MemoryType.Artifact },
       ],
       edges: [],
     });
@@ -350,8 +350,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: memoryId('source-id'), type: 'decision' },
-        { id: memoryId('target-id'), type: 'artifact' },
+        { id: memoryId('source-id'), type: MemoryType.Decision },
+        { id: memoryId('target-id'), type: MemoryType.Artifact },
       ],
       edges: [
         { source: 'source-id', target: 'target-id', label: 'implements' },
@@ -362,8 +362,8 @@ describe('unlinkMemories', () => {
     vi.spyOn(edgesModule, 'removeEdge').mockReturnValue({
       version: 1,
       nodes: [
-        { id: memoryId('source-id'), type: 'decision' },
-        { id: memoryId('target-id'), type: 'artifact' },
+        { id: memoryId('source-id'), type: MemoryType.Decision },
+        { id: memoryId('target-id'), type: MemoryType.Artifact },
       ],
       edges: [{ source: 'source-id', target: 'target-id', label: 'relates-to' }],
     });

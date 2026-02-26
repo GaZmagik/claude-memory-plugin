@@ -23,7 +23,7 @@ import { Scope } from '../types/enums.js';
  */
 interface MemoryMetadata {
   basePath: string;
-  scope: string;
+  scope: Scope;
   agent?: string;
 }
 
@@ -32,7 +32,7 @@ interface MemoryMetadata {
  * Uses prefix-based matching so that crafted paths containing '/.claude/agents/'
  * as a substring cannot spoof agent-project classification (CWE-706).
  */
-export function deriveScope(targetPath: string, projectBase: string, globalBase: string): string {
+export function deriveScope(targetPath: string, projectBase: string, globalBase: string): Scope {
   const normalizedTarget = path.resolve(targetPath);
   const normalizedProject = path.resolve(projectBase);
   const normalizedGlobal = path.resolve(globalBase);
@@ -41,21 +41,21 @@ export function deriveScope(targetPath: string, projectBase: string, globalBase:
   const agentsInGlobal = path.join(normalizedGlobal, 'agents');
 
   if (normalizedTarget === normalizedGlobal) {
-    return 'global';
+    return Scope.Global;
   } else if (normalizedTarget === normalizedProject) {
-    return 'project';
+    return Scope.Project;
   } else if (
     normalizedTarget === agentsInProject ||
     normalizedTarget.startsWith(agentsInProject + path.sep)
   ) {
-    return 'agent-project';
+    return Scope.AgentProject;
   } else if (
     normalizedTarget === agentsInGlobal ||
     normalizedTarget.startsWith(agentsInGlobal + path.sep)
   ) {
-    return 'agent-global';
+    return Scope.AgentGlobal;
   } else {
-    return 'local';
+    return Scope.Local;
   }
 }
 
@@ -224,7 +224,7 @@ export async function suggestLinks(
   }
 
   // Determine primary scope type
-  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, getScopePath(Scope.Project, cwd, ''), globalPath);
+  const primaryScope = agentName ? Scope.AgentProject : deriveScope(basePath, getScopePath(Scope.Project, cwd, ''), globalPath);
 
   // Build embeddings map from primary scope (excluding thoughts)
   // AND track metadata for each memory
@@ -293,7 +293,7 @@ export async function suggestLinks(
             metadataMap.set(id, {
               basePath: scopePath,
               scope: scopeType,
-              agent: (scopeType === 'agent-project' || scopeType === 'agent-global') ? path.basename(scopePath) : undefined,
+              agent: (scopeType === Scope.AgentProject || scopeType === Scope.AgentGlobal) ? path.basename(scopePath) : undefined,
             });
           }
         }

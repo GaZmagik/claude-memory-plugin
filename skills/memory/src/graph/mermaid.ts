@@ -5,7 +5,7 @@
  */
 
 import type { MemoryGraph, GraphNode } from './structure.js';
-import { Scope } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
 
 /**
  * Mermaid generation options
@@ -18,7 +18,7 @@ export interface MermaidOptions {
   /** Maximum depth from starting node */
   depth?: number;
   /** Filter by node type */
-  filterType?: string;
+  filterType?: MemoryType;
   /** Filter by tag (requires node metadata) */
   filterTag?: string;
   /** Include node type in label */
@@ -135,10 +135,10 @@ function getNodesAtDepth(
 }
 
 /**
- * Get all hub nodes (nodes tagged with 'hub' type)
+ * Get all hub nodes (nodes with MemoryType.Hub)
  */
 function getHubNodes(graph: MemoryGraph): GraphNode[] {
-  return graph.nodes.filter(n => n.type === 'hub');
+  return graph.nodes.filter(n => n.type === MemoryType.Hub);
 }
 
 /**
@@ -197,8 +197,8 @@ function isAgentNode(node: GraphNode): boolean {
 function generateNode(node: GraphNode, options: MermaidOptions): string {
   const id = sanitiseId(node.id);
 
-  // Prioritize external types over agent scope
-  const isExternalType = node.type === 'rule' || node.type === 'reminder';
+  // Prioritise external types over agent scope
+  const isExternalType = node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
   const shape = isExternalType
     ? getNodeShape(node.type)  // Use type-specific shape (hexagon/cylinder)
     : isAgentNode(node)

@@ -6,7 +6,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { generateMermaid } from '../../../src/graph/mermaid.js';
-import { Scope } from '../../../src/types/enums.js';
+import { MemoryType, Scope } from '../../../src/types/enums.js';
 import type { MemoryGraph } from '../../../src/graph/structure.js';
 
 describe('Agent Mermaid Styling', () => {
@@ -14,8 +14,8 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'agent-mem-1', type: 'learning', scope: Scope.AgentProject },
-        { id: 'project-mem-1', type: 'learning', scope: Scope.Project },
+        { id: 'agent-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject },
+        { id: 'project-mem-1', type: MemoryType.Learning, scope: Scope.Project },
       ],
       edges: [],
     };
@@ -32,8 +32,8 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'project-mem-1', type: 'learning', scope: Scope.Project },
-        { id: 'global-mem-1', type: 'decision', scope: Scope.Global },
+        { id: 'project-mem-1', type: MemoryType.Learning, scope: Scope.Project },
+        { id: 'global-mem-1', type: MemoryType.Decision, scope: Scope.Global },
       ],
       edges: [],
     };
@@ -51,7 +51,7 @@ describe('Agent Mermaid Styling', () => {
       nodes: [
         {
           id: 'agent-mem-1',
-          type: 'learning',
+          type: MemoryType.Learning,
           scope: Scope.AgentProject,
           agent: 'typescript-pro',
         },
@@ -68,8 +68,8 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'agent-mem-1', type: 'learning', scope: Scope.AgentProject },
-        { id: 'project-mem-1', type: 'learning', scope: Scope.Project },
+        { id: 'agent-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject },
+        { id: 'project-mem-1', type: MemoryType.Learning, scope: Scope.Project },
       ],
       edges: [],
     };
@@ -86,7 +86,7 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'agent-mem-1', type: 'learning', scope: Scope.AgentProject },
+        { id: 'agent-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject },
       ],
       edges: [],
     };
@@ -102,8 +102,8 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'agent-proj-1', type: 'learning', scope: Scope.AgentProject },
-        { id: 'agent-global-1', type: 'learning', scope: Scope.AgentGlobal },
+        { id: 'agent-proj-1', type: MemoryType.Learning, scope: Scope.AgentProject },
+        { id: 'agent-global-1', type: MemoryType.Learning, scope: Scope.AgentGlobal },
       ],
       edges: [],
     };
@@ -118,9 +118,9 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'ts-mem-1', type: 'learning', scope: Scope.AgentProject, agent: 'typescript-pro' },
-        { id: 'rust-mem-1', type: 'decision', scope: Scope.AgentProject, agent: 'rust-expert' },
-        { id: 'proj-mem-1', type: 'artifact', scope: Scope.Project },
+        { id: 'ts-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'typescript-pro' },
+        { id: 'rust-mem-1', type: MemoryType.Decision, scope: Scope.AgentProject, agent: 'rust-expert' },
+        { id: 'proj-mem-1', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [
         { source: 'ts-mem-1', target: 'proj-mem-1', label: 'references' },
@@ -141,7 +141,7 @@ describe('Agent Mermaid Styling', () => {
       nodes: [
         {
           id: 'agent-mem-1',
-          type: 'learning',
+          type: MemoryType.Learning,
           scope: Scope.AgentProject,
           agent: 'typescript-professional-advanced',
         },
@@ -159,9 +159,9 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'ts-mem-1', type: 'learning', scope: Scope.AgentProject, agent: 'typescript-pro' },
-        { id: 'rust-mem-1', type: 'decision', scope: Scope.AgentProject, agent: 'rust-expert' },
-        { id: 'proj-mem-1', type: 'artifact', scope: Scope.Project },
+        { id: 'ts-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'typescript-pro' },
+        { id: 'rust-mem-1', type: MemoryType.Decision, scope: Scope.AgentProject, agent: 'rust-expert' },
+        { id: 'proj-mem-1', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [],
     };
@@ -176,8 +176,8 @@ describe('Agent Mermaid Styling', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'ts-mem-1', type: 'learning', scope: Scope.AgentProject, agent: 'typescript-pro' },
-        { id: 'proj-mem-1', type: 'artifact', scope: Scope.Project },
+        { id: 'ts-mem-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'typescript-pro' },
+        { id: 'proj-mem-1', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [
         { source: 'ts-mem-1', target: 'proj-mem-1', label: 'references' },

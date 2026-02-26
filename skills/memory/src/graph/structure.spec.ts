@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { MemoryType, Scope } from '../types/enums.js';
 import { existsSync, readFileSync, rmSync, mkdirSync, writeFileSync } from 'fs';
 import {
   createGraph,
@@ -40,7 +41,7 @@ describe('loadGraph', () => {
   it('should load graph from disk when file exists', async () => {
     const testGraph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'test-node', type: 'learning' }],
+      nodes: [{ id: 'test-node', type: MemoryType.Learning }],
       edges: [{ source: 'a', target: 'b', label: 'links' }],
     };
     writeFileSync(`${testPath}/graph.json`, JSON.stringify(testGraph));
@@ -83,7 +84,7 @@ describe('saveGraph', () => {
   it('should save graph to disk', async () => {
     const testGraph: MemoryGraph = {
       version: 1,
-      nodes: [{ id: 'test-node', type: 'learning' }],
+      nodes: [{ id: 'test-node', type: MemoryType.Learning }],
       edges: [],
     };
 
@@ -121,8 +122,8 @@ describe('addNode', () => {
     edges: [],
   };
 
-  const node1: GraphNode = { id: 'node-1', type: 'decision' };
-  const node2: GraphNode = { id: 'node-2', type: 'learning' };
+  const node1: GraphNode = { id: 'node-1', type: MemoryType.Decision };
+  const node2: GraphNode = { id: 'node-2', type: MemoryType.Learning };
 
   it('should add new node to empty graph', () => {
     const result = addNode(emptyGraph, node1);
@@ -138,7 +139,7 @@ describe('addNode', () => {
 
   it('should update existing node with same ID', () => {
     const graph = addNode(emptyGraph, node1);
-    const updatedNode: GraphNode = { id: 'node-1', type: 'artifact' };
+    const updatedNode: GraphNode = { id: 'node-1', type: MemoryType.Artifact };
     const result = addNode(graph, updatedNode);
     expect(result.nodes).toHaveLength(1);
     expect(result.nodes[0]!.type).toBe('artifact');
@@ -155,8 +156,8 @@ describe('removeNode', () => {
   const graph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'node-1', type: 'decision' },
-      { id: 'node-2', type: 'learning' },
+      { id: 'node-1', type: MemoryType.Decision },
+      { id: 'node-2', type: MemoryType.Learning },
     ],
     edges: [
       { source: 'node-1', target: 'node-2', label: 'leads to' },
@@ -191,8 +192,8 @@ describe('getNode', () => {
   const graph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'node-1', type: 'decision' },
-      { id: 'node-2', type: 'learning' },
+      { id: 'node-1', type: MemoryType.Decision },
+      { id: 'node-2', type: MemoryType.Learning },
     ],
     edges: [],
   };
@@ -213,9 +214,9 @@ describe('getAllNodes', () => {
   const graph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'node-1', type: 'decision' },
-      { id: 'node-2', type: 'learning' },
-      { id: 'node-3', type: 'decision' },
+      { id: 'node-1', type: MemoryType.Decision },
+      { id: 'node-2', type: MemoryType.Learning },
+      { id: 'node-3', type: MemoryType.Decision },
     ],
     edges: [],
   };
@@ -226,9 +227,9 @@ describe('getAllNodes', () => {
   });
 
   it('should filter by type when specified', () => {
-    const result = getAllNodes(graph, 'decision');
+    const result = getAllNodes(graph, MemoryType.Decision);
     expect(result).toHaveLength(2);
-    expect(result.every(n => n.type === 'decision')).toBe(true);
+    expect(result.every(n => n.type === MemoryType.Decision)).toBe(true);
   });
 
   it('should return copy of nodes array', () => {
@@ -240,7 +241,7 @@ describe('getAllNodes', () => {
 describe('hasNode', () => {
   const graph: MemoryGraph = {
     version: 1,
-    nodes: [{ id: 'node-1', type: 'decision' }],
+    nodes: [{ id: 'node-1', type: MemoryType.Decision }],
     edges: [],
   };
 
@@ -263,8 +264,8 @@ describe('getNodeCount', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-1', type: 'decision' },
-        { id: 'node-2', type: 'learning' },
+        { id: 'node-1', type: MemoryType.Decision },
+        { id: 'node-2', type: MemoryType.Learning },
       ],
       edges: [],
     };
@@ -305,8 +306,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'agent-learning-1', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
-        { id: 'project-decision-1', type: 'decision', scope: 'project' },
+        { id: 'agent-learning-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'ts-expert' },
+        { id: 'project-decision-1', type: MemoryType.Decision, scope: Scope.Project },
       ],
       edges: [
         {
@@ -338,8 +339,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'ts-learning-1', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
-        { id: 'rust-decision-1', type: 'decision', scope: 'agent-project', agent: 'rust-expert' },
+        { id: 'ts-learning-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'ts-expert' },
+        { id: 'rust-decision-1', type: MemoryType.Decision, scope: Scope.AgentProject, agent: 'rust-expert' },
       ],
       edges: [
         {
@@ -368,8 +369,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-a', type: 'decision' },
-        { id: 'node-b', type: 'learning' },
+        { id: 'node-a', type: MemoryType.Decision },
+        { id: 'node-b', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-a', target: 'node-b', label: 'relates-to' },
@@ -394,8 +395,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-a', type: 'decision' },
-        { id: 'node-b', type: 'learning' },
+        { id: 'node-a', type: MemoryType.Decision },
+        { id: 'node-b', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-a', target: 'node-b', label: 'relates-to' },
@@ -413,8 +414,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-a', type: 'decision' },
-        { id: 'node-b', type: 'learning' },
+        { id: 'node-a', type: MemoryType.Decision },
+        { id: 'node-b', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-a', target: 'node-b', label: 'auto-linked-by-similarity', similarity: 0.87 },
@@ -432,8 +433,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-a', type: 'decision' },
-        { id: 'node-b', type: 'learning' },
+        { id: 'node-a', type: MemoryType.Decision },
+        { id: 'node-b', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-a', target: 'node-b', label: 'relates-to', verifiedRelation: 'superseded-by' },
@@ -450,8 +451,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'node-a', type: 'decision' },
-        { id: 'node-b', type: 'learning' },
+        { id: 'node-a', type: MemoryType.Decision },
+        { id: 'node-b', type: MemoryType.Learning },
       ],
       edges: [
         { source: 'node-a', target: 'node-b', label: 'relates-to' },

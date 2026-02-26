@@ -46,7 +46,7 @@ export interface ValidationResult {
  * ```
  */
 export function isValidMemoryType(type: unknown): type is MemoryType {
-  return Object.values(MemoryType).includes(type as MemoryType);
+  return typeof type === 'string' && (Object.values(MemoryType) as string[]).includes(type);
 }
 
 /**
@@ -70,7 +70,7 @@ export function isValidMemoryType(type: unknown): type is MemoryType {
  * ```
  */
 export function isValidScope(scope: unknown): scope is Scope {
-  return Object.values(Scope).includes(scope as Scope);
+  return typeof scope === 'string' && (Object.values(Scope) as string[]).includes(scope);
 }
 
 /**
@@ -94,7 +94,7 @@ export function isValidScope(scope: unknown): scope is Scope {
  * ```
  */
 export function isValidSeverity(severity: unknown): severity is Severity {
-  return Object.values(Severity).includes(severity as Severity);
+  return typeof severity === 'string' && (Object.values(Severity) as string[]).includes(severity);
 }
 
 /**

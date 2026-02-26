@@ -3,10 +3,10 @@
  * No runtime code to test. File exempt via .tddignore.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'vitest';
 
 describe('agent-operations/types', () => {
-  it('is a type-only module', () => {
-    expect(true).toBe(true);
+  it.skip('is a type-only module', () => {
+    // TODO: implement real test
   });
 });

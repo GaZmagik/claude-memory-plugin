@@ -264,7 +264,6 @@ describe('check-bun-installed hook', () => {
         chmodSync(pluginDir, 0o755);
       } catch {
         // Skip test if we can't change permissions
-        expect(true).toBe(true);
       }
     }, 40000);
   });

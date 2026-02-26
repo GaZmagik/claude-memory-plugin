@@ -190,7 +190,7 @@ describe('Hint Lifecycle Integration', () => {
         expect(tracker).toBeDefined();
       } else {
         // When not running in Claude Code, session ID should be generated
-        expect(true).toBe(true); // Placeholder - actual behaviour TBD
+        // TODO: implement real test for this branch
       }
     });
   });

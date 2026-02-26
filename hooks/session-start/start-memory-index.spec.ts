@@ -33,7 +33,6 @@ describe('start-memory-index hook', () => {
       const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
       if (!existsSync(localIndex)) {
         // Skip if no index - test requires memory index to exist
-        expect(true).toBe(true);
         return;
       }
 
@@ -56,7 +55,6 @@ describe('start-memory-index hook', () => {
     it('should include memory counts in summary when index exists', async () => {
       const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
       if (!existsSync(localIndex)) {
-        expect(true).toBe(true);
         return;
       }
 
@@ -101,7 +99,6 @@ describe('start-memory-index hook', () => {
       const localIndex = join(process.cwd(), '.claude', 'memory', 'index.json');
       if (!existsSync(localIndex)) {
         // Skip if no index
-        expect(true).toBe(true);
         return;
       }
 

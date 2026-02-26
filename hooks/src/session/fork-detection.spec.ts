@@ -506,7 +506,7 @@ describe('Fork Detection', () => {
 });
 
 describe('Security Requirements', () => {
-  it('documents that execFileSync is used instead of shell interpolation', () => {
+  it.skip('documents that execFileSync is used instead of shell interpolation', () => {
     // This test documents the security requirement:
     // The implementation uses execFileSync with argument arrays
     // which prevents command injection attacks
@@ -517,6 +517,6 @@ describe('Security Requirements', () => {
     //
     // The fork-detection.ts file header comment confirms:
     // "SECURITY: Uses execFileSync with argument array to prevent command injection"
-    expect(true).toBe(true);
+    // TODO: implement real test
   });
 });

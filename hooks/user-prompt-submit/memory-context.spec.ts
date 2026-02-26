@@ -22,18 +22,18 @@ describe('memory-context hook', () => {
       expect(provider.name).toMatch(/^ollama:/);
     });
 
-    it('should gracefully handle missing Ollama service', async () => {
+    it.skip('should gracefully handle missing Ollama service', async () => {
       // The trySemanticSearch function returns null when Ollama is unavailable
       // This is tested via the catch-all error handling
-      expect(true).toBe(true); // Placeholder - actual integration test would mock fetch
+      // TODO: implement real test
     });
   });
 
   describe('keyword search fallback', () => {
-    it('should fall back to keyword search when semantic search fails', async () => {
+    it.skip('should fall back to keyword search when semantic search fails', async () => {
       // The hook tries semantic search first, then falls back to keyword search
       // This behavior is integration-tested via the overall hook execution
-      expect(true).toBe(true); // Placeholder - tested via integration
+      // TODO: implement real test
     });
   });
 });

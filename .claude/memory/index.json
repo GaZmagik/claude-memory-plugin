@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T19:12:49.052Z",
+  "lastUpdated": "2026-02-26T22:01:57.334Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14717,6 +14717,155 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering made 64-finding code review tractable",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "large-scale-work",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:25.718Z",
+      "updated": "2026-02-26T21:57:25.718Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent dispatch on non-overlapping code phases accelerates multi-phase reviews",
+      "tags": [
+        "retrospective",
+        "process",
+        "parallelisation",
+        "agent-dispatch",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:37.864Z",
+      "updated": "2026-02-26T21:57:37.864Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count",
+      "type": "learning",
+      "title": "Retro - Full test suite validation revealed net improvement despite high failure count",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "validation",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:57.870Z",
+      "updated": "2026-02-26T21:57:57.870Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics",
+      "type": "gotcha",
+      "title": "Type changes in parallel agents create cascading diagnostics",
+      "tags": [
+        "typescript",
+        "parallel-agents",
+        "diagnostics",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-26T21:58:30.268Z",
+      "updated": "2026-02-26T21:58:30.268Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics.md"
+    },
+    {
+      "id": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "type": "gotcha",
+      "title": "Gotcha - Parallel expert agents on overlapping code phases risk merge conflicts",
+      "tags": [
+        "retrospective",
+        "process",
+        "gotcha",
+        "agent-coordination",
+        "merge-conflicts",
+        "project"
+      ],
+      "created": "2026-02-26T21:58:41.602Z",
+      "updated": "2026-02-26T21:58:41.602Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-placeholder-tests-inflate-pass-metrics-deceptively",
+      "type": "gotcha",
+      "title": "Placeholder tests inflate pass metrics deceptively",
+      "tags": [
+        "testing",
+        "test-quality",
+        "metrics",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:13.835Z",
+      "updated": "2026-02-26T21:59:13.835Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-placeholder-tests-inflate-pass-metrics-deceptively.md"
+    },
+    {
+      "id": "learning-pre-existing-test-failures-provide-improvement-baseline",
+      "type": "learning",
+      "title": "Pre-existing test failures provide improvement baseline",
+      "tags": [
+        "testing",
+        "code-review",
+        "metrics",
+        "velocity",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:15.882Z",
+      "updated": "2026-02-26T21:59:15.882Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-pre-existing-test-failures-provide-improvement-baseline.md"
+    },
+    {
+      "id": "decision-defer-large-refactors-from-code-reviews",
+      "type": "decision",
+      "title": "Defer large refactors to separate PRs",
+      "tags": [
+        "architecture",
+        "code-review",
+        "refactoring",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:28.408Z",
+      "updated": "2026-02-26T21:59:28.408Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-large-refactors-from-code-reviews.md"
+    },
+    {
+      "id": "learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations",
+      "type": "learning",
+      "title": "resolveBasePath utility extracts agent-scope resolution from CRUD operations",
+      "tags": [
+        "refactoring",
+        "agent-scope",
+        "dry",
+        "utility",
+        "project"
+      ],
+      "created": "2026-02-26T22:01:57.326Z",
+      "updated": "2026-02-26T22:01:57.326Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations.md"
     }
   ]
 }

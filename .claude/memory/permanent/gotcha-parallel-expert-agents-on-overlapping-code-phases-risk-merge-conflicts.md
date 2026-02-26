@@ -4,15 +4,16 @@ title: Gotcha - Parallel expert agents on overlapping code phases risk merge con
 type: gotcha
 scope: project
 project: claude-memory-plugin
-created: "2026-02-26T19:12:55.387Z"
-updated: "2026-02-26T19:14:22.041Z"
+created: "2026-02-26T21:58:41.602Z"
+updated: "2026-02-26T21:59:30.949Z"
 tags:
   - retrospective
   - process
-  - sub-agents
-  - parallel-work
+  - gotcha
+  - agent-coordination
+  - merge-conflicts
   - project
 severity: high
 ---
 
-Dispatching multiple sub-agents in parallel to work on independent phases (e.g., performance + TypeScript fixes) can cause file conflicts if phases touch overlapping code paths or shared utilities. Phase 5 (TypeScript) and Phase 4 (code quality refactoring) both touch type safety / DRY extractions. Mitigation: Use stage-gates between phases, or coordinate agent dispatch to avoid file overlap. Lesson: Parallelism is efficient but requires dependency tracking.
+When dispatching multiple agents to work on parallel phases of a code review, ensure strict non-overlapping file scope. In this session, Phase 3 agent modified graph/traversal.ts and Phase 5 agent modified the same files with type changes, creating potential merge conflicts despite both committing cleanly to the same branch. Prevention: (1) map file dependencies before dispatch, (2) assign agents to distinct modules, (3) use separate branches per agent when overlap is unavoidable, (4) plan agent handoff sequence explicitly. For large reviews >50 findings, consider sequential phases on architectural changes.

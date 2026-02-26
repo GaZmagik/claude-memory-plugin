@@ -4863,6 +4863,60 @@
       "type": "learning",
       "title": "Retro - Phase-based grouping with trivial-first ordering makes large reviews tractable",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering made 64-finding code review tractable",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent dispatch on non-overlapping code phases accelerates multi-phase reviews",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count",
+      "type": "learning",
+      "title": "Retro - Full test suite validation revealed net improvement despite high failure count",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics",
+      "type": "gotcha",
+      "title": "Type changes in parallel agents create cascading diagnostics",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "type": "gotcha",
+      "title": "Gotcha - Parallel expert agents on overlapping code phases risk merge conflicts",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-placeholder-tests-inflate-pass-metrics-deceptively",
+      "type": "gotcha",
+      "title": "Placeholder tests inflate pass metrics deceptively",
+      "scope": "project"
+    },
+    {
+      "id": "learning-pre-existing-test-failures-provide-improvement-baseline",
+      "type": "learning",
+      "title": "Pre-existing test failures provide improvement baseline",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-large-refactors-from-code-reviews",
+      "type": "decision",
+      "title": "Defer large refactors to separate PRs",
+      "scope": "project"
+    },
+    {
+      "id": "learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations",
+      "type": "learning",
+      "title": "resolveBasePath utility extracts agent-scope resolution from CRUD operations",
+      "scope": "project"
     }
   ],
   "edges": [

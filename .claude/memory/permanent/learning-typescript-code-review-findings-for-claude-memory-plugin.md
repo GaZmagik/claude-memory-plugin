@@ -3,8 +3,9 @@ id: learning-typescript-code-review-findings-for-claude-memory-plugin
 title: TypeScript code review findings for claude-memory-plugin
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-26T17:26:21.050Z"
-updated: "2026-02-26T17:26:21.050Z"
+updated: "2026-02-26T21:59:30.983Z"
 tags:
   - promoted-from-think
   - project

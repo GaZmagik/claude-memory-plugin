@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import type { DeleteMemoryRequest, DeleteMemoryResponse } from '../types/api.js';
-import { Scope, MemoryType } from '../types/enums.js';
+import { MemoryType } from '../types/enums.js';
 import { findInIndex, removeFromIndex } from './index.js';
 import { deleteFile, fileExists, isInsideDir, isValidExternalPath, readFile, writeFileAtomic } from './fs-utils.js';
 import { createLogger } from './logger.js';
@@ -15,9 +15,8 @@ import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
 import { isCrossScopeEdge } from '../graph/edges.js';
 import { removeEdge } from '../graph/edges.js';
 import type { EmbeddingCache } from '../search/embedding.js';
-import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
-import { isAgentScope } from '../scope/is-agent-scope.js';
 import { resolveAgentScopePath, getResolvedScopePath, parseScope } from '../cli/helpers.js';
+import { resolveBasePath } from '../scope/resolve-base-path.js';
 
 const log = createLogger('delete');
 
@@ -112,30 +111,12 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     };
   }
 
-  // Resolve base path (handle agent scopes)
-  let basePath: string;
-  if (request.scope && isAgentScope(request.scope)) {
-    // Agent scope - resolve agent directory
-    if (!request.agent) {
-      return {
-        status: 'error',
-        error: 'agent field is required for agent scopes',
-      };
-    }
-
-    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
-
-    basePath = getAgentDirectoryPath({
-      scope: request.scope,
-      agentName: request.agent,
-      projectRoot,
-      globalRoot,
-    });
-  } else {
-    // Regular scope - use existing resolution
-    basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handles both regular and agent scopes)
+  const basePathResult = resolveBasePath(request);
+  if (basePathResult.error) {
+    return { status: 'error', error: basePathResult.error };
   }
+  const basePath = basePathResult.basePath;
 
   try {
     // Check if node is a read-only external node BEFORE any deletion

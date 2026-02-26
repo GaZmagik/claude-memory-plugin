@@ -17,7 +17,7 @@
 
 import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
-import { parseMemoryFile } from '../core/frontmatter.js';
+import { parseMemoryFile, type ParseResult } from '../core/frontmatter.js';
 import {
   loadGraph,
   saveGraph,
@@ -113,49 +113,55 @@ async function getFilesOnDisk(basePath: string): Promise<Map<string, string>> {
 }
 
 /**
- * Parse a memory file to extract node info (async)
+ * Read and parse a memory file, using cache to avoid duplicate I/O
+ * when the same file is needed for both graph and index sync phases.
  */
-async function parseFileToNode(id: string, filePath: string): Promise<GraphNode | null> {
+async function readAndParseCached(
+  filePath: string,
+  cache: Map<string, ParseResult | null>
+): Promise<ParseResult | null> {
+  const cached = cache.get(filePath);
+  if (cached !== undefined) return cached;
+
   try {
     const content = await readFile(filePath);
     const parsed = parseMemoryFile(content);
-    // Note: parseMemoryFile throws on invalid input, caught below
-
-    return {
-      id,
-      type: String(parsed.frontmatter.type),
-      title: parsed.frontmatter.title,
-    };
+    cache.set(filePath, parsed);
+    return parsed;
   } catch {
+    cache.set(filePath, null);
     return null;
   }
 }
 
 /**
- * Parse a memory file to extract index entry (async)
+ * Extract graph node from parsed frontmatter
  */
-async function parseFileToIndexEntry(id: string, filePath: string): Promise<IndexEntry | null> {
-  try {
-    const content = await readFile(filePath);
-    const parsed = parseMemoryFile(content);
-    // Note: parseMemoryFile throws on invalid input, caught below
+function toGraphNode(id: string, parsed: ParseResult): GraphNode {
+  return {
+    id,
+    type: String(parsed.frontmatter.type),
+    title: parsed.frontmatter.title,
+  };
+}
 
-    const fm = parsed.frontmatter;
-    const isTemporary = filePath.includes('/temporary/');
+/**
+ * Extract index entry from parsed frontmatter
+ */
+function toIndexEntry(id: string, filePath: string, parsed: ParseResult): IndexEntry {
+  const fm = parsed.frontmatter;
+  const isTemporary = filePath.includes('/temporary/');
 
-    return {
-      id: unsafeAsMemoryId(id),
-      title: fm.title,
-      type: fm.type as MemoryType,
-      tags: fm.tags ?? [],
-      created: fm.created,
-      updated: fm.updated,
-      scope: (fm.scope as Scope) ?? Scope.Project,
-      relativePath: isTemporary ? `temporary/${id}.md` : `permanent/${id}.md`,
-    };
-  } catch {
-    return null;
-  }
+  return {
+    id: unsafeAsMemoryId(id),
+    title: fm.title,
+    type: fm.type as MemoryType,
+    tags: fm.tags ?? [],
+    created: fm.created,
+    updated: fm.updated,
+    scope: (fm.scope as Scope) ?? Scope.Project,
+    relativePath: isTemporary ? `temporary/${id}.md` : `permanent/${id}.md`,
+  };
 }
 
 /**

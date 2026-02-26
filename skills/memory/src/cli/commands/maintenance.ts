@@ -403,7 +403,7 @@ export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
       // Note: basePath is the memory storage dir (.claude/memory/), not the project root
       const cwd = process.cwd();
       const homeDir = os.homedir();
-      const gitRoot = findGitRoot(cwd) || cwd;
+      const gitRoot = (await findGitRoot(cwd)) || cwd;
 
       const externalFiles = await discoverExternalFiles({
         cwd,

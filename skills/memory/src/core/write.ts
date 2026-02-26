@@ -373,7 +373,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
 
     // Handle gitignore automation for local scope
     if (request.scope === Scope.Local && request.projectRoot) {
-      ensureLocalScopeGitignored(request.projectRoot);
+      await ensureLocalScopeGitignored(request.projectRoot);
     }
 
     // Use provided ID or generate unique ID

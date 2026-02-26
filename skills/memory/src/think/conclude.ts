@@ -35,7 +35,7 @@ const log = createLogger('think-conclude');
 /**
  * Get scope path from context
  */
-function resolveScopePath(scope: Scope, basePath: string, globalPath: string): string {
+async function resolveScopePath(scope: Scope, basePath: string, globalPath: string): Promise<string> {
   return getScopePath(scope, basePath, globalPath);
 }
 

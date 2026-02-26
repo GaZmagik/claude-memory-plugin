@@ -116,11 +116,19 @@ export function filterMemories(
 }
 
 /**
- * Count memories matching criteria (without filtering full list)
+ * Count memories matching criteria without allocating a filtered array.
  */
 export function countMatches(
   memories: IndexEntry[],
   criteria: FilterCriteria
 ): number {
-  return filterMemories(memories, criteria).length;
+  let count = 0;
+  for (const memory of memories) {
+    if (criteria.pattern && !matchGlobPattern(criteria.pattern, memory.id)) continue;
+    if (criteria.tags && criteria.tags.length > 0 && !matchTags(memory.tags, criteria.tags)) continue;
+    if (criteria.type && memory.type !== criteria.type) continue;
+    if (criteria.scope && memory.scope !== criteria.scope) continue;
+    count++;
+  }
+  return count;
 }

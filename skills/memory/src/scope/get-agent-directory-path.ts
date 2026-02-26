@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { Scope } from '../types/enums.js';
 import { isAgentScope } from './is-agent-scope.js';
 import { sanitiseAgentName } from './sanitise-agent-name.js';

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T17:26:21.057Z",
+  "lastUpdated": "2026-02-26T19:12:49.052Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14683,6 +14683,40 @@
       "updated": "2026-02-26T17:26:21.050Z",
       "scope": "project",
       "relativePath": "permanent/learning-typescript-code-review-findings-for-claude-memory-plugin.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert dispatch accelerates large code reviews",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "parallel-agents",
+        "project"
+      ],
+      "created": "2026-02-26T19:12:41.841Z",
+      "updated": "2026-02-26T19:12:41.841Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering makes large reviews tractable",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-26T19:12:49.030Z",
+      "updated": "2026-02-26T19:12:49.030Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable.md",
+      "severity": "medium"
     }
   ]
 }

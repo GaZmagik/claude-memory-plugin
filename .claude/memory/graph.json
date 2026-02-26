@@ -4851,6 +4851,18 @@
       "type": "learning",
       "title": "TypeScript code review findings for claude-memory-plugin",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert dispatch accelerates large code reviews",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering makes large reviews tractable",
+      "scope": "project"
     }
   ],
   "edges": [

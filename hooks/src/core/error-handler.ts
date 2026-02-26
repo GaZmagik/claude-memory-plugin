@@ -98,18 +98,21 @@ function installSignalHandlers(): void {
   process.on('SIGTERM', () => handleSignal('SIGTERM'));
   process.on('SIGINT', () => handleSignal('SIGINT'));
 
-  // Handle uncaught errors gracefully
-  process.on('uncaughtException', (error) => {
-    console.error('Uncaught exception in hook:', error.message);
-    runCleanup();
-    process.exit(1);
-  });
+  // Handle uncaught errors gracefully — skip in test environments
+  // to avoid interfering with test runner error reporting
+  if (process.env.NODE_ENV !== 'test') {
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught exception in hook:', error.message);
+      runCleanup();
+      process.exit(1);
+    });
 
-  process.on('unhandledRejection', (reason) => {
-    console.error('Unhandled rejection in hook:', reason);
-    runCleanup();
-    process.exit(1);
-  });
+    process.on('unhandledRejection', (reason) => {
+      console.error('Unhandled rejection in hook:', reason);
+      runCleanup();
+      process.exit(1);
+    });
+  }
 }
 
 /**

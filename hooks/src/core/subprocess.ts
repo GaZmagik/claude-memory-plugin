@@ -184,6 +184,9 @@ export async function spawn(
 
       // Write stdin if provided
       if (stdin && proc.stdin) {
+        proc.stdin.on('error', () => {
+          // Swallow EPIPE — process may have exited before stdin fully written
+        });
         proc.stdin.write(stdin);
         proc.stdin.end();
       } else if (proc.stdin) {

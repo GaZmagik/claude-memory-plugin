@@ -268,10 +268,20 @@ export async function getFileStats(filePath: string): Promise<fs.Stats | null> {
  * ```
  */
 export async function readJsonFile<T>(filePath: string): Promise<T | null> {
+  let content: string;
   try {
-    const content = await fsp.readFile(filePath, 'utf-8');
+    content = await fsp.readFile(filePath, 'utf-8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return null;
+    }
+    throw error; // Propagate permission errors, etc.
+  }
+
+  try {
     return JSON.parse(content) as T;
   } catch {
+    log.warn('Corrupt JSON file', { path: filePath });
     return null;
   }
 }

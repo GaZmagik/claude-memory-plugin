@@ -23,7 +23,8 @@ import {
   hasNoGotchas,
   cleanGotchaSummary,
 } from '../src/memory/topic-classifier.ts';
-import { stat, readFile, mkdir, appendFile, readdir } from 'fs/promises';
+import { readFile, mkdir, appendFile, readdir } from 'fs/promises';
+import { pathExists } from '../src/core/fs.ts';
 import { join, basename, dirname } from 'path';
 import { homedir } from 'os';
 import type { HookInput } from '../src/core/types.ts';
@@ -54,16 +55,6 @@ let injectionDedup = new InjectionDeduplicator();
  * with user-level hooks. Without it, marketplace plugins may not fire.
  */
 const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (30s total hook budget)
-
-/** Check if a path exists (async alternative to existsSync) */
-async function pathExists(p: string): Promise<boolean> {
-  try {
-    await stat(p);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Load settings from project directory (called once at hook init)

@@ -9,23 +9,14 @@
  */
 
 import { runHook, allowWithOutput } from '../src/core/error-handler.ts';
-import { stat, mkdir, appendFile, readFile, copyFile } from 'fs/promises';
+import { mkdir, appendFile, readFile, copyFile } from 'fs/promises';
+import { pathExists } from '../src/core/fs.ts';
 import { homedir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-/** Check if a path exists (async alternative to existsSync) */
-async function pathExists(p: string): Promise<boolean> {
-  try {
-    await stat(p);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Provision memory plugin config template for first-time users.

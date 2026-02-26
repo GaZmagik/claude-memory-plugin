@@ -6,6 +6,7 @@
  */
 
 import prompts from 'prompts';
+import { isCI } from './ci-detection.js';
 import type { InteractiveOptions } from './hint-output.js';
 
 // Re-export for convenience
@@ -59,13 +60,8 @@ export function shouldPrompt(options: InteractiveOptions): boolean {
   }
 
   // CI environment detection
-  if (options.detectCI) {
-    const ciEnvVars = ['CI', 'CONTINUOUS_INTEGRATION', 'GITHUB_ACTIONS', 'JENKINS_URL', 'CIRCLECI', 'TRAVIS', 'GITLAB_CI', 'BUILDKITE'];
-    for (const envVar of ciEnvVars) {
-      if (process.env[envVar]) {
-        return false;
-      }
-    }
+  if (options.detectCI && isCI()) {
+    return false;
   }
 
   return true;

@@ -5,8 +5,8 @@
  * Used to prevent showing the same gotcha/warning multiple times per session.
  */
 
-import { access, readFile, writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
 
 /**
  * Cache entry with timestamp for TTL

@@ -140,7 +140,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
   try {
     // Check if node is a read-only external node BEFORE any deletion
     let graph = await loadGraph(basePath);
-    const existingNode = graph.nodes.find((n: any) => n.id === request.id);
+    const existingNode = graph.nodes.find(n => n.id === request.id);
     if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
       return {
         status: 'error',

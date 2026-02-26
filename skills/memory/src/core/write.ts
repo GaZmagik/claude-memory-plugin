@@ -28,6 +28,9 @@ import {
 } from '../search/embedding.js';
 import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
 import { isAgentScope } from '../scope/is-agent-scope.js';
+import { sanitiseAgentName } from '../scope/sanitise-agent-name.js';
+import { validateAgentName } from '../scope/validate-agent-name.js';
+import { createAgentDirectory } from '../storage/create-agent-directory.js';
 
 const log = createLogger('write');
 
@@ -125,9 +128,9 @@ async function findSimilarTitles(
     for (const memory of index.memories) {
       if (memory.id === excludeId) continue;
 
-      const memoryWords = getWords(memory.title);
-      const commonWords = titleWords.filter(w => memoryWords.includes(w)).length;
-      const similarity = commonWords / Math.max(titleWords.length, memoryWords.length);
+      const memoryWordSet = new Set(getWords(memory.title));
+      const commonWords = titleWords.filter(w => memoryWordSet.has(w)).length;
+      const similarity = commonWords / Math.max(titleWords.length, memoryWordSet.size);
 
       // Only include if 2+ words in common OR single word that dominates the titles
       if (commonWords >= 2 && similarity > 0.4) {
@@ -334,11 +337,9 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     }
 
     // Sanitise agent name first
-    const { sanitiseAgentName } = await import('../scope/sanitise-agent-name.js');
     const sanitisedAgent = sanitiseAgentName(request.agent);
 
     // Then validate the sanitised name
-    const { validateAgentName } = await import('../scope/validate-agent-name.js');
     const validation = validateAgentName(sanitisedAgent);
     if (!validation.valid) {
       return {
@@ -350,7 +351,6 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     // Use sanitised agent name from now on
     request.agent = sanitisedAgent;
 
-    const { createAgentDirectory } = await import('../storage/create-agent-directory.js');
     const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
     // For global agent scope, we need to construct the global path
     // This should come from a config or default location
@@ -369,7 +369,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
 
   try {
     // Ensure directory exists
-    ensureDir(basePath);
+    await ensureDir(basePath);
 
     // Handle gitignore automation for local scope
     if (request.scope === Scope.Local && request.projectRoot) {
@@ -405,8 +405,8 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
     }
 
     // SECURITY: Check if node is read-only external node BEFORE any file operations (prevent TOCTOU)
-    const graph = await loadGraph(basePath);
-    const existingNode = graph.nodes.find((n: any) => n.id === id);
+    let graph = await loadGraph(basePath);
+    const existingNode = graph.nodes.find(n => n.id === id);
     if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
       return {
         status: 'error',
@@ -466,10 +466,8 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
 
     await addToIndex(basePath, indexEntry);
 
-    // Add node to graph if not present
+    // Add node to graph if not present (reuse graph loaded earlier)
     try {
-      let graph = await loadGraph(basePath);
-
       if (!hasNode(graph, id)) {
         graph = addNode(graph, {
           id,

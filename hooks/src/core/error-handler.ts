@@ -9,8 +9,8 @@ import { EXIT_ALLOW, EXIT_BLOCK } from './types.ts';
 import { HookError, toHookError } from './errors.ts';
 import { parseHookInput, outputHookResponse } from './stdin.ts';
 import { createHookLogger } from './hook-logger.ts';
-import { basename, dirname } from 'path';
-import { unlinkSync, existsSync } from 'fs';
+import { basename, dirname } from 'node:path';
+import { unlinkSync, existsSync } from 'node:fs';
 
 /**
  * Cleanup registry for signal handlers
@@ -359,11 +359,16 @@ export async function withTimeout<T>(
   timeoutMs: number,
   timeoutMessage = 'Operation timed out'
 ): Promise<T> {
+  let handle: ReturnType<typeof setTimeout> | undefined;
   const timeoutPromise = new Promise<never>((_, reject) => {
-    setTimeout(() => reject(HookError.timeout(timeoutMessage)), timeoutMs);
+    handle = setTimeout(() => reject(HookError.timeout(timeoutMessage)), timeoutMs);
   });
 
-  return Promise.race([operation, timeoutPromise]);
+  try {
+    return await Promise.race([operation, timeoutPromise]);
+  } finally {
+    if (handle !== undefined) clearTimeout(handle);
+  }
 }
 
 /**

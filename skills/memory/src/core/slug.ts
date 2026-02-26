@@ -135,6 +135,9 @@ export function resolveCollision(slug: string, existingSlugs: string[]): string 
 
   while (existingSlugs.includes(candidate)) {
     suffix++;
+    if (suffix > 1000) {
+      throw new Error(`Too many collisions for slug: ${slug}`);
+    }
     candidate = `${slug}-${suffix}`;
   }
 

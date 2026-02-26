@@ -161,11 +161,13 @@ export async function fileExists(filePath: string): Promise<boolean> {
  */
 export async function deleteFile(filePath: string): Promise<void> {
   try {
-    await fsp.access(filePath);
     await fsp.unlink(filePath);
     log.debug('Deleted file', { path: filePath });
-  } catch {
-    // File doesn't exist, nothing to delete
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw error;
+    }
+    // ENOENT is expected — file already gone
   }
 }
 
@@ -637,7 +639,7 @@ export async function getAllMemoryIds(basePath: string): Promise<string[]> {
     const files = await fsp.readdir(dir);
     for (const file of files) {
       if (file.endsWith('.md')) {
-        ids.push(file.replace('.md', ''));
+        ids.push(file.slice(0, -3));
       }
     }
   }

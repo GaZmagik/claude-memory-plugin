@@ -104,7 +104,7 @@ export async function tagMemory(request: TagMemoryRequest): Promise<TagMemoryRes
 
     // Write back
     const fileContent = serialiseMemoryFile(updatedFrontmatter, content);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     // Update index
     const indexEntry = await findInIndex(basePath, request.id);
@@ -224,7 +224,7 @@ export async function untagMemory(request: UntagMemoryRequest): Promise<UntagMem
 
     // Write back
     const fileContent = serialiseMemoryFile(updatedFrontmatter, content);
-    writeFileAtomic(filePath, fileContent);
+    await writeFileAtomic(filePath, fileContent);
 
     // Update index
     const indexEntry = await findInIndex(basePath, request.id);

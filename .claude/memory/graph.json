@@ -4819,6 +4819,18 @@
       "type": "artifact",
       "title": "bun:test enum casting workaround for typed toBe() matchers",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution",
+      "type": "gotcha",
+      "title": "vi.useFakeTimers hangs Bun test runner in concurrent file execution",
+      "scope": "project"
+    },
+    {
+      "id": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "type": "learning",
+      "title": "Bun vi.hoisted polyfill enables vitest-style mocking in bun test runner",
+      "scope": "project"
     }
   ],
   "edges": [

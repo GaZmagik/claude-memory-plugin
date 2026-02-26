@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-25T21:22:50.136Z",
+  "lastUpdated": "2026-02-25T23:39:34.002Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14596,6 +14596,38 @@
       "updated": "2026-02-24T07:59:32.203Z",
       "scope": "project",
       "relativePath": "permanent/artifact-bun-test-enum-cast-workaround.md"
+    },
+    {
+      "id": "gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution",
+      "type": "gotcha",
+      "title": "vi.useFakeTimers hangs Bun test runner in concurrent file execution",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "fake-timers",
+        "project"
+      ],
+      "created": "2026-02-25T23:39:25.730Z",
+      "updated": "2026-02-25T23:39:25.730Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution.md"
+    },
+    {
+      "id": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "type": "learning",
+      "title": "Bun vi.hoisted polyfill enables vitest-style mocking in bun test runner",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-25T23:39:33.994Z",
+      "updated": "2026-02-25T23:39:33.994Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner.md"
     }
   ]
 }

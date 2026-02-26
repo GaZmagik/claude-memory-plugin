@@ -314,12 +314,11 @@ describe('readStdinJson', () => {
 
   beforeEach(() => {
     mockStdin = new EventEmitter() as EventEmitter & { isTTY?: boolean };
-    // @ts-expect-error - replacing stdin for testing
-    process.stdin = mockStdin;
+    Object.defineProperty(process, 'stdin', { value: mockStdin, configurable: true });
   });
 
   afterEach(() => {
-    process.stdin = originalStdin;
+    Object.defineProperty(process, 'stdin', { value: originalStdin, configurable: true });
   });
 
   it('returns undefined when stdin is TTY', async () => {
@@ -410,12 +409,11 @@ describe('readStdinRaw', () => {
 
   beforeEach(() => {
     mockStdin = new EventEmitter() as EventEmitter & { isTTY?: boolean };
-    // @ts-expect-error - replacing stdin for testing
-    process.stdin = mockStdin;
+    Object.defineProperty(process, 'stdin', { value: mockStdin, configurable: true });
   });
 
   afterEach(() => {
-    process.stdin = originalStdin;
+    Object.defineProperty(process, 'stdin', { value: originalStdin, configurable: true });
   });
 
   it('returns undefined when stdin is TTY', async () => {

@@ -3,12 +3,17 @@
  * Validates that all required files exist and are properly structured
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('Plugin Installation', () => {
-  const pluginRoot = join(import.meta.dir, '../..');
+  const pluginRoot = join(__dirname, '../..');
 
   describe('required directories', () => {
     it('should have .claude-plugin directory', () => {

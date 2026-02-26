@@ -11,7 +11,7 @@
  * so 'engines' and 'components' are NOT part of the official schema.
  */
 
-import { describe, it, expect, beforeAll } from 'bun:test';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 

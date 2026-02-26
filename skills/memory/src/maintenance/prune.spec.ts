@@ -439,6 +439,7 @@ describe('prune fallback deletion path', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-mock-test-'));
     fs.mkdirSync(path.join(tempDir, 'temporary'), { recursive: true });
     fs.mkdirSync(path.join(tempDir, 'permanent'), { recursive: true });
@@ -560,13 +561,12 @@ tags: []
     // Mock deleteMemory to throw
     vi.spyOn(deleteModule, 'deleteMemory').mockRejectedValue(new Error('deleteMemory failed'));
 
-    // Mock fs.unlinkSync to throw
-    const originalUnlinkSync = fs.unlinkSync;
-    vi.spyOn(fs, 'unlinkSync').mockImplementation((p) => {
+    // Mock fs.unlinkSync to throw only for the target file
+    vi.spyOn(fs, 'unlinkSync').mockImplementation((p: fs.PathLike) => {
       if (String(p).includes('double-fail-test')) {
         throw new Error('unlinkSync failed');
       }
-      return originalUnlinkSync(p);
+      return (fs.unlinkSync as any).__original?.(p);
     });
 
     const result = await pruneMemories({ basePath: tempDir, dryRun: false });

@@ -8,39 +8,46 @@
  * execFileSync-based implementation. No actual commands are executed.
  *
  * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level bun:test mocks (mock.module) for fs and child_process
- * which creates global state. Must run separately with: bun test <this-file>
+ * Uses module-level vitest mocks (vi.mock) for fs and child_process
+ * which creates global state. Must run separately with: vitest run <this-file>
  * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
-import { describe, it, expect, mock, beforeEach, afterEach, afterAll } from 'bun:test';
-import * as originalFs from 'node:fs';
-import * as originalChildProcess from 'node:child_process';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import type * as OriginalFs from 'node:fs';
+import type * as OriginalChildProcess from 'node:child_process';
 
-// Create mock functions
-const mockExecFileSync = mock(() => '');
-const mockExistsSync = mock(() => false);
-const mockMkdirSync = mock(() => undefined);
-const mockWriteFileSync = mock(() => undefined);
-const mockAppendFileSync = mock(() => undefined);
+// Hoist mock functions so they can be referenced inside vi.mock() factories
+const {
+  mockExecFileSync,
+  mockExistsSync,
+  mockMkdirSync,
+  mockWriteFileSync,
+  mockAppendFileSync,
+} = vi.hoisted(() => ({
+  mockExecFileSync: vi.fn(() => ''),
+  mockExistsSync: vi.fn(() => false),
+  mockMkdirSync: vi.fn(() => undefined),
+  mockWriteFileSync: vi.fn(() => undefined),
+  mockAppendFileSync: vi.fn(() => undefined),
+}));
 
 // Mock child_process - spread original and override only what we need
-mock.module('node:child_process', () => ({
-  ...originalChildProcess,
+vi.mock('node:child_process', async (importOriginal) => ({
+  ...(await importOriginal<typeof OriginalChildProcess>()),
   execFileSync: mockExecFileSync,
 }));
 
 // Mock fs - spread original and override only what we need
-mock.module('node:fs', () => ({
-  ...originalFs,
+vi.mock('node:fs', async (importOriginal) => ({
+  ...(await importOriginal<typeof OriginalFs>()),
   existsSync: mockExistsSync,
   mkdirSync: mockMkdirSync,
   writeFileSync: mockWriteFileSync,
   appendFileSync: mockAppendFileSync,
 }));
 
-// Import after mocking
-const {
+import {
   hasClaudeBinary,
   getClaudeBinaryPath,
   canSpawnForkSession,
@@ -49,9 +56,9 @@ const {
   writeForkLog,
   isForkedSession,
   getSessionId,
-} = await import('../../../hooks/src/session/fork-detection.js');
-const childProcess = await import('node:child_process');
-const fs = await import('node:fs');
+} from '../../../hooks/src/session/fork-detection.js';
+import * as childProcess from 'node:child_process';
+import * as fs from 'node:fs';
 
 describe('Fork Detection', () => {
   const originalEnv = process.env;
@@ -72,8 +79,7 @@ describe('Fork Detection', () => {
 
   afterAll(() => {
     // Restore original modules to prevent leaking to other test files
-    // Note: mock.module() replacements persist in bun - this is best effort cleanup
-    mock.restore();
+    vi.restoreAllMocks();
   });
 
   describe('hasClaudeBinary', () => {

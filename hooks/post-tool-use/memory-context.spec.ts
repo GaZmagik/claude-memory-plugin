@@ -10,7 +10,7 @@
  * focus on basic execution and input handling.
  */
 
-import { describe, it, expect, beforeAll } from 'bun:test';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { spawn } from '../src/core/subprocess.ts';

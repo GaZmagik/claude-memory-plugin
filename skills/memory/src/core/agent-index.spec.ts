@@ -18,11 +18,6 @@ describe('Agent index operations', () => {
     vi.clearAllMocks();
     // Mock file system operations to prevent actual file I/O
     vi.spyOn(fsUtils, 'ensureDir').mockResolvedValue(undefined);
-
-    const fsp = await import('node:fs/promises');
-    vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
-    vi.spyOn(fsp, 'rename').mockResolvedValue(undefined);
-    vi.spyOn(fsp, 'unlink').mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -31,6 +26,7 @@ describe('Agent index operations', () => {
 
   describe('loadIndex from agent directory', () => {
     it('should load index from agent directory', async () => {
+      const fsp = await import('node:fs/promises');
       const mockIndexContent = {
         version: '1.0.0',
         lastUpdated: '2026-01-10T12:00:00Z',
@@ -49,9 +45,8 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
       vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(mockIndexContent));
+      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(mockIndexContent) as any);
 
       const result = await loadIndex({ basePath: mockAgentPath });
 
@@ -74,6 +69,7 @@ describe('Agent index operations', () => {
 
   describe('saveIndex to agent directory', () => {
     it('should save index to agent directory', async () => {
+      const fsp = await import('node:fs/promises');
       const mockIndex = {
         version: '1.0.0',
         lastUpdated: '2026-01-10T12:00:00Z',
@@ -92,12 +88,13 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      const mockWriteFile = vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'rename').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'unlink').mockResolvedValue(undefined);
 
       await saveIndex(mockAgentPath, mockIndex);
 
-      expect(fsp.writeFile).toHaveBeenCalledWith(
+      expect(mockWriteFile).toHaveBeenCalledWith(
         expect.stringContaining('index.json'),
         expect.stringContaining('typescript-expert'),
         'utf-8'
@@ -107,15 +104,17 @@ describe('Agent index operations', () => {
 
   describe('addToIndex in agent directory', () => {
     it('should add entry with agent field to index', async () => {
+      const fsp = await import('node:fs/promises');
       const existingIndex = {
         version: '1.0.0',
         lastUpdated: '2026-01-10T12:00:00Z',
         memories: [],
       };
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex));
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex) as any);
+      const mockWriteFile = vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'rename').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'unlink').mockResolvedValue(undefined);
 
       const newEntry: IndexEntry = {
         id: memoryId('learning-new'),
@@ -132,14 +131,15 @@ describe('Agent index operations', () => {
       await addToIndex(mockAgentPath, newEntry);
 
       // Verify writeFile called with updated index
-      const writeCall = (fsp.writeFile as any).mock.calls[0];
-      const writtenContent = JSON.parse(writeCall[1]);
+      const writeCall = mockWriteFile.mock.calls[0];
+      const writtenContent = JSON.parse(writeCall![1] as string);
 
       expect(writtenContent.memories).toHaveLength(1);
       expect(writtenContent.memories[0].agent).toBe('typescript-expert');
     });
 
     it('should maintain agent field through index updates', async () => {
+      const fsp = await import('node:fs/promises');
       const existingIndex = {
         version: '1.0.0',
         lastUpdated: '2026-01-10T12:00:00Z',
@@ -158,10 +158,11 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
       vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex));
-      vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'readFile').mockResolvedValue(JSON.stringify(existingIndex) as any);
+      const mockWriteFile = vi.spyOn(fsp, 'writeFile').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'rename').mockResolvedValue(undefined);
+      vi.spyOn(fsp, 'unlink').mockResolvedValue(undefined);
 
       const newEntry: IndexEntry = {
         id: memoryId('learning-new'),
@@ -177,8 +178,8 @@ describe('Agent index operations', () => {
 
       await addToIndex(mockAgentPath, newEntry);
 
-      const writeCall = (fsp.writeFile as any).mock.calls[0];
-      const writtenContent = JSON.parse(writeCall[1]);
+      const writeCall = mockWriteFile.mock.calls[0];
+      const writtenContent = JSON.parse(writeCall![1] as string);
 
       expect(writtenContent.memories).toHaveLength(2);
       expect(writtenContent.memories[0].agent).toBe('typescript-expert');
@@ -188,6 +189,7 @@ describe('Agent index operations', () => {
 
   describe('index isolation between agents', () => {
     it('should maintain separate indices for different agents', async () => {
+      const fsp = await import('node:fs/promises');
       const tsExpertPath = '/test/.claude/memory/agents/typescript-expert';
       const rustExpertPath = '/test/.claude/memory/agents/rust-expert';
 
@@ -227,22 +229,20 @@ describe('Agent index operations', () => {
         ],
       };
 
-      const fsp = await import('node:fs/promises');
       vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
-      const readFileSpy = vi.spyOn(fsp, 'readFile')
-        .mockImplementation((path) => {
-          if (path.toString().includes('typescript-expert')) {
-            return Promise.resolve(JSON.stringify(tsIndex));
-          }
-          return Promise.resolve(JSON.stringify(rustIndex));
-        });
+      const mockReadFile = vi.spyOn(fsp, 'readFile').mockImplementation((p) => {
+        if (p.toString().includes('typescript-expert')) {
+          return Promise.resolve(JSON.stringify(tsIndex) as any);
+        }
+        return Promise.resolve(JSON.stringify(rustIndex) as any);
+      });
 
       const tsResult = await loadIndex({ basePath: tsExpertPath });
       const rustResult = await loadIndex({ basePath: rustExpertPath });
 
       expect(tsResult.memories[0]!.agent).toBe('typescript-expert');
       expect(rustResult.memories[0]!.agent).toBe('rust-expert');
-      expect(readFileSpy).toHaveBeenCalledTimes(2);
+      expect(mockReadFile).toHaveBeenCalledTimes(2);
     });
   });
 });

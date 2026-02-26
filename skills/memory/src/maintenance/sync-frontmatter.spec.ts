@@ -332,4 +332,5 @@ describe('syncFrontmatter mocked edge cases', () => {
 
   // Note: Removed phantom test 'should record error when frontmatter fails to parse'
   // parseMemoryFile throws on invalid input, never returns null frontmatter
+  it.todo('needs implementation');
 });

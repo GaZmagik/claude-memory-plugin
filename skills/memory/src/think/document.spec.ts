@@ -2,7 +2,7 @@
  * Tests for Think Document CRUD Operations
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fsUtilsModule from '../core/fs-utils.js';
 import * as stateModule from './state.js';
 import * as frontmatterModule from './frontmatter.js';

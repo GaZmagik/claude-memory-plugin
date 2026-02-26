@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { getAgentDirectoryPath } from '../../../skills/memory/src/scope/get-agent-directory-path.js';
 import { Scope } from '../../../skills/memory/src/types/enums.js';
 import path from 'path';

@@ -5,6 +5,27 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2026-02-25
+
+### Added
+- **Progress reporting for long-running CLI operations**: all batch operations now write live progress to stderr (keeps stdout JSON clean)
+  - `memory refresh --embeddings`: shows per-memory collection progress and per-embedding generation progress with percentage, count, and elapsed time
+  - `memory refresh --score-edges`: shows per-edge scoring progress with source→target labels
+  - `memory sync`: shows phase-level progress across all 7 reconciliation phases
+  - `memory repair`: shows progress for both sync and health-check phases
+  - `memory audit` / `memory audit-quick`: shows per-memory scanning progress
+  - `memory refresh` (frontmatter): shows per-file refresh progress
+- **`cli/progress.ts`**: new `ProgressReporter` class and `MultiPhaseProgress` utility
+  - TTY-aware: in-place carriage-return updates on terminals, newline fallback for piped output
+  - Configurable throttling to avoid excessive stderr writes
+  - Elapsed time display with human-readable formatting
+  - `toCallback()` method for easy integration with existing `onProgress` callback patterns
+- **`onProgress` callback support** added to `scoreEdges()`, `auditMemories()`, `syncMemories()`, and `refreshFrontmatter()`
+  - `batchGenerateEmbeddings()` already had `onProgress` — now wired in from `cmdRefresh`
+
+### Tests
+- `cli/progress.spec.ts`: 19 unit tests covering `ProgressReporter` (rendering, throttling, completion, callbacks) and `MultiPhaseProgress` (phase transitions, completion)
+
 ## [1.7.0] - 2026-02-23
 
 ### Added

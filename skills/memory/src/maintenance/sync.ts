@@ -36,6 +36,11 @@ import { discoverExternalFiles, indexExternalFiles } from '../external/index.js'
 import { fileExists, readFile } from '../core/fs-utils.js';
 
 /**
+ * Progress callback for sync operations
+ */
+export type SyncProgressCallback = (phase: string, current: number, total: number) => void;
+
+/**
  * Sync request options
  */
 export interface SyncRequest {
@@ -45,6 +50,8 @@ export interface SyncRequest {
   dryRun?: boolean;
   /** Agent name (for agent-scoped operations) */
   agent?: string;
+  /** Progress callback for reporting phase-level progress */
+  onProgress?: SyncProgressCallback;
 }
 
 /**
@@ -198,7 +205,7 @@ async function parseFileToIndexEntry(id: string, filePath: string): Promise<Inde
  * ```
  */
 export async function syncMemories(request: SyncRequest): Promise<SyncResponse> {
-  const { basePath, dryRun = false } = request;
+  const { basePath, dryRun = false, onProgress } = request;
 
   const errors: string[] = [];
   const changes = {
@@ -234,8 +241,11 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   const indexIds = new Set(index.memories.map(e => e.id));
   const fileIds = new Set(filesOnDisk.keys());
 
+  const totalPhases = 7;
+
   // 1. Find files not in graph - add them
   // Also refresh existing nodes that are missing title
+  if (onProgress) onProgress('Syncing files to graph', 1, totalPhases);
   for (const [id, filePath] of filesOnDisk) {
     const existingNode = graph.nodes.find(n => n.id === id);
 
@@ -258,6 +268,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 2. Find files not in index - add them
+  if (onProgress) onProgress('Syncing files to index', 2, totalPhases);
   for (const [id, filePath] of filesOnDisk) {
     if (!indexIds.has(unsafeAsMemoryId(id))) {
       const entry = await parseFileToIndexEntry(id, filePath);
@@ -272,6 +283,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
   // 3. Find ghost nodes (in graph but no file) - remove them
   // Skip external nodes (Rule/Reminder) as they don't have files in permanent/temporary
+  if (onProgress) onProgress('Removing ghost nodes', 3, totalPhases);
   for (const node of graph.nodes) {
     const isExternal = node.type === MemoryType.Rule || node.type === MemoryType.Reminder;
     if (!fileIds.has(node.id) && !isExternal) {
@@ -283,6 +295,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 4. Find orphan edges (pointing to non-existent nodes) - remove them
+  if (onProgress) onProgress('Removing orphan edges', 4, totalPhases);
   const validNodeIds = dryRun ? fileIds : new Set(graph.nodes.map(n => n.id));
   const edges = getEdges(graph);
   for (const edge of edges) {
@@ -296,6 +309,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
   // 5. Find index entries without files - remove them
   // Skip external entries (have externalPath set) as they don't have files in permanent/temporary
+  if (onProgress) onProgress('Cleaning index entries', 5, totalPhases);
   const memoriesToKeep: IndexEntry[] = [];
   for (const entry of index.memories) {
     const isExternalEntry = !!entry.externalPath;
@@ -311,6 +325,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   }
 
   // 6. Find orphan embedding entries (in embeddings.json but no file) - remove them
+  if (onProgress) onProgress('Cleaning orphan embeddings', 6, totalPhases);
   let embeddingsCount = 0;
   const embeddingsPath = path.join(basePath, 'embeddings.json');
   if (await fileExists(embeddingsPath)) {
@@ -345,6 +360,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   // 7. Index external files (rules and reminders)
   // For scoped syncs (agent/project), constrain discovery to basePath
   // For global syncs, basePath would be ~/.claude/memory, so homeDir is correct
+  if (onProgress) onProgress('Indexing external files', 7, totalPhases);
   try {
     const externalFiles = await discoverExternalFiles({
       cwd: basePath,

@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { existsSync, mkdirSync, rmSync, symlinkSync, readlinkSync } from 'fs';
+import { existsSync, mkdirSync, rmSync, symlinkSync, readlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
@@ -22,7 +22,7 @@ describe('postinstall', () => {
     // Create test directory structure
     mkdirSync(join(testDir, 'skills', 'memory', 'src'), { recursive: true });
     // Create fake CLI file
-    Bun.write(cliPath, '#!/usr/bin/env bun\nconsole.log("cli");');
+    writeFileSync(cliPath, '#!/usr/bin/env bun\nconsole.log("cli");');
   });
 
   afterEach(() => {
@@ -70,7 +70,7 @@ describe('postinstall', () => {
     beforeEach(() => {
       // Create old CLI and symlink (simulating v1.0.0 install)
       mkdirSync(join(testDir, 'old'), { recursive: true });
-      Bun.write(oldCliPath, '#!/usr/bin/env bun\nconsole.log("old cli");');
+      writeFileSync(oldCliPath, '#!/usr/bin/env bun\nconsole.log("old cli");');
       mkdirSync(bunBin, { recursive: true });
       symlinkSync(oldCliPath, linkPath);
     });

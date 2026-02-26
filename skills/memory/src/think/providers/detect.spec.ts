@@ -5,7 +5,10 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { detectProvider, isProviderAvailable, getAvailableProviders } from './detect.js';
 
 // Mock child_process for isProviderAvailable tests
-const mockExecFileSync = vi.fn();
+// vi.hoisted() ensures the variable is available when vi.mock factory runs
+const { mockExecFileSync } = vi.hoisted(() => ({
+  mockExecFileSync: vi.fn(),
+}));
 vi.mock('node:child_process', () => ({
   execFileSync: mockExecFileSync,
 }));

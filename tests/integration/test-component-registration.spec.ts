@@ -9,12 +9,17 @@
  * - hooks/ -> hooks.json
  */
 
-import { describe, it, expect, beforeAll } from 'bun:test';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('Component Registration', () => {
-  const pluginRoot = join(import.meta.dir, '../..');
+  const pluginRoot = join(__dirname, '../..');
   let hooksJson: Record<string, unknown>;
 
   beforeAll(() => {
@@ -96,7 +101,7 @@ describe('Component Registration', () => {
   });
 
   describe('command auto-discovery', () => {
-    const commandsDir = join(import.meta.dir, '../../commands');
+    const commandsDir = join(__dirname, '../../commands');
 
     it('should have commands directory', () => {
       expect(existsSync(commandsDir)).toBe(true);
@@ -135,7 +140,7 @@ describe('Component Registration', () => {
   });
 
   describe('agent auto-discovery', () => {
-    const agentsDir = join(import.meta.dir, '../../agents');
+    const agentsDir = join(__dirname, '../../agents');
 
     it('should have agents directory', () => {
       expect(existsSync(agentsDir)).toBe(true);
@@ -169,8 +174,8 @@ describe('Component Registration', () => {
 
   describe('cross-component references', () => {
     it('should have commands that reference agents correctly', () => {
-      const commandsDir = join(import.meta.dir, '../../commands');
-      const agentsDir = join(import.meta.dir, '../../agents');
+      const commandsDir = join(__dirname, '../../commands');
+      const agentsDir = join(__dirname, '../../agents');
       const commands = readdirSync(commandsDir).filter(f => f.endsWith('.md'));
       const agents = readdirSync(agentsDir).filter(f => f.endsWith('.md'));
 

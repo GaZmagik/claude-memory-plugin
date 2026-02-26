@@ -5,7 +5,7 @@
  * Actual CLI execution is not tested to avoid external dependencies.
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import {
   buildUserPrompt,
   buildCliArgs,

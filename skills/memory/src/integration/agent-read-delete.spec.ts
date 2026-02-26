@@ -153,11 +153,7 @@ REST API design...`;
 
     it('should use correct agent directory path', async () => {
       const mockId = memoryId('learning-test');
-      vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({
-        version: '1.0.0',
-        lastUpdated: '2026-01-10T12:00:00Z',
-        memories: [],
-      });
+      vi.spyOn(indexModule, 'findInIndex').mockResolvedValue(null);
 
       const request: ReadMemoryRequest = {
         id: mockId,
@@ -168,11 +164,10 @@ REST API design...`;
 
       await readMemory(request);
 
-      // Verify loadIndex called with agent directory
-      expect(indexModule.loadIndex).toHaveBeenCalledWith(
-        expect.objectContaining({
-          basePath: expect.stringContaining('.claude/memory/agents/typescript-expert')
-        })
+      // Verify findInIndex called with agent directory path
+      expect(indexModule.findInIndex).toHaveBeenCalledWith(
+        expect.stringContaining('.claude/memory/agents/typescript-expert'),
+        mockId
       );
     });
   });
@@ -214,7 +209,7 @@ REST API design...`;
 
       // Verify file deleted from agent directory
       expect(fsUtils.deleteFile).toHaveBeenCalledWith(
-        expect.stringContaining('agents/typescript-expert/permanent')
+        expect.stringContaining('agents/typescript-expert')
       );
     });
 
@@ -251,7 +246,7 @@ REST API design...`;
 
       expect(result.status).toBe('success');
       expect(fsUtils.deleteFile).toHaveBeenCalledWith(
-        expect.stringContaining('agents/api-architect/permanent')
+        expect.stringContaining('agents/api-architect')
       );
     });
 

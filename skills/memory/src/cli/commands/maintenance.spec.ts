@@ -21,18 +21,30 @@ describe('cmdSync', () => {
     vi.restoreAllMocks();
   });
 
-  it('calls syncMemories', async () => {
+  it('calls syncMemories with onProgress callback', async () => {
     vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({
-      added: 0,
-      removed: 0,
-      updated: 0,
+      status: 'success',
+      changes: {
+        addedToGraph: [],
+        addedToIndex: [],
+        removedGhostNodes: [],
+        removedOrphanEdges: 0,
+        removedFromIndex: [],
+        removedOrphanEmbeddings: [],
+        externalNodesAdded: [],
+        externalNodesUpdated: [],
+        externalNodesRemoved: [],
+      },
+      summary: { filesOnDisk: 0, nodesInGraph: 0, entriesInIndex: 0, entriesInEmbeddings: 0, externalRuleNodes: 0, externalReminderNodes: 0 },
     } as any);
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdSync(args);
 
     expect(result.status).toBe('success');
-    expect(syncModule.syncMemories).toHaveBeenCalled();
+    expect(syncModule.syncMemories).toHaveBeenCalledWith(
+      expect.objectContaining({ onProgress: expect.any(Function) })
+    );
   });
 
   it('passes dry-run flag', async () => {
@@ -65,7 +77,7 @@ describe('cmdRepair', () => {
     vi.restoreAllMocks();
   });
 
-  it('runs sync then health check', async () => {
+  it('runs sync then health check with onProgress wired', async () => {
     vi.spyOn(syncModule, 'syncMemories').mockResolvedValue({
       added: 1,
       removed: 0,
@@ -80,7 +92,9 @@ describe('cmdRepair', () => {
     const result = await cmdRepair(args);
 
     expect(result.status).toBe('success');
-    expect(syncModule.syncMemories).toHaveBeenCalled();
+    expect(syncModule.syncMemories).toHaveBeenCalledWith(
+      expect.objectContaining({ onProgress: expect.any(Function) })
+    );
     expect(healthModule.checkHealth).toHaveBeenCalled();
     expect(result.data).toHaveProperty('sync');
     expect(result.data).toHaveProperty('health');
@@ -201,7 +215,7 @@ describe('cmdRefresh', () => {
     vi.restoreAllMocks();
   });
 
-  it('calls refreshFrontmatter', async () => {
+  it('calls refreshFrontmatter with onProgress wired', async () => {
     vi.spyOn(refreshFrontmatterModule, 'refreshFrontmatter').mockResolvedValue({
       updated: 5,
       unchanged: 15,
@@ -212,7 +226,9 @@ describe('cmdRefresh', () => {
     const result = await cmdRefresh(args);
 
     expect(result.status).toBe('success');
-    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalled();
+    expect(refreshFrontmatterModule.refreshFrontmatter).toHaveBeenCalledWith(
+      expect.objectContaining({ onProgress: expect.any(Function) })
+    );
   });
 
   it('passes dry-run flag', async () => {
@@ -454,7 +470,8 @@ describe('cmdRefresh', () => {
     expect(embeddingModule.batchGenerateEmbeddings).toHaveBeenCalledWith(
       [],
       expect.any(String),
-      expect.any(Object)
+      expect.any(Object),
+      expect.any(Function)
     );
   });
 

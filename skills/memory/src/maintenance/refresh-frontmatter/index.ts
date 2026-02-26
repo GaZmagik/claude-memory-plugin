@@ -78,7 +78,7 @@ export type { RefreshFrontmatterRequest, RefreshFrontmatterResponse } from './ty
 export async function refreshFrontmatter(
   request: RefreshFrontmatterRequest
 ): Promise<RefreshFrontmatterResponse> {
-  const { basePath, dryRun = false, ids } = request;
+  const { basePath, dryRun = false, ids, onProgress } = request;
 
   const errors: string[] = [];
   const updatedIds: string[] = [];
@@ -98,7 +98,15 @@ export async function refreshFrontmatter(
   // Get IDs to process
   const idsToProcess = ids ?? (await getAllMemoryIds(basePath));
 
-  for (const id of idsToProcess) {
+  for (let i = 0; i < idsToProcess.length; i++) {
+    const id = idsToProcess[i];
+    if (!id) continue;
+
+    // Report progress
+    if (onProgress) {
+      onProgress(i + 1, idsToProcess.length, id);
+    }
+
     try {
       // Find file
       let filePath = await findMemoryFile(basePath, id);

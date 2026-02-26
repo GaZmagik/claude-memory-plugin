@@ -25,6 +25,7 @@ describe('Agent-scoped search operations', () => {
 
   describe('keyword search in agent scope', () => {
     it('should search within agent-project scope', async () => {
+      const fsp = await import('node:fs/promises');
       const mockMemories = [
         {
           id: memoryId('learning-typescript-pattern'),
@@ -56,8 +57,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('TypeScript content with pattern keyword');
+      vi.spyOn(fsp, 'readFile').mockResolvedValue('TypeScript content with pattern keyword' as any);
 
       const request: SearchMemoriesRequest = {
         query: 'pattern',
@@ -80,6 +80,7 @@ describe('Agent-scoped search operations', () => {
     });
 
     it('should search within agent-global scope', async () => {
+      const fsp = await import('node:fs/promises');
       const mockMemories = [
         {
           id: memoryId('decision-api-design'),
@@ -100,8 +101,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('API design content');
+      vi.spyOn(fsp, 'readFile').mockResolvedValue('API design content' as any);
 
       const request: SearchMemoriesRequest = {
         query: 'design',
@@ -117,6 +117,7 @@ describe('Agent-scoped search operations', () => {
     });
 
     it('should not return memories from other agents', async () => {
+      const fsp = await import('node:fs/promises');
       const mockMemories = [
         {
           id: memoryId('learning-typescript-1'),
@@ -148,8 +149,7 @@ describe('Agent-scoped search operations', () => {
         memories: mockMemories,
       });
 
-      const fsp = await import('node:fs/promises');
-      vi.spyOn(fsp, 'readFile').mockResolvedValue('test content');
+      vi.spyOn(fsp, 'readFile').mockResolvedValue('test content' as any);
 
       const request: SearchMemoriesRequest = {
         query: 'test',

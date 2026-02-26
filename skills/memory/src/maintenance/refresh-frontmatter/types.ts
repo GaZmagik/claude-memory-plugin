@@ -5,6 +5,11 @@
  */
 
 /**
+ * Progress callback for refresh frontmatter operations
+ */
+export type RefreshProgressCallback = (current: number, total: number, label?: string) => void;
+
+/**
  * Refresh frontmatter request options
  */
 export interface RefreshFrontmatterRequest {
@@ -16,6 +21,8 @@ export interface RefreshFrontmatterRequest {
   ids?: string[];
   /** Project name to use (optional - auto-detected if not provided) */
   project?: string;
+  /** Progress callback for reporting per-file progress */
+  onProgress?: RefreshProgressCallback;
 }
 
 /**

@@ -224,6 +224,7 @@ describe('--include-shared validation', () => {
       vi.spyOn(listModule, 'listMemories').mockResolvedValue({ status: 'success', memories: [], count: 0 });
       vi.spyOn(indexModule, 'loadIndex').mockResolvedValue({ version: '1', lastUpdated: new Date().toISOString(), memories: [] });
       vi.spyOn(graphModule, 'loadGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
+      vi.spyOn(graphModule, 'loadMergedGraph').mockResolvedValue({ version: 1, nodes: [], edges: [] });
     });
 
     afterEach(() => {
@@ -280,16 +281,16 @@ describe('--include-shared validation', () => {
       expect(graphModule.loadGraph).toHaveBeenCalled();
     });
 
-    it('cmdImpact: accepts --include-shared with --agent and calls loadGraph', async () => {
+    it('cmdImpact: accepts --include-shared with --agent and calls loadMergedGraph', async () => {
       const args: ParsedArgs = {
         positional: ['impact', 'some-id'],
         flags: { agent: 'typescript-expert', 'include-shared': true },
       };
       const result = await cmdImpact(args);
 
-      // Validation should pass - underlying function should be called
+      // Validation should pass - with include-shared + agent, loadMergedGraph is used
       expect(result.status).toBe('success');
-      expect(graphModule.loadGraph).toHaveBeenCalled();
+      expect(graphModule.loadMergedGraph).toHaveBeenCalled();
     });
   });
 });

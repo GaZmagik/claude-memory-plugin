@@ -4,38 +4,39 @@
  * Separated to allow mock.module isolation (run in separate process)
  */
 
-import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { ThoughtType } from '../types/enums.js';
-// Capture real module exports BEFORE mock replaces the registry entry.
-// Spreading these into mock.module ensures other test files that import
-// named exports (e.g. buildUserPrompt) via live bindings still find them.
-import * as aiInvokeReal from './ai-invoke.js';
+
+// Hoist mock functions so they can be referenced inside vi.mock() factories
+const { mockInvokeAI, mockInvokeProviderThought } = vi.hoisted(() => {
+  // Inline result type matching AICallResult — can't import inside vi.hoisted
+  type Result = { success: boolean; content?: string; sessionId?: string; model?: string; error?: string };
+  return {
+    mockInvokeAI: vi.fn(async (): Promise<Result> => ({
+      success: true,
+      content: 'AI generated thought content',
+      sessionId: 'test-session-123',
+    })),
+    mockInvokeProviderThought: vi.fn(async (): Promise<Result> => ({
+      success: true,
+      content: 'Provider generated thought content',
+      // Note: non-Claude providers don't support session resumption
+    })),
+  };
+});
 
 // Mock ai-invoke module BEFORE importing thoughts.js
-const mockInvokeAI = mock(async () => ({
-  success: true,
-  content: 'AI generated thought content',
-  sessionId: 'test-session-123',
-}));
-
-const mockInvokeProviderThought = mock(async () => ({
-  success: true,
-  content: 'Provider generated thought content',
-  // Note: non-Claude providers don't support session resumption
-}));
-
-mock.module('./ai-invoke.js', () => ({
-  ...aiInvokeReal,
+vi.mock('./ai-invoke.js', () => ({
   invokeAI: mockInvokeAI,
   invokeProviderThought: mockInvokeProviderThought,
 }));
 
-// Now import the module under test
-const { addThought } = await import('./thoughts.js');
-const { createThinkDocument } = await import('./document.js');
+// Static imports - vi.mock is hoisted so these see the mocked module
+import { addThought } from './thoughts.js';
+import { createThinkDocument } from './document.js';
 
 describe('think/thoughts AI invocation', () => {
   let tempDir: string;
@@ -114,31 +115,35 @@ describe('think/thoughts AI invocation failure', () => {
     basePath = path.join(tempDir, 'project');
     fs.mkdirSync(path.join(basePath, '.claude', 'memory'), { recursive: true });
 
-    // Override mock to return failure
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({
-        success: false,
-        error: 'AI service unavailable',
-      })),
-      invokeProviderThought: mock(async () => ({
-        success: false,
-        error: 'Provider service unavailable',
-      })),
+    // Override mock implementations to return failure
+    mockInvokeAI.mockImplementation(async () => ({
+      success: false,
+      error: 'AI service unavailable',
+    }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: false,
+      error: 'Provider service unavailable',
     }));
   });
 
   afterEach(() => {
     fs.rmSync(tempDir, { recursive: true, force: true });
+    // Restore default implementations for subsequent describe blocks
+    mockInvokeAI.mockImplementation(async () => ({
+      success: true,
+      content: 'AI generated thought content',
+      sessionId: 'test-session-123',
+    }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Provider generated thought content',
+    }));
   });
 
   it('returns error when AI invocation fails', async () => {
-    // Need fresh import after mock change
-    const { addThought: addThoughtFail } = await import('./thoughts.js');
-    const { createThinkDocument: createFail } = await import('./document.js');
+    await createThinkDocument({ topic: 'AI Fail Test', basePath });
 
-    await createFail({ topic: 'AI Fail Test', basePath });
-
-    const result = await addThoughtFail({
+    const result = await addThought({
       thought: 'This will fail',
       type: ThoughtType.Thought,
       call: { model: 'haiku' },
@@ -162,25 +167,21 @@ describe('think/thoughts provider routing', () => {
 
   afterEach(() => {
     fs.rmSync(tempDir, { recursive: true, force: true });
+    vi.restoreAllMocks();
   });
 
   it('routes to codex provider with parsed model attribution', async () => {
     // Mock for codex - returns actual model parsed from CLI output
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
-      invokeProviderThought: mock(async () => ({
-        success: true,
-        content: 'Codex generated thought',
-        model: 'gpt-5.2-codex',  // Parsed from actual CLI output
-      })),
+    mockInvokeAI.mockImplementation(async () => ({ success: true, content: 'Claude content' }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Codex generated thought',
+      model: 'gpt-5.2-codex', // Parsed from actual CLI output
     }));
 
-    const { addThought: addProviderThought } = await import('./thoughts.js');
-    const { createThinkDocument: createProviderDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Codex Test', basePath });
 
-    await createProviderDoc({ topic: 'Codex Test', basePath });
-
-    const result = await addProviderThought({
+    const result = await addThought({
       thought: 'Ask codex about this',
       type: ThoughtType.Thought,
       call: { provider: 'codex' },
@@ -195,21 +196,16 @@ describe('think/thoughts provider routing', () => {
 
   it('routes to gemini provider with parsed model attribution', async () => {
     // Mock for gemini - returns actual model parsed from CLI output
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
-      invokeProviderThought: mock(async () => ({
-        success: true,
-        content: 'Gemini generated thought',
-        model: 'gemini-3-flash-preview',  // Parsed from actual CLI output
-      })),
+    mockInvokeAI.mockImplementation(async () => ({ success: true, content: 'Claude content' }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Gemini generated thought',
+      model: 'gemini-3-flash-preview', // Parsed from actual CLI output
     }));
 
-    const { addThought: addGeminiThought } = await import('./thoughts.js');
-    const { createThinkDocument: createGeminiDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Gemini Test', basePath });
 
-    await createGeminiDoc({ topic: 'Gemini Test', basePath });
-
-    const result = await addGeminiThought({
+    const result = await addThought({
       thought: 'Ask gemini about this',
       type: ThoughtType.Thought,
       call: { provider: 'gemini' },
@@ -224,24 +220,19 @@ describe('think/thoughts provider routing', () => {
 
   it('routes to claude when provider is claude', async () => {
     // Mock for explicit claude
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({
-        success: true,
-        content: 'Claude explicit content',
-        sessionId: 'claude-session',
-      })),
-      invokeProviderThought: mock(async () => ({
-        success: true,
-        content: 'Provider content',
-      })),
+    mockInvokeAI.mockImplementation(async () => ({
+      success: true,
+      content: 'Claude explicit content',
+      sessionId: 'claude-session',
+    }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Provider content',
     }));
 
-    const { addThought: addClaudeThought } = await import('./thoughts.js');
-    const { createThinkDocument: createClaudeDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Claude Explicit Test', basePath });
 
-    await createClaudeDoc({ topic: 'Claude Explicit Test', basePath });
-
-    const result = await addClaudeThought({
+    const result = await addThought({
       thought: 'Ask claude explicitly',
       type: ThoughtType.Thought,
       call: { provider: 'claude' },
@@ -256,24 +247,19 @@ describe('think/thoughts provider routing', () => {
 
   it('defaults to claude when no provider specified', async () => {
     // Mock for default (no provider)
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({
-        success: true,
-        content: 'Default claude content',
-        sessionId: 'default-session',
-      })),
-      invokeProviderThought: mock(async () => ({
-        success: true,
-        content: 'Should not be called',
-      })),
+    mockInvokeAI.mockImplementation(async () => ({
+      success: true,
+      content: 'Default claude content',
+      sessionId: 'default-session',
+    }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Should not be called',
     }));
 
-    const { addThought: addDefaultThought } = await import('./thoughts.js');
-    const { createThinkDocument: createDefaultDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Default Provider Test', basePath });
 
-    await createDefaultDoc({ topic: 'Default Provider Test', basePath });
-
-    const result = await addDefaultThought({
+    const result = await addThought({
       thought: 'No provider specified',
       type: ThoughtType.Thought,
       call: {}, // No provider field
@@ -287,20 +273,15 @@ describe('think/thoughts provider routing', () => {
 
   it('allows model override for non-claude providers', async () => {
     // Mock for model override
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
-      invokeProviderThought: mock(async () => ({
-        success: true,
-        content: 'Codex with custom model',
-      })),
+    mockInvokeAI.mockImplementation(async () => ({ success: true, content: 'Claude content' }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: true,
+      content: 'Codex with custom model',
     }));
 
-    const { addThought: addOverrideThought } = await import('./thoughts.js');
-    const { createThinkDocument: createOverrideDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Model Override Test', basePath });
 
-    await createOverrideDoc({ topic: 'Model Override Test', basePath });
-
-    const result = await addOverrideThought({
+    const result = await addThought({
       thought: 'Use custom model',
       type: ThoughtType.Thought,
       call: { provider: 'codex', model: 'gpt-4-turbo' },
@@ -314,20 +295,15 @@ describe('think/thoughts provider routing', () => {
 
   it('handles provider timeout gracefully', async () => {
     // Mock for timeout scenario
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
-      invokeProviderThought: mock(async () => ({
-        success: false,
-        error: 'codex CLI timed out after 120s',
-      })),
+    mockInvokeAI.mockImplementation(async () => ({ success: true, content: 'Claude content' }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: false,
+      error: 'codex CLI timed out after 120s',
     }));
 
-    const { addThought: addTimeoutThought } = await import('./thoughts.js');
-    const { createThinkDocument: createTimeoutDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Timeout Test', basePath });
 
-    await createTimeoutDoc({ topic: 'Timeout Test', basePath });
-
-    const result = await addTimeoutThought({
+    const result = await addThought({
       thought: 'This will timeout',
       type: ThoughtType.Thought,
       call: { provider: 'codex' },
@@ -340,20 +316,15 @@ describe('think/thoughts provider routing', () => {
 
   it('handles unavailable provider gracefully', async () => {
     // Mock for unavailable provider scenario
-    mock.module('./ai-invoke.js', () => ({
-      invokeAI: mock(async () => ({ success: true, content: 'Claude content' })),
-      invokeProviderThought: mock(async () => ({
-        success: false,
-        error: 'gemini CLI not found. Please install the CLI.',
-      })),
+    mockInvokeAI.mockImplementation(async () => ({ success: true, content: 'Claude content' }));
+    mockInvokeProviderThought.mockImplementation(async () => ({
+      success: false,
+      error: 'gemini CLI not found. Please install the CLI.',
     }));
 
-    const { addThought: addUnavailableThought } = await import('./thoughts.js');
-    const { createThinkDocument: createUnavailableDoc } = await import('./document.js');
+    await createThinkDocument({ topic: 'Unavailable Test', basePath });
 
-    await createUnavailableDoc({ topic: 'Unavailable Test', basePath });
-
-    const result = await addUnavailableThought({
+    const result = await addThought({
       thought: 'Provider not installed',
       type: ThoughtType.Thought,
       call: { provider: 'gemini' },

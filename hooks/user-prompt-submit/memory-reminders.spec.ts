@@ -7,7 +7,7 @@
  * @since v1.2.0
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 
 describe('Memory Reminders Hook (Consolidated)', () => {
   describe('reminder content', () => {

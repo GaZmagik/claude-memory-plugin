@@ -2,7 +2,7 @@
  * Tests for Think ID Generator
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { generateThinkId, isValidThinkId, parseThinkIdTimestamp } from './id-generator.js';
 
 describe('think/id-generator', () => {

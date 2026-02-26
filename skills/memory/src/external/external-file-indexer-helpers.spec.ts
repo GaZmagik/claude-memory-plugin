@@ -4,7 +4,7 @@
  * Tests for isExternalNode, createGraphNode, and createIndexEntry helpers
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import { MemoryType, Scope } from '../types/enums.js';
 import type { GraphNode } from '../graph/structure.js';
 import { ExternalFileKind, type ExternalFileEntry } from './external-file-types.js';

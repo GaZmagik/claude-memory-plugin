@@ -134,7 +134,7 @@ describe('Agent directory utilities', () => {
 
     it('should check agent-global directory path', async () => {
       const fsp = await import('node:fs/promises');
-      const accessSpy = vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
+      const mockAccess = vi.spyOn(fsp, 'access').mockResolvedValue(undefined);
 
       await agentDirectoryExists(
         Scope.AgentGlobal,
@@ -143,7 +143,7 @@ describe('Agent directory utilities', () => {
         mockGlobalRoot
       );
 
-      expect(accessSpy).toHaveBeenCalledWith(
+      expect(mockAccess).toHaveBeenCalledWith(
         path.join(mockGlobalRoot, 'agents/api-architect')
       );
     });

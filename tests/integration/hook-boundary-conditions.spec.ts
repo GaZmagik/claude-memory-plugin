@@ -31,9 +31,9 @@ import {
 describe('Hook Boundary Conditions', () => {
   let originalStdin: typeof process.stdin;
 
-  // Helper to set mock stdin - bypasses strict fd: 0 type requirement
+  // Helper to set mock stdin - uses Object.defineProperty to bypass read-only restriction
   const setMockStdin = (stream: Readable) => {
-    (process as unknown as { stdin: Readable }).stdin = stream;
+    Object.defineProperty(process, 'stdin', { value: stream, configurable: true });
   };
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('Hook Boundary Conditions', () => {
   });
 
   afterEach(() => {
-    (process as unknown as { stdin: typeof originalStdin }).stdin = originalStdin;
+    Object.defineProperty(process, 'stdin', { value: originalStdin, configurable: true });
     vi.restoreAllMocks();
   });
 

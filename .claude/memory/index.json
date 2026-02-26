@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-24T07:59:32.210Z",
+  "lastUpdated": "2026-02-26T14:10:39.859Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -13905,32 +13905,6 @@
       "relativePath": "temporary/thought-20260220-165044018.md"
     },
     {
-      "id": "thought-20260219-042927105",
-      "type": "breadcrumb",
-      "title": "Think: Feature 005 Planning: Rule and Reminder Graph Nodes - Architecture Design",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-19T04:29:27.117Z",
-      "updated": "2026-02-19T06:33:18.843Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260219-042927105.md"
-    },
-    {
-      "id": "thought-20260218-213709243",
-      "type": "breadcrumb",
-      "title": "Think: Context-file graph nodes — key decisions",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-18T21:37:09.278Z",
-      "updated": "2026-02-19T06:33:18.844Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260218-213709243.md"
-    },
-    {
       "id": "learning-base-path-validation-rejects-fictional-test-paths",
       "type": "learning",
       "title": "Base path validation rejects fictional test paths",
@@ -14596,6 +14570,38 @@
       "updated": "2026-02-24T07:59:32.203Z",
       "scope": "project",
       "relativePath": "permanent/artifact-bun-test-enum-cast-workaround.md"
+    },
+    {
+      "id": "gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution",
+      "type": "gotcha",
+      "title": "vi.useFakeTimers hangs Bun test runner in concurrent file execution",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "fake-timers",
+        "project"
+      ],
+      "created": "2026-02-25T23:39:25.730Z",
+      "updated": "2026-02-25T23:39:25.730Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution.md"
+    },
+    {
+      "id": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "type": "learning",
+      "title": "Bun vi.hoisted polyfill enables vitest-style mocking in bun test runner",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-02-25T23:39:33.994Z",
+      "updated": "2026-02-25T23:39:33.994Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner.md"
     }
   ]
 }

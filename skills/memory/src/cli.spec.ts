@@ -5,22 +5,23 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { spawn } from 'bun';
+import { execFile } from 'node:child_process';
 import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const CLI_PATH = path.join(import.meta.dir, 'cli.ts');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CLI_PATH = path.join(__dirname, 'cli.ts');
 
 async function runCli(args: string[]): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = spawn(['bun', CLI_PATH, ...args], {
-    stdout: 'pipe',
-    stderr: 'pipe',
+  return new Promise((resolve) => {
+    execFile('bun', [CLI_PATH, ...args], { timeout: 10000, maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
+      resolve({
+        stdout: stdout ?? '',
+        stderr: stderr ?? '',
+        exitCode: error?.code === undefined ? (error ? 1 : 0) : (typeof error.code === 'number' ? error.code : 1),
+      });
+    });
   });
-
-  const stdout = await new Response(proc.stdout).text();
-  const stderr = await new Response(proc.stderr).text();
-  const exitCode = await proc.exited;
-
-  return { stdout, stderr, exitCode };
 }
 
 describe('CLI Entry Point E2E', () => {

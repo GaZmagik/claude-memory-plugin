@@ -7,6 +7,7 @@
 import * as path from 'node:path';
 import { createLogger } from '../core/logger.js';
 import { ensureDir, fileExists, writeFileAtomic, readFile } from '../core/fs-utils.js';
+import { MemoryType, Scope } from '../types/enums.js';
 
 const log = createLogger('graph');
 
@@ -15,11 +16,12 @@ const log = createLogger('graph');
  */
 export interface GraphNode {
   id: string;
-  type: string;
+  /** Memory type — constrains to known taxonomy values */
+  type: MemoryType;
   /** Memory title (optional for backward compatibility with existing data) */
   title?: string;
   /** Memory scope (optional for backward compatibility with existing data) */
-  scope?: string;
+  scope?: Scope;
   /** Agent name for agent-scoped memories (optional) */
   agent?: string;
 }
@@ -147,7 +149,7 @@ export function getNode(graph: MemoryGraph, nodeId: string): GraphNode | undefin
 /**
  * Get all nodes, optionally filtered by type
  */
-export function getAllNodes(graph: MemoryGraph, type?: string): GraphNode[] {
+export function getAllNodes(graph: MemoryGraph, type?: MemoryType): GraphNode[] {
   if (type) {
     return graph.nodes.filter(n => n.type === type);
   }
@@ -192,30 +194,35 @@ export async function loadMergedGraph(basePaths: string[]): Promise<MemoryGraph>
   // Load the first graph as the base
   let merged = await loadGraph(basePaths[0]!);
 
+  // Maintain deduplication Sets incrementally across iterations
+  // instead of rebuilding them from scratch each time.
+  const existingNodeIds = new Set(merged.nodes.map(n => n.id));
+  const existingEdgeKeys = new Set(
+    merged.edges.map(e => `${e.source}->${e.target}`)
+  );
+
   // Merge subsequent graphs
   for (let i = 1; i < basePaths.length; i++) {
     const otherGraph = await loadGraph(basePaths[i]!);
 
     // Deduplicate nodes by ID (first occurrence wins)
-    const existingNodeIds = new Set(merged.nodes.map(n => n.id));
-    const mergedNodes = [
-      ...merged.nodes,
-      ...otherGraph.nodes.filter(n => !existingNodeIds.has(n.id)),
-    ];
+    const newNodes = otherGraph.nodes.filter(n => !existingNodeIds.has(n.id));
+    for (const node of newNodes) {
+      existingNodeIds.add(node.id);
+    }
+    const mergedNodes = [...merged.nodes, ...newNodes];
 
     // Deduplicate edges by source->target key, and only include
     // edges whose endpoints exist in the merged node set
-    const mergedNodeIds = new Set(mergedNodes.map(n => n.id));
-    const existingEdgeKeys = new Set(
-      merged.edges.map(e => `${e.source}->${e.target}`)
-    );
-    const mergedEdges = [
-      ...merged.edges,
-      ...otherGraph.edges.filter(e =>
-        !existingEdgeKeys.has(`${e.source}->${e.target}`) &&
-        mergedNodeIds.has(e.source) && mergedNodeIds.has(e.target)
-      ),
-    ];
+    const newEdges = otherGraph.edges.filter(e => {
+      const key = `${e.source}->${e.target}`;
+      return !existingEdgeKeys.has(key) &&
+        existingNodeIds.has(e.source) && existingNodeIds.has(e.target);
+    });
+    for (const edge of newEdges) {
+      existingEdgeKeys.add(`${edge.source}->${edge.target}`);
+    }
+    const mergedEdges = [...merged.edges, ...newEdges];
 
     merged = { ...merged, nodes: mergedNodes, edges: mergedEdges };
   }

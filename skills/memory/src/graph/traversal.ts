@@ -5,7 +5,7 @@
  */
 
 import type { MemoryGraph } from './structure.js';
-import { getOutboundEdges, getInboundEdges } from './edges.js';
+import { getInboundEdges } from './edges.js';
 
 /**
  * Adjacency list for bidirectional graph traversal
@@ -62,12 +62,16 @@ export interface TraversalResult {
 
 /**
  * Breadth-first traversal from a starting node
+ *
+ * Builds an adjacency list once (O(n + e)) rather than calling
+ * getOutboundEdges per node (which would be O(n * e)).
  */
 export function bfsTraversal(
   graph: MemoryGraph,
   startNodeId: string,
   maxDepth: number = Infinity
 ): TraversalResult {
+  const adjacency = buildAdjacencyList(graph);
   const visited: string[] = [];
   const depths = new Map<string, number>();
   const queue: Array<{ id: string; depth: number }> = [{ id: startNodeId, depth: 0 }];
@@ -84,11 +88,13 @@ export function bfsTraversal(
     visited.push(id);
     depths.set(id, depth);
 
-    // Get outbound edges
-    const edges = getOutboundEdges(graph, id);
-    for (const edge of edges) {
-      if (!seen.has(edge.target)) {
-        queue.push({ id: edge.target, depth: depth + 1 });
+    // Use O(1) adjacency lookup instead of O(e) getOutboundEdges
+    const targets = adjacency.outbound.get(id);
+    if (targets) {
+      for (const target of targets) {
+        if (!seen.has(target)) {
+          queue.push({ id: target, depth: depth + 1 });
+        }
       }
     }
   }
@@ -98,12 +104,16 @@ export function bfsTraversal(
 
 /**
  * Depth-first traversal from a starting node
+ *
+ * Builds an adjacency list once (O(n + e)) rather than calling
+ * getOutboundEdges per node (which would be O(n * e)).
  */
 export function dfsTraversal(
   graph: MemoryGraph,
   startNodeId: string,
   maxDepth: number = Infinity
 ): TraversalResult {
+  const adjacency = buildAdjacencyList(graph);
   const visited: string[] = [];
   const depths = new Map<string, number>();
   const seen = new Set<string>();
@@ -117,9 +127,12 @@ export function dfsTraversal(
     visited.push(id);
     depths.set(id, depth);
 
-    const edges = getOutboundEdges(graph, id);
-    for (const edge of edges) {
-      visit(edge.target, depth + 1);
+    // Use O(1) adjacency lookup instead of O(e) getOutboundEdges
+    const targets = adjacency.outbound.get(id);
+    if (targets) {
+      for (const target of targets) {
+        visit(target, depth + 1);
+      }
     }
   }
 
@@ -137,8 +150,12 @@ export function findReachable(graph: MemoryGraph, startNodeId: string): string[]
 
 /**
  * Find all nodes that can reach a target node (reverse traversal)
+ *
+ * Builds an adjacency list once (O(n + e)) rather than calling
+ * getInboundEdges per node (which would be O(n * e)).
  */
 export function findPredecessors(graph: MemoryGraph, targetNodeId: string): string[] {
+  const adjacency = buildAdjacencyList(graph);
   const visited: string[] = [];
   const queue: string[] = [targetNodeId];
   const seen = new Set<string>();
@@ -153,11 +170,13 @@ export function findPredecessors(graph: MemoryGraph, targetNodeId: string): stri
     seen.add(id);
     visited.push(id);
 
-    // Get inbound edges (reverse direction)
-    const edges = getInboundEdges(graph, id);
-    for (const edge of edges) {
-      if (!seen.has(edge.source)) {
-        queue.push(edge.source);
+    // Use O(1) adjacency lookup instead of O(e) getInboundEdges
+    const sources = adjacency.inbound.get(id);
+    if (sources) {
+      for (const source of sources) {
+        if (!seen.has(source)) {
+          queue.push(source);
+        }
       }
     }
   }
@@ -167,6 +186,9 @@ export function findPredecessors(graph: MemoryGraph, targetNodeId: string): stri
 
 /**
  * Find shortest path between two nodes
+ *
+ * Builds an adjacency list once (O(n + e)) rather than calling
+ * getOutboundEdges per node (which would be O(n * e)).
  */
 export function findShortestPath(
   graph: MemoryGraph,
@@ -177,6 +199,7 @@ export function findShortestPath(
     return [sourceId];
   }
 
+  const adjacency = buildAdjacencyList(graph);
   const queue: Array<{ id: string; path: string[] }> = [{ id: sourceId, path: [sourceId] }];
   const seen = new Set<string>();
 
@@ -188,16 +211,19 @@ export function findShortestPath(
     }
     seen.add(id);
 
-    const edges = getOutboundEdges(graph, id);
-    for (const edge of edges) {
-      const newPath = [...path, edge.target];
+    // Use O(1) adjacency lookup instead of O(e) getOutboundEdges
+    const targets = adjacency.outbound.get(id);
+    if (targets) {
+      for (const target of targets) {
+        const newPath = [...path, target];
 
-      if (edge.target === targetId) {
-        return newPath;
-      }
+        if (target === targetId) {
+          return newPath;
+        }
 
-      if (!seen.has(edge.target)) {
-        queue.push({ id: edge.target, path: newPath });
+        if (!seen.has(target)) {
+          queue.push({ id: target, path: newPath });
+        }
       }
     }
   }

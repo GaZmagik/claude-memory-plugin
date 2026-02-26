@@ -7,11 +7,11 @@
  * - Tier 3: LLM-powered checks (deep mode only)
  */
 
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
-import { getAllMemoryIds } from '../core/fs-utils.js';
+import { getAllMemoryIds, fileExists as asyncFileExists, readFile } from '../core/fs-utils.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
+import type { MemoryGraph } from '../graph/structure.js';
 import { getInboundEdges, getOutboundEdges } from '../graph/edges.js';
 import { MemoryType } from '../types/enums.js';
 
@@ -55,16 +55,16 @@ export interface AssessQualityResponse {
 }
 
 /**
- * Find a memory file by ID
+ * Find a memory file by ID (async I/O)
  */
-function findMemoryFile(basePath: string, id: string): string | null {
+async function findMemoryFile(basePath: string, id: string): Promise<string | null> {
   const permanentPath = path.join(basePath, 'permanent', `${id}.md`);
-  if (fs.existsSync(permanentPath)) {
+  if (await asyncFileExists(permanentPath)) {
     return permanentPath;
   }
 
   const temporaryPath = path.join(basePath, 'temporary', `${id}.md`);
-  if (fs.existsSync(temporaryPath)) {
+  if (await asyncFileExists(temporaryPath)) {
     return temporaryPath;
   }
 
@@ -118,16 +118,20 @@ function calculateScore(issues: QualityIssue[]): number {
 
 /**
  * Tier 1: Deterministic checks (fast)
+ *
+ * Accepts an already-loaded graph to avoid redundant disk reads when
+ * called in a loop (e.g. from auditMemories).
  */
 async function tier1Checks(
   id: string,
   filePath: string,
-  basePath: string
+  _basePath: string,
+  graph: MemoryGraph
 ): Promise<QualityIssue[]> {
   const issues: QualityIssue[] = [];
 
-  // Read file
-  const content = fs.readFileSync(filePath, 'utf8');
+  // Read file (async I/O)
+  const content = await readFile(filePath);
   const parsed = parseMemoryFile(content);
   const { frontmatter } = parsed;
 
@@ -158,9 +162,7 @@ async function tier1Checks(
     });
   }
 
-  // Check: Graph connectivity
-  const graph = await loadGraph(basePath);
-
+  // Check: Graph connectivity (using pre-loaded graph)
   if (!hasNode(graph, id)) {
     issues.push({
       type: 'not_in_graph',
@@ -204,7 +206,7 @@ async function tier1Checks(
     // Only check absolute-ish paths or src/ paths
     if (refPath.startsWith('src/') || refPath.startsWith('./')) {
       const fullPath = path.resolve(process.cwd(), refPath);
-      if (!fs.existsSync(fullPath)) {
+      if (!(await asyncFileExists(fullPath))) {
         issues.push({
           type: 'stale_file_reference',
           severity: 'medium',
@@ -220,16 +222,22 @@ async function tier1Checks(
 
 /**
  * Assess quality of a single memory
+ *
+ * Accepts an optional pre-loaded `graph` to avoid redundant disk reads
+ * when called in a loop (e.g. from auditMemories).
  */
 export async function assessQuality(
-  request: AssessQualityRequest
+  request: AssessQualityRequest,
+  graph?: MemoryGraph
 ): Promise<AssessQualityResponse> {
   const { id, basePath, deep = false } = request;
   const tiersCompleted: number[] = [];
 
+  // Load graph once if not provided by caller
+  const effectiveGraph = graph ?? await loadGraph(basePath);
+
   // Skip external nodes (rules and reminders) - they're read-only and managed externally
-  const graph = await loadGraph(basePath);
-  if (isExternalNode(graph, id)) {
+  if (isExternalNode(effectiveGraph, id)) {
     return {
       status: 'success',
       id,
@@ -240,8 +248,8 @@ export async function assessQuality(
     };
   }
 
-  // Find file
-  const filePath = findMemoryFile(basePath, id);
+  // Find file (async I/O)
+  const filePath = await findMemoryFile(basePath, id);
   if (!filePath) {
     return {
       status: 'error',
@@ -254,8 +262,8 @@ export async function assessQuality(
     };
   }
 
-  // Tier 1: Deterministic checks
-  const issues = await tier1Checks(id, filePath, basePath);
+  // Tier 1: Deterministic checks (pass pre-loaded graph)
+  const issues = await tier1Checks(id, filePath, basePath, effectiveGraph);
   tiersCompleted.push(1);
 
   // Tier 2 & 3: Embedding and LLM checks (placeholder for future)
@@ -363,7 +371,7 @@ export async function auditMemories(request: AuditRequest): Promise<AuditRespons
     }
 
     try {
-      const assessment = await assessQuality({ id, basePath, deep });
+      const assessment = await assessQuality({ id, basePath, deep }, graph);
 
       if (assessment.status === 'success') {
         totalScore += assessment.score;

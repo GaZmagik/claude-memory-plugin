@@ -6,9 +6,10 @@
  * a shorter TTL as they've served their purpose.
  */
 
-import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import * as path from 'node:path';
 import { parseMemoryFile } from '../core/frontmatter.js';
+import { fileExists } from '../core/fs-utils.js';
 import { deleteMemory } from '../core/delete.js';
 import { loadGraph, saveGraph, removeNode } from '../graph/structure.js';
 
@@ -106,8 +107,8 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
   const wouldRemove: string[] = [];
   const errors: string[] = [];
 
-  // Check if temporary directory exists
-  if (!fs.existsSync(temporaryDir)) {
+  // Check if temporary directory exists (async I/O)
+  if (!(await fileExists(temporaryDir))) {
     return {
       status: 'success',
       removed: 0,
@@ -115,14 +116,15 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
     };
   }
 
-  // Get all markdown files in temporary directory
-  const files = fs.readdirSync(temporaryDir).filter(f => f.endsWith('.md'));
+  // Get all markdown files in temporary directory (async I/O)
+  const allFiles = await fsp.readdir(temporaryDir);
+  const files = allFiles.filter(f => f.endsWith('.md'));
 
   for (const file of files) {
     const filePath = path.join(temporaryDir, file);
 
     try {
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = await fsp.readFile(filePath, 'utf-8');
       const parsed = parseMemoryFile(content);
       // Note: parseMemoryFile throws on invalid input, caught by outer try
 
@@ -163,9 +165,9 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
             await deleteMemory({ id, basePath });
             removedIds.push(id);
           } catch (deleteErr) {
-            // If deleteMemory fails, try direct file deletion
+            // If deleteMemory fails, try direct file deletion (async I/O)
             try {
-              fs.unlinkSync(filePath);
+              await fsp.unlink(filePath);
               removedIds.push(id);
 
               // Also remove from graph if present

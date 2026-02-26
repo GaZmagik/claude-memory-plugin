@@ -5,11 +5,10 @@
  * Uses batch index operations for O(1) index updates instead of O(n).
  */
 
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { BulkDeleteRequest, BulkDeleteResponse } from '../types/api.js';
 import { loadIndex, batchRemoveFromIndex } from '../core/index.js';
-import { deleteFile, fileExists, isInsideDir } from '../core/fs-utils.js';
+import { deleteFile, fileExists, isInsideDir, readFile, writeFileAtomic } from '../core/fs-utils.js';
 import { filterMemories } from './pattern-matcher.js';
 import { createLogger } from '../core/logger.js';
 import type { EmbeddingCache } from '../search/embedding.js';
@@ -114,11 +113,11 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
     if (deletedIds.length > 0) {
       await batchRemoveFromIndex(basePath, deletedIds);
 
-      // Batch embeddings cleanup
+      // Batch embeddings cleanup (async I/O)
       try {
         const embeddingsPath = path.join(basePath, 'embeddings.json');
-        if (fs.existsSync(embeddingsPath)) {
-          const content = fs.readFileSync(embeddingsPath, 'utf-8');
+        if (await fileExists(embeddingsPath)) {
+          const content = await readFile(embeddingsPath);
           const cache = JSON.parse(content) as EmbeddingCache;
           if (cache.memories) {
             let modified = false;
@@ -129,7 +128,7 @@ export async function bulkDelete(request: BulkDeleteRequest): Promise<BulkDelete
               }
             }
             if (modified) {
-              fs.writeFileSync(embeddingsPath, JSON.stringify(cache, null, 2));
+              await writeFileAtomic(embeddingsPath, JSON.stringify(cache, null, 2));
             }
           }
         }

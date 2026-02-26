@@ -8,13 +8,12 @@
  * Use when graph.json has been modified directly or after bulk link operations.
  */
 
-import * as fs from 'node:fs';
 import {
   parseMemoryFile,
   serialiseMemoryFile,
   updateFrontmatter,
 } from '../core/frontmatter.js';
-import { getAllMemoryIds, findMemoryFile } from '../core/fs-utils.js';
+import { getAllMemoryIds, findMemoryFile, readFile, writeFileAtomic } from '../core/fs-utils.js';
 import { loadGraph } from '../graph/structure.js';
 import { getOutboundEdges } from '../graph/edges.js';
 import type { MemoryId } from '../types/branded.js';
@@ -133,8 +132,8 @@ export async function syncFrontmatter(
       const outboundEdges = getOutboundEdges(graph, id);
       const graphLinks = outboundEdges.map(e => e.target) as MemoryId[];
 
-      // Read current file
-      const content = fs.readFileSync(filePath, 'utf8');
+      // Read current file (async I/O)
+      const content = await readFile(filePath);
       const parsed = parseMemoryFile(content);
       // Note: parseMemoryFile throws on invalid input, no null check needed
 
@@ -154,9 +153,9 @@ export async function syncFrontmatter(
           links: graphLinks.length > 0 ? graphLinks : undefined,
         });
 
-        // Serialise and write
+        // Serialise and write (atomic async I/O)
         const newContent = serialiseMemoryFile(updatedFm, parsed.content);
-        fs.writeFileSync(filePath, newContent, 'utf8');
+        await writeFileAtomic(filePath, newContent);
         updatedIds.push(id);
       }
     } catch (err) {

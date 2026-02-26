@@ -140,7 +140,7 @@ async function readAndParseCached(
 function toGraphNode(id: string, parsed: ParseResult): GraphNode {
   return {
     id,
-    type: String(parsed.frontmatter.type),
+    type: parsed.frontmatter.type,
     title: parsed.frontmatter.title,
   };
 }
@@ -248,6 +248,7 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   const fileIds = new Set(filesOnDisk.keys());
 
   const totalPhases = 7;
+  const parseCache = new Map<string, ParseResult | null>();
 
   // 1. Find files not in graph - add them
   // Also refresh existing nodes that are missing title
@@ -257,18 +258,18 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
 
     if (!existingNode) {
       // Node missing entirely - add it
-      const node = await parseFileToNode(id, filePath);
-      if (node) {
+      const parsed = await readAndParseCached(filePath, parseCache);
+      if (parsed) {
         changes.addedToGraph.push(id);
         if (!dryRun) {
-          graph = addNode(graph, node);
+          graph = addNode(graph, toGraphNode(id, parsed));
         }
       }
     } else if (!existingNode.title) {
       // Node exists but missing title - refresh it
-      const node = await parseFileToNode(id, filePath);
-      if (node && !dryRun) {
-        graph = addNode(graph, node); // addNode updates existing nodes
+      const parsed = await readAndParseCached(filePath, parseCache);
+      if (parsed && !dryRun) {
+        graph = addNode(graph, toGraphNode(id, parsed));
       }
     }
   }
@@ -277,11 +278,11 @@ export async function syncMemories(request: SyncRequest): Promise<SyncResponse> 
   if (onProgress) onProgress('Syncing files to index', 2, totalPhases);
   for (const [id, filePath] of filesOnDisk) {
     if (!indexIds.has(unsafeAsMemoryId(id))) {
-      const entry = await parseFileToIndexEntry(id, filePath);
-      if (entry) {
+      const parsed = await readAndParseCached(filePath, parseCache);
+      if (parsed) {
         changes.addedToIndex.push(id);
         if (!dryRun) {
-          index.memories.push(entry);
+          index.memories.push(toIndexEntry(id, filePath, parsed));
         }
       }
     }

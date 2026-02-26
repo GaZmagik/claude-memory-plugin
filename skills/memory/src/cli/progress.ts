@@ -94,6 +94,7 @@ export class ProgressReporter {
    * Set progress to a specific value
    */
   update(current: number, label?: string): void {
+    if (this.finished) return;
     this.current = current;
 
     // Throttle updates to avoid excessive writes
@@ -229,6 +230,9 @@ export class MultiPhaseProgress {
     }
 
     this.currentPhase++;
+    if (this.currentPhase >= this.phases.length) {
+      console.warn(`MultiPhaseProgress: nextPhase() called beyond defined phases (${this.currentPhase + 1}/${this.phases.length})`);
+    }
     const phaseLabel = this.phases[this.currentPhase] ?? 'Processing';
     const phaseName = `[${this.currentPhase + 1}/${this.phases.length}] ${phaseLabel}`;
 
@@ -236,6 +240,7 @@ export class MultiPhaseProgress {
       operation: phaseName,
       total: itemCount,
       output: this.output,
+      showElapsed: this.showElapsed,
     });
 
     return this.reporter;

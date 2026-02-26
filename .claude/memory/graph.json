@@ -4066,16 +4066,6 @@
       "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes"
     },
     {
-      "id": "thought-20260219-042927105",
-      "type": "breadcrumb",
-      "title": "Think: Feature 005 Planning: Rule and Reminder Graph Nodes - Architecture Design"
-    },
-    {
-      "id": "thought-20260218-213709243",
-      "type": "breadcrumb",
-      "title": "Think: Context-file graph nodes — key decisions"
-    },
-    {
       "id": "learning-external-file-discovery-uses-wrong-base-path",
       "type": "learning",
       "title": "External file discovery uses wrong base path",

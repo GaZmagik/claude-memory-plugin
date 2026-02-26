@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-25T23:39:34.002Z",
+  "lastUpdated": "2026-02-26T14:10:39.859Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -13903,32 +13903,6 @@
       "updated": "2026-02-20T17:46:02.832Z",
       "scope": "global",
       "relativePath": "temporary/thought-20260220-165044018.md"
-    },
-    {
-      "id": "thought-20260219-042927105",
-      "type": "breadcrumb",
-      "title": "Think: Feature 005 Planning: Rule and Reminder Graph Nodes - Architecture Design",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-19T04:29:27.117Z",
-      "updated": "2026-02-19T06:33:18.843Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260219-042927105.md"
-    },
-    {
-      "id": "thought-20260218-213709243",
-      "type": "breadcrumb",
-      "title": "Think: Context-file graph nodes — key decisions",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-18T21:37:09.278Z",
-      "updated": "2026-02-19T06:33:18.844Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260218-213709243.md"
     },
     {
       "id": "learning-base-path-validation-rejects-fictional-test-paths",

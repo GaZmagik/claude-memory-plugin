@@ -2,7 +2,7 @@
  * Tests for Progress Reporting Utility
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ProgressReporter, MultiPhaseProgress, createMultiPhaseProgress } from './progress.js';
 import type { ProgressCallback } from './progress.js';
 
@@ -145,6 +145,27 @@ describe('ProgressReporter', () => {
     reporter.complete('Again');
 
     expect(output.length).toBe(countAfterComplete);
+  });
+
+  it('should not mutate state after complete', () => {
+    const reporter = new ProgressReporter({
+      operation: 'Immutable',
+      total: 10,
+      output: outputFn,
+      throttleMs: 0,
+    });
+
+    reporter.update(5);
+    reporter.complete();
+
+    // Late update via toCallback should be silently ignored
+    const cb = reporter.toCallback();
+    cb(8, 10);
+
+    // Internal state should not have changed
+    reporter.update(9);
+    // No crash, no output — just silently ignored
+    expect(output.filter(l => l.includes('9')).length).toBe(0);
   });
 
   it('should clamp percentage to 100% when current exceeds total', () => {
@@ -329,5 +350,43 @@ describe('MultiPhaseProgress', () => {
 
     progress.nextPhase(10);
     expect(progress.current).toBeInstanceOf(ProgressReporter);
+  });
+
+  it('should forward showElapsed to sub-phase reporters', () => {
+    const progress = createMultiPhaseProgress('Silent Phases', [
+      'Phase A',
+      'Phase B',
+    ], outputFn, { showElapsed: false });
+
+    const reporterA = progress.nextPhase(2);
+    reporterA.update(2);
+    reporterA.complete();
+
+    const reporterB = progress.nextPhase(1);
+    reporterB.update(1);
+    reporterB.complete();
+
+    progress.complete('All phases done');
+
+    const allOutput = output.join('');
+    // No elapsed time should appear anywhere — not in phases, not in overall
+    expect(allOutput).not.toMatch(/\d+(ms|s|m)/);
+  });
+
+  it('should warn when nextPhase exceeds defined phases', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const progress = createMultiPhaseProgress('Short Op', [
+      'Only Phase',
+    ], outputFn);
+
+    progress.nextPhase(); // Phase 1 — valid
+    progress.nextPhase(); // Phase 2 — exceeds the 1 defined phase
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('nextPhase() called beyond defined phases')
+    );
+
+    warnSpy.mockRestore();
   });
 });

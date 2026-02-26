@@ -34,11 +34,19 @@ const MAX_CACHE_SIZE = 100;
  *
  * Note: Matching is done on memory IDs only, not paths.
  */
+const MAX_WILDCARDS = 10;
+
 export function matchGlobPattern(pattern: string, text: string): boolean {
   // Check cache first
   let regex = patternCache.get(pattern);
 
   if (!regex) {
+    // Limit wildcard count to prevent ReDoS from patterns with excessive wildcards
+    const wildcardCount = (pattern.match(/[*?]/g) || []).length;
+    if (wildcardCount > MAX_WILDCARDS) {
+      return false;
+    }
+
     // Escape special regex chars (fixed order to prevent ReDoS)
     // Important: escape backslash first, then other special chars
     const regexPattern = pattern

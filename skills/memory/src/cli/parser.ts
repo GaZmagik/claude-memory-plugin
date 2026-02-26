@@ -96,6 +96,9 @@ export function parseArgs(args: string[]): ParsedArgs {
  *
  * @returns Promise resolving to parsed JSON or undefined if no stdin
  */
+/** Maximum stdin size: 1MB — prevents unbounded memory consumption from malicious input */
+const MAX_STDIN_BYTES = 1024 * 1024;
+
 export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
   // Check if stdin is a TTY (interactive terminal) - no piped input
   if (process.stdin.isTTY) {
@@ -105,6 +108,7 @@ export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
     let hasData = false;
+    let totalBytes = 0;
     let timeoutId: ReturnType<typeof setTimeout>;
 
     const cleanup = () => {
@@ -115,6 +119,12 @@ export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
     };
 
     const onData = (chunk: Buffer) => {
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_STDIN_BYTES) {
+        cleanup();
+        reject(new Error(`stdin exceeded maximum size of ${MAX_STDIN_BYTES} bytes`));
+        return;
+      }
       hasData = true;
       chunks.push(chunk);
     };
@@ -171,6 +181,7 @@ export async function readStdinRaw(): Promise<string | undefined> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
     let hasData = false;
+    let totalBytes = 0;
     let timeoutId: ReturnType<typeof setTimeout>;
 
     const cleanup = () => {
@@ -181,6 +192,12 @@ export async function readStdinRaw(): Promise<string | undefined> {
     };
 
     const onData = (chunk: Buffer) => {
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_STDIN_BYTES) {
+        cleanup();
+        reject(new Error(`stdin exceeded maximum size of ${MAX_STDIN_BYTES} bytes`));
+        return;
+      }
       hasData = true;
       chunks.push(chunk);
     };

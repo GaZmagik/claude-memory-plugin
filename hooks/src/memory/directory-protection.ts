@@ -97,8 +97,9 @@ const ALLOWED_COMMAND_PATTERNS = [
   /\bgit\s+rm\s+--cached\b/,
   // Memory CLI command (bun-linked binary)
   /\bmemory\s+(write|read|list|search|delete|link|unlink|edges|graph|stats|query|tag|untag|quality|audit|health|validate|sync|repair|rebuild|rename|move|promote|demote|prune|status|summarize|archive|suggest-links|export|import|sync-frontmatter|refresh|think|help|semantic|bulk-link|bulk-delete|bulk-move|bulk-tag|bulk-promote|mermaid|impact|reindex|audit-quick)\b/,
-  // Read-only commands - must not have pipe/redirect after memory path
-  /\b(cat|head|tail|grep|ls|find|stat|file|wc|sort|uniq|diff)\b/,
+  // Read-only commands - anchored to start of command to prevent bypass via
+  // compound commands like `cat foo && rm -rf .claude/memory/`
+  /^\s*(cat|head|tail|grep|ls|find|stat|file|wc|sort|uniq|diff)\b/,
 ];
 
 /**

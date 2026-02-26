@@ -4,6 +4,9 @@
 
 import type { HookInput, HookOutput } from './types.ts';
 
+/** Maximum stdin size: 1MB — prevents unbounded memory consumption */
+const MAX_STDIN_BYTES = 1024 * 1024;
+
 /**
  * Read all data from stdin as a string.
  * Handles the async iterator pattern for stdin.
@@ -12,9 +15,15 @@ import type { HookInput, HookOutput } from './types.ts';
 export async function readStdin(input?: AsyncIterable<Buffer | string>): Promise<string> {
   const chunks: Buffer[] = [];
   const source = input ?? process.stdin;
+  let totalBytes = 0;
 
   for await (const chunk of source) {
-    chunks.push(Buffer.from(chunk));
+    const buf = Buffer.from(chunk);
+    totalBytes += buf.length;
+    if (totalBytes > MAX_STDIN_BYTES) {
+      throw new Error(`stdin exceeded maximum size of ${MAX_STDIN_BYTES} bytes`);
+    }
+    chunks.push(buf);
   }
 
   return Buffer.concat(chunks).toString('utf-8');

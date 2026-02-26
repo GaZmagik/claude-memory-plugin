@@ -674,8 +674,20 @@ export async function getAllMemoryIds(basePath: string): Promise<string[]> {
  * ```
  */
 export async function findMemoryFile(basePath: string, id: string): Promise<string | null> {
+  // Reject IDs containing path separators or traversal sequences
+  if (id.includes('/') || id.includes('\\') || id.includes('..')) {
+    return null;
+  }
+
   for (const subdir of MEMORY_SUBDIRS) {
     const filePath = path.join(basePath, subdir, `${id}.md`);
+
+    // Verify resolved path stays within basePath
+    const resolved = path.resolve(filePath);
+    if (!resolved.startsWith(path.resolve(basePath) + path.sep)) {
+      return null;
+    }
+
     try {
       await fsp.access(filePath);
       return filePath;

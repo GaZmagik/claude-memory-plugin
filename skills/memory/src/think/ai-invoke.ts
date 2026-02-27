@@ -5,7 +5,7 @@
  * Handles prompt construction, style/agent application, and session tracking.
  */
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { unsafeAsSessionId } from '../types/branded.js';
 import type { AICallOptions, AICallResult, ThoughtEntry } from '../types/think.js';
@@ -448,7 +448,6 @@ export async function invokeProvider(params: {
     log.debug('Invoking provider', { provider, binary: command.binary, argCount: command.args.length });
 
     // Use spawnSync to capture both stdout and stderr
-    const { spawnSync } = await import('node:child_process');
     const spawnResult = spawnSync(command.binary, command.args, {
       encoding: 'utf-8',
       maxBuffer: MAX_OUTPUT_LENGTH,

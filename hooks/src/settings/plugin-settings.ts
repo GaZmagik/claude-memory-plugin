@@ -219,6 +219,14 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
       }
     } else if (expectedType === 'string') {
       if (typeof value === 'string') {
+        // Validate URL format for host settings
+        if (settingKey === 'ollama_host') {
+          try {
+            new URL(value);
+          } catch {
+            continue; // Invalid URL — skip, fall back to default
+          }
+        }
         (result as Record<string, string>)[settingKey] = value;
       }
     } else if (expectedType === 'number') {

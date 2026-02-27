@@ -5,7 +5,7 @@
  * to keep local memories private.
  */
 
-import { readFile, writeFile, access } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import * as path from 'node:path';
 import { findGitRoot } from './git-utils.js';
 import { createLogger } from '../core/logger.js';
@@ -86,12 +86,6 @@ export async function isPathGitignored(gitRoot: string, pattern: string): Promis
   const gitignorePath = path.join(gitRoot, '.gitignore');
 
   try {
-    await access(gitignorePath);
-  } catch {
-    return false;
-  }
-
-  try {
     const content = await readFile(gitignorePath, 'utf-8');
     const lines = content.split(/\r?\n/);
 
@@ -99,7 +93,7 @@ export async function isPathGitignored(gitRoot: string, pattern: string): Promis
     const normalizedPattern = pattern.trim();
     return lines.some(line => line.trim() === normalizedPattern);
   } catch {
-    return false;
+    return false; // File doesn't exist or unreadable
   }
 }
 
@@ -119,10 +113,9 @@ export async function addToGitignore(
 
   let content = '';
   try {
-    await access(gitignorePath);
     content = await readFile(gitignorePath, 'utf-8');
   } catch {
-    // File does not exist; start with empty content
+    // File does not exist or unreadable; start with empty content
   }
 
   // Ensure content ends with newline
@@ -158,8 +151,8 @@ export async function createGitignoreIfMissing(gitRoot: string): Promise<boolean
   const gitignorePath = path.join(gitRoot, '.gitignore');
 
   try {
-    await access(gitignorePath);
-    return false;
+    await readFile(gitignorePath, 'utf-8');
+    return false; // File exists
   } catch {
     // File does not exist; create it
   }
@@ -181,13 +174,12 @@ export async function createGitignoreIfMissing(gitRoot: string): Promise<boolean
 export async function removeFromGitignore(gitRoot: string, pattern: string): Promise<boolean> {
   const gitignorePath = path.join(gitRoot, '.gitignore');
 
+  let content: string;
   try {
-    await access(gitignorePath);
+    content = await readFile(gitignorePath, 'utf-8');
   } catch {
-    return false;
+    return false; // File doesn't exist or unreadable
   }
-
-  const content = await readFile(gitignorePath, 'utf-8');
   const lines = content.split(/\r?\n/);
   const normalizedPattern = pattern.trim();
 

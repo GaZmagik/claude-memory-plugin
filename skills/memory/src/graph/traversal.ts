@@ -5,7 +5,6 @@
  */
 
 import type { MemoryGraph } from './structure.js';
-import { getInboundEdges } from './edges.js';
 
 /**
  * Adjacency list for bidirectional graph traversal
@@ -76,9 +75,10 @@ export function bfsTraversal(
   const depths = new Map<string, number>();
   const queue: Array<{ id: string; depth: number }> = [{ id: startNodeId, depth: 0 }];
   const seen = new Set<string>();
+  let queueIndex = 0; // Use index instead of shift() for O(1) dequeue
 
-  while (queue.length > 0) {
-    const { id, depth } = queue.shift()!;
+  while (queueIndex < queue.length) {
+    const { id, depth } = queue[queueIndex++]!;
 
     if (seen.has(id) || depth > maxDepth) {
       continue;
@@ -159,9 +159,10 @@ export function findPredecessors(graph: MemoryGraph, targetNodeId: string): stri
   const visited: string[] = [];
   const queue: string[] = [targetNodeId];
   const seen = new Set<string>();
+  let queueIndex = 0; // Use index instead of shift() for O(1) dequeue
 
-  while (queue.length > 0) {
-    const id = queue.shift()!;
+  while (queueIndex < queue.length) {
+    const id = queue[queueIndex++]!;
 
     if (seen.has(id)) {
       continue;
@@ -202,9 +203,10 @@ export function findShortestPath(
   const adjacency = buildAdjacencyList(graph);
   const queue: Array<{ id: string; path: string[] }> = [{ id: sourceId, path: [sourceId] }];
   const seen = new Set<string>();
+  let queueIndex = 0; // Use index instead of shift() for O(1) dequeue
 
-  while (queue.length > 0) {
-    const { id, path } = queue.shift()!;
+  while (queueIndex < queue.length) {
+    const { id, path } = queue[queueIndex++]!;
 
     if (seen.has(id)) {
       continue;
@@ -306,8 +308,11 @@ export function calculateImpact(graph: MemoryGraph, nodeId: string): {
   orphanedNodes: string[];
   brokenEdges: number;
 } {
+  // Build adjacency list once — O(n + e) — instead of calling
+  // getInboundEdges per dependent which would be O(dependents * e)
+  const adjacency = buildAdjacencyList(graph);
+
   // Find nodes that would be orphaned (only reachable through this node)
-  // Use BFS to find all nodes reachable FROM this node (dependents)
   const dependents = findReachable(graph, nodeId);
   const orphanedNodes: string[] = [];
 
@@ -315,18 +320,21 @@ export function calculateImpact(graph: MemoryGraph, nodeId: string): {
     if (depId === nodeId) continue;
 
     // Check if this node has any other inbound edge NOT from the removed node
-    const inbound = getInboundEdges(graph, depId);
-    const hasOtherPath = inbound.some(e => e.source !== nodeId);
-
-    if (!hasOtherPath && inbound.length > 0) {
-      orphanedNodes.push(depId);
+    const sources = adjacency.inbound.get(depId);
+    if (sources && sources.size > 0) {
+      const hasOtherPath = Array.from(sources).some(s => s !== nodeId);
+      if (!hasOtherPath) {
+        orphanedNodes.push(depId);
+      }
     }
   }
 
-  // Count edges that would be broken
-  const brokenEdges = graph.edges.filter(
-    e => e.source === nodeId || e.target === nodeId
-  ).length;
+  // Count edges that would be broken — use adjacency for O(1) lookup
+  const outCount = adjacency.outbound.get(nodeId)?.size ?? 0;
+  const inCount = adjacency.inbound.get(nodeId)?.size ?? 0;
+  // Edges where nodeId is both source AND target would be double-counted,
+  // but self-loops aren't meaningful in a memory graph, so this is fine
+  const brokenEdges = outCount + inCount;
 
   return { orphanedNodes, brokenEdges };
 }

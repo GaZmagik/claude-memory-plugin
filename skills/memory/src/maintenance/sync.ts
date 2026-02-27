@@ -104,7 +104,7 @@ async function getFilesOnDisk(basePath: string): Promise<Map<string, string>> {
     const entries = await fsp.readdir(dir);
     const mdFiles = entries.filter(f => f.endsWith('.md'));
     for (const file of mdFiles) {
-      const id = file.replace('.md', '');
+      const id = file.slice(0, -3);
       files.set(id, path.join(dir, file));
     }
   }

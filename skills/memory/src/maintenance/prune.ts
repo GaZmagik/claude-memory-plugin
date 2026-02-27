@@ -130,7 +130,7 @@ export async function pruneMemories(request: PruneRequest): Promise<PruneRespons
 
       const { frontmatter } = parsed;
       // ID comes from filename (frontmatter may have it in meta)
-      const id = file.replace('.md', '');
+      const id = file.slice(0, -3);
       const created = frontmatter.created;
       const updated = frontmatter.updated;
 

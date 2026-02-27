@@ -58,7 +58,7 @@ export function matchGlobPattern(pattern: string, text: string): boolean {
 
     regex = new RegExp(`^${regexPattern}$`);
 
-    // Cache with LRU eviction
+    // Cache with FIFO eviction (Map.keys() returns insertion order)
     if (patternCache.size >= MAX_CACHE_SIZE) {
       const firstKey = patternCache.keys().next().value;
       if (firstKey) patternCache.delete(firstKey);

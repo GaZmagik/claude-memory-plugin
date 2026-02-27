@@ -1,72 +1,75 @@
 /**
  * Tests for PreCompact Memory Capture Hook
  *
- * This hook extracts session context and spawns a background Claude process
- * to capture memories before compaction.
+ * NOTE: These tests need rewriting to actually import and test the hook code.
+ * The hook uses runHook() which executes at module load time and has heavy
+ * side effects (filesystem ops, execFileSync, spawning Claude processes).
+ * Testing requires mocking runHook to capture the callback, plus mocking
+ * filesystem, child_process, and spawn-session dependencies.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { existsSync, mkdirSync, writeFileSync, unlinkSync, rmSync } from 'fs';
-import { join } from 'path';
-import { tmpdir } from 'os';
+import { describe, it } from 'vitest';
 
 describe('PreCompact Memory Capture Hook', () => {
-  let testDir: string;
-
-  beforeEach(() => {
-    testDir = join(tmpdir(), `memory-capture-test-${Date.now()}`);
-    mkdirSync(join(testDir, '.claude', 'logs'), { recursive: true });
-    mkdirSync(join(testDir, '.claude', 'flags'), { recursive: true });
-  });
-
-  afterEach(() => {
-    try {
-      rmSync(testDir, { recursive: true, force: true });
-    } catch {
-      // Ignore cleanup errors
-    }
-  });
-
-  describe('command invocation', () => {
-    it('should use namespaced command /claude-memory-plugin:commit', () => {
-      // The hook should use the namespaced command format
-      // Format: /claude-memory-plugin:commit precompact-trigger=<trigger>
-      const expectedPattern = /^\/claude-memory-plugin:commit precompact-trigger=/;
-      expect(expectedPattern.test('/claude-memory-plugin:commit precompact-trigger=auto')).toBe(true);
-      expect(expectedPattern.test('/memory-commit precompact-trigger=auto')).toBe(false);
+  describe('forked session guard', () => {
+    it.skip('should return allow() immediately when isForkedSession() is true', () => {
+      // Mock isForkedSession → true, verify early return
     });
   });
 
   describe('gotcha cache cleanup', () => {
-    it('should delete gotcha session cache on compaction', () => {
-      const logDir = join(testDir, '.claude', 'logs');
-      const cacheFile = join(logDir, 'gotcha-session-cache.json');
+    it.skip('should delete gotcha-session-cache.json from log directory', () => {
+      // Mock filesystem, verify unlinkSync called with correct path
+    });
 
-      // Create a mock cache file
-      writeFileSync(cacheFile, JSON.stringify({ test: 'data' }));
-      expect(existsSync(cacheFile)).toBe(true);
-
-      // Simulate cleanup
-      if (existsSync(cacheFile)) {
-        unlinkSync(cacheFile);
-      }
-
-      expect(existsSync(cacheFile)).toBe(false);
+    it.skip('should silently ignore errors when cache deletion fails', () => {
+      // Mock unlinkSync → throw, verify hook continues
     });
   });
 
   describe('compact flag creation', () => {
-    it('should create compact flag file with session info', () => {
-      const flagDir = join(testDir, '.claude', 'flags');
-      const sessionId = 'test-session-123';
-      const flagFile = join(flagDir, `compact-${sessionId}`);
+    it.skip('should create project-local flag when .claude directory exists', () => {
+      // Mock existsSync(.claude) → true, verify writeFileSync to project flags dir
+    });
 
-      writeFileSync(
-        flagFile,
-        `timestamp=${new Date().toISOString()}\nsession_id=${sessionId}\ntrigger=auto\n`
-      );
+    it.skip('should fall back to global flag when no .claude directory', () => {
+      // Mock existsSync(.claude) → false, verify writeFileSync to global flags dir
+    });
 
-      expect(existsSync(flagFile)).toBe(true);
+    it.skip('should include timestamp, session_id, and trigger in flag content', () => {
+      // Verify flag file content format
+    });
+  });
+
+  describe('memory sync', () => {
+    it.skip('should run memory sync local with 10s timeout before capture', () => {
+      // Mock execFileSync, verify called with correct args
+    });
+
+    it.skip('should log sync result to precompact-sync log file', () => {
+      // Verify appendFileSync called with sync output
+    });
+
+    it.skip('should continue when sync fails (never block compaction)', () => {
+      // Mock execFileSync → throw, verify hook continues to context extraction
+    });
+  });
+
+  describe('context extraction and spawn', () => {
+    it.skip('should return allow() when no session context found', () => {
+      // Mock extractContextAsSystemPrompt → null
+    });
+
+    it.skip('should spawn Claude with /claude-memory-plugin:commit command', () => {
+      // Mock spawnSessionWithContext, verify prompt format
+    });
+
+    it.skip('should restrict spawned session tools to Read,Skill,Bash', () => {
+      // Verify tools parameter in spawnSessionWithContext call
+    });
+
+    it.skip('should return allow() with log file path on successful spawn', () => {
+      // Mock spawnSessionWithContext → { started: true, logFile: '...' }
     });
   });
 });

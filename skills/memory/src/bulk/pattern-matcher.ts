@@ -44,6 +44,7 @@ export function matchGlobPattern(pattern: string, text: string): boolean {
     // Limit wildcard count to prevent ReDoS from patterns with excessive wildcards
     const wildcardCount = (pattern.match(/[*?]/g) || []).length;
     if (wildcardCount > MAX_WILDCARDS) {
+      process.stderr.write(`[pattern-matcher] Pattern rejected: ${wildcardCount} wildcards exceeds limit of ${MAX_WILDCARDS}\n`);
       return false;
     }
 

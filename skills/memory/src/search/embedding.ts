@@ -44,6 +44,9 @@ function validateOllamaUrl(baseUrl: string): void {
     const url = new URL(baseUrl);
 
     // Check against blocklist
+    // Known limitation: alternate IPv4 representations (decimal 2130706433,
+    // octal 0177.0.0.1) can bypass hostname string matching. For a local
+    // developer tool this is acceptable; production use would need DNS resolution.
     if (OLLAMA_URL_BLOCKLIST.some(blocked => url.hostname.includes(blocked))) {
       throw new Error(
         `Ollama base URL must not point to cloud metadata services or blocked hosts: ${url.hostname}`

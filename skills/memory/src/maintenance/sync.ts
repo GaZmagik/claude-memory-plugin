@@ -155,7 +155,7 @@ function toIndexEntry(id: string, filePath: string, parsed: ParseResult): IndexE
   return {
     id: unsafeAsMemoryId(id),
     title: fm.title,
-    type: fm.type as MemoryType,
+    type: fm.type,
     tags: fm.tags ?? [],
     created: fm.created,
     updated: fm.updated,

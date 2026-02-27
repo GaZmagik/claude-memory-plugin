@@ -39,10 +39,10 @@ export interface GraphEdge {
   source: string;
   target: string;
   label: string;
-  /** Source scope identifier (e.g. 'agent-project', 'project', 'global') */
-  sourceScope?: string;
-  /** Target scope identifier (e.g. 'agent-project', 'project', 'global') */
-  targetScope?: string;
+  /** Source scope identifier */
+  sourceScope?: Scope;
+  /** Target scope identifier */
+  targetScope?: Scope;
   /** Source agent name (required when sourceScope is agent-project or agent-global) */
   sourceAgent?: string;
   /** Target agent name (required when targetScope is agent-project or agent-global) */

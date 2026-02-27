@@ -388,7 +388,7 @@ export async function storeCrossScopeEdge(
     // Build enriched nodes
     const sourceNode: GraphNode = {
       id: request.sourceId,
-      type: sourceEntry?.type ?? MemoryType.Learning,
+      type: sourceEntry?.type ?? MemoryType.Unknown,
       ...(sourceEntry?.title && { title: sourceEntry.title }),
       ...(request.sourceScope && { scope: request.sourceScope }),
       ...(request.sourceAgent && { agent: request.sourceAgent }),
@@ -396,7 +396,7 @@ export async function storeCrossScopeEdge(
 
     const targetNode: GraphNode = {
       id: request.targetId,
-      type: targetEntry?.type ?? MemoryType.Learning,
+      type: targetEntry?.type ?? MemoryType.Unknown,
       ...(targetEntry?.title && { title: targetEntry.title }),
       ...(request.targetScope && { scope: request.targetScope }),
       ...(request.targetAgent && { agent: request.targetAgent }),

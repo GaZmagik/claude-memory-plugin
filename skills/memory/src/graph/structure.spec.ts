@@ -314,8 +314,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
           source: 'agent-learning-1',
           target: 'project-decision-1',
           label: 'informs',
-          sourceScope: 'agent-project',
-          targetScope: 'project',
+          sourceScope: Scope.AgentProject,
+          targetScope: Scope.Project,
           sourceAgent: 'ts-expert',
         },
       ],
@@ -329,8 +329,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
     expect(edge.source).toBe('agent-learning-1');
     expect(edge.target).toBe('project-decision-1');
     expect(edge.label).toBe('informs');
-    expect(edge.sourceScope).toBe('agent-project');
-    expect(edge.targetScope).toBe('project');
+    expect(edge.sourceScope).toBe(Scope.AgentProject);
+    expect(edge.targetScope).toBe(Scope.Project);
     expect(edge.sourceAgent).toBe('ts-expert');
     expect(edge.targetAgent).toBeUndefined();
   });
@@ -347,8 +347,8 @@ describe('GraphEdge cross-scope fields (TD01)', () => {
           source: 'ts-learning-1',
           target: 'rust-decision-1',
           label: 'relates-to',
-          sourceScope: 'agent-project',
-          targetScope: 'agent-project',
+          sourceScope: Scope.AgentProject,
+          targetScope: Scope.AgentProject,
           sourceAgent: 'ts-expert',
           targetAgent: 'rust-expert',
         },

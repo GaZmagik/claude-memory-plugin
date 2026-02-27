@@ -13,7 +13,8 @@ import { loadIndex } from '../core/index.js';
 import { loadGraph, hasNode } from '../graph/structure.js';
 import { linkMemories, storeCrossScopeEdge } from '../graph/link.js';
 import { generate, isAvailable } from '../services/ollama.js';
-import { unsafeAsMemoryId } from '../types/branded.js';
+import { unsafeAsMemoryId, type MemoryId } from '../types/branded.js';
+import type { IndexEntry } from '../types/memory.js';
 
 import { getScopePath } from '../scope/resolver.js';
 import { Scope } from '../types/enums.js';
@@ -185,7 +186,7 @@ export async function suggestLinks(
 
   // Load embeddings cache(s)
   const embeddings: Record<string, number[]> = {};
-  const indexMap = new Map<string, any>();
+  const indexMap = new Map<MemoryId, IndexEntry>();
   const metadataMap = new Map<string, MemoryMetadata>();
   let graph = await loadGraph(basePath);
   const existingLinks = new Set<string>();

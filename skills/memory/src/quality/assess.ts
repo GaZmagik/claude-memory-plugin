@@ -74,9 +74,9 @@ async function findMemoryFile(basePath: string, id: string): Promise<string | nu
 /**
  * Check if a node is an external node (rule or reminder)
  */
-function isExternalNode(graph: any, id: string): boolean {
-  const node = graph.nodes.find((n: any) => n.id === id);
-  return node && (node.type === MemoryType.Rule || node.type === MemoryType.Reminder);
+function isExternalNode(graph: MemoryGraph, id: string): boolean {
+  const node = graph.nodes.find(n => n.id === id);
+  return !!node && (node.type === MemoryType.Rule || node.type === MemoryType.Reminder);
 }
 
 /**

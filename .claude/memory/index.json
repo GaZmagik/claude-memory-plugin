@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-27T06:56:07.799Z",
+  "lastUpdated": "2026-02-27T17:16:32.172Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15016,6 +15016,137 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "type": "learning",
+      "title": "Retro - Verification-first debugging prevents time wasted on non-existent bugs",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:12.867Z",
+      "updated": "2026-02-27T17:16:12.867Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "type": "learning",
+      "title": "Retro - Complete test rewrites cleaner than incremental edits for pattern changes",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:16.683Z",
+      "updated": "2026-02-27T17:16:16.683Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence",
+      "type": "gotcha",
+      "title": "Hook tests that don't import actual hook code give false confidence",
+      "tags": [
+        "hooks",
+        "testing",
+        "test-quality",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:19.004Z",
+      "updated": "2026-02-27T17:16:19.004Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence.md"
+    },
+    {
+      "id": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "type": "learning",
+      "title": "Retro - Deferring large architectural refactors to separate PRs keeps momentum",
+      "tags": [
+        "retrospective",
+        "process",
+        "scope-management",
+        "git-workflow",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:21.509Z",
+      "updated": "2026-02-27T17:16:21.509Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "type": "gotcha",
+      "title": "execFileSync in Bun does not respect PATH environment variable",
+      "tags": [
+        "bun",
+        "subprocess",
+        "environment-variables",
+        "runtime-specific",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:22.906Z",
+      "updated": "2026-02-27T17:16:22.906Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable.md"
+    },
+    {
+      "id": "learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic",
+      "type": "learning",
+      "title": "Retro - Passing tests immediately after refactoring provide high confidence in logic",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:25.694Z",
+      "updated": "2026-02-27T17:16:25.694Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops",
+      "type": "learning",
+      "title": "Set-based O(1) lookups prevent O(n²) performance bugs in loops",
+      "tags": [
+        "performance",
+        "algorithms",
+        "graphs",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:27.473Z",
+      "updated": "2026-02-27T17:16:27.473Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops.md"
+    },
+    {
+      "id": "learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files",
+      "type": "learning",
+      "title": "Test-driven refactoring enables safe large-scale changes across multiple files",
+      "tags": [
+        "tdd",
+        "refactoring",
+        "testing",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:32.165Z",
+      "updated": "2026-02-27T17:16:32.165Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files.md"
     }
   ]
 }

@@ -4971,6 +4971,54 @@
       "type": "learning",
       "title": "Retro - Verification-first approach prevents false fixing on automated code review findings",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "type": "learning",
+      "title": "Retro - Verification-first debugging prevents time wasted on non-existent bugs",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "type": "learning",
+      "title": "Retro - Complete test rewrites cleaner than incremental edits for pattern changes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence",
+      "type": "gotcha",
+      "title": "Hook tests that don't import actual hook code give false confidence",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "type": "learning",
+      "title": "Retro - Deferring large architectural refactors to separate PRs keeps momentum",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "type": "gotcha",
+      "title": "execFileSync in Bun does not respect PATH environment variable",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic",
+      "type": "learning",
+      "title": "Retro - Passing tests immediately after refactoring provide high confidence in logic",
+      "scope": "project"
+    },
+    {
+      "id": "learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops",
+      "type": "learning",
+      "title": "Set-based O(1) lookups prevent O(n²) performance bugs in loops",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files",
+      "type": "learning",
+      "title": "Test-driven refactoring enables safe large-scale changes across multiple files",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -20155,6 +20203,54 @@
       "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7855023919912183
+    },
+    {
+      "source": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7854256201838807
+    },
+    {
+      "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "target": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7854256201838807
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7840172103100781
+    },
+    {
+      "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "target": "decision-code-review-pr-scope-discipline",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7840172103100781
+    },
+    {
+      "source": "decision-defer-large-refactors-from-code-reviews",
+      "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.76748233949076
+    },
+    {
+      "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "target": "decision-defer-large-refactors-from-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.76748233949076
+    },
+    {
+      "source": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "target": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7622037689444637
+    },
+    {
+      "source": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "target": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7622037689444637
     }
   ]
 }

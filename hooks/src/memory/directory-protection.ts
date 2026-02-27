@@ -75,6 +75,12 @@ export function isProtectedPath(filePath: string): boolean {
 }
 
 /**
+ * Compound command operators that chain separate commands (CWE-78).
+ * Pipes (|) are handled separately by hasPipeToMemory.
+ */
+const COMPOUND_COMMAND_RE = /&&|\|\||;/;
+
+/**
  * Destructive commands that should be blocked
  */
 const DESTRUCTIVE_COMMANDS = [
@@ -141,6 +147,16 @@ export function shouldBlockOperation(operation: ToolOperation): boolean {
       // Check for destructive commands
       for (const pattern of DESTRUCTIVE_COMMANDS) {
         if (pattern.test(command)) {
+          return true;
+        }
+      }
+
+      // Block compound commands that reference memory directory (CWE-78)
+      // Chaining operators allow arbitrary follow-up commands that bypass
+      // the destructive patterns blocklist above
+      if (/\.claude[\/\\]memory/.test(command) && COMPOUND_COMMAND_RE.test(command)) {
+        // Only memory CLI and git rm --cached are safe in compound form
+        if (!/\bmemory\s+/.test(command) && !/\bgit\s+rm\s+--cached\b/.test(command)) {
           return true;
         }
       }

@@ -21,52 +21,47 @@ export interface FilterCriteria {
   scope?: Scope;
 }
 
-// Cache compiled regexes to avoid repeated compilation
-const patternCache = new Map<string, RegExp>();
-const MAX_CACHE_SIZE = 100;
-
 /**
- * Simple glob pattern matching (non-recursive)
+ * Simple glob pattern matching (non-recursive, iterative — no regex)
  * Supports:
  * - * : matches any sequence of characters
  * - ? : matches any single character
- * - ** : not supported (use * for all-character matching)
+ *
+ * Uses an iterative two-pointer algorithm that is O(m×n) worst case
+ * with no backtracking, eliminating ReDoS risk (CWE-1333).
  *
  * Note: Matching is done on memory IDs only, not paths.
  */
-const MAX_WILDCARDS = 10;
-
 export function matchGlobPattern(pattern: string, text: string): boolean {
-  // Check cache first
-  let regex = patternCache.get(pattern);
+  let pi = 0; // pattern index
+  let ti = 0; // text index
+  let starPi = -1; // pattern index of last '*'
+  let starTi = -1; // text index when last '*' was encountered
 
-  if (!regex) {
-    // Limit wildcard count to prevent ReDoS from patterns with excessive wildcards
-    const wildcardCount = (pattern.match(/[*?]/g) || []).length;
-    if (wildcardCount > MAX_WILDCARDS) {
-      process.stderr.write(`[pattern-matcher] Pattern rejected: ${wildcardCount} wildcards exceeds limit of ${MAX_WILDCARDS}\n`);
+  while (ti < text.length) {
+    if (pi < pattern.length && (pattern[pi] === text[ti] || pattern[pi] === '?')) {
+      pi++;
+      ti++;
+    } else if (pi < pattern.length && pattern[pi] === '*') {
+      starPi = pi;
+      starTi = ti;
+      pi++; // try matching zero characters for *
+    } else if (starPi >= 0) {
+      // Backtrack to last star, consume one more character
+      pi = starPi + 1;
+      starTi++;
+      ti = starTi;
+    } else {
       return false;
     }
-
-    // Escape special regex chars (fixed order to prevent ReDoS)
-    // Important: escape backslash first, then other special chars
-    const regexPattern = pattern
-      .replace(/\\/g, '\\\\')
-      .replace(/[.+^${}()|[\]]/g, '\\$&')
-      .replace(/\*/g, '.*')
-      .replace(/\?/g, '.');
-
-    regex = new RegExp(`^${regexPattern}$`);
-
-    // Cache with FIFO eviction (Map.keys() returns insertion order)
-    if (patternCache.size >= MAX_CACHE_SIZE) {
-      const firstKey = patternCache.keys().next().value;
-      if (firstKey) patternCache.delete(firstKey);
-    }
-    patternCache.set(pattern, regex);
   }
 
-  return regex.test(text);
+  // Consume remaining stars in pattern
+  while (pi < pattern.length && pattern[pi] === '*') {
+    pi++;
+  }
+
+  return pi === pattern.length;
 }
 
 /**

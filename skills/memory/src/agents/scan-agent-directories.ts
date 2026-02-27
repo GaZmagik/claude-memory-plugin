@@ -55,15 +55,37 @@ async function directoryExists(dirPath: string): Promise<boolean> {
 }
 
 /**
- * Matches a name against a glob-style pattern
+ * Matches a name against a glob-style pattern.
+ * Uses iterative two-pointer algorithm — no regex, no ReDoS risk (CWE-1333).
  */
 function matchesPattern(name: string, pattern: string): boolean {
-  // Convert glob pattern to regex
-  const regexPattern = pattern
-    .replace(/\*/g, '.*')
-    .replace(/\?/g, '.');
-  const regex = new RegExp(`^${regexPattern}$`);
-  return regex.test(name);
+  let pi = 0;
+  let ti = 0;
+  let starPi = -1;
+  let starTi = -1;
+
+  while (ti < name.length) {
+    if (pi < pattern.length && (pattern[pi] === name[ti] || pattern[pi] === '?')) {
+      pi++;
+      ti++;
+    } else if (pi < pattern.length && pattern[pi] === '*') {
+      starPi = pi;
+      starTi = ti;
+      pi++;
+    } else if (starPi >= 0) {
+      pi = starPi + 1;
+      starTi++;
+      ti = starTi;
+    } else {
+      return false;
+    }
+  }
+
+  while (pi < pattern.length && pattern[pi] === '*') {
+    pi++;
+  }
+
+  return pi === pattern.length;
 }
 
 /**

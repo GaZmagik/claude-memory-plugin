@@ -8,18 +8,9 @@
  * Error handling: invalid values fallback to defaults
  */
 
-import { stat, readFile } from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { join } from 'path';
-
-/** Check if a path exists (async alternative to existsSync) */
-async function pathExists(p: string): Promise<boolean> {
-  try {
-    await stat(p);
-    return true;
-  } catch {
-    return false;
-  }
-}
+import { pathExists } from '../core/fs.ts';
 
 /**
  * Current settings schema version

@@ -10,7 +10,7 @@ import * as os from 'node:os';
 import { loadEmbeddingCache } from '../search/embedding.js';
 import { findPotentialDuplicates } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
-import { loadGraph, hasNode } from '../graph/structure.js';
+import { loadGraph } from '../graph/structure.js';
 import { linkMemories, storeCrossScopeEdge } from '../graph/link.js';
 import { generate, isAvailable } from '../services/ollama.js';
 import { unsafeAsMemoryId, type MemoryId } from '../types/branded.js';
@@ -189,6 +189,7 @@ export async function suggestLinks(
   const indexMap = new Map<MemoryId, IndexEntry>();
   const metadataMap = new Map<string, MemoryMetadata>();
   let graph = await loadGraph(basePath);
+  const nodeIds = new Set(graph.nodes.map(n => n.id));
   const existingLinks = new Set<string>();
 
   // Load primary (agent or project) embeddings
@@ -352,7 +353,7 @@ export async function suggestLinks(
     // For --all-scopes, we allow cross-scope suggestions
     // For single-scope, check if both are in the graph
     if (!allScopes) {
-      if (!hasNode(graph, pair.id1) || !hasNode(graph, pair.id2)) {
+      if (!nodeIds.has(pair.id1) || !nodeIds.has(pair.id2)) {
         continue;
       }
     }

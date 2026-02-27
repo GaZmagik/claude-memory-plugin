@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T22:01:57.334Z",
+  "lastUpdated": "2026-02-27T00:04:11.992Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14866,6 +14866,139 @@
       "updated": "2026-02-26T22:01:57.326Z",
       "scope": "project",
       "relativePath": "permanent/learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations.md"
+    },
+    {
+      "id": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "type": "learning",
+      "title": "Retro - Phase-based review organization (Critical/High/Medium/Low + category buckets) proved highly effective for large-scale code review triage",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "organization",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:02.605Z",
+      "updated": "2026-02-27T00:03:02.605Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "type": "gotcha",
+      "title": "Retro - Background agents on overlapping code without worktree isolation create cascading type mismatches and must be rolled back",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "git",
+        "anti-pattern",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:10.553Z",
+      "updated": "2026-02-27T00:03:10.553Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back.md",
+      "severity": "critical"
+    },
+    {
+      "id": "learning-retro-progressive-multi-expert-review-feedback-loop-identified-11-additional-findings-after-initial-64-findings-were-categorized",
+      "type": "learning",
+      "title": "Retro - Progressive multi-expert review feedback loop identified ~11 additional findings after initial 64 findings were categorized",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "quality",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:22.115Z",
+      "updated": "2026-02-27T00:03:22.115Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-progressive-multi-expert-review-feedback-loop-identified-11-additional-findings-after-initial-64-findings-were-categorized.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "type": "gotcha",
+      "title": "Retro - Cascading async refactors create half-baked type errors across multiple files; better as dedicated focused PRs",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "anti-pattern",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:29.312Z",
+      "updated": "2026-02-27T00:03:29.312Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "type": "gotcha",
+      "title": "Parallel agents on overlapping code create cascading type errors",
+      "tags": [
+        "agents",
+        "background-tasks",
+        "type-safety",
+        "debugging",
+        "parallel-execution",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:50.352Z",
+      "updated": "2026-02-27T00:03:50.352Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parallel-agents-overlapping-code-type-errors.md"
+    },
+    {
+      "id": "learning-batch-trivial-fixes-into-parallel-edits",
+      "type": "learning",
+      "title": "Batch trivial fixes into parallel edits for cleaner PR history",
+      "tags": [
+        "code-review",
+        "workflow",
+        "batch-operations",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:58.043Z",
+      "updated": "2026-02-27T00:03:58.043Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-batch-trivial-fixes-into-parallel-edits.md"
+    },
+    {
+      "id": "learning-stale-api-mocks-create-vacuous-test-passes",
+      "type": "learning",
+      "title": "Stale API mocks create vacuous test passes without real coverage",
+      "tags": [
+        "testing",
+        "test-quality",
+        "mocks",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-27T00:04:05.185Z",
+      "updated": "2026-02-27T00:04:05.185Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-stale-api-mocks-create-vacuous-test-passes.md"
+    },
+    {
+      "id": "decision-code-review-pr-scope-discipline",
+      "type": "decision",
+      "title": "Code review PRs should enforce scope discipline",
+      "tags": [
+        "code-review",
+        "pr-strategy",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-27T00:04:11.975Z",
+      "updated": "2026-02-27T00:04:11.975Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-code-review-pr-scope-discipline.md"
     }
   ]
 }

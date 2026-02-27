@@ -3,8 +3,9 @@ id: learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-o
 title: resolveBasePath utility extracts agent-scope resolution from CRUD operations
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-26T22:01:57.326Z"
-updated: "2026-02-26T22:01:57.326Z"
+updated: "2026-02-27T00:04:17.317Z"
 tags:
   - refactoring
   - agent-scope

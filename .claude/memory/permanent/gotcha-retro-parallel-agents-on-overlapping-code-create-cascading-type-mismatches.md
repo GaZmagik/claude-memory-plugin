@@ -3,8 +3,9 @@ id: gotcha-retro-parallel-agents-on-overlapping-code-create-cascading-type-misma
 title: "Gotcha - Retro: Parallel agents on overlapping code create cascading type mismatches"
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-26T22:37:25.016Z"
-updated: "2026-02-26T22:37:25.016Z"
+updated: "2026-02-27T00:04:17.230Z"
 tags:
   - retrospective
   - process

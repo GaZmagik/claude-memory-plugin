@@ -3,8 +3,9 @@ id: learning-retro-test-isolation-diagnosis-prevented-false-regression-alarms
 title: Retro - Test isolation diagnosis prevented false regression alarms
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-26T22:37:14.469Z"
-updated: "2026-02-26T22:37:14.469Z"
+updated: "2026-02-27T00:04:17.210Z"
 tags:
   - retrospective
   - process

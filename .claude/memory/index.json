@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-27T17:16:32.172Z",
+  "lastUpdated": "2026-02-27T19:20:03.447Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -13890,19 +13890,6 @@
       "updated": "2026-02-21T10:32:56.480Z",
       "scope": "global",
       "relativePath": "temporary/thought-20260221-091111177.md"
-    },
-    {
-      "id": "thought-20260220-165044018",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-20T16:50:44.030Z",
-      "updated": "2026-02-20T17:46:02.832Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260220-165044018.md"
     },
     {
       "id": "learning-base-path-validation-rejects-fictional-test-paths",

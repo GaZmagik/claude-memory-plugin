@@ -4061,11 +4061,6 @@
       "scope": "project"
     },
     {
-      "id": "thought-20260220-165044018",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes"
-    },
-    {
       "id": "learning-external-file-discovery-uses-wrong-base-path",
       "type": "learning",
       "title": "External file discovery uses wrong base path",

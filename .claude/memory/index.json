@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-27T00:04:11.992Z",
+  "lastUpdated": "2026-02-27T06:56:07.799Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -14999,6 +14999,23 @@
       "updated": "2026-02-27T00:04:11.975Z",
       "scope": "project",
       "relativePath": "permanent/decision-code-review-pr-scope-discipline.md"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "type": "learning",
+      "title": "Retro - Verification-first approach prevents false fixing on automated code review findings",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "automation",
+        "project"
+      ],
+      "created": "2026-02-27T06:56:07.786Z",
+      "updated": "2026-02-27T06:56:07.786Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings.md",
+      "severity": "medium"
     }
   ]
 }

@@ -4965,6 +4965,12 @@
       "type": "decision",
       "title": "Code review PRs should enforce scope discipline",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "type": "learning",
+      "title": "Retro - Verification-first approach prevents false fixing on automated code review findings",
+      "scope": "project"
     }
   ],
   "edges": [

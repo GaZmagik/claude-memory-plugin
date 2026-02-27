@@ -91,89 +91,16 @@ export function parseArgs(args: string[]): ParsedArgs {
   return result;
 }
 
-/**
- * Read JSON from stdin (non-blocking)
- *
- * @returns Promise resolving to parsed JSON or undefined if no stdin
- */
 /** Maximum stdin size: 1MB — prevents unbounded memory consumption from malicious input */
 const MAX_STDIN_BYTES = 1024 * 1024;
 
-export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
-  // Check if stdin is a TTY (interactive terminal) - no piped input
-  if (process.stdin.isTTY) {
-    return undefined;
-  }
-
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    let hasData = false;
-    let totalBytes = 0;
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const cleanup = () => {
-      clearTimeout(timeoutId);
-      process.stdin.off('data', onData);
-      process.stdin.off('end', onEnd);
-      process.stdin.off('error', onError);
-    };
-
-    const onData = (chunk: Buffer) => {
-      totalBytes += chunk.length;
-      if (totalBytes > MAX_STDIN_BYTES) {
-        cleanup();
-        reject(new Error(`stdin exceeded maximum size of ${MAX_STDIN_BYTES} bytes`));
-        return;
-      }
-      hasData = true;
-      chunks.push(chunk);
-    };
-
-    const onEnd = () => {
-      cleanup();
-      if (!hasData) {
-        resolve(undefined);
-        return;
-      }
-
-      const raw = Buffer.concat(chunks).toString('utf8').trim();
-      if (!raw) {
-        resolve(undefined);
-        return;
-      }
-
-      try {
-        resolve(JSON.parse(raw) as T);
-      } catch (error) {
-        reject(new Error(`Invalid JSON input: ${error}`));
-      }
-    };
-
-    const onError = (error: Error) => {
-      cleanup();
-      reject(error);
-    };
-
-    process.stdin.on('data', onData);
-    process.stdin.on('end', onEnd);
-    process.stdin.on('error', onError);
-
-    // Set a timeout for reading stdin
-    timeoutId = setTimeout(() => {
-      if (!hasData) {
-        cleanup();
-        resolve(undefined);
-      }
-    }, 100);
-  });
-}
-
 /**
- * Read raw text from stdin
+ * Read raw bytes from stdin with TTY check, size limit, timeout, and cleanup.
+ * Shared plumbing for readStdinJson and readStdinRaw.
  *
- * @returns Promise resolving to string or undefined if no stdin
+ * @returns Promise resolving to string content or undefined if no stdin
  */
-export async function readStdinRaw(): Promise<string | undefined> {
+async function readStdinBuffer(): Promise<string | undefined> {
   if (process.stdin.isTTY) {
     return undefined;
   }
@@ -227,6 +154,34 @@ export async function readStdinRaw(): Promise<string | undefined> {
       }
     }, 100);
   });
+}
+
+/**
+ * Read JSON from stdin (non-blocking)
+ *
+ * @returns Promise resolving to parsed JSON or undefined if no stdin
+ */
+export async function readStdinJson<T = unknown>(): Promise<T | undefined> {
+  const raw = await readStdinBuffer();
+  if (raw === undefined) return undefined;
+
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+
+  try {
+    return JSON.parse(trimmed) as T;
+  } catch (error) {
+    throw new Error(`Invalid JSON input: ${error}`);
+  }
+}
+
+/**
+ * Read raw text from stdin
+ *
+ * @returns Promise resolving to string or undefined if no stdin
+ */
+export async function readStdinRaw(): Promise<string | undefined> {
+  return readStdinBuffer();
 }
 
 /**

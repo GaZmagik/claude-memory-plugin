@@ -15,7 +15,7 @@ import {
 } from '../core/frontmatter.js';
 import { getAllMemoryIds, findMemoryFile, readFile, writeFileAtomic } from '../core/fs-utils.js';
 import { loadGraph } from '../graph/structure.js';
-import { getOutboundEdges } from '../graph/edges.js';
+import { buildAdjacencyList } from '../graph/traversal.js';
 import type { MemoryId } from '../types/branded.js';
 
 /**
@@ -113,8 +113,10 @@ export async function syncFrontmatter(
   const wouldUpdate: string[] = [];
   let skipped = 0;
 
-  // Load graph
+  // Load graph and build adjacency list once — O(n+e) instead of
+  // calling getOutboundEdges per memory which would be O(n*e)
   const graph = await loadGraph(basePath);
+  const adjacency = buildAdjacencyList(graph);
 
   // Get IDs to process
   const idsToProcess = ids ?? (await getAllMemoryIds(basePath));
@@ -128,9 +130,8 @@ export async function syncFrontmatter(
         continue;
       }
 
-      // Get outbound links from graph
-      const outboundEdges = getOutboundEdges(graph, id);
-      const graphLinks = outboundEdges.map(e => e.target) as MemoryId[];
+      // Get outbound links from adjacency list — O(1) lookup
+      const graphLinks = Array.from(adjacency.outbound.get(id) ?? []) as MemoryId[];
 
       // Read current file (async I/O)
       const content = await readFile(filePath);

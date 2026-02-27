@@ -21,6 +21,13 @@
       "title": "vitest vi.hoisted() required for mock fns referenced in vi.mock() factories",
       "scope": "project",
       "agent": "typescript-expert"
+    },
+    {
+      "id": "learning-suggestlinks-uses-findpotentialduplicates-lsh-not-findsimilarmemories",
+      "type": "learning",
+      "title": "suggestLinks uses findPotentialDuplicates (LSH), not findSimilarMemories",
+      "scope": "project",
+      "agent": "typescript-expert"
     }
   ],
   "edges": []

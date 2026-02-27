@@ -19867,6 +19867,216 @@
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7526685995887087
+    },
+    {
+      "source": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7567683143235113,
+      "verifiedRelation": "evolution-refinement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7567683143235113,
+      "verifiedRelation": "refinement-2"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502490695767582,
+      "verifiedRelation": "enhancement-support"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502490695767582,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7494126727876718,
+      "verifiedRelation": "deprecation-solution"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7494126727876718,
+      "verifiedRelation": "incompatibility"
+    },
+    {
+      "source": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "target": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7454535710902491,
+      "verifiedRelation": "related-features"
+    },
+    {
+      "source": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "target": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7454535710902491,
+      "verifiedRelation": "context-transfer"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437407132394512,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437407132394512,
+      "verifiedRelation": "replacement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7401599658214187,
+      "verifiedRelation": "contrast-shift"
+    },
+    {
+      "source": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7401599658214187,
+      "verifiedRelation": "contrast-reversal"
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7357531608603689,
+      "verifiedRelation": "causal-improvement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7357531608603689,
+      "verifiedRelation": "evolution-of-concept"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183542256132843,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183542256132843,
+      "verifiedRelation": "conflict"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183108880664273,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183108880664273,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7121988485701796,
+      "verifiedRelation": "solution-enhancement"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7121988485701796,
+      "verifiedRelation": "conflict-resolution"
+    },
+    {
+      "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7107913172708342,
+      "verifiedRelation": "expansion"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7107913172708342,
+      "verifiedRelation": "refinement-3"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7094793051866916,
+      "verifiedRelation": "refactoring"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "retro-mock-syntax-friction-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7094793051866916,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7073061121896791,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7073061121896791,
+      "verifiedRelation": "incompatibility"
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072191702026251,
+      "verifiedRelation": "refactor-update"
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072191702026251,
+      "verifiedRelation": "elaboration"
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.703584948960791,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.703584948960791,
+      "verifiedRelation": "leak-issue"
     }
   ]
 }

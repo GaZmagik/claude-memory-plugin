@@ -13,12 +13,16 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
-import type * as OriginalFs from 'fs';
-import type * as OriginalChildProcess from 'node:child_process';
+
+// Import real modules for spreading (static imports resolve before vi.mock runs in Bun)
+import * as originalFs from 'fs';
+import * as originalChildProcess from 'node:child_process';
 
 // Hoist mock functions so they can be referenced inside vi.mock() factories
+// (vi.hoisted polyfill in tests/setup-bun.ts makes this work in Bun)
 const {
   mockExistsSync,
   mockMkdirSync,
@@ -35,16 +39,17 @@ const {
 });
 
 // Mock fs - spread original and override only what we need
-vi.mock('fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalFs>()),
+// Note: importOriginal not available in Bun, use static import + spread instead
+vi.mock('fs', () => ({
+  ...originalFs,
   existsSync: mockExistsSync,
   mkdirSync: mockMkdirSync,
   writeFileSync: mockWriteFileSync,
 }));
 
 // Mock child_process - spread original and override only what we need
-vi.mock('node:child_process', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalChildProcess>()),
+vi.mock('node:child_process', () => ({
+  ...originalChildProcess,
   spawn: mockSpawn,
 }));
 
@@ -70,6 +75,7 @@ describe('spawn-session', () => {
 
   afterAll(() => {
     vi.restoreAllMocks();
+    mock.restore(); // Unmock module-level vi.mock() to prevent fs/child_process leaking
   });
 
   describe('getTimestamp', () => {

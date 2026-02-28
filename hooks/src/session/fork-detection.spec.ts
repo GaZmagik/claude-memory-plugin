@@ -14,10 +14,14 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
-import type * as OriginalFs from 'node:fs';
-import type * as OriginalChildProcess from 'node:child_process';
+import { mock } from 'bun:test';
+
+// Import real modules for spreading (static imports resolve before vi.mock runs in Bun)
+import * as originalChildProcess from 'node:child_process';
+import * as originalFs from 'node:fs';
 
 // Hoist mock functions so they can be referenced inside vi.mock() factories
+// (vi.hoisted polyfill in tests/setup-bun.ts makes this work in Bun)
 const {
   mockExecFileSync,
   mockExistsSync,
@@ -33,14 +37,15 @@ const {
 }));
 
 // Mock child_process - spread original and override only what we need
-vi.mock('node:child_process', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalChildProcess>()),
+// Note: importOriginal not available in Bun, use static import + spread instead
+vi.mock('node:child_process', () => ({
+  ...originalChildProcess,
   execFileSync: mockExecFileSync,
 }));
 
 // Mock fs - spread original and override only what we need
-vi.mock('node:fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalFs>()),
+vi.mock('node:fs', () => ({
+  ...originalFs,
   existsSync: mockExistsSync,
   mkdirSync: mockMkdirSync,
   writeFileSync: mockWriteFileSync,
@@ -80,6 +85,7 @@ describe('Fork Detection', () => {
   afterAll(() => {
     // Restore original modules to prevent leaking to other test files
     vi.restoreAllMocks();
+    mock.restore(); // Unmock module-level vi.mock() to prevent fs/child_process leaking
   });
 
   describe('hasClaudeBinary', () => {

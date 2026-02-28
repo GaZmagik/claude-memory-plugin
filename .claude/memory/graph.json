@@ -5068,6 +5068,42 @@
       "type": "decision",
       "title": "Defer large structural refactors to separate PRs during code review cleanup",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "type": "gotcha",
+      "title": "Retro - Test mock pollution from vi.mock() leaks across files in Bun when polyfill enabled",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "type": "gotcha",
+      "title": "Hook timeout budget exhaustion with Ollama retry loops",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first on code review findings prevents wasted effort on false positives",
+      "scope": "project"
+    },
+    {
+      "id": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "type": "learning",
+      "title": "Bun test polyfill vi.hoisted requires bunfig.toml preload",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "type": "learning",
+      "title": "Retro - Root cause diagnosis saves time better than symptom-driven fixes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "type": "gotcha",
+      "title": "vi.mock() state leaks across Bun test files without proper restoration",
+      "scope": "project"
     }
   ],
   "edges": [

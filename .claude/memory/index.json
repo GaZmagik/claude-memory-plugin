@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-27T21:33:02.212Z",
+  "lastUpdated": "2026-02-28T03:26:29.591Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15276,6 +15276,104 @@
       "updated": "2026-02-27T21:33:02.200Z",
       "scope": "project",
       "relativePath": "permanent/decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup.md"
+    },
+    {
+      "id": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "type": "gotcha",
+      "title": "Retro - Test mock pollution from vi.mock() leaks across files in Bun when polyfill enabled",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "project"
+      ],
+      "created": "2026-02-28T03:22:15.232Z",
+      "updated": "2026-02-28T03:22:15.232Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "type": "gotcha",
+      "title": "Hook timeout budget exhaustion with Ollama retry loops",
+      "tags": [
+        "hooks",
+        "ollama",
+        "timeout",
+        "external-services",
+        "project"
+      ],
+      "created": "2026-02-28T03:22:23.326Z",
+      "updated": "2026-02-28T03:22:23.326Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops.md"
+    },
+    {
+      "id": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first on code review findings prevents wasted effort on false positives",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-28T03:24:19.760Z",
+      "updated": "2026-02-28T03:24:19.760Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "type": "learning",
+      "title": "Bun test polyfill vi.hoisted requires bunfig.toml preload",
+      "tags": [
+        "bun",
+        "testing",
+        "vitest-compat",
+        "polyfill",
+        "project"
+      ],
+      "created": "2026-02-28T03:24:24.937Z",
+      "updated": "2026-02-28T03:24:24.937Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload.md"
+    },
+    {
+      "id": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "type": "learning",
+      "title": "Retro - Root cause diagnosis saves time better than symptom-driven fixes",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-28T03:26:24.758Z",
+      "updated": "2026-02-28T03:26:24.758Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "type": "gotcha",
+      "title": "vi.mock() state leaks across Bun test files without proper restoration",
+      "tags": [
+        "bun",
+        "testing",
+        "mocks",
+        "test-isolation",
+        "lifecycle",
+        "project"
+      ],
+      "created": "2026-02-28T03:26:29.522Z",
+      "updated": "2026-02-28T03:26:29.522Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration.md"
     }
   ]
 }

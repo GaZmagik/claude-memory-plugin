@@ -54,7 +54,8 @@ let injectionDedup = new InjectionDeduplicator();
  * NOTE: hooks.json requires 'matcher: "*"' for PostToolUse to merge properly
  * with user-level hooks. Without it, marketplace plugins may not fire.
  */
-const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (30s total hook budget)
+const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (25s total hook budget)
+const HOOK_MAX_RETRIES = 0; // No retries in hooks — budget is too tight for 3×10s attempts
 
 /**
  * Load settings from project directory (called once at hook init)
@@ -507,7 +508,7 @@ async function handleReadMode(
 
   // Ask Ollama for topic extraction (with hook-specific timeout)
   const prompt = buildReadTopicPrompt(fileName, filePath);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
   const parsed = parseTopicResponse(response);
 
   if (!parsed) {
@@ -639,7 +640,7 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
 
   // Ask Ollama for gotcha extraction (with hook-specific timeout)
   const gotchaPrompt = buildGotchaPrompt(fileName, topic, memoryContent);
-  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
   const cleanedSummary = cleanGotchaSummary(gotchaSummary).slice(0, 500);
 
   if (hasNoGotchas(cleanedSummary)) {
@@ -702,7 +703,7 @@ async function handleWriteMode(
 
   // Ask Ollama (with hook-specific timeout)
   const prompt = buildWritePrompt(toolName, contextSummary, fileName);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
 
   // Check for SKIP
   const skipMatch = response.match(/SKIP:\s*(.+)/i);

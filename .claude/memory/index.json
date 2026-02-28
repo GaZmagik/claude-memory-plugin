@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-28T09:21:42.466Z",
+  "lastUpdated": "2026-02-28T10:33:02.887Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -13859,19 +13859,6 @@
       "updated": "2026-02-16T22:30:07.575Z",
       "scope": "global",
       "relativePath": "permanent/learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers.md"
-    },
-    {
-      "id": "thought-20260221-091111177",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code quality review for feature/005",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-21T09:11:11.189Z",
-      "updated": "2026-02-21T10:32:56.480Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260221-091111177.md"
     },
     {
       "id": "learning-base-path-validation-rejects-fictional-test-paths",

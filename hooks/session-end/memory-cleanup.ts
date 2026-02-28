@@ -11,7 +11,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 import {
-  isForkedSession,
+  isMemoryCaptureSession,
   spawnSessionWithContext,
   getLogDir,
   findPluginDir,
@@ -21,7 +21,7 @@ import { findAnyUnclaimedSubagent, cleanupClaimedEntry } from '../src/agent/suba
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
-  if (isForkedSession()) {
+  if (isMemoryCaptureSession()) {
     return allow();
   }
 

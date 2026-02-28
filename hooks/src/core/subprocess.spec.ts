@@ -57,18 +57,18 @@ describe('subprocess', () => {
   });
 
   describe('execOrThrow', () => {
-    it('should return result on success', async () => {
-      const result = await execOrThrow(['echo', 'success']);
+    it('should return result on success', () => {
+      const result = execOrThrow(['echo', 'success']);
       expect(result.success).toBe(true);
       expect(result.stdout.trim()).toBe('success');
     });
 
-    it('should throw on command failure', async () => {
-      await expect(execOrThrow(['false'])).rejects.toThrow('Command failed');
+    it('should throw on command failure', () => {
+      expect(() => execOrThrow(['false'])).toThrow('Command failed');
     });
 
-    it('should throw on timeout', async () => {
-      await expect(execOrThrow(['sleep', '10'], { timeout: 100 })).rejects.toThrow(
+    it('should throw on timeout', () => {
+      expect(() => execOrThrow(['sleep', '10'], { timeout: 100 })).toThrow(
         'Command timed out'
       );
     });

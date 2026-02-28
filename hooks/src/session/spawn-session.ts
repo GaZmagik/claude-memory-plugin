@@ -10,8 +10,8 @@
  */
 
 import * as fs from 'node:fs';
-import { join } from 'path';
-import { homedir, tmpdir } from 'os';
+import { join } from 'node:path';
+import { homedir, tmpdir } from 'node:os';
 
 /**
  * Find the installed plugin directory for a given plugin name
@@ -110,8 +110,6 @@ export function isMemoryCaptureSession(): boolean {
   return homedir().includes('claude-memory-home');
 }
 
-// Backwards compatibility alias
-export const isForkedSession = isMemoryCaptureSession;
 
 /**
  * Validate and sanitise a string for safe shell usage

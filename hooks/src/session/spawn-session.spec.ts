@@ -39,7 +39,6 @@ import {
   getLogDir,
   getTimestamp,
   isMemoryCaptureSession,
-  isForkedSession,
   spawnSessionWithContext,
   validateShellSafe,
   validatePathSafe,
@@ -84,12 +83,11 @@ describe('spawn-session', () => {
     });
   });
 
-  describe('isMemoryCaptureSession / isForkedSession', () => {
+  describe('isMemoryCaptureSession', () => {
     it('should return false in normal environment', () => {
       const result = isMemoryCaptureSession();
       expect(typeof result).toBe('boolean');
-      // isForkedSession should be an alias
-      expect(isForkedSession).toBe(isMemoryCaptureSession);
+      expect(result).toBe(false);
     });
   });
 

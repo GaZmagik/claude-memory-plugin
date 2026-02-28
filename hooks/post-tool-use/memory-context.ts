@@ -769,20 +769,17 @@ runHook(async (input) => {
   }
 
   // WRITE mode (any enabled tool that's not Read)
-  if (toolName !== 'Read') {
-    const result = await handleWriteMode(input, ctx);
-    if (result) {
-      return {
-        exitCode: 0,
-        output: {
-          hookSpecificOutput: {
-            hookEventName: 'PostToolUse',
-            additionalContext: result.reminder,
-          },
+  const result = await handleWriteMode(input, ctx);
+  if (result) {
+    return {
+      exitCode: 0,
+      output: {
+        hookSpecificOutput: {
+          hookEventName: 'PostToolUse',
+          additionalContext: result.reminder,
         },
-      };
-    }
-    return allow();
+      },
+    };
   }
 
   return allow();

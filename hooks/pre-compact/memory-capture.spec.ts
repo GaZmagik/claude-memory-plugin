@@ -12,8 +12,8 @@ import { describe, it } from 'vitest';
 
 describe('PreCompact Memory Capture Hook', () => {
   describe('forked session guard', () => {
-    it.skip('should return allow() immediately when isForkedSession() is true', () => {
-      // Mock isForkedSession → true, verify early return
+    it.skip('should return allow() immediately when isMemoryCaptureSession() is true', () => {
+      // Mock isMemoryCaptureSession → true, verify early return
     });
   });
 

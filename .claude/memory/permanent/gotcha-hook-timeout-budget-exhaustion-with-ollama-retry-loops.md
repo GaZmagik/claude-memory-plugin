@@ -3,8 +3,9 @@ id: gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops
 title: Hook timeout budget exhaustion with Ollama retry loops
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:22:23.326Z"
-updated: "2026-02-28T03:22:23.326Z"
+updated: "2026-02-28T09:20:43.052Z"
 tags:
   - hooks
   - ollama

@@ -3,8 +3,9 @@ id: gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-
 title: Retro - Test mock pollution from vi.mock() leaks across files in Bun when polyfill enabled
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:22:15.232Z"
-updated: "2026-02-28T03:22:15.232Z"
+updated: "2026-02-28T09:20:43.283Z"
 tags:
   - retrospective
   - process

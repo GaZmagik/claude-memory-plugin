@@ -3,8 +3,9 @@ id: learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload
 title: Bun test polyfill vi.hoisted requires bunfig.toml preload
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:24:24.937Z"
-updated: "2026-02-28T03:24:24.937Z"
+updated: "2026-02-28T09:20:43.486Z"
 tags:
   - bun
   - testing

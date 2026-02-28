@@ -3,8 +3,9 @@ id: learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fi
 title: Retro - Root cause diagnosis saves time better than symptom-driven fixes
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:26:24.758Z"
-updated: "2026-02-28T03:26:24.758Z"
+updated: "2026-02-28T09:20:43.158Z"
 tags:
   - retrospective
   - process

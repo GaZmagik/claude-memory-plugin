@@ -5110,6 +5110,18 @@
       "type": "artifact",
       "title": "God function decomposition pattern for complex functions",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "type": "gotcha",
+      "title": "Retro - Individual test file runs masked cross-file pollution in extract-context",
+      "scope": "project"
+    },
+    {
+      "id": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "type": "learning",
+      "title": "vi.spyOn solves Bun module-level vi.mock test pollution",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -20366,6 +20378,131 @@
       "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7569511490649635
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
+      "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8226349771146159
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8148032640322848
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8004846975356095
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7872289259284332
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7798341760402305
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7776857048995708
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7762185322734187
+    },
+    {
+      "source": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7743251520467643
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7737889618733358
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7695427809982428
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7670339668937063
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7665851248584162
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7657760555798828
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.763445325879201
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7601435116945117
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7577479172774689
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7537092657504326
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533152090446851
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7507097709779809
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7501521506729317
     }
   ]
 }

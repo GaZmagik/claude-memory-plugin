@@ -6,7 +6,7 @@
  * Strips metadata and keeps only the essential content (thinking, text, tool calls).
  */
 
-import { existsSync, readFileSync } from 'fs';
+import * as fs from 'node:fs';
 import { join } from 'path';
 import { homedir } from 'os';
 
@@ -43,7 +43,7 @@ export function findSessionJsonl(sessionId: string, cwd: string): string | null 
   const projectPath = cwdToProjectPath(cwd);
   const jsonlPath = join(home, '.claude', 'projects', projectPath, `${sessionId}.jsonl`);
 
-  if (existsSync(jsonlPath)) {
+  if (fs.existsSync(jsonlPath)) {
     return jsonlPath;
   }
 
@@ -157,7 +157,7 @@ export function extractSessionContext(sessionId: string, cwd: string): Extractio
     return null;
   }
 
-  const fileContent = readFileSync(jsonlPath, 'utf-8');
+  const fileContent = fs.readFileSync(jsonlPath, 'utf-8');
   const lines = fileContent.split('\n').filter((line) => line.trim());
   const totalLines = lines.length;
 

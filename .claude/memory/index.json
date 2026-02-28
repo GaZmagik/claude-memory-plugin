@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-28T03:30:53.778Z",
+  "lastUpdated": "2026-02-28T09:21:42.466Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -7501,24 +7501,6 @@
       "scope": "global",
       "relativePath": "permanent/learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features.md",
       "severity": "medium"
-    },
-    {
-      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "type": "gotcha",
-      "title": "Retro - Module-level vi.mock() creates unfixable global test pollution",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "vitest",
-        "gotcha",
-        "project"
-      ],
-      "created": "2026-02-05T11:34:38.768Z",
-      "updated": "2026-02-16T22:30:07.419Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
-      "severity": "high"
     },
     {
       "id": "learning-linkmemories-requires-agent-aware-basepath-resolution",
@@ -15390,6 +15372,62 @@
       "updated": "2026-02-28T03:30:53.727Z",
       "scope": "project",
       "relativePath": "permanent/artifact-god-function-decomposition-pattern.md"
+    },
+    {
+      "id": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "type": "gotcha",
+      "title": "Retro - Individual test file runs masked cross-file pollution in extract-context",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "module-pollution",
+        "project"
+      ],
+      "created": "2026-02-28T09:19:44.395Z",
+      "updated": "2026-02-28T09:19:44.395Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "type": "learning",
+      "title": "vi.spyOn solves Bun module-level vi.mock test pollution",
+      "tags": [
+        "testing",
+        "bun",
+        "vitest",
+        "mocking",
+        "vi-spyon",
+        "module-pollution",
+        "fs-mocking",
+        "project"
+      ],
+      "created": "2026-02-28T09:20:15.290Z",
+      "updated": "2026-02-28T09:20:15.290Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vispyon-solves-bun-module-level-vimock-test-pollution.md"
+    },
+    {
+      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "type": "gotcha",
+      "title": "Retro - Module-level vi.mock() creates global test pollution (RESOLVED)",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "gotcha",
+        "resolved",
+        "project"
+      ],
+      "created": "2026-02-28T09:21:42.419Z",
+      "updated": "2026-02-28T09:21:42.419Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
+      "severity": "medium"
     }
   ]
 }

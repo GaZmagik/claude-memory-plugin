@@ -4,27 +4,22 @@
  * Tests the JSONL parsing, compaction boundary detection, and content formatting
  * used for extracting conversation context from Claude Code sessions.
  *
- * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level vi.mock('fs') which creates global state that pollutes
- * other tests. Must run separately with: bunx vitest run <this-file>
- * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
+ * fs is mocked via vi.spyOn (not vi.mock) to prevent module registry
+ * pollution that breaks co-located test files like session-cache.spec.ts.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { homedir } from 'os';
 import { join } from 'path';
 
-// Mock fs module
-vi.mock('fs', () => ({
-  existsSync: vi.fn(),
-  readFileSync: vi.fn(),
-}));
-
-import { existsSync, readFileSync } from 'fs';
+// Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
+import * as fs from 'node:fs';
 
 describe('extract-context', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    // Set up fs spies (vi.spyOn modifies namespace properties, not module registry)
+    vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+    vi.spyOn(fs, 'readFileSync').mockReturnValue('');
   });
 
   afterEach(() => {
@@ -85,7 +80,7 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(false);
+      (fs.existsSync as Mock).mockReturnValue(false);
 
       const result = findSessionJsonl('nonexistent-session', '/fake/path');
       expect(result).toBeNull();
@@ -96,7 +91,7 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(true);
+      (fs.existsSync as Mock).mockReturnValue(true);
 
       const result = findSessionJsonl('test-session-123', '/home/user/project');
       const expectedPath = join(
@@ -108,7 +103,7 @@ describe('extract-context', () => {
       );
 
       expect(result).toBe(expectedPath);
-      expect(existsSync).toHaveBeenCalledWith(expectedPath);
+      expect(fs.existsSync).toHaveBeenCalledWith(expectedPath);
     });
 
     it('should construct correct path for dotted directories', async () => {
@@ -116,7 +111,7 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(true);
+      (fs.existsSync as Mock).mockReturnValue(true);
 
       const result = findSessionJsonl('abc-123', '/home/gareth/.vs/project');
       const expectedPath = join(
@@ -137,7 +132,7 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(false);
+      (fs.existsSync as Mock).mockReturnValue(false);
 
       const result = extractSessionContext('nonexistent-session', '/fake/path');
       expect(result).toBeNull();
@@ -150,8 +145,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"Hello, Claude!"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -172,8 +167,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -193,8 +188,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -221,8 +216,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -244,8 +239,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -264,8 +259,8 @@ describe('extract-context', () => {
         content: [{ type: 'tool_result', content: 'File contents here' }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -284,8 +279,8 @@ describe('extract-context', () => {
         content: [{ type: 'tool_result', content: { status: 'success', lines: 42 } }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -305,8 +300,8 @@ describe('extract-context', () => {
         content: [{ type: 'tool_result', content: longContent }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -325,8 +320,8 @@ describe('extract-context', () => {
         content: [{ type: 'tool_result', content: null }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -347,8 +342,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"New message after compaction"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -371,8 +366,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"Third message"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -396,8 +391,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"Current"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -419,8 +414,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"Also valid"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -441,8 +436,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"Second"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -459,8 +454,8 @@ describe('extract-context', () => {
         content: [{ type: 'text', text: 'Root level content' }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -484,8 +479,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -512,8 +507,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -529,8 +524,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"Hello"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test-session', '/home/user/project');
 
@@ -545,8 +540,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"Test"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('my-unique-session-id', '/home/user/project');
 
@@ -570,8 +565,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -594,8 +589,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -610,8 +605,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"User input"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -630,8 +625,8 @@ describe('extract-context', () => {
         },
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -648,8 +643,8 @@ describe('extract-context', () => {
         content: [{ type: 'tool_result', content: 'Operation completed' }],
       }) + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -664,7 +659,7 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(false);
+      (fs.existsSync as Mock).mockReturnValue(false);
 
       const result = extractContextAsSystemPrompt('nonexistent', '/fake/path');
       expect(result).toBeNull();
@@ -678,8 +673,8 @@ describe('extract-context', () => {
       // JSON with no extractable content
       const jsonlContent = '{"some":"random","data":true}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractContextAsSystemPrompt('test', '/project');
       expect(result).toBeNull();
@@ -692,8 +687,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"Test message"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractContextAsSystemPrompt('test', '/project');
 
@@ -715,8 +710,8 @@ describe('extract-context', () => {
         '{"type":"user","message":"Third"}',
       ].join('\n') + '\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractContextAsSystemPrompt('test', '/project');
 
@@ -730,8 +725,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"user","message":"Test"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractContextAsSystemPrompt('test', '/project');
 
@@ -749,8 +744,8 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue('');
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue('');
 
       const result = extractSessionContext('test', '/project');
 
@@ -764,8 +759,8 @@ describe('extract-context', () => {
         '../../../hooks/src/session/extract-context.ts'
       );
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue('   \n\n   \n');
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue('   \n\n   \n');
 
       const result = extractSessionContext('test', '/project');
 
@@ -781,8 +776,8 @@ describe('extract-context', () => {
 
       const jsonlContent = '{"type":"system","data":"some system event"}\n';
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 
@@ -798,8 +793,8 @@ describe('extract-context', () => {
       const unicodeMessage = 'Hello! \u{1F600} \u4F60\u597D \u3053\u3093\u306B\u3061\u306F';
       const jsonlContent = `{"type":"user","message":"${unicodeMessage}"}\n`;
 
-      (existsSync as Mock).mockReturnValue(true);
-      (readFileSync as Mock).mockReturnValue(jsonlContent);
+      (fs.existsSync as Mock).mockReturnValue(true);
+      (fs.readFileSync as Mock).mockReturnValue(jsonlContent);
 
       const result = extractSessionContext('test', '/project');
 

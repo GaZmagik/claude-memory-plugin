@@ -3,8 +3,9 @@ id: learning-retro-verification-first-on-code-review-findings-prevents-wasted-ef
 title: Retro - Verification-first on code review findings prevents wasted effort on false positives
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:24:19.760Z"
-updated: "2026-02-28T03:24:19.760Z"
+updated: "2026-02-28T09:20:42.760Z"
 tags:
   - retrospective
   - process

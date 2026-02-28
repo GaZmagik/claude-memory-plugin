@@ -7,50 +7,33 @@
  * Note: This test file mocks child_process to test our secure
  * execFileSync-based implementation. No actual commands are executed.
  *
- * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level vitest mocks (vi.mock) for fs and child_process
- * which creates global state. Must run separately with: vitest run <this-file>
- * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
+ * fs is mocked via vi.spyOn (not vi.mock) to prevent module registry
+ * pollution that breaks co-located test files like session-cache.spec.ts.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
 import { mock } from 'bun:test';
 
-// Import real modules for spreading (static imports resolve before vi.mock runs in Bun)
+// Import real child_process for spreading into vi.mock factory
 import * as originalChildProcess from 'node:child_process';
-import * as originalFs from 'node:fs';
 
-// Hoist mock functions so they can be referenced inside vi.mock() factories
+// Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
+import * as fs from 'node:fs';
+
+// Hoist mock function for child_process vi.mock factory
 // (vi.hoisted polyfill in tests/setup-bun.ts makes this work in Bun)
-const {
-  mockExecFileSync,
-  mockExistsSync,
-  mockMkdirSync,
-  mockWriteFileSync,
-  mockAppendFileSync,
-} = vi.hoisted(() => ({
+const { mockExecFileSync } = vi.hoisted(() => ({
   mockExecFileSync: vi.fn(() => ''),
-  mockExistsSync: vi.fn(() => false),
-  mockMkdirSync: vi.fn(() => undefined),
-  mockWriteFileSync: vi.fn(() => undefined),
-  mockAppendFileSync: vi.fn(() => undefined),
 }));
 
-// Mock child_process - spread original and override only what we need
+// Mock child_process — uses vi.mock because SUT imports execFileSync directly
 // Note: importOriginal not available in Bun, use static import + spread instead
 vi.mock('node:child_process', () => ({
   ...originalChildProcess,
   execFileSync: mockExecFileSync,
 }));
 
-// Mock fs - spread original and override only what we need
-vi.mock('node:fs', () => ({
-  ...originalFs,
-  existsSync: mockExistsSync,
-  mkdirSync: mockMkdirSync,
-  writeFileSync: mockWriteFileSync,
-  appendFileSync: mockAppendFileSync,
-}));
+// fs is mocked via vi.spyOn in beforeEach — no vi.mock('node:fs') needed
 
 import {
   hasClaudeBinary,
@@ -63,29 +46,34 @@ import {
   getSessionId,
 } from '../../../hooks/src/session/fork-detection.js';
 import * as childProcess from 'node:child_process';
-import * as fs from 'node:fs';
+
+// fs spy variables — created fresh in each beforeEach, restored in afterEach
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockExistsSync: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockWriteFileSync: any;
 
 describe('Fork Detection', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    // Clear mock call history
+    // Clear child_process mock call history
     mockExecFileSync.mockClear();
-    mockExistsSync.mockClear();
-    mockMkdirSync.mockClear();
-    mockWriteFileSync.mockClear();
-    mockAppendFileSync.mockClear();
+    // Set up fs spies (vi.spyOn modifies namespace properties, not module registry)
+    mockExistsSync = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined as any);
+    mockWriteFileSync = vi.spyOn(fs, 'writeFileSync').mockReturnValue(undefined);
+    vi.spyOn(fs, 'appendFileSync').mockReturnValue(undefined);
     process.env = { ...originalEnv };
   });
 
   afterEach(() => {
     process.env = originalEnv;
+    vi.restoreAllMocks(); // Restore fs spies to real implementations
   });
 
   afterAll(() => {
-    // Restore original modules to prevent leaking to other test files
-    vi.restoreAllMocks();
-    mock.restore(); // Unmock module-level vi.mock() to prevent fs/child_process leaking
+    mock.restore(); // Unmock child_process vi.mock
   });
 
   describe('hasClaudeBinary', () => {

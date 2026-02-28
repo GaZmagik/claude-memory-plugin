@@ -9,7 +9,7 @@
  * - Log to timestamped files
  */
 
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
+import * as fs from 'node:fs';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
 
@@ -21,12 +21,12 @@ export function findPluginDir(pluginName: string): string | null {
   const home = homedir();
   const installedPluginsPath = join(home, '.claude', 'plugins', 'installed_plugins.json');
 
-  if (!existsSync(installedPluginsPath)) {
+  if (!fs.existsSync(installedPluginsPath)) {
     return null;
   }
 
   try {
-    const content = readFileSync(installedPluginsPath, 'utf-8');
+    const content = fs.readFileSync(installedPluginsPath, 'utf-8');
     const data = JSON.parse(content);
     const plugins = data.plugins || {};
 
@@ -84,12 +84,12 @@ export interface SpawnSessionResult {
  */
 export function getLogDir(cwd: string): string {
   const projectLogDir = join(cwd, '.claude', 'logs');
-  if (existsSync(join(cwd, '.claude'))) {
-    mkdirSync(projectLogDir, { recursive: true });
+  if (fs.existsSync(join(cwd, '.claude'))) {
+    fs.mkdirSync(projectLogDir, { recursive: true });
     return projectLogDir;
   }
   const globalLogDir = join(homedir(), '.claude', 'logs');
-  mkdirSync(globalLogDir, { recursive: true });
+  fs.mkdirSync(globalLogDir, { recursive: true });
   return globalLogDir;
 }
 
@@ -194,7 +194,7 @@ Working Directory: ${cwd}
 Context size: ${options.contextPrompt.length} bytes
 ---
 `;
-  writeFileSync(logFile, header);
+  fs.writeFileSync(logFile, header);
 
   // Validate numeric timeout to prevent injection
   const timeoutSecs = Math.max(1, Math.min(3600, Math.floor(options.timeoutSecs ?? 300)));
@@ -214,16 +214,16 @@ Context size: ${options.contextPrompt.length} bytes
   // Write context to temp file to avoid shell escaping issues
   // Use mode 0600 for security (owner read/write only)
   const contextFile = join(tempDir, `claude-context-${options.sessionId}.txt`);
-  writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
+  fs.writeFileSync(contextFile, options.contextPrompt, { mode: 0o600 });
 
   // Write prompt to temp file to avoid shell injection via eval
   const promptFile = join(tempDir, `claude-prompt-${options.sessionId}.txt`);
-  writeFileSync(promptFile, options.prompt, { mode: 0o600 });
+  fs.writeFileSync(promptFile, options.prompt, { mode: 0o600 });
 
   // Write plugin dirs to temp file (one per line) to avoid word-splitting issues
   // This prevents paths with spaces from being incorrectly split
   const pluginDirsFile = join(tempDir, `claude-plugindirs-${options.sessionId}.txt`);
-  writeFileSync(pluginDirsFile, pluginDirs.join('\n'), { mode: 0o600 });
+  fs.writeFileSync(pluginDirsFile, pluginDirs.join('\n'), { mode: 0o600 });
 
   // Write a wrapper script that reads all values from files/args
   // This avoids shell interpolation vulnerabilities
@@ -287,7 +287,7 @@ echo "Completed with exit code: $EXIT_CODE" >> "$LOG_FILE"
 echo "=== Finished: $(date -u +%Y%m%dT%H%M%SZ) ===" >> "$LOG_FILE"
 # Cleanup handled by EXIT trap
 `;
-  writeFileSync(wrapperScript, scriptContent, { mode: 0o755 });
+  fs.writeFileSync(wrapperScript, scriptContent, { mode: 0o755 });
 
   // Launch detached background process with arguments passed safely
   const { spawn: nodeSpawn } = await import('node:child_process');

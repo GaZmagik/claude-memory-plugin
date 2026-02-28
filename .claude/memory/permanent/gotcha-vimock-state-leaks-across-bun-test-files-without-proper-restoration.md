@@ -3,8 +3,9 @@ id: gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration
 title: vi.mock() state leaks across Bun test files without proper restoration
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:28:42.825Z"
-updated: "2026-02-28T03:28:42.825Z"
+updated: "2026-02-28T09:20:43.357Z"
 tags:
   - bun
   - testing

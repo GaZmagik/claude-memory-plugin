@@ -3,8 +3,9 @@ id: gotcha-exactoptionalpropertytypes-typescript-flag-causes-407-compilation-err
 title: exactOptionalPropertyTypes TypeScript flag causes 407 compilation errors
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-02-27T21:33:02.198Z"
-updated: "2026-02-27T21:33:02.198Z"
+updated: "2026-02-28T09:20:43.090Z"
 tags:
   - typescript
   - type-system

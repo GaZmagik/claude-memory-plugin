@@ -3,8 +3,9 @@ id: artifact-god-function-decomposition-pattern
 title: God function decomposition pattern for complex functions
 type: artifact
 scope: project
+project: claude-memory-plugin
 created: "2026-02-28T03:30:53.727Z"
-updated: "2026-02-28T03:30:53.727Z"
+updated: "2026-02-28T09:20:43.161Z"
 tags:
   - refactoring
   - patterns

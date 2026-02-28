@@ -5014,6 +5014,60 @@
       "type": "learning",
       "title": "Test-driven refactoring enables safe large-scale changes across multiple files",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first approach on code review findings prevents wasted effort on false positives",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "type": "learning",
+      "title": "Retro - Test-driven validation immediately after code changes provides high confidence in fixes",
+      "scope": "project"
+    },
+    {
+      "id": "learning-adjacency-list-optimization-for-graph-edge-lookups",
+      "type": "learning",
+      "title": "Adjacency list optimization for graph edge lookups",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "type": "gotcha",
+      "title": "Gotcha - Retro - Automated code review findings snapshot decay: review findings against git history before investing in fixes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-shell-chaining-operators-bypass-command-blocklists",
+      "type": "gotcha",
+      "title": "Shell chaining operators bypass command blocklists",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability",
+      "type": "gotcha",
+      "title": "Glob pattern regex conversion creates ReDoS vulnerability",
+      "scope": "project"
+    },
+    {
+      "id": "learning-code-review-findings-require-verification-against-current-code",
+      "type": "learning",
+      "title": "Code review findings require verification against current code",
+      "scope": "project"
+    },
+    {
+      "id": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "type": "learning",
+      "title": "Verification-first approach prevents wasted refactoring effort",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "type": "decision",
+      "title": "Defer large structural refactors to separate PRs during code review cleanup",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -20246,6 +20300,30 @@
       "target": "learning-execfilesync-loses-path-in-bun-subprocesses",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7622037689444637
+    },
+    {
+      "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8078931322017929
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8078931322017929
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7569511490649635
+    },
+    {
+      "source": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7569511490649635
     }
   ]
 }

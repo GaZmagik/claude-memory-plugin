@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-27T19:20:03.447Z",
+  "lastUpdated": "2026-02-27T21:33:02.212Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15134,6 +15134,148 @@
       "updated": "2026-02-27T17:16:32.165Z",
       "scope": "project",
       "relativePath": "permanent/learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files.md"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first approach on code review findings prevents wasted effort on false positives",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:31.258Z",
+      "updated": "2026-02-27T19:20:31.258Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "type": "learning",
+      "title": "Retro - Test-driven validation immediately after code changes provides high confidence in fixes",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:48.360Z",
+      "updated": "2026-02-27T19:20:48.360Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-adjacency-list-optimization-for-graph-edge-lookups",
+      "type": "learning",
+      "title": "Adjacency list optimization for graph edge lookups",
+      "tags": [
+        "graph-optimization",
+        "performance",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:56.525Z",
+      "updated": "2026-02-27T19:20:56.525Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-adjacency-list-optimization-for-graph-edge-lookups.md"
+    },
+    {
+      "id": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "type": "gotcha",
+      "title": "Gotcha - Retro - Automated code review findings snapshot decay: review findings against git history before investing in fixes",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "code-review",
+        "git",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:00.116Z",
+      "updated": "2026-02-27T19:21:00.116Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-shell-chaining-operators-bypass-command-blocklists",
+      "type": "gotcha",
+      "title": "Shell chaining operators bypass command blocklists",
+      "tags": [
+        "security",
+        "command-injection",
+        "shell",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:04.095Z",
+      "updated": "2026-02-27T19:21:04.095Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-shell-chaining-operators-bypass-command-blocklists.md"
+    },
+    {
+      "id": "gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability",
+      "type": "gotcha",
+      "title": "Glob pattern regex conversion creates ReDoS vulnerability",
+      "tags": [
+        "security",
+        "regex",
+        "glob",
+        "redos",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:45.522Z",
+      "updated": "2026-02-27T19:21:45.522Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability.md"
+    },
+    {
+      "id": "learning-code-review-findings-require-verification-against-current-code",
+      "type": "learning",
+      "title": "Code review findings require verification against current code",
+      "tags": [
+        "code-review",
+        "process",
+        "verification",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:57.342Z",
+      "updated": "2026-02-27T19:21:57.342Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-code-review-findings-require-verification-against-current-code.md"
+    },
+    {
+      "id": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "type": "learning",
+      "title": "Verification-first approach prevents wasted refactoring effort",
+      "tags": [
+        "code-review",
+        "verification",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T21:30:53.242Z",
+      "updated": "2026-02-27T21:30:53.242Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-verification-first-approach-prevents-wasted-refactoring-effort.md"
+    },
+    {
+      "id": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "type": "decision",
+      "title": "Defer large structural refactors to separate PRs during code review cleanup",
+      "tags": [
+        "code-review",
+        "process",
+        "refactoring",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-27T21:33:02.200Z",
+      "updated": "2026-02-27T21:33:02.200Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup.md"
     }
   ]
 }

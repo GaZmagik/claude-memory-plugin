@@ -5104,6 +5104,12 @@
       "type": "gotcha",
       "title": "vi.mock() state leaks across Bun test files without proper restoration",
       "scope": "project"
+    },
+    {
+      "id": "artifact-god-function-decomposition-pattern",
+      "type": "artifact",
+      "title": "God function decomposition pattern for complex functions",
+      "scope": "project"
     }
   ],
   "edges": [

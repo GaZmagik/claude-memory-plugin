@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-28T03:26:29.591Z",
+  "lastUpdated": "2026-02-28T03:30:53.778Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15370,10 +15370,26 @@
         "lifecycle",
         "project"
       ],
-      "created": "2026-02-28T03:26:29.522Z",
-      "updated": "2026-02-28T03:26:29.522Z",
+      "created": "2026-02-28T03:28:42.825Z",
+      "updated": "2026-02-28T03:28:42.825Z",
       "scope": "project",
       "relativePath": "permanent/gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration.md"
+    },
+    {
+      "id": "artifact-god-function-decomposition-pattern",
+      "type": "artifact",
+      "title": "God function decomposition pattern for complex functions",
+      "tags": [
+        "refactoring",
+        "patterns",
+        "testing",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-28T03:30:53.727Z",
+      "updated": "2026-02-28T03:30:53.727Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-god-function-decomposition-pattern.md"
     }
   ]
 }

@@ -7,28 +7,28 @@ import { runCommand, spawn, execOrThrow } from './subprocess.ts';
 
 describe('subprocess', () => {
   describe('runCommand', () => {
-    it('should execute a simple command successfully', async () => {
-      const result = await runCommand(['echo', 'hello']);
+    it('should execute a simple command successfully', () => {
+      const result = runCommand(['echo', 'hello']);
       expect(result.success).toBe(true);
       expect(result.exitCode).toBe(0);
       expect(result.stdout.trim()).toBe('hello');
       expect(result.timedOut).toBe(false);
     });
 
-    it('should capture stderr', async () => {
-      const result = await runCommand(['ls', '/nonexistent-path-12345']);
+    it('should capture stderr', () => {
+      const result = runCommand(['ls', '/nonexistent-path-12345']);
       expect(result.success).toBe(false);
       expect(result.stderr).toContain('No such file');
     });
 
-    it('should respect timeout', async () => {
-      const result = await runCommand(['sleep', '10'], { timeout: 100 });
+    it('should respect timeout', () => {
+      const result = runCommand(['sleep', '10'], { timeout: 100 });
       expect(result.timedOut).toBe(true);
       expect(result.success).toBe(false);
     });
 
-    it('should pass environment variables', async () => {
-      const result = await runCommand(['printenv', 'TEST_VAR'], {
+    it('should pass environment variables', () => {
+      const result = runCommand(['printenv', 'TEST_VAR'], {
         env: { TEST_VAR: 'test_value' },
       });
       expect(result.stdout.trim()).toBe('test_value');
@@ -75,16 +75,16 @@ describe('subprocess', () => {
   });
 
   describe('runCommand error handling', () => {
-    it('should handle non-existent command gracefully', async () => {
-      const result = await runCommand(['nonexistent-command-xyz-12345']);
+    it('should handle non-existent command gracefully', () => {
+      const result = runCommand(['nonexistent-command-xyz-12345']);
 
       expect(result.success).toBe(false);
       expect(result.timedOut).toBe(false);
       expect(result.durationMs).toBeGreaterThanOrEqual(0);
     });
 
-    it('should handle stdin input', async () => {
-      const result = await runCommand(['cat'], { stdin: 'hello from stdin' });
+    it('should handle stdin input', () => {
+      const result = runCommand(['cat'], { stdin: 'hello from stdin' });
 
       expect(result.success).toBe(true);
       expect(result.stdout.trim()).toBe('hello from stdin');
@@ -125,8 +125,8 @@ describe('subprocess', () => {
   });
 
   describe('runCommand with cwd', () => {
-    it('should respect cwd option', async () => {
-      const result = await runCommand(['pwd'], { cwd: '/tmp' });
+    it('should respect cwd option', () => {
+      const result = runCommand(['pwd'], { cwd: '/tmp' });
 
       expect(result.success).toBe(true);
       expect(result.stdout.trim()).toBe('/tmp');

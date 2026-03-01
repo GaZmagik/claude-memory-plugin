@@ -10,9 +10,9 @@
  *   Claimed:   /tmp/.claude-memory-plugin-claimed-{agentType}-{agentId}
  */
 
-import { writeFileSync, readdirSync, renameSync, readFileSync, unlinkSync } from 'fs';
-import { join } from 'path';
-import { tmpdir } from 'os';
+import { writeFileSync, readdirSync, renameSync, readFileSync, unlinkSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 export const SUBAGENT_TEMP_PREFIX = join(tmpdir(), '.claude-memory-plugin-subagent-');
 export const SUBAGENT_CLAIMED_PREFIX = join(tmpdir(), '.claude-memory-plugin-claimed-');

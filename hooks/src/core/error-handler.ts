@@ -237,6 +237,12 @@ function isSessionHook(type: string): boolean {
  * - Blocking the forked session (hooks like memory-context make API calls)
  * - Unnecessary processing (forks are ephemeral, short-lived sessions)
  *
+ * FRAGILE INVARIANT: This relies on forked sessions (via `claude --fork-session`)
+ * having permission_mode "default", whereas normal sessions use "bypassPermissions".
+ * If Claude Code ever changes the default permission_mode for non-forked sessions,
+ * this check will silently skip hooks in real sessions. A more robust approach
+ * would check an explicit fork indicator if one becomes available.
+ *
  * @param input - The hook input from stdin
  * @returns true if running in a forked session
  */

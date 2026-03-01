@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { join } from 'path';
+import { join } from 'node:path';
 import { spawn } from '../src/core/subprocess.ts';
 
 const HOOK_PATH = join(import.meta.dir, 'protect-memory-directory.ts');

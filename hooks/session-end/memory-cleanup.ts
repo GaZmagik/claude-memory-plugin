@@ -7,9 +7,9 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 import {
   isMemoryCaptureSession,
   spawnSessionWithContext,

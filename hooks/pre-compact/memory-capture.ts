@@ -12,10 +12,10 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
-import { execFileSync } from 'child_process';
+import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import {
   isMemoryCaptureSession,
   getLogDir,

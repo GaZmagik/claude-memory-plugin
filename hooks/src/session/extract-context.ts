@@ -7,8 +7,8 @@
  */
 
 import * as fs from 'node:fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 
 export interface ExtractedContent {
   type: 'text' | 'tool_use' | 'tool_result' | 'user';

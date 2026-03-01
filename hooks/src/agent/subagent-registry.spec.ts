@@ -7,9 +7,9 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { existsSync, readFileSync, readdirSync, unlinkSync } from 'fs';
-import { join } from 'path';
-import { tmpdir } from 'os';
+import { existsSync, readFileSync, readdirSync, unlinkSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import {
   SUBAGENT_TEMP_PREFIX,
   SUBAGENT_CLAIMED_PREFIX,

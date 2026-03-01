@@ -7,8 +7,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { join } from 'path';
-import { existsSync } from 'fs';
+import { join } from 'node:path';
+import { existsSync } from 'node:fs';
 import { spawn } from '../src/core/subprocess.ts';
 
 const HOOK_PATH = join(import.meta.dir, 'start-memory-index.ts');

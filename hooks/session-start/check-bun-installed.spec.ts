@@ -13,10 +13,10 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { join } from 'path';
-import { mkdirSync, rmSync, writeFileSync } from 'fs';
+import { join } from 'node:path';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { spawn } from '../src/core/subprocess.ts';
-import { tmpdir } from 'os';
+import { tmpdir } from 'node:os';
 
 const HOOK_PATH = join(import.meta.dir, 'check-bun-installed.mjs');
 

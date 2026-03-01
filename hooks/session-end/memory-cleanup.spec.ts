@@ -6,10 +6,10 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { existsSync, mkdirSync, writeFileSync, rmSync, readdirSync, unlinkSync } from 'fs';
-import { spawnSync } from 'child_process';
-import { join } from 'path';
-import { tmpdir } from 'os';
+import { existsSync, mkdirSync, writeFileSync, rmSync, readdirSync, unlinkSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import { buildSubagentTempPath } from '../src/agent/subagent-registry.ts';
 
 const HOOK_PATH = join(import.meta.dir, 'memory-cleanup.ts');

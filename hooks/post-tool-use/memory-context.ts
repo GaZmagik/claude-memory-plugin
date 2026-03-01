@@ -23,10 +23,10 @@ import {
   hasNoGotchas,
   cleanGotchaSummary,
 } from '../src/memory/topic-classifier.ts';
-import { readFile, mkdir, appendFile, readdir } from 'fs/promises';
+import { readFile, mkdir, appendFile, readdir } from 'node:fs/promises';
 import { pathExists } from '../src/core/fs.ts';
-import { join, basename, dirname } from 'path';
-import { homedir } from 'os';
+import { join, basename, dirname } from 'node:path';
+import { homedir } from 'node:os';
 import type { HookInput } from '../src/core/types.ts';
 
 // Import plugin settings
@@ -367,9 +367,8 @@ async function findGotchaNamedFiles(memDir: string, topic: string): Promise<stri
   const results: string[] = [];
 
   try {
-    const files = await readdir(memDir, { recursive: true }) as string[];
+    const files = await readdir(memDir, { recursive: true, encoding: 'utf-8' });
     for (const file of files) {
-      if (typeof file !== 'string') continue;
       if (file.includes('/archive/')) continue;
 
       const lower = file.toLowerCase();
@@ -422,12 +421,12 @@ async function findLinkedMemories(memDir: string, foundIds: string[]): Promise<s
     }
 
     // Read directory once (was called inside nested loop!)
-    const files = await readdir(memDir, { recursive: true }) as string[];
+    const files = await readdir(memDir, { recursive: true, encoding: 'utf-8' });
 
     // Build file map for O(1) path lookups (was O(k) per lookup)
     const fileMap = new Map<string, string>();
     for (const file of files) {
-      if (typeof file === 'string' && file.endsWith('.md')) {
+      if (file.endsWith('.md')) {
         const id = basename(file, '.md');
         fileMap.set(id, join(memDir, file));
       }

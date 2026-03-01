@@ -10,8 +10,8 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
 import { mock } from 'bun:test';
-import { join } from 'path';
-import { homedir, tmpdir } from 'os';
+import { join } from 'node:path';
+import { homedir, tmpdir } from 'node:os';
 
 // Import real child_process for spreading into vi.mock factory
 import * as originalChildProcess from 'node:child_process';

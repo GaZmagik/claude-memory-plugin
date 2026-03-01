@@ -35,7 +35,7 @@ export async function cmdBulkLink(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const dryRun = getFlagBool(args.flags, 'dry-run');
   const pattern = getFlagString(args.flags, 'pattern');
   const idsStr = getFlagString(args.flags, 'ids');
@@ -81,7 +81,7 @@ export async function cmdBulkLink(args: ParsedArgs): Promise<CliResponse> {
  */
 export async function cmdBulkDelete(args: ParsedArgs): Promise<CliResponse> {
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const pattern = getFlagString(args.flags, 'pattern');
   const tagsStr = getFlagString(args.flags, 'tags');
   const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()) : undefined;
@@ -113,7 +113,7 @@ export async function cmdBulkDelete(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdExport(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const outputFile = getFlagString(args.flags, 'output');
 
   return wrapOperation(
@@ -151,7 +151,7 @@ export async function cmdImport(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const strategy = getFlagBool(args.flags, 'replace') ? 'replace' : 'merge';
   const dryRun = getFlagBool(args.flags, 'dry-run');
 
@@ -191,7 +191,7 @@ export async function cmdBulkMove(args: ParsedArgs): Promise<CliResponse> {
   const targetScope = parseScope(targetScopeStr);
 
   const sourceScope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(sourceScope);
+  const basePath = await getResolvedScopePath(sourceScope);
   const pattern = getFlagString(args.flags, 'pattern');
   const tagsStr = getFlagString(args.flags, 'tags');
   const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()) : undefined;
@@ -227,7 +227,7 @@ export async function cmdBulkMove(args: ParsedArgs): Promise<CliResponse> {
  */
 export async function cmdBulkTag(args: ParsedArgs): Promise<CliResponse> {
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const pattern = getFlagString(args.flags, 'pattern');
   const addStr = getFlagString(args.flags, 'add');
   const addTags = addStr ? addStr.split(',').map((t) => t.trim()) : undefined;
@@ -269,7 +269,7 @@ export async function cmdBulkUnlink(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const pattern = getFlagString(args.flags, 'pattern');
   const relation = getFlagString(args.flags, 'relation');
   const dryRun = getFlagBool(args.flags, 'dry-run');
@@ -309,7 +309,7 @@ export async function cmdBulkPromote(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const pattern = getFlagString(args.flags, 'pattern');
   const tagsStr = getFlagString(args.flags, 'tags');
   const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()) : undefined;

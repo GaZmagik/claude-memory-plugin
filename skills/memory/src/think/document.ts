@@ -63,7 +63,7 @@ export function getThinkFilePath(scopePath: string, documentId: string): string 
 /**
  * Get scope path from context
  */
-function resolveScopePath(scope: Scope, basePath: string, globalPath: string): string {
+async function resolveScopePath(scope: Scope, basePath: string, globalPath: string): Promise<string> {
   return getScopePath(scope, basePath, globalPath);
 }
 
@@ -86,7 +86,7 @@ export async function createThinkDocument(
   const basePath = request.basePath ?? process.cwd();
   const globalPath = path.join(os.homedir(), '.claude', 'memory');
   const scope = request.scope ?? Scope.Project;
-  const scopePath = resolveScopePath(scope, basePath, globalPath);
+  const scopePath = await resolveScopePath(scope, basePath, globalPath);
 
   try {
     const temporaryDir = getTemporaryDir(scopePath);
@@ -143,7 +143,7 @@ export async function listThinkDocuments(
     : [Scope.Project, Scope.Local];
 
   for (const scope of scopesToSearch) {
-    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const scopePath = await resolveScopePath(scope, basePath, globalPath);
     const temporaryDir = getTemporaryDir(scopePath);
 
     if (!(await fileExists(temporaryDir))) {
@@ -192,7 +192,7 @@ export async function listThinkDocuments(
   // Determine current document ID across scopes
   let currentId: string | null = null;
   for (const scope of scopesToSearch) {
-    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const scopePath = await resolveScopePath(scope, basePath, globalPath);
     const id = await getCurrentDocumentId(scopePath);
     if (id) {
       currentId = id;
@@ -223,7 +223,7 @@ export async function showThinkDocument(
   if (!documentId) {
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
-      const scopePath = resolveScopePath(scope, basePath, globalPath);
+      const scopePath = await resolveScopePath(scope, basePath, globalPath);
       const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
@@ -244,7 +244,7 @@ export async function showThinkDocument(
   if (!documentScope) {
     // Search both scopes
     for (const scope of [Scope.Project, Scope.Local]) {
-      const scopePath = resolveScopePath(scope, basePath, globalPath);
+      const scopePath = await resolveScopePath(scope, basePath, globalPath);
       const filePath = getThinkFilePath(scopePath, documentId);
       if (await fileExists(filePath)) {
         documentScope = scope;
@@ -260,7 +260,7 @@ export async function showThinkDocument(
     };
   }
 
-  const scopePath = resolveScopePath(documentScope, basePath, globalPath);
+  const scopePath = await resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
   try {
@@ -310,7 +310,7 @@ export async function deleteThinkDocument(
   // Find the document in either scope
   let documentScope: Scope | null = null;
   for (const scope of [Scope.Project, Scope.Local]) {
-    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const scopePath = await resolveScopePath(scope, basePath, globalPath);
     const filePath = getThinkFilePath(scopePath, documentId);
     if (await fileExists(filePath)) {
       documentScope = scope;
@@ -325,7 +325,7 @@ export async function deleteThinkDocument(
     };
   }
 
-  const scopePath = resolveScopePath(documentScope, basePath, globalPath);
+  const scopePath = await resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
   try {
@@ -361,7 +361,7 @@ export async function thinkDocumentExists(
   globalPath: string
 ): Promise<{ exists: boolean; scope?: Scope; filePath?: string }> {
   for (const scope of [Scope.Project, Scope.Local]) {
-    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const scopePath = await resolveScopePath(scope, basePath, globalPath);
     const filePath = getThinkFilePath(scopePath, documentId);
     if (await fileExists(filePath)) {
       return { exists: true, scope, filePath };

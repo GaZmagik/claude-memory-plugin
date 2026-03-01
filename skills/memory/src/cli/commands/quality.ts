@@ -35,8 +35,8 @@ export async function cmdHealth(args: ParsedArgs): Promise<CliResponse> {
 
   // Resolve base path
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -203,7 +203,7 @@ async function buildComparison(
   _scopeStr?: string
 ): Promise<{ projectScore: number; delta: number }> {
   try {
-    const projectPath = getResolvedScopePath(parseScope(compareTarget === 'project' ? undefined : compareTarget));
+    const projectPath = await getResolvedScopePath(parseScope(compareTarget === 'project' ? undefined : compareTarget));
     const projectReport = await checkHealth({ basePath: projectPath });
     return {
       projectScore: projectReport.score,
@@ -273,7 +273,7 @@ function detectCircularDependencies(
 export async function cmdValidate(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -305,7 +305,7 @@ export async function cmdQuality(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const deep = getFlagBool(args.flags, 'deep') ?? false;
 
   return wrapOperation(
@@ -328,7 +328,7 @@ export async function cmdQuality(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdAudit(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 70;
   const deep = getFlagBool(args.flags, 'deep') ?? false;
 
@@ -362,7 +362,7 @@ export async function cmdAudit(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdAuditQuick(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 70;
 
   return wrapOperation(

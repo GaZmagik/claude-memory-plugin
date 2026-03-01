@@ -21,7 +21,7 @@ describe('resolveSharedScopePaths', () => {
     vi.spyOn(os, 'homedir').mockReturnValue(mockHome);
 
     // Mock git detection to return true (so we get agent-project, not agent-global)
-    vi.spyOn(gitUtils, 'isInGitRepository').mockReturnValue(true);
+    vi.spyOn(gitUtils, 'isInGitRepository').mockResolvedValue(true);
   });
 
   afterEach(() => {
@@ -29,8 +29,8 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('with default scope (agent-project)', () => {
-    it('returns array with agent-project path first', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('returns array with agent-project path first', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       expect(paths).toBeInstanceOf(Array);
       expect(paths.length).toBeGreaterThan(0);
@@ -40,8 +40,8 @@ describe('resolveSharedScopePaths', () => {
       expect(paths[0]).toContain(mockCwd);
     });
 
-    it('includes shared scopes after agent scope', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('includes shared scopes after agent scope', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       // Should have: agent-project, local, project, global
       expect(paths.length).toBeGreaterThanOrEqual(2);
@@ -54,8 +54,8 @@ describe('resolveSharedScopePaths', () => {
       expect(sharedPaths.length).toBeGreaterThan(0);
     });
 
-    it('returns paths in correct order: agent → local → project → global', () => {
-      const paths = resolveSharedScopePaths('rust-expert');
+    it('returns paths in correct order: agent → local → project → global', async () => {
+      const paths = await resolveSharedScopePaths('rust-expert');
 
       // Agent scope first (most specific)
       expect(paths[0]).toContain('agents/rust-expert');
@@ -69,16 +69,16 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('with explicit agent-project scope', () => {
-    it('resolves to agent-project path', () => {
-      const paths = resolveSharedScopePaths('api-architect', 'agent-project');
+    it('resolves to agent-project path', async () => {
+      const paths = await resolveSharedScopePaths('api-architect', 'agent-project');
 
       expect(paths[0]).toContain('agents/api-architect');
       expect(paths[0]).toContain(mockCwd);
       expect(paths[0]).not.toContain(mockHome);
     });
 
-    it('includes shared scopes after agent-project', () => {
-      const paths = resolveSharedScopePaths('api-architect', 'agent-project');
+    it('includes shared scopes after agent-project', async () => {
+      const paths = await resolveSharedScopePaths('api-architect', 'agent-project');
 
       expect(paths.length).toBeGreaterThan(1);
       expect(paths[0]).toContain('agents/api-architect');
@@ -86,16 +86,16 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('with explicit agent-global scope', () => {
-    it('resolves to agent-global path', () => {
-      const paths = resolveSharedScopePaths('frontend-expert', 'agent-global');
+    it('resolves to agent-global path', async () => {
+      const paths = await resolveSharedScopePaths('frontend-expert', 'agent-global');
 
       expect(paths[0]).toContain('agents/frontend-expert');
       expect(paths[0]).toContain(mockHome);
       expect(paths[0]).not.toContain(mockCwd);
     });
 
-    it('includes shared scopes after agent-global', () => {
-      const paths = resolveSharedScopePaths('frontend-expert', 'agent-global');
+    it('includes shared scopes after agent-global', async () => {
+      const paths = await resolveSharedScopePaths('frontend-expert', 'agent-global');
 
       expect(paths.length).toBeGreaterThan(1);
       expect(paths[0]).toContain('agents/frontend-expert');
@@ -103,8 +103,8 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('with project scope parameter', () => {
-    it('converts to agent-project scope', () => {
-      const paths = resolveSharedScopePaths('python-expert', 'project');
+    it('converts to agent-project scope', async () => {
+      const paths = await resolveSharedScopePaths('python-expert', 'project');
 
       // Should still resolve to agent-project (converted)
       expect(paths[0]).toContain('agents/python-expert');
@@ -113,8 +113,8 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('with global scope parameter', () => {
-    it('converts to agent-global scope', () => {
-      const paths = resolveSharedScopePaths('python-expert', 'global');
+    it('converts to agent-global scope', async () => {
+      const paths = await resolveSharedScopePaths('python-expert', 'global');
 
       // Should convert to agent-global
       expect(paths[0]).toContain('agents/python-expert');
@@ -124,28 +124,22 @@ describe('resolveSharedScopePaths', () => {
 
   describe('agent name validation', () => {
     it('throws error for invalid agent name', () => {
-      expect(() => {
-        resolveSharedScopePaths('Invalid Name With Spaces');
-      }).toThrow();
+      expect(() => resolveSharedScopePaths('Invalid Name With Spaces')).toThrow();
     });
 
     it('throws error for agent name with special characters', () => {
-      expect(() => {
-        resolveSharedScopePaths('agent@special#chars');
-      }).toThrow();
+      expect(() => resolveSharedScopePaths('agent@special#chars')).toThrow();
     });
 
-    it('accepts valid agent name with hyphens', () => {
-      expect(() => {
-        const paths = resolveSharedScopePaths('frontend-ui-expert');
-        expect(paths).toBeInstanceOf(Array);
-      }).not.toThrow();
+    it('accepts valid agent name with hyphens', async () => {
+      const paths = await resolveSharedScopePaths('frontend-ui-expert');
+      expect(paths).toBeInstanceOf(Array);
     });
   });
 
   describe('shared scope filtering', () => {
-    it('filters out undefined/null paths from shared scopes', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('filters out undefined/null paths from shared scopes', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       // All paths should be defined strings
       paths.forEach((p: string) => {
@@ -155,8 +149,8 @@ describe('resolveSharedScopePaths', () => {
       });
     });
 
-    it('returns at least agent scope even if shared scopes unavailable', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('returns at least agent scope even if shared scopes unavailable', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       // Should always have at least the agent scope
       expect(paths.length).toBeGreaterThanOrEqual(1);
@@ -165,23 +159,23 @@ describe('resolveSharedScopePaths', () => {
   });
 
   describe('path format validation', () => {
-    it('returns absolute paths', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('returns absolute paths', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       paths.forEach((p: string) => {
         expect(path.isAbsolute(p)).toBe(true);
       });
     });
 
-    it('includes agent name in agent scope path', () => {
+    it('includes agent name in agent scope path', async () => {
       const agentName = 'database-architect';
-      const paths = resolveSharedScopePaths(agentName);
+      const paths = await resolveSharedScopePaths(agentName);
 
       expect(paths[0]).toContain(`agents/${agentName}`);
     });
 
-    it('uses correct directory separators for platform', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('uses correct directory separators for platform', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
 
       // Paths should use platform-specific separators
       // (path.sep is mocked via cwd/homedir, so we just check consistency)

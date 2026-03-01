@@ -54,8 +54,8 @@ export async function cmdWrite(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   // Read-only guard: Reject writes to external nodes (rule/reminder types)
   if (input.id) {
@@ -120,8 +120,8 @@ export async function cmdRead(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -159,7 +159,7 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
     async () => {
       // Multi-scope list if --include-shared is used with --agent
       if (includeShared && agentName) {
-        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const scopePaths = await resolveSharedScopePaths(agentName, scopeStr);
         const allResults: Array<{ scope: string; memories: MemorySummary[] }> = [];
 
         // List across all scope paths
@@ -200,8 +200,8 @@ export async function cmdList(args: ParsedArgs): Promise<CliResponse> {
 
       // Single-scope list (existing behavior)
       const basePath = agentName
-        ? resolveAgentScopePath(agentName, scopeStr)
-        : getResolvedScopePath(parseScope(scopeStr));
+        ? await resolveAgentScopePath(agentName, scopeStr)
+        : await getResolvedScopePath(parseScope(scopeStr));
 
       const result = await listMemories({
         basePath,
@@ -240,8 +240,8 @@ export async function cmdDelete(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   // Read-only guard: Reject deletes on external nodes (rule/reminder types)
   const { loadIndex } = await import('../../core/index.js');
@@ -353,7 +353,7 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 
       // Multi-scope search if --include-shared is used with --agent
       if (includeShared && agentName) {
-        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const scopePaths = await resolveSharedScopePaths(agentName, scopeStr);
         const allResults: Array<{ scope: string; results: SearchResult[] }> = [];
 
         // Search across all scope paths
@@ -394,8 +394,8 @@ export async function cmdSearch(args: ParsedArgs): Promise<CliResponse> {
 
       // Single-scope search (existing behavior)
       const basePath = agentName
-        ? resolveAgentScopePath(agentName, scopeStr)
-        : getResolvedScopePath(parseScope(scopeStr));
+        ? await resolveAgentScopePath(agentName, scopeStr)
+        : await getResolvedScopePath(parseScope(scopeStr));
 
       const result = await searchMemories({
         query,
@@ -455,7 +455,7 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
     async () => {
       // Multi-scope semantic search if --include-shared is used with --agent
       if (includeShared && agentName) {
-        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const scopePaths = await resolveSharedScopePaths(agentName, scopeStr);
         const allResults: Array<{ scope: string; results: SemanticSearchResultItem[] }> = [];
 
         // Search across all scope paths
@@ -498,8 +498,8 @@ export async function cmdSemantic(args: ParsedArgs): Promise<CliResponse> {
 
       // Single-scope semantic search (existing behavior)
       const basePath = agentName
-        ? resolveAgentScopePath(agentName, scopeStr)
-        : getResolvedScopePath(parseScope(scopeStr));
+        ? await resolveAgentScopePath(agentName, scopeStr)
+        : await getResolvedScopePath(parseScope(scopeStr));
 
       const result = await semanticSearchMemories({
         query,

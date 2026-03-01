@@ -26,10 +26,10 @@ const log = createLogger('delete');
  * Given a cross-scope edge and the ID of the memory being deleted,
  * determines which scope is the "other" side and resolves its path.
  */
-function resolveOtherScopeBasePath(
+async function resolveOtherScopeBasePath(
   edge: { source: string; target: string; sourceScope?: string; targetScope?: string; sourceAgent?: string; targetAgent?: string },
   deletedId: string
-): string | null {
+): Promise<string | null> {
   // Determine which side is the "other" scope
   const isSource = edge.source === deletedId;
   const otherScope = isSource ? edge.targetScope : edge.sourceScope;
@@ -40,11 +40,11 @@ function resolveOtherScopeBasePath(
   try {
     const agentScopes = ['agent-project', 'agent-global'];
     if (agentScopes.includes(otherScope) && otherAgent) {
-      return resolveAgentScopePath(otherAgent, undefined);
+      return await resolveAgentScopePath(otherAgent, undefined);
     }
 
     // Non-agent scope — resolve via standard scope path
-    return getResolvedScopePath(parseScope(otherScope));
+    return await getResolvedScopePath(parseScope(otherScope));
   } catch (error) {
     log.warn('Failed to resolve other scope base path', {
       otherScope,
@@ -198,7 +198,7 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
       // Clean up cross-scope edges in other graphs (best-effort)
       for (const edge of crossScopeEdges) {
         try {
-          const otherBasePath = resolveOtherScopeBasePath(edge, request.id);
+          const otherBasePath = await resolveOtherScopeBasePath(edge, request.id);
           if (otherBasePath) {
             let otherGraph = await loadGraph(otherBasePath);
             const beforeCount = otherGraph.edges.length;

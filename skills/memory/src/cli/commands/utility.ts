@@ -27,11 +27,11 @@ import { checkRelevance, formatTable, formatJson } from '../../maintenance/check
  * Find which scope a memory exists in
  * Searches all scopes and returns the first one where the memory is found
  */
-function findMemoryScope(id: string): { scope: Scope; basePath: string } | null {
+async function findMemoryScope(id: string): Promise<{ scope: Scope; basePath: string } | null> {
   const scopesToSearch: Scope[] = [Scope.Project, Scope.Local, Scope.Global];
 
   for (const scope of scopesToSearch) {
-    const basePath = getResolvedScopePath(scope);
+    const basePath = await getResolvedScopePath(scope);
     const permanentPath = path.join(basePath, 'permanent', `${id}.md`);
     const temporaryPath = path.join(basePath, 'temporary', `${id}.md`);
 
@@ -59,7 +59,7 @@ export async function cmdRename(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   // Read-only guard: Reject renames on external nodes (rule/reminder types)
   // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
@@ -101,7 +101,7 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const targetScope = parseScope(targetScopeStr);
-  const targetBasePath = getResolvedScopePath(targetScope);
+  const targetBasePath = await getResolvedScopePath(targetScope);
 
   // Read-only guard: Check all scopes for external nodes BEFORE file lookup
   // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
@@ -109,7 +109,7 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
 
   // Check all scopes for external nodes (which don't have files on disk)
   for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
-    const checkBasePath = getResolvedScopePath(checkScope);
+    const checkBasePath = await getResolvedScopePath(checkScope);
     try {
       const index = await loadIndex({ basePath: checkBasePath });
       const existingEntry = index.memories.find(m => m.id === id);
@@ -150,10 +150,10 @@ export async function cmdMove(args: ParsedArgs): Promise<CliResponse> {
   let sourceBasePath: string;
 
   if (explicitScope) {
-    sourceBasePath = getResolvedScopePath(parseScope(explicitScope));
+    sourceBasePath = await getResolvedScopePath(parseScope(explicitScope));
   } else {
     // Auto-detect which scope the memory is in
-    const found = findMemoryScope(id);
+    const found = await findMemoryScope(id);
     if (!found) {
       return error(`Memory not found in any scope: ${id}`);
     }
@@ -205,7 +205,7 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
   const { loadIndex } = await import('../../core/index.js');
 
   for (const checkScope of [Scope.Project, Scope.Local, Scope.Global]) {
-    const checkBasePath = getResolvedScopePath(checkScope);
+    const checkBasePath = await getResolvedScopePath(checkScope);
     try {
       const index = await loadIndex({ basePath: checkBasePath });
       const existingEntry = index.memories.find(m => m.id === id);
@@ -242,7 +242,7 @@ export async function cmdPromote(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -273,7 +273,7 @@ export async function cmdArchive(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   // Read-only guard: Reject archives on external nodes (rule/reminder types)
   // Dynamic import to avoid circular dependency: core/index.js -> cli/helpers.js -> cli/commands
@@ -427,8 +427,8 @@ export async function cmdStatus(args: ParsedArgs): Promise<CliResponse> {
 
   return wrapOperation(
     async () => {
-      const projectPath = getResolvedScopePath(Scope.Project);
-      const localPath = getResolvedScopePath(Scope.Local);
+      const projectPath = await getResolvedScopePath(Scope.Project);
+      const localPath = await getResolvedScopePath(Scope.Local);
 
       // Count memories in each scope
       const countMemories = async (basePath: string) => {
@@ -500,7 +500,7 @@ export async function cmdStatus(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdCheckRelevance(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scopeStr = scopeArg ?? getFlagString(args.flags, 'scope');
-  const basePath = getResolvedScopePath(parseScope(scopeStr));
+  const basePath = await getResolvedScopePath(parseScope(scopeStr));
 
   const typeStr = getFlagString(args.flags, 'type');
   const agentFilter = getFlagString(args.flags, 'agent');

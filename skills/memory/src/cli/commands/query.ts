@@ -53,7 +53,7 @@ export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
 
       // Multi-scope query if --include-shared is used with --agent
       if (includeShared && agentName) {
-        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const scopePaths = await resolveSharedScopePaths(agentName, scopeStr);
         const allResults: Array<Omit<IndexEntry, 'id' | 'scope'> & { id: string; scope: string; edges: { inbound: number; outbound: number } }> = [];
 
         // Query across all scope paths
@@ -135,8 +135,8 @@ export async function cmdQuery(args: ParsedArgs): Promise<CliResponse> {
 
       // Single-scope query (existing behavior)
       const basePath = agentName
-        ? resolveAgentScopePath(agentName, scopeStr)
-        : getResolvedScopePath(parseScope(scopeStr));
+        ? await resolveAgentScopePath(agentName, scopeStr)
+        : await getResolvedScopePath(parseScope(scopeStr));
 
       // Load index and graph
       const index = await loadIndex({ basePath, agent: agentName });
@@ -235,7 +235,7 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
     async () => {
       // Multi-scope stats if --include-shared is used with --agent
       if (includeShared && agentName) {
-        const scopePaths = resolveSharedScopePaths(agentName, scopeStr);
+        const scopePaths = await resolveSharedScopePaths(agentName, scopeStr);
         const scopeStats: Array<{ scope: string; nodes: number; edges: number; orphans: number }> = [];
 
         let totalNodes = 0;
@@ -306,8 +306,8 @@ export async function cmdStats(args: ParsedArgs): Promise<CliResponse> {
 
       // Single-scope stats (existing behavior)
       const basePath = agentName
-        ? resolveAgentScopePath(agentName, scopeStr)
-        : getResolvedScopePath(parseScope(scopeStr));
+        ? await resolveAgentScopePath(agentName, scopeStr)
+        : await getResolvedScopePath(parseScope(scopeStr));
 
       const graph = await loadGraph(basePath);
       const orphans = findOrphanedNodes(graph);
@@ -410,13 +410,13 @@ export async function cmdImpact(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
       const graph = (includeShared && agentName)
-        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        ? await loadMergedGraph(await resolveSharedScopePaths(agentName, scopeStr))
         : await loadGraph(basePath);
       const impact = calculateImpact(graph, id);
       return {

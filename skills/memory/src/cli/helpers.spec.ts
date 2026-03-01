@@ -187,39 +187,39 @@ describe('CLI Helpers', () => {
     });
 
     describe('valid agent names', () => {
-      it('returns a path containing the agent name for default scope', () => {
-        const result = resolveAgentScopePath('typescript-expert');
+      it('returns a path containing the agent name for default scope', async () => {
+        const result = await resolveAgentScopePath('typescript-expert');
         expect(typeof result).toBe('string');
         expect(result).toContain('typescript-expert');
       });
 
-      it('returns a path for explicit project scope', () => {
-        const result = resolveAgentScopePath('typescript-expert', 'project');
+      it('returns a path for explicit project scope', async () => {
+        const result = await resolveAgentScopePath('typescript-expert', 'project');
         expect(result).toContain('typescript-expert');
       });
 
-      it('returns a path for explicit global scope', () => {
-        const result = resolveAgentScopePath('rust-expert', 'global');
+      it('returns a path for explicit global scope', async () => {
+        const result = await resolveAgentScopePath('rust-expert', 'global');
         expect(result).toContain('rust-expert');
       });
 
-      it('returns a path for agent-project scope string', () => {
-        const result = resolveAgentScopePath('api-architect', 'agent-project');
+      it('returns a path for agent-project scope string', async () => {
+        const result = await resolveAgentScopePath('api-architect', 'agent-project');
         expect(result).toContain('api-architect');
       });
 
-      it('returns a path for agent-global scope string', () => {
-        const result = resolveAgentScopePath('frontend-expert', 'agent-global');
+      it('returns a path for agent-global scope string', async () => {
+        const result = await resolveAgentScopePath('frontend-expert', 'agent-global');
         expect(result).toContain('frontend-expert');
       });
 
-      it('accepts agent names containing hyphens', () => {
-        const result = resolveAgentScopePath('typescript-expert-v2');
+      it('accepts agent names containing hyphens', async () => {
+        const result = await resolveAgentScopePath('typescript-expert-v2');
         expect(result).toContain('typescript-expert-v2');
       });
 
-      it('accepts agent names containing numbers', () => {
-        const result = resolveAgentScopePath('agent-2024');
+      it('accepts agent names containing numbers', async () => {
+        const result = await resolveAgentScopePath('agent-2024');
         expect(result).toContain('agent-2024');
       });
     });
@@ -278,28 +278,28 @@ describe('CLI Helpers', () => {
       fs.rmSync(tempDir, { recursive: true, force: true });
     });
 
-    it('returns an absolute path for Global scope rooted at home directory', () => {
-      const result = getResolvedScopePath(Scope.Global);
+    it('returns an absolute path for Global scope rooted at home directory', async () => {
+      const result = await getResolvedScopePath(Scope.Global);
       expect(typeof result).toBe('string');
       expect(result).toContain(os.homedir());
       expect(result).toMatch(/\.claude\/memory/);
     });
 
-    it('returns a path within cwd for Project scope', () => {
-      const result = getResolvedScopePath(Scope.Project);
+    it('returns a path within cwd for Project scope', async () => {
+      const result = await getResolvedScopePath(Scope.Project);
       expect(typeof result).toBe('string');
       expect(result).toContain(tempDir);
     });
 
-    it('returns a path within cwd for Local scope', () => {
-      const result = getResolvedScopePath(Scope.Local);
+    it('returns a path within cwd for Local scope', async () => {
+      const result = await getResolvedScopePath(Scope.Local);
       expect(typeof result).toBe('string');
       expect(result).toContain(tempDir);
     });
 
-    it('returns different paths for different scopes', () => {
-      const globalPath = getResolvedScopePath(Scope.Global);
-      const projectPath = getResolvedScopePath(Scope.Project);
+    it('returns different paths for different scopes', async () => {
+      const globalPath = await getResolvedScopePath(Scope.Global);
+      const projectPath = await getResolvedScopePath(Scope.Project);
       expect(globalPath).not.toBe(projectPath);
     });
   });
@@ -319,24 +319,24 @@ describe('CLI Helpers', () => {
       fs.rmSync(tempDir, { recursive: true, force: true });
     });
 
-    it('returns a non-empty array', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('returns a non-empty array', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
       expect(Array.isArray(paths)).toBe(true);
       expect(paths.length).toBeGreaterThan(0);
     });
 
-    it('first path contains the agent name', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('first path contains the agent name', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
       expect(paths[0]).toContain('typescript-expert');
     });
 
-    it('returns more than one path (agent + shared scopes)', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('returns more than one path (agent + shared scopes)', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
       expect(paths.length).toBeGreaterThan(1);
     });
 
-    it('all returned values are strings', () => {
-      const paths = resolveSharedScopePaths('typescript-expert');
+    it('all returned values are strings', async () => {
+      const paths = await resolveSharedScopePaths('typescript-expert');
       for (const p of paths) {
         expect(typeof p).toBe('string');
       }
@@ -346,9 +346,9 @@ describe('CLI Helpers', () => {
       expect(() => resolveSharedScopePaths('invalid/name')).toThrow();
     });
 
-    it('first path differs between project and global scope strings', () => {
-      const projectPaths = resolveSharedScopePaths('typescript-expert', 'project');
-      const globalPaths = resolveSharedScopePaths('typescript-expert', 'global');
+    it('first path differs between project and global scope strings', async () => {
+      const projectPaths = await resolveSharedScopePaths('typescript-expert', 'project');
+      const globalPaths = await resolveSharedScopePaths('typescript-expert', 'global');
       expect(projectPaths[0]).not.toBe(globalPaths[0]);
     });
   });

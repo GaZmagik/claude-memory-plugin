@@ -317,7 +317,7 @@ export async function checkRelevance(
     for (const result of results) {
       if (result.totalScore < threshold && result.suggestedScope) {
         const targetScope = result.suggestedScope as Scope;
-        const targetBasePath = getScopePath(targetScope, process.cwd(), globalPath);
+        const targetBasePath = await getScopePath(targetScope, process.cwd(), globalPath);
         await moveMemory({
           id: result.id,
           sourceBasePath: basePath,

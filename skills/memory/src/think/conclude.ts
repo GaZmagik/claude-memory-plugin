@@ -127,7 +127,7 @@ export async function concludeThinkDocument(
   if (!documentId) {
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
-      const scopePath = resolveScopePath(scope, basePath, globalPath);
+      const scopePath = await resolveScopePath(scope, basePath, globalPath);
       const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
@@ -156,7 +156,7 @@ export async function concludeThinkDocument(
     documentScope = result.scope;
   }
 
-  const scopePath = resolveScopePath(documentScope, basePath, globalPath);
+  const scopePath = await resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
   if (!(await fileExists(filePath))) {

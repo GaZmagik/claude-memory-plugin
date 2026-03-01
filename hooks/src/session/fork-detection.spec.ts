@@ -20,11 +20,9 @@ import * as originalChildProcess from 'node:child_process';
 // Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
 import * as fs from 'node:fs';
 
-// Hoist mock function for child_process vi.mock factory
-// (vi.hoisted polyfill in tests/setup-bun.ts makes this work in Bun)
-const { mockExecFileSync } = vi.hoisted(() => ({
-  mockExecFileSync: vi.fn(() => ''),
-}));
+// Mock function for child_process vi.mock factory
+// Note: vi.hoisted() is unavailable in Bun — top-level declarations are hoisted naturally
+const mockExecFileSync = vi.fn(() => '');
 
 // Mock child_process — uses vi.mock because SUT imports execFileSync directly
 // Note: importOriginal not available in Bun, use static import + spread instead

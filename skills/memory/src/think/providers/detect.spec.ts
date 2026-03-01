@@ -4,11 +4,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { detectProvider, isProviderAvailable, getAvailableProviders } from './detect.js';
 
-// Mock child_process for isProviderAvailable tests
-// vi.hoisted() ensures the variable is available when vi.mock factory runs
-const { mockExecFileSync } = vi.hoisted(() => ({
-  mockExecFileSync: vi.fn(),
-}));
+// Top-level mock — Bun's vitest compat does not support vi.hoisted().
+// Declaring the mock fn before vi.mock() means the factory closure captures it.
+const mockExecFileSync = vi.fn();
 vi.mock('node:child_process', () => ({
   execFileSync: mockExecFileSync,
 }));

@@ -79,6 +79,7 @@ describe('renameAgent', () => {
         path.join(permanentPath, 'test-memory.md'),
         `---
 type: learning
+title: Test Memory
 ---
 Content`
       );

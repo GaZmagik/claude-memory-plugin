@@ -19,13 +19,10 @@ import * as originalChildProcess from 'node:child_process';
 // Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
 import * as fs from 'node:fs';
 
-// Hoist mock function for child_process vi.mock factory
-const { mockSpawn } = vi.hoisted(() => {
-  const mockUnref = vi.fn(() => undefined);
-  return {
-    mockSpawn: vi.fn(() => ({ unref: mockUnref })),
-  };
-});
+// Mock function for child_process vi.mock factory
+// Note: vi.hoisted() is unavailable in Bun — top-level declarations are hoisted naturally
+const mockUnref = vi.fn(() => undefined);
+const mockSpawn = vi.fn(() => ({ unref: mockUnref }));
 
 // Mock child_process — uses vi.mock because SUT dynamically imports spawn
 vi.mock('node:child_process', () => ({

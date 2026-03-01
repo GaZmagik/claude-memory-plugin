@@ -36,8 +36,8 @@ describe('Scope Resolver', () => {
   });
 
   describe('resolveScope', () => {
-    it('should resolve explicit global scope', () => {
-      const result = resolveScope({
+    it('should resolve explicit global scope', async () => {
+      const result = await resolveScope({
         requestedScope: Scope.Global,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -47,8 +47,8 @@ describe('Scope Resolver', () => {
       expect(result.path).toBe(globalMemoryDir);
     });
 
-    it('should resolve explicit project scope', () => {
-      const result = resolveScope({
+    it('should resolve explicit project scope', async () => {
+      const result = await resolveScope({
         requestedScope: Scope.Project,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -58,8 +58,8 @@ describe('Scope Resolver', () => {
       expect(result.path).toBe(path.join(testDir, '.claude', 'memory'));
     });
 
-    it('should resolve explicit local scope', () => {
-      const result = resolveScope({
+    it('should resolve explicit local scope', async () => {
+      const result = await resolveScope({
         requestedScope: Scope.Local,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -69,8 +69,8 @@ describe('Scope Resolver', () => {
       expect(result.path).toBe(path.join(testDir, '.claude', 'memory', 'local'));
     });
 
-    it('should reject enterprise scope when disabled', () => {
-      const result = resolveScope({
+    it('should reject enterprise scope when disabled', async () => {
+      const result = await resolveScope({
         requestedScope: Scope.Enterprise,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -82,10 +82,10 @@ describe('Scope Resolver', () => {
       expect(result.error).toContain('disabled');
     });
 
-    it('should resolve enterprise scope when enabled with path', () => {
+    it('should resolve enterprise scope when enabled with path', async () => {
       const enterprisePath = fs.mkdtempSync(path.join(tmpdir(), 'enterprise-'));
 
-      const result = resolveScope({
+      const result = await resolveScope({
         requestedScope: Scope.Enterprise,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -99,8 +99,8 @@ describe('Scope Resolver', () => {
       fs.rmSync(enterprisePath, { recursive: true, force: true });
     });
 
-    it('should reject enterprise scope when enabled but no path configured', () => {
-      const result = resolveScope({
+    it('should reject enterprise scope when enabled but no path configured', async () => {
+      const result = await resolveScope({
         requestedScope: Scope.Enterprise,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -114,44 +114,44 @@ describe('Scope Resolver', () => {
   });
 
   describe('getScopePath', () => {
-    it('should return global memory path for global scope', () => {
-      const result = getScopePath(Scope.Global, testDir, globalMemoryDir);
+    it('should return global memory path for global scope', async () => {
+      const result = await getScopePath(Scope.Global, testDir, globalMemoryDir);
       expect(result).toBe(globalMemoryDir);
     });
 
-    it('should return .claude/memory for project scope', () => {
-      const result = getScopePath(Scope.Project, testDir, globalMemoryDir);
+    it('should return .claude/memory for project scope', async () => {
+      const result = await getScopePath(Scope.Project, testDir, globalMemoryDir);
       expect(result).toBe(path.join(testDir, '.claude', 'memory'));
     });
 
-    it('should return .claude/memory/local for local scope', () => {
-      const result = getScopePath(Scope.Local, testDir, globalMemoryDir);
+    it('should return .claude/memory/local for local scope', async () => {
+      const result = await getScopePath(Scope.Local, testDir, globalMemoryDir);
       expect(result).toBe(path.join(testDir, '.claude', 'memory', 'local'));
     });
   });
 
   describe('getDefaultScope', () => {
-    it('should return project scope when in git repository', () => {
+    it('should return project scope when in git repository', async () => {
       // Create .git directory to simulate git repo
       fs.mkdirSync(path.join(testDir, '.git'));
 
-      const result = getDefaultScope(testDir);
+      const result = await getDefaultScope(testDir);
       expect(result).toBe(Scope.Project);
     });
 
-    it('should return global scope when not in git repository', () => {
+    it('should return global scope when not in git repository', async () => {
       // No .git directory
-      const result = getDefaultScope(testDir);
+      const result = await getDefaultScope(testDir);
       expect(result).toBe(Scope.Global);
     });
 
-    it('should check parent directories for .git', () => {
+    it('should check parent directories for .git', async () => {
       // Create nested directory structure
       const nestedDir = path.join(testDir, 'nested', 'deep', 'path');
       fs.mkdirSync(nestedDir, { recursive: true });
       fs.mkdirSync(path.join(testDir, '.git'));
 
-      const result = getDefaultScope(nestedDir);
+      const result = await getDefaultScope(nestedDir);
       expect(result).toBe(Scope.Project);
     });
   });
@@ -250,9 +250,9 @@ describe('Scope Resolver', () => {
   });
 
   describe('resolveScope without requestedScope', () => {
-    it('should use default scope when no scope requested', () => {
+    it('should use default scope when no scope requested', async () => {
       // In non-git directory, default is Global
-      const result = resolveScope({
+      const result = await resolveScope({
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
       });
@@ -261,10 +261,10 @@ describe('Scope Resolver', () => {
       expect(result.path).toBe(globalMemoryDir);
     });
 
-    it('should use project scope as default in git repo', () => {
+    it('should use project scope as default in git repo', async () => {
       fs.mkdirSync(path.join(testDir, '.git'));
 
-      const result = resolveScope({
+      const result = await resolveScope({
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
       });
@@ -272,8 +272,8 @@ describe('Scope Resolver', () => {
       expect(result.scope).toBe(Scope.Project);
     });
 
-    it('should handle unknown scope value', () => {
-      const result = resolveScope({
+    it('should handle unknown scope value', async () => {
+      const result = await resolveScope({
         requestedScope: 'invalid-scope' as Scope,
         cwd: testDir,
         globalMemoryPath: globalMemoryDir,
@@ -285,7 +285,7 @@ describe('Scope Resolver', () => {
   });
 
   describe('getDefaultScope with config', () => {
-    it('should use configured default scope', () => {
+    it('should use configured default scope', async () => {
       const configDir = path.join(testDir, '.claude');
       fs.mkdirSync(configDir, { recursive: true });
       fs.writeFileSync(
@@ -293,11 +293,11 @@ describe('Scope Resolver', () => {
         JSON.stringify({ scopes: { default: 'global' } })
       );
 
-      const result = getDefaultScope(testDir);
+      const result = await getDefaultScope(testDir);
       expect(result).toBe(Scope.Global);
     });
 
-    it('should ignore invalid configured default scope', () => {
+    it('should ignore invalid configured default scope', async () => {
       const configDir = path.join(testDir, '.claude');
       fs.mkdirSync(configDir, { recursive: true });
       fs.writeFileSync(
@@ -306,7 +306,7 @@ describe('Scope Resolver', () => {
       );
 
       // Should fall back to default behavior (global when no git)
-      const result = getDefaultScope(testDir);
+      const result = await getDefaultScope(testDir);
       expect(result).toBe(Scope.Global);
     });
   });
@@ -412,15 +412,15 @@ describe('Scope Resolver', () => {
   });
 
   describe('getScopePath with enterprise', () => {
-    it('should return enterprise path for enterprise scope', () => {
+    it('should return enterprise path for enterprise scope', async () => {
       const enterprisePath = '/enterprise/memory';
-      const result = getScopePath(Scope.Enterprise, testDir, globalMemoryDir, enterprisePath);
+      const result = await getScopePath(Scope.Enterprise, testDir, globalMemoryDir, enterprisePath);
 
       expect(result).toBe(enterprisePath);
     });
 
-    it('should return empty string for enterprise scope without path', () => {
-      const result = getScopePath(Scope.Enterprise, testDir, globalMemoryDir);
+    it('should return empty string for enterprise scope without path', async () => {
+      const result = await getScopePath(Scope.Enterprise, testDir, globalMemoryDir);
 
       expect(result).toBe('');
     });

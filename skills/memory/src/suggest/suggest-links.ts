@@ -251,7 +251,7 @@ export async function suggestLinks(
   // When --all-scopes, load embeddings from ALL scopes (project, global, all agents)
   if (allScopes) {
     try {
-      const projectPath = getScopePath(Scope.Project, cwd, '');
+      const projectPath = await getScopePath(Scope.Project, cwd, '');
       const scopePaths = new Set<string>([projectPath, globalPath]);
 
       // Scan for all agent scopes

@@ -38,7 +38,7 @@ const log = createLogger('think-thoughts');
 /**
  * Get scope path from context
  */
-function resolveScopePath(scope: Scope, basePath: string, globalPath: string): string {
+async function resolveScopePath(scope: Scope, basePath: string, globalPath: string): Promise<string> {
   return getScopePath(scope, basePath, globalPath);
 }
 
@@ -68,7 +68,7 @@ export async function addThought(
   if (!documentId) {
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
-      const scopePath = resolveScopePath(scope, basePath, globalPath);
+      const scopePath = await resolveScopePath(scope, basePath, globalPath);
       const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
@@ -97,7 +97,7 @@ export async function addThought(
     documentScope = result.scope;
   }
 
-  const scopePath = resolveScopePath(documentScope, basePath, globalPath);
+  const scopePath = await resolveScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
   if (!(await fileExists(filePath))) {
@@ -287,7 +287,7 @@ export async function useThinkDocument(
     };
   }
 
-  const scopePath = resolveScopePath(result.scope, basePath, globalPath);
+  const scopePath = await resolveScopePath(result.scope, basePath, globalPath);
 
   // Get previous current
   const previousId = await getCurrentDocumentId(scopePath);
@@ -317,7 +317,7 @@ export async function getCurrentThinkContext(
   globalPath: string
 ): Promise<{ documentId: string; scope: Scope; topic: string } | null> {
   for (const scope of [Scope.Project, Scope.Local]) {
-    const scopePath = resolveScopePath(scope, basePath, globalPath);
+    const scopePath = await resolveScopePath(scope, basePath, globalPath);
     const state = await loadState(scopePath);
 
     if (state.currentDocumentId) {

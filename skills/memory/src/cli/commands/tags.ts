@@ -40,8 +40,8 @@ export async function cmdTag(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -81,8 +81,8 @@ export async function cmdUntag(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {

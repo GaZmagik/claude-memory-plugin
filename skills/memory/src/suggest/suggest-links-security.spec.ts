@@ -133,8 +133,8 @@ describe('LLM prompt injection protection', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
     vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
     const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('related');
@@ -179,8 +179,8 @@ describe('LLM response validation', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
     vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
     // LLM returns a multi-line injection response
@@ -221,8 +221,8 @@ describe('LLM response validation', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
     vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
     vi.spyOn(ollamaModule, 'generate').mockResolvedValue('a'.repeat(100));
@@ -264,8 +264,8 @@ describe('auto-link error logging', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
     vi.spyOn(linkModule, 'linkMemories').mockRejectedValue(new Error('Permission denied'));
     const stderrSpy = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);

@@ -48,8 +48,8 @@ export async function cmdSync(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   const dryRun = args.flags['dry-run'] === true;
 
@@ -94,8 +94,8 @@ export async function cmdRepair(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   const dryRun = args.flags['dry-run'] === true;
 
@@ -137,7 +137,7 @@ export async function cmdRepair(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdRebuild(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -164,7 +164,7 @@ export async function cmdReindex(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -184,7 +184,7 @@ export async function cmdReindex(args: ParsedArgs): Promise<CliResponse> {
  */
 export async function cmdPrune(args: ParsedArgs): Promise<CliResponse> {
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const ttlDays = args.flags.ttl ? Number(args.flags.ttl) : undefined;
   const concludedTtlDays = args.flags['concluded-ttl'] ? Number(args.flags['concluded-ttl']) : undefined;
   const dryRun = args.flags['dry-run'] === true;
@@ -214,7 +214,7 @@ export async function cmdPrune(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdSyncFrontmatter(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const dryRun = args.flags['dry-run'] === true;
 
   return wrapOperation(
@@ -248,7 +248,7 @@ export async function cmdSyncFrontmatter(args: ParsedArgs): Promise<CliResponse>
 export async function cmdRefresh(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const dryRun = args.flags['dry-run'] === true;
   const project = getFlagString(args.flags, 'project');
   const idFlag = getFlagString(args.flags, 'id');
@@ -388,8 +388,8 @@ export async function cmdIndexContext(args: ParsedArgs): Promise<CliResponse> {
 
   // Choose helper based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   const dryRun = args.flags['dry-run'] === true;
 

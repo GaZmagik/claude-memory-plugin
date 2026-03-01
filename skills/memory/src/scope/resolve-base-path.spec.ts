@@ -9,7 +9,8 @@
  *   - Missing agent name for agent scopes (returns error)
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { resolveBasePath } from './resolve-base-path.js';
 import { Scope } from '../types/enums.js';
 
@@ -33,6 +34,10 @@ describe('resolveBasePath', () => {
   afterEach(() => {
     process.cwd = originalCwd;
     vi.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   // -------------------------------------------------------------------------

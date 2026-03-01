@@ -2,13 +2,18 @@
  * Tests for confirmation.ts - Interactive confirmation utility
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { confirmDeletion, shouldConfirm } from './confirmation.js';
 
 // Mock prompts library
 vi.mock('prompts', () => ({
   default: vi.fn(),
 }));
+
+afterAll(() => {
+  mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
+});
 
 describe('confirmDeletion', () => {
   let mockPrompts: ReturnType<typeof vi.fn>;

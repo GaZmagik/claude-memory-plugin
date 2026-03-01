@@ -5,7 +5,8 @@
  * asking if the user wants AI assistance.
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, afterAll, vi } from 'vitest';
+import { mock } from 'bun:test';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -30,6 +31,10 @@ describe('Interactive Prompt Triggering', () => {
   afterEach(() => {
     fs.rmSync(testDir, { recursive: true, force: true });
     vi.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   describe('complex thought triggers prompt', () => {

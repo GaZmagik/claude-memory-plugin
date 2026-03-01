@@ -84,9 +84,9 @@ describe('scoreGraphConnectivity', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'mem-a', type: 'decision', scope: Scope.Project },
-        { id: 'mem-b', type: 'artifact', scope: Scope.Project },
-        { id: 'mem-c', type: 'learning', scope: Scope.Project },
+        { id: 'mem-a', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'mem-b', type: MemoryType.Artifact, scope: Scope.Project },
+        { id: 'mem-c', type: MemoryType.Learning, scope: Scope.Project },
       ],
       edges: [
         { source: 'mem-a', target: 'mem-b', label: 'relates-to' },
@@ -100,9 +100,9 @@ describe('scoreGraphConnectivity', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'mem-a', type: 'decision', scope: Scope.Project },
-        { id: 'mem-b', type: 'learning', scope: Scope.Global },
-        { id: 'mem-c', type: 'gotcha', scope: Scope.Global },
+        { id: 'mem-a', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'mem-b', type: MemoryType.Learning, scope: Scope.Global },
+        { id: 'mem-c', type: MemoryType.Gotcha, scope: Scope.Global },
       ],
       edges: [
         { source: 'mem-a', target: 'mem-b', label: 'relates-to' },
@@ -187,8 +187,8 @@ describe('scoring — High band memory not migration candidate', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'mem-x', type: 'decision', scope: Scope.Project },
-        { id: 'mem-y', type: 'artifact', scope: Scope.Project },
+        { id: 'mem-x', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'mem-y', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [{ source: 'mem-x', target: 'mem-y', label: 'relates-to' }],
     };
@@ -218,8 +218,8 @@ describe('scoring — None band memory has suggested scope', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'mem-z', type: 'breadcrumb', scope: Scope.Global },
-        { id: 'mem-w', type: 'artifact', scope: Scope.Project },
+        { id: 'mem-z', type: MemoryType.Breadcrumb, scope: Scope.Global },
+        { id: 'mem-w', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [{ source: 'mem-z', target: 'mem-w', label: 'relates-to' }],
     };
@@ -338,9 +338,9 @@ describe('checkRelevance --auto-move --confirm', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'misplaced-mem', type: 'learning', scope: Scope.Project },
-        { id: 'well-placed-mem', type: 'decision', scope: Scope.Project },
-        { id: 'peer', type: 'artifact', scope: Scope.Project },
+        { id: 'misplaced-mem', type: MemoryType.Learning, scope: Scope.Project },
+        { id: 'well-placed-mem', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'peer', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [
         { source: 'well-placed-mem', target: 'peer', label: 'relates-to' },
@@ -418,9 +418,9 @@ describe('checkRelevance --threshold override', () => {
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
       nodes: [
-        { id: 'misplaced-mem', type: 'learning', scope: Scope.Project },
-        { id: 'high-mem', type: 'decision', scope: Scope.Project },
-        { id: 'peer', type: 'artifact', scope: Scope.Project },
+        { id: 'misplaced-mem', type: MemoryType.Learning, scope: Scope.Project },
+        { id: 'high-mem', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'peer', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [{ source: 'high-mem', target: 'peer', label: 'relates-to' }],
     });
@@ -483,7 +483,7 @@ describe('checkRelevance --dry-run', () => {
 
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
-      nodes: [{ id: 'misplaced-mem', type: 'learning', scope: Scope.Project }],
+      nodes: [{ id: 'misplaced-mem', type: MemoryType.Learning, scope: Scope.Project }],
       edges: [],
     });
 
@@ -681,7 +681,7 @@ describe('checkRelevance --auto-move with missing target structure', () => {
 
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
-      nodes: [{ id: 'misplaced-mem', type: 'learning', scope: Scope.Project }],
+      nodes: [{ id: 'misplaced-mem', type: MemoryType.Learning, scope: Scope.Project }],
       edges: [],
     });
 
@@ -726,8 +726,8 @@ describe('scoring function I/O contract', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'mem-a', type: 'decision', scope: Scope.Project },
-        { id: 'mem-b', type: 'artifact', scope: Scope.Project },
+        { id: 'mem-a', type: MemoryType.Decision, scope: Scope.Project },
+        { id: 'mem-b', type: MemoryType.Artifact, scope: Scope.Project },
       ],
       edges: [{ source: 'mem-a', target: 'mem-b', label: 'relates-to' }],
     };
@@ -814,7 +814,7 @@ describe('checkRelevance --auto-move Global scope path', () => {
 
     vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
       version: 1,
-      nodes: [{ id: 'misplaced-learning', type: 'learning', scope: Scope.Project }],
+      nodes: [{ id: 'misplaced-learning', type: MemoryType.Learning, scope: Scope.Project }],
       edges: [],
     });
 

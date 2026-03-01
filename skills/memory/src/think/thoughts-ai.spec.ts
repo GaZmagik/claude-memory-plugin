@@ -4,7 +4,8 @@
  * Separated to allow mock.module isolation (run in separate process)
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -35,6 +36,10 @@ vi.mock('./ai-invoke.js', () => ({
 // Static imports - vi.mock is hoisted so these see the mocked module
 import { addThought } from './thoughts.js';
 import { createThinkDocument } from './document.js';
+
+afterAll(() => {
+  mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
+});
 
 describe('think/thoughts AI invocation', () => {
   let tempDir: string;

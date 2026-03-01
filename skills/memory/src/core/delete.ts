@@ -117,6 +117,9 @@ export async function deleteMemory(request: DeleteMemoryRequest): Promise<Delete
     return { status: 'error', error: basePathResult.error };
   }
   const basePath = basePathResult.basePath;
+  if (!basePath) {
+    return { status: "error", error: "Failed to resolve base path" };
+  }
 
   try {
     // Check if node is a read-only external node BEFORE any deletion

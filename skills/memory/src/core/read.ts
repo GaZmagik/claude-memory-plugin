@@ -78,6 +78,9 @@ export async function readMemory(request: ReadMemoryRequest): Promise<ReadMemory
     return { status: 'error', error: basePathResult.error };
   }
   const basePath = basePathResult.basePath;
+  if (!basePath) {
+    return { status: "error", error: "Failed to resolve base path" };
+  }
 
   try {
     // Try to find in index first

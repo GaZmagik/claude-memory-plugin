@@ -4,7 +4,8 @@
  * D-T1–D-T5: availability check, timeout, happy path, host config, import isolation.
  */
 
-import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
@@ -30,6 +31,10 @@ function mockOllamaClient(overrides: {
     list:     overrides.list     ?? vi.fn().mockRejectedValue(new Error('Not set')),
   } as any));
 }
+
+afterAll(() => {
+  mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
+});
 
 // ============================================================================
 // D-T1 — T056: isAvailable() returns false without throwing when Ollama not running

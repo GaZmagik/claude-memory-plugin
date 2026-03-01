@@ -171,6 +171,9 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
     return { status: 'error', error: basePathResult.error };
   }
   const basePath = basePathResult.basePath;
+  if (!basePath) {
+    return { status: "error", error: "Failed to resolve base path" };
+  }
 
   try {
     const index = await loadIndex({ basePath });

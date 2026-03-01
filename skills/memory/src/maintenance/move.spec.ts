@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { moveMemory } from './move.js';
 import type { MoveRequest } from './move.js';
-import { Scope } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -401,7 +401,7 @@ Content`
     vi.spyOn(structureModule, 'loadGraph').mockImplementation(async (basePath) => {
       loadCount++;
       if (basePath === projectPath) {
-        return { version: 1, nodes: [{ id: 'learning-newgraph', type: 'learning' }], edges: [] };
+        return { version: 1, nodes: [{ id: 'learning-newgraph', type: 'learning' as MemoryType }], edges: [] };
       }
       // Target - throw to trigger catch block
       throw new Error('Graph not found');

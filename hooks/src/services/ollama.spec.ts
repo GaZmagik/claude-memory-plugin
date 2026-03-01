@@ -10,7 +10,8 @@
  * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 
 // Mock the ollama module before any imports
 const mockGenerate = vi.fn();
@@ -35,6 +36,10 @@ describe('ollama service', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   describe('generate', () => {

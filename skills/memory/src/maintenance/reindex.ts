@@ -170,7 +170,7 @@ export async function reindexMemory(request: ReindexRequest): Promise<ReindexRes
   if (!hasNode(graph, id)) {
     graph = addNode(graph, {
       id,
-      type: String(frontmatter.type),
+      type: String(frontmatter.type) as MemoryType,
     });
     await saveGraph(basePath, graph);
     actions.addedToGraph = true;

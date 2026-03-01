@@ -6,6 +6,7 @@
 
 import type { MemoryGraph, GraphEdge } from './structure.js';
 import { hasNode } from './structure.js';
+import { Scope } from '../types/enums.js';
 
 export type { MemoryGraph };
 
@@ -89,8 +90,8 @@ export function addEdge(
 
   // Spread cross-scope metadata if provided (only defined values)
   if (metadata) {
-    if (metadata.sourceScope) edge.sourceScope = metadata.sourceScope;
-    if (metadata.targetScope) edge.targetScope = metadata.targetScope;
+    if (metadata.sourceScope) edge.sourceScope = metadata.sourceScope as Scope;
+    if (metadata.targetScope) edge.targetScope = metadata.targetScope as Scope;
     if (metadata.sourceAgent) edge.sourceAgent = metadata.sourceAgent;
     if (metadata.targetAgent) edge.targetAgent = metadata.targetAgent;
     if (metadata.similarity !== undefined) {

@@ -5,10 +5,10 @@
  * Uses ollama-js for embeddings and pure TypeScript for cosine similarity.
  */
 
-import { readFile, writeFile, mkdir, stat, readdir, unlink, utimes } from 'fs/promises';
+import { readFile, writeFile, mkdir, stat, readdir, unlink, utimes } from 'node:fs/promises';
 import { createHash } from 'crypto';
-import { join } from 'path';
-import { homedir } from 'os';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 import { embed } from './ollama.ts';
 
 // Configuration

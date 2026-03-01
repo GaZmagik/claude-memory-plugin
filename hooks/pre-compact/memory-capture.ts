@@ -12,12 +12,12 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
-import { execFileSync } from 'child_process';
+import { existsSync, unlinkSync, mkdirSync, writeFileSync, appendFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import {
-  isForkedSession,
+  isMemoryCaptureSession,
   getLogDir,
   spawnSessionWithContext,
   findPluginDir,
@@ -26,7 +26,7 @@ import { extractContextAsSystemPrompt } from '../src/session/extract-context.ts'
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
-  if (isForkedSession()) {
+  if (isMemoryCaptureSession()) {
     return allow();
   }
 

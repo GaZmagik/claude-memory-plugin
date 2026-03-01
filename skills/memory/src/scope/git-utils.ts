@@ -5,7 +5,7 @@
  * and finds the repository root.
  */
 
-import * as fs from 'node:fs';
+import { access } from 'node:fs/promises';
 import * as path from 'node:path';
 
 /**
@@ -31,10 +31,11 @@ import * as path from 'node:path';
  * hasGitDirectory('/tmp'); // false
  * ```
  */
-export function hasGitDirectory(dirPath: string): boolean {
+export async function hasGitDirectory(dirPath: string): Promise<boolean> {
   const gitPath = path.join(dirPath, '.git');
   try {
-    return fs.existsSync(gitPath);
+    await access(gitPath);
+    return true;
   } catch {
     return false;
   }
@@ -69,19 +70,19 @@ export function hasGitDirectory(dirPath: string): boolean {
  * const fromRelative = findGitRoot('./src');
  * ```
  */
-export function findGitRoot(startPath: string): string | null {
+export async function findGitRoot(startPath: string): Promise<string | null> {
   let currentPath = path.resolve(startPath);
   const root = path.parse(currentPath).root;
 
   while (currentPath !== root) {
-    if (hasGitDirectory(currentPath)) {
+    if (await hasGitDirectory(currentPath)) {
       return currentPath;
     }
     currentPath = path.dirname(currentPath);
   }
 
   // Check root directory as well
-  if (hasGitDirectory(root)) {
+  if (await hasGitDirectory(root)) {
     return root;
   }
 
@@ -114,8 +115,8 @@ export function findGitRoot(startPath: string): string | null {
  * const scope = isInGitRepository(targetPath) ? 'project' : 'global';
  * ```
  */
-export function isInGitRepository(dirPath: string): boolean {
-  return findGitRoot(dirPath) !== null;
+export async function isInGitRepository(dirPath: string): Promise<boolean> {
+  return (await findGitRoot(dirPath)) !== null;
 }
 
 /**
@@ -148,8 +149,8 @@ export function isInGitRepository(dirPath: string): boolean {
  * console.log(notInRepo); // null
  * ```
  */
-export function getRelativePathFromGitRoot(targetPath: string): string | null {
-  const gitRoot = findGitRoot(targetPath);
+export async function getRelativePathFromGitRoot(targetPath: string): Promise<string | null> {
+  const gitRoot = await findGitRoot(targetPath);
   if (!gitRoot) {
     return null;
   }
@@ -188,8 +189,8 @@ export function getRelativePathFromGitRoot(targetPath: string): string | null {
  * const memoryPath = `.claude/memory/${getProjectName(cwd) ?? 'global'}`;
  * ```
  */
-export function getProjectName(dirPath: string): string | null {
-  const gitRoot = findGitRoot(dirPath);
+export async function getProjectName(dirPath: string): Promise<string | null> {
+  const gitRoot = await findGitRoot(dirPath);
   if (!gitRoot) {
     return null;
   }

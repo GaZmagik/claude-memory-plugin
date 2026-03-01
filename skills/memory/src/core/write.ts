@@ -6,9 +6,9 @@
 
 import * as path from 'node:path';
 import * as os from 'node:os';
-import { unsafeAsMemoryId } from '../types/branded.js';
+import { unsafeAsMemoryId, type MemoryId } from '../types/branded.js';
 import type { WriteMemoryRequest, WriteMemoryResponse } from '../types/api.js';
-import type { IndexEntry } from '../types/memory.js';
+import type { IndexEntry, MemoryFrontmatter } from '../types/memory.js';
 import { MemoryType, Scope } from '../types/enums.js';
 import { generateUniqueId } from './slug.js';
 import { createFrontmatter, serialiseMemoryFile } from './frontmatter.js';
@@ -26,8 +26,11 @@ import {
   generateContentHash,
   type EmbeddingProvider,
 } from '../search/embedding.js';
-import { loadGraph, saveGraph, addNode, hasNode } from '../graph/structure.js';
+import { loadGraph, saveGraph, addNode, hasNode, type MemoryGraph } from '../graph/structure.js';
 import { isAgentScope } from '../scope/is-agent-scope.js';
+import { sanitiseAgentName } from '../scope/sanitise-agent-name.js';
+import { validateAgentName } from '../scope/validate-agent-name.js';
+import { createAgentDirectory } from '../storage/create-agent-directory.js';
 
 const log = createLogger('write');
 
@@ -125,9 +128,9 @@ async function findSimilarTitles(
     for (const memory of index.memories) {
       if (memory.id === excludeId) continue;
 
-      const memoryWords = getWords(memory.title);
-      const commonWords = titleWords.filter(w => memoryWords.includes(w)).length;
-      const similarity = commonWords / Math.max(titleWords.length, memoryWords.length);
+      const memoryWordSet = new Set(getWords(memory.title));
+      const commonWords = titleWords.filter(w => memoryWordSet.has(w)).length;
+      const similarity = commonWords / Math.max(titleWords.length, memoryWordSet.size);
 
       // Only include if 2+ words in common OR single word that dominates the titles
       if (commonWords >= 2 && similarity > 0.4) {
@@ -245,6 +248,174 @@ async function performAutoLink(
 }
 
 /**
+ * Resolve the base path for writing, handling agent scope directory creation.
+ * Mutates request.agent to the sanitised form when agent scope is used.
+ */
+async function resolveWriteBasePath(
+  request: WriteMemoryRequest
+): Promise<{ basePath: string } | { error: string }> {
+  if (request.scope && isAgentScope(request.scope)) {
+    if (!request.agent) {
+      return { error: 'agent field is required for agent scopes' };
+    }
+
+    const sanitisedAgent = sanitiseAgentName(request.agent);
+    const agentValidation = validateAgentName(sanitisedAgent);
+    if (!agentValidation.valid) {
+      return { error: agentValidation.error ?? 'Invalid agent name' };
+    }
+
+    // Use sanitised agent name from now on
+    request.agent = sanitisedAgent;
+
+    const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
+    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
+
+    const basePath = await createAgentDirectory(
+      request.scope,
+      request.agent,
+      projectRoot,
+      globalRoot
+    );
+    return { basePath };
+  }
+
+  return { basePath: request.basePath ?? process.cwd() };
+}
+
+/**
+ * Generate or validate a custom memory ID.
+ * Custom IDs must have a prefix matching the memory type.
+ */
+function resolveAndValidateId(
+  request: WriteMemoryRequest,
+  basePath: string
+): { id: MemoryId } | { error: string } {
+  const id = request.id
+    ? unsafeAsMemoryId(request.id)
+    : generateUniqueId(request.type, request.title, basePath);
+
+  if (request.id) {
+    const expectedPrefix = `${request.type}-`;
+    if (!request.id.startsWith(expectedPrefix)) {
+      const actualPrefix = request.id.split('-')[0];
+      log.error('ID prefix mismatch', { id: request.id, type: request.type });
+      return {
+        error: `ID prefix "${actualPrefix}" does not match type "${request.type}". Custom IDs must start with "${expectedPrefix}"`,
+      };
+    }
+  }
+
+  return { id };
+}
+
+/**
+ * Check cross-scope duplicates and read-only node guards.
+ * Must be called after graph is loaded (TOCTOU ordering constraint).
+ */
+async function guardWritePermission(
+  id: MemoryId,
+  basePath: string,
+  graph: MemoryGraph,
+  projectRoot?: string
+): Promise<{ error: string } | null> {
+  const duplicatePath = await checkCrossScopeDuplicate(id, basePath, projectRoot);
+  if (duplicatePath) {
+    log.error('Duplicate ID in another scope', { id, path: duplicatePath });
+    return {
+      error: `Memory with ID "${id}" already exists in another scope: ${duplicatePath}`,
+    };
+  }
+
+  const existingNode = graph.nodes.find(n => n.id === id);
+  if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
+    return {
+      error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Create frontmatter, serialise content, write file atomically, and update index.
+ */
+async function writeMemoryFile(
+  request: WriteMemoryRequest,
+  id: MemoryId,
+  tags: string[],
+  basePath: string
+): Promise<{ filePath: string; frontmatter: MemoryFrontmatter }> {
+  const frontmatter = createFrontmatter({
+    id,
+    type: request.type,
+    title: request.title,
+    tags,
+    scope: request.scope,
+    agent: request.agent,
+    project: request.project,
+    severity: request.severity,
+    links: request.links?.map(unsafeAsMemoryId),
+    source: request.source,
+    meta: request.meta,
+    created: request.created,
+    updated: request.updated,
+  });
+
+  const fileContent = serialiseMemoryFile(frontmatter, request.content);
+
+  const subdir = request.type === MemoryType.Breadcrumb ? 'temporary' : 'permanent';
+  const memoryDir = path.join(basePath, subdir);
+  await ensureDir(memoryDir);
+
+  const filePath = path.join(memoryDir, `${id}.md`);
+  await writeFileAtomic(filePath, fileContent);
+
+  const relativePath = path.join(subdir, `${id}.md`);
+  const indexEntry: IndexEntry = {
+    id,
+    type: request.type,
+    title: request.title,
+    tags,
+    created: frontmatter.created,
+    updated: frontmatter.updated,
+    scope: request.scope,
+    relativePath,
+    severity: request.severity,
+  };
+
+  await addToIndex(basePath, indexEntry);
+
+  return { filePath, frontmatter };
+}
+
+/**
+ * Add a node to the relationship graph if not already present.
+ * Graph update is best-effort — sync.ts can fix inconsistencies later.
+ */
+async function ensureGraphNode(
+  graph: MemoryGraph,
+  id: MemoryId,
+  request: WriteMemoryRequest,
+  basePath: string
+): Promise<void> {
+  try {
+    if (!hasNode(graph, id)) {
+      const updated = addNode(graph, {
+        id,
+        type: request.type,
+        title: request.title,
+        scope: request.scope,
+        agent: request.agent,
+      });
+      await saveGraph(basePath, updated);
+    }
+  } catch {
+    log.warn('Failed to add graph node', { id });
+  }
+}
+
+/**
  * Write a new memory or update an existing one.
  *
  * Creates a memory file with YAML frontmatter and markdown content, updates
@@ -311,186 +482,62 @@ async function performAutoLink(
  * });
  */
 export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMemoryResponse> {
-  // Validate request
+  // 1. Validate request
   const validation = validateWriteRequest(request);
   if (!validation.valid) {
     const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
     log.error('Validation failed', { errors: errorMessages });
-    return {
-      status: 'error',
-      error: errorMessages,
-    };
+    return { status: 'error', error: errorMessages };
   }
 
-  // Resolve base path (handle agent scopes)
-  let basePath: string;
-  if (request.scope && isAgentScope(request.scope)) {
-    // Agent scope - resolve agent directory
-    if (!request.agent) {
-      return {
-        status: 'error',
-        error: 'agent field is required for agent scopes',
-      };
-    }
-
-    // Sanitise agent name first
-    const { sanitiseAgentName } = await import('../scope/sanitise-agent-name.js');
-    const sanitisedAgent = sanitiseAgentName(request.agent);
-
-    // Then validate the sanitised name
-    const { validateAgentName } = await import('../scope/validate-agent-name.js');
-    const validation = validateAgentName(sanitisedAgent);
-    if (!validation.valid) {
-      return {
-        status: 'error',
-        error: validation.error ?? 'Invalid agent name',
-      };
-    }
-
-    // Use sanitised agent name from now on
-    request.agent = sanitisedAgent;
-
-    const { createAgentDirectory } = await import('../storage/create-agent-directory.js');
-    const projectRoot = request.scope === Scope.AgentProject ? (request.projectRoot ?? process.cwd()) : undefined;
-    // For global agent scope, we need to construct the global path
-    // This should come from a config or default location
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
-
-    basePath = await createAgentDirectory(
-      request.scope,
-      request.agent,
-      projectRoot,
-      globalRoot
-    );
-  } else {
-    // Regular scope - use existing resolution
-    basePath = request.basePath ?? process.cwd();
+  // 2. Resolve base path (handles agent scope directory creation + sanitisation)
+  const basePathResult = await resolveWriteBasePath(request);
+  if ('error' in basePathResult) {
+    return { status: 'error', error: basePathResult.error };
   }
+  const { basePath } = basePathResult;
 
   try {
-    // Ensure directory exists
-    ensureDir(basePath);
-
-    // Handle gitignore automation for local scope
+    // 3. Ensure directory and gitignore
+    await ensureDir(basePath);
     if (request.scope === Scope.Local && request.projectRoot) {
-      ensureLocalScopeGitignored(request.projectRoot);
+      await ensureLocalScopeGitignored(request.projectRoot);
     }
 
-    // Use provided ID or generate unique ID
-    const id = request.id
-      ? unsafeAsMemoryId(request.id)
-      : generateUniqueId(request.type, request.title, basePath);
-
-    // Validate custom ID prefix matches type
-    if (request.id) {
-      const expectedPrefix = `${request.type}-`;
-      if (!request.id.startsWith(expectedPrefix)) {
-        const actualPrefix = request.id.split('-')[0];
-        log.error('ID prefix mismatch', { id: request.id, type: request.type });
-        return {
-          status: 'error',
-          error: `ID prefix "${actualPrefix}" does not match type "${request.type}". Custom IDs must start with "${expectedPrefix}"`,
-        };
-      }
+    // 4. Resolve and validate ID
+    const idResult = resolveAndValidateId(request, basePath);
+    if ('error' in idResult) {
+      return { status: 'error', error: idResult.error };
     }
+    const { id } = idResult;
 
-    // Check for cross-scope duplicates
-    const duplicatePath = await checkCrossScopeDuplicate(id, basePath, request.projectRoot);
-    if (duplicatePath) {
-      log.error('Duplicate ID in another scope', { id, path: duplicatePath });
-      return {
-        status: 'error',
-        error: `Memory with ID "${id}" already exists in another scope: ${duplicatePath}`,
-      };
-    }
-
-    // SECURITY: Check if node is read-only external node BEFORE any file operations (prevent TOCTOU)
+    // 5. Load graph (TOCTOU anchor — must precede any file I/O guards)
     const graph = await loadGraph(basePath);
-    const existingNode = graph.nodes.find((n: any) => n.id === id);
-    if (existingNode && (existingNode.type === MemoryType.Rule || existingNode.type === MemoryType.Reminder)) {
-      return {
-        status: 'error',
-        error: `'${id}' is a read-only external node (${existingNode.type}). Run 'memory sync' to refresh it.`,
-      };
+
+    // 6. Guard write permission (cross-scope duplicates + read-only nodes)
+    const guard = await guardWritePermission(id, basePath, graph, request.projectRoot);
+    if (guard) {
+      return { status: 'error', error: guard.error };
     }
 
-    // Check for similar titles (warning, not error)
+    // 7. Check for similar titles (warning, not error)
     const similarTitles = await findSimilarTitles(request.title, basePath, id);
 
-    // Merge user tags with auto-generated scope tag
+    // 8. Merge user tags with scope tag
     const tags = mergeTagsWithScope(request.tags, request.scope);
 
-    // Create frontmatter with id, scope, agent, and project
-    const frontmatter = createFrontmatter({
-      id,
-      type: request.type,
-      title: request.title,
-      tags,
-      scope: request.scope,
-      agent: request.agent,
-      project: request.project,
-      severity: request.severity,
-      links: request.links?.map(unsafeAsMemoryId),
-      source: request.source,
-      meta: request.meta,
-      created: request.created,
-      updated: request.updated,
-    });
+    // 9. Write memory file and update index
+    const { filePath, frontmatter } = await writeMemoryFile(request, id, tags, basePath);
 
-    // Serialise to file content
-    const fileContent = serialiseMemoryFile(frontmatter, request.content);
-
-    // Determine subdirectory based on memory type
-    // Breadcrumb = temporary, everything else = permanent
-    const subdir = request.type === MemoryType.Breadcrumb ? 'temporary' : 'permanent';
-    const memoryDir = path.join(basePath, subdir);
-    await ensureDir(memoryDir);
-
-    // Write file
-    const filePath = path.join(memoryDir, `${id}.md`);
-    await writeFileAtomic(filePath, fileContent);
-
-    // Update index
-    const relativePath = path.join(subdir, `${id}.md`);
-    const indexEntry: IndexEntry = {
-      id,
-      type: request.type,
-      title: request.title,
-      tags,
-      created: frontmatter.created,
-      updated: frontmatter.updated,
-      scope: request.scope,
-      relativePath,
-      severity: request.severity,
-    };
-
-    await addToIndex(basePath, indexEntry);
-
-    // Add node to graph if not present
-    try {
-      let graph = await loadGraph(basePath);
-
-      if (!hasNode(graph, id)) {
-        graph = addNode(graph, {
-          id,
-          type: request.type,
-          title: request.title,
-          scope: request.scope,
-          agent: request.agent,
-        });
-        await saveGraph(basePath, graph);
-      }
-    } catch {
-      // Graph update is best-effort - sync.ts can fix later
-      log.warn('Failed to add graph node', { id });
-    }
+    // 10. Add graph node
+    await ensureGraphNode(graph, id, request, basePath);
 
     log.info('Wrote memory', { id, path: filePath });
 
-    // Always attempt embedding generation (best effort)
+    // 11. Generate embedding (best effort)
     await generateAndCacheEmbedding(id, request.content, basePath, request.embeddingProvider);
 
-    // Auto-link if requested
+    // 12. Auto-link if requested
     let autoLinked: number | undefined;
     if (request.autoLink) {
       autoLinked = await performAutoLink(
@@ -505,6 +552,7 @@ export async function writeMemory(request: WriteMemoryRequest): Promise<WriteMem
       }
     }
 
+    // 13. Return success response
     return {
       status: 'success',
       memory: {

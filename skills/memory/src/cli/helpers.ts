@@ -23,7 +23,7 @@ export function getGlobalMemoryPath(): string {
  *
  * Uses the 3-param signature for getScopePath as required.
  */
-export function getResolvedScopePath(scope: Scope): string {
+export async function getResolvedScopePath(scope: Scope): Promise<string> {
   const cwd = process.cwd();
   const globalPath = getGlobalMemoryPath();
   return getScopePath(scope, cwd, globalPath);
@@ -43,10 +43,10 @@ export function getResolvedScopePath(scope: Scope): string {
  * resolveAgentScopePath('rust-expert', 'global') // Explicit scope
  * resolveAgentScopePath('api-architect', 'agent-project') // Agent scope
  */
-export function resolveAgentScopePath(
+export async function resolveAgentScopePath(
   agentName: string,
   scopeStr?: string
-): string {
+): Promise<string> {
   // Validate agent name first
   const validation = validateAgentName(agentName);
   if (!validation.valid) {
@@ -72,11 +72,11 @@ export function resolveAgentScopePath(
     }
   } else {
     // No explicit scope - get default for agent context
-    scope = getDefaultScope({ cwd, globalMemoryPath, agentName });
+    scope = await getDefaultScope({ cwd, globalMemoryPath, agentName });
   }
 
   // Resolve the scope with agent context
-  const resolution = resolveScope({
+  const resolution = await resolveScope({
     requestedScope: scope,
     cwd,
     globalMemoryPath,
@@ -172,29 +172,30 @@ export function parseMemoryType(typeStr: string | undefined): MemoryType | undef
  * //   '/home/user/.claude/memory'
  * // ]
  */
-export function resolveSharedScopePaths(
+export async function resolveSharedScopePaths(
   agentName: string,
   scopeStr?: string
-): string[] {
+): Promise<string[]> {
   const cwd = process.cwd();
   const globalMemoryPath = getGlobalMemoryPath();
 
   // 1. Agent scope (primary) - validates agent name
-  const agentPath = resolveAgentScopePath(agentName, scopeStr);
+  const agentPath = await resolveAgentScopePath(agentName, scopeStr);
 
   // 2. Shared scopes (in order: local → project)
   // Note: Excludes Global scope to avoid loading user's entire global memory in tests
   const sharedScopes = [Scope.Local, Scope.Project];
-  const sharedPaths = sharedScopes
-    .map(scope => {
-      const resolution = resolveScope({
-        requestedScope: scope,
-        cwd,
-        globalMemoryPath,
-      });
-      return resolution.path;
-    })
-    .filter((path): path is string => Boolean(path));
+  const sharedPaths: string[] = [];
+  for (const scope of sharedScopes) {
+    const resolution = await resolveScope({
+      requestedScope: scope,
+      cwd,
+      globalMemoryPath,
+    });
+    if (resolution.path) {
+      sharedPaths.push(resolution.path);
+    }
+  }
 
   return [agentPath, ...sharedPaths];
 }

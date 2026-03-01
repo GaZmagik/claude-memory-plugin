@@ -50,16 +50,25 @@ const ALLOWED_BASH_PATTERNS = [
 ];
 
 function checkBashCommand(command: string): { blocked: boolean; pattern?: string } {
-  // Check whitelist first
-  for (const pattern of ALLOWED_BASH_PATTERNS) {
-    if (pattern.test(command)) {
-      return { blocked: false };
-    }
-  }
-  // Check blocklist
+  // Check blocklist FIRST — destructive patterns take priority over whitelist
   for (const pattern of MEMORY_BASH_PATTERNS) {
     if (pattern.test(command)) {
       return { blocked: true, pattern: pattern.source };
+    }
+  }
+  // Block compound commands referencing memory directory (CWE-78)
+  // Chaining operators allow arbitrary follow-up commands that bypass
+  // the destructive patterns blocklist above
+  if (/\.claude\/memory/.test(command) && /&&|\|\||;/.test(command)) {
+    if (!/\bmemory\s+/.test(command) && !/skills\/memory\/src\/cli\.ts/.test(command)) {
+      return { blocked: true, pattern: 'compound-command-with-memory-path' };
+    }
+  }
+
+  // Check whitelist (read-only operations)
+  for (const pattern of ALLOWED_BASH_PATTERNS) {
+    if (pattern.test(command)) {
+      return { blocked: false };
     }
   }
   return { blocked: false };

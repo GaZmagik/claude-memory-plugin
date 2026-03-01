@@ -4061,11 +4061,6 @@
       "scope": "project"
     },
     {
-      "id": "thought-20260220-165044018",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes"
-    },
-    {
       "id": "learning-external-file-discovery-uses-wrong-base-path",
       "type": "learning",
       "title": "External file discovery uses wrong base path",
@@ -4425,11 +4420,6 @@
       "id": "decision-multi-scope-stats-return-field-parity",
       "type": "decision",
       "title": "Multi-scope stats returns must include all expected fields (nodes alias)"
-    },
-    {
-      "id": "thought-20260221-091111177",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code quality review for feature/005"
     },
     {
       "id": "learning-llm-verification-now-applies-to-cross-scope-auto-link-suggestions-v140",
@@ -4820,6 +4810,312 @@
       "id": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "type": "learning",
       "title": "Bun vi.hoisted polyfill enables vitest-style mocking in bun test runner",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "type": "learning",
+      "title": "Retro - Polyfill approach avoids large test infrastructure refactors",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs",
+      "type": "learning",
+      "title": "Retro - Binary search approach efficiently isolates test suite hangs",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "type": "gotcha",
+      "title": "vi.mock() importOriginal parameter not fully supported in Bun",
+      "scope": "project"
+    },
+    {
+      "id": "learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output",
+      "type": "learning",
+      "title": "execFile maxBuffer overflow on CLI commands with verbose output",
+      "scope": "project"
+    },
+    {
+      "id": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "type": "learning",
+      "title": "TypeScript code review findings for claude-memory-plugin",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert dispatch accelerates large code reviews",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering makes large reviews tractable",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering made 64-finding code review tractable",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent dispatch on non-overlapping code phases accelerates multi-phase reviews",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count",
+      "type": "learning",
+      "title": "Retro - Full test suite validation revealed net improvement despite high failure count",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics",
+      "type": "gotcha",
+      "title": "Type changes in parallel agents create cascading diagnostics",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "type": "gotcha",
+      "title": "Gotcha - Parallel expert agents on overlapping code phases risk merge conflicts",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-placeholder-tests-inflate-pass-metrics-deceptively",
+      "type": "gotcha",
+      "title": "Placeholder tests inflate pass metrics deceptively",
+      "scope": "project"
+    },
+    {
+      "id": "learning-pre-existing-test-failures-provide-improvement-baseline",
+      "type": "learning",
+      "title": "Pre-existing test failures provide improvement baseline",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-large-refactors-from-code-reviews",
+      "type": "decision",
+      "title": "Defer large refactors to separate PRs",
+      "scope": "project"
+    },
+    {
+      "id": "learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations",
+      "type": "learning",
+      "title": "resolveBasePath utility extracts agent-scope resolution from CRUD operations",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "type": "learning",
+      "title": "Retro - Phase-based review organization (Critical/High/Medium/Low + category buckets) proved highly effective for large-scale code review triage",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "type": "gotcha",
+      "title": "Retro - Background agents on overlapping code without worktree isolation create cascading type mismatches and must be rolled back",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-progressive-multi-expert-review-feedback-loop-identified-11-additional-findings-after-initial-64-findings-were-categorized",
+      "type": "learning",
+      "title": "Retro - Progressive multi-expert review feedback loop identified ~11 additional findings after initial 64 findings were categorized",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "type": "gotcha",
+      "title": "Retro - Cascading async refactors create half-baked type errors across multiple files; better as dedicated focused PRs",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "type": "gotcha",
+      "title": "Parallel agents on overlapping code create cascading type errors",
+      "scope": "project"
+    },
+    {
+      "id": "learning-batch-trivial-fixes-into-parallel-edits",
+      "type": "learning",
+      "title": "Batch trivial fixes into parallel edits for cleaner PR history",
+      "scope": "project"
+    },
+    {
+      "id": "learning-stale-api-mocks-create-vacuous-test-passes",
+      "type": "learning",
+      "title": "Stale API mocks create vacuous test passes without real coverage",
+      "scope": "project"
+    },
+    {
+      "id": "decision-code-review-pr-scope-discipline",
+      "type": "decision",
+      "title": "Code review PRs should enforce scope discipline",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "type": "learning",
+      "title": "Retro - Verification-first approach prevents false fixing on automated code review findings",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "type": "learning",
+      "title": "Retro - Verification-first debugging prevents time wasted on non-existent bugs",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "type": "learning",
+      "title": "Retro - Complete test rewrites cleaner than incremental edits for pattern changes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence",
+      "type": "gotcha",
+      "title": "Hook tests that don't import actual hook code give false confidence",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "type": "learning",
+      "title": "Retro - Deferring large architectural refactors to separate PRs keeps momentum",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "type": "gotcha",
+      "title": "execFileSync in Bun does not respect PATH environment variable",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic",
+      "type": "learning",
+      "title": "Retro - Passing tests immediately after refactoring provide high confidence in logic",
+      "scope": "project"
+    },
+    {
+      "id": "learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops",
+      "type": "learning",
+      "title": "Set-based O(1) lookups prevent O(n²) performance bugs in loops",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files",
+      "type": "learning",
+      "title": "Test-driven refactoring enables safe large-scale changes across multiple files",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first approach on code review findings prevents wasted effort on false positives",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "type": "learning",
+      "title": "Retro - Test-driven validation immediately after code changes provides high confidence in fixes",
+      "scope": "project"
+    },
+    {
+      "id": "learning-adjacency-list-optimization-for-graph-edge-lookups",
+      "type": "learning",
+      "title": "Adjacency list optimization for graph edge lookups",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "type": "gotcha",
+      "title": "Gotcha - Retro - Automated code review findings snapshot decay: review findings against git history before investing in fixes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-shell-chaining-operators-bypass-command-blocklists",
+      "type": "gotcha",
+      "title": "Shell chaining operators bypass command blocklists",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability",
+      "type": "gotcha",
+      "title": "Glob pattern regex conversion creates ReDoS vulnerability",
+      "scope": "project"
+    },
+    {
+      "id": "learning-code-review-findings-require-verification-against-current-code",
+      "type": "learning",
+      "title": "Code review findings require verification against current code",
+      "scope": "project"
+    },
+    {
+      "id": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "type": "learning",
+      "title": "Verification-first approach prevents wasted refactoring effort",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "type": "decision",
+      "title": "Defer large structural refactors to separate PRs during code review cleanup",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "type": "gotcha",
+      "title": "Retro - Test mock pollution from vi.mock() leaks across files in Bun when polyfill enabled",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "type": "gotcha",
+      "title": "Hook timeout budget exhaustion with Ollama retry loops",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first on code review findings prevents wasted effort on false positives",
+      "scope": "project"
+    },
+    {
+      "id": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "type": "learning",
+      "title": "Bun test polyfill vi.hoisted requires bunfig.toml preload",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "type": "learning",
+      "title": "Retro - Root cause diagnosis saves time better than symptom-driven fixes",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "type": "gotcha",
+      "title": "vi.mock() state leaks across Bun test files without proper restoration",
+      "scope": "project"
+    },
+    {
+      "id": "artifact-god-function-decomposition-pattern",
+      "type": "artifact",
+      "title": "God function decomposition pattern for complex functions",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "type": "gotcha",
+      "title": "Retro - Individual test file runs masked cross-file pollution in extract-context",
+      "scope": "project"
+    },
+    {
+      "id": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "type": "learning",
+      "title": "vi.spyOn solves Bun module-level vi.mock test pollution",
       "scope": "project"
     }
   ],
@@ -19651,6 +19947,1512 @@
       "target": "decision-feature-005-rule-and-reminder-graph-nodes-specification-complete",
       "label": "specification-link",
       "similarity": 0.7022531660878507
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.858378380119399
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8576360596816579
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.850098036929173
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8416819253622275
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8416007022168943
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8405529366805155
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8369311986625927
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8269695600727995
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8236789090441737
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7969701349619926
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7849233964943577
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7849233964943577
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7780366900328411
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7717322473175801
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7717322473175801
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7646259651515661
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593297899214742
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7593297899214742
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.755899178138346
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7526685995887087
+    },
+    {
+      "source": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7567683143235113,
+      "verifiedRelation": "evolution-refinement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7567683143235113,
+      "verifiedRelation": "refinement-2"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502490695767582,
+      "verifiedRelation": "enhancement-support"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502490695767582,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7494126727876718,
+      "verifiedRelation": "deprecation-solution"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7494126727876718,
+      "verifiedRelation": "incompatibility"
+    },
+    {
+      "source": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "target": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7454535710902491,
+      "verifiedRelation": "related-features"
+    },
+    {
+      "source": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "target": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7454535710902491,
+      "verifiedRelation": "context-transfer"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437407132394512,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437407132394512,
+      "verifiedRelation": "replacement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7401599658214187,
+      "verifiedRelation": "contrast-shift"
+    },
+    {
+      "source": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7401599658214187,
+      "verifiedRelation": "contrast-reversal"
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7357531608603689,
+      "verifiedRelation": "causal-improvement"
+    },
+    {
+      "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7357531608603689,
+      "verifiedRelation": "evolution-of-concept"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183542256132843,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183542256132843,
+      "verifiedRelation": "conflict"
+    },
+    {
+      "source": "learning-test-setup-validation-prevents-false-failures",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183108880664273,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7183108880664273,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7121988485701796,
+      "verifiedRelation": "solution-enhancement"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7121988485701796,
+      "verifiedRelation": "conflict-resolution"
+    },
+    {
+      "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7107913172708342,
+      "verifiedRelation": "expansion"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7107913172708342,
+      "verifiedRelation": "refinement-3"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7094793051866916,
+      "verifiedRelation": "refactoring"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "retro-mock-syntax-friction-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7094793051866916,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7073061121896791,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7073061121896791,
+      "verifiedRelation": "incompatibility"
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072191702026251,
+      "verifiedRelation": "refactor-update"
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072191702026251,
+      "verifiedRelation": "elaboration"
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.703584948960791,
+      "verifiedRelation": "compatibility"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.703584948960791,
+      "verifiedRelation": "leak-issue"
+    },
+    {
+      "source": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "target": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8682144337409534
+    },
+    {
+      "source": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "target": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8682144337409534
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7855023919912183
+    },
+    {
+      "source": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7855023919912183
+    },
+    {
+      "source": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7854256201838807
+    },
+    {
+      "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "target": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7854256201838807
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7840172103100781
+    },
+    {
+      "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "target": "decision-code-review-pr-scope-discipline",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7840172103100781
+    },
+    {
+      "source": "decision-defer-large-refactors-from-code-reviews",
+      "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.76748233949076
+    },
+    {
+      "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "target": "decision-defer-large-refactors-from-code-reviews",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.76748233949076
+    },
+    {
+      "source": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "target": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7622037689444637
+    },
+    {
+      "source": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "target": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7622037689444637
+    },
+    {
+      "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8078931322017929
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8078931322017929
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7569511490649635
+    },
+    {
+      "source": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7569511490649635
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "relates-to"
+    },
+    {
+      "source": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
+      "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8226349771146159
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8148032640322848
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8004846975356095
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7872289259284332
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7798341760402305
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7776857048995708
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7762185322734187
+    },
+    {
+      "source": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7743251520467643
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7737889618733358
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7695427809982428
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7670339668937063
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7665851248584162
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7657760555798828
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.763445325879201
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7601435116945117
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7577479172774689
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7537092657504326
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533152090446851
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7507097709779809
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7501521506729317
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8466338824319741,
+      "verifiedRelation": "leak-propagation"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8466338824319741,
+      "verifiedRelation": "1-pollution"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8384481709147985,
+      "verifiedRelation": "7-replication"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8384481709147985,
+      "verifiedRelation": "leak-propagation"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8356018188164491,
+      "verifiedRelation": "7-compatibility"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8356018188164491,
+      "verifiedRelation": "solution-fix"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8236187640452943,
+      "verifiedRelation": "leak-dependency"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8236187640452943,
+      "verifiedRelation": "incompatibility"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8124035148598375,
+      "verifiedRelation": "pollutant"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8124035148598375,
+      "verifiedRelation": "deprecation-impact"
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8004701282103267
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8004701282103267,
+      "verifiedRelation": "7-reproduction"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7997288986698996,
+      "verifiedRelation": "dependency"
+    },
+    {
+      "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7997288986698996,
+      "verifiedRelation": "refactoring"
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7902895148866663,
+      "verifiedRelation": "pollution-leakage"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7902895148866663,
+      "verifiedRelation": "leak-test"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7895837073633293
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7895837073633293,
+      "verifiedRelation": "enhancement"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7842456902757255,
+      "verifiedRelation": "dependency-fix"
+    },
+    {
+      "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7842456902757255,
+      "verifiedRelation": "1-leak"
+    },
+    {
+      "source": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7794769444473526,
+      "verifiedRelation": "refactor-polyfill"
+    },
+    {
+      "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "target": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7794769444473526,
+      "verifiedRelation": "refactor-replacement"
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7765427715607657
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7765427715607657,
+      "verifiedRelation": "refactoring-issue"
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7736532275290885,
+      "verifiedRelation": "3-leakage"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7736532275290885,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7735037341673491,
+      "verifiedRelation": "substitution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7735037341673491,
+      "verifiedRelation": "02-contrast"
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7578692115361615,
+      "verifiedRelation": "leak-propogation"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7578692115361615,
+      "verifiedRelation": "leak-cross-file"
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7553325504643683,
+      "verifiedRelation": "shadowing"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7553325504643683,
+      "verifiedRelation": "deprecation"
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.754475456761029
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.754475456761029,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502946609341927,
+      "verifiedRelation": "side-effect"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7502946609341927,
+      "verifiedRelation": "enhancement"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7497143023380326,
+      "verifiedRelation": "conflict-migration"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "retro-mock-syntax-friction-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7497143023380326
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7490061377238585,
+      "verifiedRelation": "leak-impact"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-bun-test-vi-mocked-incompatibility",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7490061377238585,
+      "verifiedRelation": "compatibility-issue"
+    },
+    {
+      "source": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.746591925822685,
+      "verifiedRelation": "cause-effect"
+    },
+    {
+      "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "target": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.746591925822685,
+      "verifiedRelation": "cause-effect"
+    },
+    {
+      "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7438301798038265,
+      "verifiedRelation": "0-pollution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7438301798038265,
+      "verifiedRelation": "leak-restore"
+    },
+    {
+      "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "target": "learning-code-review-findings-require-verification-against-current-code",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437869412755905,
+      "verifiedRelation": "verification-shift"
+    },
+    {
+      "source": "learning-code-review-findings-require-verification-against-current-code",
+      "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7437869412755905,
+      "verifiedRelation": "verification-shift"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.743637074057169,
+      "verifiedRelation": "7-pollution"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.743637074057169,
+      "verifiedRelation": "migration"
+    },
+    {
+      "source": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7419826916787998,
+      "verifiedRelation": "resolution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7419826916787998,
+      "verifiedRelation": "resolution"
+    },
+    {
+      "source": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "target": "learning-batch-trivial-fixes-into-parallel-edits",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7406806598767885,
+      "verifiedRelation": "refinement-implementation"
+    },
+    {
+      "source": "learning-batch-trivial-fixes-into-parallel-edits",
+      "target": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7406806598767885,
+      "verifiedRelation": "refactoring-improvement"
+    },
+    {
+      "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.740499301050167,
+      "verifiedRelation": "refinement-1"
+    },
+    {
+      "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.740499301050167,
+      "verifiedRelation": "subsumption"
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.737287100178146,
+      "verifiedRelation": "synonym"
+    },
+    {
+      "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.737287100178146,
+      "verifiedRelation": "synonym"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7363427039294862,
+      "verifiedRelation": "leak-relation"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7363427039294862,
+      "verifiedRelation": "dependency"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7340101665755372,
+      "verifiedRelation": "1-replacement"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7340101665755372,
+      "verifiedRelation": "1-gotcha"
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7328689773871864,
+      "verifiedRelation": "leak-pollute"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7328689773871864,
+      "verifiedRelation": "7-leak"
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7321766400026933,
+      "verifiedRelation": "causality-fix"
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7321766400026933,
+      "verifiedRelation": "7-cause-effect"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7318769388857992
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7318769388857992,
+      "verifiedRelation": "conflict-cause"
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7308004688546745,
+      "verifiedRelation": "1-leakage"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7308004688546745,
+      "verifiedRelation": "conflict-isolation"
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7299570461138659,
+      "verifiedRelation": "refactoring-solution"
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7299570461138659,
+      "verifiedRelation": "solution-improvement"
+    },
+    {
+      "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7281965722428124,
+      "verifiedRelation": "leak-resolution"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7281965722428124,
+      "verifiedRelation": "dependency-isolation"
+    },
+    {
+      "source": "learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection",
+      "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7273340812393039,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "target": "learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7273340812393039,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "retro-mock-syntax-friction-bun",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7268692080962987,
+      "verifiedRelation": "dependency-issue"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "retro-mock-syntax-friction-bun",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7268692080962987,
+      "verifiedRelation": "conflict-friction"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7263735743387354,
+      "verifiedRelation": "state-leak"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7263735743387354,
+      "verifiedRelation": "compatibility-issues"
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7255023492602957,
+      "verifiedRelation": "leak-propagation"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7255023492602957,
+      "verifiedRelation": "pollution-leak"
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7254653058833532,
+      "verifiedRelation": "refinement"
+    },
+    {
+      "source": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "target": "decision-code-review-pr-scope-discipline",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7254653058833532,
+      "verifiedRelation": "scope-enforcement"
+    },
+    {
+      "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7254494032861141,
+      "verifiedRelation": "synonym-variation"
+    },
+    {
+      "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7254494032861141,
+      "verifiedRelation": "refinement"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7249982831396342,
+      "verifiedRelation": "leak-corruption"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7249982831396342,
+      "verifiedRelation": "pollution-leak"
+    },
+    {
+      "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7247567421730144,
+      "verifiedRelation": "leak-propagation"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7247567421730144,
+      "verifiedRelation": "7-pollution"
+    },
+    {
+      "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7243642723476904,
+      "verifiedRelation": "refinement"
+    },
+    {
+      "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7243642723476904,
+      "verifiedRelation": "adaptation-refinement"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7243068432988781
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-retro-test-isolation-pattern-worth-documenting",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7243068432988781,
+      "verifiedRelation": "refactoring-strategy"
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7236650198611407,
+      "verifiedRelation": "cause-effect"
+    },
+    {
+      "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7236650198611407,
+      "verifiedRelation": "change-resolution"
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7212402218265053
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-retro-test-isolation-pattern-worth-documenting",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7212402218265053,
+      "verifiedRelation": "ref-impl"
+    },
+    {
+      "source": "retro-test-subprocess-hanging",
+      "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7211941146902932,
+      "verifiedRelation": "retry-failure"
+    },
+    {
+      "source": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "target": "retro-test-subprocess-hanging",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7211941146902932
+    },
+    {
+      "source": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7182483453340416,
+      "verifiedRelation": "1-pollution"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7182483453340416,
+      "verifiedRelation": "refactoring-solution"
+    },
+    {
+      "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7167850891399309,
+      "verifiedRelation": "solution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7167850891399309
+    },
+    {
+      "source": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7158715649637689,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "target": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7158715649637689,
+      "verifiedRelation": "1-prevention"
+    },
+    {
+      "source": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
+      "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7151789642732829,
+      "verifiedRelation": "causality-2"
+    },
+    {
+      "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "target": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7151789642732829,
+      "verifiedRelation": "causality-impact"
+    },
+    {
+      "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7136045059357246,
+      "verifiedRelation": "leak-resolution"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7136045059357246,
+      "verifiedRelation": "mirror-sync"
+    },
+    {
+      "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "target": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7127088369331782,
+      "verifiedRelation": "restatement"
+    },
+    {
+      "source": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7127088369331782,
+      "verifiedRelation": "rephrase-expansion"
+    },
+    {
+      "source": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "target": "decision-code-review-pr-scope-discipline",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7125985232015108,
+      "verifiedRelation": "support-evidence"
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7125985232015108,
+      "verifiedRelation": "evolution-of-practice"
+    },
+    {
+      "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.712125592808398,
+      "verifiedRelation": "1-substitution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.712125592808398,
+      "verifiedRelation": "2-contradiction"
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7104531190067911,
+      "verifiedRelation": "fix-regression"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7104531190067911,
+      "verifiedRelation": "fix-regression"
+    },
+    {
+      "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7101980243996173
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7101980243996173,
+      "verifiedRelation": "leak-restore"
+    },
+    {
+      "source": "learning-retro-immediate-test-verification-after-each-change-maintains-confidence",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7086879552505281,
+      "verifiedRelation": "synonym-rephrase"
+    },
+    {
+      "source": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "target": "learning-retro-immediate-test-verification-after-each-change-maintains-confidence",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7086879552505281,
+      "verifiedRelation": "synonym"
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7085119788843673,
+      "verifiedRelation": "refinement"
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7085119788843673,
+      "verifiedRelation": "caused-by"
+    },
+    {
+      "source": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7083793096242368,
+      "verifiedRelation": "causality-diagnosis"
+    },
+    {
+      "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7083793096242368,
+      "verifiedRelation": "causation-root"
+    },
+    {
+      "source": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072402610472452,
+      "verifiedRelation": "strategy-outcome"
+    },
+    {
+      "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "target": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072402610472452,
+      "verifiedRelation": "integration"
+    },
+    {
+      "source": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "target": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072394435375077,
+      "verifiedRelation": "problem-solution"
+    },
+    {
+      "source": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "target": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7072394435375077,
+      "verifiedRelation": "refactor-change"
+    },
+    {
+      "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7047539907051181,
+      "verifiedRelation": "dependency-resolution"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7047539907051181,
+      "verifiedRelation": "polyfill-migration"
+    },
+    {
+      "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7033893482771095,
+      "verifiedRelation": "7-pollution"
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7033893482771095,
+      "verifiedRelation": "ref-implementation"
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7030682004130914,
+      "verifiedRelation": "7-contrast"
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7030682004130914,
+      "verifiedRelation": "7-cause"
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7002178014556043,
+      "verifiedRelation": "dependency-migration"
+    },
+    {
+      "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7002178014556043,
+      "verifiedRelation": "contrast"
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7000699172663444,
+      "verifiedRelation": "refactor-fix"
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7000699172663444,
+      "verifiedRelation": "fix-regression"
     }
   ]
 }

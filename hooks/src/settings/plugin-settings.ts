@@ -8,18 +8,9 @@
  * Error handling: invalid values fallback to defaults
  */
 
-import { stat, readFile } from 'fs/promises';
-import { join } from 'path';
-
-/** Check if a path exists (async alternative to existsSync) */
-async function pathExists(p: string): Promise<boolean> {
-  try {
-    await stat(p);
-    return true;
-  } catch {
-    return false;
-  }
-}
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { pathExists } from '../core/fs.ts';
 
 /**
  * Current settings schema version
@@ -228,6 +219,14 @@ export function validateSettings(raw: Record<string, unknown>): Partial<MemoryPl
       }
     } else if (expectedType === 'string') {
       if (typeof value === 'string') {
+        // Validate URL format for host settings
+        if (settingKey === 'ollama_host') {
+          try {
+            new URL(value);
+          } catch {
+            continue; // Invalid URL — skip, fall back to default
+          }
+        }
         (result as Record<string, string>)[settingKey] = value;
       }
     } else if (expectedType === 'number') {

@@ -2,7 +2,7 @@
  * T085: Integration test for full workflow
  * Tests: hint → auto-selection → provider calling flow
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, vi, beforeEach, afterEach } from 'vitest';
 
 describe('full-workflow', () => {
   beforeEach(() => {
@@ -14,45 +14,45 @@ describe('full-workflow', () => {
   });
 
   describe('hint → auto-selection → provider calling', () => {
-    it('displays hint on first think add invocation', async () => {
+    it.skip('displays hint on first think add invocation', async () => {
       // Hint should appear for first 3 invocations
       // This validates US1 hint visibility integration
-      expect(true).toBe(true); // Placeholder - actual test requires CLI execution
+      // TODO: implement real test
     });
 
-    it('triggers auto-selection when --auto flag provided', async () => {
+    it.skip('triggers auto-selection when --auto flag provided', async () => {
       // --auto flag should invoke Ollama or fallback to heuristics
       // This validates US2 auto-selection integration
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
 
-    it('routes to correct provider when --call flag provided', async () => {
+    it.skip('routes to correct provider when --call flag provided', async () => {
       // --call codex should build codex command
       // --call gemini should build gemini command
       // This validates US4 cross-provider integration
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
 
-    it('complete workflow: hint shown, auto selects style, calls claude', async () => {
+    it.skip('complete workflow: hint shown, auto selects style, calls claude', async () => {
       // Full integration: US1 + US2 + US4 working together
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
   });
 
   describe('error handling in workflow', () => {
-    it('handles missing provider gracefully', async () => {
+    it.skip('handles missing provider gracefully', async () => {
       // When provider CLI not found, should return helpful error
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
 
-    it('handles Ollama timeout with heuristic fallback', async () => {
+    it.skip('handles Ollama timeout with heuristic fallback', async () => {
       // When Ollama times out, should fall back to heuristics
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
 
-    it('handles circuit breaker activation', async () => {
+    it.skip('handles circuit breaker activation', async () => {
       // After 3 Ollama failures, circuit breaker should prevent further attempts
-      expect(true).toBe(true);
+      // TODO: implement real test
     });
   });
 });

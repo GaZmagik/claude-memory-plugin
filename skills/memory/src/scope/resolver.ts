@@ -5,7 +5,7 @@
  * enterprise → local → project → global
  */
 
-import * as fs from 'node:fs';
+import { readFile, access } from 'node:fs/promises';
 import * as path from 'node:path';
 import { Scope } from '../types/enums.js';
 import { isInGitRepository, findGitRoot } from './git-utils.js';
@@ -56,7 +56,7 @@ export interface ResolveScopeOptions extends ScopeContext {
 /**
  * Resolve a requested scope to its storage path
  */
-export function resolveScope(options: ResolveScopeOptions): ScopeResolution {
+export async function resolveScope(options: ResolveScopeOptions): Promise<ScopeResolution> {
   const {
     requestedScope,
     cwd,
@@ -68,7 +68,7 @@ export function resolveScope(options: ResolveScopeOptions): ScopeResolution {
 
   // If no scope requested, use default
   if (!requestedScope) {
-    const defaultScope = getDefaultScope({ cwd, globalMemoryPath, agentName });
+    const defaultScope = await getDefaultScope({ cwd, globalMemoryPath, agentName });
     return resolveScope({
       ...options,
       requestedScope: defaultScope,
@@ -82,13 +82,13 @@ export function resolveScope(options: ResolveScopeOptions): ScopeResolution {
     case Scope.Local:
       return {
         scope: Scope.Local,
-        path: getLocalScopePath(cwd),
+        path: await getLocalScopePath(cwd),
       };
 
     case Scope.Project:
       return {
         scope: Scope.Project,
-        path: getProjectScopePath(cwd),
+        path: await getProjectScopePath(cwd),
       };
 
     case Scope.Global:
@@ -204,12 +204,12 @@ function resolveAgentScope(
 /**
  * Get the storage path for a given scope
  */
-export function getScopePath(
+export async function getScopePath(
   scope: Scope,
   cwd: string,
   globalMemoryPath: string,
   enterprisePath?: string
-): string {
+): Promise<string> {
   switch (scope) {
     case Scope.Enterprise:
       return enterprisePath ?? '';
@@ -230,8 +230,8 @@ export function getScopePath(
 /**
  * Get the project scope path (.claude/memory/)
  */
-function getProjectScopePath(cwd: string): string {
-  const gitRoot = findGitRoot(cwd);
+async function getProjectScopePath(cwd: string): Promise<string> {
+  const gitRoot = await findGitRoot(cwd);
   const baseDir = gitRoot ?? cwd;
   return path.join(baseDir, '.claude', 'memory');
 }
@@ -239,8 +239,8 @@ function getProjectScopePath(cwd: string): string {
 /**
  * Get the local scope path (.claude/memory/local/)
  */
-function getLocalScopePath(cwd: string): string {
-  const gitRoot = findGitRoot(cwd);
+async function getLocalScopePath(cwd: string): Promise<string> {
+  const gitRoot = await findGitRoot(cwd);
   const baseDir = gitRoot ?? cwd;
   return path.join(baseDir, '.claude', 'memory', 'local');
 }
@@ -248,7 +248,7 @@ function getLocalScopePath(cwd: string): string {
 /**
  * Determine the default scope based on context
  */
-export function getDefaultScope(context: ScopeContext | string): Scope {
+export async function getDefaultScope(context: ScopeContext | string): Promise<Scope> {
   // Handle legacy string parameter for backward compatibility
   const cwd = typeof context === 'string' ? context : context.cwd;
   const agentName = typeof context === 'string' ? undefined : context.agentName;
@@ -263,7 +263,7 @@ export function getDefaultScope(context: ScopeContext | string): Scope {
   // If agent context provided, use agent scopes
   if (agentName && agentName.trim() !== '') {
     // If in git repo, default to agent-project scope
-    if (isInGitRepository(cwd)) {
+    if (await isInGitRepository(cwd)) {
       return Scope.AgentProject;
     }
     // Otherwise default to agent-global
@@ -272,7 +272,7 @@ export function getDefaultScope(context: ScopeContext | string): Scope {
 
   // No agent context: use existing default logic
   // If in git repo, default to project scope
-  if (isInGitRepository(cwd)) {
+  if (await isInGitRepository(cwd)) {
     return Scope.Project;
   }
 
@@ -354,19 +354,27 @@ export async function mergeMemoriesFromScopes(
   const errors: { scope: Scope; error: string }[] = [];
 
   for (const scope of accessibleScopes) {
-    const scopePath = getScopePath(scope, cwd, globalMemoryPath, enterprisePath);
+    const scopePath = await getScopePath(scope, cwd, globalMemoryPath, enterprisePath);
 
     try {
-      if (!scopePath || !fs.existsSync(scopePath)) {
+      if (!scopePath) {
+        continue;
+      }
+
+      try {
+        await access(scopePath);
+      } catch {
         continue;
       }
 
       const indexPath = path.join(scopePath, 'index.json');
-      if (!fs.existsSync(indexPath)) {
+      try {
+        await access(indexPath);
+      } catch {
         continue;
       }
 
-      const indexContent = fs.readFileSync(indexPath, 'utf-8');
+      const indexContent = await readFile(indexPath, 'utf-8');
       const index = JSON.parse(indexContent);
 
       if (Array.isArray(index.memories)) {

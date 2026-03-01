@@ -9,8 +9,8 @@ import { EXIT_ALLOW, EXIT_BLOCK } from './types.ts';
 import { HookError, toHookError } from './errors.ts';
 import { parseHookInput, outputHookResponse } from './stdin.ts';
 import { createHookLogger } from './hook-logger.ts';
-import { basename, dirname } from 'path';
-import { unlinkSync, existsSync } from 'fs';
+import { basename, dirname } from 'node:path';
+import { unlinkSync, existsSync } from 'node:fs';
 
 /**
  * Cleanup registry for signal handlers
@@ -98,18 +98,21 @@ function installSignalHandlers(): void {
   process.on('SIGTERM', () => handleSignal('SIGTERM'));
   process.on('SIGINT', () => handleSignal('SIGINT'));
 
-  // Handle uncaught errors gracefully
-  process.on('uncaughtException', (error) => {
-    console.error('Uncaught exception in hook:', error.message);
-    runCleanup();
-    process.exit(1);
-  });
+  // Handle uncaught errors gracefully — skip in test environments
+  // to avoid interfering with test runner error reporting
+  if (process.env.NODE_ENV !== 'test') {
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught exception in hook:', error.message);
+      runCleanup();
+      process.exit(1);
+    });
 
-  process.on('unhandledRejection', (reason) => {
-    console.error('Unhandled rejection in hook:', reason);
-    runCleanup();
-    process.exit(1);
-  });
+    process.on('unhandledRejection', (reason) => {
+      console.error('Unhandled rejection in hook:', reason);
+      runCleanup();
+      process.exit(1);
+    });
+  }
 }
 
 /**
@@ -233,6 +236,12 @@ function isSessionHook(type: string): boolean {
  * - Infinite recursion (hooks spawning forks that trigger hooks)
  * - Blocking the forked session (hooks like memory-context make API calls)
  * - Unnecessary processing (forks are ephemeral, short-lived sessions)
+ *
+ * FRAGILE INVARIANT: This relies on forked sessions (via `claude --fork-session`)
+ * having permission_mode "default", whereas normal sessions use "bypassPermissions".
+ * If Claude Code ever changes the default permission_mode for non-forked sessions,
+ * this check will silently skip hooks in real sessions. A more robust approach
+ * would check an explicit fork indicator if one becomes available.
  *
  * @param input - The hook input from stdin
  * @returns true if running in a forked session
@@ -359,11 +368,16 @@ export async function withTimeout<T>(
   timeoutMs: number,
   timeoutMessage = 'Operation timed out'
 ): Promise<T> {
+  let handle: ReturnType<typeof setTimeout> | undefined;
   const timeoutPromise = new Promise<never>((_, reject) => {
-    setTimeout(() => reject(HookError.timeout(timeoutMessage)), timeoutMs);
+    handle = setTimeout(() => reject(HookError.timeout(timeoutMessage)), timeoutMs);
   });
 
-  return Promise.race([operation, timeoutPromise]);
+  try {
+    return await Promise.race([operation, timeoutPromise]);
+  } finally {
+    if (handle !== undefined) clearTimeout(handle);
+  }
 }
 
 /**

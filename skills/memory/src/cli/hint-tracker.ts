@@ -5,8 +5,8 @@
  * Hints are shown for the first N uses of a command, then suppressed.
  */
 
-import { access, readFile, writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import type {
   HintState,
   HintTrackerOptions,

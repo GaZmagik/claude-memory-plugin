@@ -7,45 +7,33 @@
  * Note: This test file mocks child_process to test our secure
  * execFileSync-based implementation. No actual commands are executed.
  *
- * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level vitest mocks (vi.mock) for fs and child_process
- * which creates global state. Must run separately with: vitest run <this-file>
- * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
+ * fs is mocked via vi.spyOn (not vi.mock) to prevent module registry
+ * pollution that breaks co-located test files like session-cache.spec.ts.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
-import type * as OriginalFs from 'node:fs';
-import type * as OriginalChildProcess from 'node:child_process';
+import { mock } from 'bun:test';
 
-// Hoist mock functions so they can be referenced inside vi.mock() factories
-const {
-  mockExecFileSync,
-  mockExistsSync,
-  mockMkdirSync,
-  mockWriteFileSync,
-  mockAppendFileSync,
-} = vi.hoisted(() => ({
+// Import real child_process for spreading into vi.mock factory
+import * as originalChildProcess from 'node:child_process';
+
+// Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
+import * as fs from 'node:fs';
+
+// Hoist mock function for child_process vi.mock factory
+// (vi.hoisted polyfill in tests/setup-bun.ts makes this work in Bun)
+const { mockExecFileSync } = vi.hoisted(() => ({
   mockExecFileSync: vi.fn(() => ''),
-  mockExistsSync: vi.fn(() => false),
-  mockMkdirSync: vi.fn(() => undefined),
-  mockWriteFileSync: vi.fn(() => undefined),
-  mockAppendFileSync: vi.fn(() => undefined),
 }));
 
-// Mock child_process - spread original and override only what we need
-vi.mock('node:child_process', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalChildProcess>()),
+// Mock child_process — uses vi.mock because SUT imports execFileSync directly
+// Note: importOriginal not available in Bun, use static import + spread instead
+vi.mock('node:child_process', () => ({
+  ...originalChildProcess,
   execFileSync: mockExecFileSync,
 }));
 
-// Mock fs - spread original and override only what we need
-vi.mock('node:fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalFs>()),
-  existsSync: mockExistsSync,
-  mkdirSync: mockMkdirSync,
-  writeFileSync: mockWriteFileSync,
-  appendFileSync: mockAppendFileSync,
-}));
+// fs is mocked via vi.spyOn in beforeEach — no vi.mock('node:fs') needed
 
 import {
   hasClaudeBinary,
@@ -58,28 +46,34 @@ import {
   getSessionId,
 } from '../../../hooks/src/session/fork-detection.js';
 import * as childProcess from 'node:child_process';
-import * as fs from 'node:fs';
+
+// fs spy variables — created fresh in each beforeEach, restored in afterEach
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockExistsSync: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockWriteFileSync: any;
 
 describe('Fork Detection', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    // Clear mock call history
+    // Clear child_process mock call history
     mockExecFileSync.mockClear();
-    mockExistsSync.mockClear();
-    mockMkdirSync.mockClear();
-    mockWriteFileSync.mockClear();
-    mockAppendFileSync.mockClear();
+    // Set up fs spies (vi.spyOn modifies namespace properties, not module registry)
+    mockExistsSync = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined as any);
+    mockWriteFileSync = vi.spyOn(fs, 'writeFileSync').mockReturnValue(undefined);
+    vi.spyOn(fs, 'appendFileSync').mockReturnValue(undefined);
     process.env = { ...originalEnv };
   });
 
   afterEach(() => {
     process.env = originalEnv;
+    vi.restoreAllMocks(); // Restore fs spies to real implementations
   });
 
   afterAll(() => {
-    // Restore original modules to prevent leaking to other test files
-    vi.restoreAllMocks();
+    mock.restore(); // Unmock child_process vi.mock
   });
 
   describe('hasClaudeBinary', () => {
@@ -506,7 +500,7 @@ describe('Fork Detection', () => {
 });
 
 describe('Security Requirements', () => {
-  it('documents that execFileSync is used instead of shell interpolation', () => {
+  it.skip('documents that execFileSync is used instead of shell interpolation', () => {
     // This test documents the security requirement:
     // The implementation uses execFileSync with argument arrays
     // which prevents command injection attacks
@@ -517,6 +511,6 @@ describe('Security Requirements', () => {
     //
     // The fork-detection.ts file header comment confirms:
     // "SECURITY: Uses execFileSync with argument array to prevent command injection"
-    expect(true).toBe(true);
+    // TODO: implement real test
   });
 });

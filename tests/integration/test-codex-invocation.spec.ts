@@ -1,18 +1,18 @@
 /**
  * T068: Integration test for Codex CLI invocation (mocked)
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'vitest';
 
 describe('codex-invocation', () => {
-  it('invokes codex exec with correct arguments', () => {
-    expect(true).toBe(true); // Placeholder
+  it.skip('invokes codex exec with correct arguments', () => {
+    // TODO: implement real test
   });
 
-  it('parses codex output correctly', () => {
-    expect(true).toBe(true);
+  it.skip('parses codex output correctly', () => {
+    // TODO: implement real test
   });
 
-  it('handles codex errors gracefully', () => {
-    expect(true).toBe(true);
+  it.skip('handles codex errors gracefully', () => {
+    // TODO: implement real test
   });
 });

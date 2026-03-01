@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { MemoryType, Scope } from '../types/enums.js';
 import { addEdge, isCrossScopeEdge, validateCrossScopeEdge } from './edges.js';
 import type { GraphEdge, MemoryGraph } from './structure.js';
 
@@ -188,8 +189,8 @@ describe('addEdge with metadata (TD05)', () => {
   const baseGraph: MemoryGraph = {
     version: 1,
     nodes: [
-      { id: 'agent-learning-1', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
-      { id: 'project-decision-1', type: 'decision', scope: 'project' },
+      { id: 'agent-learning-1', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'ts-expert' },
+      { id: 'project-decision-1', type: MemoryType.Decision, scope: Scope.Project },
     ],
     edges: [],
   };
@@ -224,8 +225,8 @@ describe('addEdge with metadata (TD05)', () => {
     const graph: MemoryGraph = {
       version: 1,
       nodes: [
-        { id: 'ts-learning', type: 'learning', scope: 'agent-project', agent: 'ts-expert' },
-        { id: 'rust-decision', type: 'decision', scope: 'agent-project', agent: 'rust-expert' },
+        { id: 'ts-learning', type: MemoryType.Learning, scope: Scope.AgentProject, agent: 'ts-expert' },
+        { id: 'rust-decision', type: MemoryType.Decision, scope: Scope.AgentProject, agent: 'rust-expert' },
       ],
       edges: [],
     };

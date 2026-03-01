@@ -5,10 +5,22 @@
  */
 
 import fsp from 'node:fs/promises';
+import type { Dirent } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import type { AgentInfo } from '../types/agent-info.js';
-import { Scope } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
+
+/**
+ * Raw shape of a memory entry as stored in index.json.
+ * Used to avoid unsafe `as any` casts when iterating index entries.
+ */
+interface RawIndexEntry {
+  type?: string;
+  tags?: string[];
+  created?: string;
+  updated?: string;
+}
 
 /**
  * Options for scanning agent directories
@@ -43,15 +55,37 @@ async function directoryExists(dirPath: string): Promise<boolean> {
 }
 
 /**
- * Matches a name against a glob-style pattern
+ * Matches a name against a glob-style pattern.
+ * Uses iterative two-pointer algorithm — no regex, no ReDoS risk (CWE-1333).
  */
 function matchesPattern(name: string, pattern: string): boolean {
-  // Convert glob pattern to regex
-  const regexPattern = pattern
-    .replace(/\*/g, '.*')
-    .replace(/\?/g, '.');
-  const regex = new RegExp(`^${regexPattern}$`);
-  return regex.test(name);
+  let pi = 0;
+  let ti = 0;
+  let starPi = -1;
+  let starTi = -1;
+
+  while (ti < name.length) {
+    if (pi < pattern.length && (pattern[pi] === name[ti] || pattern[pi] === '?')) {
+      pi++;
+      ti++;
+    } else if (pi < pattern.length && pattern[pi] === '*') {
+      starPi = pi;
+      starTi = ti;
+      pi++;
+    } else if (starPi >= 0) {
+      pi = starPi + 1;
+      starTi++;
+      ti = starTi;
+    } else {
+      return false;
+    }
+  }
+
+  while (pi < pattern.length && pattern[pi] === '*') {
+    pi++;
+  }
+
+  return pi === pattern.length;
 }
 
 /**
@@ -71,12 +105,12 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
 
     // Gather unique tags
     const tagsSet = new Set<string>();
-    const typesSet = new Set<string>();
+    const typesSet = new Set<MemoryType>();
     let oldestDate: Date | undefined;
     let newestDate: Date | undefined;
 
     for (const memory of Object.values(index.memories || {})) {
-      const mem = memory as any;
+      const mem = memory as RawIndexEntry;
 
       // Collect tags
       if (mem.tags) {
@@ -85,9 +119,9 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
         }
       }
 
-      // Collect types
-      if (mem.type) {
-        typesSet.add(mem.type);
+      // Collect types — only add values that are valid MemoryType members
+      if (mem.type && (Object.values(MemoryType) as string[]).includes(mem.type)) {
+        typesSet.add(mem.type as MemoryType);
       }
 
       // Track dates
@@ -107,7 +141,7 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
     }
 
     stats.tags = Array.from(tagsSet);
-    stats.types = Array.from(typesSet) as any[];
+    stats.types = Array.from(typesSet);
     stats.created = oldestDate;
     stats.updated = newestDate;
 
@@ -141,7 +175,7 @@ async function gatherAgentStats(agentPath: string): Promise<Partial<AgentInfo>> 
  * Processes a single agent entry and returns AgentInfo or null if inaccessible
  */
 async function processAgentEntry(
-  entry: { name: string; isDirectory: () => boolean },
+  entry: Dirent,
   agentsDir: string,
   scope: Scope.AgentProject | Scope.AgentGlobal,
   options: ScanAgentOptions

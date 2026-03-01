@@ -9,16 +9,18 @@ import type { IndexEntry } from './memory.js';
 import { MemoryType, type Scope } from './enums.js';
 
 /**
- * Type guard for GraphNode
+ * Type guard for GraphNode.
+ *
+ * MemoryType enum values are strings at runtime, so we validate that `type`
+ * is a string and that it matches a known MemoryType value.
  */
 export function isGraphNode(obj: unknown): obj is GraphNode {
+  if (typeof obj !== 'object' || obj === null) return false;
+  const node = obj as Record<string, unknown>;
   return (
-    typeof obj === 'object' &&
-    obj !== null &&
-    'id' in obj &&
-    typeof (obj as GraphNode).id === 'string' &&
-    'type' in obj &&
-    typeof (obj as GraphNode).type === 'string'
+    typeof node.id === 'string' &&
+    typeof node.type === 'string' &&
+    (Object.values(MemoryType) as string[]).includes(node.type)
   );
 }
 

@@ -8,12 +8,13 @@
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { loadEmbeddingCache } from '../search/embedding.js';
-import { findSimilarMemories } from '../search/similarity.js';
+import { findPotentialDuplicates } from '../search/similarity.js';
 import { loadIndex } from '../core/index.js';
-import { loadGraph, hasNode } from '../graph/structure.js';
+import { loadGraph } from '../graph/structure.js';
 import { linkMemories, storeCrossScopeEdge } from '../graph/link.js';
 import { generate, isAvailable } from '../services/ollama.js';
-import { unsafeAsMemoryId } from '../types/branded.js';
+import { unsafeAsMemoryId, type MemoryId } from '../types/branded.js';
+import type { IndexEntry } from '../types/memory.js';
 
 import { getScopePath } from '../scope/resolver.js';
 import { Scope } from '../types/enums.js';
@@ -23,7 +24,7 @@ import { Scope } from '../types/enums.js';
  */
 interface MemoryMetadata {
   basePath: string;
-  scope: string;
+  scope: Scope;
   agent?: string;
 }
 
@@ -32,7 +33,7 @@ interface MemoryMetadata {
  * Uses prefix-based matching so that crafted paths containing '/.claude/agents/'
  * as a substring cannot spoof agent-project classification (CWE-706).
  */
-export function deriveScope(targetPath: string, projectBase: string, globalBase: string): string {
+export function deriveScope(targetPath: string, projectBase: string, globalBase: string): Scope {
   const normalizedTarget = path.resolve(targetPath);
   const normalizedProject = path.resolve(projectBase);
   const normalizedGlobal = path.resolve(globalBase);
@@ -41,21 +42,21 @@ export function deriveScope(targetPath: string, projectBase: string, globalBase:
   const agentsInGlobal = path.join(normalizedGlobal, 'agents');
 
   if (normalizedTarget === normalizedGlobal) {
-    return 'global';
+    return Scope.Global;
   } else if (normalizedTarget === normalizedProject) {
-    return 'project';
+    return Scope.Project;
   } else if (
     normalizedTarget === agentsInProject ||
     normalizedTarget.startsWith(agentsInProject + path.sep)
   ) {
-    return 'agent-project';
+    return Scope.AgentProject;
   } else if (
     normalizedTarget === agentsInGlobal ||
     normalizedTarget.startsWith(agentsInGlobal + path.sep)
   ) {
-    return 'agent-global';
+    return Scope.AgentGlobal;
   } else {
-    return 'local';
+    return Scope.Local;
   }
 }
 
@@ -185,9 +186,10 @@ export async function suggestLinks(
 
   // Load embeddings cache(s)
   const embeddings: Record<string, number[]> = {};
-  const indexMap = new Map<string, any>();
+  const indexMap = new Map<MemoryId, IndexEntry>();
   const metadataMap = new Map<string, MemoryMetadata>();
   let graph = await loadGraph(basePath);
+  const nodeIds = new Set(graph.nodes.map(n => n.id));
   const existingLinks = new Set<string>();
 
   // Load primary (agent or project) embeddings
@@ -224,7 +226,7 @@ export async function suggestLinks(
   }
 
   // Determine primary scope type
-  const primaryScope = agentName ? 'agent-project' : deriveScope(basePath, getScopePath(Scope.Project, cwd, ''), globalPath);
+  const primaryScope = agentName ? Scope.AgentProject : deriveScope(basePath, await getScopePath(Scope.Project, cwd, ''), globalPath);
 
   // Build embeddings map from primary scope (excluding thoughts)
   // AND track metadata for each memory
@@ -293,7 +295,7 @@ export async function suggestLinks(
             metadataMap.set(id, {
               basePath: scopePath,
               scope: scopeType,
-              agent: (scopeType === 'agent-project' || scopeType === 'agent-global') ? path.basename(scopePath) : undefined,
+              agent: (scopeType === Scope.AgentProject || scopeType === Scope.AgentGlobal) ? path.basename(scopePath) : undefined,
             });
           }
         }
@@ -327,58 +329,59 @@ export async function suggestLinks(
     };
   }
 
-  // Find similar pairs
-  for (const sourceId of memoryIds) {
-    if (!embeddings[sourceId]) continue;
-    const sourceEmbedding = embeddings[sourceId];
+  // Find similar pairs using LSH-accelerated search (O(n*k) for large collections
+  // instead of O(n^2) brute force). findPotentialDuplicates automatically selects
+  // between brute-force (for N < 200) and LSH (for N >= 200), returns deduplicated
+  // pairs sorted by similarity descending, and uses triangular iteration to avoid
+  // redundant A-B / B-A comparisons.
+  const candidatePairs = findPotentialDuplicates(
+    embeddings,
+    threshold,
+    undefined, // No internal limit — we filter below and need full candidate set
+    { numHashBits: 12, numTables: 8 } // Tuned for link suggestion recall at 0.75 threshold
+  );
 
-    // Find similar memories
-    const similar = findSimilarMemories(sourceEmbedding, embeddings, threshold, limit);
+  for (const pair of candidatePairs) {
+    analysed++;
 
-    for (const match of similar) {
-      if (match.id === sourceId) continue;
+    // Check if already linked (bidirectional check already in existingLinks)
+    if (existingLinks.has(`${pair.id1}:${pair.id2}`)) {
+      skipped++;
+      continue;
+    }
 
-      analysed++;
-
-      // Check if already linked
-      if (existingLinks.has(`${sourceId}:${match.id}`)) {
-        skipped++;
+    // For --all-scopes, we allow cross-scope suggestions
+    // For single-scope, check if both are in the graph
+    if (!allScopes) {
+      if (!nodeIds.has(pair.id1) || !nodeIds.has(pair.id2)) {
         continue;
       }
-
-      // For --all-scopes, we allow cross-scope suggestions
-      // For single-scope, check if both are in the graph
-      if (!allScopes) {
-        if (!hasNode(graph, sourceId) || !hasNode(graph, match.id)) {
-          continue;
-        }
-      }
-
-      const sourceEntry = indexMap.get(unsafeAsMemoryId(sourceId));
-      const targetEntry = indexMap.get(unsafeAsMemoryId(match.id));
-
-      if (!sourceEntry || !targetEntry) continue;
-
-      // Get metadata for both memories to detect cross-scope
-      const sourceMeta = metadataMap.get(sourceId);
-      const targetMeta = metadataMap.get(match.id);
-      const isCrossScope = sourceMeta && targetMeta && sourceMeta.basePath !== targetMeta.basePath;
-
-      suggestions.push({
-        source: sourceId,
-        target: match.id,
-        similarity: match.similarity,
-        sourceTitle: sourceEntry.title,
-        targetTitle: targetEntry.title,
-        reason: `Semantic similarity: ${(match.similarity * 100).toFixed(1)}%`,
-        isCrossScope,
-        sourceMetadata: sourceMeta,
-        targetMetadata: targetMeta,
-      });
-
-      // Mark as seen to avoid duplicates
-      existingLinks.add(`${sourceId}:${match.id}`);
     }
+
+    const sourceEntry = indexMap.get(unsafeAsMemoryId(pair.id1));
+    const targetEntry = indexMap.get(unsafeAsMemoryId(pair.id2));
+
+    if (!sourceEntry || !targetEntry) continue;
+
+    // Get metadata for both memories to detect cross-scope
+    const sourceMeta = metadataMap.get(pair.id1);
+    const targetMeta = metadataMap.get(pair.id2);
+    const isCrossScope = sourceMeta && targetMeta && sourceMeta.basePath !== targetMeta.basePath;
+
+    suggestions.push({
+      source: pair.id1,
+      target: pair.id2,
+      similarity: pair.similarity,
+      sourceTitle: sourceEntry.title,
+      targetTitle: targetEntry.title,
+      reason: `Semantic similarity: ${(pair.similarity * 100).toFixed(1)}%`,
+      isCrossScope,
+      sourceMetadata: sourceMeta,
+      targetMetadata: targetMeta,
+    });
+
+    // Mark as seen to avoid duplicates
+    existingLinks.add(`${pair.id1}:${pair.id2}`);
 
     // Stop if we have enough
     if (suggestions.length >= limit) break;

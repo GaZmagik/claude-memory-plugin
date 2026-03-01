@@ -44,6 +44,9 @@ function validateOllamaUrl(baseUrl: string): void {
     const url = new URL(baseUrl);
 
     // Check against blocklist
+    // Known limitation: alternate IPv4 representations (decimal 2130706433,
+    // octal 0177.0.0.1) can bypass hostname string matching. For a local
+    // developer tool this is acceptable; production use would need DNS resolution.
     if (OLLAMA_URL_BLOCKLIST.some(blocked => url.hostname.includes(blocked))) {
       throw new Error(
         `Ollama base URL must not point to cloud metadata services or blocked hosts: ${url.hostname}`
@@ -154,19 +157,25 @@ export async function saveEmbeddingCache(
 
 /**
  * Get embedding for a memory, using cache if available
+ *
+ * When an optional `cache` parameter is provided, it is used directly instead
+ * of loading from disk, and the caller is responsible for saving afterwards.
+ * This avoids redundant load/save cycles when processing multiple memories.
  */
 export async function getEmbeddingForMemory(
   memoryId: string,
   content: string,
   cachePath: string,
   provider: EmbeddingProvider,
-  contentHash?: string
+  contentHash?: string,
+  cache?: EmbeddingCache
 ): Promise<number[]> {
-  const cache = await loadEmbeddingCache(cachePath);
+  const callerOwnsCache = cache !== undefined;
+  const effectiveCache = cache ?? await loadEmbeddingCache(cachePath);
   const hash = contentHash ?? generateContentHash(content);
 
   // Check cache
-  const cached = cache.memories[memoryId];
+  const cached = effectiveCache.memories[memoryId];
   if (cached && cached.hash === hash) {
     log.debug('Using cached embedding', { memoryId });
     return cached.embedding;
@@ -176,13 +185,17 @@ export async function getEmbeddingForMemory(
   log.debug('Generating new embedding', { memoryId });
   const embedding = await generateEmbedding(content, provider);
 
-  // Update cache
-  cache.memories[memoryId] = {
+  // Update cache entry
+  effectiveCache.memories[memoryId] = {
     embedding,
     hash,
     timestamp: new Date().toISOString(),
   };
-  await saveEmbeddingCache(cachePath, cache);
+
+  // Only persist when the caller has not provided the cache (they save once themselves)
+  if (!callerOwnsCache) {
+    await saveEmbeddingCache(cachePath, effectiveCache);
+  }
 
   return embedding;
 }

@@ -100,8 +100,8 @@ describe('Mermaid with --agent --include-shared', () => {
     if (!projectGraph.nodes.find(n => n.id === 'learning-agent-mem-1')) {
       projectGraph = addNode(projectGraph, {
         id: 'learning-agent-mem-1',
-        type: 'learning',
-        scope: 'agent-project',
+        type: MemoryType.Learning,
+        scope: Scope.AgentProject,
         agent: 'test-agent',
       });
     }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T14:10:39.859Z",
+  "lastUpdated": "2026-02-28T10:33:02.887Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -7503,24 +7503,6 @@
       "severity": "medium"
     },
     {
-      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "type": "gotcha",
-      "title": "Retro - Module-level vi.mock() creates unfixable global test pollution",
-      "tags": [
-        "retrospective",
-        "process",
-        "testing",
-        "vitest",
-        "gotcha",
-        "project"
-      ],
-      "created": "2026-02-05T11:34:38.768Z",
-      "updated": "2026-02-16T22:30:07.419Z",
-      "scope": "global",
-      "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
-      "severity": "high"
-    },
-    {
       "id": "learning-linkmemories-requires-agent-aware-basepath-resolution",
       "type": "learning",
       "title": "linkMemories requires agent-aware basePath resolution",
@@ -13879,32 +13861,6 @@
       "relativePath": "permanent/learning-complete-flag-infrastructure-removal-requires-coordinated-changes-across-multiple-layers.md"
     },
     {
-      "id": "thought-20260221-091111177",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code quality review for feature/005",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-21T09:11:11.189Z",
-      "updated": "2026-02-21T10:32:56.480Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260221-091111177.md"
-    },
-    {
-      "id": "thought-20260220-165044018",
-      "type": "breadcrumb",
-      "title": "Think: TypeScript code review findings for feature/005-rule-reminder-graph-nodes",
-      "tags": [
-        "think",
-        "concluded"
-      ],
-      "created": "2026-02-20T16:50:44.030Z",
-      "updated": "2026-02-20T17:46:02.832Z",
-      "scope": "global",
-      "relativePath": "temporary/thought-20260220-165044018.md"
-    },
-    {
       "id": "learning-base-path-validation-rejects-fictional-test-paths",
       "type": "learning",
       "title": "Base path validation rejects fictional test paths",
@@ -14602,6 +14558,863 @@
       "updated": "2026-02-25T23:39:33.994Z",
       "scope": "project",
       "relativePath": "permanent/learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner.md"
+    },
+    {
+      "id": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
+      "type": "learning",
+      "title": "Retro - Polyfill approach avoids large test infrastructure refactors",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "vitest",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:09.601Z",
+      "updated": "2026-02-26T14:11:09.601Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs",
+      "type": "learning",
+      "title": "Retro - Binary search approach efficiently isolates test suite hangs",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:17.730Z",
+      "updated": "2026-02-26T14:11:17.730Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-binary-search-approach-efficiently-isolates-test-suite-hangs.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "type": "gotcha",
+      "title": "vi.mock() importOriginal parameter not fully supported in Bun",
+      "tags": [
+        "bun",
+        "vitest",
+        "mocking",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:36.123Z",
+      "updated": "2026-02-26T14:11:36.123Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun.md"
+    },
+    {
+      "id": "learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output",
+      "type": "learning",
+      "title": "execFile maxBuffer overflow on CLI commands with verbose output",
+      "tags": [
+        "bun",
+        "testing",
+        "node",
+        "child-process",
+        "cli",
+        "project"
+      ],
+      "created": "2026-02-26T14:11:41.794Z",
+      "updated": "2026-02-26T14:11:41.794Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-execfile-maxbuffer-overflow-on-cli-commands-with-verbose-output.md"
+    },
+    {
+      "id": "learning-typescript-code-review-findings-for-claude-memory-plugin",
+      "type": "learning",
+      "title": "TypeScript code review findings for claude-memory-plugin",
+      "tags": [
+        "promoted-from-think",
+        "project"
+      ],
+      "created": "2026-02-26T17:26:21.050Z",
+      "updated": "2026-02-26T17:26:21.050Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-typescript-code-review-findings-for-claude-memory-plugin.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert dispatch accelerates large code reviews",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "parallel-agents",
+        "project"
+      ],
+      "created": "2026-02-26T19:12:41.841Z",
+      "updated": "2026-02-26T19:12:41.841Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering makes large reviews tractable",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-26T19:12:49.030Z",
+      "updated": "2026-02-26T19:12:49.030Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "type": "learning",
+      "title": "Retro - Phase-based grouping with trivial-first ordering made 64-finding code review tractable",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "large-scale-work",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:25.718Z",
+      "updated": "2026-02-26T21:57:25.718Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent dispatch on non-overlapping code phases accelerates multi-phase reviews",
+      "tags": [
+        "retrospective",
+        "process",
+        "parallelisation",
+        "agent-dispatch",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:37.864Z",
+      "updated": "2026-02-26T21:57:37.864Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count",
+      "type": "learning",
+      "title": "Retro - Full test suite validation revealed net improvement despite high failure count",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "validation",
+        "project"
+      ],
+      "created": "2026-02-26T21:57:57.870Z",
+      "updated": "2026-02-26T21:57:57.870Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-full-test-suite-validation-revealed-net-improvement-despite-high-failure-count.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics",
+      "type": "gotcha",
+      "title": "Type changes in parallel agents create cascading diagnostics",
+      "tags": [
+        "typescript",
+        "parallel-agents",
+        "diagnostics",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-26T21:58:30.268Z",
+      "updated": "2026-02-26T21:58:30.268Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-type-changes-in-parallel-agents-create-cascading-diagnostics.md"
+    },
+    {
+      "id": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "type": "gotcha",
+      "title": "Gotcha - Parallel expert agents on overlapping code phases risk merge conflicts",
+      "tags": [
+        "retrospective",
+        "process",
+        "gotcha",
+        "agent-coordination",
+        "merge-conflicts",
+        "project"
+      ],
+      "created": "2026-02-26T21:58:41.602Z",
+      "updated": "2026-02-26T21:58:41.602Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-placeholder-tests-inflate-pass-metrics-deceptively",
+      "type": "gotcha",
+      "title": "Placeholder tests inflate pass metrics deceptively",
+      "tags": [
+        "testing",
+        "test-quality",
+        "metrics",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:13.835Z",
+      "updated": "2026-02-26T21:59:13.835Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-placeholder-tests-inflate-pass-metrics-deceptively.md"
+    },
+    {
+      "id": "learning-pre-existing-test-failures-provide-improvement-baseline",
+      "type": "learning",
+      "title": "Pre-existing test failures provide improvement baseline",
+      "tags": [
+        "testing",
+        "code-review",
+        "metrics",
+        "velocity",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:15.882Z",
+      "updated": "2026-02-26T21:59:15.882Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-pre-existing-test-failures-provide-improvement-baseline.md"
+    },
+    {
+      "id": "decision-defer-large-refactors-from-code-reviews",
+      "type": "decision",
+      "title": "Defer large refactors to separate PRs",
+      "tags": [
+        "architecture",
+        "code-review",
+        "refactoring",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-26T21:59:28.408Z",
+      "updated": "2026-02-26T21:59:28.408Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-large-refactors-from-code-reviews.md"
+    },
+    {
+      "id": "learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations",
+      "type": "learning",
+      "title": "resolveBasePath utility extracts agent-scope resolution from CRUD operations",
+      "tags": [
+        "refactoring",
+        "agent-scope",
+        "dry",
+        "utility",
+        "project"
+      ],
+      "created": "2026-02-26T22:01:57.326Z",
+      "updated": "2026-02-26T22:01:57.326Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations.md"
+    },
+    {
+      "id": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "type": "learning",
+      "title": "Retro - Phase-based review organization (Critical/High/Medium/Low + category buckets) proved highly effective for large-scale code review triage",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "organization",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:02.605Z",
+      "updated": "2026-02-27T00:03:02.605Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
+      "type": "gotcha",
+      "title": "Retro - Background agents on overlapping code without worktree isolation create cascading type mismatches and must be rolled back",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "git",
+        "anti-pattern",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:10.553Z",
+      "updated": "2026-02-27T00:03:10.553Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back.md",
+      "severity": "critical"
+    },
+    {
+      "id": "learning-retro-progressive-multi-expert-review-feedback-loop-identified-11-additional-findings-after-initial-64-findings-were-categorized",
+      "type": "learning",
+      "title": "Retro - Progressive multi-expert review feedback loop identified ~11 additional findings after initial 64 findings were categorized",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "quality",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:22.115Z",
+      "updated": "2026-02-27T00:03:22.115Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-progressive-multi-expert-review-feedback-loop-identified-11-additional-findings-after-initial-64-findings-were-categorized.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "type": "gotcha",
+      "title": "Retro - Cascading async refactors create half-baked type errors across multiple files; better as dedicated focused PRs",
+      "tags": [
+        "retrospective",
+        "process",
+        "refactoring",
+        "anti-pattern",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:29.312Z",
+      "updated": "2026-02-27T00:03:29.312Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "type": "gotcha",
+      "title": "Parallel agents on overlapping code create cascading type errors",
+      "tags": [
+        "agents",
+        "background-tasks",
+        "type-safety",
+        "debugging",
+        "parallel-execution",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:50.352Z",
+      "updated": "2026-02-27T00:03:50.352Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-parallel-agents-overlapping-code-type-errors.md"
+    },
+    {
+      "id": "learning-batch-trivial-fixes-into-parallel-edits",
+      "type": "learning",
+      "title": "Batch trivial fixes into parallel edits for cleaner PR history",
+      "tags": [
+        "code-review",
+        "workflow",
+        "batch-operations",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T00:03:58.043Z",
+      "updated": "2026-02-27T00:03:58.043Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-batch-trivial-fixes-into-parallel-edits.md"
+    },
+    {
+      "id": "learning-stale-api-mocks-create-vacuous-test-passes",
+      "type": "learning",
+      "title": "Stale API mocks create vacuous test passes without real coverage",
+      "tags": [
+        "testing",
+        "test-quality",
+        "mocks",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-27T00:04:05.185Z",
+      "updated": "2026-02-27T00:04:05.185Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-stale-api-mocks-create-vacuous-test-passes.md"
+    },
+    {
+      "id": "decision-code-review-pr-scope-discipline",
+      "type": "decision",
+      "title": "Code review PRs should enforce scope discipline",
+      "tags": [
+        "code-review",
+        "pr-strategy",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-27T00:04:11.975Z",
+      "updated": "2026-02-27T00:04:11.975Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-code-review-pr-scope-discipline.md"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
+      "type": "learning",
+      "title": "Retro - Verification-first approach prevents false fixing on automated code review findings",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "automation",
+        "project"
+      ],
+      "created": "2026-02-27T06:56:07.786Z",
+      "updated": "2026-02-27T06:56:07.786Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
+      "type": "learning",
+      "title": "Retro - Verification-first debugging prevents time wasted on non-existent bugs",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:12.867Z",
+      "updated": "2026-02-27T17:16:12.867Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "type": "learning",
+      "title": "Retro - Complete test rewrites cleaner than incremental edits for pattern changes",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:16.683Z",
+      "updated": "2026-02-27T17:16:16.683Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence",
+      "type": "gotcha",
+      "title": "Hook tests that don't import actual hook code give false confidence",
+      "tags": [
+        "hooks",
+        "testing",
+        "test-quality",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:19.004Z",
+      "updated": "2026-02-27T17:16:19.004Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence.md"
+    },
+    {
+      "id": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
+      "type": "learning",
+      "title": "Retro - Deferring large architectural refactors to separate PRs keeps momentum",
+      "tags": [
+        "retrospective",
+        "process",
+        "scope-management",
+        "git-workflow",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:21.509Z",
+      "updated": "2026-02-27T17:16:21.509Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable",
+      "type": "gotcha",
+      "title": "execFileSync in Bun does not respect PATH environment variable",
+      "tags": [
+        "bun",
+        "subprocess",
+        "environment-variables",
+        "runtime-specific",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:22.906Z",
+      "updated": "2026-02-27T17:16:22.906Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-execfilesync-in-bun-does-not-respect-path-environment-variable.md"
+    },
+    {
+      "id": "learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic",
+      "type": "learning",
+      "title": "Retro - Passing tests immediately after refactoring provide high confidence in logic",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:25.694Z",
+      "updated": "2026-02-27T17:16:25.694Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-passing-tests-immediately-after-refactoring-provide-high-confidence-in-logic.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops",
+      "type": "learning",
+      "title": "Set-based O(1) lookups prevent O(n²) performance bugs in loops",
+      "tags": [
+        "performance",
+        "algorithms",
+        "graphs",
+        "optimization",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:27.473Z",
+      "updated": "2026-02-27T17:16:27.473Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-set-based-o1-lookups-prevent-on-performance-bugs-in-loops.md"
+    },
+    {
+      "id": "learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files",
+      "type": "learning",
+      "title": "Test-driven refactoring enables safe large-scale changes across multiple files",
+      "tags": [
+        "tdd",
+        "refactoring",
+        "testing",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-02-27T17:16:32.165Z",
+      "updated": "2026-02-27T17:16:32.165Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-driven-refactoring-enables-safe-large-scale-changes-across-multiple-files.md"
+    },
+    {
+      "id": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first approach on code review findings prevents wasted effort on false positives",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:31.258Z",
+      "updated": "2026-02-27T19:20:31.258Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "type": "learning",
+      "title": "Retro - Test-driven validation immediately after code changes provides high confidence in fixes",
+      "tags": [
+        "retrospective",
+        "process",
+        "tdd",
+        "testing",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:48.360Z",
+      "updated": "2026-02-27T19:20:48.360Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-adjacency-list-optimization-for-graph-edge-lookups",
+      "type": "learning",
+      "title": "Adjacency list optimization for graph edge lookups",
+      "tags": [
+        "graph-optimization",
+        "performance",
+        "pattern",
+        "project"
+      ],
+      "created": "2026-02-27T19:20:56.525Z",
+      "updated": "2026-02-27T19:20:56.525Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-adjacency-list-optimization-for-graph-edge-lookups.md"
+    },
+    {
+      "id": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
+      "type": "gotcha",
+      "title": "Gotcha - Retro - Automated code review findings snapshot decay: review findings against git history before investing in fixes",
+      "tags": [
+        "retrospective",
+        "gotcha",
+        "code-review",
+        "git",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:00.116Z",
+      "updated": "2026-02-27T19:21:00.116Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-shell-chaining-operators-bypass-command-blocklists",
+      "type": "gotcha",
+      "title": "Shell chaining operators bypass command blocklists",
+      "tags": [
+        "security",
+        "command-injection",
+        "shell",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:04.095Z",
+      "updated": "2026-02-27T19:21:04.095Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-shell-chaining-operators-bypass-command-blocklists.md"
+    },
+    {
+      "id": "gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability",
+      "type": "gotcha",
+      "title": "Glob pattern regex conversion creates ReDoS vulnerability",
+      "tags": [
+        "security",
+        "regex",
+        "glob",
+        "redos",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:45.522Z",
+      "updated": "2026-02-27T19:21:45.522Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-glob-pattern-regex-conversion-creates-redos-vulnerability.md"
+    },
+    {
+      "id": "learning-code-review-findings-require-verification-against-current-code",
+      "type": "learning",
+      "title": "Code review findings require verification against current code",
+      "tags": [
+        "code-review",
+        "process",
+        "verification",
+        "project"
+      ],
+      "created": "2026-02-27T19:21:57.342Z",
+      "updated": "2026-02-27T19:21:57.342Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-code-review-findings-require-verification-against-current-code.md"
+    },
+    {
+      "id": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
+      "type": "learning",
+      "title": "Verification-first approach prevents wasted refactoring effort",
+      "tags": [
+        "code-review",
+        "verification",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-02-27T21:30:53.242Z",
+      "updated": "2026-02-27T21:30:53.242Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-verification-first-approach-prevents-wasted-refactoring-effort.md"
+    },
+    {
+      "id": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
+      "type": "decision",
+      "title": "Defer large structural refactors to separate PRs during code review cleanup",
+      "tags": [
+        "code-review",
+        "process",
+        "refactoring",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-02-27T21:33:02.200Z",
+      "updated": "2026-02-27T21:33:02.200Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup.md"
+    },
+    {
+      "id": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "type": "gotcha",
+      "title": "Retro - Test mock pollution from vi.mock() leaks across files in Bun when polyfill enabled",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "project"
+      ],
+      "created": "2026-02-28T03:22:15.232Z",
+      "updated": "2026-02-28T03:22:15.232Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
+      "type": "gotcha",
+      "title": "Hook timeout budget exhaustion with Ollama retry loops",
+      "tags": [
+        "hooks",
+        "ollama",
+        "timeout",
+        "external-services",
+        "project"
+      ],
+      "created": "2026-02-28T03:22:23.326Z",
+      "updated": "2026-02-28T03:22:23.326Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops.md"
+    },
+    {
+      "id": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
+      "type": "learning",
+      "title": "Retro - Verification-first on code review findings prevents wasted effort on false positives",
+      "tags": [
+        "retrospective",
+        "process",
+        "code-review",
+        "project"
+      ],
+      "created": "2026-02-28T03:24:19.760Z",
+      "updated": "2026-02-28T03:24:19.760Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "type": "learning",
+      "title": "Bun test polyfill vi.hoisted requires bunfig.toml preload",
+      "tags": [
+        "bun",
+        "testing",
+        "vitest-compat",
+        "polyfill",
+        "project"
+      ],
+      "created": "2026-02-28T03:24:24.937Z",
+      "updated": "2026-02-28T03:24:24.937Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload.md"
+    },
+    {
+      "id": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
+      "type": "learning",
+      "title": "Retro - Root cause diagnosis saves time better than symptom-driven fixes",
+      "tags": [
+        "retrospective",
+        "process",
+        "debugging",
+        "project"
+      ],
+      "created": "2026-02-28T03:26:24.758Z",
+      "updated": "2026-02-28T03:26:24.758Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "type": "gotcha",
+      "title": "vi.mock() state leaks across Bun test files without proper restoration",
+      "tags": [
+        "bun",
+        "testing",
+        "mocks",
+        "test-isolation",
+        "lifecycle",
+        "project"
+      ],
+      "created": "2026-02-28T03:28:42.825Z",
+      "updated": "2026-02-28T03:28:42.825Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration.md"
+    },
+    {
+      "id": "artifact-god-function-decomposition-pattern",
+      "type": "artifact",
+      "title": "God function decomposition pattern for complex functions",
+      "tags": [
+        "refactoring",
+        "patterns",
+        "testing",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-02-28T03:30:53.727Z",
+      "updated": "2026-02-28T03:30:53.727Z",
+      "scope": "project",
+      "relativePath": "permanent/artifact-god-function-decomposition-pattern.md"
+    },
+    {
+      "id": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "type": "gotcha",
+      "title": "Retro - Individual test file runs masked cross-file pollution in extract-context",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "bun",
+        "module-pollution",
+        "project"
+      ],
+      "created": "2026-02-28T09:19:44.395Z",
+      "updated": "2026-02-28T09:19:44.395Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "type": "learning",
+      "title": "vi.spyOn solves Bun module-level vi.mock test pollution",
+      "tags": [
+        "testing",
+        "bun",
+        "vitest",
+        "mocking",
+        "vi-spyon",
+        "module-pollution",
+        "fs-mocking",
+        "project"
+      ],
+      "created": "2026-02-28T09:20:15.290Z",
+      "updated": "2026-02-28T09:20:15.290Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vispyon-solves-bun-module-level-vimock-test-pollution.md"
+    },
+    {
+      "id": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "type": "gotcha",
+      "title": "Retro - Module-level vi.mock() creates global test pollution (RESOLVED)",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "vitest",
+        "gotcha",
+        "resolved",
+        "project"
+      ],
+      "created": "2026-02-28T09:21:42.419Z",
+      "updated": "2026-02-28T09:21:42.419Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
+      "severity": "medium"
     }
   ]
 }

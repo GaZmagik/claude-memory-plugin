@@ -140,6 +140,51 @@ describe('Directory Protection', () => {
       });
     });
 
+    describe('compound command bypass prevention (CWE-78)', () => {
+      it('should block && chained commands referencing memory', () => {
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'cat .claude/memory/index.json && truncate -s 0 .claude/memory/index.json',
+        })).toBe(true);
+      });
+
+      it('should block semicolon chained commands referencing memory', () => {
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'ls .claude/memory/; python -c "os.remove(\'.claude/memory/index.json\')"',
+        })).toBe(true);
+      });
+
+      it('should block || chained commands referencing memory', () => {
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'cat .claude/memory/missing.md || echo overwrite > .claude/memory/index.json',
+        })).toBe(true);
+      });
+
+      it('should allow memory CLI even in compound form', () => {
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'memory list && echo "done"',
+        })).toBe(false);
+      });
+
+      it('should allow simple read-only commands without chaining', () => {
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'cat .claude/memory/index.json',
+        })).toBe(false);
+      });
+
+      it('should block git rm --cached in compound form (use isAllowedOperation for whitelist)', () => {
+        // shouldBlockOperation blocks rm; isAllowedOperation provides the whitelist
+        expect(shouldBlockOperation({
+          tool: 'Bash',
+          command: 'git rm --cached .claude/memory/test.md && git commit',
+        })).toBe(true);
+      });
+    });
+
     describe('Write operations', () => {
       it('should block Write to memory path', () => {
         const operation: ToolOperation = {

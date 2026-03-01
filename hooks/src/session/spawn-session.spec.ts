@@ -4,72 +4,68 @@
  * Tests the background Claude session spawning infrastructure
  * used for memory capture in PreCompact and SessionEnd hooks.
  *
- * Note: Uses vitest vi.mock() to mock node modules.
- *
- * ⚠️ TEST ISOLATION REQUIRED
- * Uses module-level vi.mock() for fs and child_process which creates
- * global state. Must run separately with: vitest run <this-file>
- * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
+ * fs is mocked via vi.spyOn (not vi.mock) to prevent module registry
+ * pollution that breaks co-located test files like session-cache.spec.ts.
  */
 
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
-import { join } from 'path';
-import { homedir, tmpdir } from 'os';
-import type * as OriginalFs from 'fs';
-import type * as OriginalChildProcess from 'node:child_process';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
+import { join } from 'node:path';
+import { homedir, tmpdir } from 'node:os';
 
-// Hoist mock functions so they can be referenced inside vi.mock() factories
-const {
-  mockExistsSync,
-  mockMkdirSync,
-  mockWriteFileSync,
-  mockSpawn,
-} = vi.hoisted(() => {
+// Import real child_process for spreading into vi.mock factory
+import * as originalChildProcess from 'node:child_process';
+
+// Import fs namespace for vi.spyOn (no module-level mock — prevents test pollution)
+import * as fs from 'node:fs';
+
+// Hoist mock function for child_process vi.mock factory
+const { mockSpawn } = vi.hoisted(() => {
   const mockUnref = vi.fn(() => undefined);
   return {
-    mockExistsSync: vi.fn(() => false),
-    mockMkdirSync: vi.fn(() => undefined),
-    mockWriteFileSync: vi.fn(() => undefined),
     mockSpawn: vi.fn(() => ({ unref: mockUnref })),
   };
 });
 
-// Mock fs - spread original and override only what we need
-vi.mock('fs', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalFs>()),
-  existsSync: mockExistsSync,
-  mkdirSync: mockMkdirSync,
-  writeFileSync: mockWriteFileSync,
-}));
-
-// Mock child_process - spread original and override only what we need
-vi.mock('node:child_process', async (importOriginal) => ({
-  ...(await importOriginal<typeof OriginalChildProcess>()),
+// Mock child_process — uses vi.mock because SUT dynamically imports spawn
+vi.mock('node:child_process', () => ({
+  ...originalChildProcess,
   spawn: mockSpawn,
 }));
+
+// fs is mocked via vi.spyOn in beforeEach — no vi.mock('fs') needed
 
 import {
   getLogDir,
   getTimestamp,
   isMemoryCaptureSession,
-  isForkedSession,
   spawnSessionWithContext,
   validateShellSafe,
   validatePathSafe,
 } from '../../../hooks/src/session/spawn-session.js';
-import * as fs from 'fs';
 import * as childProcess from 'node:child_process';
+
+// fs spy variables — created fresh in each beforeEach, restored in afterEach
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockExistsSync: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockWriteFileSync: any;
 
 describe('spawn-session', () => {
   beforeEach(() => {
-    mockExistsSync.mockClear();
-    mockMkdirSync.mockClear();
-    mockWriteFileSync.mockClear();
     mockSpawn.mockClear();
+    // Set up fs spies (vi.spyOn modifies namespace properties, not module registry)
+    mockExistsSync = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
+    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined as any);
+    mockWriteFileSync = vi.spyOn(fs, 'writeFileSync').mockReturnValue(undefined);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks(); // Restore fs spies to real implementations
   });
 
   afterAll(() => {
-    vi.restoreAllMocks();
+    mock.restore(); // Unmock child_process vi.mock
   });
 
   describe('getTimestamp', () => {
@@ -87,12 +83,11 @@ describe('spawn-session', () => {
     });
   });
 
-  describe('isMemoryCaptureSession / isForkedSession', () => {
+  describe('isMemoryCaptureSession', () => {
     it('should return false in normal environment', () => {
       const result = isMemoryCaptureSession();
       expect(typeof result).toBe('boolean');
-      // isForkedSession should be an alias
-      expect(isForkedSession).toBe(isMemoryCaptureSession);
+      expect(result).toBe(false);
     });
   });
 

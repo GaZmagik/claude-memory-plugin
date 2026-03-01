@@ -5,17 +5,22 @@
  */
 
 import * as path from 'node:path';
-import * as os from 'node:os';
 import type { SearchMemoriesRequest, SearchMemoriesResponse, SearchResult } from '../types/api.js';
-import { Scope } from '../types/enums.js';
 import { loadIndex } from './index.js';
 import { readFile, fileExists } from './fs-utils.js';
 import { parseMemoryFile } from './frontmatter.js';
 import { createLogger } from './logger.js';
-import { getAgentDirectoryPath } from '../scope/get-agent-directory-path.js';
-import { isAgentScope } from '../scope/is-agent-scope.js';
+import { resolveBasePath } from '../scope/resolve-base-path.js';
 
 const log = createLogger('search');
+
+/** Scoring weights for keyword relevance ranking */
+const SCORE_TITLE_MATCH = 0.5;
+const SCORE_TITLE_EXACT_BONUS = 0.3;
+const SCORE_TAG_MATCH = 0.3;
+const SCORE_CONTENT_MATCH = 0.2;
+const SCORE_OCCURRENCE_BONUS = 0.02;
+const SCORE_OCCURRENCE_CAP = 0.1;
 
 /**
  * Calculate relevance score for a match
@@ -31,25 +36,25 @@ function calculateScore(
 
   // Title match (highest weight)
   if (title.toLowerCase().includes(queryLower)) {
-    score += 0.5;
+    score += SCORE_TITLE_MATCH;
     // Bonus for exact title match
     if (title.toLowerCase() === queryLower) {
-      score += 0.3;
+      score += SCORE_TITLE_EXACT_BONUS;
     }
   }
 
   // Tag match (high weight)
   if (tags.some(tag => tag.toLowerCase().includes(queryLower))) {
-    score += 0.3;
+    score += SCORE_TAG_MATCH;
   }
 
   // Content match (lower weight)
   if (content.toLowerCase().includes(queryLower)) {
-    score += 0.2;
+    score += SCORE_CONTENT_MATCH;
 
     // Bonus for multiple occurrences (diminishing returns)
     const occurrences = content.toLowerCase().split(queryLower).length - 1;
-    score += Math.min(occurrences * 0.02, 0.1);
+    score += Math.min(occurrences * SCORE_OCCURRENCE_BONUS, SCORE_OCCURRENCE_CAP);
   }
 
   return Math.min(score, 1.0);
@@ -160,30 +165,12 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
 
   const query = request.query.trim();
 
-  // Resolve base path (handle agent scopes)
-  let basePath: string;
-  if (request.scope && isAgentScope(request.scope)) {
-    // Agent scope - resolve agent directory
-    if (!request.agent) {
-      return {
-        status: 'error',
-        error: 'agent field is required for agent scopes',
-      };
-    }
-
-    const projectRoot = request.scope === Scope.AgentProject ? process.cwd() : undefined;
-    const globalRoot = request.scope === Scope.AgentGlobal ? (request.basePath ?? path.join(os.homedir(), '.claude', 'memory')) : undefined;
-
-    basePath = getAgentDirectoryPath({
-      scope: request.scope,
-      agentName: request.agent,
-      projectRoot,
-      globalRoot,
-    });
-  } else {
-    // Regular scope - use existing resolution
-    basePath = request.basePath ?? process.cwd();
+  // Resolve base path (handles both regular and agent scopes)
+  const basePathResult = resolveBasePath(request);
+  if (basePathResult.error) {
+    return { status: 'error', error: basePathResult.error };
   }
+  const basePath = basePathResult.basePath;
 
   try {
     const index = await loadIndex({ basePath });

@@ -9,9 +9,9 @@
  * to point to the new version automatically.
  */
 
-import { mkdirSync, symlinkSync, unlinkSync, existsSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { mkdirSync, symlinkSync, unlinkSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 
 const bunBin = join(homedir(), '.bun', 'bin');
 // Use import.meta.dir to get this script's location, not cwd

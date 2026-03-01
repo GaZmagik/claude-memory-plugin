@@ -20,6 +20,8 @@ export enum MemoryType {
   Rule = 'rule',
   /** A descriptive reminder file (agent MEMORY.md) carrying agent state */
   Reminder = 'reminder',
+  /** Placeholder for nodes with unrecognised or missing type (legacy data) */
+  Unknown = 'unknown',
 }
 
 /**

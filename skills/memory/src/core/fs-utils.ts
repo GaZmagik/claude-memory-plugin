@@ -161,11 +161,13 @@ export async function fileExists(filePath: string): Promise<boolean> {
  */
 export async function deleteFile(filePath: string): Promise<void> {
   try {
-    await fsp.access(filePath);
     await fsp.unlink(filePath);
     log.debug('Deleted file', { path: filePath });
-  } catch {
-    // File doesn't exist, nothing to delete
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw error;
+    }
+    // ENOENT is expected — file already gone
   }
 }
 
@@ -266,10 +268,20 @@ export async function getFileStats(filePath: string): Promise<fs.Stats | null> {
  * ```
  */
 export async function readJsonFile<T>(filePath: string): Promise<T | null> {
+  let content: string;
   try {
-    const content = await fsp.readFile(filePath, 'utf-8');
+    content = await fsp.readFile(filePath, 'utf-8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return null;
+    }
+    throw error; // Propagate permission errors, etc.
+  }
+
+  try {
     return JSON.parse(content) as T;
   } catch {
+    log.warn('Corrupt JSON file', { path: filePath });
     return null;
   }
 }
@@ -637,7 +649,7 @@ export async function getAllMemoryIds(basePath: string): Promise<string[]> {
     const files = await fsp.readdir(dir);
     for (const file of files) {
       if (file.endsWith('.md')) {
-        ids.push(file.replace('.md', ''));
+        ids.push(file.slice(0, -3));
       }
     }
   }
@@ -672,8 +684,20 @@ export async function getAllMemoryIds(basePath: string): Promise<string[]> {
  * ```
  */
 export async function findMemoryFile(basePath: string, id: string): Promise<string | null> {
+  // Reject IDs containing path separators or traversal sequences
+  if (id.includes('/') || id.includes('\\') || id.includes('..')) {
+    return null;
+  }
+
   for (const subdir of MEMORY_SUBDIRS) {
     const filePath = path.join(basePath, subdir, `${id}.md`);
+
+    // Verify resolved path stays within basePath
+    const resolved = path.resolve(filePath);
+    if (!resolved.startsWith(path.resolve(basePath) + path.sep)) {
+      return null;
+    }
+
     try {
       await fsp.access(filePath);
       return filePath;

@@ -17,6 +17,7 @@ import type { EdgeMetadata } from './edges.js';
 import { loadIndex } from '../core/index.js';
 import { createLogger } from '../core/logger.js';
 import { resolveAgentScopePath } from '../cli/helpers.js';
+import { MemoryType, Scope } from '../types/enums.js';
 
 const log = createLogger('link');
 
@@ -60,8 +61,8 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
       relation: request.relation,
       sourceBasePath,
       targetBasePath: request.targetBasePath,
-      sourceScope: request.sourceScope ?? (request.agent ? 'agent-project' : 'project'),
-      targetScope: request.targetScope ?? (request.targetAgent ? 'agent-project' : 'project'),
+      sourceScope: (request.sourceScope as Scope) ?? (request.agent ? Scope.AgentProject : Scope.Project),
+      targetScope: (request.targetScope as Scope) ?? (request.targetAgent ? Scope.AgentProject : Scope.Project),
       sourceAgent: request.sourceAgent ?? request.agent,
       targetAgent: request.targetAgent,
     });
@@ -301,8 +302,8 @@ export interface StoreCrossScopeEdgeRequest {
   relation?: string;
   sourceBasePath: string;
   targetBasePath: string;
-  sourceScope: string;
-  targetScope: string;
+  sourceScope: Scope;
+  targetScope: Scope;
   sourceAgent?: string;
   targetAgent?: string;
 }
@@ -387,7 +388,7 @@ export async function storeCrossScopeEdge(
     // Build enriched nodes
     const sourceNode: GraphNode = {
       id: request.sourceId,
-      type: sourceEntry?.type ?? 'unknown',
+      type: sourceEntry?.type ?? MemoryType.Unknown,
       ...(sourceEntry?.title && { title: sourceEntry.title }),
       ...(request.sourceScope && { scope: request.sourceScope }),
       ...(request.sourceAgent && { agent: request.sourceAgent }),
@@ -395,7 +396,7 @@ export async function storeCrossScopeEdge(
 
     const targetNode: GraphNode = {
       id: request.targetId,
-      type: targetEntry?.type ?? 'unknown',
+      type: targetEntry?.type ?? MemoryType.Unknown,
       ...(targetEntry?.title && { title: targetEntry.title }),
       ...(request.targetScope && { scope: request.targetScope }),
       ...(request.targetAgent && { agent: request.targetAgent }),

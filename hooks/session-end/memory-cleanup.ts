@@ -7,11 +7,11 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 import {
-  isForkedSession,
+  isMemoryCaptureSession,
   spawnSessionWithContext,
   getLogDir,
   findPluginDir,
@@ -21,7 +21,7 @@ import { findAnyUnclaimedSubagent, cleanupClaimedEntry } from '../src/agent/suba
 
 runHook(async (input) => {
   // Defence-in-depth: Skip if running in memory capture HOME
-  if (isForkedSession()) {
+  if (isMemoryCaptureSession()) {
     return allow();
   }
 

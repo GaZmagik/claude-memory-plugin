@@ -4,9 +4,9 @@
  * Logs hook execution details to ~/.claude/logs/hook-debug.log
  */
 
-import { appendFileSync, mkdirSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { appendFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 
 const LOG_FILE = join(homedir(), '.claude/logs/hook-debug.log');
 const MAX_INPUT_LENGTH = 500;

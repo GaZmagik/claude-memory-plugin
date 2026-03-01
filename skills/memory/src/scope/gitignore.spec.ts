@@ -39,8 +39,8 @@ describe('Gitignore Automation', () => {
   });
 
   describe('ensureLocalScopeGitignored', () => {
-    it('should create .gitignore if it does not exist', () => {
-      const result = ensureLocalScopeGitignored(testDir);
+    it('should create .gitignore if it does not exist', async () => {
+      const result = await ensureLocalScopeGitignored(testDir);
 
       expect(result.created).toBe(true);
       expect(fs.existsSync(path.join(testDir, '.gitignore'))).toBe(true);
@@ -49,10 +49,10 @@ describe('Gitignore Automation', () => {
       expect(content).toContain('.claude/memory/local/');
     });
 
-    it('should add to existing .gitignore if pattern missing', () => {
+    it('should add to existing .gitignore if pattern missing', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\n');
 
-      const result = ensureLocalScopeGitignored(testDir);
+      const result = await ensureLocalScopeGitignored(testDir);
 
       expect(result.modified).toBe(true);
       expect(result.created).toBe(false);
@@ -62,11 +62,11 @@ describe('Gitignore Automation', () => {
       expect(content).toContain('.claude/memory/local/');
     });
 
-    it('should not modify .gitignore if pattern already present', () => {
+    it('should not modify .gitignore if pattern already present', async () => {
       const originalContent = 'node_modules/\n.claude/memory/local/\n';
       fs.writeFileSync(path.join(testDir, '.gitignore'), originalContent);
 
-      const result = ensureLocalScopeGitignored(testDir);
+      const result = await ensureLocalScopeGitignored(testDir);
 
       expect(result.modified).toBe(false);
       expect(result.alreadyPresent).toBe(true);
@@ -75,20 +75,20 @@ describe('Gitignore Automation', () => {
       expect(content).toBe(originalContent);
     });
 
-    it('should detect pattern with trailing whitespace', () => {
+    it('should detect pattern with trailing whitespace', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), '.claude/memory/local/  \n');
 
-      const result = ensureLocalScopeGitignored(testDir);
+      const result = await ensureLocalScopeGitignored(testDir);
 
       expect(result.alreadyPresent).toBe(true);
       expect(result.modified).toBe(false);
     });
 
-    it('should not add if not in git repository', () => {
+    it('should not add if not in git repository', async () => {
       // Remove .git directory
       fs.rmSync(path.join(testDir, '.git'), { recursive: true });
 
-      const result = ensureLocalScopeGitignored(testDir);
+      const result = await ensureLocalScopeGitignored(testDir);
 
       expect(result.skipped).toBe(true);
       expect(result.reason?.toLowerCase()).toContain('not a git repository');
@@ -96,41 +96,41 @@ describe('Gitignore Automation', () => {
   });
 
   describe('isPathGitignored', () => {
-    it('should return true for exact match', () => {
+    it('should return true for exact match', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), '.claude/memory/local/\n');
 
-      const result = isPathGitignored(testDir, '.claude/memory/local/');
+      const result = await isPathGitignored(testDir, '.claude/memory/local/');
       expect(result).toBe(true);
     });
 
-    it('should return false when pattern not in gitignore', () => {
+    it('should return false when pattern not in gitignore', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\n');
 
-      const result = isPathGitignored(testDir, '.claude/memory/local/');
+      const result = await isPathGitignored(testDir, '.claude/memory/local/');
       expect(result).toBe(false);
     });
 
-    it('should return false when no .gitignore exists', () => {
-      const result = isPathGitignored(testDir, '.claude/memory/local/');
+    it('should return false when no .gitignore exists', async () => {
+      const result = await isPathGitignored(testDir, '.claude/memory/local/');
       expect(result).toBe(false);
     });
 
-    it('should handle comments and empty lines', () => {
+    it('should handle comments and empty lines', async () => {
       fs.writeFileSync(
         path.join(testDir, '.gitignore'),
         '# Comment\n\n.claude/memory/local/\n\n# Another comment\n'
       );
 
-      const result = isPathGitignored(testDir, '.claude/memory/local/');
+      const result = await isPathGitignored(testDir, '.claude/memory/local/');
       expect(result).toBe(true);
     });
   });
 
   describe('addToGitignore', () => {
-    it('should append pattern with newline', () => {
+    it('should append pattern with newline', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/');
 
-      addToGitignore(testDir, '.claude/memory/local/');
+      await addToGitignore(testDir, '.claude/memory/local/');
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toContain('node_modules/');
@@ -138,20 +138,20 @@ describe('Gitignore Automation', () => {
       expect(content.endsWith('\n')).toBe(true);
     });
 
-    it('should add section comment before pattern', () => {
+    it('should add section comment before pattern', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\n');
 
-      addToGitignore(testDir, '.claude/memory/local/', 'Claude Code local memories');
+      await addToGitignore(testDir, '.claude/memory/local/', 'Claude Code local memories');
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toContain('# Claude Code local memories');
       expect(content).toContain('.claude/memory/local/');
     });
 
-    it('should handle file without trailing newline', () => {
+    it('should handle file without trailing newline', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/');
 
-      addToGitignore(testDir, '.claude/memory/local/');
+      await addToGitignore(testDir, '.claude/memory/local/');
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       // Should have newline between existing content and new pattern
@@ -160,26 +160,26 @@ describe('Gitignore Automation', () => {
   });
 
   describe('createGitignoreIfMissing', () => {
-    it('should create .gitignore if missing', () => {
-      const result = createGitignoreIfMissing(testDir);
+    it('should create .gitignore if missing', async () => {
+      const result = await createGitignoreIfMissing(testDir);
 
       expect(result).toBe(true);
       expect(fs.existsSync(path.join(testDir, '.gitignore'))).toBe(true);
     });
 
-    it('should not overwrite existing .gitignore', () => {
+    it('should not overwrite existing .gitignore', async () => {
       const originalContent = 'existing content\n';
       fs.writeFileSync(path.join(testDir, '.gitignore'), originalContent);
 
-      const result = createGitignoreIfMissing(testDir);
+      const result = await createGitignoreIfMissing(testDir);
 
       expect(result).toBe(false);
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toBe(originalContent);
     });
 
-    it('should create with standard header', () => {
-      createGitignoreIfMissing(testDir);
+    it('should create with standard header', async () => {
+      await createGitignoreIfMissing(testDir);
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toContain('# Generated by Claude Code');
@@ -187,22 +187,22 @@ describe('Gitignore Automation', () => {
   });
 
   describe('edge cases', () => {
-    it('should handle .gitignore with Windows line endings', () => {
+    it('should handle .gitignore with Windows line endings', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\r\n.env\r\n');
 
-      ensureLocalScopeGitignored(testDir);
+      await ensureLocalScopeGitignored(testDir);
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toContain('.claude/memory/local/');
     });
 
-    it('should handle negation patterns', () => {
+    it('should handle negation patterns', async () => {
       fs.writeFileSync(
         path.join(testDir, '.gitignore'),
         '.claude/\n!.claude/config.json\n'
       );
 
-      ensureLocalScopeGitignored(testDir);
+      await ensureLocalScopeGitignored(testDir);
 
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
       expect(content).toContain('.claude/memory/local/');
@@ -210,13 +210,13 @@ describe('Gitignore Automation', () => {
   });
 
   describe('removeFromGitignore', () => {
-    it('should remove pattern from .gitignore', () => {
+    it('should remove pattern from .gitignore', async () => {
       fs.writeFileSync(
         path.join(testDir, '.gitignore'),
         'node_modules/\n.claude/memory/local/\n.env\n'
       );
 
-      const result = removeFromGitignore(testDir, '.claude/memory/local/');
+      const result = await removeFromGitignore(testDir, '.claude/memory/local/');
 
       expect(result).toBe(true);
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
@@ -225,27 +225,27 @@ describe('Gitignore Automation', () => {
       expect(content).toContain('.env');
     });
 
-    it('should return false when pattern not found', () => {
+    it('should return false when pattern not found', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\n');
 
-      const result = removeFromGitignore(testDir, '.claude/memory/local/');
+      const result = await removeFromGitignore(testDir, '.claude/memory/local/');
 
       expect(result).toBe(false);
     });
 
-    it('should return false when .gitignore does not exist', () => {
-      const result = removeFromGitignore(testDir, '.claude/memory/local/');
+    it('should return false when .gitignore does not exist', async () => {
+      const result = await removeFromGitignore(testDir, '.claude/memory/local/');
 
       expect(result).toBe(false);
     });
 
-    it('should handle pattern with whitespace', () => {
+    it('should handle pattern with whitespace', async () => {
       fs.writeFileSync(
         path.join(testDir, '.gitignore'),
         'node_modules/\n  .claude/memory/local/  \n.env\n'
       );
 
-      const result = removeFromGitignore(testDir, '.claude/memory/local/');
+      const result = await removeFromGitignore(testDir, '.claude/memory/local/');
 
       expect(result).toBe(true);
       const content = fs.readFileSync(path.join(testDir, '.gitignore'), 'utf-8');
@@ -254,29 +254,29 @@ describe('Gitignore Automation', () => {
   });
 
   describe('validateGitignorePatterns', () => {
-    it('should return valid: true when all patterns present', () => {
+    it('should return valid: true when all patterns present', async () => {
       fs.writeFileSync(
         path.join(testDir, '.gitignore'),
         '.claude/memory/local/\n'
       );
 
-      const result = validateGitignorePatterns(testDir);
+      const result = await validateGitignorePatterns(testDir);
 
       expect(result.valid).toBe(true);
       expect(result.missing).toHaveLength(0);
     });
 
-    it('should return valid: false when pattern missing', () => {
+    it('should return valid: false when pattern missing', async () => {
       fs.writeFileSync(path.join(testDir, '.gitignore'), 'node_modules/\n');
 
-      const result = validateGitignorePatterns(testDir);
+      const result = await validateGitignorePatterns(testDir);
 
       expect(result.valid).toBe(false);
       expect(result.missing).toContain('.claude/memory/local/');
     });
 
-    it('should return valid: false when .gitignore does not exist', () => {
-      const result = validateGitignorePatterns(testDir);
+    it('should return valid: false when .gitignore does not exist', async () => {
+      const result = await validateGitignorePatterns(testDir);
 
       expect(result.valid).toBe(false);
       expect(result.missing).toContain('.claude/memory/local/');

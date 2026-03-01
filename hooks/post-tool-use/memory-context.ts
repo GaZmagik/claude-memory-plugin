@@ -23,9 +23,10 @@ import {
   hasNoGotchas,
   cleanGotchaSummary,
 } from '../src/memory/topic-classifier.ts';
-import { stat, readFile, mkdir, appendFile, readdir } from 'fs/promises';
-import { join, basename, dirname } from 'path';
-import { homedir } from 'os';
+import { readFile, mkdir, appendFile, readdir } from 'node:fs/promises';
+import { pathExists } from '../src/core/fs.ts';
+import { join, basename, dirname } from 'node:path';
+import { homedir } from 'node:os';
 import type { HookInput } from '../src/core/types.ts';
 
 // Import plugin settings
@@ -53,17 +54,8 @@ let injectionDedup = new InjectionDeduplicator();
  * NOTE: hooks.json requires 'matcher: "*"' for PostToolUse to merge properly
  * with user-level hooks. Without it, marketplace plugins may not fire.
  */
-const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (30s total hook budget)
-
-/** Check if a path exists (async alternative to existsSync) */
-async function pathExists(p: string): Promise<boolean> {
-  try {
-    await stat(p);
-    return true;
-  } catch {
-    return false;
-  }
-}
+const HOOK_OLLAMA_TIMEOUT_MS = 10000; // 10s per Ollama call (25s total hook budget)
+const HOOK_MAX_RETRIES = 0; // No retries in hooks — budget is too tight for 3×10s attempts
 
 /**
  * Load settings from project directory (called once at hook init)
@@ -375,9 +367,8 @@ async function findGotchaNamedFiles(memDir: string, topic: string): Promise<stri
   const results: string[] = [];
 
   try {
-    const files = await readdir(memDir, { recursive: true }) as string[];
+    const files = await readdir(memDir, { recursive: true, encoding: 'utf-8' });
     for (const file of files) {
-      if (typeof file !== 'string') continue;
       if (file.includes('/archive/')) continue;
 
       const lower = file.toLowerCase();
@@ -430,12 +421,12 @@ async function findLinkedMemories(memDir: string, foundIds: string[]): Promise<s
     }
 
     // Read directory once (was called inside nested loop!)
-    const files = await readdir(memDir, { recursive: true }) as string[];
+    const files = await readdir(memDir, { recursive: true, encoding: 'utf-8' });
 
     // Build file map for O(1) path lookups (was O(k) per lookup)
     const fileMap = new Map<string, string>();
     for (const file of files) {
-      if (typeof file === 'string' && file.endsWith('.md')) {
+      if (file.endsWith('.md')) {
         const id = basename(file, '.md');
         fileMap.set(id, join(memDir, file));
       }
@@ -516,7 +507,7 @@ async function handleReadMode(
 
   // Ask Ollama for topic extraction (with hook-specific timeout)
   const prompt = buildReadTopicPrompt(fileName, filePath);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
   const parsed = parseTopicResponse(response);
 
   if (!parsed) {
@@ -648,7 +639,7 @@ ${searchResult.memories.map((m) => `  - ${m.id} (score: ${String(m.score).slice(
 
   // Ask Ollama for gotcha extraction (with hook-specific timeout)
   const gotchaPrompt = buildGotchaPrompt(fileName, topic, memoryContent);
-  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const gotchaSummary = await generate(gotchaPrompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
   const cleanedSummary = cleanGotchaSummary(gotchaSummary).slice(0, 500);
 
   if (hasNoGotchas(cleanedSummary)) {
@@ -711,7 +702,7 @@ async function handleWriteMode(
 
   // Ask Ollama (with hook-specific timeout)
   const prompt = buildWritePrompt(toolName, contextSummary, fileName);
-  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS });
+  const response = await generate(prompt, undefined, { num_ctx: CONTEXT_WINDOW, timeout: HOOK_OLLAMA_TIMEOUT_MS, maxRetries: HOOK_MAX_RETRIES });
 
   // Check for SKIP
   const skipMatch = response.match(/SKIP:\s*(.+)/i);
@@ -777,20 +768,17 @@ runHook(async (input) => {
   }
 
   // WRITE mode (any enabled tool that's not Read)
-  if (toolName !== 'Read') {
-    const result = await handleWriteMode(input, ctx);
-    if (result) {
-      return {
-        exitCode: 0,
-        output: {
-          hookSpecificOutput: {
-            hookEventName: 'PostToolUse',
-            additionalContext: result.reminder,
-          },
+  const result = await handleWriteMode(input, ctx);
+  if (result) {
+    return {
+      exitCode: 0,
+      output: {
+        hookSpecificOutput: {
+          hookEventName: 'PostToolUse',
+          additionalContext: result.reminder,
         },
-      };
-    }
-    return allow();
+      },
+    };
   }
 
   return allow();

@@ -13,7 +13,7 @@
 import { runHook, allow } from '../src/core/error-handler.ts';
 import { loadSettings } from '../src/settings/plugin-settings.ts';
 import { SessionCache } from '../src/session/session-cache.ts';
-import { join } from 'path';
+import { join } from 'node:path';
 
 const REMINDER_FULL = `📚 MEMORY & DELIBERATION REMINDERS:
 • Before destructive operations: invoke memory:recall agent or run /memory:check-gotchas

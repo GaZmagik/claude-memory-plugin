@@ -15,6 +15,7 @@ import * as indexModule from '../core/index.js';
 import * as structureModule from '../graph/structure.js';
 import * as linkModule from '../graph/link.js';
 
+
 const TEST_BASE = path.join(os.homedir(), '.claude', 'memory');
 const TEST_AGENT_BASE = path.join(os.homedir(), '.claude', 'memory', 'agents', 'test-agent');
 
@@ -81,8 +82,9 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    // findPotentialDuplicates is the LSH-accelerated entry point used by suggestLinks
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
 
     const result = await suggestLinks({ basePath: TEST_BASE, threshold: 0.7 });
@@ -117,8 +119,10 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    // findPotentialDuplicates returns the pair, but it should be skipped because
+    // the graph already contains the mem-1 → mem-2 edge
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
 
     const result = await suggestLinks({ basePath: TEST_BASE });
@@ -153,9 +157,10 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
-      { id: 'mem-3', similarity: 0.85 },
+    // Return two candidate pairs; the limit: 1 should trim the final result to one
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
+      { id1: 'mem-1', id2: 'mem-3', similarity: 0.85 },
     ]);
 
     const result = await suggestLinks({ basePath: TEST_BASE, limit: 1 });
@@ -186,8 +191,8 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.95 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
     ]);
 
     vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({ status: 'success' });
@@ -229,8 +234,10 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.93 },
+    // Similarity score returned by findPotentialDuplicates must be threaded
+    // through to linkMemories so edge metadata carries the actual score
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.93 },
     ]);
 
     vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({ status: 'success' });
@@ -263,8 +270,8 @@ describe('suggestLinks', () => {
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.88 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.88 },
     ]);
 
     const storeSpy = vi.spyOn(linkModule, 'storeCrossScopeEdge').mockResolvedValue({ status: 'success', edge: { source: 'mem-1', target: 'mem-2', label: 'auto-linked-by-similarity' } });

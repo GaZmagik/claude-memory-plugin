@@ -66,8 +66,8 @@ describe('TD22: cmdEdges with --agent --include-shared', () => {
     if (!agentGraph.nodes.find(n => n.id === 'decision-project-mem')) {
       agentGraph = addNode(agentGraph, {
         id: 'decision-project-mem',
-        type: 'decision',
-        scope: 'project',
+        type: MemoryType.Decision,
+        scope: Scope.Project,
       });
     }
     agentGraph = addEdge(agentGraph, 'learning-agent-mem', 'decision-project-mem', 'informs', crossEdgeMeta);
@@ -78,8 +78,8 @@ describe('TD22: cmdEdges with --agent --include-shared', () => {
     if (!projectGraph.nodes.find(n => n.id === 'learning-agent-mem')) {
       projectGraph = addNode(projectGraph, {
         id: 'learning-agent-mem',
-        type: 'learning',
-        scope: 'agent-project',
+        type: MemoryType.Learning,
+        scope: Scope.AgentProject,
         agent: 'ts-expert',
       });
     }

@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { MemoryType } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -54,7 +55,7 @@ describe('Graph Data Structure', () => {
     it('should load existing graph from file', async () => {
       const existingGraph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node-1', type: 'decision' }],
+        nodes: [{ id: 'node-1', type: MemoryType.Decision }],
         edges: [],
       };
       fs.writeFileSync(
@@ -89,7 +90,7 @@ describe('Graph Data Structure', () => {
     it('should save graph to file', async () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'test-node', type: 'learning' }],
+        nodes: [{ id: 'test-node', type: MemoryType.Learning }],
         edges: [],
       };
 
@@ -129,7 +130,7 @@ describe('Graph Data Structure', () => {
   describe('addNode', () => {
     it('should add node to graph', () => {
       const graph = createGraph();
-      const node: GraphNode = { id: 'new-node', type: 'decision' };
+      const node: GraphNode = { id: 'new-node', type: MemoryType.Decision };
 
       const updated = addNode(graph, node);
 
@@ -140,11 +141,11 @@ describe('Graph Data Structure', () => {
     it('should not duplicate existing node', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'existing', type: 'decision' }],
+        nodes: [{ id: 'existing', type: MemoryType.Decision }],
         edges: [],
       };
 
-      const updated = addNode(graph, { id: 'existing', type: 'decision' });
+      const updated = addNode(graph, { id: 'existing', type: MemoryType.Decision });
 
       expect(updated.nodes).toHaveLength(1);
     });
@@ -152,18 +153,18 @@ describe('Graph Data Structure', () => {
     it('should update existing node with new data', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'node-1', type: 'decision' }],
+        nodes: [{ id: 'node-1', type: MemoryType.Decision }],
         edges: [],
       };
 
-      const updated = addNode(graph, { id: 'node-1', type: 'learning' });
+      const updated = addNode(graph, { id: 'node-1', type: MemoryType.Learning });
 
       expect(updated.nodes[0]!.type).toBe('learning');
     });
 
     it('should return new graph object (immutable)', () => {
       const graph = createGraph();
-      const node: GraphNode = { id: 'new', type: 'artifact' };
+      const node: GraphNode = { id: 'new', type: MemoryType.Artifact };
 
       const updated = addNode(graph, node);
 
@@ -177,8 +178,8 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -193,8 +194,8 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'node-1', target: 'node-2', label: 'relates-to' },
@@ -220,7 +221,7 @@ describe('Graph Data Structure', () => {
     it('should return node by ID', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'target', type: 'artifact' }],
+        nodes: [{ id: 'target', type: MemoryType.Artifact }],
         edges: [],
       };
 
@@ -244,8 +245,8 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [],
       };
@@ -267,17 +268,17 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
-          { id: 'node-3', type: 'decision' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
+          { id: 'node-3', type: MemoryType.Decision },
         ],
         edges: [],
       };
 
-      const decisions = getAllNodes(graph, 'decision');
+      const decisions = getAllNodes(graph, MemoryType.Decision);
 
       expect(decisions).toHaveLength(2);
-      expect(decisions.every(n => n.type === 'decision')).toBe(true);
+      expect(decisions.every(n => n.type === MemoryType.Decision)).toBe(true);
     });
   });
 
@@ -285,7 +286,7 @@ describe('Graph Data Structure', () => {
     it('should return true for existing node', () => {
       const graph: MemoryGraph = {
         version: 1,
-        nodes: [{ id: 'existing', type: 'decision' }],
+        nodes: [{ id: 'existing', type: MemoryType.Decision }],
         edges: [],
       };
 
@@ -310,9 +311,9 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
-          { id: 'node-3', type: 'artifact' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
+          { id: 'node-3', type: MemoryType.Artifact },
         ],
         edges: [],
       };
@@ -332,8 +333,8 @@ describe('Graph Data Structure', () => {
       const graph: MemoryGraph = {
         version: 1,
         nodes: [
-          { id: 'node-1', type: 'decision' },
-          { id: 'node-2', type: 'learning' },
+          { id: 'node-1', type: MemoryType.Decision },
+          { id: 'node-2', type: MemoryType.Learning },
         ],
         edges: [
           { source: 'node-1', target: 'node-2', label: 'relates-to' },

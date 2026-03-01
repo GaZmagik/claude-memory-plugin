@@ -44,7 +44,7 @@ export interface DefaultScopeResult {
  * 3. Git detection (project scope if in git repo)
  * 4. Fallback to global
  */
-export function selectDefaultScope(options: DefaultScopeOptions): DefaultScopeResult {
+export async function selectDefaultScope(options: DefaultScopeOptions): Promise<DefaultScopeResult> {
   const { cwd, globalConfigPath, forceDefault } = options;
 
   // 1. Check for forced default
@@ -75,7 +75,7 @@ export function selectDefaultScope(options: DefaultScopeOptions): DefaultScopeRe
   }
 
   // 3. Git detection
-  if (isInGitRepository(cwd)) {
+  if (await isInGitRepository(cwd)) {
     log.debug('Using project scope (git detected)');
     return {
       scope: Scope.Project,
@@ -141,10 +141,10 @@ function parseScope(value: string): Scope | null {
  * console.log(breadcrumbResult.scope);  // Scope.Local
  * ```
  */
-export function getRecommendedScope(
+export async function getRecommendedScope(
   memoryType: string,
   cwd: string
-): DefaultScopeResult {
+): Promise<DefaultScopeResult> {
   // Artifacts and patterns are often meant to be shared globally
   if (memoryType === 'artifact') {
     return {
@@ -156,7 +156,7 @@ export function getRecommendedScope(
 
   // Gotchas and learnings are often project-specific
   if (memoryType === 'gotcha' || memoryType === 'learning') {
-    if (isInGitRepository(cwd)) {
+    if (await isInGitRepository(cwd)) {
       return {
         scope: Scope.Project,
         reason: `${memoryType}s are typically project-specific`,

@@ -69,8 +69,8 @@ describe('storeCrossScopeEdge (TD06)', () => {
       relation: 'informs',
       sourceBasePath,
       targetBasePath,
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     });
 
@@ -86,8 +86,8 @@ describe('storeCrossScopeEdge (TD06)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     });
 
@@ -98,8 +98,8 @@ describe('storeCrossScopeEdge (TD06)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     });
   });
@@ -151,8 +151,8 @@ describe('storeCrossScopeEdge (TD06)', () => {
       relation: 'informs',
       sourceBasePath,
       targetBasePath,
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     });
 
@@ -160,15 +160,15 @@ describe('storeCrossScopeEdge (TD06)', () => {
     const sourceGraph = saveGraphSpy.mock.calls[0]![1];
     const sourceNode = sourceGraph.nodes.find((n: any) => n.id === 'agent-learning-1');
     const targetNodeInSource = sourceGraph.nodes.find((n: any) => n.id === 'project-decision-1');
-    expect(sourceNode).toMatchObject({ id: 'agent-learning-1', type: 'learning' });
-    expect(targetNodeInSource).toMatchObject({ id: 'project-decision-1', type: 'decision' });
+    expect(sourceNode).toMatchObject({ id: 'agent-learning-1', type: MemoryType.Learning });
+    expect(targetNodeInSource).toMatchObject({ id: 'project-decision-1', type: MemoryType.Decision });
 
     // Target graph should also have both nodes
     const targetGraph = saveGraphSpy.mock.calls[1]![1];
     const sourceNodeInTarget = targetGraph.nodes.find((n: any) => n.id === 'agent-learning-1');
     const targetNode = targetGraph.nodes.find((n: any) => n.id === 'project-decision-1');
-    expect(sourceNodeInTarget).toMatchObject({ id: 'agent-learning-1', type: 'learning' });
-    expect(targetNode).toMatchObject({ id: 'project-decision-1', type: 'decision' });
+    expect(sourceNodeInTarget).toMatchObject({ id: 'agent-learning-1', type: MemoryType.Learning });
+    expect(targetNode).toMatchObject({ id: 'project-decision-1', type: MemoryType.Decision });
   });
 
   it('should save source graph first, then target graph', async () => {
@@ -197,8 +197,8 @@ describe('storeCrossScopeEdge (TD06)', () => {
       relation: 'informs',
       sourceBasePath,
       targetBasePath,
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     });
 
@@ -223,8 +223,8 @@ describe('removeCrossScopeEdge (TD07)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 
@@ -232,16 +232,16 @@ describe('removeCrossScopeEdge (TD07)', () => {
       .mockResolvedValueOnce({
         version: 1,
         nodes: [
-          { id: 'agent-learning-1', type: 'learning' },
-          { id: 'project-decision-1', type: 'decision' },
+          { id: 'agent-learning-1', type: MemoryType.Learning },
+          { id: 'project-decision-1', type: MemoryType.Decision },
         ],
         edges: [crossEdge],
       })
       .mockResolvedValueOnce({
         version: 1,
         nodes: [
-          { id: 'agent-learning-1', type: 'learning' },
-          { id: 'project-decision-1', type: 'decision' },
+          { id: 'agent-learning-1', type: MemoryType.Learning },
+          { id: 'project-decision-1', type: MemoryType.Decision },
         ],
         edges: [crossEdge],
       });
@@ -275,15 +275,15 @@ describe('removeCrossScopeEdge (TD07)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 
     vi.spyOn(structureModule, 'loadGraph')
       .mockResolvedValueOnce({
         version: 1,
-        nodes: [{ id: 'agent-learning-1', type: 'learning' }],
+        nodes: [{ id: 'agent-learning-1', type: MemoryType.Learning }],
         edges: [crossEdge],
       })
       .mockRejectedValueOnce(new Error('ENOENT: no such directory'));

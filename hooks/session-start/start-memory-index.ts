@@ -11,9 +11,9 @@
  */
 
 import { runHook, allow } from '../src/core/error-handler.ts';
-import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'fs';
-import { join } from 'path';
-import { homedir } from 'os';
+import { existsSync, readFileSync, mkdirSync, appendFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 import { spawn } from '../src/core/subprocess.ts';
 import { loadSettings, DEFAULT_SETTINGS, checkAndMigrateSettingsVersion } from '../src/settings/plugin-settings.ts';
 

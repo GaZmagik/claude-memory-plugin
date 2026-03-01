@@ -5,6 +5,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as deleteModule from '../core/delete.js';
 import * as structureModule from '../graph/structure.js';
+import * as fsp from 'node:fs/promises';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -561,12 +562,11 @@ tags: []
     // Mock deleteMemory to throw
     vi.spyOn(deleteModule, 'deleteMemory').mockRejectedValue(new Error('deleteMemory failed'));
 
-    // Mock fs.unlinkSync to throw only for the target file
-    vi.spyOn(fs, 'unlinkSync').mockImplementation((p: fs.PathLike) => {
+    // Mock fsp.unlink to reject only for the target file
+    vi.spyOn(fsp, 'unlink').mockImplementation(async (p: fs.PathLike) => {
       if (String(p).includes('double-fail-test')) {
-        throw new Error('unlinkSync failed');
+        throw new Error('unlink failed');
       }
-      return (fs.unlinkSync as any).__original?.(p);
     });
 
     const result = await pruneMemories({ basePath: tempDir, dryRun: false });

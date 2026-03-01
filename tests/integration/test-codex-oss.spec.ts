@@ -1,18 +1,18 @@
 /**
  * T070: Integration test for --oss flag with Codex
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'vitest';
 
 describe('codex-oss', () => {
-  it('includes --oss flag when specified', () => {
-    expect(true).toBe(true); // Placeholder
+  it.skip('includes --oss flag when specified', () => {
+    // TODO: implement real test
   });
 
-  it('oss flag only valid for codex provider', () => {
-    expect(true).toBe(true);
+  it.skip('oss flag only valid for codex provider', () => {
+    // TODO: implement real test
   });
 
-  it('warns when --oss used with non-codex provider', () => {
-    expect(true).toBe(true);
+  it.skip('warns when --oss used with non-codex provider', () => {
+    // TODO: implement real test
   });
 });

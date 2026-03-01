@@ -75,6 +75,12 @@ export function isProtectedPath(filePath: string): boolean {
 }
 
 /**
+ * Compound command operators that chain separate commands (CWE-78).
+ * Pipes (|) are handled separately by hasPipeToMemory.
+ */
+const COMPOUND_COMMAND_RE = /&&|\|\||;/;
+
+/**
  * Destructive commands that should be blocked
  */
 const DESTRUCTIVE_COMMANDS = [
@@ -90,35 +96,11 @@ const DESTRUCTIVE_COMMANDS = [
 ];
 
 /**
- * Allowed commands (whitelist)
- * These patterns must NOT match commands that pipe/redirect to memory
- */
-const ALLOWED_COMMAND_PATTERNS = [
-  /\bgit\s+rm\s+--cached\b/,
-  // Memory CLI command (bun-linked binary)
-  /\bmemory\s+(write|read|list|search|delete|link|unlink|edges|graph|stats|query|tag|untag|quality|audit|health|validate|sync|repair|rebuild|rename|move|promote|demote|prune|status|summarize|archive|suggest-links|export|import|sync-frontmatter|refresh|think|help|semantic|bulk-link|bulk-delete|bulk-move|bulk-tag|bulk-promote|mermaid|impact|reindex|audit-quick)\b/,
-  // Read-only commands - must not have pipe/redirect after memory path
-  /\b(cat|head|tail|grep|ls|find|stat|file|wc|sort|uniq|diff)\b/,
-];
-
-/**
- * Check if a command is allowed (whitelisted)
- */
-function isAllowedCommand(command: string): boolean {
-  for (const pattern of ALLOWED_COMMAND_PATTERNS) {
-    if (pattern.test(command)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/**
  * Check if a command contains a pipe or redirect to memory
  */
 function hasPipeToMemory(command: string): boolean {
   // Check for pipes to memory operations
-  return /\|\s*(tee|sh|bash)[^|]*\s+.*\.claude[\/\\]memory/.test(command) || /\|\s*tee\s+.*\.claude[\/\\]memory/.test(command);
+  return /\|\s*(tee|sh|bash)[^|]*\s+.*\.claude[\/\\]memory/.test(command);
 }
 
 /**
@@ -144,9 +126,14 @@ export function shouldBlockOperation(operation: ToolOperation): boolean {
         }
       }
 
-      // Check if it's an allowed operation (after blocking dangerous patterns)
-      if (isAllowedCommand(command)) {
-        return false;
+      // Block compound commands that reference memory directory (CWE-78)
+      // Chaining operators allow arbitrary follow-up commands that bypass
+      // the destructive patterns blocklist above
+      if (/\.claude[\/\\]memory/.test(command) && COMPOUND_COMMAND_RE.test(command)) {
+        // Only memory CLI and git rm --cached are safe in compound form
+        if (!/\bmemory\s+/.test(command) && !/\bgit\s+rm\s+--cached\b/.test(command)) {
+          return true;
+        }
       }
 
       return false;

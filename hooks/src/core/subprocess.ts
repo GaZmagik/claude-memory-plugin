@@ -51,13 +51,13 @@ export interface SubprocessResult {
  * @returns Structured result with exit code, stdout, stderr
  *
  * @example
- * const result = await spawnSync(['git', 'status'], { timeout: 5000 });
+ * const result = runCommand(['git', 'status'], { timeout: 5000 });
  * if (result.success) console.log(result.stdout);
  */
-export async function spawnSync(
+export function runCommand(
   args: string[],
   options: SubprocessOptions = {}
-): Promise<SubprocessResult> {
+): SubprocessResult {
   const { timeout = 30000, cwd, env, stdin } = options;
   const start = Date.now();
 
@@ -184,6 +184,9 @@ export async function spawn(
 
       // Write stdin if provided
       if (stdin && proc.stdin) {
+        proc.stdin.on('error', () => {
+          // Swallow EPIPE — process may have exited before stdin fully written
+        });
         proc.stdin.write(stdin);
         proc.stdin.end();
       } else if (proc.stdin) {
@@ -256,11 +259,11 @@ export async function spawn(
  * @param options - Execution options
  * @throws Error if command fails or times out
  */
-export async function execOrThrow(
+export function execOrThrow(
   args: string[],
   options: SubprocessOptions = {}
-): Promise<SubprocessResult> {
-  const result = await spawnSync(args, options);
+): SubprocessResult {
+  const result = runCommand(args, options);
 
   if (result.timedOut) {
     throw new Error(`Command timed out: ${args.join(' ')}`);

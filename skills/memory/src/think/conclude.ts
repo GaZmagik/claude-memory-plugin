@@ -32,12 +32,6 @@ import { stripTypePrefix } from '../core/slug.js';
 
 const log = createLogger('think-conclude');
 
-/**
- * Get scope path from context
- */
-async function resolveScopePath(scope: Scope, basePath: string, globalPath: string): Promise<string> {
-  return getScopePath(scope, basePath, globalPath);
-}
 
 /**
  * Build promoted memory content from think document
@@ -127,7 +121,7 @@ export async function concludeThinkDocument(
   if (!documentId) {
     // Find current document from either scope
     for (const scope of [Scope.Project, Scope.Local]) {
-      const scopePath = await resolveScopePath(scope, basePath, globalPath);
+      const scopePath = await getScopePath(scope, basePath, globalPath);
       const currentId = await getCurrentDocumentId(scopePath);
       if (currentId) {
         documentId = currentId;
@@ -156,7 +150,7 @@ export async function concludeThinkDocument(
     documentScope = result.scope;
   }
 
-  const scopePath = await resolveScopePath(documentScope, basePath, globalPath);
+  const scopePath = await getScopePath(documentScope, basePath, globalPath);
   const filePath = getThinkFilePath(scopePath, documentId);
 
   if (!(await fileExists(filePath))) {

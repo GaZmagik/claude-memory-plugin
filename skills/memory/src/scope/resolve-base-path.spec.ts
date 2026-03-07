@@ -9,12 +9,14 @@
  *   - Missing agent name for agent scopes (returns error)
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { resolveBasePath } from './resolve-base-path.js';
 import { Scope } from '../types/enums.js';
 
-// vi.hoisted is required for mock functions referenced inside vi.mock() factories
-const mockGetAgentDirectoryPath = vi.hoisted(() => vi.fn());
+// Mock function for vi.mock factory
+// Note: vi.hoisted() is unavailable in Bun — top-level declarations are hoisted naturally
+const mockGetAgentDirectoryPath = vi.fn();
 
 vi.mock('./get-agent-directory-path.js', () => ({
   getAgentDirectoryPath: mockGetAgentDirectoryPath,
@@ -32,6 +34,10 @@ describe('resolveBasePath', () => {
   afterEach(() => {
     process.cwd = originalCwd;
     vi.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   // -------------------------------------------------------------------------

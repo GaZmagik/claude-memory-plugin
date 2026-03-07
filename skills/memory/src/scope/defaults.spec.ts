@@ -29,19 +29,19 @@ describe('selectDefaultScope', () => {
   });
 
   describe('forced default', () => {
-    it('should use forced default when provided', () => {
+    it('should use forced default when provided', async () => {
       const options: DefaultScopeOptions = {
         cwd: testDir,
         forceDefault: Scope.Local,
       };
 
-      const result = selectDefaultScope(options);
+      const result = await selectDefaultScope(options);
 
       expect(result.scope).toBe(Scope.Local);
       expect(result.source).toBe('forced');
     });
 
-    it('should prioritise forced default over config', () => {
+    it('should prioritise forced default over config', async () => {
       // Create a config file with a different default
       const claudeDir = path.join(testDir, '.claude');
       fs.mkdirSync(claudeDir, { recursive: true });
@@ -58,7 +58,7 @@ describe('selectDefaultScope', () => {
         forceDefault: Scope.Global,
       };
 
-      const result = selectDefaultScope(options);
+      const result = await selectDefaultScope(options);
 
       // Forced default should override config
       expect(result.scope).toBe(Scope.Global);
@@ -67,7 +67,7 @@ describe('selectDefaultScope', () => {
   });
 
   describe('config-based default', () => {
-    it('should use config default when present', () => {
+    it('should use config default when present', async () => {
       // Create config with default scope
       const claudeDir = path.join(testDir, '.claude');
       fs.mkdirSync(claudeDir, { recursive: true });
@@ -83,13 +83,13 @@ describe('selectDefaultScope', () => {
         cwd: testDir,
       };
 
-      const result = selectDefaultScope(options);
+      const result = await selectDefaultScope(options);
 
       expect(result.scope).toBe(Scope.Local);
       expect(result.source).toBe('config');
     });
 
-    it('should validate config scope value', () => {
+    it('should validate config scope value', async () => {
       // Create config with invalid scope
       const claudeDir = path.join(testDir, '.claude');
       fs.mkdirSync(claudeDir, { recursive: true });
@@ -105,14 +105,14 @@ describe('selectDefaultScope', () => {
         cwd: testDir,
       };
 
-      const result = selectDefaultScope(options);
+      const result = await selectDefaultScope(options);
 
       // Should fall through to next option (global fallback since no git)
       expect(result.scope).toBe(Scope.Global);
       expect(result.source).not.toBe('config');
     });
 
-    it('should fall through when config has invalid scope', () => {
+    it('should fall through when config has invalid scope', async () => {
       const claudeDir = path.join(testDir, '.claude');
       fs.mkdirSync(claudeDir, { recursive: true });
 
@@ -123,7 +123,7 @@ describe('selectDefaultScope', () => {
       };
       fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
 
-      const result = selectDefaultScope({ cwd: testDir });
+      const result = await selectDefaultScope({ cwd: testDir });
 
       // Should fall through to global (no git repo)
       expect(result.scope).toBe(Scope.Global);
@@ -132,14 +132,14 @@ describe('selectDefaultScope', () => {
   });
 
   describe('git detection', () => {
-    it('should use project scope when in git repository', () => {
+    it('should use project scope when in git repository', async () => {
       // Initialize a git repo
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const result = selectDefaultScope({ cwd: testDir });
+        const result = await selectDefaultScope({ cwd: testDir });
 
         expect(result.scope).toBe(Scope.Project);
         expect(result.source).toBe('git-detection');
@@ -149,13 +149,13 @@ describe('selectDefaultScope', () => {
       }
     });
 
-    it('should set source to git-detection', () => {
+    it('should set source to git-detection', async () => {
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const result = selectDefaultScope({ cwd: testDir });
+        const result = await selectDefaultScope({ cwd: testDir });
 
         expect(result.source).toBe('git-detection');
         expect(result.reason).toContain('git');
@@ -166,14 +166,14 @@ describe('selectDefaultScope', () => {
   });
 
   describe('fallback', () => {
-    it('should use global scope when not in git repo', () => {
-      const result = selectDefaultScope({ cwd: testDir });
+    it('should use global scope when not in git repo', async () => {
+      const result = await selectDefaultScope({ cwd: testDir });
 
       expect(result.scope).toBe(Scope.Global);
     });
 
-    it('should set source to fallback', () => {
-      const result = selectDefaultScope({ cwd: testDir });
+    it('should set source to fallback', async () => {
+      const result = await selectDefaultScope({ cwd: testDir });
 
       expect(result.source).toBe('fallback');
       expect(result.reason).toContain('Not in git');
@@ -181,7 +181,7 @@ describe('selectDefaultScope', () => {
   });
 
   describe('priority order', () => {
-    it('should check forced > config > git > fallback', () => {
+    it('should check forced > config > git > fallback', async () => {
       // Create git repo
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
@@ -198,12 +198,12 @@ describe('selectDefaultScope', () => {
       fs.writeFileSync(path.join(claudeDir, 'config.json'), JSON.stringify(config));
 
       // Test forced overrides everything
-      const forcedResult = selectDefaultScope({ cwd: testDir, forceDefault: Scope.Enterprise });
+      const forcedResult = await selectDefaultScope({ cwd: testDir, forceDefault: Scope.Enterprise });
       expect(forcedResult.scope).toBe(Scope.Enterprise);
       expect(forcedResult.source).toBe('forced');
 
       // Test config overrides git
-      const configResult = selectDefaultScope({ cwd: testDir });
+      const configResult = await selectDefaultScope({ cwd: testDir });
       expect(configResult.scope).toBe(Scope.Local);
       expect(configResult.source).toBe('config');
     });
@@ -224,19 +224,19 @@ describe('getRecommendedScope', () => {
   });
 
   describe('memory type recommendations', () => {
-    it('should recommend global for artifacts', () => {
-      const result = getRecommendedScope('artifact', testDir);
+    it('should recommend global for artifacts', async () => {
+      const result = await getRecommendedScope('artifact', testDir);
       expect(result.scope).toBe(Scope.Global);
       expect(result.reason).toContain('shared across projects');
     });
 
-    it('should recommend project for gotchas in git repo', () => {
+    it('should recommend project for gotchas in git repo', async () => {
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const result = getRecommendedScope('gotcha', testDir);
+        const result = await getRecommendedScope('gotcha', testDir);
 
         expect(result.scope).toBe(Scope.Project);
         expect(result.reason).toContain('project-specific');
@@ -245,13 +245,13 @@ describe('getRecommendedScope', () => {
       }
     });
 
-    it('should recommend project for learnings in git repo', () => {
+    it('should recommend project for learnings in git repo', async () => {
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const result = getRecommendedScope('learning', testDir);
+        const result = await getRecommendedScope('learning', testDir);
 
         expect(result.scope).toBe(Scope.Project);
         expect(result.reason).toContain('project-specific');
@@ -260,14 +260,14 @@ describe('getRecommendedScope', () => {
       }
     });
 
-    it('should recommend local for breadcrumbs', () => {
-      const result = getRecommendedScope('breadcrumb', testDir);
+    it('should recommend local for breadcrumbs', async () => {
+      const result = await getRecommendedScope('breadcrumb', testDir);
       expect(result.scope).toBe(Scope.Local);
       expect(result.reason).toContain('temporary personal');
     });
 
-    it('should fall back to default for unknown types', () => {
-      const result = getRecommendedScope('unknown-type', testDir);
+    it('should fall back to default for unknown types', async () => {
+      const result = await getRecommendedScope('unknown-type', testDir);
 
       // Should use default logic (global for non-git directory)
       expect(result.scope).toBe(Scope.Global);
@@ -275,14 +275,14 @@ describe('getRecommendedScope', () => {
   });
 
   describe('context awareness', () => {
-    it('should consider git context for project-specific types', () => {
+    it('should consider git context for project-specific types', async () => {
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const gotchaResult = getRecommendedScope('gotcha', testDir);
-        const learningResult = getRecommendedScope('learning', testDir);
+        const gotchaResult = await getRecommendedScope('gotcha', testDir);
+        const learningResult = await getRecommendedScope('learning', testDir);
 
         expect(gotchaResult.scope).toBe(Scope.Project);
         expect(learningResult.scope).toBe(Scope.Project);
@@ -291,13 +291,13 @@ describe('getRecommendedScope', () => {
       }
     });
 
-    it('should ignore git context for globally-scoped types', () => {
+    it('should ignore git context for globally-scoped types', async () => {
       try {
         spawnSync('git', ['init'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: testDir, stdio: 'pipe' });
         spawnSync('git', ['config', 'user.name', 'Test User'], { cwd: testDir, stdio: 'pipe' });
 
-        const result = getRecommendedScope('artifact', testDir);
+        const result = await getRecommendedScope('artifact', testDir);
 
         // Artifacts should always be global, regardless of git
         expect(result.scope).toBe(Scope.Global);

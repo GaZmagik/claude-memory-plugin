@@ -15,8 +15,8 @@ describe('isCrossScopeEdge (TD02)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 
@@ -28,8 +28,8 @@ describe('isCrossScopeEdge (TD02)', () => {
       source: 'ts-learning-1',
       target: 'rust-decision-1',
       label: 'relates-to',
-      sourceScope: 'agent-project',
-      targetScope: 'agent-project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.AgentProject,
       sourceAgent: 'ts-expert',
       targetAgent: 'rust-expert',
     };
@@ -52,7 +52,7 @@ describe('isCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      sourceScope: 'agent-project',
+      sourceScope: Scope.AgentProject,
     } as GraphEdge;
 
     // sourceScope without targetScope is not a valid cross-scope edge
@@ -66,8 +66,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'agent-learning-1',
       target: 'project-decision-1',
       label: 'informs',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 
@@ -81,8 +81,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'project-decision-1',
       target: 'agent-learning-1',
       label: 'informs',
-      sourceScope: 'project',
-      targetScope: 'agent-project',
+      sourceScope: Scope.Project,
+      targetScope: Scope.AgentProject,
       targetAgent: 'ts-expert',
     };
 
@@ -95,8 +95,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'ts-learning-1',
       target: 'rust-decision-1',
       label: 'relates-to',
-      sourceScope: 'agent-project',
-      targetScope: 'agent-project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.AgentProject,
       sourceAgent: 'ts-expert',
       targetAgent: 'rust-expert',
     };
@@ -110,7 +110,7 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      targetScope: 'project',
+      targetScope: Scope.Project,
     } as GraphEdge;
 
     const result = validateCrossScopeEdge(edge);
@@ -123,7 +123,7 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      sourceScope: 'agent-project',
+      sourceScope: Scope.AgentProject,
     } as GraphEdge;
 
     const result = validateCrossScopeEdge(edge);
@@ -136,8 +136,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
     } as GraphEdge;
 
     const result = validateCrossScopeEdge(edge);
@@ -150,8 +150,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      sourceScope: 'project',
-      targetScope: 'agent-project',
+      sourceScope: Scope.Project,
+      targetScope: Scope.AgentProject,
     } as GraphEdge;
 
     const result = validateCrossScopeEdge(edge);
@@ -164,8 +164,8 @@ describe('validateCrossScopeEdge (TD02)', () => {
       source: 'node-a',
       target: 'node-b',
       label: 'relates-to',
-      sourceScope: 'agent-global',
-      targetScope: 'global',
+      sourceScope: Scope.AgentGlobal,
+      targetScope: Scope.Global,
     } as GraphEdge;
 
     const result = validateCrossScopeEdge(edge);
@@ -197,8 +197,8 @@ describe('addEdge with metadata (TD05)', () => {
 
   it('should preserve cross-scope metadata fields in returned edge', () => {
     const metadata = {
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 
@@ -232,8 +232,8 @@ describe('addEdge with metadata (TD05)', () => {
     };
 
     const metadata = {
-      sourceScope: 'agent-project',
-      targetScope: 'agent-project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.AgentProject,
       sourceAgent: 'ts-expert',
       targetAgent: 'rust-expert',
     };
@@ -261,8 +261,8 @@ describe('addEdge with metadata (TD05)', () => {
 
   it('should not duplicate cross-scope edge with same metadata', () => {
     const metadata = {
-      sourceScope: 'agent-project',
-      targetScope: 'project',
+      sourceScope: Scope.AgentProject,
+      targetScope: Scope.Project,
       sourceAgent: 'ts-expert',
     };
 

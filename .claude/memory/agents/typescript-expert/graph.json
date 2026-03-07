@@ -28,6 +28,13 @@
       "title": "suggestLinks uses findPotentialDuplicates (LSH), not findSimilarMemories",
       "scope": "project",
       "agent": "typescript-expert"
+    },
+    {
+      "id": "gotcha-edit-tool-may-silently-fail-when-prettier-posttooluse-hook-runs",
+      "type": "gotcha",
+      "title": "Edit tool may silently fail when prettier PostToolUse hook runs",
+      "scope": "project",
+      "agent": "typescript-expert"
     }
   ],
   "edges": []

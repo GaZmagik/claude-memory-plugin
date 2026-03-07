@@ -29,8 +29,8 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
 
   // Determine base path based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   const threshold = getFlagNumber(args.flags, 'threshold') ?? 0.75;
   const limit = getFlagNumber(args.flags, 'limit') ?? 20;

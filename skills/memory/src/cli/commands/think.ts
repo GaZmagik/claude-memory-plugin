@@ -237,7 +237,7 @@ async function thinkCreate(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -259,7 +259,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const documentId = getFlagString(args.flags, 'to');
   const by = getFlagString(args.flags, 'by');
 
@@ -372,7 +372,7 @@ async function thinkAdd(args: ParsedArgs, type: ThoughtType): Promise<CliRespons
  */
 async function thinkList(args: ParsedArgs): Promise<CliResponse> {
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -389,7 +389,7 @@ async function thinkList(args: ParsedArgs): Promise<CliResponse> {
 async function thinkShow(args: ParsedArgs): Promise<CliResponse> {
   const documentId = args.positional[0];
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -411,7 +411,7 @@ async function thinkUse(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -433,7 +433,7 @@ async function thinkConclude(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
   const documentId = getFlagString(args.flags, 'to');
   const promoteType = parsePromoteType(getFlagString(args.flags, 'promote'));
 
@@ -462,7 +462,7 @@ async function thinkDelete(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {

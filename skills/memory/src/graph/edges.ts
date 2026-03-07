@@ -6,6 +6,7 @@
 
 import type { MemoryGraph, GraphEdge } from './structure.js';
 import { hasNode } from './structure.js';
+import { Scope } from '../types/enums.js';
 
 export type { MemoryGraph };
 
@@ -33,8 +34,8 @@ export type { GraphEdge };
  * Optional cross-scope metadata for edges spanning scope boundaries
  */
 export interface EdgeMetadata {
-  sourceScope?: string;
-  targetScope?: string;
+  sourceScope?: Scope;
+  targetScope?: Scope;
   sourceAgent?: string;
   targetAgent?: string;
   /** Cosine similarity score [0–1]. NaN is rejected; out-of-range values are clamped. */
@@ -259,7 +260,7 @@ export function validateCrossScopeEdge(edge: GraphEdge): { valid: boolean; error
   }
 
   // Agent scopes require agent names
-  const agentScopes = ['agent-project', 'agent-global'];
+  const agentScopes = [Scope.AgentProject, Scope.AgentGlobal];
 
   if (agentScopes.includes(edge.sourceScope!) && !edge.sourceAgent) {
     return { valid: false, error: `Agent scope '${edge.sourceScope}' requires sourceAgent to be set` };

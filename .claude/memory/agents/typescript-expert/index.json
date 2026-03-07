@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-26T22:57:37.031Z",
+  "lastUpdated": "2026-03-01T16:44:22.687Z",
   "memories": [
     {
       "id": "gotcha-vitest-vihoisted-required-for-mock-fns-referenced-in-vimock-factories",
@@ -34,6 +34,22 @@
       "updated": "2026-02-26T22:57:37.017Z",
       "scope": "project",
       "relativePath": "permanent/learning-suggestlinks-uses-findpotentialduplicates-lsh-not-findsimilarmemories.md"
+    },
+    {
+      "id": "gotcha-edit-tool-may-silently-fail-when-prettier-posttooluse-hook-runs",
+      "type": "gotcha",
+      "title": "Edit tool may silently fail when prettier PostToolUse hook runs",
+      "tags": [
+        "edit-tool",
+        "prettier",
+        "hooks",
+        "tooling",
+        "project"
+      ],
+      "created": "2026-03-01T15:39:16.903Z",
+      "updated": "2026-03-01T15:39:16.903Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-edit-tool-may-silently-fail-when-prettier-posttooluse-hook-runs.md"
     }
   ]
 }

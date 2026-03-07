@@ -117,8 +117,8 @@ export async function bulkMove(request: BulkMoveRequest): Promise<BulkMoveRespon
 
       try {
         // Get source and target paths for move operation
-        const sourceBasePath = getScopePath(memory.scope, basePath, globalPath);
-        const targetBasePath = getScopePath(request.targetScope, basePath, globalPath);
+        const sourceBasePath = await getScopePath(memory.scope, basePath, globalPath);
+        const targetBasePath = await getScopePath(request.targetScope, basePath, globalPath);
 
         const result = await moveMemory({
           id: memory.id,

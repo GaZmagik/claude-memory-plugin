@@ -13,7 +13,8 @@
  * See: gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll, type Mock } from 'vitest';
+import { mock } from 'bun:test';
 import {
   getRelevantGotchas,
   filterUnshownGotchas,
@@ -55,6 +56,9 @@ describe('Gotcha Injector', () => {
     vi.restoreAllMocks();
   });
 
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
+  });
 
   describe('shouldInjectGotcha', () => {
     describe('injectable file types', () => {

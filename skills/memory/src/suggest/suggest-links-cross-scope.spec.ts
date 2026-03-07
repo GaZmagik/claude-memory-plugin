@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import { suggestLinks } from './suggest-links.js';
 import * as embeddingModule from '../search/embedding.js';
 import * as similarityModule from '../search/similarity.js';
+// Note: suggest-links.ts uses findPotentialDuplicates, not findSimilarMemories
 import * as indexModule from '../core/index.js';
 import * as structureModule from '../graph/structure.js';
 import * as linkModule from '../graph/link.js';
@@ -50,10 +51,10 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
         edges: [],
       } as any);
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'learning-rust', similarity: 0.85 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'learning-typescript', id2: 'learning-rust', similarity: 0.85 },
       ]);
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const result = await suggestLinks({
         basePath: TEST_AGENT_BASE,
@@ -113,11 +114,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'project-memory', similarity: 0.88 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'agent-memory', id2: 'project-memory', similarity: 0.88 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const result = await suggestLinks({
         basePath: TEST_AGENT_BASE,
@@ -171,11 +172,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'project-decision', similarity: 0.92 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'agent-learning', id2: 'project-decision', similarity: 0.92 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const result = await suggestLinks({
         basePath: TEST_AGENT_BASE,
@@ -208,17 +209,17 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'loadGraph').mockResolvedValue({
         version: 1,
-        nodes: [],
+        nodes: [{ id: 'mem-1' }, { id: 'mem-2' }],
         edges: [],
       } as any);
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'mem-2', similarity: 0.95 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const result = await suggestLinks({
         basePath: TEST_BASE,
@@ -266,11 +267,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'project-mem', similarity: 0.88 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'agent-mem', id2: 'project-mem', similarity: 0.88 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const storeCrossScopeEdgeSpy = vi.spyOn(linkModule, 'storeCrossScopeEdge').mockResolvedValue({
         status: 'success',
@@ -323,11 +324,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'mem-2', similarity: 0.95 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const linkMemoriesSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
         status: 'success',
@@ -389,18 +390,13 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      // First call for agent-mem-1 finds both agent-mem-2 (same-scope) and project-mem (cross-scope)
-      // Second call for agent-mem-2 finds no new matches (to avoid duplicates)
-      // Third call for project-mem returns empty
-      vi.spyOn(similarityModule, 'findSimilarMemories')
-        .mockReturnValueOnce([
-          { id: 'agent-mem-2', similarity: 0.95 },
-          { id: 'project-mem', similarity: 0.88 },
-        ])
-        .mockReturnValueOnce([])
-        .mockReturnValueOnce([]);
+      // findPotentialDuplicates returns all pairs at once (not per-source-memory)
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'agent-mem-1', id2: 'agent-mem-2', similarity: 0.95 },
+        { id1: 'agent-mem-1', id2: 'project-mem', similarity: 0.88 },
+      ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
         status: 'success',
@@ -462,11 +458,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'project-mem', similarity: 0.88 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'agent-mem', id2: 'project-mem', similarity: 0.88 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
       const generateSpy = vi.spyOn(ollamaModule, 'generate').mockResolvedValue('related-to');
@@ -517,11 +513,11 @@ describe('suggestLinks - Cross-Scope Auto-Linking (v1.4.0)', () => {
 
       vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-      vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-        { id: 'mem-2', similarity: 0.95 },
+      vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+        { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
       ]);
 
-      vi.spyOn(resolverModule, 'getScopePath').mockReturnValue(TEST_BASE);
+      vi.spyOn(resolverModule, 'getScopePath').mockResolvedValue(TEST_BASE);
 
       const result = await suggestLinks({
         basePath: TEST_BASE,

@@ -15,9 +15,9 @@ describe('MemoryType enum', () => {
     expect(MemoryType.Hub).toBe('hub');
   });
 
-  it('should have exactly 8 memory types', () => {
+  it('should have exactly 9 memory types', () => {
     const types = Object.values(MemoryType);
-    expect(types).toHaveLength(8);
+    expect(types).toHaveLength(9);
   });
 
   it('should have Rule memory type', () => {

@@ -5,7 +5,8 @@
  * prompts, ensuring pipeline composability.
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, afterAll, vi } from 'vitest';
+import { mock } from 'bun:test';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -35,6 +36,10 @@ describe('--non-interactive Flag Suppression', () => {
   afterEach(() => {
     fs.rmSync(testDir, { recursive: true, force: true });
     vi.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   describe('shouldPrompt()', () => {

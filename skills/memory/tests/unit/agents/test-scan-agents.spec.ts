@@ -4,7 +4,8 @@
  * Tests scanning agent directories and gathering agent information.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import { scanAgentDirectories, getAgentInfo } from '../../../src/agents/scan-agent-directories.js';
 import { Scope } from '../../../src/types/enums.js';
 
@@ -29,6 +30,10 @@ vi.mock('node:os', () => ({
     homedir: () => '/home/user',
   },
 }));
+
+afterAll(() => {
+  mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
+});
 
 describe('scanAgentDirectories', () => {
   beforeEach(() => {

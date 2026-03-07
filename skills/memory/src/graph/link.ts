@@ -52,7 +52,7 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
   // Detect cross-scope scenario: targetBasePath or targetAgent present
   if (request.targetBasePath) {
     const sourceBasePath = request.agent
-      ? resolveAgentScopePath(request.agent, undefined)
+      ? await resolveAgentScopePath(request.agent, undefined)
       : (request.basePath ?? process.cwd());
 
     const result = await storeCrossScopeEdge({
@@ -61,8 +61,8 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
       relation: request.relation,
       sourceBasePath,
       targetBasePath: request.targetBasePath,
-      sourceScope: (request.sourceScope as Scope) ?? (request.agent ? Scope.AgentProject : Scope.Project),
-      targetScope: (request.targetScope as Scope) ?? (request.targetAgent ? Scope.AgentProject : Scope.Project),
+      sourceScope: request.sourceScope ?? (request.agent ? Scope.AgentProject : Scope.Project),
+      targetScope: request.targetScope ?? (request.targetAgent ? Scope.AgentProject : Scope.Project),
       sourceAgent: request.sourceAgent ?? request.agent,
       targetAgent: request.targetAgent,
     });
@@ -77,7 +77,7 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
 
   // Resolve basePath, considering agent context
   const basePath = request.agent
-    ? resolveAgentScopePath(request.agent, undefined)
+    ? await resolveAgentScopePath(request.agent, undefined)
     : (request.basePath ?? process.cwd());
   const relation = request.relation ?? DEFAULT_RELATION;
 
@@ -220,7 +220,7 @@ export async function unlinkMemories(request: UnlinkMemoriesRequest): Promise<Un
   // Detect cross-scope scenario
   if (request.targetBasePath) {
     const sourceBasePath = request.agent
-      ? resolveAgentScopePath(request.agent, undefined)
+      ? await resolveAgentScopePath(request.agent, undefined)
       : (request.basePath ?? process.cwd());
 
     const result = await removeCrossScopeEdge({
@@ -240,7 +240,7 @@ export async function unlinkMemories(request: UnlinkMemoriesRequest): Promise<Un
 
   // Resolve basePath, considering agent context
   const basePath = request.agent
-    ? resolveAgentScopePath(request.agent, undefined)
+    ? await resolveAgentScopePath(request.agent, undefined)
     : (request.basePath ?? process.cwd());
 
   try {

@@ -9,7 +9,9 @@ describe('pathExists', () => {
   });
 
   it('should return true for an existing file', async () => {
-    expect(await pathExists(path.resolve('tsconfig.json'))).toBe(true);
+    // tsconfig.json lives at the repo root, not in hooks/
+    const repoRoot = path.resolve(__dirname, '..', '..', '..');
+    expect(await pathExists(path.join(repoRoot, 'tsconfig.json'))).toBe(true);
   });
 
   it('should return false for a non-existent path', async () => {

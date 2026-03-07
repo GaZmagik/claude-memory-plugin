@@ -42,8 +42,8 @@ function setupStandardMocks() {
 
   vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
 
-  vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-    { id: 'mem-2', similarity: 0.95 },
+  vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+    { id1: 'mem-1', id2: 'mem-2', similarity: 0.95 },
   ]);
 }
 
@@ -105,8 +105,8 @@ describe('suggestLinks --llm-type', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.88 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.88 },
     ]);
 
     vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
@@ -154,8 +154,8 @@ describe('suggestLinks --llm-type', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.88 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.88 },
     ]);
 
     const linkSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({
@@ -203,8 +203,8 @@ describe('suggestLinks --llm-type', () => {
     } as any);
 
     vi.spyOn(structureModule, 'hasNode').mockReturnValue(true);
-    vi.spyOn(similarityModule, 'findSimilarMemories').mockReturnValue([
-      { id: 'mem-2', similarity: 0.88 },
+    vi.spyOn(similarityModule, 'findPotentialDuplicates').mockReturnValue([
+      { id1: 'mem-1', id2: 'mem-2', similarity: 0.88 },
     ]);
 
     const linkSpy = vi.spyOn(linkModule, 'linkMemories').mockResolvedValue({

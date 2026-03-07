@@ -396,7 +396,7 @@ describe('writeMemory', () => {
       // serialiseMemoryFile runs for real
       vi.spyOn(fsUtils, 'writeFileAtomic').mockResolvedValue(undefined);
       vi.spyOn(indexModule, 'addToIndex').mockResolvedValue();
-      vi.spyOn(gitignore, 'ensureLocalScopeGitignored').mockReturnValue({
+      vi.spyOn(gitignore, 'ensureLocalScopeGitignored').mockResolvedValue({
         created: false,
         modified: false,
         alreadyPresent: true,

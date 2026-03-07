@@ -89,13 +89,13 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
   if (isCrossScope) {
     // Resolve source base path
     const sourceBasePath = agentName
-      ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(sourceScope);  // Use parsed scope
+      ? await resolveAgentScopePath(agentName, scopeStr)
+      : await getResolvedScopePath(sourceScope);  // Use parsed scope
 
     // Resolve target base path
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
-      : getResolvedScopePath(targetScope);  // Use parsed scope
+      ? await resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : await getResolvedScopePath(targetScope);  // Use parsed scope
 
     const sourceScopeId = agentName ? 'agent-project' : scopeToIdentifier(sourceScope);
     const targetScopeId = targetAgentName ? 'agent-project' : scopeToIdentifier(targetScope);
@@ -122,8 +122,8 @@ export async function cmdLink(args: ParsedArgs): Promise<CliResponse> {
 
   // Same-scope linking (existing behaviour)
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -167,12 +167,12 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
 
   if (isCrossScope) {
     const sourceBasePath = agentName
-      ? resolveAgentScopePath(agentName, scopeStr)
-      : getResolvedScopePath(sourceScope);  // Use parsed scope
+      ? await resolveAgentScopePath(agentName, scopeStr)
+      : await getResolvedScopePath(sourceScope);  // Use parsed scope
 
     const targetBasePath = targetAgentName
-      ? resolveAgentScopePath(targetAgentName, targetScopeStr)
-      : getResolvedScopePath(targetScope);  // Use parsed scope
+      ? await resolveAgentScopePath(targetAgentName, targetScopeStr)
+      : await getResolvedScopePath(targetScope);  // Use parsed scope
 
     return wrapOperation(
       async () => {
@@ -192,8 +192,8 @@ export async function cmdUnlink(args: ParsedArgs): Promise<CliResponse> {
 
   // Same-scope unlinking (existing behaviour)
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
@@ -226,13 +226,13 @@ export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   return wrapOperation(
     async () => {
       const graph = (includeShared && agentName)
-        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        ? await loadMergedGraph(await resolveSharedScopePaths(agentName, scopeStr))
         : await loadGraph(basePath);
       const inbound = getInboundEdges(graph, id);
       const outbound = getOutboundEdges(graph, id);
@@ -256,7 +256,7 @@ export async function cmdEdges(args: ParsedArgs): Promise<CliResponse> {
 export async function cmdGraph(args: ParsedArgs): Promise<CliResponse> {
   const scopeArg = args.positional[0];
   const scope = parseScope(scopeArg ?? getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -297,8 +297,8 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
 
   // Determine base path based on agent context
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   // Parse flags
   const directionRaw = getFlagString(args.flags, 'direction') ?? 'TB';
@@ -319,7 +319,7 @@ export async function cmdMermaid(args: ParsedArgs): Promise<CliResponse> {
     async () => {
       // When --include-shared, merge all scope graphs via loadMergedGraph
       let graph = (includeShared && agentName)
-        ? await loadMergedGraph(resolveSharedScopePaths(agentName, scopeStr))
+        ? await loadMergedGraph(await resolveSharedScopePaths(agentName, scopeStr))
         : await loadGraph(basePath);
 
       // Generate mermaid with new options
@@ -388,7 +388,7 @@ export async function cmdRemoveNode(args: ParsedArgs): Promise<CliResponse> {
   }
 
   const scope = parseScope(getFlagString(args.flags, 'scope'));
-  const basePath = getResolvedScopePath(scope);
+  const basePath = await getResolvedScopePath(scope);
 
   return wrapOperation(
     async () => {
@@ -428,13 +428,13 @@ export async function cmdUpdateEdge(args: ParsedArgs): Promise<CliResponse> {
   const verify = getFlagBool(args.flags, 'verify');
 
   const basePath = agentName
-    ? resolveAgentScopePath(agentName, scopeStr)
-    : getResolvedScopePath(parseScope(scopeStr));
+    ? await resolveAgentScopePath(agentName, scopeStr)
+    : await getResolvedScopePath(parseScope(scopeStr));
 
   // Build cross-scope paths when --target-agent is provided
   const crossScopeBasePaths: string[] = [];
   if (targetAgentName) {
-    crossScopeBasePaths.push(resolveAgentScopePath(targetAgentName, scopeStr));
+    crossScopeBasePaths.push(await resolveAgentScopePath(targetAgentName, scopeStr));
   }
 
   const similarity = similarityStr !== undefined ? parseFloat(similarityStr) : undefined;

@@ -83,10 +83,10 @@ export interface LinkMemoriesRequest extends BaseRequest {
   targetAgent?: string;
   /** Target base path (resolved path for the target scope's memory directory) */
   targetBasePath?: string;
-  /** Source scope identifier (e.g. 'agent-project', 'project') */
-  sourceScope?: string;
-  /** Target scope identifier (e.g. 'agent-project', 'project') */
-  targetScope?: string;
+  /** Source scope identifier */
+  sourceScope?: Scope;
+  /** Target scope identifier */
+  targetScope?: Scope;
   /** Source agent name (explicit, when linking from an agent scope) */
   sourceAgent?: string;
   /** Cosine similarity score to store on the created edge [0–1]. Same-scope auto-link only. */

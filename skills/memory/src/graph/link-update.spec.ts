@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { updateEdgeMetadata } from './link-update.js';
 import * as structureModule from './structure.js';
+import { Scope } from '../types/enums.js';
 import * as ollamaModule from '../services/ollama.js';
 
 // Helper: write a minimal graph.json to a temp dir
@@ -44,7 +45,7 @@ describe('updateEdgeMetadata', () => {
   // T013 (B-T1): sets similarity on existing edge; other fields unchanged
   it('sets similarity on an existing edge without changing other fields', async () => {
     writeGraph(testDir, NODES, [
-      { source: 'mem-a', target: 'mem-b', label: 'relates-to', sourceScope: 'project' },
+      { source: 'mem-a', target: 'mem-b', label: 'relates-to', sourceScope: Scope.Project },
     ]);
 
     const result = await updateEdgeMetadata({
@@ -190,8 +191,8 @@ describe('updateEdgeMetadata', () => {
       source: 'mem-a',
       target: 'mem-b',
       label: 'auto-linked-by-similarity',
-      sourceScope: 'project',
-      targetScope: 'global',
+      sourceScope: Scope.Project,
+      targetScope: Scope.Global,
     };
 
     writeGraph(sourceDir, NODES, [crossEdge]);

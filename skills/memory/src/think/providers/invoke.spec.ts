@@ -2,7 +2,8 @@
  * Unit tests for invoke.ts
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+import { mock } from 'bun:test';
 import type { ProviderCommand } from '../../types/provider-config.js';
 import * as codexParser from './codex-parser.js';
 import * as geminiParser from './gemini-parser.js';
@@ -41,6 +42,10 @@ function mockError(errorProps: Record<string, unknown>) {
 describe('invokeProviderCli', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterAll(() => {
+    mock.restore(); // Unmock vi.mock module replacements to prevent cross-test pollution
   });
 
   describe('successful execution', () => {

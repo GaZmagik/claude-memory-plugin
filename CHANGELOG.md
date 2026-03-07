@@ -5,6 +5,20 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.3] - 2026-03-07
+
+### Fixed
+- **Bug:** `memory suggest-links --all-scopes` threw `"The paths[0] property must be of type string, got object"` — missing `await` on `getScopePath()` in `suggest-links.ts`
+- **Async cascade:** `findGitRoot` was made async but ~50 source files and ~40 test files were never updated to `await` the now-async `getScopePath()`, `getResolvedScopePath()`, `resolveAgentScopePath()`, and related functions — all scope-dependent CLI commands were affected
+- **Bun compatibility:** replaced `vi.hoisted()` (unsupported in Bun) with top-level declarations in 5 spec files
+- **Type safety:** typed `EdgeMetadata` and `LinkMemoriesRequest` scope fields as `Scope` enum instead of `string`, eliminating `as Scope` casts in `link.ts` and `edges.ts`
+- **Type safety:** added `basePath` narrowing guards in `delete.ts`, `read.ts`, `search.ts`, `semantic-search.ts`
+- **Type safety:** replaced string literals with `Scope`/`MemoryType` enum values across spec and source files
+- **Code quality:** removed redundant `resolveScopePath` wrappers in `document.ts`, `thoughts.ts`, `conclude.ts` — inlined `getScopePath` directly
+- **Code quality:** removed unnecessary `String()` calls before `as MemoryType` casts in `move.ts` and `reindex.ts`
+- **Test pollution:** added `mock.restore()` cleanup to 11 spec files using `vi.mock()`, reducing cross-test pollution failures from 523 to 328
+- **Fragility:** `suggest-links.ts` now passes `globalPath` instead of `''` to `getScopePath` calls
+
 ## [1.7.2] - 2026-03-01
 
 ### Fixed

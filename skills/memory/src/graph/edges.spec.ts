@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { MemoryType } from '../types/enums.js';
+import { MemoryType, Scope } from '../types/enums.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -714,8 +714,8 @@ describe('Graph Edges', () => {
             target: 'b',
             label: 'relates-to',
             similarity: 0.75,
-            sourceScope: 'project',
-            targetScope: 'global',
+            sourceScope: Scope.Project,
+            targetScope: Scope.Global,
           },
         ],
       };

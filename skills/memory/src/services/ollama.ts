@@ -92,7 +92,7 @@ function readChatModel(): string {
  * force a re-read.
  * Falls back to DEFAULT_CONTEXT_WINDOW if file is missing or field absent.
  */
-function readContextWindow(): number {
+export function readContextWindow(): number {
   if (cachedContextWindow !== undefined) return cachedContextWindow;
   try {
     const settingsPath = join(process.cwd(), '.claude', 'memory.local.md');

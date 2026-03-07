@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-01T16:44:22.623Z",
+  "lastUpdated": "2026-03-07T18:30:46.436Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15415,6 +15415,70 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
       "severity": "medium"
+    },
+    {
+      "id": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "type": "gotcha",
+      "title": "Bun test module registry causes cross-test pollution (328 failures from mocks)",
+      "tags": [
+        "bun",
+        "testing",
+        "architecture",
+        "limitation",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:25.512Z",
+      "updated": "2026-03-07T18:30:25.512Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks.md"
+    },
+    {
+      "id": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "type": "learning",
+      "title": "Test by subdirectory to isolate real failures from cross-test pollution",
+      "tags": [
+        "testing",
+        "debugging",
+        "bun",
+        "troubleshooting",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:31.540Z",
+      "updated": "2026-03-07T18:30:31.540Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution.md"
+    },
+    {
+      "id": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "type": "learning",
+      "title": "vi.hoisted() from vitest doesn't work with Bun's test polyfill",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "compatibility",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:36.624Z",
+      "updated": "2026-03-07T18:30:36.624Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill.md"
+    },
+    {
+      "id": "learning-type-scope-fields-consistently-as-scope-enum-not-string-literals",
+      "type": "learning",
+      "title": "Type scope fields consistently as Scope enum, not string literals",
+      "tags": [
+        "typescript",
+        "types",
+        "consistency",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:46.428Z",
+      "updated": "2026-03-07T18:30:46.428Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-scope-fields-consistently-as-scope-enum-not-string-literals.md"
     }
   ]
 }

@@ -3,8 +3,9 @@ id: gotcha-vi-hoisted-bun-incompatibility
 title: vi.hoisted() not supported in Bun test runner
 type: gotcha
 scope: project
+project: claude-memory-plugin
 created: "2026-03-01T15:18:23.829Z"
-updated: "2026-03-01T15:18:23.829Z"
+updated: "2026-03-07T18:30:52.274Z"
 tags:
   - bun
   - testing

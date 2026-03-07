@@ -3,8 +3,9 @@ id: learning-parallel-agents-scale-fixes
 title: Parallel agents effectively scale large-scale systematic fixes across many files
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-03-01T15:18:17.996Z"
-updated: "2026-03-01T15:18:17.996Z"
+updated: "2026-03-07T18:30:52.287Z"
 tags:
   - automation
   - agents

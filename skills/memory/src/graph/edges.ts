@@ -260,7 +260,7 @@ export function validateCrossScopeEdge(edge: GraphEdge): { valid: boolean; error
   }
 
   // Agent scopes require agent names
-  const agentScopes = ['agent-project', 'agent-global'];
+  const agentScopes = [Scope.AgentProject, Scope.AgentGlobal];
 
   if (agentScopes.includes(edge.sourceScope!) && !edge.sourceAgent) {
     return { valid: false, error: `Agent scope '${edge.sourceScope}' requires sourceAgent to be set` };

@@ -61,8 +61,8 @@ export async function linkMemories(request: LinkMemoriesRequest): Promise<LinkMe
       relation: request.relation,
       sourceBasePath,
       targetBasePath: request.targetBasePath,
-      sourceScope: (request.sourceScope as Scope) ?? (request.agent ? Scope.AgentProject : Scope.Project),
-      targetScope: (request.targetScope as Scope) ?? (request.targetAgent ? Scope.AgentProject : Scope.Project),
+      sourceScope: request.sourceScope ?? (request.agent ? Scope.AgentProject : Scope.Project),
+      targetScope: request.targetScope ?? (request.targetAgent ? Scope.AgentProject : Scope.Project),
       sourceAgent: request.sourceAgent ?? request.agent,
       targetAgent: request.targetAgent,
     });

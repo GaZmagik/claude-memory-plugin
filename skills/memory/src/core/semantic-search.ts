@@ -39,7 +39,7 @@ export async function semanticSearchMemories(
   }
   const basePath = basePathResult.basePath;
   if (!basePath) {
-    return { status: "error", error: "Failed to resolve base path" };
+    return { status: 'error', error: 'Failed to resolve base path' };
   }
 
   if (!provider) {

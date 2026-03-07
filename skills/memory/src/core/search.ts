@@ -172,7 +172,7 @@ export async function searchMemories(request: SearchMemoriesRequest): Promise<Se
   }
   const basePath = basePathResult.basePath;
   if (!basePath) {
-    return { status: "error", error: "Failed to resolve base path" };
+    return { status: 'error', error: 'Failed to resolve base path' };
   }
 
   try {

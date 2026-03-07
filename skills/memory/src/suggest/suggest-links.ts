@@ -226,7 +226,7 @@ export async function suggestLinks(
   }
 
   // Determine primary scope type
-  const primaryScope = agentName ? Scope.AgentProject : deriveScope(basePath, await getScopePath(Scope.Project, cwd, ''), globalPath);
+  const primaryScope = agentName ? Scope.AgentProject : deriveScope(basePath, await getScopePath(Scope.Project, cwd, globalPath), globalPath);
 
   // Build embeddings map from primary scope (excluding thoughts)
   // AND track metadata for each memory
@@ -251,7 +251,7 @@ export async function suggestLinks(
   // When --all-scopes, load embeddings from ALL scopes (project, global, all agents)
   if (allScopes) {
     try {
-      const projectPath = await getScopePath(Scope.Project, cwd, '');
+      const projectPath = await getScopePath(Scope.Project, cwd, globalPath);
       const scopePaths = new Set<string>([projectPath, globalPath]);
 
       // Scan for all agent scopes

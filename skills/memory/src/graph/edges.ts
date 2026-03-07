@@ -34,8 +34,8 @@ export type { GraphEdge };
  * Optional cross-scope metadata for edges spanning scope boundaries
  */
 export interface EdgeMetadata {
-  sourceScope?: string;
-  targetScope?: string;
+  sourceScope?: Scope;
+  targetScope?: Scope;
   sourceAgent?: string;
   targetAgent?: string;
   /** Cosine similarity score [0–1]. NaN is rejected; out-of-range values are clamped. */
@@ -90,8 +90,8 @@ export function addEdge(
 
   // Spread cross-scope metadata if provided (only defined values)
   if (metadata) {
-    if (metadata.sourceScope) edge.sourceScope = metadata.sourceScope as Scope;
-    if (metadata.targetScope) edge.targetScope = metadata.targetScope as Scope;
+    if (metadata.sourceScope) edge.sourceScope = metadata.sourceScope;
+    if (metadata.targetScope) edge.targetScope = metadata.targetScope;
     if (metadata.sourceAgent) edge.sourceAgent = metadata.sourceAgent;
     if (metadata.targetAgent) edge.targetAgent = metadata.targetAgent;
     if (metadata.similarity !== undefined) {

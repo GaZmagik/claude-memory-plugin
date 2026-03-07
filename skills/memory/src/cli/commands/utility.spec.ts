@@ -11,6 +11,7 @@ import * as promoteModule from '../../maintenance/promote.js';
 import * as archiveModule from '../../maintenance/archive.js';
 import * as structureModule from '../../graph/structure.js';
 import * as checkRelevanceModule from '../../maintenance/check-relevance.js';
+import { Scope } from '../../types/enums.js';
 import type { ParsedArgs } from '../parser.js';
 
 describe('cmdRename', () => {
@@ -89,7 +90,7 @@ describe('cmdMove', () => {
     expect(moveModule.moveMemory).toHaveBeenCalledWith(
       expect.objectContaining({
         id: 'my-id',
-        targetScope: 'global',
+        targetScope: Scope.Global,
       })
     );
   });

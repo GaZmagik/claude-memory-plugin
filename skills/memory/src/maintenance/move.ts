@@ -236,13 +236,13 @@ export async function moveMemory(request: MoveRequest): Promise<MoveResponse> {
     let targetGraph = await loadGraph(targetBasePath);
     targetGraph = addNode(targetGraph, {
       id,
-      type: String(parsed.frontmatter.type) as MemoryType,
+      type: parsed.frontmatter.type as MemoryType,
     });
     await saveGraph(targetBasePath, targetGraph);
     changes.targetGraphUpdated = true;
   } catch {
     // Target graph may not exist, create it
-    const newGraph = { version: 1, nodes: [{ id, type: String(parsed.frontmatter.type) as MemoryType }], edges: [] };
+    const newGraph = { version: 1, nodes: [{ id, type: parsed.frontmatter.type as MemoryType }], edges: [] };
     await saveGraph(targetBasePath, newGraph);
     changes.targetGraphUpdated = true;
   }

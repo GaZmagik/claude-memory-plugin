@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-08T19:23:26.938Z",
+  "lastUpdated": "2026-03-08T21:22:05.047Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15937,6 +15937,135 @@
       "updated": "2026-03-08T19:23:26.930Z",
       "scope": "project",
       "relativePath": "permanent/decision-defer-parallelization-wishes-post-mvp.md"
+    },
+    {
+      "id": "learning-discriminated-union-pattern-for-typescript-result-types",
+      "type": "learning",
+      "title": "Discriminated union pattern for TypeScript result types",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "refactoring",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:42.891Z",
+      "updated": "2026-03-08T21:21:42.891Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-discriminated-union-pattern-for-typescript-result-types.md"
+    },
+    {
+      "id": "learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases",
+      "type": "learning",
+      "title": "Retro - Parallel promise.all batching accelerates refactoring phases",
+      "tags": [
+        "retrospective",
+        "refactoring",
+        "performance",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:46.187Z",
+      "updated": "2026-03-08T21:21:46.187Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions",
+      "type": "learning",
+      "title": "Parallelising Promise.all with unbounded concurrent calls requires safety assumptions",
+      "tags": [
+        "concurrency",
+        "promises",
+        "error-handling",
+        "006-memory-summarize",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:47.968Z",
+      "updated": "2026-03-08T21:21:47.968Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions.md"
+    },
+    {
+      "id": "learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring",
+      "type": "learning",
+      "title": "Retro - Sub-agent delegation for test additions frees context for refactoring",
+      "tags": [
+        "retrospective",
+        "testing",
+        "delegation",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:50.456Z",
+      "updated": "2026-03-08T21:21:50.456Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-empty-string-tags-bug-from-split-without-filtering",
+      "type": "gotcha",
+      "title": "Empty string tags bug from split without filtering",
+      "tags": [
+        "string-parsing",
+        "filtering",
+        "data-cleaning",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:52.887Z",
+      "updated": "2026-03-08T21:21:52.887Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-empty-string-tags-bug-from-split-without-filtering.md"
+    },
+    {
+      "id": "gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised",
+      "type": "gotcha",
+      "title": "Retro - Repeated reviewer feedback on deferred items signals they should be prioritised",
+      "tags": [
+        "retrospective",
+        "review-process",
+        "prioritisation",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:55.278Z",
+      "updated": "2026-03-08T21:21:55.278Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-cli-flag-precedence-and-silent-override-pattern",
+      "type": "learning",
+      "title": "CLI flag precedence and silent override pattern",
+      "tags": [
+        "cli-design",
+        "ux",
+        "flag-precedence",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:22:00.388Z",
+      "updated": "2026-03-08T21:22:00.388Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-flag-precedence-and-silent-override-pattern.md"
+    },
+    {
+      "id": "learning-format-validation-prevents-path-traversal-in-file-identifiers",
+      "type": "learning",
+      "title": "Format validation prevents path traversal in file identifiers",
+      "tags": [
+        "security",
+        "input-validation",
+        "path-traversal",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:22:05.035Z",
+      "updated": "2026-03-08T21:22:05.035Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-format-validation-prevents-path-traversal-in-file-identifiers.md"
     }
   ]
 }

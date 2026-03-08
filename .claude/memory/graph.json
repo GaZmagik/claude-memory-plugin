@@ -5309,6 +5309,54 @@
       "type": "decision",
       "title": "Defer Parallelization & Style Wishes to Post-MVP",
       "scope": "project"
+    },
+    {
+      "id": "learning-discriminated-union-pattern-for-typescript-result-types",
+      "type": "learning",
+      "title": "Discriminated union pattern for TypeScript result types",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases",
+      "type": "learning",
+      "title": "Retro - Parallel promise.all batching accelerates refactoring phases",
+      "scope": "project"
+    },
+    {
+      "id": "learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions",
+      "type": "learning",
+      "title": "Parallelising Promise.all with unbounded concurrent calls requires safety assumptions",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring",
+      "type": "learning",
+      "title": "Retro - Sub-agent delegation for test additions frees context for refactoring",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-empty-string-tags-bug-from-split-without-filtering",
+      "type": "gotcha",
+      "title": "Empty string tags bug from split without filtering",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised",
+      "type": "gotcha",
+      "title": "Retro - Repeated reviewer feedback on deferred items signals they should be prioritised",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cli-flag-precedence-and-silent-override-pattern",
+      "type": "learning",
+      "title": "CLI flag precedence and silent override pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-format-validation-prevents-path-traversal-in-file-identifiers",
+      "type": "learning",
+      "title": "Format validation prevents path traversal in file identifiers",
+      "scope": "project"
     }
   ],
   "edges": [

@@ -23971,86 +23971,74 @@
     {
       "source": "decision-export-readcontextwindow-from-ollama",
       "target": "decision-export-readcontextwindow-from-ollama-service",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7334083251450414,
-      "verifiedRelation": "7-export"
+      "label": "7-export",
+      "similarity": 0.7334083251450414
     },
     {
       "source": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
       "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7056294031487067,
-      "verifiedRelation": "evolution-of-approach"
+      "label": "evolution-of-approach",
+      "similarity": 0.7056294031487067
     },
     {
       "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
       "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7028043656498324,
-      "verifiedRelation": "evolution-of-approach"
+      "label": "evolution-of-approach",
+      "similarity": 0.7028043656498324
     },
     {
       "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
       "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6926222234377879,
-      "verifiedRelation": "expansion"
+      "label": "expansion",
+      "similarity": 0.6926222234377879
     },
     {
       "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
       "target": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6885069509799197,
-      "verifiedRelation": "extension"
+      "label": "extension",
+      "similarity": 0.6885069509799197
     },
     {
       "source": "learning-cross-artifact-analysis-finds-integration-gaps",
       "target": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.684776033388869,
-      "verifiedRelation": "integration-analysis"
+      "label": "integration-analysis",
+      "similarity": 0.684776033388869
     },
     {
       "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
       "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6718227201443354,
-      "verifiedRelation": "validation-iteration"
+      "label": "validation-iteration",
+      "similarity": 0.6718227201443354
     },
     {
       "source": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
       "target": "retro-parallel-expert-review",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6658090327093645,
-      "verifiedRelation": "reorganization-refinement"
+      "label": "reorganization-refinement",
+      "similarity": 0.6658090327093645
     },
     {
       "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
       "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6639882628279642,
-      "verifiedRelation": "fork-off"
+      "label": "fork-off",
+      "similarity": 0.6639882628279642
     },
     {
       "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
       "target": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6557675797625284,
-      "verifiedRelation": "evolution"
+      "label": "evolution",
+      "similarity": 0.6557675797625284
     },
     {
       "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
       "target": "learning-mock-pattern-vi-spyon-confirmed",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6545327779008944,
-      "verifiedRelation": "7-safety"
+      "label": "7-safety",
+      "similarity": 0.6545327779008944
     },
     {
       "source": "learning-mock-pattern-vi-spyon-confirmed",
       "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6522832197246811,
-      "verifiedRelation": "7-replacement"
+      "label": "7-replacement",
+      "similarity": 0.6522832197246811
     },
     {
       "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
@@ -24061,79 +24049,68 @@
     {
       "source": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
       "target": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6468759027521026,
-      "verifiedRelation": "gap-analysis"
+      "label": "gap-analysis",
+      "similarity": 0.6468759027521026
     },
     {
       "source": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
       "target": "learning-tddsdd-phased-approach-prevents-scope-creep",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.633437926324483,
-      "verifiedRelation": "related-concept"
+      "label": "related-concept",
+      "similarity": 0.633437926324483
     },
     {
       "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
       "target": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6311968724225258,
-      "verifiedRelation": "refinement-validation"
+      "label": "refinement-validation",
+      "similarity": 0.6311968724225258
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-mock-pattern-vi-spyon-confirmed",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6294776706959504,
-      "verifiedRelation": "refactor-vi"
+      "label": "refactor-vi",
+      "similarity": 0.6294776706959504
     },
     {
       "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
       "target": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6237223303429831,
-      "verifiedRelation": "scaling-extension"
+      "label": "scaling-extension",
+      "similarity": 0.6237223303429831
     },
     {
       "source": "learning-mock-pattern-vi-spyon-confirmed",
       "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6218160223488884,
-      "verifiedRelation": "comparison-benefits"
+      "label": "comparison-benefits",
+      "similarity": 0.6218160223488884
     },
     {
       "source": "gotcha-vi-mock-global-pollution-test-state",
       "target": "learning-mock-pattern-vi-spyon-confirmed",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6156201775802006,
-      "verifiedRelation": "7-spy"
+      "label": "7-spy",
+      "similarity": 0.6156201775802006
     },
     {
       "source": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
       "target": "learning-iterative-code-review-progressive-issues",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6138278266240554,
-      "verifiedRelation": "refinement-review"
+      "label": "refinement-review",
+      "similarity": 0.6138278266240554
     },
     {
       "source": "learning-mock-pattern-vi-spyon-confirmed",
       "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6125086820876181,
-      "verifiedRelation": "7-comparison"
+      "label": "7-comparison",
+      "similarity": 0.6125086820876181
     },
     {
       "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
       "target": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6072911297714106,
-      "verifiedRelation": "refinement-1"
+      "label": "refinement-1",
+      "similarity": 0.6072911297714106
     },
     {
       "source": "learning-mock-pattern-vi-spyon-confirmed",
       "target": "learning-module-level-mocks-require-test-isolation-documentation",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.6049976202448052,
-      "verifiedRelation": "7-documentation"
+      "label": "7-documentation",
+      "similarity": 0.6049976202448052
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
@@ -24144,15 +24121,62 @@
     {
       "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
       "target": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.602006590280987,
-      "verifiedRelation": "contrast-shift"
+      "label": "contrast-shift",
+      "similarity": 0.602006590280987
     },
     {
       "source": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
       "target": "retro-parallel-expert-review",
       "label": "auto-linked-by-similarity",
       "similarity": 0.7533263276353479
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "target": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "label": "augmentation",
+      "similarity": 0.7329263867154264
+    },
+    {
+      "source": "gotcha-digest-mode-basepath-isolation",
+      "target": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "label": "1-path-reduction",
+      "similarity": 0.71242252189644
+    },
+    {
+      "source": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "contrast-improvement",
+      "similarity": 0.6783118618382891
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "label": "contrast",
+      "similarity": 0.6373386776993223
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "label": "improvement-iteration",
+      "similarity": 0.6205394582951599
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "label": "improvement-fix",
+      "similarity": 0.6113649354868557
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "improvement",
+      "similarity": 0.6077152986350655
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "improvement-extension",
+      "similarity": 0.607552860811402
     }
   ]
 }

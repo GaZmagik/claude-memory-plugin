@@ -37,8 +37,8 @@ export const ANALYSIS_HELP: Record<string, CommandHelpEntry> = {
   --include-shared    Include shared scopes (requires --agent)
   --all-agents        Summarise across all agent namespaces
   --tags <tags>       Comma-separated tag filter (AND logic)
-  --limit <n>         Max memories to summarise (default: 50)
-  --timeout <ms>      LLM timeout per call in ms (default: 120000)`,
+  --limit <n>         Max memories to summarise (1-500, default: 50)
+  --timeout <ms>      LLM timeout per call in ms (>= 1000, default: 120000)`,
     examples: [
       'memory summarize',
       'memory summarize decision',

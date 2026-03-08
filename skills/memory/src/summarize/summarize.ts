@@ -24,6 +24,7 @@ export const CHARS_PER_TOKEN = 4;
 export const MAX_MEMORY_CONTENT_CHARS = 6_000;
 export const DEFAULT_TIMEOUT_MS = 120_000;
 export const DEFAULT_LIMIT = 50;
+export const OLLAMA_UNAVAILABLE_HINT = 'Ollama is not available. Install and start Ollama to enable LLM-powered summaries.';
 
 // ---------------------------------------------------------------------------
 // Public types
@@ -54,7 +55,7 @@ export interface SummarizeResult {
 export interface SummarizeRequest {
   basePaths: string[];
   mode: SummarizeMode;
-  typeFilter?: string;
+  typeFilter?: MemoryType;
   digestId?: string;
   tags: string[];
   limit: number;
@@ -94,24 +95,15 @@ interface SummaryChunk {
 
 /**
  * Truncate content to at most maxChars characters at a word boundary.
- * Appends ' [...]' to indicate truncation.
- * Logs a warning to stderr when truncation occurs.
+ * Appends ' [...]' to indicate truncation. Pure function — no side effects.
  */
 export function truncateContent(content: string, maxChars: number): string {
   if (content.length <= maxChars) return content;
-
   const slice = content.slice(0, maxChars);
   const lastSpace = slice.lastIndexOf(' ');
-
-  const truncated = lastSpace > 0
+  return lastSpace > 0
     ? slice.slice(0, lastSpace) + ' [...]'
     : slice + ' [...]';
-
-  process.stderr.write(
-    `[summarize] Content truncated (was ${content.length} chars, limit ${maxChars})\n`
-  );
-
-  return truncated;
 }
 
 // ---------------------------------------------------------------------------
@@ -256,8 +248,11 @@ export async function mapReduceSummarize(
     })
   );
 
-  // Reduce phase
-  const reducePrompt = buildReducePrompt(chunkSummaries);
+  // Filter empty results before reduce phase (failed generate() returns '')
+  const validSummaries = chunkSummaries.filter(s => s.length > 0);
+  if (validSummaries.length === 0) return '';
+  if (validSummaries.length === 1) return validSummaries[0]!;
+  const reducePrompt = buildReducePrompt(validSummaries);
   return generate(reducePrompt, undefined, timeoutMs);
 }
 
@@ -364,21 +359,19 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   if (mode === 'digest') {
     const available = await isAvailable();
     if (!available) {
-      return {
-        memoriesIncluded: [],
-        hint: 'Ollama is not available. Install and start Ollama to enable LLM-powered summaries.',
-      };
+      return { memoriesIncluded: [], hint: OLLAMA_UNAVAILABLE_HINT };
     }
-
     if (!digestId) {
       return { memoriesIncluded: [] };
     }
-
-    const basePath = basePaths[0] ?? '';
-    const response = await readMemory({ id: digestId, basePath });
-
-    if (response.status === 'error' || !response.memory) {
-      return { memoriesIncluded: [] };
+    // Try each basePath until the memory is found (H1 fix)
+    let response;
+    for (const bp of basePaths) {
+      response = await readMemory({ id: digestId, basePath: bp });
+      if (response.status === 'success' && response.memory) break;
+    }
+    if (!response || response.status === 'error' || !response.memory) {
+      return { memoriesIncluded: [], hint: `Memory '${digestId}' not found in any scope` };
     }
 
     const content = truncateContent(response.memory.content, MAX_MEMORY_CONTENT_CHARS);
@@ -413,7 +406,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     };
 
     if (typeFilter) {
-      listRequest.type = typeFilter as MemoryType;
+      listRequest.type = typeFilter;
     }
 
     const listResponse = await listMemories(listRequest);
@@ -447,7 +440,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     return {
       memories: listing,
       memoriesIncluded: allSummaries.map((s: MemorySummary) => s.id),
-      hint: 'Ollama is not available. Install and start Ollama to enable LLM-powered summaries.',
+      hint: OLLAMA_UNAVAILABLE_HINT,
     };
   }
 

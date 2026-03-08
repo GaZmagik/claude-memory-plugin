@@ -17,11 +17,16 @@ describe('cmdSuggestLinks', () => {
     vi.restoreAllMocks();
   });
 
-  it('calls suggestLinks with defaults', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
+  function mockSuggestLinks(overrides: Record<string, unknown> = {}) {
+    return vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
       suggestions: [],
       created: 0,
+      ...overrides,
     } as any);
+  }
+
+  it('calls suggestLinks with defaults', async () => {
+    mockSuggestLinks();
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdSuggestLinks(args);
@@ -37,9 +42,7 @@ describe('cmdSuggestLinks', () => {
   });
 
   it('passes threshold flag', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
-      suggestions: [],
-    } as any);
+    mockSuggestLinks();
 
     const args: ParsedArgs = { positional: [], flags: { threshold: '0.9' } };
     await cmdSuggestLinks(args);
@@ -50,9 +53,7 @@ describe('cmdSuggestLinks', () => {
   });
 
   it('passes limit flag', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
-      suggestions: [],
-    } as any);
+    mockSuggestLinks();
 
     const args: ParsedArgs = { positional: [], flags: { limit: '10' } };
     await cmdSuggestLinks(args);
@@ -63,10 +64,7 @@ describe('cmdSuggestLinks', () => {
   });
 
   it('passes auto-link flag', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
-      suggestions: [],
-      created: 5,
-    } as any);
+    mockSuggestLinks({ created: 5 });
 
     const args: ParsedArgs = { positional: [], flags: { 'auto-link': true } };
     await cmdSuggestLinks(args);
@@ -77,10 +75,7 @@ describe('cmdSuggestLinks', () => {
   });
 
   it('passes llm-type flag', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
-      suggestions: [],
-      created: 1,
-    } as any);
+    mockSuggestLinks({ created: 1 });
 
     const args: ParsedArgs = {
       positional: [],
@@ -94,10 +89,7 @@ describe('cmdSuggestLinks', () => {
   });
 
   it('passes all-scopes flag', async () => {
-    vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
-      suggestions: [],
-      created: 0,
-    } as any);
+    mockSuggestLinks();
 
     const args: ParsedArgs = { positional: [], flags: { 'all-scopes': true } };
     await cmdSuggestLinks(args);

@@ -264,6 +264,30 @@ describe('mapReduceSummarize', () => {
 
     expect(result).toBe('');
   });
+
+  it('filters empty generate results before reduce phase (H3 fix)', async () => {
+    const genSpy = vi.spyOn(ollamaModule, 'generate')
+      .mockResolvedValueOnce('')              // chunk 1: empty
+      .mockResolvedValueOnce('Summary B')     // chunk 2: valid
+      .mockResolvedValueOnce('Summary C')     // chunk 3: valid
+      .mockResolvedValueOnce('Merged result'); // reduce
+
+    const makeChunk = (id: string) => ({
+      memories: [{ ...memory, id }],
+      totalChars: memory.content.length,
+    });
+    const chunks = [makeChunk('c1'), makeChunk('c2'), makeChunk('c3')];
+    const result = await mapReduceSummarize(chunks, 'overview', undefined, DEFAULT_TIMEOUT_MS);
+
+    // 3 map calls + 1 reduce call = 4 total
+    expect(genSpy).toHaveBeenCalledTimes(4);
+    expect(result).toBe('Merged result');
+    // Reduce prompt should contain only the 2 valid summaries, not an empty bullet
+    const reducePrompt = genSpy.mock.calls[3]![0] as string;
+    expect(reducePrompt).toContain('Summary B');
+    expect(reducePrompt).toContain('Summary C');
+    expect(reducePrompt).not.toContain('- \n');
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -355,7 +379,7 @@ describe('summarize', () => {
     );
     vi.spyOn(ollamaModule, 'generate').mockResolvedValue('Filtered summary');
 
-    const result = await summarize(makeRequest({ mode: 'per-type', typeFilter: 'decision' }));
+    const result = await summarize(makeRequest({ mode: 'per-type', typeFilter: MemoryType.Decision }));
 
     expect(result.summaries).toBeDefined();
     // typeFilter is passed to listMemories; mock only returns decision type
@@ -567,6 +591,77 @@ describe('summarize', () => {
 
     // Deduplication means readMemory is called once, not twice
     expect(readSpy).toHaveBeenCalledTimes(1);
+  });
+
+  // --- listMemories error for one basePath ---
+
+  it('succeeds using memories from other basePath when one returns error', async () => {
+    const mem = makeMemorySummary({ id: unsafeAsMemoryId('surviving-mem') });
+    vi.spyOn(listModule, 'listMemories')
+      .mockResolvedValueOnce({ status: 'error', error: 'index missing', memories: [], count: 0 })
+      .mockResolvedValueOnce({ status: 'success', memories: [mem], count: 1 });
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue(
+      mockReadResponse('Content', { type: 'decision', title: 'T', tags: [] })
+    );
+    vi.spyOn(ollamaModule, 'generate').mockResolvedValue('Summary');
+
+    const result = await summarize(makeRequest({
+      mode: 'overview',
+      basePaths: ['/tmp/broken', '/tmp/working'],
+    }));
+
+    expect(result.memoriesIncluded).toContain('surviving-mem');
+    expect(result.summary).toBe('Summary');
+  });
+
+  // --- All readMemory calls fail — overview mode ---
+
+  it('returns empty memoriesIncluded when all readMemory calls fail in overview mode', async () => {
+    mockListSuccess([baseSummary, gotchaSummary]);
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({ status: 'error', error: 'read failed' });
+
+    const result = await summarize(makeRequest({ mode: 'overview' }));
+
+    expect(result.memoriesIncluded).toEqual([]);
+  });
+
+  // --- Digest mode iterates basePaths (H1 fix) ---
+
+  it('finds memory in second basePath when first fails in digest mode', async () => {
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    vi.spyOn(readModule, 'readMemory')
+      .mockResolvedValueOnce({ status: 'error', error: 'not found' })
+      .mockResolvedValueOnce(
+        mockReadResponse('Found it', { type: 'decision', title: 'Found', tags: [] })
+      );
+    vi.spyOn(ollamaModule, 'generate').mockResolvedValue('Digest from second path');
+
+    const result = await summarize(makeRequest({
+      mode: 'digest',
+      digestId: 'my-id',
+      basePaths: ['/tmp/empty', '/tmp/has-it'],
+    }));
+
+    expect(result.summary).toBe('Digest from second path');
+    expect(result.memoriesIncluded).toEqual(['my-id']);
+  });
+
+  // --- Digest mode read failure returns hint (M6 fix) ---
+
+  it('returns hint when readMemory fails for all basePaths in digest mode', async () => {
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue({ status: 'error', error: 'not found' });
+
+    const result = await summarize(makeRequest({
+      mode: 'digest',
+      digestId: 'my-id',
+      basePaths: ['/tmp/a', '/tmp/b'],
+    }));
+
+    expect(result.memoriesIncluded).toEqual([]);
+    expect(result.hint).toBe("Memory 'my-id' not found in any scope");
   });
 });
 

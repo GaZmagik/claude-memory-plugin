@@ -13,9 +13,11 @@ import { summarize, DEFAULT_LIMIT, DEFAULT_TIMEOUT_MS } from '../../summarize/su
 import type { SummarizeMode } from '../../summarize/summarize.js';
 import { readContextWindow } from '../../services/ollama.js';
 import { getResolvedScopePath, getGlobalMemoryPath, parseScope, parseMemoryType, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
+import { MemoryType } from '../../types/enums.js';
 import { discoverAgents } from '../../core/agent-discovery.js';
 
-const VALID_MODES = new Set<SummarizeMode>(['per-type', 'overview', 'digest']);
+const VALID_MODES = new Set<string>(['per-type', 'overview', 'digest']);
+function isValidMode(s: string): s is SummarizeMode { return VALID_MODES.has(s); }
 const MAX_LIMIT = 500;
 const MIN_TIMEOUT_MS = 1_000;
 
@@ -72,10 +74,10 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
  */
 export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
   const modeStr = getFlagString(args.flags, 'mode') ?? 'per-type';
-  if (!VALID_MODES.has(modeStr as SummarizeMode)) {
+  if (!isValidMode(modeStr)) {
     return error(`Invalid --mode '${modeStr}'. Must be one of: per-type, overview, digest`);
   }
-  const mode = modeStr as SummarizeMode;
+  const mode = modeStr;
 
   const scopeStr = getFlagString(args.flags, 'scope');
   const agentName = getFlagString(args.flags, 'agent');
@@ -94,7 +96,7 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
 
   // Digest mode: positional[0] is the memory ID
   // Non-digest mode: positional[0] is the type filter
-  let typeFilter: string | undefined;
+  let typeFilter: MemoryType | undefined;
   let digestId: string | undefined;
 
   if (mode === 'digest') {
@@ -104,10 +106,13 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
     }
   } else {
     const rawType = args.positional[0];
-    if (rawType !== undefined && parseMemoryType(rawType) === undefined) {
-      return error(`Invalid memory type '${rawType}'. Valid types: decision, learning, artifact, gotcha, breadcrumb, hub, rule, reminder`);
+    if (rawType !== undefined) {
+      const parsed = parseMemoryType(rawType);
+      if (parsed === undefined) {
+        return error(`Invalid memory type '${rawType}'. Valid types: decision, learning, artifact, gotcha, breadcrumb, hub, rule, reminder`);
+      }
+      typeFilter = parsed;
     }
-    typeFilter = rawType;
   }
 
   // Resolve basePaths from scope/agent flags

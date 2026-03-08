@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-07T20:58:53.174Z",
+  "lastUpdated": "2026-03-08T00:35:35.060Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15555,6 +15555,138 @@
       "updated": "2026-03-07T20:58:53.167Z",
       "scope": "project",
       "relativePath": "permanent/decision-export-readcontextwindow-from-ollama.md"
+    },
+    {
+      "id": "gotcha-retro-branded-types-in-test-mocks-add-ceremony-overhead",
+      "type": "gotcha",
+      "title": "Retro - Branded types in test mocks add ceremony overhead",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "branded-types",
+        "project"
+      ],
+      "created": "2026-03-08T00:34:58.035Z",
+      "updated": "2026-03-08T00:34:58.035Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-branded-types-in-test-mocks-add-ceremony-overhead.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "type": "learning",
+      "title": "Retro - Multi-phase TDD with clear boundaries scales well",
+      "tags": [
+        "retrospective",
+        "process",
+        "sdd",
+        "tdd",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:02.453Z",
+      "updated": "2026-03-08T00:35:02.453Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-grep-for-patterns-before-implementing-prevents-api-assumption-errors",
+      "type": "learning",
+      "title": "Retro - Grep for patterns before implementing prevents API assumption errors",
+      "tags": [
+        "retrospective",
+        "process",
+        "pattern-analysis",
+        "integration",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:07.575Z",
+      "updated": "2026-03-08T00:35:07.575Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-grep-for-patterns-before-implementing-prevents-api-assumption-errors.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-branded-types-in-test-mocks-require-ceremony",
+      "type": "learning",
+      "title": "Branded types in test mocks require ceremony",
+      "tags": [
+        "typescript",
+        "testing",
+        "branded-types",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:15.151Z",
+      "updated": "2026-03-08T00:35:15.151Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-branded-types-in-test-mocks-require-ceremony.md"
+    },
+    {
+      "id": "learning-tddsdd-phased-approach-prevents-scope-creep",
+      "type": "learning",
+      "title": "TDD+SDD phased approach prevents scope creep",
+      "tags": [
+        "tdd",
+        "sdd",
+        "methodology",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:19.226Z",
+      "updated": "2026-03-08T00:35:19.226Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tddsdd-phased-approach-prevents-scope-creep.md"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama-service",
+      "type": "decision",
+      "title": "Export readContextWindow from ollama service",
+      "tags": [
+        "architecture",
+        "exports",
+        "ollama",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:27.440Z",
+      "updated": "2026-03-08T00:35:27.440Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-export-readcontextwindow-from-ollama-service.md"
+    },
+    {
+      "id": "gotcha-sub-agent-phase-a-implementation-left-incomplete",
+      "type": "gotcha",
+      "title": "Sub-agent Phase A implementation left incomplete",
+      "tags": [
+        "agents",
+        "delegation",
+        "tdd",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:30.951Z",
+      "updated": "2026-03-08T00:35:30.951Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-sub-agent-phase-a-implementation-left-incomplete.md"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps",
+      "type": "learning",
+      "title": "Cross-artifact analysis via LSP discovers integration gaps",
+      "tags": [
+        "typescript",
+        "lsp",
+        "integration",
+        "quality",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:35.052Z",
+      "updated": "2026-03-08T00:35:35.052Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps.md"
     }
   ]
 }

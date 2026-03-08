@@ -5141,6 +5141,36 @@
       "type": "learning",
       "title": "Type scope fields consistently as Scope enum, not string literals",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-agent-incomplete-work-on-phase-a",
+      "type": "gotcha",
+      "title": "agent-incomplete-work-on-phase-a",
+      "scope": "project"
+    },
+    {
+      "id": "learning-sdd-tdd-workflow-orchestrates-phase-execution",
+      "type": "learning",
+      "title": "sdd-tdd-workflow-orchestrates-phase-execution",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "type": "learning",
+      "title": "cross-artifact-analysis-finds-integration-gaps",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mock-pattern-vi-spyon-confirmed",
+      "type": "learning",
+      "title": "mock-pattern-vi-spyOn-confirmed",
+      "scope": "project"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama",
+      "type": "decision",
+      "title": "export-readcontextwindow-from-ollama",
+      "scope": "project"
     }
   ],
   "edges": [

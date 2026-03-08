@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-07T18:30:46.436Z",
+  "lastUpdated": "2026-03-07T20:58:53.174Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15479,6 +15479,82 @@
       "updated": "2026-03-07T18:30:46.428Z",
       "scope": "project",
       "relativePath": "permanent/learning-type-scope-fields-consistently-as-scope-enum-not-string-literals.md"
+    },
+    {
+      "id": "gotcha-agent-incomplete-work-on-phase-a",
+      "type": "gotcha",
+      "title": "agent-incomplete-work-on-phase-a",
+      "tags": [
+        "feature-006",
+        "agents",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:34.828Z",
+      "updated": "2026-03-07T20:58:34.828Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-incomplete-work-on-phase-a.md"
+    },
+    {
+      "id": "learning-sdd-tdd-workflow-orchestrates-phase-execution",
+      "type": "learning",
+      "title": "sdd-tdd-workflow-orchestrates-phase-execution",
+      "tags": [
+        "feature-006",
+        "sdd",
+        "tdd",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:35.802Z",
+      "updated": "2026-03-07T20:58:35.802Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-sdd-tdd-workflow-orchestrates-phase-execution.md"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "type": "learning",
+      "title": "cross-artifact-analysis-finds-integration-gaps",
+      "tags": [
+        "feature-006",
+        "analysis",
+        "quality",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:36.783Z",
+      "updated": "2026-03-07T20:58:36.783Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-analysis-finds-integration-gaps.md"
+    },
+    {
+      "id": "learning-mock-pattern-vi-spyon-confirmed",
+      "type": "learning",
+      "title": "mock-pattern-vi-spyOn-confirmed",
+      "tags": [
+        "feature-006",
+        "testing",
+        "bun",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:37.729Z",
+      "updated": "2026-03-07T20:58:37.729Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mock-pattern-vi-spyon-confirmed.md"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama",
+      "type": "decision",
+      "title": "export-readcontextwindow-from-ollama",
+      "tags": [
+        "feature-006",
+        "phase-0",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:53.167Z",
+      "updated": "2026-03-07T20:58:53.167Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-export-readcontextwindow-from-ollama.md"
     }
   ]
 }

@@ -219,6 +219,13 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('Write a single paragraph summary:');
   });
 
+  it('builds per-type prompt with empty memories array without crashing', () => {
+    const prompt = buildPrompt([], 'per-type', 'decision');
+    expect(prompt).toContain('decision memories');
+    expect(prompt).not.toContain('##'); // no memory headers
+    expect(prompt).toContain('Write a single paragraph summary:');
+  });
+
   it('builds digest prompt for a single memory', () => {
     const prompt = buildPrompt([memory], 'digest');
     expect(prompt).toContain('detailed summary');
@@ -691,6 +698,24 @@ describe('summarize', () => {
       expect(result.summary).toBe('Digest from second path');
     }
     expect(result.memoriesIncluded).toEqual(['my-id']);
+  });
+
+  // --- Digest mode with empty basePaths ---
+
+  it('returns empty result with hint when basePaths is empty in digest mode', async () => {
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+
+    const result = await summarize(makeRequest({
+      mode: 'digest',
+      digestId: 'some-id',
+      basePaths: [],
+    }));
+
+    expect(result.kind).toBe('empty');
+    if (result.kind === 'empty') {
+      expect(result.hint).toContain('not found');
+    }
+    expect(result.memoriesIncluded).toEqual([]);
   });
 
   // --- Digest mode read failure returns hint (M6 fix) ---

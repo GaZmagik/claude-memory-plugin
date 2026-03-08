@@ -345,19 +345,20 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     contextWindow,
   } = request;
 
-  // Compute chunk budget from context window
+  // contextWindow is used only for chunk budgeting here.
+  // generate() reads readContextWindow() internally to set num_ctx.
   const chunkBudgetChars = contextWindow * CHARS_PER_TOKEN * CHUNK_BUDGET_RATIO;
 
   // -------------------------------------------------------------------------
   // Digest mode: bypass listing entirely
   // -------------------------------------------------------------------------
   if (mode === 'digest') {
+    if (!digestId) {
+      return { kind: 'empty', memoriesIncluded: [] };
+    }
     const available = await isAvailable();
     if (!available) {
       return { kind: 'empty', memoriesIncluded: [], hint: OLLAMA_UNAVAILABLE_HINT };
-    }
-    if (!digestId) {
-      return { kind: 'empty', memoriesIncluded: [] };
     }
     // Try each basePath until the memory is found (H1 fix)
     let response;

@@ -105,6 +105,9 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
     if (!digestId) {
       return error('digest mode requires a memory ID as a positional argument');
     }
+    if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$/i.test(digestId)) {
+      return error('digestId must contain only alphanumeric characters and hyphens');
+    }
   } else {
     const rawType = args.positional[0];
     if (rawType !== undefined) {
@@ -117,9 +120,11 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
   }
 
   // Resolve basePaths from scope/agent flags
-  // --all-agents takes precedence over --agent (silently ignored)
   const basePaths: string[] = [];
   if (allAgents) {
+    if (agentName) {
+      process.stderr.write('[summarize] --agent is ignored when --all-agents is set\n');
+    }
     const agents = await discoverAgents({
       projectRoot: process.cwd(),
       globalRoot: getGlobalMemoryPath(),
@@ -138,7 +143,7 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
     basePaths.push(await getResolvedScopePath(parseScope(scopeStr)));
   }
 
-  const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()) : [];
+  const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
 
   try {
     const result = await summarize({

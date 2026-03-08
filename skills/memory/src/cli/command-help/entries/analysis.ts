@@ -51,7 +51,9 @@ export const ANALYSIS_HELP: Record<string, CommandHelpEntry> = {
     notes: `  Requires Ollama running locally (uses chat model from memory.local.md).
   Falls back to structured listing when Ollama is unavailable.
   Large corpora are chunked automatically (map-reduce) to fit the context window.
-  Content per memory is truncated at 6000 chars to prevent context length errors.`,
+  Content per memory is truncated at 6000 chars to prevent context length errors.
+  --all-agents overrides --agent (a warning is emitted if both are set).
+  When --all-agents and --scope are combined, --scope filters within each agent namespace.`,
   },
 
   // Query Operations

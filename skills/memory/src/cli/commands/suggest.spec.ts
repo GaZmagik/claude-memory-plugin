@@ -421,4 +421,58 @@ describe('cmdSummarize', () => {
       expect.objectContaining({ limit: 1 })
     );
   });
+
+  it('--all-agents with no agents discovered results in empty basePaths', async () => {
+    mockContextWindow();
+    vi.spyOn(agentDiscoveryModule, 'discoverAgents').mockResolvedValue([]);
+    const spy = mockSummarize({ memoriesIncluded: [] });
+
+    const args: ParsedArgs = { positional: [], flags: { 'all-agents': true } };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('success');
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ basePaths: [] })
+    );
+    expect(result.data).toEqual(expect.objectContaining({ memoriesIncluded: [] }));
+  });
+
+  it('--tags with whitespace-only comma-separated values yields empty tags array', async () => {
+    setupDefaults();
+    const spy = mockSummarize();
+
+    const args: ParsedArgs = { positional: [], flags: { tags: ' , ' } };
+    await cmdSummarize(args);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ tags: [] })
+    );
+  });
+
+  it('clamps --timeout to MAX_TIMEOUT_MS upper bound', async () => {
+    setupDefaults();
+    const spy = mockSummarize();
+
+    const args: ParsedArgs = { positional: [], flags: { timeout: '999999' } };
+    await cmdSummarize(args);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ timeoutMs: 600_000 })
+    );
+  });
+
+  it('returns error for digestId containing path traversal characters', async () => {
+    setupDefaults();
+    const spy = vi.spyOn(summarizeModule, 'summarize');
+
+    const args: ParsedArgs = {
+      positional: ['../../../etc/passwd'],
+      flags: { mode: 'digest' },
+    };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('alphanumeric characters and hyphens');
+    expect(spy).not.toHaveBeenCalled();
+  });
 });

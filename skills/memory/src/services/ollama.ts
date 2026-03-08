@@ -60,57 +60,51 @@ function getClient(): Ollama {
 }
 
 /**
- * Read chat_model from .claude/memory.local.md YAML frontmatter.
- * Result is cached after the first successful read so subsequent generate()
- * calls do not hit the filesystem. Call resetChatModelCache() in tests to
- * force a re-read.
- * Falls back to DEFAULT_CHAT_MODEL if file is missing or field absent.
+ * Read a string value from .claude/memory.local.md YAML frontmatter.
+ * Returns undefined if file is missing, field absent, or unreadable.
  */
-function readChatModel(): string {
-  if (cachedChatModel !== undefined) return cachedChatModel;
+function readFrontmatterSetting(key: string): string | undefined {
   try {
     const settingsPath = join(process.cwd(), '.claude', 'memory.local.md');
     const content = readFileSync(settingsPath, 'utf-8');
     const match = content.match(/^---\n([\s\S]*?)\n---/);
     if (match?.[1]) {
-      const line = match[1].split('\n').find(l => l.trimStart().startsWith('chat_model:'));
+      const line = match[1].split('\n').find(l => l.trimStart().startsWith(`${key}:`));
       if (line) {
-        cachedChatModel = line.split(':').slice(1).join(':').trim().replace(/^['"]|['"]$/g, '');
-        return cachedChatModel;
+        return line.split(':').slice(1).join(':').trim().replace(/^['"]|['"]$/g, '');
       }
     }
   } catch {
-    // File not found or unreadable — use default
+    // File not found or unreadable
   }
-  cachedChatModel = DEFAULT_CHAT_MODEL;
+  return undefined;
+}
+
+/**
+ * Read chat_model from .claude/memory.local.md YAML frontmatter.
+ * Cached after first read. Call resetChatModelCache() in tests to force re-read.
+ * Falls back to DEFAULT_CHAT_MODEL if file is missing or field absent.
+ */
+function readChatModel(): string {
+  if (cachedChatModel !== undefined) return cachedChatModel;
+  cachedChatModel = readFrontmatterSetting('chat_model') ?? DEFAULT_CHAT_MODEL;
   return cachedChatModel;
 }
 
 /**
  * Read context_window from .claude/memory.local.md YAML frontmatter.
- * Result is cached after the first successful read so subsequent generate()
- * calls do not hit the filesystem. Call resetContextWindowCache() in tests to
- * force a re-read.
+ * Cached after first read. Call resetContextWindowCache() in tests to force re-read.
  * Falls back to DEFAULT_CONTEXT_WINDOW if file is missing or field absent.
  */
 export function readContextWindow(): number {
   if (cachedContextWindow !== undefined) return cachedContextWindow;
-  try {
-    const settingsPath = join(process.cwd(), '.claude', 'memory.local.md');
-    const content = readFileSync(settingsPath, 'utf-8');
-    const match = content.match(/^---\n([\s\S]*?)\n---/);
-    if (match?.[1]) {
-      const line = match[1].split('\n').find(l => l.trimStart().startsWith('context_window:'));
-      if (line) {
-        const value = Number.parseInt(line.split(':').slice(1).join(':').trim(), 10);
-        if (!Number.isNaN(value) && value > 0) {
-          cachedContextWindow = Math.min(value, MAX_CONTEXT_WINDOW);
-          return cachedContextWindow;
-        }
-      }
+  const raw = readFrontmatterSetting('context_window');
+  if (raw !== undefined) {
+    const value = Number.parseInt(raw, 10);
+    if (!Number.isNaN(value) && value > 0) {
+      cachedContextWindow = Math.min(value, MAX_CONTEXT_WINDOW);
+      return cachedContextWindow;
     }
-  } catch {
-    // File not found or unreadable — use default
   }
   cachedContextWindow = DEFAULT_CONTEXT_WINDOW;
   return cachedContextWindow;

@@ -240,7 +240,8 @@ export async function mapReduceSummarize(
     return generate(prompt, undefined, timeoutMs);
   }
 
-  // Map phase
+  // Map phase — Promise.all is safe because generate() catches all errors and
+  // returns ''. If generate() is ever changed to throw, switch to Promise.allSettled.
   const chunkSummaries = await Promise.all(
     chunks.map(chunk => {
       const prompt = buildPrompt(chunk.memories, mode, typeLabel);

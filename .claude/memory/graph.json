@@ -5267,6 +5267,48 @@
       "type": "learning",
       "title": "Retro - Multi-item fix work benefits from TodoWrite tracking",
       "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent deployment accelerates comprehensive review",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "type": "learning",
+      "title": "Retro - Batching edits by theme then validating prevents regression creep",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "type": "gotcha",
+      "title": "Retro - Multi-cycle review-fix-review pattern wastes effort, needs upfront scope clarification",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-digest-mode-basepath-isolation",
+      "type": "gotcha",
+      "title": "Digest Mode Multi-basePath Isolation Bug",
+      "scope": "project"
+    },
+    {
+      "id": "learning-type-safety-validation-at-boundaries-pattern",
+      "type": "learning",
+      "title": "Type Safety Validation at Boundaries Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-agent-test-generation-false-positive-diagnostics",
+      "type": "gotcha",
+      "title": "Agent-Generated Tests Report False Positive TS Diagnostics",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-parallelization-wishes-post-mvp",
+      "type": "decision",
+      "title": "Defer Parallelization & Style Wishes to Post-MVP",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -24105,6 +24147,12 @@
       "label": "auto-linked-by-similarity",
       "similarity": 0.602006590280987,
       "verifiedRelation": "contrast-shift"
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "target": "retro-parallel-expert-review",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533263276353479
     }
   ]
 }

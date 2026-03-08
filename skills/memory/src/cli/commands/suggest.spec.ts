@@ -329,8 +329,11 @@ describe('cmdSummarize', () => {
     const spy = mockSummarize();
     vi.spyOn(agentDiscoveryModule, 'discoverAgents').mockResolvedValue([
       { name: 'agent-a', scope: Scope.AgentProject, memoryCount: 5, path: '/a' },
+      { name: 'agent-b', scope: Scope.AgentProject, memoryCount: 3, path: '/b' },
     ]);
-    vi.spyOn(helpersModule, 'resolveAgentScopePath').mockResolvedValue('/tmp/agents/agent-a');
+    vi.spyOn(helpersModule, 'resolveAgentScopePath')
+      .mockResolvedValueOnce('/tmp/agents/agent-a')
+      .mockResolvedValueOnce('/tmp/agents/agent-b');
 
     const args: ParsedArgs = {
       positional: [],
@@ -340,7 +343,12 @@ describe('cmdSummarize', () => {
 
     // No error — --all-agents wins
     expect(result.status).toBe('success');
-    expect(spy).toHaveBeenCalled();
+    // basePaths should contain discovered agent paths, NOT the --agent path
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        basePaths: ['/tmp/agents/agent-a', '/tmp/agents/agent-b'],
+      })
+    );
   });
 
   // --- Validation tests ---
@@ -388,6 +396,29 @@ describe('cmdSummarize', () => {
 
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ timeoutMs: 1_000 })
+    );
+  });
+
+  it('returns error response when summarize() throws', async () => {
+    setupDefaults();
+    vi.spyOn(summarizeModule, 'summarize').mockRejectedValue(new Error('LLM connection failed'));
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toBe('LLM connection failed');
+  });
+
+  it('clamps --limit 0 to minimum of 1', async () => {
+    setupDefaults();
+    const spy = mockSummarize();
+
+    const args: ParsedArgs = { positional: [], flags: { limit: '0' } };
+    await cmdSummarize(args);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ limit: 1 })
     );
   });
 });

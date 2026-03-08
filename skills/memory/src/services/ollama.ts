@@ -15,6 +15,7 @@ import { join } from 'node:path';
 
 const DEFAULT_CHAT_MODEL = 'gemma3:4b';
 const DEFAULT_CONTEXT_WINDOW = 16384;
+const MAX_CONTEXT_WINDOW = 131072;
 const TIMEOUT_MS = 15_000;
 const AVAILABILITY_TIMEOUT_MS = 5_000;
 
@@ -103,7 +104,7 @@ export function readContextWindow(): number {
       if (line) {
         const value = Number.parseInt(line.split(':').slice(1).join(':').trim(), 10);
         if (!Number.isNaN(value) && value > 0) {
-          cachedContextWindow = value;
+          cachedContextWindow = Math.min(value, MAX_CONTEXT_WINDOW);
           return cachedContextWindow;
         }
       }

@@ -20,6 +20,7 @@ const VALID_MODES = new Set<string>(['per-type', 'overview', 'digest']);
 function isValidMode(s: string): s is SummarizeMode { return VALID_MODES.has(s); }
 const MAX_LIMIT = 500;
 const MIN_TIMEOUT_MS = 1_000;
+const MAX_TIMEOUT_MS = 600_000;
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
@@ -85,7 +86,7 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
   const includeShared = getFlagBool(args.flags, 'include-shared');
   const tagsStr = getFlagString(args.flags, 'tags');
   const limit = Math.min(Math.max(getFlagNumber(args.flags, 'limit') ?? DEFAULT_LIMIT, 1), MAX_LIMIT);
-  const timeoutMs = Math.max(getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS, MIN_TIMEOUT_MS);
+  const timeoutMs = Math.min(Math.max(getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS, MIN_TIMEOUT_MS), MAX_TIMEOUT_MS);
   const contextWindow = readContextWindow();
 
   // Validate --include-shared requires --agent

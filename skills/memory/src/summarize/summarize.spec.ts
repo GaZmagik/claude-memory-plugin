@@ -105,6 +105,21 @@ describe('truncateContent', () => {
     // No space in first 20 chars → hard slice at 20
     expect(result).toBe('AAAAAAAAAAAAAAAAAAAA [...]');
   });
+
+  it('hard-slices when lastSpace is 0 (space only at index 0)', () => {
+    // Content like " xxxxxxxxx" — lastIndexOf(' ') returns 0, which is falsy
+    const content = ' ' + 'x'.repeat(30);
+    const result = truncateContent(content, 10);
+    // lastSpace === 0 is falsy → takes the raw slice path
+    expect(result).toBe(content.slice(0, 10) + ' [...]');
+  });
+
+  it('hard-slices content with no spaces that exceeds maxChars', () => {
+    const content = 'x'.repeat(50);
+    const result = truncateContent(content, 20);
+    // No spaces at all → lastSpace is -1 which is not > 0 → raw slice
+    expect(result).toBe('x'.repeat(20) + ' [...]');
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -159,6 +174,11 @@ describe('buildChunks', () => {
     expect(chunks).toHaveLength(1);
     expect(chunks[0]!.memories[0]!.id).toBe('huge');
     expect(chunks[0]!.totalChars).toBe(200);
+  });
+
+  it('returns an empty array when given no memories', () => {
+    const chunks = buildChunks([], 1000);
+    expect(chunks).toEqual([]);
   });
 });
 
@@ -680,6 +700,23 @@ describe('buildReducePrompt', () => {
     expect(prompt).toContain('- Summary of chunk B.');
     expect(prompt).toContain('Merge the following partial summaries');
     expect(prompt).toContain('single merged summary');
+  });
+
+  it('produces a valid prompt with a single-element array', () => {
+    const prompt = buildReducePrompt(['One summary']);
+
+    expect(prompt).toContain('- One summary');
+    expect(prompt).toContain('Merge the following partial summaries');
+    expect(prompt).toContain('single merged summary');
+  });
+
+  it('produces prompt structure with no bullet items for empty array', () => {
+    const prompt = buildReducePrompt([]);
+
+    expect(prompt).toContain('Merge the following partial summaries');
+    expect(prompt).toContain('single merged summary');
+    // No bullet items present
+    expect(prompt).not.toContain('- ');
   });
 });
 

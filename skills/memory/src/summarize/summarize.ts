@@ -172,7 +172,7 @@ export function buildPrompt(
 
   if (mode === 'per-type') {
     const memoriesBlock = memories
-      .map((m: MemoryContent) => `## ${m.title}\n${m.content}\n`)
+      .map(m => `## ${m.title}\n${m.content}\n`)
       .join('\n');
 
     return [
@@ -187,7 +187,7 @@ export function buildPrompt(
 
   // overview
   const memoriesBlock = memories
-    .map((m: MemoryContent) => `## ${m.title} [${m.type}]\n${m.content}\n`)
+    .map(m => `## ${m.title} [${m.type}]\n${m.content}\n`)
     .join('\n');
 
   return [
@@ -208,7 +208,7 @@ export function buildPrompt(
  * Assemble the reduce-phase prompt that merges partial summaries.
  */
 export function buildReducePrompt(chunkSummaries: string[]): string {
-  const summariesBlock = chunkSummaries.map((s: string) => `- ${s}\n`).join('');
+  const summariesBlock = chunkSummaries.map(s => `- ${s}\n`).join('');
 
   return [
     'Merge the following partial summaries into a single coherent paragraph.',
@@ -242,7 +242,7 @@ export async function mapReduceSummarize(
 
   // Map phase
   const chunkSummaries = await Promise.all(
-    chunks.map((chunk: SummaryChunk) => {
+    chunks.map(chunk => {
       const prompt = buildPrompt(chunk.memories, mode, typeLabel);
       return generate(prompt, undefined, timeoutMs);
     })
@@ -262,10 +262,10 @@ export async function mapReduceSummarize(
 
 /**
  * Load full memory content for each MemoryLoadEntry.
- * Each entry carries its own basePath, so memories discovered from
- * different scopes are read from their correct location (CR-1 fix).
- * Reads are parallelised via Promise.allSettled (HI-3 fix).
- * Skips failures with a stderr warning.
+ * Each entry carries its own basePath so memories from different scopes
+ * are read from their correct location.
+ * Reads are parallelised via Promise.allSettled; individual failures are
+ * skipped with a stderr warning rather than aborting the batch.
  * Applies content truncation to MAX_MEMORY_CONTENT_CHARS.
  */
 export async function loadMemoryContents(
@@ -315,7 +315,7 @@ export async function loadMemoryContents(
  * Map MemorySummary array to FallbackListing (no content loading).
  */
 export function buildFallbackListing(summaries: MemorySummary[]): FallbackListing[] {
-  return summaries.map((s: MemorySummary) => ({
+  return summaries.map(s => ({
     id: s.id,
     type: s.type,
     title: s.title,
@@ -398,23 +398,26 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   // -------------------------------------------------------------------------
   const seenIds = new Map<string, MemoryLoadEntry>();
 
-  for (const basePath of basePaths) {
-    const listRequest: ListMemoriesRequest = {
-      basePath,
-      tags: tags.length > 0 ? tags : undefined,
-      limit: limit > 0 ? limit : undefined,
-    };
+  const listResults = await Promise.all(
+    basePaths.map(basePath => {
+      const listRequest: ListMemoriesRequest = {
+        basePath,
+        tags: tags.length > 0 ? tags : undefined,
+        limit: limit > 0 ? limit : undefined,
+      };
+      if (typeFilter) {
+        listRequest.type = typeFilter;
+      }
+      return listMemories(listRequest);
+    })
+  );
 
-    if (typeFilter) {
-      listRequest.type = typeFilter;
-    }
-
-    const listResponse = await listMemories(listRequest);
-
+  for (let i = 0; i < basePaths.length; i++) {
+    const listResponse = listResults[i]!;
     if (listResponse.status === 'success' && listResponse.memories) {
       for (const mem of listResponse.memories) {
         if (!seenIds.has(mem.id)) {
-          seenIds.set(mem.id, { summary: mem, basePath });
+          seenIds.set(mem.id, { summary: mem, basePath: basePaths[i]! });
         }
       }
     }
@@ -439,7 +442,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     const listing = buildFallbackListing(allSummaries);
     return {
       memories: listing,
-      memoriesIncluded: allSummaries.map((s: MemorySummary) => s.id),
+      memoriesIncluded: allSummaries.map(s => s.id),
       hint: OLLAMA_UNAVAILABLE_HINT,
     };
   }
@@ -459,7 +462,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
 
     return {
       summary,
-      memoriesIncluded: contents.map((c: MemoryContent) => c.id),
+      memoriesIncluded: contents.map(c => c.id),
     };
   }
 
@@ -480,15 +483,21 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     byType.set(mem.type, group);
   }
 
-  // Summarise each type
+  // Summarise each type in parallel (independent LLM calls)
+  const typeEntries = Array.from(byType.entries());
+  const typeSummaries = await Promise.all(
+    typeEntries.map(([type, typeContents]) => {
+      const chunks = buildChunks(typeContents, chunkBudgetChars);
+      return mapReduceSummarize(chunks, 'per-type', type, timeoutMs);
+    })
+  );
   const summaries: Record<string, string> = {};
-  for (const [type, typeContents] of byType) {
-    const chunks = buildChunks(typeContents, chunkBudgetChars);
-    summaries[type] = await mapReduceSummarize(chunks, 'per-type', type, timeoutMs);
+  for (let i = 0; i < typeEntries.length; i++) {
+    summaries[typeEntries[i]![0]] = typeSummaries[i]!;
   }
 
   return {
     summaries,
-    memoriesIncluded: contents.map((c: MemoryContent) => c.id),
+    memoriesIncluded: contents.map(c => c.id),
   };
 }

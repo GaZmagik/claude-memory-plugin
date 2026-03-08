@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-08T04:44:51.969Z",
+  "lastUpdated": "2026-03-08T19:23:26.938Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15823,6 +15823,120 @@
       "scope": "project",
       "relativePath": "permanent/learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking.md",
       "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent deployment accelerates comprehensive review",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "reviews",
+        "project"
+      ],
+      "created": "2026-03-08T19:22:53.961Z",
+      "updated": "2026-03-08T19:22:53.961Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "type": "learning",
+      "title": "Retro - Batching edits by theme then validating prevents regression creep",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-08T19:22:59.240Z",
+      "updated": "2026-03-08T19:22:59.240Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "type": "gotcha",
+      "title": "Retro - Multi-cycle review-fix-review pattern wastes effort, needs upfront scope clarification",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "reviews",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:06.215Z",
+      "updated": "2026-03-08T19:23:06.215Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-digest-mode-basepath-isolation",
+      "type": "gotcha",
+      "title": "Digest Mode Multi-basePath Isolation Bug",
+      "tags": [
+        "feature-006",
+        "summarize",
+        "basepath",
+        "state-management",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:12.457Z",
+      "updated": "2026-03-08T19:23:12.457Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-digest-mode-basepath-isolation.md"
+    },
+    {
+      "id": "learning-type-safety-validation-at-boundaries-pattern",
+      "type": "learning",
+      "title": "Type Safety Validation at Boundaries Pattern",
+      "tags": [
+        "feature-006",
+        "typescript",
+        "type-safety",
+        "validation",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:16.577Z",
+      "updated": "2026-03-08T19:23:16.577Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-safety-validation-at-boundaries-pattern.md"
+    },
+    {
+      "id": "gotcha-agent-test-generation-false-positive-diagnostics",
+      "type": "gotcha",
+      "title": "Agent-Generated Tests Report False Positive TS Diagnostics",
+      "tags": [
+        "feature-006",
+        "testing",
+        "typescript",
+        "diagnostics",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:20.615Z",
+      "updated": "2026-03-08T19:23:20.615Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-test-generation-false-positive-diagnostics.md"
+    },
+    {
+      "id": "decision-defer-parallelization-wishes-post-mvp",
+      "type": "decision",
+      "title": "Defer Parallelization & Style Wishes to Post-MVP",
+      "tags": [
+        "feature-006",
+        "prioritisation",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:26.930Z",
+      "updated": "2026-03-08T19:23:26.930Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-parallelization-wishes-post-mvp.md"
     }
   ]
 }

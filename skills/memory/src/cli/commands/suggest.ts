@@ -8,9 +8,13 @@
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
-import { success, wrapOperation } from '../response.js';
+import { success, error, wrapOperation } from '../response.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
+import { summarize, DEFAULT_LIMIT, DEFAULT_TIMEOUT_MS } from '../../summarize/summarize.js';
+import type { SummarizeMode } from '../../summarize/summarize.js';
+import { readContextWindow } from '../../services/ollama.js';
+import { getResolvedScopePath, getGlobalMemoryPath, parseScope, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
@@ -58,24 +62,88 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
 }
 
 /**
- * summarize - Generate summary rollups
+ * summarize - Generate LLM-powered summary rollups
  *
- * Usage: memory summarize [type] [--scope <scope>]
- *
- * Note: Implementation pending in Phase 6.
+ * Usage: memory summarize [type] [--mode <mode>] [--scope <scope>] [--agent <name>]
+ *        [--include-shared] [--all-agents] [--tags <tags>] [--limit <n>] [--timeout <ms>]
  */
 export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
-  const typeArg = args.positional[0];
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const mode = (getFlagString(args.flags, 'mode') ?? 'per-type') as SummarizeMode;
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const agentName = getFlagString(args.flags, 'agent');
+  const allAgents = getFlagBool(args.flags, 'all-agents');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const tagsStr = getFlagString(args.flags, 'tags');
+  const limit = getFlagNumber(args.flags, 'limit') ?? DEFAULT_LIMIT;
+  const timeoutMs = getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS;
+  const contextWindow = readContextWindow();
 
-  void scope; // Suppress unused warning (cmdSummarize is a stub)
+  // Validate --include-shared requires --agent
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
 
-  // TODO: Implement summarize in Phase 6 (requires LLM integration)
-  return success(
-    {
-      type: typeArg ?? 'all',
-      message: 'Summarize not yet implemented (requires LLM integration)',
-    },
-    'Summarize (stub)'
-  );
+  // Digest mode: positional[0] is the memory ID
+  // Non-digest mode: positional[0] is the type filter
+  let typeFilter: string | undefined;
+  let digestId: string | undefined;
+
+  if (mode === 'digest') {
+    digestId = args.positional[0];
+    if (!digestId) {
+      return error('digest mode requires a memory ID as a positional argument');
+    }
+  } else {
+    typeFilter = args.positional[0];
+  }
+
+  // Resolve basePaths from scope/agent flags
+  // --all-agents takes precedence over --agent (silently ignored)
+  const basePaths: string[] = [];
+  if (allAgents) {
+    const agents = await discoverAgents({
+      projectRoot: process.cwd(),
+      globalRoot: getGlobalMemoryPath(),
+    });
+    for (const agent of agents) {
+      basePaths.push(await resolveAgentScopePath(agent.name, scopeStr));
+    }
+  } else if (agentName) {
+    if (includeShared) {
+      const sharedPaths = await resolveSharedScopePaths(agentName, scopeStr);
+      basePaths.push(...sharedPaths);
+    } else {
+      basePaths.push(await resolveAgentScopePath(agentName, scopeStr));
+    }
+  } else {
+    basePaths.push(await getResolvedScopePath(parseScope(scopeStr)));
+  }
+
+  const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()) : [];
+
+  try {
+    const result = await summarize({
+      basePaths,
+      mode,
+      typeFilter,
+      digestId,
+      tags,
+      limit,
+      timeoutMs,
+      contextWindow,
+      agentName: agentName ?? undefined,
+    });
+
+    let message = 'Summarize complete';
+    if (result.memoriesIncluded.length === 0) {
+      message = 'No memories found matching the given filters';
+    } else if (result.hint) {
+      message = 'Summarize complete (LLM unavailable — structured listing returned)';
+    }
+
+    return success(result, message);
+  } catch (err) {
+    return error(err instanceof Error ? err.message : String(err));
+  }
 }

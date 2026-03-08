@@ -5,6 +5,36 @@ All notable changes to the Claude Memory Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-03-08
+
+### Added
+
+#### Memory Summarize Command (Feature 006)
+- **`memory summarize`**: LLM-powered summary rollups of stored memories via Ollama
+  - `--mode per-type` (default): One prose summary per memory type present
+  - `--mode overview`: Single cross-type executive summary
+  - `--mode digest <id>`: Detailed summary of a single memory
+- **Map-reduce chunking**: Automatically splits large corpora to fit context window, summarises chunks independently, merges in reduce phase
+- **Graceful degradation**: Returns structured `{ id, type, title, tags }` listing with hint when Ollama is unavailable
+- **Full scope/agent support**: `--scope`, `--agent`, `--include-shared`, `--all-agents` flags matching existing CLI patterns
+- **Filtering**: `--tags` (comma-separated, AND logic), positional type filter, `--limit` (1-500, default 50)
+- **Input validation**: Mode via type predicate, type via `parseMemoryType()`, limit/timeout clamped, digestId format validated
+- **`memoriesIncluded`** array in response data lists all memory IDs that contributed to the summary
+
+### Changed
+- `ollama.ts`: Extracted `readFrontmatterSetting()` helper to deduplicate `readChatModel`/`readContextWindow` logic
+- `ollama.ts`: Added `MAX_CONTEXT_WINDOW` (131072) upper bound on user-configured context window
+- `agent-discovery.ts`: Parallelised `getAgentSummary` calls via `Promise.all` and replaced `Math.max(...timestamps)` spread with `reduce` for stack safety
+- `agent-discovery.ts`: `getAgentSummary` now logs stderr warning on `loadIndex` failure instead of silently swallowing errors
+- Help text documents `--limit`, `--timeout` constraints and `--all-agents` + `--scope` interaction
+- Version bumped to 1.8.0
+
+### Tests
+- 100 tests across summarize, suggest CLI, agent-discovery, and ollama suites
+- Boundary tests for `truncateContent`, `buildChunks`, `buildReducePrompt`
+- CLI validation tests for mode, type, limit clamping, timeout clamping, digestId format
+- Digest basePath iteration, empty generate filtering, all-reads-fail early return
+
 ## [1.7.3] - 2026-03-07
 
 ### Fixed

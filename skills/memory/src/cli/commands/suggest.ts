@@ -105,8 +105,8 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
     if (!digestId) {
       return error('digest mode requires a memory ID as a positional argument');
     }
-    if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$/i.test(digestId)) {
-      return error('digestId must contain only alphanumeric characters and hyphens');
+    if (!/^[a-z0-9][a-z0-9-]*$/i.test(digestId)) {
+      return error('digestId must start with alphanumeric and contain only letters, digits, and hyphens');
     }
   } else {
     const rawType = args.positional[0];
@@ -157,11 +157,16 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
       contextWindow,
     });
 
-    let message = 'Summarize complete';
-    if (result.memoriesIncluded.length === 0) {
-      message = 'No memories found matching the given filters';
-    } else if (result.hint) {
-      message = 'Summarize complete (LLM unavailable — structured listing returned)';
+    let message: string;
+    switch (result.kind) {
+      case 'empty':
+        message = result.hint ?? 'No memories found matching the given filters';
+        break;
+      case 'fallback':
+        message = 'Summarize complete (LLM unavailable — structured listing returned)';
+        break;
+      default:
+        message = 'Summarize complete';
     }
 
     return success(result, message);

@@ -39,18 +39,12 @@ export interface FallbackListing {
   tags: string[];
 }
 
-export interface SummarizeResult {
-  /** Per-type mode: map of type name → prose summary */
-  summaries?: Record<string, string>;
-  /** Overview or digest mode: single prose summary string */
-  summary?: string;
-  /** Fallback path (Ollama unavailable): structured listing */
-  memories?: FallbackListing[];
-  /** IDs of every memory that contributed to this result */
-  memoriesIncluded: string[];
-  /** Set when Ollama is unavailable; explains why LLM was skipped */
-  hint?: string;
-}
+export type SummarizeResult =
+  | { kind: 'per-type'; summaries: Record<string, string>; memoriesIncluded: string[] }
+  | { kind: 'overview'; summary: string; memoriesIncluded: string[] }
+  | { kind: 'digest'; summary: string; memoriesIncluded: string[] }
+  | { kind: 'fallback'; memories: FallbackListing[]; memoriesIncluded: string[]; hint: string }
+  | { kind: 'empty'; memoriesIncluded: string[]; hint?: string };
 
 export interface SummarizeRequest {
   basePaths: string[];
@@ -360,10 +354,10 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   if (mode === 'digest') {
     const available = await isAvailable();
     if (!available) {
-      return { memoriesIncluded: [], hint: OLLAMA_UNAVAILABLE_HINT };
+      return { kind: 'empty', memoriesIncluded: [], hint: OLLAMA_UNAVAILABLE_HINT };
     }
     if (!digestId) {
-      return { memoriesIncluded: [] };
+      return { kind: 'empty', memoriesIncluded: [] };
     }
     // Try each basePath until the memory is found (H1 fix)
     let response;
@@ -372,7 +366,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
       if (response.status === 'success' && response.memory) break;
     }
     if (!response || response.status === 'error' || !response.memory) {
-      return { memoriesIncluded: [], hint: `Memory '${digestId}' not found in any scope` };
+      return { kind: 'empty', memoriesIncluded: [], hint: `Memory '${digestId}' not found in any scope` };
     }
 
     const content = truncateContent(response.memory.content, MAX_MEMORY_CONTENT_CHARS);
@@ -389,6 +383,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     const summary = await generate(prompt, undefined, timeoutMs);
 
     return {
+      kind: 'digest',
       summary,
       memoriesIncluded: [digestId],
     };
@@ -431,7 +426,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   // Empty corpus early return — before isAvailable() check
   // -------------------------------------------------------------------------
   if (allSummaries.length === 0) {
-    return { memoriesIncluded: [] };
+    return { kind: 'empty', memoriesIncluded: [] };
   }
 
   // -------------------------------------------------------------------------
@@ -442,6 +437,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   if (!available) {
     const listing = buildFallbackListing(allSummaries);
     return {
+      kind: 'fallback',
       memories: listing,
       memoriesIncluded: allSummaries.map(s => s.id),
       hint: OLLAMA_UNAVAILABLE_HINT,
@@ -455,13 +451,14 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     const contents = await loadMemoryContents(allEntries);
 
     if (contents.length === 0) {
-      return { memoriesIncluded: [] };
+      return { kind: 'empty', memoriesIncluded: [] };
     }
 
     const chunks = buildChunks(contents, chunkBudgetChars);
     const summary = await mapReduceSummarize(chunks, 'overview', undefined, timeoutMs);
 
     return {
+      kind: 'overview',
       summary,
       memoriesIncluded: contents.map(c => c.id),
     };
@@ -473,7 +470,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   const contents = await loadMemoryContents(allEntries);
 
   if (contents.length === 0) {
-    return { memoriesIncluded: [] };
+    return { kind: 'empty', memoriesIncluded: [] };
   }
 
   // Group by type
@@ -484,7 +481,8 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
     byType.set(mem.type, group);
   }
 
-  // Summarise each type in parallel (independent LLM calls)
+  // Summarise each type in parallel — each type is an independent LLM call.
+  // TODO(post-MVP): add concurrency limit if type count grows large.
   const typeEntries = Array.from(byType.entries());
   const typeSummaries = await Promise.all(
     typeEntries.map(([type, typeContents]) => {
@@ -498,6 +496,7 @@ export async function summarize(request: SummarizeRequest): Promise<SummarizeRes
   }
 
   return {
+    kind: 'per-type',
     summaries,
     memoriesIncluded: contents.map(c => c.id),
   };

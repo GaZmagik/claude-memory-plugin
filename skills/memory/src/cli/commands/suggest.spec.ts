@@ -17,12 +17,15 @@ describe('cmdSuggestLinks', () => {
     vi.restoreAllMocks();
   });
 
-  function mockSuggestLinks(overrides: Record<string, unknown> = {}) {
+  function mockSuggestLinks(overrides: Partial<Awaited<ReturnType<typeof suggestLinksModule.suggestLinks>>> = {}) {
     return vi.spyOn(suggestLinksModule, 'suggestLinks').mockResolvedValue({
+      status: 'success',
       suggestions: [],
       created: 0,
+      skipped: 0,
+      analysed: 0,
       ...overrides,
-    } as any);
+    });
   }
 
   it('calls suggestLinks with defaults', async () => {
@@ -105,11 +108,8 @@ describe('cmdSummarize', () => {
     vi.restoreAllMocks();
   });
 
-  function mockSummarize(result: Partial<summarizeModule.SummarizeResult> = {}) {
-    return vi.spyOn(summarizeModule, 'summarize').mockResolvedValue({
-      memoriesIncluded: [],
-      ...result,
-    });
+  function mockSummarize(result: summarizeModule.SummarizeResult) {
+    return vi.spyOn(summarizeModule, 'summarize').mockResolvedValue(result);
   }
 
   function mockScopePath(path = '/tmp/test-scope') {
@@ -127,7 +127,7 @@ describe('cmdSummarize', () => {
 
   it('calls summarize with default parameters', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdSummarize(args);
@@ -146,7 +146,7 @@ describe('cmdSummarize', () => {
 
   it('passes --mode flag', async () => {
     setupDefaults();
-    const spy = mockSummarize({ summary: 'Overview text' });
+    const spy = mockSummarize({ kind: 'overview', summary: 'Overview text', memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { mode: 'overview' } };
     await cmdSummarize(args);
@@ -158,7 +158,7 @@ describe('cmdSummarize', () => {
 
   it('uses positional arg as typeFilter when mode is not digest', async () => {
     setupDefaults();
-    const spy = mockSummarize({ summaries: { decision: 'Summary' } });
+    const spy = mockSummarize({ kind: 'per-type', summaries: { decision: 'Summary' }, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: ['decision'], flags: {} };
     await cmdSummarize(args);
@@ -170,7 +170,7 @@ describe('cmdSummarize', () => {
 
   it('uses positional arg as digestId in digest mode', async () => {
     setupDefaults();
-    const spy = mockSummarize({ summary: 'Digest text', memoriesIncluded: ['mem-1'] });
+    const spy = mockSummarize({ kind: 'digest', summary: 'Digest text', memoriesIncluded: ['mem-1'] });
 
     const args: ParsedArgs = { positional: ['mem-1'], flags: { mode: 'digest' } };
     await cmdSummarize(args);
@@ -202,7 +202,7 @@ describe('cmdSummarize', () => {
 
   it('passes comma-separated --tags as array', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { tags: 'important,api' } };
     await cmdSummarize(args);
@@ -214,7 +214,7 @@ describe('cmdSummarize', () => {
 
   it('passes --limit flag', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { limit: '100' } };
     await cmdSummarize(args);
@@ -226,7 +226,7 @@ describe('cmdSummarize', () => {
 
   it('passes --timeout flag', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { timeout: '30000' } };
     await cmdSummarize(args);
@@ -238,7 +238,7 @@ describe('cmdSummarize', () => {
 
   it('returns appropriate message for empty results', async () => {
     setupDefaults();
-    mockSummarize({ memoriesIncluded: [] });
+    mockSummarize({ kind: 'empty', memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: {} };
     const result = await cmdSummarize(args);
@@ -250,6 +250,7 @@ describe('cmdSummarize', () => {
   it('returns hint message when Ollama is unavailable', async () => {
     setupDefaults();
     mockSummarize({
+      kind: 'fallback',
       memories: [{ id: 'mem-1', type: 'decision', title: 'T', tags: [] }],
       memoriesIncluded: ['mem-1'],
       hint: 'Ollama is not available.',
@@ -266,7 +267,7 @@ describe('cmdSummarize', () => {
 
   it('resolves agent scope path when --agent is provided', async () => {
     mockContextWindow();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
     vi.spyOn(helpersModule, 'resolveAgentScopePath').mockResolvedValue('/tmp/agents/ts-expert');
 
     const args: ParsedArgs = { positional: [], flags: { agent: 'ts-expert' } };
@@ -282,7 +283,7 @@ describe('cmdSummarize', () => {
 
   it('includes shared scope paths when --include-shared with --agent', async () => {
     mockContextWindow();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
     vi.spyOn(helpersModule, 'resolveAgentScopePath').mockResolvedValue('/tmp/agents/ts-expert');
     vi.spyOn(helpersModule, 'resolveSharedScopePaths').mockResolvedValue([
       '/tmp/agents/ts-expert',
@@ -305,7 +306,7 @@ describe('cmdSummarize', () => {
 
   it('discovers all agents when --all-agents is used', async () => {
     mockContextWindow();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
     vi.spyOn(agentDiscoveryModule, 'discoverAgents').mockResolvedValue([
       { name: 'agent-a', scope: Scope.AgentProject, memoryCount: 5, path: '/a' },
       { name: 'agent-b', scope: Scope.AgentProject, memoryCount: 3, path: '/b' },
@@ -326,7 +327,7 @@ describe('cmdSummarize', () => {
 
   it('--all-agents takes precedence over --agent (silently ignores)', async () => {
     mockContextWindow();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
     vi.spyOn(agentDiscoveryModule, 'discoverAgents').mockResolvedValue([
       { name: 'agent-a', scope: Scope.AgentProject, memoryCount: 5, path: '/a' },
       { name: 'agent-b', scope: Scope.AgentProject, memoryCount: 3, path: '/b' },
@@ -377,7 +378,7 @@ describe('cmdSummarize', () => {
 
   it('clamps --limit to max 500', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { limit: '999999' } };
     await cmdSummarize(args);
@@ -389,7 +390,7 @@ describe('cmdSummarize', () => {
 
   it('clamps --timeout to at least 1000ms', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { timeout: '0' } };
     await cmdSummarize(args);
@@ -412,7 +413,7 @@ describe('cmdSummarize', () => {
 
   it('clamps --limit 0 to minimum of 1', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { limit: '0' } };
     await cmdSummarize(args);
@@ -425,7 +426,7 @@ describe('cmdSummarize', () => {
   it('--all-agents with no agents discovered results in empty basePaths', async () => {
     mockContextWindow();
     vi.spyOn(agentDiscoveryModule, 'discoverAgents').mockResolvedValue([]);
-    const spy = mockSummarize({ memoriesIncluded: [] });
+    const spy = mockSummarize({ kind: 'empty', memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { 'all-agents': true } };
     const result = await cmdSummarize(args);
@@ -439,7 +440,7 @@ describe('cmdSummarize', () => {
 
   it('--tags with whitespace-only comma-separated values yields empty tags array', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { tags: ' , ' } };
     await cmdSummarize(args);
@@ -451,7 +452,7 @@ describe('cmdSummarize', () => {
 
   it('clamps --timeout to MAX_TIMEOUT_MS upper bound', async () => {
     setupDefaults();
-    const spy = mockSummarize();
+    const spy = mockSummarize({ kind: 'per-type', summaries: {}, memoriesIncluded: [] });
 
     const args: ParsedArgs = { positional: [], flags: { timeout: '999999' } };
     await cmdSummarize(args);
@@ -472,7 +473,7 @@ describe('cmdSummarize', () => {
     const result = await cmdSummarize(args);
 
     expect(result.status).toBe('error');
-    expect(result.error).toContain('alphanumeric characters and hyphens');
+    expect(result.error).toContain('must start with alphanumeric and contain only letters, digits, and hyphens');
     expect(spy).not.toHaveBeenCalled();
   });
 });

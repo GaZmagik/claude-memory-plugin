@@ -212,6 +212,13 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('Write a single paragraph summary:');
   });
 
+  it('builds overview prompt with empty memories array without crashing', () => {
+    const prompt = buildPrompt([], 'overview');
+    expect(prompt).toContain('project memories');
+    expect(prompt).toContain('Memories:');
+    expect(prompt).toContain('Write a single paragraph summary:');
+  });
+
   it('builds digest prompt for a single memory', () => {
     const prompt = buildPrompt([memory], 'digest');
     expect(prompt).toContain('detailed summary');
@@ -341,9 +348,11 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest());
 
-    expect(result.memories).toBeDefined();
-    expect(result.memories).toHaveLength(1);
-    expect(result.memories![0]!.id).toBe(baseSummary.id);
+    expect(result.kind).toBe('fallback');
+    if (result.kind === 'fallback') {
+      expect(result.memories).toHaveLength(1);
+      expect(result.memories[0]!.id).toBe(baseSummary.id);
+    }
     expect(result.memoriesIncluded).toEqual([baseSummary.id]);
   });
 
@@ -353,10 +362,10 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest());
 
-    expect(result.hint).toBeDefined();
-    expect(result.hint).toContain('Ollama');
-    expect(result.summaries).toBeUndefined();
-    expect(result.summary).toBeUndefined();
+    expect(result.kind).toBe('fallback');
+    if (result.kind === 'fallback') {
+      expect(result.hint).toContain('Ollama');
+    }
   });
 
   // --- Empty corpus early return ---
@@ -368,6 +377,7 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest());
 
+    expect(result.kind).toBe('empty');
     expect(result.memoriesIncluded).toEqual([]);
     expect(ollamaModule.isAvailable).not.toHaveBeenCalled();
   });
@@ -384,10 +394,11 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest({ mode: 'per-type' }));
 
-    expect(result.summaries).toBeDefined();
-    expect(Object.keys(result.summaries!)).toContain('decision');
-    expect(Object.keys(result.summaries!)).toContain('gotcha');
-    expect(result.summary).toBeUndefined();
+    expect(result.kind).toBe('per-type');
+    if (result.kind === 'per-type') {
+      expect(Object.keys(result.summaries)).toContain('decision');
+      expect(Object.keys(result.summaries)).toContain('gotcha');
+    }
   });
 
   it('filters by typeFilter in per-type mode', async () => {
@@ -401,10 +412,12 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest({ mode: 'per-type', typeFilter: MemoryType.Decision }));
 
-    expect(result.summaries).toBeDefined();
-    // typeFilter is passed to listMemories; mock only returns decision type
-    expect(Object.keys(result.summaries!)).toContain('decision');
-    expect(Object.keys(result.summaries!)).not.toContain('gotcha');
+    expect(result.kind).toBe('per-type');
+    if (result.kind === 'per-type') {
+      // typeFilter is passed to listMemories; mock only returns decision type
+      expect(Object.keys(result.summaries)).toContain('decision');
+      expect(Object.keys(result.summaries)).not.toContain('gotcha');
+    }
     // Verify typeFilter was passed through to listMemories
     expect(listModule.listMemories).toHaveBeenCalledWith(
       expect.objectContaining({ type: 'decision' })
@@ -423,8 +436,10 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest({ mode: 'overview' }));
 
-    expect(result.summary).toBe('Overview paragraph');
-    expect(result.summaries).toBeUndefined();
+    expect(result.kind).toBe('overview');
+    if (result.kind === 'overview') {
+      expect(result.summary).toBe('Overview paragraph');
+    }
     expect(result.memoriesIncluded).toHaveLength(2);
   });
 
@@ -443,9 +458,11 @@ describe('summarize', () => {
       digestId: 'decision-api-design-abc',
     }));
 
-    expect(result.summary).toBe('Digest summary text');
+    expect(result.kind).toBe('digest');
+    if (result.kind === 'digest') {
+      expect(result.summary).toBe('Digest summary text');
+    }
     expect(result.memoriesIncluded).toEqual(['decision-api-design-abc']);
-    expect(result.summaries).toBeUndefined();
   });
 
   it('returns empty memoriesIncluded when digest readMemory fails', async () => {
@@ -460,8 +477,8 @@ describe('summarize', () => {
       digestId: 'bad-id',
     }));
 
+    expect(result.kind).toBe('empty');
     expect(result.memoriesIncluded).toEqual([]);
-    expect(result.summary).toBeUndefined();
   });
 
   // --- readMemory failures are skipped ---
@@ -580,10 +597,11 @@ describe('summarize', () => {
       digestId: 'decision-some-id-abc',
     }));
 
+    expect(result.kind).toBe('empty');
     expect(result.memoriesIncluded).toEqual([]);
-    expect(result.hint).toBeDefined();
-    expect(result.hint).toContain('Ollama');
-    expect(result.summary).toBeUndefined();
+    if (result.kind === 'empty') {
+      expect(result.hint).toContain('Ollama');
+    }
   });
 
   // --- ME-7: LLM-path deduplication ---
@@ -632,7 +650,10 @@ describe('summarize', () => {
     }));
 
     expect(result.memoriesIncluded).toContain('surviving-mem');
-    expect(result.summary).toBe('Summary');
+    expect(result.kind).toBe('overview');
+    if (result.kind === 'overview') {
+      expect(result.summary).toBe('Summary');
+    }
   });
 
   // --- All readMemory calls fail — overview mode ---
@@ -644,6 +665,7 @@ describe('summarize', () => {
 
     const result = await summarize(makeRequest({ mode: 'overview' }));
 
+    expect(result.kind).toBe('empty');
     expect(result.memoriesIncluded).toEqual([]);
   });
 
@@ -664,7 +686,10 @@ describe('summarize', () => {
       basePaths: ['/tmp/empty', '/tmp/has-it'],
     }));
 
-    expect(result.summary).toBe('Digest from second path');
+    expect(result.kind).toBe('digest');
+    if (result.kind === 'digest') {
+      expect(result.summary).toBe('Digest from second path');
+    }
     expect(result.memoriesIncluded).toEqual(['my-id']);
   });
 
@@ -680,8 +705,11 @@ describe('summarize', () => {
       basePaths: ['/tmp/a', '/tmp/b'],
     }));
 
+    expect(result.kind).toBe('empty');
     expect(result.memoriesIncluded).toEqual([]);
-    expect(result.hint).toBe("Memory 'my-id' not found in any scope");
+    if (result.kind === 'empty') {
+      expect(result.hint).toBe("Memory 'my-id' not found in any scope");
+    }
   });
 });
 

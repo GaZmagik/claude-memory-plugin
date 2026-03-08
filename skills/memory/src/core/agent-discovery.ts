@@ -139,9 +139,8 @@ export async function getAgentSummary(
       // For now, we skip health metrics as they require graph.json parsing
       // which would be added in a future task if needed
     }
-  } catch (error) {
-    // If index loading fails, return basic summary with zero count
-    // This handles corrupted index.json gracefully
+  } catch (err) {
+    process.stderr.write(`[agent-discovery] Failed to load index for ${agentName}: ${err instanceof Error ? err.message : String(err)}\n`);
   }
 
   return summary;

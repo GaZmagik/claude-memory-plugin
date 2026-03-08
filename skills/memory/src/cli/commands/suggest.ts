@@ -2,7 +2,6 @@
  * CLI Commands: Suggestion Operations
  *
  * Handlers for suggest-links and summarize commands.
- * Note: These are stubs pending Phase 6 implementation.
  */
 
 import type { ParsedArgs } from '../parser.js';
@@ -13,8 +12,12 @@ import { suggestLinks } from '../../suggest/suggest-links.js';
 import { summarize, DEFAULT_LIMIT, DEFAULT_TIMEOUT_MS } from '../../summarize/summarize.js';
 import type { SummarizeMode } from '../../summarize/summarize.js';
 import { readContextWindow } from '../../services/ollama.js';
-import { getResolvedScopePath, getGlobalMemoryPath, parseScope, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
+import { getResolvedScopePath, getGlobalMemoryPath, parseScope, parseMemoryType, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
 import { discoverAgents } from '../../core/agent-discovery.js';
+
+const VALID_MODES = new Set<SummarizeMode>(['per-type', 'overview', 'digest']);
+const MAX_LIMIT = 500;
+const MIN_TIMEOUT_MS = 1_000;
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
@@ -68,14 +71,19 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
  *        [--include-shared] [--all-agents] [--tags <tags>] [--limit <n>] [--timeout <ms>]
  */
 export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
-  const mode = (getFlagString(args.flags, 'mode') ?? 'per-type') as SummarizeMode;
+  const modeStr = getFlagString(args.flags, 'mode') ?? 'per-type';
+  if (!VALID_MODES.has(modeStr as SummarizeMode)) {
+    return error(`Invalid --mode '${modeStr}'. Must be one of: per-type, overview, digest`);
+  }
+  const mode = modeStr as SummarizeMode;
+
   const scopeStr = getFlagString(args.flags, 'scope');
   const agentName = getFlagString(args.flags, 'agent');
   const allAgents = getFlagBool(args.flags, 'all-agents');
   const includeShared = getFlagBool(args.flags, 'include-shared');
   const tagsStr = getFlagString(args.flags, 'tags');
-  const limit = getFlagNumber(args.flags, 'limit') ?? DEFAULT_LIMIT;
-  const timeoutMs = getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS;
+  const limit = Math.min(Math.max(getFlagNumber(args.flags, 'limit') ?? DEFAULT_LIMIT, 1), MAX_LIMIT);
+  const timeoutMs = Math.max(getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS, MIN_TIMEOUT_MS);
   const contextWindow = readContextWindow();
 
   // Validate --include-shared requires --agent
@@ -95,7 +103,11 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
       return error('digest mode requires a memory ID as a positional argument');
     }
   } else {
-    typeFilter = args.positional[0];
+    const rawType = args.positional[0];
+    if (rawType !== undefined && parseMemoryType(rawType) === undefined) {
+      return error(`Invalid memory type '${rawType}'. Valid types: decision, learning, artifact, gotcha, breadcrumb, hub, rule, reminder`);
+    }
+    typeFilter = rawType;
   }
 
   // Resolve basePaths from scope/agent flags
@@ -132,7 +144,6 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
       limit,
       timeoutMs,
       contextWindow,
-      agentName: agentName ?? undefined,
     });
 
     let message = 'Summarize complete';

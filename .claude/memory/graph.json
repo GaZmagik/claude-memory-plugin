@@ -5219,6 +5219,54 @@
       "type": "learning",
       "title": "Cross-artifact analysis via LSP discovers integration gaps",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "type": "gotcha",
+      "title": "loadMemoryContents only reads basePaths[0], silently dropping other paths",
+      "scope": "project"
+    },
+    {
+      "id": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "type": "learning",
+      "title": "Multi-phase comprehensive review using speckit:review with 7 expert agents",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities",
+      "type": "gotcha",
+      "title": "Unvalidated CLI flag casts expose security vulnerabilities",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent orchestration efficiently surfaces multidimensional code issues",
+      "scope": "project"
+    },
+    {
+      "id": "learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite",
+      "type": "learning",
+      "title": "Phase E integration scenarios cannot be verified in unit test suite",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session",
+      "type": "gotcha",
+      "title": "Retro - Summary .md files violate CLAUDE.md guidance despite presentation in-session",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "type": "learning",
+      "title": "Cross-artifact consistency analysis reveals integration gaps before implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking",
+      "type": "learning",
+      "title": "Retro - Multi-item fix work benefits from TodoWrite tracking",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -23871,6 +23919,12 @@
       "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
       "label": "causality-impact",
       "similarity": 0.6001478084318014
+    },
+    {
+      "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7987927877760809
     }
   ]
 }

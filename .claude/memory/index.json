@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-08T00:35:35.060Z",
+  "lastUpdated": "2026-03-08T04:44:51.969Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15687,6 +15687,142 @@
       "updated": "2026-03-08T00:35:35.052Z",
       "scope": "project",
       "relativePath": "permanent/learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps.md"
+    },
+    {
+      "id": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "type": "gotcha",
+      "title": "loadMemoryContents only reads basePaths[0], silently dropping other paths",
+      "tags": [
+        "bug",
+        "basepaths",
+        "content-loading",
+        "memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T04:32:51.555Z",
+      "updated": "2026-03-08T04:32:51.555Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths.md"
+    },
+    {
+      "id": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "type": "learning",
+      "title": "Multi-phase comprehensive review using speckit:review with 7 expert agents",
+      "tags": [
+        "speckit",
+        "review",
+        "quality-gates",
+        "parallel-review",
+        "process",
+        "project"
+      ],
+      "created": "2026-03-08T04:32:56.955Z",
+      "updated": "2026-03-08T04:32:56.955Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents.md"
+    },
+    {
+      "id": "gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities",
+      "type": "gotcha",
+      "title": "Unvalidated CLI flag casts expose security vulnerabilities",
+      "tags": [
+        "security",
+        "validation",
+        "cli-flags",
+        "input-bounds",
+        "memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:02.208Z",
+      "updated": "2026-03-08T04:33:02.208Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent orchestration efficiently surfaces multidimensional code issues",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "code-review",
+        "speckit",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:02.677Z",
+      "updated": "2026-03-08T04:33:02.677Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite",
+      "type": "learning",
+      "title": "Phase E integration scenarios cannot be verified in unit test suite",
+      "tags": [
+        "testing",
+        "integration-tests",
+        "test-boundaries",
+        "ollama",
+        "phase-planning",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:07.275Z",
+      "updated": "2026-03-08T04:33:07.275Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite.md"
+    },
+    {
+      "id": "gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session",
+      "type": "gotcha",
+      "title": "Retro - Summary .md files violate CLAUDE.md guidance despite presentation in-session",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "guidelines",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:08.009Z",
+      "updated": "2026-03-08T04:33:08.009Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "type": "learning",
+      "title": "Cross-artifact consistency analysis reveals integration gaps before implementation",
+      "tags": [
+        "architecture",
+        "cross-artifact-analysis",
+        "specification",
+        "quality-gates",
+        "gap-analysis",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:12.512Z",
+      "updated": "2026-03-08T04:33:12.512Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation.md"
+    },
+    {
+      "id": "learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking",
+      "type": "learning",
+      "title": "Retro - Multi-item fix work benefits from TodoWrite tracking",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-tracking",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:14.609Z",
+      "updated": "2026-03-08T04:33:14.609Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking.md",
+      "severity": "medium"
     }
   ]
 }

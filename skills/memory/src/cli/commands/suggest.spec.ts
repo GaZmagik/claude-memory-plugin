@@ -284,7 +284,6 @@ describe('cmdSummarize', () => {
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
         basePaths: ['/tmp/agents/ts-expert'],
-        agentName: 'ts-expert',
       })
     );
   });
@@ -350,5 +349,53 @@ describe('cmdSummarize', () => {
     // No error — --all-agents wins
     expect(result.status).toBe('success');
     expect(spy).toHaveBeenCalled();
+  });
+
+  // --- Validation tests ---
+
+  it('returns error for invalid --mode flag', async () => {
+    setupDefaults();
+
+    const args: ParsedArgs = { positional: [], flags: { mode: 'invalid' } };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Invalid --mode');
+    expect(result.error).toContain('invalid');
+  });
+
+  it('returns error for invalid type filter in positional arg', async () => {
+    setupDefaults();
+
+    const args: ParsedArgs = { positional: ['badtype'], flags: {} };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('error');
+    expect(result.error).toContain('Invalid memory type');
+    expect(result.error).toContain('badtype');
+  });
+
+  it('clamps --limit to max 500', async () => {
+    setupDefaults();
+    const spy = mockSummarize();
+
+    const args: ParsedArgs = { positional: [], flags: { limit: '999999' } };
+    await cmdSummarize(args);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ limit: 500 })
+    );
+  });
+
+  it('clamps --timeout to at least 1000ms', async () => {
+    setupDefaults();
+    const spy = mockSummarize();
+
+    const args: ParsedArgs = { positional: [], flags: { timeout: '0' } };
+    await cmdSummarize(args);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ timeoutMs: 1_000 })
+    );
   });
 });

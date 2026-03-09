@@ -484,6 +484,28 @@ describe('cmdSummarize', () => {
     expect(result.message).toContain('empty response');
   });
 
+  it('reports empty LLM response in message when digest summary is empty', async () => {
+    setupDefaults();
+    mockSummarize({ kind: 'digest', summary: '', memoriesIncluded: ['m1'] });
+
+    const args: ParsedArgs = { positional: ['m1'], flags: { mode: 'digest' } };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('success');
+    expect(result.message).toContain('empty response');
+  });
+
+  it('reports partial failure when some per-type summaries are empty', async () => {
+    setupDefaults();
+    mockSummarize({ kind: 'per-type', summaries: { decision: 'Good stuff', gotcha: '' }, memoriesIncluded: ['m1', 'm2'] });
+
+    const args: ParsedArgs = { positional: [], flags: {} };
+    const result = await cmdSummarize(args);
+
+    expect(result.status).toBe('success');
+    expect(result.message).toContain('some types returned no content');
+  });
+
   it('returns error for digestId containing path traversal characters', async () => {
     setupDefaults();
     const spy = vi.spyOn(summarizeModule, 'summarize');

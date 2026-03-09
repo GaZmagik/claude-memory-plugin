@@ -171,11 +171,17 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
           ? 'Summarize complete'
           : 'Summarize complete — LLM returned empty response (check stderr for errors)';
         break;
-      case 'per-type':
-        message = Object.values(result.summaries).some(s => s.length > 0)
-          ? 'Summarize complete'
-          : 'Summarize complete — LLM returned empty response (check stderr for errors)';
+      case 'per-type': {
+        const vals = Object.values(result.summaries);
+        const allEmpty = vals.every(s => s.length === 0);
+        const someEmpty = vals.some(s => s.length === 0);
+        message = allEmpty
+          ? 'Summarize complete — LLM returned empty response (check stderr for errors)'
+          : someEmpty
+            ? 'Summarize complete (some types returned no content — check stderr)'
+            : 'Summarize complete';
         break;
+      }
     }
 
     return success(result, message);

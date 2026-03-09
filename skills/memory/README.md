@@ -41,6 +41,7 @@ curl http://localhost:11434/api/tags
 - `memory suggest-links` - Find potential relationships
 - `memory suggest-links --auto-link --llm-type` - Auto-link with LLM-verified relation labels
 - `memory update-edge <src> <tgt> --verify` - Stage LLM-verified relation on an existing edge
+- `memory summarize` - Generate LLM-powered summary rollups (falls back to structured listing)
 - `memory refresh --embeddings` - Pre-generate embedding cache
 
 **Graceful degradation:** If Ollama is unavailable, semantic features fall back to keyword search (2s timeout check on `localhost:11434`).

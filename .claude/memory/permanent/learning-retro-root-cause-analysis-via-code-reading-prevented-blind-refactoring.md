@@ -3,8 +3,9 @@ id: learning-retro-root-cause-analysis-via-code-reading-prevented-blind-refactor
 title: Retro - Root cause analysis via code reading prevented blind refactoring
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-03-01T15:17:20.086Z"
-updated: "2026-03-01T15:17:20.086Z"
+updated: "2026-03-07T18:30:52.305Z"
 tags:
   - retrospective
   - process

@@ -28,13 +28,32 @@ export const ANALYSIS_HELP: Record<string, CommandHelpEntry> = {
   },
 
   summarize: {
-    usage: 'memory summarize [type]',
-    description: 'Generate summary rollups of memories',
-    arguments: `  [type]    Filter by memory type`,
+    usage: 'memory summarize [type] [options]',
+    description: 'Generate LLM-powered summary rollups of memories',
+    arguments: `  [type]    Filter by memory type (decision, learning, gotcha, artifact, etc.)`,
+    flags: `  --mode <mode>       Output mode: per-type (default), overview, digest
+  --scope <scope>     Target scope (default: project)
+  --agent <name>      Summarise agent-scoped memories
+  --include-shared    Include shared scopes (requires --agent)
+  --all-agents        Summarise across all agent namespaces
+  --tags <tags>       Comma-separated tag filter (AND logic)
+  --limit <n>         Max memories to summarise (1-500, default: 50)
+  --timeout <ms>      LLM timeout per call in ms (1000-600000, default: 120000)`,
     examples: [
       'memory summarize',
       'memory summarize decision',
+      'memory summarize --mode overview',
+      'memory summarize --mode digest my-memory-id',
+      'memory summarize --agent typescript-expert --include-shared',
+      'memory summarize --all-agents --limit 100',
+      'memory summarize gotcha --tags important --limit 10',
     ],
+    notes: `  Requires Ollama running locally (uses chat model from memory.local.md).
+  Falls back to structured listing when Ollama is unavailable.
+  Large corpora are chunked automatically (map-reduce) to fit the context window.
+  Content per memory is truncated at 6000 chars to prevent context length errors.
+  --all-agents overrides --agent (a warning is emitted if both are set).
+  When --all-agents and --scope are combined, --scope filters within each agent namespace.`,
   },
 
   // Query Operations

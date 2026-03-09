@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-08T01:21:41.768Z",
+  "memories": [
+    {
+      "id": "learning-bun-test-preload-resolves-vitest-from-nodemodules-vispyon-works",
+      "type": "learning",
+      "title": "bun test preload resolves vitest from node_modules — vi.spyOn works",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "mocking",
+        "project"
+      ],
+      "created": "2026-03-08T01:21:36.922Z",
+      "updated": "2026-03-08T01:21:36.922Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-bun-test-preload-resolves-vitest-from-nodemodules-vispyon-works.md"
+    },
+    {
+      "id": "gotcha-withtimeout-uses-promiserace-underlying-ollama-request-is-not-aborted-on-timeout",
+      "type": "gotcha",
+      "title": "withTimeout uses Promise.race — underlying Ollama request is not aborted on timeout",
+      "tags": [
+        "ollama",
+        "timeout",
+        "memory-leak",
+        "async",
+        "project"
+      ],
+      "created": "2026-03-08T01:21:41.764Z",
+      "updated": "2026-03-08T01:21:41.764Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-withtimeout-uses-promiserace-underlying-ollama-request-is-not-aborted-on-timeout.md"
+    }
+  ]
+}

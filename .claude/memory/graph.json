@@ -5117,6 +5117,246 @@
       "type": "learning",
       "title": "vi.spyOn solves Bun module-level vi.mock test pollution",
       "scope": "project"
+    },
+    {
+      "id": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "type": "gotcha",
+      "title": "Bun test module registry causes cross-test pollution (328 failures from mocks)",
+      "scope": "project"
+    },
+    {
+      "id": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "type": "learning",
+      "title": "Test by subdirectory to isolate real failures from cross-test pollution",
+      "scope": "project"
+    },
+    {
+      "id": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "type": "learning",
+      "title": "vi.hoisted() from vitest doesn't work with Bun's test polyfill",
+      "scope": "project"
+    },
+    {
+      "id": "learning-type-scope-fields-consistently-as-scope-enum-not-string-literals",
+      "type": "learning",
+      "title": "Type scope fields consistently as Scope enum, not string literals",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-agent-incomplete-work-on-phase-a",
+      "type": "gotcha",
+      "title": "agent-incomplete-work-on-phase-a",
+      "scope": "project"
+    },
+    {
+      "id": "learning-sdd-tdd-workflow-orchestrates-phase-execution",
+      "type": "learning",
+      "title": "sdd-tdd-workflow-orchestrates-phase-execution",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "type": "learning",
+      "title": "cross-artifact-analysis-finds-integration-gaps",
+      "scope": "project"
+    },
+    {
+      "id": "learning-mock-pattern-vi-spyon-confirmed",
+      "type": "learning",
+      "title": "mock-pattern-vi-spyOn-confirmed",
+      "scope": "project"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama",
+      "type": "decision",
+      "title": "export-readcontextwindow-from-ollama",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-branded-types-in-test-mocks-add-ceremony-overhead",
+      "type": "gotcha",
+      "title": "Retro - Branded types in test mocks add ceremony overhead",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "type": "learning",
+      "title": "Retro - Multi-phase TDD with clear boundaries scales well",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-grep-for-patterns-before-implementing-prevents-api-assumption-errors",
+      "type": "learning",
+      "title": "Retro - Grep for patterns before implementing prevents API assumption errors",
+      "scope": "project"
+    },
+    {
+      "id": "learning-branded-types-in-test-mocks-require-ceremony",
+      "type": "learning",
+      "title": "Branded types in test mocks require ceremony",
+      "scope": "project"
+    },
+    {
+      "id": "learning-tddsdd-phased-approach-prevents-scope-creep",
+      "type": "learning",
+      "title": "TDD+SDD phased approach prevents scope creep",
+      "scope": "project"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama-service",
+      "type": "decision",
+      "title": "Export readContextWindow from ollama service",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-sub-agent-phase-a-implementation-left-incomplete",
+      "type": "gotcha",
+      "title": "Sub-agent Phase A implementation left incomplete",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps",
+      "type": "learning",
+      "title": "Cross-artifact analysis via LSP discovers integration gaps",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "type": "gotcha",
+      "title": "loadMemoryContents only reads basePaths[0], silently dropping other paths",
+      "scope": "project"
+    },
+    {
+      "id": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "type": "learning",
+      "title": "Multi-phase comprehensive review using speckit:review with 7 expert agents",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities",
+      "type": "gotcha",
+      "title": "Unvalidated CLI flag casts expose security vulnerabilities",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent orchestration efficiently surfaces multidimensional code issues",
+      "scope": "project"
+    },
+    {
+      "id": "learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite",
+      "type": "learning",
+      "title": "Phase E integration scenarios cannot be verified in unit test suite",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session",
+      "type": "gotcha",
+      "title": "Retro - Summary .md files violate CLAUDE.md guidance despite presentation in-session",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "type": "learning",
+      "title": "Cross-artifact consistency analysis reveals integration gaps before implementation",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking",
+      "type": "learning",
+      "title": "Retro - Multi-item fix work benefits from TodoWrite tracking",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent deployment accelerates comprehensive review",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "type": "learning",
+      "title": "Retro - Batching edits by theme then validating prevents regression creep",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "type": "gotcha",
+      "title": "Retro - Multi-cycle review-fix-review pattern wastes effort, needs upfront scope clarification",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-digest-mode-basepath-isolation",
+      "type": "gotcha",
+      "title": "Digest Mode Multi-basePath Isolation Bug",
+      "scope": "project"
+    },
+    {
+      "id": "learning-type-safety-validation-at-boundaries-pattern",
+      "type": "learning",
+      "title": "Type Safety Validation at Boundaries Pattern",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-agent-test-generation-false-positive-diagnostics",
+      "type": "gotcha",
+      "title": "Agent-Generated Tests Report False Positive TS Diagnostics",
+      "scope": "project"
+    },
+    {
+      "id": "decision-defer-parallelization-wishes-post-mvp",
+      "type": "decision",
+      "title": "Defer Parallelization & Style Wishes to Post-MVP",
+      "scope": "project"
+    },
+    {
+      "id": "learning-discriminated-union-pattern-for-typescript-result-types",
+      "type": "learning",
+      "title": "Discriminated union pattern for TypeScript result types",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases",
+      "type": "learning",
+      "title": "Retro - Parallel promise.all batching accelerates refactoring phases",
+      "scope": "project"
+    },
+    {
+      "id": "learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions",
+      "type": "learning",
+      "title": "Parallelising Promise.all with unbounded concurrent calls requires safety assumptions",
+      "scope": "project"
+    },
+    {
+      "id": "learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring",
+      "type": "learning",
+      "title": "Retro - Sub-agent delegation for test additions frees context for refactoring",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-empty-string-tags-bug-from-split-without-filtering",
+      "type": "gotcha",
+      "title": "Empty string tags bug from split without filtering",
+      "scope": "project"
+    },
+    {
+      "id": "gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised",
+      "type": "gotcha",
+      "title": "Retro - Repeated reviewer feedback on deferred items signals they should be prioritised",
+      "scope": "project"
+    },
+    {
+      "id": "learning-cli-flag-precedence-and-silent-override-pattern",
+      "type": "learning",
+      "title": "CLI flag precedence and silent override pattern",
+      "scope": "project"
+    },
+    {
+      "id": "learning-format-validation-prevents-path-traversal-in-file-identifiers",
+      "type": "learning",
+      "title": "Format validation prevents path traversal in file identifiers",
+      "scope": "project"
     }
   ],
   "edges": [
@@ -20071,212 +20311,182 @@
     {
       "source": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
       "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7567683143235113,
-      "verifiedRelation": "evolution-refinement"
+      "label": "evolution-refinement",
+      "similarity": 0.7567683143235113
     },
     {
       "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
       "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7567683143235113,
-      "verifiedRelation": "refinement-2"
+      "label": "refinement-2",
+      "similarity": 0.7567683143235113
     },
     {
       "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7502490695767582,
-      "verifiedRelation": "enhancement-support"
+      "label": "enhancement-support",
+      "similarity": 0.7502490695767582
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7502490695767582,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.7502490695767582
     },
     {
       "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7494126727876718,
-      "verifiedRelation": "deprecation-solution"
+      "label": "deprecation-solution",
+      "similarity": 0.7494126727876718
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7494126727876718,
-      "verifiedRelation": "incompatibility"
+      "label": "incompatibility",
+      "similarity": 0.7494126727876718
     },
     {
       "source": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
       "target": "learning-typescript-code-review-findings-for-claude-memory-plugin",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7454535710902491,
-      "verifiedRelation": "related-features"
+      "label": "related-features",
+      "similarity": 0.7454535710902491
     },
     {
       "source": "learning-typescript-code-review-findings-for-claude-memory-plugin",
       "target": "gotcha-typescript-code-review-findings-for-feature005-rule-reminder-graph-nodes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7454535710902491,
-      "verifiedRelation": "context-transfer"
+      "label": "context-transfer",
+      "similarity": 0.7454535710902491
     },
     {
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7437407132394512,
-      "verifiedRelation": "compatibility"
+      "label": "compatibility",
+      "similarity": 0.7437407132394512
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7437407132394512,
-      "verifiedRelation": "replacement"
+      "label": "replacement",
+      "similarity": 0.7437407132394512
     },
     {
       "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
       "target": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7401599658214187,
-      "verifiedRelation": "contrast-shift"
+      "label": "contrast-shift",
+      "similarity": 0.7401599658214187
     },
     {
       "source": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
       "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7401599658214187,
-      "verifiedRelation": "contrast-reversal"
+      "label": "contrast-reversal",
+      "similarity": 0.7401599658214187
     },
     {
       "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
       "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7357531608603689,
-      "verifiedRelation": "causal-improvement"
+      "label": "causal-improvement",
+      "similarity": 0.7357531608603689
     },
     {
       "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
       "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7357531608603689,
-      "verifiedRelation": "evolution-of-concept"
+      "label": "evolution-of-concept",
+      "similarity": 0.7357531608603689
     },
     {
       "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7183542256132843,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.7183542256132843
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7183542256132843,
-      "verifiedRelation": "conflict"
+      "label": "conflict",
+      "similarity": 0.7183542256132843
     },
     {
       "source": "learning-test-setup-validation-prevents-false-failures",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7183108880664273,
-      "verifiedRelation": "compatibility"
+      "label": "compatibility",
+      "similarity": 0.7183108880664273
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "learning-test-setup-validation-prevents-false-failures",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7183108880664273,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7183108880664273
     },
     {
       "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7121988485701796,
-      "verifiedRelation": "solution-enhancement"
+      "label": "solution-enhancement",
+      "similarity": 0.7121988485701796
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7121988485701796,
-      "verifiedRelation": "conflict-resolution"
+      "label": "conflict-resolution",
+      "similarity": 0.7121988485701796
     },
     {
       "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
       "target": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7107913172708342,
-      "verifiedRelation": "expansion"
+      "label": "expansion",
+      "similarity": 0.7107913172708342
     },
     {
       "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
       "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7107913172708342,
-      "verifiedRelation": "refinement-3"
+      "label": "refinement-3",
+      "similarity": 0.7107913172708342
     },
     {
       "source": "retro-mock-syntax-friction-bun",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7094793051866916,
-      "verifiedRelation": "refactoring"
+      "label": "refactoring",
+      "similarity": 0.7094793051866916
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "retro-mock-syntax-friction-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7094793051866916,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.7094793051866916
     },
     {
       "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7073061121896791,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.7073061121896791
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7073061121896791,
-      "verifiedRelation": "incompatibility"
+      "label": "incompatibility",
+      "similarity": 0.7073061121896791
     },
     {
       "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
       "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072191702026251,
-      "verifiedRelation": "refactor-update"
+      "label": "refactor-update",
+      "similarity": 0.7072191702026251
     },
     {
       "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
       "target": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072191702026251,
-      "verifiedRelation": "elaboration"
+      "label": "elaboration",
+      "similarity": 0.7072191702026251
     },
     {
       "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.703584948960791,
-      "verifiedRelation": "compatibility"
+      "label": "compatibility",
+      "similarity": 0.703584948960791
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.703584948960791,
-      "verifiedRelation": "leak-issue"
+      "label": "leak-issue",
+      "similarity": 0.703584948960791
     },
     {
       "source": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
@@ -20377,7 +20587,8 @@
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "label": "relates-to"
+      "label": "7-contradiction",
+      "similarity": 0.8927849114219512
     },
     {
       "source": "learning-retro-test-timeout-mismatches-cause-false-failures-spawn-timeout-test-timeout",
@@ -20502,72 +20713,62 @@
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8466338824319741,
-      "verifiedRelation": "leak-propagation"
+      "label": "leak-propagation",
+      "similarity": 0.8466338824319741
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8466338824319741,
-      "verifiedRelation": "1-pollution"
+      "label": "1-pollution",
+      "similarity": 0.8466338824319741
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8384481709147985,
-      "verifiedRelation": "7-replication"
+      "label": "7-replication",
+      "similarity": 0.8384481709147985
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8384481709147985,
-      "verifiedRelation": "leak-propagation"
+      "label": "leak-propagation",
+      "similarity": 0.8384481709147985
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8356018188164491,
-      "verifiedRelation": "7-compatibility"
+      "label": "7-compatibility",
+      "similarity": 0.8356018188164491
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8356018188164491,
-      "verifiedRelation": "solution-fix"
+      "label": "solution-fix",
+      "similarity": 0.8356018188164491
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8236187640452943,
-      "verifiedRelation": "leak-dependency"
+      "label": "leak-dependency",
+      "similarity": 0.8236187640452943
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8236187640452943,
-      "verifiedRelation": "incompatibility"
+      "label": "incompatibility",
+      "similarity": 0.8236187640452943
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8124035148598375,
-      "verifiedRelation": "pollutant"
+      "label": "pollutant",
+      "similarity": 0.8124035148598375
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8124035148598375,
-      "verifiedRelation": "deprecation-impact"
+      "label": "deprecation-impact",
+      "similarity": 0.8124035148598375
     },
     {
       "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
@@ -20578,37 +20779,32 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.8004701282103267,
-      "verifiedRelation": "7-reproduction"
+      "label": "7-reproduction",
+      "similarity": 0.8004701282103267
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7997288986698996,
-      "verifiedRelation": "dependency"
+      "label": "dependency",
+      "similarity": 0.7997288986698996
     },
     {
       "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7997288986698996,
-      "verifiedRelation": "refactoring"
+      "label": "refactoring",
+      "similarity": 0.7997288986698996
     },
     {
       "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7902895148866663,
-      "verifiedRelation": "pollution-leakage"
+      "label": "pollution-leakage",
+      "similarity": 0.7902895148866663
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7902895148866663,
-      "verifiedRelation": "leak-test"
+      "label": "leak-test",
+      "similarity": 0.7902895148866663
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
@@ -20619,37 +20815,32 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7895837073633293,
-      "verifiedRelation": "enhancement"
+      "label": "enhancement",
+      "similarity": 0.7895837073633293
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7842456902757255,
-      "verifiedRelation": "dependency-fix"
+      "label": "dependency-fix",
+      "similarity": 0.7842456902757255
     },
     {
       "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7842456902757255,
-      "verifiedRelation": "1-leak"
+      "label": "1-leak",
+      "similarity": 0.7842456902757255
     },
     {
       "source": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
       "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7794769444473526,
-      "verifiedRelation": "refactor-polyfill"
+      "label": "refactor-polyfill",
+      "similarity": 0.7794769444473526
     },
     {
       "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
       "target": "learning-retro-polyfill-approach-avoids-large-test-infrastructure-refactors",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7794769444473526,
-      "verifiedRelation": "refactor-replacement"
+      "label": "refactor-replacement",
+      "similarity": 0.7794769444473526
     },
     {
       "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
@@ -20660,65 +20851,56 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7765427715607657,
-      "verifiedRelation": "refactoring-issue"
+      "label": "refactoring-issue",
+      "similarity": 0.7765427715607657
     },
     {
       "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7736532275290885,
-      "verifiedRelation": "3-leakage"
+      "label": "3-leakage",
+      "similarity": 0.7736532275290885
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7736532275290885,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7736532275290885
     },
     {
       "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7735037341673491,
-      "verifiedRelation": "substitution"
+      "label": "substitution",
+      "similarity": 0.7735037341673491
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7735037341673491,
-      "verifiedRelation": "02-contrast"
+      "label": "02-contrast",
+      "similarity": 0.7735037341673491
     },
     {
       "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7578692115361615,
-      "verifiedRelation": "leak-propogation"
+      "label": "leak-propogation",
+      "similarity": 0.7578692115361615
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7578692115361615,
-      "verifiedRelation": "leak-cross-file"
+      "label": "leak-cross-file",
+      "similarity": 0.7578692115361615
     },
     {
       "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7553325504643683,
-      "verifiedRelation": "shadowing"
+      "label": "shadowing",
+      "similarity": 0.7553325504643683
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7553325504643683,
-      "verifiedRelation": "deprecation"
+      "label": "deprecation",
+      "similarity": 0.7553325504643683
     },
     {
       "source": "gotcha-bun-test-vi-mocked-incompatibility",
@@ -20729,30 +20911,26 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-bun-test-vi-mocked-incompatibility",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.754475456761029,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.754475456761029
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7502946609341927,
-      "verifiedRelation": "side-effect"
+      "label": "side-effect",
+      "similarity": 0.7502946609341927
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7502946609341927,
-      "verifiedRelation": "enhancement"
+      "label": "enhancement",
+      "similarity": 0.7502946609341927
     },
     {
       "source": "retro-mock-syntax-friction-bun",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7497143023380326,
-      "verifiedRelation": "conflict-migration"
+      "label": "conflict-migration",
+      "similarity": 0.7497143023380326
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
@@ -20763,184 +20941,158 @@
     {
       "source": "gotcha-bun-test-vi-mocked-incompatibility",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7490061377238585,
-      "verifiedRelation": "leak-impact"
+      "label": "leak-impact",
+      "similarity": 0.7490061377238585
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-bun-test-vi-mocked-incompatibility",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7490061377238585,
-      "verifiedRelation": "compatibility-issue"
+      "label": "compatibility-issue",
+      "similarity": 0.7490061377238585
     },
     {
       "source": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
       "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.746591925822685,
-      "verifiedRelation": "cause-effect"
+      "label": "cause-effect",
+      "similarity": 0.746591925822685
     },
     {
       "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
       "target": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.746591925822685,
-      "verifiedRelation": "cause-effect"
+      "label": "cause-effect",
+      "similarity": 0.746591925822685
     },
     {
       "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7438301798038265,
-      "verifiedRelation": "0-pollution"
+      "label": "0-pollution",
+      "similarity": 0.7438301798038265
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7438301798038265,
-      "verifiedRelation": "leak-restore"
+      "label": "leak-restore",
+      "similarity": 0.7438301798038265
     },
     {
       "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
       "target": "learning-code-review-findings-require-verification-against-current-code",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7437869412755905,
-      "verifiedRelation": "verification-shift"
+      "label": "verification-shift",
+      "similarity": 0.7437869412755905
     },
     {
       "source": "learning-code-review-findings-require-verification-against-current-code",
       "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7437869412755905,
-      "verifiedRelation": "verification-shift"
+      "label": "verification-shift",
+      "similarity": 0.7437869412755905
     },
     {
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.743637074057169,
-      "verifiedRelation": "7-pollution"
+      "label": "7-pollution",
+      "similarity": 0.743637074057169
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.743637074057169,
-      "verifiedRelation": "migration"
+      "label": "migration",
+      "similarity": 0.743637074057169
     },
     {
       "source": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7419826916787998,
-      "verifiedRelation": "resolution"
+      "label": "resolution",
+      "similarity": 0.7419826916787998
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7419826916787998,
-      "verifiedRelation": "resolution"
+      "label": "resolution",
+      "similarity": 0.7419826916787998
     },
     {
       "source": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
       "target": "learning-batch-trivial-fixes-into-parallel-edits",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7406806598767885,
-      "verifiedRelation": "refinement-implementation"
+      "label": "refinement-implementation",
+      "similarity": 0.7406806598767885
     },
     {
       "source": "learning-batch-trivial-fixes-into-parallel-edits",
       "target": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7406806598767885,
-      "verifiedRelation": "refactoring-improvement"
+      "label": "refactoring-improvement",
+      "similarity": 0.7406806598767885
     },
     {
       "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
       "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.740499301050167,
-      "verifiedRelation": "refinement-1"
+      "label": "refinement-1",
+      "similarity": 0.740499301050167
     },
     {
       "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.740499301050167,
-      "verifiedRelation": "subsumption"
+      "label": "subsumption",
+      "similarity": 0.740499301050167
     },
     {
       "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.737287100178146,
-      "verifiedRelation": "synonym"
+      "label": "synonym",
+      "similarity": 0.737287100178146
     },
     {
       "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.737287100178146,
-      "verifiedRelation": "synonym"
+      "label": "synonym",
+      "similarity": 0.737287100178146
     },
     {
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7363427039294862,
-      "verifiedRelation": "leak-relation"
+      "label": "leak-relation",
+      "similarity": 0.7363427039294862
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7363427039294862,
-      "verifiedRelation": "dependency"
+      "label": "dependency",
+      "similarity": 0.7363427039294862
     },
     {
       "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7340101665755372,
-      "verifiedRelation": "1-replacement"
+      "label": "1-replacement",
+      "similarity": 0.7340101665755372
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7340101665755372,
-      "verifiedRelation": "1-gotcha"
+      "label": "1-gotcha",
+      "similarity": 0.7340101665755372
     },
     {
       "source": "gotcha-vi-mock-global-pollution-test-state",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7328689773871864,
-      "verifiedRelation": "leak-pollute"
+      "label": "leak-pollute",
+      "similarity": 0.7328689773871864
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-vi-mock-global-pollution-test-state",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7328689773871864,
-      "verifiedRelation": "7-leak"
+      "label": "7-leak",
+      "similarity": 0.7328689773871864
     },
     {
       "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
       "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7321766400026933,
-      "verifiedRelation": "causality-fix"
+      "label": "causality-fix",
+      "similarity": 0.7321766400026933
     },
     {
       "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
       "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7321766400026933,
-      "verifiedRelation": "7-cause-effect"
+      "label": "7-cause-effect",
+      "similarity": 0.7321766400026933
     },
     {
       "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
@@ -20951,177 +21103,152 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7318769388857992,
-      "verifiedRelation": "conflict-cause"
+      "label": "conflict-cause",
+      "similarity": 0.7318769388857992
     },
     {
       "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7308004688546745,
-      "verifiedRelation": "1-leakage"
+      "label": "1-leakage",
+      "similarity": 0.7308004688546745
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7308004688546745,
-      "verifiedRelation": "conflict-isolation"
+      "label": "conflict-isolation",
+      "similarity": 0.7308004688546745
     },
     {
       "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
       "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7299570461138659,
-      "verifiedRelation": "refactoring-solution"
+      "label": "refactoring-solution",
+      "similarity": 0.7299570461138659
     },
     {
       "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
       "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7299570461138659,
-      "verifiedRelation": "solution-improvement"
+      "label": "solution-improvement",
+      "similarity": 0.7299570461138659
     },
     {
       "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7281965722428124,
-      "verifiedRelation": "leak-resolution"
+      "label": "leak-resolution",
+      "similarity": 0.7281965722428124
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7281965722428124,
-      "verifiedRelation": "dependency-isolation"
+      "label": "dependency-isolation",
+      "similarity": 0.7281965722428124
     },
     {
       "source": "learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection",
       "target": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7273340812393039,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7273340812393039
     },
     {
       "source": "learning-retro-verification-first-debugging-prevents-time-wasted-on-non-existent-bugs",
       "target": "learning-retro-baseline-testing-strategy-with-clean-head-comparison-prevents-false-regression-detection",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7273340812393039,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7273340812393039
     },
     {
       "source": "retro-mock-syntax-friction-bun",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7268692080962987,
-      "verifiedRelation": "dependency-issue"
+      "label": "dependency-issue",
+      "similarity": 0.7268692080962987
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "retro-mock-syntax-friction-bun",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7268692080962987,
-      "verifiedRelation": "conflict-friction"
+      "label": "conflict-friction",
+      "similarity": 0.7268692080962987
     },
     {
       "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7263735743387354,
-      "verifiedRelation": "state-leak"
+      "label": "state-leak",
+      "similarity": 0.7263735743387354
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7263735743387354,
-      "verifiedRelation": "compatibility-issues"
+      "label": "compatibility-issues",
+      "similarity": 0.7263735743387354
     },
     {
       "source": "gotcha-vi-mock-global-pollution-test-state",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7255023492602957,
-      "verifiedRelation": "leak-propagation"
+      "label": "leak-propagation",
+      "similarity": 0.7255023492602957
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-vi-mock-global-pollution-test-state",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7255023492602957,
-      "verifiedRelation": "pollution-leak"
+      "label": "pollution-leak",
+      "similarity": 0.7255023492602957
     },
     {
       "source": "decision-code-review-pr-scope-discipline",
       "target": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7254653058833532,
-      "verifiedRelation": "refinement"
+      "label": "refinement",
+      "similarity": 0.7254653058833532
     },
     {
       "source": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
       "target": "decision-code-review-pr-scope-discipline",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7254653058833532,
-      "verifiedRelation": "scope-enforcement"
+      "label": "scope-enforcement",
+      "similarity": 0.7254653058833532
     },
     {
       "source": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
       "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7254494032861141,
-      "verifiedRelation": "synonym-variation"
+      "label": "synonym-variation",
+      "similarity": 0.7254494032861141
     },
     {
       "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
       "target": "learning-retro-verification-first-approach-prevents-false-fixing-on-automated-code-review-findings",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7254494032861141,
-      "verifiedRelation": "refinement"
+      "label": "refinement",
+      "similarity": 0.7254494032861141
     },
     {
       "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7249982831396342,
-      "verifiedRelation": "leak-corruption"
+      "label": "leak-corruption",
+      "similarity": 0.7249982831396342
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7249982831396342,
-      "verifiedRelation": "pollution-leak"
+      "label": "pollution-leak",
+      "similarity": 0.7249982831396342
     },
     {
       "source": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7247567421730144,
-      "verifiedRelation": "leak-propagation"
+      "label": "leak-propagation",
+      "similarity": 0.7247567421730144
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7247567421730144,
-      "verifiedRelation": "7-pollution"
+      "label": "7-pollution",
+      "similarity": 0.7247567421730144
     },
     {
       "source": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7243642723476904,
-      "verifiedRelation": "refinement"
+      "label": "refinement",
+      "similarity": 0.7243642723476904
     },
     {
       "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
       "target": "learning-retro-verification-first-approach-on-code-review-findings-prevents-wasted-effort-on-false-positives",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7243642723476904,
-      "verifiedRelation": "adaptation-refinement"
+      "label": "adaptation-refinement",
+      "similarity": 0.7243642723476904
     },
     {
       "source": "learning-retro-test-isolation-pattern-worth-documenting",
@@ -21132,23 +21259,20 @@
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-retro-test-isolation-pattern-worth-documenting",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7243068432988781,
-      "verifiedRelation": "refactoring-strategy"
+      "label": "refactoring-strategy",
+      "similarity": 0.7243068432988781
     },
     {
       "source": "learning-hook-ollama-timeout-insufficient",
       "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7236650198611407,
-      "verifiedRelation": "cause-effect"
+      "label": "cause-effect",
+      "similarity": 0.7236650198611407
     },
     {
       "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
       "target": "learning-hook-ollama-timeout-insufficient",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7236650198611407,
-      "verifiedRelation": "change-resolution"
+      "label": "change-resolution",
+      "similarity": 0.7236650198611407
     },
     {
       "source": "learning-retro-test-isolation-pattern-worth-documenting",
@@ -21159,16 +21283,14 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-retro-test-isolation-pattern-worth-documenting",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7212402218265053,
-      "verifiedRelation": "ref-impl"
+      "label": "ref-impl",
+      "similarity": 0.7212402218265053
     },
     {
       "source": "retro-test-subprocess-hanging",
       "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7211941146902932,
-      "verifiedRelation": "retry-failure"
+      "label": "retry-failure",
+      "similarity": 0.7211941146902932
     },
     {
       "source": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
@@ -21179,23 +21301,20 @@
     {
       "source": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7182483453340416,
-      "verifiedRelation": "1-pollution"
+      "label": "1-pollution",
+      "similarity": 0.7182483453340416
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7182483453340416,
-      "verifiedRelation": "refactoring-solution"
+      "label": "refactoring-solution",
+      "similarity": 0.7182483453340416
     },
     {
       "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7167850891399309,
-      "verifiedRelation": "solution"
+      "label": "solution",
+      "similarity": 0.7167850891399309
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
@@ -21206,100 +21325,86 @@
     {
       "source": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
       "target": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7158715649637689,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7158715649637689
     },
     {
       "source": "learning-retro-verification-first-on-code-review-findings-prevents-wasted-effort-on-false-positives",
       "target": "learning-retro-pre-commit-hook-validation-prevented-regression-blame",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7158715649637689,
-      "verifiedRelation": "1-prevention"
+      "label": "1-prevention",
+      "similarity": 0.7158715649637689
     },
     {
       "source": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
       "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7151789642732829,
-      "verifiedRelation": "causality-2"
+      "label": "causality-2",
+      "similarity": 0.7151789642732829
     },
     {
       "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
       "target": "learning-hook-timeout-budgets-prevent-unbounded-blocking-in-posttooluse-and-userpromptsubmit",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7151789642732829,
-      "verifiedRelation": "causality-impact"
+      "label": "causality-impact",
+      "similarity": 0.7151789642732829
     },
     {
       "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7136045059357246,
-      "verifiedRelation": "leak-resolution"
+      "label": "leak-resolution",
+      "similarity": 0.7136045059357246
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7136045059357246,
-      "verifiedRelation": "mirror-sync"
+      "label": "mirror-sync",
+      "similarity": 0.7136045059357246
     },
     {
       "source": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
       "target": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7127088369331782,
-      "verifiedRelation": "restatement"
+      "label": "restatement",
+      "similarity": 0.7127088369331782
     },
     {
       "source": "decision-defer-large-structural-refactors-to-separate-prs-during-code-review-cleanup",
       "target": "learning-retro-deferring-large-architectural-refactors-to-separate-prs-keeps-momentum",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7127088369331782,
-      "verifiedRelation": "rephrase-expansion"
+      "label": "rephrase-expansion",
+      "similarity": 0.7127088369331782
     },
     {
       "source": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
       "target": "decision-code-review-pr-scope-discipline",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7125985232015108,
-      "verifiedRelation": "support-evidence"
+      "label": "support-evidence",
+      "similarity": 0.7125985232015108
     },
     {
       "source": "decision-code-review-pr-scope-discipline",
       "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7125985232015108,
-      "verifiedRelation": "evolution-of-practice"
+      "label": "evolution-of-practice",
+      "similarity": 0.7125985232015108
     },
     {
       "source": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.712125592808398,
-      "verifiedRelation": "1-substitution"
+      "label": "1-substitution",
+      "similarity": 0.712125592808398
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "learning-bun-test-mocking-requires-mockmodule-not-viimportactual",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.712125592808398,
-      "verifiedRelation": "2-contradiction"
+      "label": "2-contradiction",
+      "similarity": 0.712125592808398
     },
     {
       "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7104531190067911,
-      "verifiedRelation": "fix-regression"
+      "label": "fix-regression",
+      "similarity": 0.7104531190067911
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7104531190067911,
-      "verifiedRelation": "fix-regression"
+      "label": "fix-regression",
+      "similarity": 0.7104531190067911
     },
     {
       "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
@@ -21310,149 +21415,2816 @@
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7101980243996173,
-      "verifiedRelation": "leak-restore"
+      "label": "leak-restore",
+      "similarity": 0.7101980243996173
     },
     {
       "source": "learning-retro-immediate-test-verification-after-each-change-maintains-confidence",
       "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7086879552505281,
-      "verifiedRelation": "synonym-rephrase"
+      "label": "synonym-rephrase",
+      "similarity": 0.7086879552505281
     },
     {
       "source": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
       "target": "learning-retro-immediate-test-verification-after-each-change-maintains-confidence",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7086879552505281,
-      "verifiedRelation": "synonym"
+      "label": "synonym",
+      "similarity": 0.7086879552505281
     },
     {
       "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
       "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7085119788843673,
-      "verifiedRelation": "refinement"
+      "label": "refinement",
+      "similarity": 0.7085119788843673
     },
     {
       "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
       "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7085119788843673,
-      "verifiedRelation": "caused-by"
+      "label": "caused-by",
+      "similarity": 0.7085119788843673
     },
     {
       "source": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
       "target": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7083793096242368,
-      "verifiedRelation": "causality-diagnosis"
+      "label": "causality-diagnosis",
+      "similarity": 0.7083793096242368
     },
     {
       "source": "learning-retro-root-cause-diagnosis-saves-time-better-than-symptom-driven-fixes",
       "target": "gotcha-hook-timeout-budget-exhaustion-with-ollama-retry-loops",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7083793096242368,
-      "verifiedRelation": "causation-root"
+      "label": "causation-root",
+      "similarity": 0.7083793096242368
     },
     {
       "source": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
       "target": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072402610472452,
-      "verifiedRelation": "strategy-outcome"
+      "label": "strategy-outcome",
+      "similarity": 0.7072402610472452
     },
     {
       "source": "learning-verification-first-approach-prevents-wasted-refactoring-effort",
       "target": "gotcha-retro-automated-code-review-findings-snapshot-decay-review-findings-against-git-history-before-investing-in-fixes",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072402610472452,
-      "verifiedRelation": "integration"
+      "label": "integration",
+      "similarity": 0.7072402610472452
     },
     {
       "source": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
       "target": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072394435375077,
-      "verifiedRelation": "problem-solution"
+      "label": "problem-solution",
+      "similarity": 0.7072394435375077
     },
     {
       "source": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
       "target": "gotcha-retro-background-agents-on-overlapping-code-without-worktree-isolation-create-cascading-type-mismatches-and-must-be-rolled-back",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7072394435375077,
-      "verifiedRelation": "refactor-change"
+      "label": "refactor-change",
+      "similarity": 0.7072394435375077
     },
     {
       "source": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7047539907051181,
-      "verifiedRelation": "dependency-resolution"
+      "label": "dependency-resolution",
+      "similarity": 0.7047539907051181
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "learning-bun-vihoisted-polyfill-enables-vitest-style-mocking-in-bun-test-runner",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7047539907051181,
-      "verifiedRelation": "polyfill-migration"
+      "label": "polyfill-migration",
+      "similarity": 0.7047539907051181
     },
     {
       "source": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
       "target": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7033893482771095,
-      "verifiedRelation": "7-pollution"
+      "label": "7-pollution",
+      "similarity": 0.7033893482771095
     },
     {
       "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
       "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7033893482771095,
-      "verifiedRelation": "ref-implementation"
+      "label": "ref-implementation",
+      "similarity": 0.7033893482771095
     },
     {
       "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
       "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7030682004130914,
-      "verifiedRelation": "7-contrast"
+      "label": "7-contrast",
+      "similarity": 0.7030682004130914
     },
     {
       "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
       "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7030682004130914,
-      "verifiedRelation": "7-cause"
+      "label": "7-cause",
+      "similarity": 0.7030682004130914
     },
     {
       "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
       "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7002178014556043,
-      "verifiedRelation": "dependency-migration"
+      "label": "dependency-migration",
+      "similarity": 0.7002178014556043
     },
     {
       "source": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
       "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7002178014556043,
-      "verifiedRelation": "contrast"
+      "label": "contrast",
+      "similarity": 0.7002178014556043
     },
     {
       "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
       "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
-      "label": "auto-linked-by-similarity",
-      "similarity": 0.7000699172663444,
-      "verifiedRelation": "refactor-fix"
+      "label": "refactor-fix",
+      "similarity": 0.7000699172663444
     },
     {
       "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
       "target": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "label": "fix-regression",
+      "similarity": 0.7000699172663444
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
       "label": "auto-linked-by-similarity",
-      "similarity": 0.7000699172663444,
-      "verifiedRelation": "fix-regression"
+      "similarity": 0.8323540625318899
+    },
+    {
+      "source": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "target": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.8111205044361741
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7977041877858778
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.770275147344916
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7625559289358471
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7621584296061071
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "7-resolution",
+      "similarity": 0.7436749388958367
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "label": "7-pollution",
+      "similarity": 0.7375809004760318
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "label": "migration",
+      "similarity": 0.7355003036581476
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "label": "compatibility-issue",
+      "similarity": 0.710821579116215
+    },
+    {
+      "source": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "dependency-replacement",
+      "similarity": 0.7073192743218496
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "7-solution",
+      "similarity": 0.7059443765355945
+    },
+    {
+      "source": "artifact-scope-path-resolution-pattern",
+      "target": "learning-resolvesharedscopepaths-helper-simplifies-multi-scope-memory-resolution",
+      "label": "ref-implementation",
+      "similarity": 0.6997211829950789
+    },
+    {
+      "source": "learning-retro-tdd-test-first-creation-prevents-implementation-rework-in-multi-file-phases",
+      "target": "learning-tdd-test-first-approach-caught-architectural-issues-early-in-phase-b-where-agent-metadata-belongs",
+      "label": "shift-evolution",
+      "similarity": 0.6997184684120793
+    },
+    {
+      "source": "learning-parallel-restoration-agents-significantly-more-efficient-than-sequential-workflows",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "contrast-benefit",
+      "similarity": 0.6996719656781691
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "label": "leak-binding",
+      "similarity": 0.6994421429774894
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "contrast",
+      "similarity": 0.6989951850606583
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "context-impact",
+      "similarity": 0.6989856561604498
+    },
+    {
+      "source": "learning-retro-session-restore-with-parallel-curator-agent-accelerates-memory-system-recovery",
+      "target": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6978948953439381
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "regression-cause",
+      "similarity": 0.6969344100954735
+    },
+    {
+      "source": "gotcha-retro-restoring-flag-remained-active-across-multiple-restoration-cycles-creating-repetitive-re-launches",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "re-establishment",
+      "similarity": 0.6968288440512209
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "label": "compatibility-issues",
+      "similarity": 0.696539000079229
+    },
+    {
+      "source": "decision-memory-system-analysis-complete-embedding-gotcha-needs-review",
+      "target": "learning-memory-system-analysis-session-linking-quality-audit",
+      "label": "refinement-review",
+      "similarity": 0.696512775238032
+    },
+    {
+      "source": "learning-retro-agent-verification-for-exclusions",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "code-comparison",
+      "similarity": 0.6959960739348457
+    },
+    {
+      "source": "learning-retro-error-handling-test-pattern-replication-reduced-per-file-time",
+      "target": "learning-retro-systematic-coverage-patterns-accelerate-edge-case-discovery",
+      "label": "enhancement-replication",
+      "similarity": 0.6957373338996222
+    },
+    {
+      "source": "decision-v110-feature-exploration-hint-visibility-auto-flag-enhanced-injection",
+      "target": "learning-review-findings-verification-multi-perspective-analysis",
+      "label": "impact-analysis",
+      "similarity": 0.6948673614879293
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-made-64-finding-code-review-tractable",
+      "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "label": "refinement-improvement",
+      "similarity": 0.6948063090101375
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "label": "contrast",
+      "similarity": 0.6947277156851308
+    },
+    {
+      "source": "learning-retro-session-restore-with-memory-linking-works-keeps-context-fresh",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "7-restoration",
+      "similarity": 0.693751567651972
+    },
+    {
+      "source": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "label": "coverage-analysis",
+      "similarity": 0.6931367119884759
+    },
+    {
+      "source": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "outcome-cause",
+      "similarity": 0.6929787744037997
+    },
+    {
+      "source": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "target": "learning-agent-flag-implementation-pattern-for-cli-commands-with-scope-resolution",
+      "label": "implementation-of",
+      "similarity": 0.6922914056785261
+    },
+    {
+      "source": "learning-retro-phase-based-grouping-with-trivial-first-ordering-makes-large-reviews-tractable",
+      "target": "learning-retro-quick-win-prioritization-validates-review-findings-early",
+      "label": "improvement-based",
+      "similarity": 0.6922829662719701
+    },
+    {
+      "source": "learning-bun-test-framework-mocking-requires-different-patterns-than-vitest",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "dependency-reasoning",
+      "similarity": 0.6920887339367148
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6920478534443721
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "label": "regression-impact",
+      "similarity": 0.6919809223481568
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "contrast-tradeoff",
+      "similarity": 0.6918355881746269
+    },
+    {
+      "source": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "contrast",
+      "similarity": 0.6916415728236716
+    },
+    {
+      "source": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "target": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "label": "7-audit-link",
+      "similarity": 0.6913606053984477
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "contrast-shift",
+      "similarity": 0.6913274070491288
+    },
+    {
+      "source": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "target": "learning-memory-system-linking-and-quality-audit-session-2026-02-04",
+      "label": "follow-up",
+      "similarity": 0.6913059300224591
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "trade-off",
+      "similarity": 0.6910305347001652
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-enable-immediate-triage-work",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "contrast-consequence",
+      "similarity": 0.6909873220475959
+    },
+    {
+      "source": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "target": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "label": "refinement",
+      "similarity": 0.6909406217632481
+    },
+    {
+      "source": "artifact-phase-b-storage-infrastructure",
+      "target": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "label": "crud-alignment",
+      "similarity": 0.6906068724689339
+    },
+    {
+      "source": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "target": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
+      "label": "refinement",
+      "similarity": 0.6903784156682525
+    },
+    {
+      "source": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "target": "retro-parallel-expert-review",
+      "label": "transformation",
+      "similarity": 0.6898034989293242
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "label": "mock-pollution",
+      "similarity": 0.6886930968997166
+    },
+    {
+      "source": "decision-phase-d-deferred-complete-all-25-tasks",
+      "target": "decision-phase-d-tdd-with-25-tasks",
+      "label": "transition-progress",
+      "similarity": 0.6879244652116144
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "label": "dependency-vi-mock",
+      "similarity": 0.687920141671346
+    },
+    {
+      "source": "decision-review-findings-verification-consulting-specialist-agents",
+      "target": "gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s",
+      "label": "timeout-reason",
+      "similarity": 0.6877875760124622
+    },
+    {
+      "source": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "cause-effect",
+      "similarity": 0.6876142487670376
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-phase-b-test-file-mocks-must-mirror-beforeeach-setup-across-all-test-blocks",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6875387164706284
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "gotcha-retro-memory-scope-moves-orphan-existing-cross-scope-links",
+      "label": "cross-scope-move",
+      "similarity": 0.6872461972900717
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "learning-modular-test-structure-for-large-operation-test-suites",
+      "label": "adaptation-refinement",
+      "similarity": 0.6871386594560014
+    },
+    {
+      "source": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "target": "learning-graph-structure-filtered-to-exported-memories-only",
+      "label": "filter-transfer",
+      "similarity": 0.6868321541473451
+    },
+    {
+      "source": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "enhancement-context",
+      "similarity": 0.6867575735986081
+    },
+    {
+      "source": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "contrast-consequence",
+      "similarity": 0.6867263862914847
+    },
+    {
+      "source": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "target": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "label": "scope-gotcha",
+      "similarity": 0.6863286630811598
+    },
+    {
+      "source": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "7-replacement",
+      "similarity": 0.6860006739581184
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "label": "improvement-1",
+      "similarity": 0.6858525391175331
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "label": "enhancement-fix",
+      "similarity": 0.6858094868859622
+    },
+    {
+      "source": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "refactoring",
+      "similarity": 0.6857985589641885
+    },
+    {
+      "source": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "solution",
+      "similarity": 0.6855746377336523
+    },
+    {
+      "source": "learning-hook-ollama-timeout-insufficient",
+      "target": "learning-retro-smoke-testing-real-ollama-revealed-timeout-assumptions-needed-correction",
+      "label": "contradiction-update",
+      "similarity": 0.6854107376907616
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "isolation",
+      "similarity": 0.6842072346994341
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "refactoring-cleanup",
+      "similarity": 0.683798243130298
+    },
+    {
+      "source": "learning-parallel-restoration-agents-unlock-tools-faster-than-sequential",
+      "target": "learning-retro-parallel-restoration-agents-unblock-main-session-during-compaction",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6833613812575922
+    },
+    {
+      "source": "gotcha-path-traversal-validation-required-for-user-supplied-agentstyle-names",
+      "target": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "label": "validation-sanitization",
+      "similarity": 0.6832300490647628
+    },
+    {
+      "source": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "contrast",
+      "similarity": 0.6828692597203144
+    },
+    {
+      "source": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "target": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "label": "matching-accuracy",
+      "similarity": 0.6822803739651332
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "label": "evolution-refactor",
+      "similarity": 0.682209022795899
+    },
+    {
+      "source": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6819471851476451
+    },
+    {
+      "source": "gotcha-test-isolation-vitest-mock-pollution",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6818286704979509
+    },
+    {
+      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "target": "learning-retro-tdd-parity-requires-explicit-configuration-for-colocated-vs-centralized-tests",
+      "label": "shift-in-scope",
+      "similarity": 0.6813671253606125
+    },
+    {
+      "source": "decision-session-continuity-strategy",
+      "target": "learning-retro-post-compaction-context-restoration-with-parallel-agents-is-effective",
+      "label": "7-contextualization",
+      "similarity": 0.6813082553217602
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "label": "execution-result",
+      "similarity": 0.6812353213763526
+    },
+    {
+      "source": "decision-direct-mutable-edge-mutation-vs-immutable-updateedge-pattern",
+      "target": "learning-edge-metadata-updates-use-immutable-pattern-with-getedge-lookup",
+      "label": "update-prop",
+      "similarity": 0.6805155768666338
+    },
+    {
+      "source": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "target": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "label": "extension-of-concept",
+      "similarity": 0.6796383588128
+    },
+    {
+      "source": "learning-parallel-restoration-agents-effective-but-require-sequential-approval-key-checking",
+      "target": "learning-retro-parallel-restoration-agents-with-curator-linking-prevents-orphaned-nodes",
+      "label": "enhancement-1",
+      "similarity": 0.6795573069580646
+    },
+    {
+      "source": "learning-pr-review-agents-should-fix-issues-in-parallel",
+      "target": "retro-multi-agent-review-effectiveness",
+      "label": "enhancement-strategy",
+      "similarity": 0.6794272269184671
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "pollutant",
+      "similarity": 0.6789120522758009
+    },
+    {
+      "source": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "problem-solution",
+      "similarity": 0.6782960964661194
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "label": "review-audit",
+      "similarity": 0.6781419299187917
+    },
+    {
+      "source": "learning-retro-tdd-parity-audit-forced-complete-test-coverage",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "rephrase-investigation",
+      "similarity": 0.67812039364217
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "decision-defer-large-refactors-from-code-reviews",
+      "label": "refactoring-strategy",
+      "similarity": 0.678060424954245
+    },
+    {
+      "source": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "target": "learning-mocking-processcwd-isolates-file-discovery-tests-from-filesystem-state",
+      "label": "contrast",
+      "similarity": 0.677941322745729
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "learning-retro-test-isolation-pattern-worth-documenting",
+      "label": "1-adaptation",
+      "similarity": 0.6778832053230588
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-module-level-mocks-require-test-isolation-documentation",
+      "label": "cause-effect",
+      "similarity": 0.6777461606281111
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "label": "leak-restore",
+      "similarity": 0.6773229494756337
+    },
+    {
+      "source": "learning-retro-stricter-tdd-touch-only-stub-creation-improved-discipline",
+      "target": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "label": "evolution",
+      "similarity": 0.6773201826789854
+    },
+    {
+      "source": "learning-module-level-mocks-require-test-isolation-documentation",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "pollution-isolation",
+      "similarity": 0.6768454540057072
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "refinement",
+      "similarity": 0.6766905013009878
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "refactoring",
+      "similarity": 0.6757743985965973
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "contrast-explanation",
+      "similarity": 0.6755763869531489
+    },
+    {
+      "source": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "target": "learning-tdd-parity-enforcement-catches-undocumented-test-files",
+      "label": "7-paradox",
+      "similarity": 0.6750298555649088
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "learning-retro-session-restore-with-parallel-agents-improves-post-compaction-recovery-speed",
+      "label": "7-overlap",
+      "similarity": 0.67394077407319
+    },
+    {
+      "source": "gotcha-retro-test-suite-shouldnt-write-to-claudememory-without-cleanup",
+      "target": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "label": "conflict-resolution",
+      "similarity": 0.6734484644321507
+    },
+    {
+      "source": "gotcha-bun-test-vi-mocked-incompatibility",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "dependency-fix",
+      "similarity": 0.6726099215881982
+    },
+    {
+      "source": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "concept-rephrasing",
+      "similarity": 0.672113834270246
+    },
+    {
+      "source": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "1-success",
+      "similarity": 0.6717899970138553
+    },
+    {
+      "source": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "target": "gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s",
+      "label": "delay-impact",
+      "similarity": 0.6715081222159113
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "dependency-resolution",
+      "similarity": 0.671321440518799
+    },
+    {
+      "source": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "target": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "label": "7-failure",
+      "similarity": 0.6712323015054938
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-session-restoration-with-parallel-agents-effective-for-memory-continuity",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.670740607663706
+    },
+    {
+      "source": "artifact-curator-analysis-2026-01-24-linking-quality",
+      "target": "decision-memory-hook-enhancement-plan-review",
+      "label": "review-update",
+      "similarity": 0.6707333465738174
+    },
+    {
+      "source": "gotcha-feature-005-518-tests-failing-on-feature-branch",
+      "target": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "label": "resolution-fix",
+      "similarity": 0.6705622225087583
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "target": "learning-retro-systematic-verification-workflow-lint-test-coverage-is-effective",
+      "label": "improvement",
+      "similarity": 0.6704874350129773
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "dependency-resolution",
+      "similarity": 0.6702693441460332
+    },
+    {
+      "source": "gotcha-retro-restoration-agent-blocking-pattern-requires-manual-flag-cleanup",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "improvement-refinement",
+      "similarity": 0.6702239123055914
+    },
+    {
+      "source": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "target": "learning-nodejs-code-review-sync-file-ops-block-event-loop",
+      "label": "blocking-sync",
+      "similarity": 0.6700656931644853
+    },
+    {
+      "source": "gotcha-parallel-agents-overlapping-code-type-errors",
+      "target": "gotcha-retro-cascading-async-refactors-create-half-baked-type-errors-across-multiple-files-better-as-dedicated-focused-prs",
+      "label": "refactoring-impact",
+      "similarity": 0.6700386151040475
+    },
+    {
+      "source": "decision-session-continuity-strategy",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "restoration-enhancement",
+      "similarity": 0.6698768021821565
+    },
+    {
+      "source": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
+      "target": "learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early",
+      "label": "refinement",
+      "similarity": 0.669353851310879
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "enhancement-details",
+      "similarity": 0.669328480560989
+    },
+    {
+      "source": "learning-retro-parallel-restoration-agents-effective-for-session-unlock",
+      "target": "learning-retro-session-restoration-adds-valuable-context-but-adds-cognitive-load",
+      "label": "consequence-of",
+      "similarity": 0.668994241032999
+    },
+    {
+      "source": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "target": "learning-import-requires-agent-field-for-scope-resolution",
+      "label": "conflict-resolution",
+      "similarity": 0.6687962798417204
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "gotcha-vi-mock-global-pollution-test-state",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6687017150660447
+    },
+    {
+      "source": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "target": "learning-retro-tdd-pre-tool-hooks-expose-edge-cases-earlier-in-design-phase",
+      "label": "7-transformation",
+      "similarity": 0.6684579766858538
+    },
+    {
+      "source": "decision-hook-separation-clarified-enforcement-boundaries",
+      "target": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "label": "enhancement-refinement",
+      "similarity": 0.6679073871242698
+    },
+    {
+      "source": "gotcha-graph-edges-not-saved-when-importing-to-new-agent",
+      "target": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "label": "dependency-resolution",
+      "similarity": 0.6678397752363971
+    },
+    {
+      "source": "decision-multi-scope-stats-return-field-parity",
+      "target": "learning-silent-failures-in-cross-scope-graph-loading-mask-root-causes",
+      "label": "cause-effect",
+      "similarity": 0.6677279756012375
+    },
+    {
+      "source": "learning-retro-systematic-file-analysis-prevents-false-tddignore-entries",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "label": "7-explanation",
+      "similarity": 0.6672607697391884
+    },
+    {
+      "source": "gotcha-retro-bun-test-framework-does-not-support-viimportactual-requires-mockmodule-approach",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "compatibility-issue",
+      "similarity": 0.6671297611229733
+    },
+    {
+      "source": "gotcha-external-file-discovery-must-constrain-to-basepath-to-avoid-walking-into-parent-directories",
+      "target": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "label": "refactoring",
+      "similarity": 0.6665648405238574
+    },
+    {
+      "source": "learning-mock-pollution-causes-cascading-test-failures-in-full-suite",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-not-mock-pollution",
+      "label": "misdirection-1",
+      "similarity": 0.6664848279085813
+    },
+    {
+      "source": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "target": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "label": "refinement-timeout",
+      "similarity": 0.6661445130177183
+    },
+    {
+      "source": "decision-read-only-guards-system-nodes",
+      "target": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "refactoring",
+      "similarity": 0.6650624666861936
+    },
+    {
+      "source": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "cause-effect",
+      "similarity": 0.6650026861730487
+    },
+    {
+      "source": "gotcha-retro-review-estimation-drift-on-type-checker-strictness-flags",
+      "target": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "label": "shift-topic",
+      "similarity": 0.6642996051978356
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "contrast",
+      "similarity": 0.6639445398451309
+    },
+    {
+      "source": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "learning-phase-b-storage-infrastructure-requires-minimal-changes-to-crud",
+      "label": "dependency-impact",
+      "similarity": 0.6637215910302157
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "framework-conflict",
+      "similarity": 0.6636254160146808
+    },
+    {
+      "source": "learning-retro-async-conversion-file-by-file-with-test-validation-catches-integration-issues-early",
+      "target": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "label": "refinement",
+      "similarity": 0.6624381971468389
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "target": "learning-tdd-hook-enforcement-requires-co-located-test-files",
+      "label": "implementation-test",
+      "similarity": 0.6622638514777214
+    },
+    {
+      "source": "decision-async-fs-conversion-required",
+      "target": "gotcha-feature-005-synchronous-file-io-blocks-event-loop-in-external-discovery",
+      "label": "refactoring-io",
+      "similarity": 0.6622272513371047
+    },
+    {
+      "source": "learning-expert-consultation-effectiveness",
+      "target": "learning-retro-parallel-expert-agents-for-code-review-scales-efficiently",
+      "label": "outcome-scaling",
+      "similarity": 0.6620908380973822
+    },
+    {
+      "source": "decision-graph-node-extended-for-agent-scope",
+      "target": "decision-include-shared-includes-all-shared-nodes-by-default-not-just-linked-ones",
+      "label": "include",
+      "similarity": 0.6616380824666949
+    },
+    {
+      "source": "artifact-bun-test-mocking-pattern-without-vi-mocked",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "compatibility",
+      "similarity": 0.6604243551434587
+    },
+    {
+      "source": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
+      "target": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "label": "risk-conflict",
+      "similarity": 0.660340680682229
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "learning-parallelized-file-discovery-via-promiseall-improves-performance-60-70",
+      "label": "refactoring-optimization",
+      "similarity": 0.6595655917046813
+    },
+    {
+      "source": "learning-module-level-mocks-require-test-isolation-documentation",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6591245082214994
+    },
+    {
+      "source": "decision-phase-d-implementation-complete-all-tests-passing",
+      "target": "decision-phase-e-test-triage-complete-12-regressions-fixed",
+      "label": "1-regression",
+      "similarity": 0.6588385553010063
+    },
+    {
+      "source": "gotcha-global-hooks-override-plugin-hooks",
+      "target": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
+      "label": "schema-update",
+      "similarity": 0.6587664081836903
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "target": "learning-stub-first-tdd-across-multiple-coordination-points-accelerates-multi-file-phases",
+      "label": "rephrasing",
+      "similarity": 0.6582484629993507
+    },
+    {
+      "source": "learning-async-file-io-blocks-event-loop-external-discovery-needed-conversion",
+      "target": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "label": "transformation",
+      "similarity": 0.6578088870332921
+    },
+    {
+      "source": "decision-memory-hook-enhancement-multi-expert-deliberation-round-2",
+      "target": "learning-retrospective-memory-refactor-session",
+      "label": "refactor-process",
+      "similarity": 0.6572164991891266
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "update-resolution",
+      "similarity": 0.6569252975412014
+    },
+    {
+      "source": "gotcha-embedding-context-length-causes-500-error",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "context-result",
+      "similarity": 0.6566634435114103
+    },
+    {
+      "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "7-mocking",
+      "similarity": 0.6566282561474068
+    },
+    {
+      "source": "learning-learning-duplicated-cli-helpers-hidden-in-10-command-files",
+      "target": "learning-retro-extract-shared-helpers-from-duplicated-code-paths-early-in-refactoring",
+      "label": "refactoring-code-duplication",
+      "similarity": 0.656123610268769
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-retro-bun-test-mocking-without-vimocked-requires-module-level-direct-references",
+      "label": "deprecation",
+      "similarity": 0.6554525853668126
+    },
+    {
+      "source": "learning-bug-fix-approach-minimal-surface-area-comprehensive-tests-rapid-delivery",
+      "target": "learning-tdd-parity-gap-investigation-is-974-good-enough",
+      "label": "refactoring-investigation",
+      "similarity": 0.6553053119299637
+    },
+    {
+      "source": "gotcha-test-projectroot-parameter-ignored-for-non-agent-scopes-in-writememory",
+      "target": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "label": "dependency",
+      "similarity": 0.654889238032063
+    },
+    {
+      "source": "artifact-v150-memory-graph-enhancements-plan",
+      "target": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "label": "contradiction-9",
+      "similarity": 0.6543469712676079
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-retro-test-isolation-pattern-worth-documenting",
+      "label": "refinement-1",
+      "similarity": 0.6540675806101751
+    },
+    {
+      "source": "learning-bun-test-framework-requires-comprehensive-fs-mocking-for-isolation",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "pollution-impact",
+      "similarity": 0.653934952754698
+    },
+    {
+      "source": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "target": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "label": "contrast",
+      "similarity": 0.6538742511448795
+    },
+    {
+      "source": "gotcha-test-isolation-vitest-mock-pollution",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "compatibility-issues",
+      "similarity": 0.6538379594785682
+    },
+    {
+      "source": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "target": "learning-retro-test-assertions-should-be-validated-against-implementation-before-marking-complete",
+      "label": "validation",
+      "similarity": 0.6532969883523057
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "refinement-improvement",
+      "similarity": 0.6528656040564946
+    },
+    {
+      "source": "gotcha-retro-test-isolation-failures-pass-individually-but-fail-together-mock-pollution-requires-infrastructure-sprint",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "resolution",
+      "similarity": 0.6526524016521705
+    },
+    {
+      "source": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "target": "learning-agent-scope-detection-homedir-check",
+      "label": "divergence-1",
+      "similarity": 0.6522285664986605
+    },
+    {
+      "source": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "framework-conflict",
+      "similarity": 0.6517679096170014
+    },
+    {
+      "source": "gotcha-test-isolation-vitest-mock-pollution",
+      "target": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "label": "overlap-concepts",
+      "similarity": 0.6515752000324231
+    },
+    {
+      "source": "decision-session-continuity-strategy",
+      "target": "learning-retro-restoration-agent-parallelisation-effective-but-hook-overhead-significant",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6514945026895621
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-post-compaction-session-restore-with-parallel-restoration-agents-accelerates-memory-recovery",
+      "label": "1-contrast",
+      "similarity": 0.6514749494076888
+    },
+    {
+      "source": "gotcha-prompt-improver-forked-sessions-leak-processes",
+      "target": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6510216902473174
+    },
+    {
+      "source": "decision-graph-node-extended-for-agent-scope",
+      "target": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "label": "visualization-mapping",
+      "similarity": 0.6510181068962699
+    },
+    {
+      "source": "decision-phase-d-implementation-complete-all-tests-passing",
+      "target": "gotcha-retro-test-positional-array-structure-bug-caught-post-implementation",
+      "label": "refactoring-1",
+      "similarity": 0.6503234304514348
+    },
+    {
+      "source": "learning-orphaned-test-files-are-legitimate-integration-specs",
+      "target": "learning-test-stub-re-export-pattern-maintains-colocated-parity-while-keeping-tests-in-integration-directory",
+      "label": "integration-reexport",
+      "similarity": 0.6498052751143163
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "label": "resolution",
+      "similarity": 0.6497811105549913
+    },
+    {
+      "source": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "target": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "label": "refactoring-guidance",
+      "similarity": 0.6496235007846771
+    },
+    {
+      "source": "gotcha-tests-with-dynamic-imports-need-vimock-not-vispyon",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "evolution-vs-mocking",
+      "similarity": 0.6494284193419517
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "audit-link",
+      "similarity": 0.6492725546008314
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "dependency-test",
+      "similarity": 0.6480539723281938
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-phase-delivery",
+      "label": "refinement-evolution",
+      "similarity": 0.6477995569630481
+    },
+    {
+      "source": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "target": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "label": "6-expansion",
+      "similarity": 0.6475694571630881
+    },
+    {
+      "source": "learning-retro-tdd-stub-first-pattern-with-hook-enforcement-accelerates-red-green-cycles",
+      "target": "learning-tdd-red-green-execution-for-phase-2-injection",
+      "label": "refactoring",
+      "similarity": 0.6472291415679899
+    },
+    {
+      "source": "learning-retro-fixing-critical-issues-systematically-with-test-verification-between-each-fix",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "synonym-variation",
+      "similarity": 0.6470763892145275
+    },
+    {
+      "source": "artifact-batch-similarity-scoring-pattern",
+      "target": "artifact-scoreedges-batch-cosine-similarity-backfill-implementation",
+      "label": "implementation-details",
+      "similarity": 0.6467266771653
+    },
+    {
+      "source": "gotcha-no-batch-mechanism-to-backfill-similarity-scores-on-pre-existing-edges",
+      "target": "learning-graph-edge-similarity-scope-isolation-pattern",
+      "label": "related-concept",
+      "similarity": 0.6465006016572075
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "learning-retro-pattern-replication-with-early-validation-prevents-iteration-cycles",
+      "label": "replication-adaptation",
+      "similarity": 0.6463755472680035
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6462129740877469
+    },
+    {
+      "source": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "contrast",
+      "similarity": 0.6453254912200641
+    },
+    {
+      "source": "gotcha-retro-context-token-awareness-at-95-prompted-timely-compaction-before-blocking",
+      "target": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "label": "outcome-comparison",
+      "similarity": 0.6452936509080475
+    },
+    {
+      "source": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "target": "learning-retro-batch-sed-replacement-vastly-more-efficient-than-incremental-editing",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6452789843628038
+    },
+    {
+      "source": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "cause-effect",
+      "similarity": 0.6450112279669665
+    },
+    {
+      "source": "learning-agent-path-structure-consistency-across-tests-and-implementation",
+      "target": "learning-base-path-validation-rejects-fictional-test-paths",
+      "label": "inconsistency",
+      "similarity": 0.6449943245087046
+    },
+    {
+      "source": "gotcha-agents-should-be-copies-not-rewrites",
+      "target": "gotcha-global-hooks-override-plugin-hooks",
+      "label": "override-conflict",
+      "similarity": 0.6442039067378807
+    },
+    {
+      "source": "learning-typescript-code-quality-review-for-feature005",
+      "target": "learning-typescript-omit-pattern-intersections",
+      "label": "refactoring-pattern",
+      "similarity": 0.6435869819557836
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "label": "refactoring",
+      "similarity": 0.643500976303406
+    },
+    {
+      "source": "learning-session-restoration-after-compaction-preserves-conversation-context-effectively",
+      "target": "learning-session-restoration-with-parallel-agents-efficiently-recovers-post-compaction-context",
+      "label": "improvement",
+      "similarity": 0.6431795514533506
+    },
+    {
+      "source": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "target": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "label": "path-mismatch",
+      "similarity": 0.6430179779496457
+    },
+    {
+      "source": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "target": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "label": "isolation-test",
+      "similarity": 0.642717544172601
+    },
+    {
+      "source": "gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges",
+      "target": "learning-metadata-tracking-pattern-for-multi-scope-suggest-links-operations",
+      "label": "support",
+      "similarity": 0.6427004364719962
+    },
+    {
+      "source": "decision-phase-b-complete-proceed-to-phase-c",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "3-progress",
+      "similarity": 0.6420547488950101
+    },
+    {
+      "source": "gotcha-feature-005-518-tests-failing-on-feature-branch",
+      "target": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
+      "label": "resolution",
+      "similarity": 0.6416771406009807
+    },
+    {
+      "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "target": "learning-module-level-mocks-require-test-isolation-documentation",
+      "label": "dependency-resolution",
+      "similarity": 0.6416563228640766
+    },
+    {
+      "source": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "target": "learning-phase-f-test-suite-cleanup-22-failures-reduced-to-0-by-fixing-module-level-mocks",
+      "label": "refactoring-impact",
+      "similarity": 0.6413780106211873
+    },
+    {
+      "source": "decision-colocate-unit-tests",
+      "target": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "label": "3-refactor",
+      "similarity": 0.6412902670404783
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "reminder-project-speckit-explorer-memory",
+      "label": "audit-link",
+      "similarity": 0.6411101826042861
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-does-not-exclude-orphaned-test-files",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "refactor-typescript",
+      "similarity": 0.6408001099802917
+    },
+    {
+      "source": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "timeout-adjustment",
+      "similarity": 0.6405103642667521
+    },
+    {
+      "source": "artifact-memory-curator-analysis-2026-02-05-phase-e-linking",
+      "target": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "label": "design-link",
+      "similarity": 0.6400091110219464
+    },
+    {
+      "source": "artifact-colocated-test-pattern-for-typescript-projects",
+      "target": "learning-tdd-parity-vitest-limitation",
+      "label": "vitest-parity",
+      "similarity": 0.6397715543330252
+    },
+    {
+      "source": "learning-retro-agent-verification-for-exclusions",
+      "target": "learning-retro-test-coverage-asymptotic-returns",
+      "label": "coverage-validation",
+      "similarity": 0.639577570537809
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "retro-test-quality-audit-2026-01-13",
+      "label": "1-audit",
+      "similarity": 0.6394998355474805
+    },
+    {
+      "source": "decision-memory-hook-enhancement-plan-review",
+      "target": "decision-review-findings-verification-consulting-specialist-agents",
+      "label": "outcome-verification",
+      "similarity": 0.6393681557289799
+    },
+    {
+      "source": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "target": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "label": "refinement-shift",
+      "similarity": 0.6392097123839081
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6390369843234283
+    },
+    {
+      "source": "learning-retrospective-memory-refactor-session",
+      "target": "retro-test-quality-audit-2026-01-13",
+      "label": "refinement",
+      "similarity": 0.638773527276803
+    },
+    {
+      "source": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "target": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "label": "causality-failure",
+      "similarity": 0.6383404502440354
+    },
+    {
+      "source": "learning-retro-parallel-memory-restoration-agents-unblock-context-efficiently",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "improvement-speed",
+      "similarity": 0.6383300227727745
+    },
+    {
+      "source": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "target": "learning-retro-session-restore-with-parallel-agents-achieved-perfect-memory-graph-health-in-minutes",
+      "label": "result",
+      "similarity": 0.6378878786856645
+    },
+    {
+      "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "target": "gotcha-post-session-continue-tool-unlock-can-fail-silently",
+      "label": "7-failure",
+      "similarity": 0.6378831874313649
+    },
+    {
+      "source": "learning-specification-audit-caught-architectural-gaps-before-planning",
+      "target": "retro-subprocess-security-audit",
+      "label": "cause-effect",
+      "similarity": 0.637794078891642
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-excludes-orphaned-test-files",
+      "target": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "label": "7-cause",
+      "similarity": 0.6377146379674004
+    },
+    {
+      "source": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
+      "target": "retro-parallel-expert-review",
+      "label": "context-shift",
+      "similarity": 0.6367677032569924
+    },
+    {
+      "source": "artifact-tdd-testing-patterns-catalogue",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "integration-issues",
+      "similarity": 0.6361146037368433
+    },
+    {
+      "source": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "target": "learning-cross-scope-linking-is-powerful-but-poorly-advertised",
+      "label": "refinement-1",
+      "similarity": 0.6355941729858424
+    },
+    {
+      "source": "gotcha-parallel-expert-agents-on-overlapping-code-phases-risk-merge-conflicts",
+      "target": "retro-parallel-expert-review",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6355874204760246
+    },
+    {
+      "source": "gotcha-retro-test-isolation-root-cause-was-mixed-frameworks-not-mock-pollution",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "causation-shift",
+      "similarity": 0.6351161489909407
+    },
+    {
+      "source": "learning-memory-system-analysis-session-linking-quality-audit",
+      "target": "learning-retro-memory-graph-linking-batch-approach-efficient",
+      "label": "analysis-linking",
+      "similarity": 0.6347467223536407
+    },
+    {
+      "source": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "target": "learning-retro-orphaned-nodes-accumulate-post-compaction",
+      "label": "conflict-resolution",
+      "similarity": 0.6344952012559159
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "solution",
+      "similarity": 0.6344659860623387
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-bun-test-polyfill-vihoisted-requires-bunfigtoml-preload",
+      "label": "dependency-polyfill",
+      "similarity": 0.6344330063865279
+    },
+    {
+      "source": "gotcha-auto-compaction-mid-task-is-safe-session-restore-rebuilds-context",
+      "target": "learning-retro-parallel-restoration-agents-with-proper-subagenttype-handling-accelerates-context-recovery-significantly",
+      "label": "contrast",
+      "similarity": 0.6343186903099787
+    },
+    {
+      "source": "decision-tdd-enforcement-hooks-typescript-for-all-vs-native-per-language",
+      "target": "retro-mock-syntax-friction-bun",
+      "label": "conflict-cause",
+      "similarity": 0.6342645130999274
+    },
+    {
+      "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "label": "1-contrast",
+      "similarity": 0.6339362477089143
+    },
+    {
+      "source": "gotcha-bun-test-runner-mock-isolation-causes-cross-file-mock-conflicts-in-test-suite",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "contrast-resolution",
+      "similarity": 0.6338981264267457
+    },
+    {
+      "source": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "target": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "label": "7-leak-isolation",
+      "similarity": 0.6336506660967075
+    },
+    {
+      "source": "gotcha-retro-session-consumed-entirely-by-restoration-ceremony-zero-implementation-time-despite-t137-marked-inprogress",
+      "target": "learning-retro-parallel-restoration-agents-unlock-tools-faster-than-sequential-approval-workflows",
+      "label": "effect-of-restoration",
+      "similarity": 0.633644201645038
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-module-level-mocks-require-test-isolation-documentation",
+      "label": "dependency-impact",
+      "similarity": 0.6334924593712951
+    },
+    {
+      "source": "decision-phase-b-api-types-agent-field-propagation",
+      "target": "gotcha-partial-failures-in-bulk-operations-need-explicit-surfacing",
+      "label": "refinement-impact",
+      "similarity": 0.6332254346552757
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "label": "contrast-transition",
+      "similarity": 0.6330163158723675
+    },
+    {
+      "source": "learning-retro-tdd-stub-file-pattern-accelerated-hook-compliant-implementation",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6327331672477832
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "label": "resolution-impact",
+      "similarity": 0.6322186860804968
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-retro-test-isolation-pattern-worth-documenting",
+      "label": "refactor-imp",
+      "similarity": 0.6316686853675376
+    },
+    {
+      "source": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
+      "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "label": "improvement-result",
+      "similarity": 0.6315315524391119
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "delay-cause",
+      "similarity": 0.631285214402129
+    },
+    {
+      "source": "gotcha-agent-field-propagation-requires-tracing-through-all-layers",
+      "target": "learning-agent-field-must-propagate-through-entire-write-operation-response-chain",
+      "label": "propagation-chain",
+      "similarity": 0.6309341370583228
+    },
+    {
+      "source": "gotcha-retro-external-file-discovery-scope-must-be-constrained-upfront-not-debugged-later",
+      "target": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "label": "refactoring",
+      "similarity": 0.6307771136452668
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "label": "contrast",
+      "similarity": 0.6305460316626142
+    },
+    {
+      "source": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
+      "target": "learning-retro-task-driven-tdd-with-retrospective-validation-prevents-duplicate-work",
+      "label": "refinement-variation",
+      "similarity": 0.6303262774075262
+    },
+    {
+      "source": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "validation-isolation",
+      "similarity": 0.6301532838797107
+    },
+    {
+      "source": "learning-tdd-phase-completion-pattern",
+      "target": "learning-tdd-test-coverage-expansion-pattern",
+      "label": "expansion-of",
+      "similarity": 0.6299478231463244
+    },
+    {
+      "source": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "target": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "label": "improvement-strategy",
+      "similarity": 0.6298336016478745
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-retro-individual-test-file-runs-masked-cross-file-pollution-in-extract-context",
+      "label": "7-contrast",
+      "similarity": 0.6294390047897965
+    },
+    {
+      "source": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "target": "learning-linkmemories-requires-agent-aware-basepath-resolution",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.629432025140257
+    },
+    {
+      "source": "learning-retro-coverage-ceiling-reached-when-code-requires-processexitsignal-mocking",
+      "target": "learning-retro-test-coverage-asymptotic-returns",
+      "label": "coverage-analysis",
+      "similarity": 0.6291985106862119
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "extension",
+      "similarity": 0.6286989110472248
+    },
+    {
+      "source": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "target": "learning-test-isolation-failures-caused-by-mixed-test-frameworks-bun-test-vitest",
+      "label": "resolution-cause",
+      "similarity": 0.6283278932783664
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "label": "refactoring",
+      "similarity": 0.628192501985799
+    },
+    {
+      "source": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "target": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6281921967550321
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "learning-vispyon-solves-bun-module-level-vimock-test-pollution",
+      "label": "solution-pollution",
+      "similarity": 0.6280740557017791
+    },
+    {
+      "source": "learning-retro-coverage-validation-should-be-explicit-not-assumed",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "label": "validation-result",
+      "similarity": 0.6280280982213642
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "learning-retro-tdd-hook-stub-first-pattern-eliminated-accidental-file-overwrites-and-forced-deliberate-structure",
+      "label": "refactoring",
+      "similarity": 0.6277468740160105
+    },
+    {
+      "source": "decision-subagent-memory-capture-phases",
+      "target": "learning-agent-identity-detection-via-invocation-markers-practical-implementation-approach",
+      "label": "integration-phase",
+      "similarity": 0.6277445526944777
+    },
+    {
+      "source": "learning-tdd-phase-completion-pattern",
+      "target": "learning-tdd-red-phase-requires-actual-test-execution",
+      "label": "2-expansion",
+      "similarity": 0.6276975451639959
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "concept-explanation",
+      "similarity": 0.6276873141448622
+    },
+    {
+      "source": "gotcha-retro-hook-logs-failing-silently-makes-retrospective-debugging-difficult",
+      "target": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "label": "cause-effect",
+      "similarity": 0.6275019895812008
+    },
+    {
+      "source": "learning-fixed-all-test-pollution-20-failures-eliminated-by-removing-fs-mock",
+      "target": "learning-retro-test-suite-went-from-5-failures0-by-fixing-mocks-and-test-isolation",
+      "label": "fix-regression",
+      "similarity": 0.6274567133794594
+    },
+    {
+      "source": "decision-async-fs-conversion-required",
+      "target": "learning-retro-batch-test-edits-more-efficient-than-sequential-edit-tool-calls",
+      "label": "refactoring-1",
+      "similarity": 0.6269928847867359
+    },
+    {
+      "source": "learning-aspirational-tests-need-rewriting-to-match-actual-implementation",
+      "target": "learning-test-agent-generates-aspirational-tests",
+      "label": "refinement",
+      "similarity": 0.6269137822047383
+    },
+    {
+      "source": "learning-aspirational-tests-need-rewriting-to-match-actual-implementation",
+      "target": "learning-retro-agent-generated-tests-need-api-validation",
+      "label": "refinement-2",
+      "similarity": 0.6263474228394118
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "gotcha-cross-scope-edge-cleanup-on-delete-must-scan-for-matching-edges",
+      "label": "cleanup-sync",
+      "similarity": 0.6260730821160467
+    },
+    {
+      "source": "artifact-colocated-test-pattern-for-typescript-projects",
+      "target": "learning-retro-tdd-with-distributed-tests-requires-explicit-tddignore-documentation",
+      "label": "testing-patterns",
+      "similarity": 0.6256757507158953
+    },
+    {
+      "source": "learning-retro-memory-linking-post-compaction",
+      "target": "learning-three-agent-parallel-restoration-pattern-successful-for-post-compaction-context-recovery",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6255632977042814
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "label": "1-pollution",
+      "similarity": 0.6253463669980756
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "result",
+      "similarity": 0.6253072342754746
+    },
+    {
+      "source": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "problem-solution",
+      "similarity": 0.6248526522582204
+    },
+    {
+      "source": "learning-retro-parallel-expert-dispatch-accelerates-large-code-reviews",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "summarization-reframe",
+      "similarity": 0.6244224018823101
+    },
+    {
+      "source": "gotcha-test-isolation-vitest-mock-pollution",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "contrast",
+      "similarity": 0.624360892509086
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-retro-binary-search-effective-for-finding-cross-file-test-pollution",
+      "label": "refactor-fix",
+      "similarity": 0.6243109320791091
+    },
+    {
+      "source": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "target": "learning-test-naming-convention-spec-ts",
+      "label": "refactoring",
+      "similarity": 0.6237835607140777
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "gotcha-gotcha-mock-test-refactoring-needs-dedicated-sprint-not-incremental",
+      "label": "delay-impact",
+      "similarity": 0.6230214874862996
+    },
+    {
+      "source": "gotcha-incomplete-mock-types-in-tests-generate-cascading-typescript-errors",
+      "target": "learning-retro-agent-swarm-parallelization-for-mass-typescript-fixes-highly-effective",
+      "label": "refactoring",
+      "similarity": 0.6229617502438337
+    },
+    {
+      "source": "learning-tdd-phase-completion-pattern",
+      "target": "learning-test-coverage-achieved-99-percent-functions",
+      "label": "coverage-result",
+      "similarity": 0.6227384341022236
+    },
+    {
+      "source": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "contrast-issue",
+      "similarity": 0.6227220652848952
+    },
+    {
+      "source": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
+      "target": "learning-vimock-global-pollution-module-level-mocks-persist-across-test-files",
+      "label": "pollution-corruption",
+      "similarity": 0.6220703238008335
+    },
+    {
+      "source": "gotcha-external-files-must-be-read-raw-without-frontmatter-parsing",
+      "target": "learning-external-file-discovery-uses-wrong-base-path-must-use-scopepath",
+      "label": "misdirection",
+      "similarity": 0.6215930067372301
+    },
+    {
+      "source": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "target": "learning-test-isolation-processchdir-contamination-solved-with-oshomedir",
+      "label": "refactoring-scope",
+      "similarity": 0.6212854932887679
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "gotcha-viusefaketimers-hangs-bun-test-runner-in-concurrent-file-execution",
+      "label": "7-mocking",
+      "similarity": 0.6212210040361722
+    },
+    {
+      "source": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
+      "target": "learning-retro-plugin-discovery-in-spawned-sessions-requires-plugin-dir-flags",
+      "label": "7-migration",
+      "similarity": 0.6208808863088269
+    },
+    {
+      "source": "learning-tdd-parity-vitest-limitation",
+      "target": "learning-test-naming-convention-spec-ts",
+      "label": "naming-convention",
+      "similarity": 0.6205855455063956
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "gotcha-vitest-mocking-reference-binding-gotcha",
+      "label": "7-leak",
+      "similarity": 0.6202604441319702
+    },
+    {
+      "source": "learning-test-isolation-and-flaky-test-handling-autoselector-heuristics",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "discovery-impact",
+      "similarity": 0.6200072560525827
+    },
+    {
+      "source": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
+      "target": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "label": "evolution-of-insight",
+      "similarity": 0.6199382062155533
+    },
+    {
+      "source": "gotcha-settingsversion-must-be-updated-in-multiple-files-when-schema-changes",
+      "target": "learning-version-bumps-require-updates-across-packagejson-pluginjson-and-changelogmd",
+      "label": "dependency-update",
+      "similarity": 0.6190787652565862
+    },
+    {
+      "source": "learning-retro-tdd-cycle-with-redgreen-phases-accelerated-external-module-confidence",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "mapping",
+      "similarity": 0.618985936177542
+    },
+    {
+      "source": "learning-phase-c-tdd-first-completion-pattern",
+      "target": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
+      "label": "adaptation",
+      "similarity": 0.6188495548084141
+    },
+    {
+      "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "refactoring",
+      "similarity": 0.6187729128547962
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "learning-duplicate-sdd-scaffolding-bloats-test-suite",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6186465825162125
+    },
+    {
+      "source": "gotcha-tdd-parity-tool-misreports-missing-tests-with-default-config",
+      "target": "learning-tdd-parity-typescript-support",
+      "label": "refactor-fix",
+      "similarity": 0.618527478965325
+    },
+    {
+      "source": "learning-retro-explore-agent-accelerates-pattern-synthesis",
+      "target": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "label": "expansion",
+      "similarity": 0.6185183157247878
+    },
+    {
+      "source": "learning-retro-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "target": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "label": "contrast-isolation",
+      "similarity": 0.618458526616353
+    },
+    {
+      "source": "gotcha-ollama-llm-type-cold-start-requires-300s-timeout-not-15s",
+      "target": "learning-semantic-search-embedding-caching-success",
+      "label": "llm-coldstart",
+      "similarity": 0.6181844547852596
+    },
+    {
+      "source": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "target": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "label": "resolution-cause",
+      "similarity": 0.6180005738980746
+    },
+    {
+      "source": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
+      "target": "gotcha-vitest-spy-leak-without-aftereach-restore",
+      "label": "leak-behavior",
+      "similarity": 0.6179211742723743
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-tdd-discipline-with-all-tests-upfront-accelerates-implementation",
+      "label": "contrast",
+      "similarity": 0.6175992111424515
+    },
+    {
+      "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "target": "learning-retro-dateprototype-mocking-enables-pure-function-testing-without-fakes",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6173047785542574
+    },
+    {
+      "source": "learning-async-io-conversion-resolved-event-loop-blocking",
+      "target": "learning-parallel-embedding-generation-major-speedup",
+      "label": "speedup",
+      "similarity": 0.6172952091277545
+    },
+    {
+      "source": "gotcha-retro-duplicate-mock-setup-creates-test-fragility",
+      "target": "learning-retro-pure-function-mock-removal-pattern-is-highly-effective",
+      "label": "refactoring",
+      "similarity": 0.6172570840572058
+    },
+    {
+      "source": "learning-feature-005-comprehensive-7-expert-review-complete",
+      "target": "retro-test-quality-audit-2026-01-13",
+      "label": "audit-outcome",
+      "similarity": 0.617030933996248
+    },
+    {
+      "source": "gotcha-gotcha-plugin-skill-namespace-mismatch-caused-hook-failures",
+      "target": "learning-retro-root-cause-analysis-through-git-and-settings-reveals-hook-overrides",
+      "label": "7-cause",
+      "similarity": 0.6168629341467006
+    },
+    {
+      "source": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "target": "gotcha-retro-hook-timeouts-were-too-aggressive-2s-broke-ollama-for-users",
+      "label": "fix-timeout",
+      "similarity": 0.6168430136979103
+    },
+    {
+      "source": "decision-subagentstop-hook-receives-insufficient-context-use-posttooluse-instead",
+      "target": "learning-hook-naming-consistency-prevents-state-deadlock",
+      "label": "7-dependency",
+      "similarity": 0.616428964099572
+    },
+    {
+      "source": "gotcha-phase-e-test-directory-structure-needs-early-verification-against-project-conventions",
+      "target": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "label": "7-evolution",
+      "similarity": 0.6159205156812818
+    },
+    {
+      "source": "learning-retro-reading-code-before-editing-prevented-wrong-imports-and-type-mismatches-on-first-try",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "improvement-strategy",
+      "similarity": 0.6159001059434352
+    },
+    {
+      "source": "artifact-spec-remediation-pattern-analyze-decide-add-fr-add-test",
+      "target": "learning-speckitanalyze-catches-spec-to-code-gaps-systematically",
+      "label": "inheritance",
+      "similarity": 0.6158431413056343
+    },
+    {
+      "source": "learning-bun-link-cli-exposure-pattern",
+      "target": "learning-execfilesync-loses-path-in-bun-subprocesses",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6156010006171889
+    },
+    {
+      "source": "learning-retro-tdd-design-clarity-prevents-contradictory-test-expectations",
+      "target": "learning-retro-tdd-test-first-approach-for-phase-e-provides-clear-requirements-and-accelerates-green-phase",
+      "label": "supports-benefits",
+      "similarity": 0.6155241500518883
+    },
+    {
+      "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "target": "learning-retro-mock-removal-categorizes-into-two-distinct-types",
+      "label": "contrast-comparison",
+      "similarity": 0.6154729027516933
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-restoration-agents-3-agents-300s-total-restore-context-faster-than-sequential",
+      "label": "improvement",
+      "similarity": 0.6152040602966634
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "target": "learning-tdd-phase-completion-pattern",
+      "label": "pattern-extension",
+      "similarity": 0.6150131632956052
+    },
+    {
+      "source": "gotcha-cross-scope-graph-edges-design-constraint",
+      "target": "gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces",
+      "label": "import-links",
+      "similarity": 0.6149872908651797
+    },
+    {
+      "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "target": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "label": "evolution-refactoring",
+      "similarity": 0.6147388434693245
+    },
+    {
+      "source": "learning-retro-stub-first-tdd-with-multi-file-test-coordination-accelerated-phase-d-delivery",
+      "target": "learning-retro-tdd-approach-for-settings-parser-accelerated-implementation",
+      "label": "refinement-1",
+      "similarity": 0.61426429120642
+    },
+    {
+      "source": "artifact-phase-e-agent-discovery-implementation",
+      "target": "artifact-phase-f-agent-operations-module",
+      "label": "7-implementation",
+      "similarity": 0.6142121618561421
+    },
+    {
+      "source": "learning-scope-field-frontmatter-serialisation-gotcha",
+      "target": "learning-test-memories-must-include-all-required-frontmatter-fields",
+      "label": "update-frontmatter",
+      "similarity": 0.6141503490709196
+    },
+    {
+      "source": "gotcha-tdd-test-files-must-exist-before-editing-hooks-catches-integration-mismatches",
+      "target": "learning-retro-tdd-hook-enforcement-caught-gaps-early",
+      "label": "evolution-refinement",
+      "similarity": 0.6139538241866022
+    },
+    {
+      "source": "gotcha-retro-agent-visibility-during-restoration-incomplete",
+      "target": "learning-stale-context-summary-after-compaction-can-mislead",
+      "label": "7-incompleteness",
+      "similarity": 0.6139242510432606
+    },
+    {
+      "source": "decision-parallel-restoration-agents-accelerate-post-compaction-recovery",
+      "target": "learning-retro-memory-linking-post-compaction",
+      "label": "recovery-link",
+      "similarity": 0.6138526799663612
+    },
+    {
+      "source": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
+      "target": "learning-speckit-analyze-cross-artifact-remediation-patterns-for-v150",
+      "label": "update",
+      "similarity": 0.6135166276459931
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "learning-post-compaction-memory-restoration-prevented-duplicate-work",
+      "label": "resolution-cleanup",
+      "similarity": 0.6129876720539661
+    },
+    {
+      "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "target": "learning-phase-e-agent-scoped-memories-feature-complete-with-67-passing-tests",
+      "label": "refinement-evolution",
+      "similarity": 0.6127458840832026
+    },
+    {
+      "source": "learning-code-review-findings-require-verification-against-current-code",
+      "target": "learning-retro-quick-win-prioritization-validates-review-findings-early",
+      "label": "validation-feedback",
+      "similarity": 0.6126944481654404
+    },
+    {
+      "source": "gotcha-retro-graphnode-enrichment-critical-for-agent-scoped-mermaid-generation",
+      "target": "learning-mermaid-diagrams-need-scope-indicators-for-agent-filtered-views",
+      "label": "enrichment-scope",
+      "similarity": 0.6125959875510248
+    },
+    {
+      "source": "learning-retro-tdd-parity-typescript-matching-accuracy",
+      "target": "learning-retro-test-coverage-asymptotic-returns",
+      "label": "test-coverage",
+      "similarity": 0.6122824492975695
+    },
+    {
+      "source": "decision-defer-test-isolation-fixes-to-v120",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "refactor-impact",
+      "similarity": 0.6122672778822171
+    },
+    {
+      "source": "gotcha-getscopepath-global-empty-string-returns-unchanged",
+      "target": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "label": "context-propagation",
+      "similarity": 0.6120356887158962
+    },
+    {
+      "source": "learning-agent-name-validation-auto-lowercasing-pattern",
+      "target": "learning-api-validation-must-occur-before-sanitisation-for-security",
+      "label": "security-prevention",
+      "similarity": 0.6119397662282311
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "rule-global-claude-md-dotclaude",
+      "label": "copy-paste",
+      "similarity": 0.6119232558186962
+    },
+    {
+      "source": "learning-retro-tdd-red-green-refactor-catches-async-await-errors-naturally",
+      "target": "learning-retro-test-driven-validation-catches-regressions-early-in-large-refactors",
+      "label": "synonym",
+      "similarity": 0.6117085422744882
+    },
+    {
+      "source": "gotcha-retro-test-file-size-limits-require-early-separation-strategy-for-multi-feature-phases",
+      "target": "learning-retro-spec-file-refactoring-timing",
+      "label": "refactoring-timing",
+      "similarity": 0.6116481494757716
+    },
+    {
+      "source": "gotcha-retro-agent-field-propagation-requires-tracing-through-serialisation-validation-and-requestresponse-types",
+      "target": "learning-agent-directory-resolution-pattern-consistent-path-resolution-across-crud-operations",
+      "label": "propagation-resolution",
+      "similarity": 0.6115345551337825
+    },
+    {
+      "source": "gotcha-deferring-help-text-updates-to-final-task-created-time-pressure",
+      "target": "learning-retro-spec-artifact-audits-surface-pre-existing-documentation",
+      "label": "temporal-shift",
+      "similarity": 0.6113927341798407
+    },
+    {
+      "source": "artifact-tdd-stub-pattern-for-hooks",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "precondition-dependency",
+      "similarity": 0.6113777449155438
+    },
+    {
+      "source": "artifact-colocated-test-pattern-for-typescript-projects",
+      "target": "gotcha-retro-vitest-include-config-covers-skillsmemorysrc-not-tests-subdirs",
+      "label": "refactoring-config",
+      "similarity": 0.61124981819147
+    },
+    {
+      "source": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "target": "learning-retro-systematic-fix-prioritization-accelerates-code-review-resolution",
+      "label": "enhancement-strategy",
+      "similarity": 0.6110125625714606
+    },
+    {
+      "source": "decision-prioritise-fixing-genuine-bugs-over-investigating-cross-file-test-pollution",
+      "target": "learning-retro-process-isolation-for-vitest-coverage-overcomes-global-mock-pollution-cleanly",
+      "label": "refactoring-fix",
+      "similarity": 0.6109912232350895
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "learning-subagentstop-hook-receives-only-agentidsession-context-must-be-extracted-later",
+      "label": "migration-dependency",
+      "similarity": 0.6109268920754827
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution",
+      "label": "resolution-update",
+      "similarity": 0.6108555080508726
+    },
+    {
+      "source": "learning-modular-test-structure-for-large-operation-test-suites",
+      "target": "learning-retro-complete-test-rewrites-cleaner-than-incremental-edits-for-pattern-changes",
+      "label": "refactoring",
+      "similarity": 0.6106473506970631
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "label": "refinement-1",
+      "similarity": 0.6105762646189368
+    },
+    {
+      "source": "learning-retro-pattern-replication-across-test-suites-dramatically-accelerates-coverage-completion",
+      "target": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
+      "label": "benefit-contrast",
+      "similarity": 0.610525310001979
+    },
+    {
+      "source": "gotcha-cross-scope-linking-via-target-scope-flag-not-implemented",
+      "target": "learning-cross-scope-edges-are-read-only-for-auto-link-in-suggest-links",
+      "label": "read-only",
+      "similarity": 0.6101669672823256
+    },
+    {
+      "source": "gotcha-test-writes-to-wrong-path-when-using-projectroot-instead-of-basepath",
+      "target": "learning-retro-integration-tests-reveal-path-resolution-bugs-unit-tests-miss",
+      "label": "regression-fix",
+      "similarity": 0.6100620795986628
+    },
+    {
+      "source": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "target": "decision-phase-e-agent-scoped-memories-complete",
+      "label": "transition",
+      "similarity": 0.6094699354872064
+    },
+    {
+      "source": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "target": "learning-retro-batch-memory-scope-moves-with-atomic-verification",
+      "label": "migration-optimization",
+      "similarity": 0.6094586954577199
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "target": "learning-retro-parallel-agent-delegation-for-independent-refactors-reduces-session-time",
+      "label": "evolution-of-idea",
+      "similarity": 0.6093432940350927
+    },
+    {
+      "source": "learning-retro-aspirational-tests-without-integration-context-cause-red-phase-delays",
+      "target": "learning-retro-stub-first-tdd-pattern-prevents-hook-blocking-overwrites",
+      "label": "contrast-tradeoff",
+      "similarity": 0.6092896701833337
+    },
+    {
+      "source": "learning-api-validation-must-occur-before-sanitisation-for-security",
+      "target": "learning-sanitise-agent-names-from-filesystem-discovery",
+      "label": "validation-precedes-sanitization",
+      "similarity": 0.6092491145867329
+    },
+    {
+      "source": "decision-phase-c-implementation-plan-complete-ready",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "3-implementation",
+      "similarity": 0.6090904086954083
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-isolate-then-full-test-pattern-reveals-pollution-vs-real-bugs",
+      "label": "7-contamination",
+      "similarity": 0.6089646122479085
+    },
+    {
+      "source": "decision-4tier-scope-hierarchy",
+      "target": "gotcha-resolveSharedScopePaths-global-scope-pollution",
+      "label": "scope-transfer",
+      "similarity": 0.6086857226592803
+    },
+    {
+      "source": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "target": "learning-retro-scope-assumptions-about-feature-coverage-should-be-validated-early",
+      "label": "expansion",
+      "similarity": 0.6085901686660298
+    },
+    {
+      "source": "decision-phase-d-deferred-complete-all-25-tasks",
+      "target": "learning-phase-e-tdd-red-phase-completion-yields-2465-lines-of-comprehensive-test-coverage",
+      "label": "result-update",
+      "similarity": 0.6085191689247975
+    },
+    {
+      "source": "learning-retro-parallel-agent-refactoring-for-file-merges-scales-well",
+      "target": "learning-retro-test-driven-validation-catches-regressions-early-in-large-refactors",
+      "label": "consequence",
+      "similarity": 0.6084534940797278
+    },
+    {
+      "source": "learning-memory-context-hook-graceful-search-degradation",
+      "target": "rule-global-claude-md-dotclaude",
+      "label": "7-context",
+      "similarity": 0.6083173660108601
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "refinement",
+      "similarity": 0.6082619192987336
+    },
+    {
+      "source": "learning-tdd-parity-enforcement-blocks-file-creation-without-tests",
+      "target": "learning-tdd-typescript-hook-bidirectional-enforcement",
+      "label": "refactor-test",
+      "similarity": 0.6082396662866656
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-dispatch-on-non-overlapping-code-phases-accelerates-multi-phase-reviews",
+      "target": "learning-retro-parallel-file-edits-on-coordinated-version-bumps-accelerated-release-workflow",
+      "label": "improvement-based",
+      "similarity": 0.608207933527768
+    },
+    {
+      "source": "artifact-colocated-test-pattern-for-typescript-projects",
+      "target": "learning-test-naming-convention-spec-ts",
+      "label": "rename-test",
+      "similarity": 0.6079972015981444
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "learning-retro-trust-gotcha-memory-before-investigating-duplicates",
+      "label": "7-contamination",
+      "similarity": 0.6079601083578965
+    },
+    {
+      "source": "learning-memory-curator-agent-successfully-resolves-test-pollution-investigation-completion",
+      "target": "learning-retro-iterative-orphan-linking-with-semantic-validation-is-effective",
+      "label": "resolution-outcome",
+      "similarity": 0.6077157509749351
+    },
+    {
+      "source": "gotcha-gotcha-vimock-causes-test-pollution-in-coverage-mode",
+      "target": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6076470521570325
+    },
+    {
+      "source": "decision-hook-separation-clarified-enforcement-boundaries",
+      "target": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "label": "dependency-complete",
+      "similarity": 0.607389140768909
+    },
+    {
+      "source": "gotcha-hook-tests-that-dont-import-actual-hook-code-give-false-confidence",
+      "target": "learning-tdd-compliance-hook-requires-tddignore-for-non-colocated-tests",
+      "label": "contradiction",
+      "similarity": 0.6072112523758616
+    },
+    {
+      "source": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "target": "gotcha-bulk-move-loses-graph-edges-design-cross-scope-edges-dont-survive",
+      "label": "design-impact",
+      "similarity": 0.6071270795685175
+    },
+    {
+      "source": "gotcha-ollama-circuit-breaker-needed-to-prevent-cascading-timeouts-in-think-hook",
+      "target": "learning-ollama-timeouts-need-10-30s-for-cold-start-not-2s",
+      "label": "time-adjustment",
+      "similarity": 0.606817315312825
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "learning-scope-isolation-architecture-design",
+      "label": "integration-result",
+      "similarity": 0.6067306310287545
+    },
+    {
+      "source": "gotcha-vimock-importoriginal-parameter-not-fully-supported-in-bun",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "substitution",
+      "similarity": 0.6064398858361683
+    },
+    {
+      "source": "learning-retro-tdd-first-with-explicit-test-sections-t001t028-accelerated-phase-delivery",
+      "target": "learning-retro-tdd-with-rapid-smoke-testing-accelerates-feature-validation",
+      "label": "refinement-optimization",
+      "similarity": 0.6063174080016644
+    },
+    {
+      "source": "gotcha-cross-scope-auto-linking-not-implemented-in-suggest-links",
+      "target": "gotcha-suggest-links-all-scopes-loads-from-project-global-and-all-agent-namespaces",
+      "label": "usage",
+      "similarity": 0.6062425920833667
+    },
+    {
+      "source": "learning-retro-explore-unknown-patterns-before-designing-phase-features",
+      "target": "learning-retro-plan-mode-agent-exploration-effective-architecture-review",
+      "label": "pre-design-planning",
+      "similarity": 0.6062366744278603
+    },
+    {
+      "source": "artifact-test-patterns-tdd-rule-reminder",
+      "target": "learning-retro-tdd-test-first-enforcement-prevents-premature-file-creation",
+      "label": "enforcement-details",
+      "similarity": 0.6059996414556638
+    },
+    {
+      "source": "artifact-v130-specification-analysis-zero-critical-issues",
+      "target": "learning-speckitanalyze-catches-spec-to-code-gaps-systematically",
+      "label": "analysis-translation",
+      "similarity": 0.6059656272489627
+    },
+    {
+      "source": "gotcha-retro-memory-capture-hook-json-encoding-failing-silently",
+      "target": "learning-retrospective-memory-refactor-session",
+      "label": "refactor-result",
+      "similarity": 0.6059396299581249
+    },
+    {
+      "source": "decision-memory-health-audit-2026-02-05",
+      "target": "decision-phase-d-deferred-cross-scope-graph-operations-complete",
+      "label": "resolution",
+      "similarity": 0.6053977754286456
+    },
+    {
+      "source": "artifact-phase-e-agent-discovery-implementation",
+      "target": "artifact-suggest-links-test-vectors",
+      "label": "test-vectors",
+      "similarity": 0.6052694496074494
+    },
+    {
+      "source": "decision-hook-separation-clarified-enforcement-boundaries",
+      "target": "learning-retrospective-memory-refactor-session",
+      "label": "refactor-impact",
+      "similarity": 0.6047950696784664
+    },
+    {
+      "source": "gotcha-graph-handling-bypassed-by-early-returns-in-export-and-import-for-empty-memories",
+      "target": "learning-import-requires-agent-field-for-scope-resolution",
+      "label": "2-bypass",
+      "similarity": 0.604745469619106
+    },
+    {
+      "source": "learning-regex-based-language-parsing-tradeoff",
+      "target": "learning-test-naming-convention-spec-ts",
+      "label": "refactoring",
+      "similarity": 0.6041056053468461
+    },
+    {
+      "source": "gotcha-vitest-include-patterns-dont-cover-skillstests-subdirectories",
+      "target": "learning-test-setup-validation-prevents-false-failures",
+      "label": "contradiction",
+      "similarity": 0.6038948271626398
+    },
+    {
+      "source": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "target": "learning-test-pollution-investigation-copyspects-failures-reduced-from-22-to-20",
+      "label": "fix-regression",
+      "similarity": 0.6038405455188766
+    },
+    {
+      "source": "decision-phase-d-shared-memory-inclusion-complete-production-ready",
+      "target": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "label": "refactoring",
+      "similarity": 0.6037829310659365
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "retro-test-subprocess-hanging",
+      "label": "7-regression",
+      "similarity": 0.6036375477591833
+    },
+    {
+      "source": "decision-plan-mode-prevented-premature-coding-of-tdd-hook-enhancements",
+      "target": "learning-tdd-discipline-across-multi-phase-session-maintains-coverage",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6034620359093387
+    },
+    {
+      "source": "artifact-phase-b-verifiedrelation-flag-and-updateedgemetadata-pattern",
+      "target": "decision-direct-mutable-edge-mutation-vs-immutable-updateedge-pattern",
+      "label": "rel-update",
+      "similarity": 0.6032231299147872
+    },
+    {
+      "source": "learning-tdd-compliance-hook-requires-co-located-spects-files-alongside-implementation",
+      "target": "learning-tdd-enforcement-requires-test-files-before-source-edits-creates-friction-with-simple-fixes",
+      "label": "conflict",
+      "similarity": 0.603164355290253
+    },
+    {
+      "source": "decision-tdd-enforcement-caught-hook-pattern-edge-cases-early",
+      "target": "learning-hook-enforcement-strategy-selective-blocking-with-whitelists",
+      "label": "7-implementation",
+      "similarity": 0.6029167895977778
+    },
+    {
+      "source": "learning-retro-mockmodule-isolation-in-separate-spec-files-prevents-test-pollution-while-enabling-comprehensive-ai-path-coverage",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "label": "refinement",
+      "similarity": 0.6025969409170386
+    },
+    {
+      "source": "gotcha-context-budget-reached-at-100-should-have-launched-agents-earlier",
+      "target": "gotcha-gotcha-speckitreview-on-massive-codebases-hits-context-limits-mid-aggregation",
+      "label": "context-overflow",
+      "similarity": 0.6024636595894449
+    },
+    {
+      "source": "artifact-batch-similarity-scoring-pattern",
+      "target": "retro-batch-operations-pattern",
+      "label": "performance-optimization",
+      "similarity": 0.6021844393651311
+    },
+    {
+      "source": "gotcha-retro-file-discovery-tests-must-use-isolated-temp-directories-not-oshomedir",
+      "target": "learning-retro-tdd-stub-test-files-bypass-hook-while-keeping-tests-dry",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6021662059553887
+    },
+    {
+      "source": "learning-graph-node-structure-only-stores-id-type-and-optional-title-agentscope-metadata-belongs-in-frontmatter-and-index",
+      "target": "learning-graph-structure-filtered-to-exported-memories-only",
+      "label": "refers-to",
+      "similarity": 0.6020215362537724
+    },
+    {
+      "source": "learning-multi-expert-code-review-consensus-confirms-genuine-bugs",
+      "target": "retro-parallel-expert-review-effective",
+      "label": "outcome-assessment",
+      "similarity": 0.6019993566050581
+    },
+    {
+      "source": "artifact-scope-path-resolution-pattern",
+      "target": "learning-resolvebasepath-utility-extracts-agent-scope-resolution-from-crud-operations",
+      "label": "resolution-extraction",
+      "similarity": 0.6017392761567677
+    },
+    {
+      "source": "gotcha-retro-define-security-constraint-scope-before-implementation",
+      "target": "gotcha-retro-external-file-discovery-scope-must-be-constrained-upfront-not-debugged-later",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6016816235871549
+    },
+    {
+      "source": "artifact-score-edges-batch-cosine-similarity-backfill-for-graph-edges",
+      "target": "decision-embedding-context-limit-solution-for-memory-refresh-embeddings",
+      "label": "solution-context",
+      "similarity": 0.601486362381648
+    },
+    {
+      "source": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "target": "learning-test-naming-convention-spec-ts",
+      "label": "refactoring",
+      "similarity": 0.6014698446440339
+    },
+    {
+      "source": "gotcha-bun-mock-module-uses-live-bindings-leaks-across-test-files",
+      "target": "gotcha-test-missing-savegraph-mock-corrupted-production-graph",
+      "label": "corruption-leak",
+      "similarity": 0.601328831590113
+    },
+    {
+      "source": "learning-memory-capture-and-retrospective-hooks-may-have-issues-in-rapid-compaction-cycles",
+      "target": "learning-retro-session-restore-workflow-reduced-context-loss-and-context-reorientation-time-significantly",
+      "label": "improvement-transition",
+      "similarity": 0.6012343894110042
+    },
+    {
+      "source": "artifact-tdd-workflow-for-suggest-links-fixes-failing-test-extract-update-descriptions-verify",
+      "target": "learning-llm-verification-now-applies-to-cross-scope-auto-link-suggestions-v140",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6010733698837478
+    },
+    {
+      "source": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "target": "learning-tdd-scope-resolution-module-structure",
+      "label": "ref-implementation",
+      "similarity": 0.6009454244708616
+    },
+    {
+      "source": "learning-retro-systematic-pattern-application-prevents-command-handler-regressions",
+      "target": "learning-retro-tdd-pattern-accelerates-guard-implementation-across-cli-commands",
+      "label": "7-pattern-relation",
+      "similarity": 0.6009265525639441
+    },
+    {
+      "source": "learning-bulk-operations-tdd-caught-interface-mismatches-early",
+      "target": "learning-memory-system-analysis-linking-quality-audit-complete",
+      "label": "evolution-1",
+      "similarity": 0.6008369535938587
+    },
+    {
+      "source": "gotcha-git-context-detection-affects-default-scope-in-tests",
+      "target": "gotcha-tdd-hook-requires-co-located-test-stubs-for-new-source-files-despite-project-test-directory-structure",
+      "label": "scope-evolution",
+      "similarity": 0.6004118295217334
+    },
+    {
+      "source": "learning-embedding-generation-needs-concurrency-limiting-for-ollama-stability",
+      "target": "learning-hook-ollama-timeout-insufficient",
+      "label": "refinement-delay",
+      "similarity": 0.6002801988973736
+    },
+    {
+      "source": "learning-retro-test-isolation-pattern-worth-documenting",
+      "target": "learning-test-isolation-failure-filtering-requires-environment-awareness",
+      "label": "causality-impact",
+      "similarity": 0.6001478084318014
+    },
+    {
+      "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7987927877760809
+    },
+    {
+      "source": "decision-export-readcontextwindow-from-ollama",
+      "target": "decision-export-readcontextwindow-from-ollama-service",
+      "label": "7-export",
+      "similarity": 0.7334083251450414
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "evolution-of-approach",
+      "similarity": 0.7056294031487067
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "evolution-of-approach",
+      "similarity": 0.7028043656498324
+    },
+    {
+      "source": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "expansion",
+      "similarity": 0.6926222234377879
+    },
+    {
+      "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "target": "learning-retro-tdd-pattern-replication-accelerates-guard-implementation-across-cli-commands",
+      "label": "extension",
+      "similarity": 0.6885069509799197
+    },
+    {
+      "source": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "target": "learning-speckit-analyze-catches-spec-to-task-coverage-gaps-early",
+      "label": "integration-analysis",
+      "similarity": 0.684776033388869
+    },
+    {
+      "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "target": "learning-retro-multi-agent-review-orchestration-validates-findings-through-independence",
+      "label": "validation-iteration",
+      "similarity": 0.6718227201443354
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "target": "retro-parallel-expert-review",
+      "label": "reorganization-refinement",
+      "similarity": 0.6658090327093645
+    },
+    {
+      "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "target": "learning-retro-forked-agent-orchestration-for-multi-expert-review-effective",
+      "label": "fork-off",
+      "similarity": 0.6639882628279642
+    },
+    {
+      "source": "learning-phase-a-tdd-cycle-all-tests-written-upfront-red-sequential-green-implementation-batch-refactoring",
+      "target": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "label": "evolution",
+      "similarity": 0.6557675797625284
+    },
+    {
+      "source": "learning-learning-mock-file-organisation-vispyon-safe-to-inline-mockmodule-requires-isolation",
+      "target": "learning-mock-pattern-vi-spyon-confirmed",
+      "label": "7-safety",
+      "similarity": 0.6545327779008944
+    },
+    {
+      "source": "learning-mock-pattern-vi-spyon-confirmed",
+      "target": "learning-retro-mock-replacement-pattern-inline-spyon-with-aftereach-cleanup",
+      "label": "7-replacement",
+      "similarity": 0.6522832197246811
+    },
+    {
+      "source": "gotcha-retro-spec-review-discovered-59-typescript-compilation-errors-at-end-of-phase",
+      "target": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6471024102012558
+    },
+    {
+      "source": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "target": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "label": "gap-analysis",
+      "similarity": 0.6468759027521026
+    },
+    {
+      "source": "learning-retro-tdd-discipline-with-clear-red-green-phases-accelerates-confidence",
+      "target": "learning-tddsdd-phased-approach-prevents-scope-creep",
+      "label": "related-concept",
+      "similarity": 0.633437926324483
+    },
+    {
+      "source": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "target": "learning-retro-session-restore-spec-review-workflow-efficiently-validates-and-fixes-complex-features",
+      "label": "refinement-validation",
+      "similarity": 0.6311968724225258
+    },
+    {
+      "source": "gotcha-retro-test-mock-pollution-from-vimock-leaks-across-files-in-bun-when-polyfill-enabled",
+      "target": "learning-mock-pattern-vi-spyon-confirmed",
+      "label": "refactor-vi",
+      "similarity": 0.6294776706959504
+    },
+    {
+      "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "target": "learning-retro-parallel-test-execution-with-tdd-accelerates-red-green-cycles",
+      "label": "scaling-extension",
+      "similarity": 0.6237223303429831
+    },
+    {
+      "source": "learning-mock-pattern-vi-spyon-confirmed",
+      "target": "learning-retro-separate-mock-spec-files-prevent-vitest-global-pollution-cleanly",
+      "label": "comparison-benefits",
+      "similarity": 0.6218160223488884
+    },
+    {
+      "source": "gotcha-vi-mock-global-pollution-test-state",
+      "target": "learning-mock-pattern-vi-spyon-confirmed",
+      "label": "7-spy",
+      "similarity": 0.6156201775802006
+    },
+    {
+      "source": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "target": "learning-iterative-code-review-progressive-issues",
+      "label": "refinement-review",
+      "similarity": 0.6138278266240554
+    },
+    {
+      "source": "learning-mock-pattern-vi-spyon-confirmed",
+      "target": "learning-retro-separate-mock-spec-files-prevent-test-pollution-and-scale-to-coverage-ceiling",
+      "label": "7-comparison",
+      "similarity": 0.6125086820876181
+    },
+    {
+      "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "target": "learning-retro-systematic-tdd-guard-implementation-across-cli-commands-reduces-iteration",
+      "label": "refinement-1",
+      "similarity": 0.6072911297714106
+    },
+    {
+      "source": "learning-mock-pattern-vi-spyon-confirmed",
+      "target": "learning-module-level-mocks-require-test-isolation-documentation",
+      "label": "7-documentation",
+      "similarity": 0.6049976202448052
+    },
+    {
+      "source": "gotcha-vimock-state-leaks-across-bun-test-files-without-proper-restoration",
+      "target": "learning-mock-pattern-vi-spyon-confirmed",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.6028569253206928
+    },
+    {
+      "source": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "target": "learning-retro-sequential-task-completion-with-immediate-testing-prevents-rework",
+      "label": "contrast-shift",
+      "similarity": 0.602006590280987
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "target": "retro-parallel-expert-review",
+      "label": "auto-linked-by-similarity",
+      "similarity": 0.7533263276353479
+    },
+    {
+      "source": "learning-retro-multi-agent-review-orchestration-scales-code-quality-insights",
+      "target": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "label": "augmentation",
+      "similarity": 0.7329263867154264
+    },
+    {
+      "source": "gotcha-digest-mode-basepath-isolation",
+      "target": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "label": "1-path-reduction",
+      "similarity": 0.71242252189644
+    },
+    {
+      "source": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "contrast-improvement",
+      "similarity": 0.6783118618382891
+    },
+    {
+      "source": "decision-code-review-pr-scope-discipline",
+      "target": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "label": "contrast",
+      "similarity": 0.6373386776993223
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-phase-based-review-organization-criticalhighmediumlow-category-buckets-proved-highly-effective-for-large-scale-code-review-triage",
+      "label": "improvement-iteration",
+      "similarity": 0.6205394582951599
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-review-items-completed-efficiently-through-strategic-prioritization",
+      "label": "improvement-fix",
+      "similarity": 0.6113649354868557
+    },
+    {
+      "source": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "target": "learning-retro-test-driven-validation-immediately-after-code-changes-provides-high-confidence-in-fixes",
+      "label": "improvement",
+      "similarity": 0.6077152986350655
+    },
+    {
+      "source": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "target": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "label": "improvement-extension",
+      "similarity": 0.607552860811402
     }
   ]
 }

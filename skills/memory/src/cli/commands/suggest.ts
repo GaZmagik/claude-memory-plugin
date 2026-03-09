@@ -2,15 +2,25 @@
  * CLI Commands: Suggestion Operations
  *
  * Handlers for suggest-links and summarize commands.
- * Note: These are stubs pending Phase 6 implementation.
  */
 
 import type { ParsedArgs } from '../parser.js';
 import { getFlagString, getFlagNumber, getFlagBool } from '../parser.js';
 import type { CliResponse } from '../response.js';
-import { success, wrapOperation } from '../response.js';
+import { success, error, wrapOperation } from '../response.js';
 import { suggestLinks } from '../../suggest/suggest-links.js';
-import { getResolvedScopePath, parseScope, resolveAgentScopePath } from '../helpers.js';
+import { summarize, DEFAULT_LIMIT, DEFAULT_TIMEOUT_MS } from '../../summarize/summarize.js';
+import type { SummarizeMode } from '../../summarize/summarize.js';
+import { readContextWindow } from '../../services/ollama.js';
+import { getResolvedScopePath, getGlobalMemoryPath, parseScope, parseMemoryType, resolveAgentScopePath, resolveSharedScopePaths, validateIncludeShared } from '../helpers.js';
+import { MemoryType } from '../../types/enums.js';
+import { discoverAgents } from '../../core/agent-discovery.js';
+
+const VALID_MODES = new Set<string>(['per-type', 'overview', 'digest']);
+function isValidMode(s: string): s is SummarizeMode { return VALID_MODES.has(s); }
+const MAX_LIMIT = 500;
+const MIN_TIMEOUT_MS = 1_000;
+const MAX_TIMEOUT_MS = 600_000;
 
 /**
  * suggest-links - Suggest potential relationships using embeddings
@@ -58,24 +68,124 @@ export async function cmdSuggestLinks(args: ParsedArgs): Promise<CliResponse> {
 }
 
 /**
- * summarize - Generate summary rollups
+ * summarize - Generate LLM-powered summary rollups
  *
- * Usage: memory summarize [type] [--scope <scope>]
- *
- * Note: Implementation pending in Phase 6.
+ * Usage: memory summarize [type] [--mode <mode>] [--scope <scope>] [--agent <name>]
+ *        [--include-shared] [--all-agents] [--tags <tags>] [--limit <n>] [--timeout <ms>]
  */
 export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
-  const typeArg = args.positional[0];
-  const scope = parseScope(getFlagString(args.flags, 'scope'));
+  const modeStr = getFlagString(args.flags, 'mode') ?? 'per-type';
+  if (!isValidMode(modeStr)) {
+    return error(`Invalid --mode '${modeStr}'. Must be one of: per-type, overview, digest`);
+  }
+  const mode = modeStr;
 
-  void scope; // Suppress unused warning (cmdSummarize is a stub)
+  const scopeStr = getFlagString(args.flags, 'scope');
+  const agentName = getFlagString(args.flags, 'agent');
+  const allAgents = getFlagBool(args.flags, 'all-agents');
+  const includeShared = getFlagBool(args.flags, 'include-shared');
+  const tagsStr = getFlagString(args.flags, 'tags');
+  const limit = Math.min(Math.max(getFlagNumber(args.flags, 'limit') ?? DEFAULT_LIMIT, 1), MAX_LIMIT);
+  const timeoutMs = Math.min(Math.max(getFlagNumber(args.flags, 'timeout') ?? DEFAULT_TIMEOUT_MS, MIN_TIMEOUT_MS), MAX_TIMEOUT_MS);
+  const contextWindow = readContextWindow();
 
-  // TODO: Implement summarize in Phase 6 (requires LLM integration)
-  return success(
-    {
-      type: typeArg ?? 'all',
-      message: 'Summarize not yet implemented (requires LLM integration)',
-    },
-    'Summarize (stub)'
-  );
+  // Validate --include-shared requires --agent
+  const validation = validateIncludeShared(includeShared, agentName);
+  if (!validation.valid) {
+    return error(validation.error!);
+  }
+
+  // Digest mode: positional[0] is the memory ID
+  // Non-digest mode: positional[0] is the type filter
+  let typeFilter: MemoryType | undefined;
+  let digestId: string | undefined;
+
+  if (mode === 'digest') {
+    digestId = args.positional[0];
+    if (!digestId) {
+      return error('digest mode requires a memory ID as a positional argument');
+    }
+    if (!/^[a-z0-9][a-z0-9-]*$/i.test(digestId)) {
+      return error('digestId must start with alphanumeric and contain only letters, digits, and hyphens');
+    }
+  } else {
+    const rawType = args.positional[0];
+    if (rawType !== undefined) {
+      const parsed = parseMemoryType(rawType);
+      if (parsed === undefined) {
+        return error(`Invalid memory type '${rawType}'. Valid types: decision, learning, artifact, gotcha, breadcrumb, hub, rule, reminder`);
+      }
+      typeFilter = parsed;
+    }
+  }
+
+  // Resolve basePaths from scope/agent flags
+  const basePaths: string[] = [];
+  if (allAgents) {
+    if (agentName) {
+      process.stderr.write('[summarize] --agent is ignored when --all-agents is set\n');
+    }
+    const agents = await discoverAgents({
+      projectRoot: process.cwd(),
+      globalRoot: getGlobalMemoryPath(),
+    });
+    for (const agent of agents) {
+      basePaths.push(await resolveAgentScopePath(agent.name, scopeStr));
+    }
+  } else if (agentName) {
+    if (includeShared) {
+      const sharedPaths = await resolveSharedScopePaths(agentName, scopeStr);
+      basePaths.push(...sharedPaths);
+    } else {
+      basePaths.push(await resolveAgentScopePath(agentName, scopeStr));
+    }
+  } else {
+    basePaths.push(await getResolvedScopePath(parseScope(scopeStr)));
+  }
+
+  const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  try {
+    const result = await summarize({
+      basePaths,
+      mode,
+      typeFilter,
+      digestId,
+      tags,
+      limit,
+      timeoutMs,
+      contextWindow,
+    });
+
+    let message: string;
+    switch (result.kind) {
+      case 'empty':
+        message = result.hint ?? 'No memories found matching the given filters';
+        break;
+      case 'fallback':
+        message = 'Summarize complete (LLM unavailable — structured listing returned)';
+        break;
+      case 'digest':
+      case 'overview':
+        message = result.summary
+          ? 'Summarize complete'
+          : 'Summarize complete — LLM returned empty response (check stderr for errors)';
+        break;
+      case 'per-type': {
+        const vals = Object.values(result.summaries);
+        const allEmpty = vals.every(s => s.length === 0);
+        const someEmpty = vals.some(s => s.length === 0);
+        message = allEmpty
+          ? 'Summarize complete — LLM returned empty response (check stderr for errors)'
+          : someEmpty
+            ? 'Summarize complete (some types returned no content — check stderr)'
+            : 'Summarize complete';
+        break;
+      }
+    }
+
+    return success(result, message);
+  } catch (err) {
+    return error(err instanceof Error ? err.message : String(err));
+  }
 }

@@ -44,28 +44,32 @@ export async function discoverAgents(request: DiscoverAgentsRequest): Promise<Ag
     ? searchPaths.filter((p) => p.scope === request.scope)
     : searchPaths;
 
-  // Scan each path for agent directories
+  // Collect unique agent entries across search paths (project takes precedence)
+  const pendingAgents: Array<{ agentPath: string; agentName: string; scope: Scope.AgentProject | Scope.AgentGlobal }> = [];
+
   for (const { scope, path: searchPath } of filteredPaths) {
     if (!fs.existsSync(searchPath)) continue;
 
     const entries = fs.readdirSync(searchPath, { withFileTypes: true });
 
     for (const entry of entries) {
-      // Only process directories
       if (!entry.isDirectory()) continue;
 
       const agentName = entry.name;
-
-      // Deduplication: first match wins (project takes precedence)
       if (seenNames.has(agentName)) continue;
       seenNames.add(agentName);
 
-      const agentPath = path.join(searchPath, agentName);
-      const summary = await getAgentSummary(agentPath, agentName, scope, request.includeStats);
-
-      agents.push(summary);
+      pendingAgents.push({ agentPath: path.join(searchPath, agentName), agentName, scope });
     }
   }
+
+  // Load all agent summaries in parallel
+  const summaries = await Promise.all(
+    pendingAgents.map(({ agentPath, agentName, scope }) =>
+      getAgentSummary(agentPath, agentName, scope, request.includeStats)
+    )
+  );
+  agents.push(...summaries);
 
   return agents;
 }
@@ -111,7 +115,8 @@ export async function getAgentSummary(
       .filter((t) => !isNaN(t));
 
     if (timestamps.length > 0) {
-      summary.lastUpdated = new Date(Math.max(...timestamps)).toISOString();
+      const maxTimestamp = timestamps.reduce((a, b) => Math.max(a, b));
+      summary.lastUpdated = new Date(maxTimestamp).toISOString();
     }
 
     // Include detailed stats if requested
@@ -134,9 +139,8 @@ export async function getAgentSummary(
       // For now, we skip health metrics as they require graph.json parsing
       // which would be added in a future task if needed
     }
-  } catch (error) {
-    // If index loading fails, return basic summary with zero count
-    // This handles corrupted index.json gracefully
+  } catch (err) {
+    process.stderr.write(`[agent-discovery] Failed to load index for ${agentName}: ${err instanceof Error ? err.message : String(err)}\n`);
   }
 
   return summary;

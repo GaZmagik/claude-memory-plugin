@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-03-01T16:44:22.623Z",
+  "lastUpdated": "2026-03-08T21:22:05.047Z",
   "memories": [
     {
       "id": "gotcha-pre-compact-session-consumed-entirely-by-restoration-ceremony",
@@ -15415,6 +15415,657 @@
       "scope": "project",
       "relativePath": "permanent/gotcha-retro-module-level-vimock-creates-unfixable-global-test-pollution.md",
       "severity": "medium"
+    },
+    {
+      "id": "gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks",
+      "type": "gotcha",
+      "title": "Bun test module registry causes cross-test pollution (328 failures from mocks)",
+      "tags": [
+        "bun",
+        "testing",
+        "architecture",
+        "limitation",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:25.512Z",
+      "updated": "2026-03-07T18:30:25.512Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-bun-test-module-registry-causes-cross-test-pollution-328-failures-from-mocks.md"
+    },
+    {
+      "id": "learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution",
+      "type": "learning",
+      "title": "Test by subdirectory to isolate real failures from cross-test pollution",
+      "tags": [
+        "testing",
+        "debugging",
+        "bun",
+        "troubleshooting",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:31.540Z",
+      "updated": "2026-03-07T18:30:31.540Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-test-by-subdirectory-to-isolate-real-failures-from-cross-test-pollution.md"
+    },
+    {
+      "id": "learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill",
+      "type": "learning",
+      "title": "vi.hoisted() from vitest doesn't work with Bun's test polyfill",
+      "tags": [
+        "bun",
+        "vitest",
+        "testing",
+        "compatibility",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:36.624Z",
+      "updated": "2026-03-07T18:30:36.624Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-vihoisted-from-vitest-doesnt-work-with-buns-test-polyfill.md"
+    },
+    {
+      "id": "learning-type-scope-fields-consistently-as-scope-enum-not-string-literals",
+      "type": "learning",
+      "title": "Type scope fields consistently as Scope enum, not string literals",
+      "tags": [
+        "typescript",
+        "types",
+        "consistency",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-03-07T18:30:46.428Z",
+      "updated": "2026-03-07T18:30:46.428Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-scope-fields-consistently-as-scope-enum-not-string-literals.md"
+    },
+    {
+      "id": "gotcha-agent-incomplete-work-on-phase-a",
+      "type": "gotcha",
+      "title": "agent-incomplete-work-on-phase-a",
+      "tags": [
+        "feature-006",
+        "agents",
+        "tdd",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:34.828Z",
+      "updated": "2026-03-07T20:58:34.828Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-incomplete-work-on-phase-a.md"
+    },
+    {
+      "id": "learning-sdd-tdd-workflow-orchestrates-phase-execution",
+      "type": "learning",
+      "title": "sdd-tdd-workflow-orchestrates-phase-execution",
+      "tags": [
+        "feature-006",
+        "sdd",
+        "tdd",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:35.802Z",
+      "updated": "2026-03-07T20:58:35.802Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-sdd-tdd-workflow-orchestrates-phase-execution.md"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-finds-integration-gaps",
+      "type": "learning",
+      "title": "cross-artifact-analysis-finds-integration-gaps",
+      "tags": [
+        "feature-006",
+        "analysis",
+        "quality",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:36.783Z",
+      "updated": "2026-03-07T20:58:36.783Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-analysis-finds-integration-gaps.md"
+    },
+    {
+      "id": "learning-mock-pattern-vi-spyon-confirmed",
+      "type": "learning",
+      "title": "mock-pattern-vi-spyOn-confirmed",
+      "tags": [
+        "feature-006",
+        "testing",
+        "bun",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:37.729Z",
+      "updated": "2026-03-07T20:58:37.729Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-mock-pattern-vi-spyon-confirmed.md"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama",
+      "type": "decision",
+      "title": "export-readcontextwindow-from-ollama",
+      "tags": [
+        "feature-006",
+        "phase-0",
+        "architecture",
+        "project"
+      ],
+      "created": "2026-03-07T20:58:53.167Z",
+      "updated": "2026-03-07T20:58:53.167Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-export-readcontextwindow-from-ollama.md"
+    },
+    {
+      "id": "gotcha-retro-branded-types-in-test-mocks-add-ceremony-overhead",
+      "type": "gotcha",
+      "title": "Retro - Branded types in test mocks add ceremony overhead",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "branded-types",
+        "project"
+      ],
+      "created": "2026-03-08T00:34:58.035Z",
+      "updated": "2026-03-08T00:34:58.035Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-branded-types-in-test-mocks-add-ceremony-overhead.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well",
+      "type": "learning",
+      "title": "Retro - Multi-phase TDD with clear boundaries scales well",
+      "tags": [
+        "retrospective",
+        "process",
+        "sdd",
+        "tdd",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:02.453Z",
+      "updated": "2026-03-08T00:35:02.453Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-phase-tdd-with-clear-boundaries-scales-well.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-retro-grep-for-patterns-before-implementing-prevents-api-assumption-errors",
+      "type": "learning",
+      "title": "Retro - Grep for patterns before implementing prevents API assumption errors",
+      "tags": [
+        "retrospective",
+        "process",
+        "pattern-analysis",
+        "integration",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:07.575Z",
+      "updated": "2026-03-08T00:35:07.575Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-grep-for-patterns-before-implementing-prevents-api-assumption-errors.md",
+      "severity": "low"
+    },
+    {
+      "id": "learning-branded-types-in-test-mocks-require-ceremony",
+      "type": "learning",
+      "title": "Branded types in test mocks require ceremony",
+      "tags": [
+        "typescript",
+        "testing",
+        "branded-types",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:15.151Z",
+      "updated": "2026-03-08T00:35:15.151Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-branded-types-in-test-mocks-require-ceremony.md"
+    },
+    {
+      "id": "learning-tddsdd-phased-approach-prevents-scope-creep",
+      "type": "learning",
+      "title": "TDD+SDD phased approach prevents scope creep",
+      "tags": [
+        "tdd",
+        "sdd",
+        "methodology",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:19.226Z",
+      "updated": "2026-03-08T00:35:19.226Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-tddsdd-phased-approach-prevents-scope-creep.md"
+    },
+    {
+      "id": "decision-export-readcontextwindow-from-ollama-service",
+      "type": "decision",
+      "title": "Export readContextWindow from ollama service",
+      "tags": [
+        "architecture",
+        "exports",
+        "ollama",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:27.440Z",
+      "updated": "2026-03-08T00:35:27.440Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-export-readcontextwindow-from-ollama-service.md"
+    },
+    {
+      "id": "gotcha-sub-agent-phase-a-implementation-left-incomplete",
+      "type": "gotcha",
+      "title": "Sub-agent Phase A implementation left incomplete",
+      "tags": [
+        "agents",
+        "delegation",
+        "tdd",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:30.951Z",
+      "updated": "2026-03-08T00:35:30.951Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-sub-agent-phase-a-implementation-left-incomplete.md"
+    },
+    {
+      "id": "learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps",
+      "type": "learning",
+      "title": "Cross-artifact analysis via LSP discovers integration gaps",
+      "tags": [
+        "typescript",
+        "lsp",
+        "integration",
+        "quality",
+        "feature-006",
+        "project"
+      ],
+      "created": "2026-03-08T00:35:35.052Z",
+      "updated": "2026-03-08T00:35:35.052Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-analysis-via-lsp-discovers-integration-gaps.md"
+    },
+    {
+      "id": "gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths",
+      "type": "gotcha",
+      "title": "loadMemoryContents only reads basePaths[0], silently dropping other paths",
+      "tags": [
+        "bug",
+        "basepaths",
+        "content-loading",
+        "memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T04:32:51.555Z",
+      "updated": "2026-03-08T04:32:51.555Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-loadmemorycontents-only-reads-basepaths0-silently-dropping-other-paths.md"
+    },
+    {
+      "id": "learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents",
+      "type": "learning",
+      "title": "Multi-phase comprehensive review using speckit:review with 7 expert agents",
+      "tags": [
+        "speckit",
+        "review",
+        "quality-gates",
+        "parallel-review",
+        "process",
+        "project"
+      ],
+      "created": "2026-03-08T04:32:56.955Z",
+      "updated": "2026-03-08T04:32:56.955Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-multi-phase-comprehensive-review-using-speckitreview-with-7-expert-agents.md"
+    },
+    {
+      "id": "gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities",
+      "type": "gotcha",
+      "title": "Unvalidated CLI flag casts expose security vulnerabilities",
+      "tags": [
+        "security",
+        "validation",
+        "cli-flags",
+        "input-bounds",
+        "memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:02.208Z",
+      "updated": "2026-03-08T04:33:02.208Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-unvalidated-cli-flag-casts-expose-security-vulnerabilities.md"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent orchestration efficiently surfaces multidimensional code issues",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "code-review",
+        "speckit",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:02.677Z",
+      "updated": "2026-03-08T04:33:02.677Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-orchestration-efficiently-surfaces-multidimensional-code-issues.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite",
+      "type": "learning",
+      "title": "Phase E integration scenarios cannot be verified in unit test suite",
+      "tags": [
+        "testing",
+        "integration-tests",
+        "test-boundaries",
+        "ollama",
+        "phase-planning",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:07.275Z",
+      "updated": "2026-03-08T04:33:07.275Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-phase-e-integration-scenarios-cannot-be-verified-in-unit-test-suite.md"
+    },
+    {
+      "id": "gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session",
+      "type": "gotcha",
+      "title": "Retro - Summary .md files violate CLAUDE.md guidance despite presentation in-session",
+      "tags": [
+        "retrospective",
+        "process",
+        "documentation",
+        "guidelines",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:08.009Z",
+      "updated": "2026-03-08T04:33:08.009Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-summary-md-files-violate-claudemd-guidance-despite-presentation-in-session.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation",
+      "type": "learning",
+      "title": "Cross-artifact consistency analysis reveals integration gaps before implementation",
+      "tags": [
+        "architecture",
+        "cross-artifact-analysis",
+        "specification",
+        "quality-gates",
+        "gap-analysis",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:12.512Z",
+      "updated": "2026-03-08T04:33:12.512Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cross-artifact-consistency-analysis-reveals-integration-gaps-before-implementation.md"
+    },
+    {
+      "id": "learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking",
+      "type": "learning",
+      "title": "Retro - Multi-item fix work benefits from TodoWrite tracking",
+      "tags": [
+        "retrospective",
+        "process",
+        "task-tracking",
+        "refactoring",
+        "project"
+      ],
+      "created": "2026-03-08T04:33:14.609Z",
+      "updated": "2026-03-08T04:33:14.609Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-multi-item-fix-work-benefits-from-todowrite-tracking.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review",
+      "type": "learning",
+      "title": "Retro - Parallel expert agent deployment accelerates comprehensive review",
+      "tags": [
+        "retrospective",
+        "process",
+        "agents",
+        "reviews",
+        "project"
+      ],
+      "created": "2026-03-08T19:22:53.961Z",
+      "updated": "2026-03-08T19:22:53.961Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-expert-agent-deployment-accelerates-comprehensive-review.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep",
+      "type": "learning",
+      "title": "Retro - Batching edits by theme then validating prevents regression creep",
+      "tags": [
+        "retrospective",
+        "process",
+        "testing",
+        "workflow",
+        "project"
+      ],
+      "created": "2026-03-08T19:22:59.240Z",
+      "updated": "2026-03-08T19:22:59.240Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-batching-edits-by-theme-then-validating-prevents-regression-creep.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification",
+      "type": "gotcha",
+      "title": "Retro - Multi-cycle review-fix-review pattern wastes effort, needs upfront scope clarification",
+      "tags": [
+        "retrospective",
+        "process",
+        "planning",
+        "reviews",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:06.215Z",
+      "updated": "2026-03-08T19:23:06.215Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-multi-cycle-review-fix-review-pattern-wastes-effort-needs-upfront-scope-clarification.md",
+      "severity": "high"
+    },
+    {
+      "id": "gotcha-digest-mode-basepath-isolation",
+      "type": "gotcha",
+      "title": "Digest Mode Multi-basePath Isolation Bug",
+      "tags": [
+        "feature-006",
+        "summarize",
+        "basepath",
+        "state-management",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:12.457Z",
+      "updated": "2026-03-08T19:23:12.457Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-digest-mode-basepath-isolation.md"
+    },
+    {
+      "id": "learning-type-safety-validation-at-boundaries-pattern",
+      "type": "learning",
+      "title": "Type Safety Validation at Boundaries Pattern",
+      "tags": [
+        "feature-006",
+        "typescript",
+        "type-safety",
+        "validation",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:16.577Z",
+      "updated": "2026-03-08T19:23:16.577Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-type-safety-validation-at-boundaries-pattern.md"
+    },
+    {
+      "id": "gotcha-agent-test-generation-false-positive-diagnostics",
+      "type": "gotcha",
+      "title": "Agent-Generated Tests Report False Positive TS Diagnostics",
+      "tags": [
+        "feature-006",
+        "testing",
+        "typescript",
+        "diagnostics",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:20.615Z",
+      "updated": "2026-03-08T19:23:20.615Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-agent-test-generation-false-positive-diagnostics.md"
+    },
+    {
+      "id": "decision-defer-parallelization-wishes-post-mvp",
+      "type": "decision",
+      "title": "Defer Parallelization & Style Wishes to Post-MVP",
+      "tags": [
+        "feature-006",
+        "prioritisation",
+        "scope-management",
+        "project"
+      ],
+      "created": "2026-03-08T19:23:26.930Z",
+      "updated": "2026-03-08T19:23:26.930Z",
+      "scope": "project",
+      "relativePath": "permanent/decision-defer-parallelization-wishes-post-mvp.md"
+    },
+    {
+      "id": "learning-discriminated-union-pattern-for-typescript-result-types",
+      "type": "learning",
+      "title": "Discriminated union pattern for TypeScript result types",
+      "tags": [
+        "typescript",
+        "type-safety",
+        "refactoring",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:42.891Z",
+      "updated": "2026-03-08T21:21:42.891Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-discriminated-union-pattern-for-typescript-result-types.md"
+    },
+    {
+      "id": "learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases",
+      "type": "learning",
+      "title": "Retro - Parallel promise.all batching accelerates refactoring phases",
+      "tags": [
+        "retrospective",
+        "refactoring",
+        "performance",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:46.187Z",
+      "updated": "2026-03-08T21:21:46.187Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-parallel-promiseall-batching-accelerates-refactoring-phases.md",
+      "severity": "medium"
+    },
+    {
+      "id": "learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions",
+      "type": "learning",
+      "title": "Parallelising Promise.all with unbounded concurrent calls requires safety assumptions",
+      "tags": [
+        "concurrency",
+        "promises",
+        "error-handling",
+        "006-memory-summarize",
+        "gotcha",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:47.968Z",
+      "updated": "2026-03-08T21:21:47.968Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-parallelising-promiseall-with-unbounded-concurrent-calls-requires-safety-assumptions.md"
+    },
+    {
+      "id": "learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring",
+      "type": "learning",
+      "title": "Retro - Sub-agent delegation for test additions frees context for refactoring",
+      "tags": [
+        "retrospective",
+        "testing",
+        "delegation",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:50.456Z",
+      "updated": "2026-03-08T21:21:50.456Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-retro-sub-agent-delegation-for-test-additions-frees-context-for-refactoring.md",
+      "severity": "medium"
+    },
+    {
+      "id": "gotcha-empty-string-tags-bug-from-split-without-filtering",
+      "type": "gotcha",
+      "title": "Empty string tags bug from split without filtering",
+      "tags": [
+        "string-parsing",
+        "filtering",
+        "data-cleaning",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:52.887Z",
+      "updated": "2026-03-08T21:21:52.887Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-empty-string-tags-bug-from-split-without-filtering.md"
+    },
+    {
+      "id": "gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised",
+      "type": "gotcha",
+      "title": "Retro - Repeated reviewer feedback on deferred items signals they should be prioritised",
+      "tags": [
+        "retrospective",
+        "review-process",
+        "prioritisation",
+        "project"
+      ],
+      "created": "2026-03-08T21:21:55.278Z",
+      "updated": "2026-03-08T21:21:55.278Z",
+      "scope": "project",
+      "relativePath": "permanent/gotcha-retro-repeated-reviewer-feedback-on-deferred-items-signals-they-should-be-prioritised.md",
+      "severity": "high"
+    },
+    {
+      "id": "learning-cli-flag-precedence-and-silent-override-pattern",
+      "type": "learning",
+      "title": "CLI flag precedence and silent override pattern",
+      "tags": [
+        "cli-design",
+        "ux",
+        "flag-precedence",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:22:00.388Z",
+      "updated": "2026-03-08T21:22:00.388Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-cli-flag-precedence-and-silent-override-pattern.md"
+    },
+    {
+      "id": "learning-format-validation-prevents-path-traversal-in-file-identifiers",
+      "type": "learning",
+      "title": "Format validation prevents path traversal in file identifiers",
+      "tags": [
+        "security",
+        "input-validation",
+        "path-traversal",
+        "006-memory-summarize",
+        "project"
+      ],
+      "created": "2026-03-08T21:22:05.035Z",
+      "updated": "2026-03-08T21:22:05.035Z",
+      "scope": "project",
+      "relativePath": "permanent/learning-format-validation-prevents-path-traversal-in-file-identifiers.md"
     }
   ]
 }

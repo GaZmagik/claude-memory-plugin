@@ -3,8 +3,9 @@ id: learning-missing-awaits-puzzling-errors
 title: Missing awaits on async functions create puzzling type mismatch errors
 type: learning
 scope: project
+project: claude-memory-plugin
 created: "2026-03-01T15:18:11.957Z"
-updated: "2026-03-01T15:18:11.957Z"
+updated: "2026-03-07T18:30:52.296Z"
 tags:
   - debugging
   - async

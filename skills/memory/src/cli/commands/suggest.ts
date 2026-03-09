@@ -165,8 +165,17 @@ export async function cmdSummarize(args: ParsedArgs): Promise<CliResponse> {
       case 'fallback':
         message = 'Summarize complete (LLM unavailable — structured listing returned)';
         break;
-      default:
-        message = 'Summarize complete';
+      case 'digest':
+      case 'overview':
+        message = result.summary
+          ? 'Summarize complete'
+          : 'Summarize complete — LLM returned empty response (check stderr for errors)';
+        break;
+      case 'per-type':
+        message = Object.values(result.summaries).some(s => s.length > 0)
+          ? 'Summarize complete'
+          : 'Summarize complete — LLM returned empty response (check stderr for errors)';
+        break;
     }
 
     return success(result, message);

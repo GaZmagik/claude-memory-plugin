@@ -450,6 +450,24 @@ describe('summarize', () => {
     expect(result.memoriesIncluded).toHaveLength(2);
   });
 
+  // --- Empty generate() return (silent LLM failure) ---
+
+  it('returns overview result with empty summary when generate returns empty string', async () => {
+    mockListSuccess([baseSummary]);
+    vi.spyOn(ollamaModule, 'isAvailable').mockResolvedValue(true);
+    vi.spyOn(readModule, 'readMemory').mockResolvedValue(
+      mockReadResponse('Content', { type: 'decision', title: 'T', tags: [] })
+    );
+    vi.spyOn(ollamaModule, 'generate').mockResolvedValue('');
+
+    const result = await summarize(makeRequest({ mode: 'overview' }));
+
+    expect(result.kind).toBe('overview');
+    if (result.kind === 'overview') {
+      expect(result.summary).toBe('');
+    }
+  });
+
   // --- Digest mode ---
 
   it('returns single summary for digest mode', async () => {
